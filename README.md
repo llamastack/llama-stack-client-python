@@ -99,7 +99,7 @@ response = client.inference.batch_chat_completion(
         ]
     ],
     model_id="model_id",
-    logprobs={"top_k": 0},
+    logprobs={},
 )
 print(response.logprobs)
 ```
