@@ -23,9 +23,7 @@ from pydantic import ValidationError
 
 from llama_stack_client import LlamaStackClient, AsyncLlamaStackClient, APIResponseValidationError
 from llama_stack_client._types import Omit
-from llama_stack_client._utils import maybe_transform
 from llama_stack_client._models import BaseModel, FinalRequestOptions
-from llama_stack_client._constants import RAW_RESPONSE_HEADER
 from llama_stack_client._exceptions import APIStatusError, APITimeoutError, APIResponseValidationError
 from llama_stack_client._base_client import (
     DEFAULT_TIMEOUT,
@@ -35,7 +33,6 @@ from llama_stack_client._base_client import (
     DefaultAsyncHttpxClient,
     make_request_options,
 )
-from llama_stack_client.types.datasetio_append_rows_params import DatasetioAppendRowsParams
 
 from .utils import update_env
 
@@ -734,34 +731,27 @@ class TestLlamaStackClient:
 
     @mock.patch("llama_stack_client._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)
     @pytest.mark.respx(base_url=base_url)
-    def test_retrying_timeout_errors_doesnt_leak(self, respx_mock: MockRouter) -> None:
+    def test_retrying_timeout_errors_doesnt_leak(self, respx_mock: MockRouter, client: LlamaStackClient) -> None:
         respx_mock.post("/v1/datasetio/append-rows/dataset_id").mock(
             side_effect=httpx.TimeoutException("Test timeout error")
         )
 
         with pytest.raises(APITimeoutError):
-            self.client.post(
-                "/v1/datasetio/append-rows/dataset_id",
-                body=cast(object, maybe_transform(dict(rows=[{"foo": True}]), DatasetioAppendRowsParams)),
-                cast_to=httpx.Response,
-                options={"headers": {RAW_RESPONSE_HEADER: "stream"}},
-            )
+            client.datasetio.with_streaming_response.append_rows(
+                dataset_id="dataset_id", rows=[{"foo": True}]
+            ).__enter__()
 
         assert _get_open_connections(self.client) == 0
 
     @mock.patch("llama_stack_client._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)
     @pytest.mark.respx(base_url=base_url)
-    def test_retrying_status_errors_doesnt_leak(self, respx_mock: MockRouter) -> None:
+    def test_retrying_status_errors_doesnt_leak(self, respx_mock: MockRouter, client: LlamaStackClient) -> None:
         respx_mock.post("/v1/datasetio/append-rows/dataset_id").mock(return_value=httpx.Response(500))
 
         with pytest.raises(APIStatusError):
-            self.client.post(
-                "/v1/datasetio/append-rows/dataset_id",
-                body=cast(object, maybe_transform(dict(rows=[{"foo": True}]), DatasetioAppendRowsParams)),
-                cast_to=httpx.Response,
-                options={"headers": {RAW_RESPONSE_HEADER: "stream"}},
-            )
-
+            client.datasetio.with_streaming_response.append_rows(
+                dataset_id="dataset_id", rows=[{"foo": True}]
+            ).__enter__()
         assert _get_open_connections(self.client) == 0
 
     @pytest.mark.parametrize("failures_before_success", [0, 2, 4])
@@ -1574,34 +1564,31 @@ class TestAsyncLlamaStackClient:
 
     @mock.patch("llama_stack_client._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)
     @pytest.mark.respx(base_url=base_url)
-    async def test_retrying_timeout_errors_doesnt_leak(self, respx_mock: MockRouter) -> None:
+    async def test_retrying_timeout_errors_doesnt_leak(
+        self, respx_mock: MockRouter, async_client: AsyncLlamaStackClient
+    ) -> None:
         respx_mock.post("/v1/datasetio/append-rows/dataset_id").mock(
             side_effect=httpx.TimeoutException("Test timeout error")
         )
 
         with pytest.raises(APITimeoutError):
-            await self.client.post(
-                "/v1/datasetio/append-rows/dataset_id",
-                body=cast(object, maybe_transform(dict(rows=[{"foo": True}]), DatasetioAppendRowsParams)),
-                cast_to=httpx.Response,
-                options={"headers": {RAW_RESPONSE_HEADER: "stream"}},
-            )
+            await async_client.datasetio.with_streaming_response.append_rows(
+                dataset_id="dataset_id", rows=[{"foo": True}]
+            ).__aenter__()
 
         assert _get_open_connections(self.client) == 0
 
     @mock.patch("llama_stack_client._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)
     @pytest.mark.respx(base_url=base_url)
-    async def test_retrying_status_errors_doesnt_leak(self, respx_mock: MockRouter) -> None:
+    async def test_retrying_status_errors_doesnt_leak(
+        self, respx_mock: MockRouter, async_client: AsyncLlamaStackClient
+    ) -> None:
         respx_mock.post("/v1/datasetio/append-rows/dataset_id").mock(return_value=httpx.Response(500))
 
         with pytest.raises(APIStatusError):
-            await self.client.post(
-                "/v1/datasetio/append-rows/dataset_id",
-                body=cast(object, maybe_transform(dict(rows=[{"foo": True}]), DatasetioAppendRowsParams)),
-                cast_to=httpx.Response,
-                options={"headers": {RAW_RESPONSE_HEADER: "stream"}},
-            )
-
+            await async_client.datasetio.with_streaming_response.append_rows(
+                dataset_id="dataset_id", rows=[{"foo": True}]
+            ).__aenter__()
         assert _get_open_connections(self.client) == 0
 
     @pytest.mark.parametrize("failures_before_success", [0, 2, 4])
