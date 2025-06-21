@@ -20,7 +20,7 @@ pip install git+ssh://git@github.com/llamastack/llama-stack-client-python.git
 ```
 
 > [!NOTE]
-> Once this package is [published to PyPI](https://app.stainless.com/docs/guides/publish), this will become: `pip install --pre llama_stack_client`
+> Once this package is [published to PyPI](https://www.stainless.com/docs/guides/publish), this will become: `pip install --pre llama_stack_client`
 
 ## Usage
 
