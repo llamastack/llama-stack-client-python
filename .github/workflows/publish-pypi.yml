@@ -28,4 +28,4 @@ jobs:
         run: |
           bash ./bin/publish-pypi
         env:
-          PYPI_TOKEN: ${{ secrets.LLAMA_STACK_PYPI_TOKEN || secrets.PYPI_TOKEN }}
+          PYPI_TOKEN: ${{ secrets.LLAMA_STACK_CLIENT_PYPI_TOKEN || secrets.PYPI_TOKEN }}

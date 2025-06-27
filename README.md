@@ -39,7 +39,7 @@ print(model.identifier)
 
 While you can provide an `api_key` keyword argument,
 we recommend using [python-dotenv](https://pypi.org/project/python-dotenv/)
-to add `LLAMA_STACK_API_KEY="My API Key"` to your `.env` file
+to add `LLAMA_STACK_CLIENT_API_KEY="My API Key"` to your `.env` file
 so that your API Key is not stored in source control.
 
 ## Async usage
@@ -309,10 +309,10 @@ Note that requests that time out are [retried twice by default](#retries).
 
 We use the standard library [`logging`](https://docs.python.org/3/library/logging.html) module.
 
-You can enable logging by setting the environment variable `LLAMA_STACK_LOG` to `info`.
+You can enable logging by setting the environment variable `LLAMA_STACK_CLIENT_LOG` to `info`.
 
 ```shell
-$ export LLAMA_STACK_LOG=info
+$ export LLAMA_STACK_CLIENT_LOG=info
 ```
 
 Or to `debug` for more verbose logging.
@@ -425,7 +425,7 @@ import httpx
 from llama_stack_client import LlamaStackClient, DefaultHttpxClient
 
 client = LlamaStackClient(
-    # Or use the `LLAMA_STACK_BASE_URL` env var
+    # Or use the `LLAMA_STACK_CLIENT_BASE_URL` env var
     base_url="http://my.test.server.example.com:8083",
     http_client=DefaultHttpxClient(
         proxy="http://my.test.proxy.example.com",

@@ -131,14 +131,14 @@ class LlamaStackClient(SyncAPIClient):
     ) -> None:
         """Construct a new synchronous LlamaStackClient client instance.
 
-        This automatically infers the `api_key` argument from the `LLAMA_STACK_API_KEY` environment variable if it is not provided.
+        This automatically infers the `api_key` argument from the `LLAMA_STACK_CLIENT_API_KEY` environment variable if it is not provided.
         """
         if api_key is None:
-            api_key = os.environ.get("LLAMA_STACK_API_KEY")
+            api_key = os.environ.get("LLAMA_STACK_CLIENT_API_KEY")
         self.api_key = api_key
 
         if base_url is None:
-            base_url = os.environ.get("LLAMA_STACK_BASE_URL")
+            base_url = os.environ.get("LLAMA_STACK_CLIENT_BASE_URL")
         if base_url is None:
             base_url = f"http://any-hosted-llama-stack.com"
 
@@ -355,14 +355,14 @@ class AsyncLlamaStackClient(AsyncAPIClient):
     ) -> None:
         """Construct a new async AsyncLlamaStackClient client instance.
 
-        This automatically infers the `api_key` argument from the `LLAMA_STACK_API_KEY` environment variable if it is not provided.
+        This automatically infers the `api_key` argument from the `LLAMA_STACK_CLIENT_API_KEY` environment variable if it is not provided.
         """
         if api_key is None:
-            api_key = os.environ.get("LLAMA_STACK_API_KEY")
+            api_key = os.environ.get("LLAMA_STACK_CLIENT_API_KEY")
         self.api_key = api_key
 
         if base_url is None:
-            base_url = os.environ.get("LLAMA_STACK_BASE_URL")
+            base_url = os.environ.get("LLAMA_STACK_CLIENT_BASE_URL")
         if base_url is None:
             base_url = f"http://any-hosted-llama-stack.com"
 
