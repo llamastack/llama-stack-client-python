@@ -55,7 +55,7 @@ Repository = "https://github.com/llamastack/llama-stack-client-python"
 
 
 [build-system]
-requires = ["hatchling", "hatch-fancy-pypi-readme"]
+requires = ["hatchling==1.26.3", "hatch-fancy-pypi-readme"]
 build-backend = "hatchling.build"
 
 [tool.hatch.build]
@@ -91,6 +91,16 @@ path = "README.md"
 # replace relative links with absolute links
 pattern = '\[(.+?)\]\(((?!https?://)\S+?)\)'
 replacement = '[\1](https://github.com/llamastack/llama-stack-client-python/tree/main/\g<2>)'
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "--tb=short -n auto"
+xfail_strict = true
+asyncio_mode = "auto"
+asyncio_default_fixture_loop_scope = "session"
+filterwarnings = [
+  "error"
+]
 
 [tool.ruff]
 line-length = 120
