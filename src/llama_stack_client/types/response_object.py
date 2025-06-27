@@ -251,6 +251,16 @@ class Error(BaseModel):
 
 
 class ResponseObject(BaseModel):
+    @property
+    def output_text(self) -> str:
+        texts: List[str] = []
+        for output in self.output:
+            if output.type == "message":
+                for content in output.content:
+                    if content.type == "output_text":
+                        texts.append(content.text)
+        return "".join(texts)
+
     id: str
 
     created_at: int

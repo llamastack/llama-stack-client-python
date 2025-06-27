@@ -1,5 +1,6 @@
 import os
 import logging
+from rich.logging import RichHandler
 
 logger: logging.Logger = logging.getLogger("llama_stack_client")
 httpx_logger: logging.Logger = logging.getLogger("httpx")
@@ -10,6 +11,7 @@ def _basic_config() -> None:
     logging.basicConfig(
         format="[%(asctime)s - %(name)s:%(lineno)d - %(levelname)s] %(message)s",
         datefmt="%Y-%m-%d %H:%M:%S",
+        handlers=[RichHandler(rich_tracebacks=True)],
     )
 
 

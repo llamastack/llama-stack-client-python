@@ -1,6 +1,7 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 from __future__ import annotations
+import json
 
 import os
 from typing import Any, Union, Mapping
@@ -126,6 +127,7 @@ class LlamaStackClient(SyncAPIClient):
         # outlining your use-case to help us decide if it should be
         # part of our public interface in the future.
         _strict_response_validation: bool = False,
+        provider_data: Mapping[str, Any] | None = None,
     ) -> None:
         """Construct a new synchronous LlamaStackClient client instance.
 
@@ -140,13 +142,18 @@ class LlamaStackClient(SyncAPIClient):
         if base_url is None:
             base_url = f"http://any-hosted-llama-stack.com"
 
+        custom_headers = default_headers or {}
+        custom_headers["X-LlamaStack-Client-Version"] = __version__
+        if provider_data is not None:
+            custom_headers["X-LlamaStack-Provider-Data"] = json.dumps(provider_data)
+
         super().__init__(
             version=__version__,
             base_url=base_url,
             max_retries=max_retries,
             timeout=timeout,
             http_client=http_client,
-            custom_headers=default_headers,
+            custom_headers=custom_headers,
             custom_query=default_query,
             _strict_response_validation=_strict_response_validation,
         )
@@ -344,6 +351,7 @@ class AsyncLlamaStackClient(AsyncAPIClient):
         # outlining your use-case to help us decide if it should be
         # part of our public interface in the future.
         _strict_response_validation: bool = False,
+        provider_data: Mapping[str, Any] | None = None,
     ) -> None:
         """Construct a new async AsyncLlamaStackClient client instance.
 
@@ -358,13 +366,18 @@ class AsyncLlamaStackClient(AsyncAPIClient):
         if base_url is None:
             base_url = f"http://any-hosted-llama-stack.com"
 
+        custom_headers = default_headers or {}
+        custom_headers["X-LlamaStack-Client-Version"] = __version__
+        if provider_data is not None:
+            custom_headers["X-LlamaStack-Provider-Data"] = json.dumps(provider_data)
+
         super().__init__(
             version=__version__,
             base_url=base_url,
             max_retries=max_retries,
             timeout=timeout,
             http_client=http_client,
-            custom_headers=default_headers,
+            custom_headers=custom_headers,
             custom_query=default_query,
             _strict_response_validation=_strict_response_validation,
         )
