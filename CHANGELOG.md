@@ -1,5 +1,14 @@
 # Changelog
 
+## 0.1.0-alpha.3 (2025-06-27)
+
+Full Changelog: [v0.1.0-alpha.2...v0.1.0-alpha.3](https://github.com/llamastack/llama-stack-client-python/compare/v0.1.0-alpha.2...v0.1.0-alpha.3)
+
+### Features
+
+* **api:** update via SDK Studio ([e87f225](https://github.com/llamastack/llama-stack-client-python/commit/e87f2257b00a287dd34dc95f4d39661728075891))
+* make custom code changes ([#3](https://github.com/llamastack/llama-stack-client-python/issues/3)) ([83fa371](https://github.com/llamastack/llama-stack-client-python/commit/83fa37124133aab73bf2bbbdcd39338b9a192475))
+
 ## 0.1.0-alpha.2 (2025-06-27)
 
 Full Changelog: [v0.1.0-alpha.1...v0.1.0-alpha.2](https://github.com/llamastack/llama-stack-client-python/compare/v0.1.0-alpha.1...v0.1.0-alpha.2)
