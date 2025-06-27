@@ -17,8 +17,9 @@ from ..._response import (
     async_to_streamed_response_wrapper,
 )
 from ..._base_client import make_request_options
-from ...types.agents import session_create_params, session_retrieve_params
+from ...types.agents import session_list_params, session_create_params, session_retrieve_params
 from ...types.agents.session import Session
+from ...types.agents.session_list_response import SessionListResponse
 from ...types.agents.session_create_response import SessionCreateResponse
 
 __all__ = ["SessionResource", "AsyncSessionResource"]
@@ -122,6 +123,55 @@ class SessionResource(SyncAPIResource):
                 query=maybe_transform({"turn_ids": turn_ids}, session_retrieve_params.SessionRetrieveParams),
             ),
             cast_to=Session,
+        )
+
+    def list(
+        self,
+        agent_id: str,
+        *,
+        limit: int | NotGiven = NOT_GIVEN,
+        start_index: int | NotGiven = NOT_GIVEN,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> SessionListResponse:
+        """
+        List all session(s) of a given agent.
+
+        Args:
+          limit: The number of sessions to return.
+
+          start_index: The index to start the pagination from.
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not agent_id:
+            raise ValueError(f"Expected a non-empty value for `agent_id` but received {agent_id!r}")
+        return self._get(
+            f"/v1/agents/{agent_id}/sessions",
+            options=make_request_options(
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=maybe_transform(
+                    {
+                        "limit": limit,
+                        "start_index": start_index,
+                    },
+                    session_list_params.SessionListParams,
+                ),
+            ),
+            cast_to=SessionListResponse,
         )
 
     def delete(
@@ -264,6 +314,55 @@ class AsyncSessionResource(AsyncAPIResource):
             cast_to=Session,
         )
 
+    async def list(
+        self,
+        agent_id: str,
+        *,
+        limit: int | NotGiven = NOT_GIVEN,
+        start_index: int | NotGiven = NOT_GIVEN,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> SessionListResponse:
+        """
+        List all session(s) of a given agent.
+
+        Args:
+          limit: The number of sessions to return.
+
+          start_index: The index to start the pagination from.
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not agent_id:
+            raise ValueError(f"Expected a non-empty value for `agent_id` but received {agent_id!r}")
+        return await self._get(
+            f"/v1/agents/{agent_id}/sessions",
+            options=make_request_options(
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=await async_maybe_transform(
+                    {
+                        "limit": limit,
+                        "start_index": start_index,
+                    },
+                    session_list_params.SessionListParams,
+                ),
+            ),
+            cast_to=SessionListResponse,
+        )
+
     async def delete(
         self,
         session_id: str,
@@ -312,6 +411,9 @@ class SessionResourceWithRawResponse:
         self.retrieve = to_raw_response_wrapper(
             session.retrieve,
         )
+        self.list = to_raw_response_wrapper(
+            session.list,
+        )
         self.delete = to_raw_response_wrapper(
             session.delete,
         )
@@ -326,6 +428,9 @@ class AsyncSessionResourceWithRawResponse:
         )
         self.retrieve = async_to_raw_response_wrapper(
             session.retrieve,
+        )
+        self.list = async_to_raw_response_wrapper(
+            session.list,
         )
         self.delete = async_to_raw_response_wrapper(
             session.delete,
@@ -342,6 +447,9 @@ class SessionResourceWithStreamingResponse:
         self.retrieve = to_streamed_response_wrapper(
             session.retrieve,
         )
+        self.list = to_streamed_response_wrapper(
+            session.list,
+        )
         self.delete = to_streamed_response_wrapper(
             session.delete,
         )
@@ -356,6 +464,9 @@ class AsyncSessionResourceWithStreamingResponse:
         )
         self.retrieve = async_to_streamed_response_wrapper(
             session.retrieve,
+        )
+        self.list = async_to_streamed_response_wrapper(
+            session.list,
         )
         self.delete = async_to_streamed_response_wrapper(
             session.delete,

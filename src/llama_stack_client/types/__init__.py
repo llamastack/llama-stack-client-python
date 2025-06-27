@@ -53,12 +53,14 @@ from .file_list_params import FileListParams as FileListParams
 from .shield_call_step import ShieldCallStep as ShieldCallStep
 from .span_with_status import SpanWithStatus as SpanWithStatus
 from .tool_list_params import ToolListParams as ToolListParams
+from .agent_list_params import AgentListParams as AgentListParams
 from .evaluate_response import EvaluateResponse as EvaluateResponse
 from .post_training_job import PostTrainingJob as PostTrainingJob
 from .scoring_fn_params import ScoringFnParams as ScoringFnParams
 from .file_create_params import FileCreateParams as FileCreateParams
 from .tool_list_response import ToolListResponse as ToolListResponse
 from .agent_create_params import AgentCreateParams as AgentCreateParams
+from .agent_list_response import AgentListResponse as AgentListResponse
 from .completion_response import CompletionResponse as CompletionResponse
 from .embeddings_response import EmbeddingsResponse as EmbeddingsResponse
 from .list_files_response import ListFilesResponse as ListFilesResponse
@@ -96,6 +98,7 @@ from .scoring_score_response import ScoringScoreResponse as ScoringScoreResponse
 from .shield_register_params import ShieldRegisterParams as ShieldRegisterParams
 from .tool_invocation_result import ToolInvocationResult as ToolInvocationResult
 from .vector_io_query_params import VectorIoQueryParams as VectorIoQueryParams
+from .agent_retrieve_response import AgentRetrieveResponse as AgentRetrieveResponse
 from .benchmark_list_response import BenchmarkListResponse as BenchmarkListResponse
 from .dataset_iterrows_params import DatasetIterrowsParams as DatasetIterrowsParams
 from .dataset_register_params import DatasetRegisterParams as DatasetRegisterParams
@@ -111,6 +114,7 @@ from .list_vector_dbs_response import ListVectorDBsResponse as ListVectorDBsResp
 from .safety_run_shield_params import SafetyRunShieldParams as SafetyRunShieldParams
 from .vector_store_list_params import VectorStoreListParams as VectorStoreListParams
 from .benchmark_register_params import BenchmarkRegisterParams as BenchmarkRegisterParams
+from .dataset_appendrows_params import DatasetAppendrowsParams as DatasetAppendrowsParams
 from .dataset_iterrows_response import DatasetIterrowsResponse as DatasetIterrowsResponse
 from .dataset_register_response import DatasetRegisterResponse as DatasetRegisterResponse
 from .dataset_retrieve_response import DatasetRetrieveResponse as DatasetRetrieveResponse

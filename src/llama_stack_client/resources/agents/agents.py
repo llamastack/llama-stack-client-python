@@ -20,7 +20,7 @@ from .steps import (
     StepsResourceWithStreamingResponse,
     AsyncStepsResourceWithStreamingResponse,
 )
-from ...types import agent_create_params
+from ...types import agent_list_params, agent_create_params
 from .session import (
     SessionResource,
     AsyncSessionResource,
@@ -40,7 +40,9 @@ from ..._response import (
     async_to_streamed_response_wrapper,
 )
 from ..._base_client import make_request_options
+from ...types.agent_list_response import AgentListResponse
 from ...types.agent_create_response import AgentCreateResponse
+from ...types.agent_retrieve_response import AgentRetrieveResponse
 from ...types.shared_params.agent_config import AgentConfig
 
 __all__ = ["AgentsResource", "AsyncAgentsResource"]
@@ -110,6 +112,85 @@ class AgentsResource(SyncAPIResource):
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
             cast_to=AgentCreateResponse,
+        )
+
+    def retrieve(
+        self,
+        agent_id: str,
+        *,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> AgentRetrieveResponse:
+        """
+        Describe an agent by its ID.
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not agent_id:
+            raise ValueError(f"Expected a non-empty value for `agent_id` but received {agent_id!r}")
+        return self._get(
+            f"/v1/agents/{agent_id}",
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=AgentRetrieveResponse,
+        )
+
+    def list(
+        self,
+        *,
+        limit: int | NotGiven = NOT_GIVEN,
+        start_index: int | NotGiven = NOT_GIVEN,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> AgentListResponse:
+        """
+        List all agents.
+
+        Args:
+          limit: The number of agents to return.
+
+          start_index: The index to start the pagination from.
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        return self._get(
+            "/v1/agents",
+            options=make_request_options(
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=maybe_transform(
+                    {
+                        "limit": limit,
+                        "start_index": start_index,
+                    },
+                    agent_list_params.AgentListParams,
+                ),
+            ),
+            cast_to=AgentListResponse,
         )
 
     def delete(
@@ -213,6 +294,85 @@ class AsyncAgentsResource(AsyncAPIResource):
             cast_to=AgentCreateResponse,
         )
 
+    async def retrieve(
+        self,
+        agent_id: str,
+        *,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> AgentRetrieveResponse:
+        """
+        Describe an agent by its ID.
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not agent_id:
+            raise ValueError(f"Expected a non-empty value for `agent_id` but received {agent_id!r}")
+        return await self._get(
+            f"/v1/agents/{agent_id}",
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=AgentRetrieveResponse,
+        )
+
+    async def list(
+        self,
+        *,
+        limit: int | NotGiven = NOT_GIVEN,
+        start_index: int | NotGiven = NOT_GIVEN,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> AgentListResponse:
+        """
+        List all agents.
+
+        Args:
+          limit: The number of agents to return.
+
+          start_index: The index to start the pagination from.
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        return await self._get(
+            "/v1/agents",
+            options=make_request_options(
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=await async_maybe_transform(
+                    {
+                        "limit": limit,
+                        "start_index": start_index,
+                    },
+                    agent_list_params.AgentListParams,
+                ),
+            ),
+            cast_to=AgentListResponse,
+        )
+
     async def delete(
         self,
         agent_id: str,
@@ -255,6 +415,12 @@ class AgentsResourceWithRawResponse:
         self.create = to_raw_response_wrapper(
             agents.create,
         )
+        self.retrieve = to_raw_response_wrapper(
+            agents.retrieve,
+        )
+        self.list = to_raw_response_wrapper(
+            agents.list,
+        )
         self.delete = to_raw_response_wrapper(
             agents.delete,
         )
@@ -278,6 +444,12 @@ class AsyncAgentsResourceWithRawResponse:
 
         self.create = async_to_raw_response_wrapper(
             agents.create,
+        )
+        self.retrieve = async_to_raw_response_wrapper(
+            agents.retrieve,
+        )
+        self.list = async_to_raw_response_wrapper(
+            agents.list,
         )
         self.delete = async_to_raw_response_wrapper(
             agents.delete,
@@ -303,6 +475,12 @@ class AgentsResourceWithStreamingResponse:
         self.create = to_streamed_response_wrapper(
             agents.create,
         )
+        self.retrieve = to_streamed_response_wrapper(
+            agents.retrieve,
+        )
+        self.list = to_streamed_response_wrapper(
+            agents.list,
+        )
         self.delete = to_streamed_response_wrapper(
             agents.delete,
         )
@@ -326,6 +504,12 @@ class AsyncAgentsResourceWithStreamingResponse:
 
         self.create = async_to_streamed_response_wrapper(
             agents.create,
+        )
+        self.retrieve = async_to_streamed_response_wrapper(
+            agents.retrieve,
+        )
+        self.list = async_to_streamed_response_wrapper(
+            agents.list,
         )
         self.delete = async_to_streamed_response_wrapper(
             agents.delete,

@@ -115,12 +115,16 @@ from llama_stack_client.types import (
     ToolExecutionStep,
     ToolResponse,
     AgentCreateResponse,
+    AgentRetrieveResponse,
+    AgentListResponse,
 )
 ```
 
 Methods:
 
 - <code title="post /v1/agents">client.agents.<a href="./src/llama_stack_client/resources/agents/agents.py">create</a>(\*\*<a href="src/llama_stack_client/types/agent_create_params.py">params</a>) -> <a href="./src/llama_stack_client/types/agent_create_response.py">AgentCreateResponse</a></code>
+- <code title="get /v1/agents/{agent_id}">client.agents.<a href="./src/llama_stack_client/resources/agents/agents.py">retrieve</a>(agent_id) -> <a href="./src/llama_stack_client/types/agent_retrieve_response.py">AgentRetrieveResponse</a></code>
+- <code title="get /v1/agents">client.agents.<a href="./src/llama_stack_client/resources/agents/agents.py">list</a>(\*\*<a href="src/llama_stack_client/types/agent_list_params.py">params</a>) -> <a href="./src/llama_stack_client/types/agent_list_response.py">AgentListResponse</a></code>
 - <code title="delete /v1/agents/{agent_id}">client.agents.<a href="./src/llama_stack_client/resources/agents/agents.py">delete</a>(agent_id) -> None</code>
 
 ## Session
@@ -128,13 +132,14 @@ Methods:
 Types:
 
 ```python
-from llama_stack_client.types.agents import Session, SessionCreateResponse
+from llama_stack_client.types.agents import Session, SessionCreateResponse, SessionListResponse
 ```
 
 Methods:
 
 - <code title="post /v1/agents/{agent_id}/session">client.agents.session.<a href="./src/llama_stack_client/resources/agents/session.py">create</a>(agent_id, \*\*<a href="src/llama_stack_client/types/agents/session_create_params.py">params</a>) -> <a href="./src/llama_stack_client/types/agents/session_create_response.py">SessionCreateResponse</a></code>
 - <code title="get /v1/agents/{agent_id}/session/{session_id}">client.agents.session.<a href="./src/llama_stack_client/resources/agents/session.py">retrieve</a>(session_id, \*, agent_id, \*\*<a href="src/llama_stack_client/types/agents/session_retrieve_params.py">params</a>) -> <a href="./src/llama_stack_client/types/agents/session.py">Session</a></code>
+- <code title="get /v1/agents/{agent_id}/sessions">client.agents.session.<a href="./src/llama_stack_client/resources/agents/session.py">list</a>(agent_id, \*\*<a href="src/llama_stack_client/types/agents/session_list_params.py">params</a>) -> <a href="./src/llama_stack_client/types/agents/session_list_response.py">SessionListResponse</a></code>
 - <code title="delete /v1/agents/{agent_id}/session/{session_id}">client.agents.session.<a href="./src/llama_stack_client/resources/agents/session.py">delete</a>(session_id, \*, agent_id) -> None</code>
 
 ## Steps
@@ -186,6 +191,7 @@ Methods:
 
 - <code title="get /v1/datasets/{dataset_id}">client.datasets.<a href="./src/llama_stack_client/resources/datasets.py">retrieve</a>(dataset_id) -> <a href="./src/llama_stack_client/types/dataset_retrieve_response.py">DatasetRetrieveResponse</a></code>
 - <code title="get /v1/datasets">client.datasets.<a href="./src/llama_stack_client/resources/datasets.py">list</a>() -> <a href="./src/llama_stack_client/types/dataset_list_response.py">DatasetListResponse</a></code>
+- <code title="post /v1/datasetio/append-rows/{dataset_id}">client.datasets.<a href="./src/llama_stack_client/resources/datasets.py">appendrows</a>(dataset_id, \*\*<a href="src/llama_stack_client/types/dataset_appendrows_params.py">params</a>) -> None</code>
 - <code title="get /v1/datasetio/iterrows/{dataset_id}">client.datasets.<a href="./src/llama_stack_client/resources/datasets.py">iterrows</a>(dataset_id, \*\*<a href="src/llama_stack_client/types/dataset_iterrows_params.py">params</a>) -> <a href="./src/llama_stack_client/types/dataset_iterrows_response.py">DatasetIterrowsResponse</a></code>
 - <code title="post /v1/datasets">client.datasets.<a href="./src/llama_stack_client/resources/datasets.py">register</a>(\*\*<a href="src/llama_stack_client/types/dataset_register_params.py">params</a>) -> <a href="./src/llama_stack_client/types/dataset_register_response.py">DatasetRegisterResponse</a></code>
 - <code title="delete /v1/datasets/{dataset_id}">client.datasets.<a href="./src/llama_stack_client/resources/datasets.py">unregister</a>(dataset_id) -> None</code>
@@ -358,12 +364,22 @@ Methods:
 Types:
 
 ```python
-from llama_stack_client.types.vector_stores import VectorStoreFile
+from llama_stack_client.types.vector_stores import (
+    VectorStoreFile,
+    FileListResponse,
+    FileDeleteResponse,
+    FileContentResponse,
+)
 ```
 
 Methods:
 
 - <code title="post /v1/openai/v1/vector_stores/{vector_store_id}/files">client.vector_stores.files.<a href="./src/llama_stack_client/resources/vector_stores/files.py">create</a>(vector_store_id, \*\*<a href="src/llama_stack_client/types/vector_stores/file_create_params.py">params</a>) -> <a href="./src/llama_stack_client/types/vector_stores/vector_store_file.py">VectorStoreFile</a></code>
+- <code title="get /v1/openai/v1/vector_stores/{vector_store_id}/files/{file_id}">client.vector_stores.files.<a href="./src/llama_stack_client/resources/vector_stores/files.py">retrieve</a>(file_id, \*, vector_store_id) -> <a href="./src/llama_stack_client/types/vector_stores/vector_store_file.py">VectorStoreFile</a></code>
+- <code title="post /v1/openai/v1/vector_stores/{vector_store_id}/files/{file_id}">client.vector_stores.files.<a href="./src/llama_stack_client/resources/vector_stores/files.py">update</a>(file_id, \*, vector_store_id, \*\*<a href="src/llama_stack_client/types/vector_stores/file_update_params.py">params</a>) -> <a href="./src/llama_stack_client/types/vector_stores/vector_store_file.py">VectorStoreFile</a></code>
+- <code title="get /v1/openai/v1/vector_stores/{vector_store_id}/files">client.vector_stores.files.<a href="./src/llama_stack_client/resources/vector_stores/files.py">list</a>(vector_store_id, \*\*<a href="src/llama_stack_client/types/vector_stores/file_list_params.py">params</a>) -> <a href="./src/llama_stack_client/types/vector_stores/file_list_response.py">FileListResponse</a></code>
+- <code title="delete /v1/openai/v1/vector_stores/{vector_store_id}/files/{file_id}">client.vector_stores.files.<a href="./src/llama_stack_client/resources/vector_stores/files.py">delete</a>(file_id, \*, vector_store_id) -> <a href="./src/llama_stack_client/types/vector_stores/file_delete_response.py">FileDeleteResponse</a></code>
+- <code title="get /v1/openai/v1/vector_stores/{vector_store_id}/files/{file_id}/content">client.vector_stores.files.<a href="./src/llama_stack_client/resources/vector_stores/files.py">content</a>(file_id, \*, vector_store_id) -> <a href="./src/llama_stack_client/types/vector_stores/file_content_response.py">FileContentResponse</a></code>
 
 # Models
 

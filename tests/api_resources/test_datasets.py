@@ -86,6 +86,48 @@ class TestDatasets:
         assert cast(Any, response.is_closed) is True
 
     @parametrize
+    def test_method_appendrows(self, client: LlamaStackClient) -> None:
+        dataset = client.datasets.appendrows(
+            dataset_id="dataset_id",
+            rows=[{"foo": True}],
+        )
+        assert dataset is None
+
+    @parametrize
+    def test_raw_response_appendrows(self, client: LlamaStackClient) -> None:
+        response = client.datasets.with_raw_response.appendrows(
+            dataset_id="dataset_id",
+            rows=[{"foo": True}],
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        dataset = response.parse()
+        assert dataset is None
+
+    @parametrize
+    def test_streaming_response_appendrows(self, client: LlamaStackClient) -> None:
+        with client.datasets.with_streaming_response.appendrows(
+            dataset_id="dataset_id",
+            rows=[{"foo": True}],
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            dataset = response.parse()
+            assert dataset is None
+
+        assert cast(Any, response.is_closed) is True
+
+    @parametrize
+    def test_path_params_appendrows(self, client: LlamaStackClient) -> None:
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `dataset_id` but received ''"):
+            client.datasets.with_raw_response.appendrows(
+                dataset_id="",
+                rows=[{"foo": True}],
+            )
+
+    @parametrize
     def test_method_iterrows(self, client: LlamaStackClient) -> None:
         dataset = client.datasets.iterrows(
             dataset_id="dataset_id",
@@ -294,6 +336,48 @@ class TestAsyncDatasets:
             assert_matches_type(DatasetListResponse, dataset, path=["response"])
 
         assert cast(Any, response.is_closed) is True
+
+    @parametrize
+    async def test_method_appendrows(self, async_client: AsyncLlamaStackClient) -> None:
+        dataset = await async_client.datasets.appendrows(
+            dataset_id="dataset_id",
+            rows=[{"foo": True}],
+        )
+        assert dataset is None
+
+    @parametrize
+    async def test_raw_response_appendrows(self, async_client: AsyncLlamaStackClient) -> None:
+        response = await async_client.datasets.with_raw_response.appendrows(
+            dataset_id="dataset_id",
+            rows=[{"foo": True}],
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        dataset = await response.parse()
+        assert dataset is None
+
+    @parametrize
+    async def test_streaming_response_appendrows(self, async_client: AsyncLlamaStackClient) -> None:
+        async with async_client.datasets.with_streaming_response.appendrows(
+            dataset_id="dataset_id",
+            rows=[{"foo": True}],
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            dataset = await response.parse()
+            assert dataset is None
+
+        assert cast(Any, response.is_closed) is True
+
+    @parametrize
+    async def test_path_params_appendrows(self, async_client: AsyncLlamaStackClient) -> None:
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `dataset_id` but received ''"):
+            await async_client.datasets.with_raw_response.appendrows(
+                dataset_id="",
+                rows=[{"foo": True}],
+            )
 
     @parametrize
     async def test_method_iterrows(self, async_client: AsyncLlamaStackClient) -> None:
