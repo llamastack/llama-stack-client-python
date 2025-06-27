@@ -1,5 +1,23 @@
 # Changelog
 
+## 0.1.0-alpha.4 (2025-06-27)
+
+Full Changelog: [v0.1.0-alpha.3...v0.1.0-alpha.4](https://github.com/llamastack/llama-stack-client-python/compare/v0.1.0-alpha.3...v0.1.0-alpha.4)
+
+### Features
+
+* **api:** update via SDK Studio ([4333cb0](https://github.com/llamastack/llama-stack-client-python/commit/4333cb0307fd99654e53e8f87b3b2951be027b44))
+
+
+### Bug Fixes
+
+* **ci:** update pyproject.toml to use uv and remove broken CI ([#5](https://github.com/llamastack/llama-stack-client-python/issues/5)) ([7bc925c](https://github.com/llamastack/llama-stack-client-python/commit/7bc925c00401799d8f3345a4873f1b0028cb45ea))
+
+
+### Chores
+
+* **internal:** version bump ([867ea24](https://github.com/llamastack/llama-stack-client-python/commit/867ea24344fd71fc9787807a47144af5e3de82f8))
+
 ## 0.1.0-alpha.3 (2025-06-27)
 
 Full Changelog: [v0.1.0-alpha.2...v0.1.0-alpha.3](https://github.com/llamastack/llama-stack-client-python/compare/v0.1.0-alpha.2...v0.1.0-alpha.3)
