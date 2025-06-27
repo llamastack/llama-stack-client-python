@@ -61,7 +61,6 @@ def run_scoring(
     scoring_params_config: Optional[str],
     num_examples: Optional[int],
     output_dir: str,
-    visualize: bool,
 ):
     """Run scoring from application datasets"""
     # one of dataset_id or dataset_path is required

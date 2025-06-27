@@ -253,7 +253,7 @@ class CallbackServer(HTTPServer):
                 self.send_response(404)
                 self.end_headers()
 
-        def log_message(self, format, *args):
+        def log_message(self):
             """Override to suppress HTTP server logs."""
             return
 

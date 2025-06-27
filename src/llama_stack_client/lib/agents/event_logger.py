@@ -66,9 +66,7 @@ class TurnStreamEventPrinter:
         if not hasattr(chunk, "error"):
             self.previous_event_type, self.previous_step_type = self._get_event_type_step_type(chunk)
 
-    def _yield_printable_events(
-        self, chunk: Any, previous_event_type: Optional[str] = None, previous_step_type: Optional[str] = None
-    ) -> Iterator[TurnStreamPrintableEvent]:
+    def _yield_printable_events(self, chunk: Any) -> Iterator[TurnStreamPrintableEvent]:
         if hasattr(chunk, "error"):
             yield TurnStreamPrintableEvent(role=None, content=chunk.error["message"], color="red")
             return
