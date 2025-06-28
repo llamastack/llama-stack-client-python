@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.1.0-alpha.5 (2025-06-28)
+
+Full Changelog: [v0.1.0-alpha.4...v0.1.0-alpha.5](https://github.com/llamastack/llama-stack-client-python/compare/v0.1.0-alpha.4...v0.1.0-alpha.5)
+
+### Chores
+
+* update version ([10ef53e](https://github.com/llamastack/llama-stack-client-python/commit/10ef53e74dbdd72a8dd829957820e61522fbe6ad))
+
 ## 0.1.0-alpha.4 (2025-06-27)
 
 Full Changelog: [v0.1.0-alpha.3...v0.1.0-alpha.4](https://github.com/llamastack/llama-stack-client-python/compare/v0.1.0-alpha.3...v0.1.0-alpha.4)
