@@ -18,7 +18,7 @@ UPLOAD_RESPONSE=$(tar -cz . | curl -v -X PUT \
 
 if echo "$UPLOAD_RESPONSE" | grep -q "HTTP/[0-9.]* 200"; then
   echo -e "\033[32mUploaded build to Stainless storage.\033[0m"
-  echo -e "\033[32mInstallation: pip install --pre 'https://pkg.stainless.com/s/llama-stack-client-python/$SHA'\033[0m"
+  echo -e "\033[32mInstallation: pip install 'https://pkg.stainless.com/s/llama-stack-client-python/$SHA'\033[0m"
 else
   echo -e "\033[31mFailed to upload artifact.\033[0m"
   exit 1
