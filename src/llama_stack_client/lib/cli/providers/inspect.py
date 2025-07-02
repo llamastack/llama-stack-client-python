@@ -10,7 +10,7 @@ from ..common.utils import handle_client_errors
 @click.pass_context
 @handle_client_errors("inspect providers")
 def inspect_provider(ctx, provider_id):
-    """Show available providers on distribution endpoint"""
+    """Show specific provider configuration on distribution endpoint"""
     client = ctx.obj["client"]
     console = Console()
 
