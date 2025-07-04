@@ -4,7 +4,7 @@
 # This source code is licensed under the terms described in the LICENSE file in
 # the root directory of this source tree.
 
-from typing import Any, Iterator, Optional, Tuple
+from typing import Any, Iterator, Optional
 
 from termcolor import cprint
 
@@ -55,16 +55,9 @@ class TurnStreamPrintableEvent:
 
 
 class TurnStreamEventPrinter:
-    def __init__(self) -> None:
-        self.previous_event_type: Optional[str] = None
-        self.previous_step_type: Optional[str] = None
-
     def yield_printable_events(self, chunk: Any) -> Iterator[TurnStreamPrintableEvent]:
-        for printable_event in self._yield_printable_events(chunk, self.previous_event_type, self.previous_step_type):
+        for printable_event in self._yield_printable_events(chunk):
             yield printable_event
-
-        if not hasattr(chunk, "error"):
-            self.previous_event_type, self.previous_step_type = self._get_event_type_step_type(chunk)
 
     def _yield_printable_events(self, chunk: Any) -> Iterator[TurnStreamPrintableEvent]:
         if hasattr(chunk, "error"):
@@ -143,17 +136,6 @@ class TurnStreamEventPrinter:
                         content=f"Tool:{r.tool_name} Response:{r.content}",
                         color="green",
                     )
-
-    def _get_event_type_step_type(self, chunk: Any) -> Tuple[Optional[str], Optional[str]]:
-        if hasattr(chunk, "event"):
-            previous_event_type = chunk.event.payload.event_type if hasattr(chunk, "event") else None
-            previous_step_type = (
-                chunk.event.payload.step_type
-                if previous_event_type not in {"turn_start", "turn_complete", "turn_awaiting_input"}
-                else None
-            )
-            return previous_event_type, previous_step_type
-        return None, None
 
 
 class EventLogger:
