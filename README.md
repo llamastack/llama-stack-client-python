@@ -11,9 +11,9 @@ It is generated with [Stainless](https://www.stainlessapi.com/).
 
 ## Documentation
 
-For starting up a Llama Stack server, please checkout our guides in our [llama-stack](https://github.com/meta-llama/llama-stack/blob/main/docs/resources/llama-stack-spec.html) repo.
+For starting up a Llama Stack server, please checkout our [Quickstart guide to start a Llama Stack server](https://llama-stack.readthedocs.io/en/latest/getting_started/index.html)
 
-The REST API documentation can be found on our [llama-stack OpenAPI spec](https://github.com/meta-llama/llama-stack/blob/main/docs/resources/llama-stack-spec.html). The full API of this library can be found in [api.md](api.md).
+The REST API documentation can be found on [llama-stack API Reference](https://llama-stack.readthedocs.io/en/latest/references/api_reference/index.html). The full API of this library can be found in [api.md](api.md).
 
 You can find more example apps with client SDKs to talk with the Llama Stack server in our [llama-stack-apps](https://github.com/meta-llama/llama-stack-apps/tree/main) repo.
 
