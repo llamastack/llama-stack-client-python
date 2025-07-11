@@ -1,5 +1,25 @@
 # Changelog
 
+## 0.1.0-alpha.5 (2025-07-11)
+
+Full Changelog: [v0.1.0-alpha.4...v0.1.0-alpha.5](https://github.com/llamastack/llama-stack-client-python/compare/v0.1.0-alpha.4...v0.1.0-alpha.5)
+
+### Bug Fixes
+
+* helptext for 'inspect version' and 'providers inspect' ([#8](https://github.com/llamastack/llama-stack-client-python/issues/8)) ([d79345e](https://github.com/llamastack/llama-stack-client-python/commit/d79345e42d6a3f3b828396b1ac00e2ecf196c0eb))
+* model register missing model-type and not accepting metadata ([#11](https://github.com/llamastack/llama-stack-client-python/issues/11)) ([f3f4515](https://github.com/llamastack/llama-stack-client-python/commit/f3f45155864379f227824d00f6febb1b46ed4839))
+* update agent event logger ([#10](https://github.com/llamastack/llama-stack-client-python/issues/10)) ([0a10b70](https://github.com/llamastack/llama-stack-client-python/commit/0a10b70f91f28f533710433ae860789f2cb0f70f))
+
+
+### Chores
+
+* update version ([10ef53e](https://github.com/llamastack/llama-stack-client-python/commit/10ef53e74dbdd72a8dd829957820e61522fbe6ad))
+
+
+### Build System
+
+* Bump version to 0.2.14 ([745a94e](https://github.com/llamastack/llama-stack-client-python/commit/745a94e1d2875c8e7b4fac5b1676b890aebf4915))
+
 ## 0.1.0-alpha.4 (2025-06-27)
 
 Full Changelog: [v0.1.0-alpha.3...v0.1.0-alpha.4](https://github.com/llamastack/llama-stack-client-python/compare/v0.1.0-alpha.3...v0.1.0-alpha.4)
