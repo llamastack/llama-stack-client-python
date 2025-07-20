@@ -13,6 +13,7 @@ from llama_stack_client.types.shared_params.agent_config import ToolConfig
 from llama_stack_client.types.shared_params.response_format import ResponseFormat
 from llama_stack_client.types.shared_params.sampling_params import SamplingParams
 
+from ..._types import Headers
 from ..agent import Agent, AgentUtils
 from ..client_tool import ClientTool
 from ..tool_parser import ToolParser
@@ -128,6 +129,7 @@ class ReActAgent(Agent):
         builtin_toolgroups: Tuple[str] = (),  # DEPRECATED
         client_tools: Tuple[ClientTool] = (),  # DEPRECATED
         custom_agent_config: Optional[AgentConfig] = None,  # DEPRECATED
+        extra_headers: Headers | None = None,
     ):
         """Construct an Agent with the given parameters.
 
@@ -156,6 +158,7 @@ class ReActAgent(Agent):
         :param enable_session_persistence: Whether to enable session persistence.
         :param json_response_format: Whether to use the json response format with default ReAct output schema.
             ::deprecated: use response_format instead
+        :param extra_headers: Extra headers to add to all requests sent by the agent.
         """
         use_deprecated_params = False
         if custom_agent_config is not None:
@@ -181,6 +184,7 @@ class ReActAgent(Agent):
                 agent_config=agent_config,
                 client_tools=client_tools,
                 tool_parser=tool_parser,
+                extra_headers=extra_headers,
             )
 
         else:
@@ -220,4 +224,5 @@ class ReActAgent(Agent):
                 output_shields=output_shields,
                 response_format=response_format,
                 enable_session_persistence=enable_session_persistence,
+                extra_headers=extra_headers,
             )
