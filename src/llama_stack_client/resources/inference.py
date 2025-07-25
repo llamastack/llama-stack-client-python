@@ -184,7 +184,9 @@ class InferenceResource(SyncAPIResource):
             cast_to=BatchCompletion,
         )
 
-    @typing_extensions.deprecated("chat_completion is deprecated. Please use /v1/openai/v1/chat/completions.")
+    @typing_extensions.deprecated(
+        "/v1/inference/chat-completion is deprecated. Please use /v1/openai/v1/chat/completions."
+    )
     @overload
     def chat_completion(
         self,
@@ -253,7 +255,9 @@ class InferenceResource(SyncAPIResource):
         """
         ...
 
-    @typing_extensions.deprecated("chat_completion is deprecated. Please use /v1/openai/v1/chat/completions.")
+    @typing_extensions.deprecated(
+        "/v1/inference/chat-completion is deprecated. Please use /v1/openai/v1/chat/completions."
+    )
     @overload
     def chat_completion(
         self,
@@ -322,7 +326,9 @@ class InferenceResource(SyncAPIResource):
         """
         ...
 
-    @typing_extensions.deprecated("chat_completion is deprecated. Please use /v1/openai/v1/chat/completions.")
+    @typing_extensions.deprecated(
+        "/v1/inference/chat-completion is deprecated. Please use /v1/openai/v1/chat/completions."
+    )
     @overload
     def chat_completion(
         self,
@@ -391,7 +397,9 @@ class InferenceResource(SyncAPIResource):
         """
         ...
 
-    @typing_extensions.deprecated("chat_completion is deprecated. Please use /v1/openai/v1/chat/completions.")
+    @typing_extensions.deprecated(
+        "/v1/inference/chat-completion is deprecated. Please use /v1/openai/v1/chat/completions."
+    )
     @required_args(["messages", "model_id"], ["messages", "model_id", "stream"])
     def chat_completion(
         self,
@@ -831,7 +839,9 @@ class AsyncInferenceResource(AsyncAPIResource):
             cast_to=BatchCompletion,
         )
 
-    @typing_extensions.deprecated("chat_completion is deprecated. Please use /v1/openai/v1/chat/completions.")
+    @typing_extensions.deprecated(
+        "/v1/inference/chat-completion is deprecated. Please use /v1/openai/v1/chat/completions."
+    )
     @overload
     async def chat_completion(
         self,
@@ -900,7 +910,9 @@ class AsyncInferenceResource(AsyncAPIResource):
         """
         ...
 
-    @typing_extensions.deprecated("chat_completion is deprecated. Please use /v1/openai/v1/chat/completions.")
+    @typing_extensions.deprecated(
+        "/v1/inference/chat-completion is deprecated. Please use /v1/openai/v1/chat/completions."
+    )
     @overload
     async def chat_completion(
         self,
@@ -969,7 +981,9 @@ class AsyncInferenceResource(AsyncAPIResource):
         """
         ...
 
-    @typing_extensions.deprecated("chat_completion is deprecated. Please use /v1/openai/v1/chat/completions.")
+    @typing_extensions.deprecated(
+        "/v1/inference/chat-completion is deprecated. Please use /v1/openai/v1/chat/completions."
+    )
     @overload
     async def chat_completion(
         self,
@@ -1038,7 +1052,9 @@ class AsyncInferenceResource(AsyncAPIResource):
         """
         ...
 
-    @typing_extensions.deprecated("chat_completion is deprecated. Please use /v1/openai/v1/chat/completions.")
+    @typing_extensions.deprecated(
+        "/v1/inference/chat-completion is deprecated. Please use /v1/openai/v1/chat/completions."
+    )
     @required_args(["messages", "model_id"], ["messages", "model_id", "stream"])
     async def chat_completion(
         self,
