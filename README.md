@@ -1,5 +1,6 @@
 # Llama Stack Client Python API library
 
+
 [![PyPI version](https://img.shields.io/pypi/v/llama_stack_client.svg)](https://pypi.org/project/llama_stack_client/) [![PyPI - Downloads](https://img.shields.io/pypi/dm/llama-stack-client)](https://pypi.org/project/llama-stack-client/)
 [![Discord](https://img.shields.io/discord/1257833999603335178)](https://discord.gg/llama-stack)
 
