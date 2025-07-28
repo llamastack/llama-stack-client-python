@@ -53,8 +53,6 @@ dev = [
 Homepage = "https://github.com/llamastack/llama-stack-client-python"
 Repository = "https://github.com/llamastack/llama-stack-client-python"
 
-
-
 [build-system]
 requires = ["hatchling==1.26.3", "hatch-fancy-pypi-readme"]
 build-backend = "hatchling.build"
