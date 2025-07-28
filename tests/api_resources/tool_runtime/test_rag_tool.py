@@ -93,7 +93,7 @@ class TestRagTool:
                     "separator": "separator",
                     "type": "default",
                 },
-                "mode": "mode",
+                "mode": "vector",
                 "ranker": {
                     "impact_factor": 0,
                     "type": "rrf",
@@ -210,7 +210,7 @@ class TestAsyncRagTool:
                     "separator": "separator",
                     "type": "default",
                 },
-                "mode": "mode",
+                "mode": "vector",
                 "ranker": {
                     "impact_factor": 0,
                     "type": "rrf",

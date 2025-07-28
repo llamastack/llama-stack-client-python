@@ -38,6 +38,3 @@ class VectorStoreCreateParams(TypedDict, total=False):
 
     provider_id: str
     """The ID of the provider to use for this vector store."""
-
-    provider_vector_db_id: str
-    """The provider-specific vector database ID."""

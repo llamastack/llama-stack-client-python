@@ -55,7 +55,7 @@ class QueryConfig(TypedDict, total=False):
     query_generator_config: Required[QueryGeneratorConfig]
     """Configuration for the query generator."""
 
-    mode: str
+    mode: Literal["vector", "keyword", "hybrid"]
     """Search mode for retrieval—either "vector", "keyword", or "hybrid".
 
     Default "vector".

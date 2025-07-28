@@ -20,3 +20,5 @@ class VectorDBRetrieveResponse(BaseModel):
     type: Literal["vector_db"]
 
     provider_resource_id: Optional[str] = None
+
+    vector_db_name: Optional[str] = None

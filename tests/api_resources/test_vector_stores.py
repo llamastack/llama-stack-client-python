@@ -40,7 +40,6 @@ class TestVectorStores:
             file_ids=["string"],
             metadata={"foo": True},
             provider_id="provider_id",
-            provider_vector_db_id="provider_vector_db_id",
         )
         assert_matches_type(VectorStore, vector_store, path=["response"])
 
@@ -309,7 +308,6 @@ class TestAsyncVectorStores:
             file_ids=["string"],
             metadata={"foo": True},
             provider_id="provider_id",
-            provider_vector_db_id="provider_vector_db_id",
         )
         assert_matches_type(VectorStore, vector_store, path=["response"])
 
