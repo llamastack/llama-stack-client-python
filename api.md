@@ -458,7 +458,7 @@ Methods:
 Types:
 
 ```python
-from llama_stack_client.types import RunShieldResponse
+from llama_stack_client.types import OpenAPIModerationsResponse, RunShieldResponse
 ```
 
 Methods:
