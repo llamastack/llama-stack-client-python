@@ -24,30 +24,26 @@ class TestVectorStores:
 
     @parametrize
     def test_method_create(self, client: LlamaStackClient) -> None:
-        vector_store = client.vector_stores.create(
-            name="name",
-        )
+        vector_store = client.vector_stores.create()
         assert_matches_type(VectorStore, vector_store, path=["response"])
 
     @parametrize
     def test_method_create_with_all_params(self, client: LlamaStackClient) -> None:
         vector_store = client.vector_stores.create(
-            name="name",
             chunking_strategy={"foo": True},
             embedding_dimension=0,
             embedding_model="embedding_model",
             expires_after={"foo": True},
             file_ids=["string"],
             metadata={"foo": True},
+            name="name",
             provider_id="provider_id",
         )
         assert_matches_type(VectorStore, vector_store, path=["response"])
 
     @parametrize
     def test_raw_response_create(self, client: LlamaStackClient) -> None:
-        response = client.vector_stores.with_raw_response.create(
-            name="name",
-        )
+        response = client.vector_stores.with_raw_response.create()
 
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -56,9 +52,7 @@ class TestVectorStores:
 
     @parametrize
     def test_streaming_response_create(self, client: LlamaStackClient) -> None:
-        with client.vector_stores.with_streaming_response.create(
-            name="name",
-        ) as response:
+        with client.vector_stores.with_streaming_response.create() as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
@@ -292,30 +286,26 @@ class TestAsyncVectorStores:
 
     @parametrize
     async def test_method_create(self, async_client: AsyncLlamaStackClient) -> None:
-        vector_store = await async_client.vector_stores.create(
-            name="name",
-        )
+        vector_store = await async_client.vector_stores.create()
         assert_matches_type(VectorStore, vector_store, path=["response"])
 
     @parametrize
     async def test_method_create_with_all_params(self, async_client: AsyncLlamaStackClient) -> None:
         vector_store = await async_client.vector_stores.create(
-            name="name",
             chunking_strategy={"foo": True},
             embedding_dimension=0,
             embedding_model="embedding_model",
             expires_after={"foo": True},
             file_ids=["string"],
             metadata={"foo": True},
+            name="name",
             provider_id="provider_id",
         )
         assert_matches_type(VectorStore, vector_store, path=["response"])
 
     @parametrize
     async def test_raw_response_create(self, async_client: AsyncLlamaStackClient) -> None:
-        response = await async_client.vector_stores.with_raw_response.create(
-            name="name",
-        )
+        response = await async_client.vector_stores.with_raw_response.create()
 
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -324,9 +314,7 @@ class TestAsyncVectorStores:
 
     @parametrize
     async def test_streaming_response_create(self, async_client: AsyncLlamaStackClient) -> None:
-        async with async_client.vector_stores.with_streaming_response.create(
-            name="name",
-        ) as response:
+        async with async_client.vector_stores.with_streaming_response.create() as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 

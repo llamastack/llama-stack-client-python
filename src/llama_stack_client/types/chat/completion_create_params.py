@@ -15,26 +15,14 @@ __all__ = [
     "MessageOpenAIUserMessageParamContentUnionMember1OpenAIChatCompletionContentPartImageParamImageURL",
     "MessageOpenAISystemMessageParam",
     "MessageOpenAISystemMessageParamContentUnionMember1",
-    "MessageOpenAISystemMessageParamContentUnionMember1OpenAIChatCompletionContentPartTextParam",
-    "MessageOpenAISystemMessageParamContentUnionMember1OpenAIChatCompletionContentPartImageParam",
-    "MessageOpenAISystemMessageParamContentUnionMember1OpenAIChatCompletionContentPartImageParamImageURL",
     "MessageOpenAIAssistantMessageParam",
     "MessageOpenAIAssistantMessageParamContentUnionMember1",
-    "MessageOpenAIAssistantMessageParamContentUnionMember1OpenAIChatCompletionContentPartTextParam",
-    "MessageOpenAIAssistantMessageParamContentUnionMember1OpenAIChatCompletionContentPartImageParam",
-    "MessageOpenAIAssistantMessageParamContentUnionMember1OpenAIChatCompletionContentPartImageParamImageURL",
     "MessageOpenAIAssistantMessageParamToolCall",
     "MessageOpenAIAssistantMessageParamToolCallFunction",
     "MessageOpenAIToolMessageParam",
     "MessageOpenAIToolMessageParamContentUnionMember1",
-    "MessageOpenAIToolMessageParamContentUnionMember1OpenAIChatCompletionContentPartTextParam",
-    "MessageOpenAIToolMessageParamContentUnionMember1OpenAIChatCompletionContentPartImageParam",
-    "MessageOpenAIToolMessageParamContentUnionMember1OpenAIChatCompletionContentPartImageParamImageURL",
     "MessageOpenAIDeveloperMessageParam",
     "MessageOpenAIDeveloperMessageParamContentUnionMember1",
-    "MessageOpenAIDeveloperMessageParamContentUnionMember1OpenAIChatCompletionContentPartTextParam",
-    "MessageOpenAIDeveloperMessageParamContentUnionMember1OpenAIChatCompletionContentPartImageParam",
-    "MessageOpenAIDeveloperMessageParamContentUnionMember1OpenAIChatCompletionContentPartImageParamImageURL",
     "ResponseFormat",
     "ResponseFormatOpenAIResponseFormatText",
     "ResponseFormatOpenAIResponseFormatJsonSchema",
@@ -156,36 +144,10 @@ class MessageOpenAIUserMessageParam(TypedDict, total=False):
     """(Optional) The name of the user message participant."""
 
 
-class MessageOpenAISystemMessageParamContentUnionMember1OpenAIChatCompletionContentPartTextParam(
-    TypedDict, total=False
-):
+class MessageOpenAISystemMessageParamContentUnionMember1(TypedDict, total=False):
     text: Required[str]
 
     type: Required[Literal["text"]]
-
-
-class MessageOpenAISystemMessageParamContentUnionMember1OpenAIChatCompletionContentPartImageParamImageURL(
-    TypedDict, total=False
-):
-    url: Required[str]
-
-    detail: str
-
-
-class MessageOpenAISystemMessageParamContentUnionMember1OpenAIChatCompletionContentPartImageParam(
-    TypedDict, total=False
-):
-    image_url: Required[
-        MessageOpenAISystemMessageParamContentUnionMember1OpenAIChatCompletionContentPartImageParamImageURL
-    ]
-
-    type: Required[Literal["image_url"]]
-
-
-MessageOpenAISystemMessageParamContentUnionMember1: TypeAlias = Union[
-    MessageOpenAISystemMessageParamContentUnionMember1OpenAIChatCompletionContentPartTextParam,
-    MessageOpenAISystemMessageParamContentUnionMember1OpenAIChatCompletionContentPartImageParam,
-]
 
 
 class MessageOpenAISystemMessageParam(TypedDict, total=False):
@@ -204,36 +166,10 @@ class MessageOpenAISystemMessageParam(TypedDict, total=False):
     """(Optional) The name of the system message participant."""
 
 
-class MessageOpenAIAssistantMessageParamContentUnionMember1OpenAIChatCompletionContentPartTextParam(
-    TypedDict, total=False
-):
+class MessageOpenAIAssistantMessageParamContentUnionMember1(TypedDict, total=False):
     text: Required[str]
 
     type: Required[Literal["text"]]
-
-
-class MessageOpenAIAssistantMessageParamContentUnionMember1OpenAIChatCompletionContentPartImageParamImageURL(
-    TypedDict, total=False
-):
-    url: Required[str]
-
-    detail: str
-
-
-class MessageOpenAIAssistantMessageParamContentUnionMember1OpenAIChatCompletionContentPartImageParam(
-    TypedDict, total=False
-):
-    image_url: Required[
-        MessageOpenAIAssistantMessageParamContentUnionMember1OpenAIChatCompletionContentPartImageParamImageURL
-    ]
-
-    type: Required[Literal["image_url"]]
-
-
-MessageOpenAIAssistantMessageParamContentUnionMember1: TypeAlias = Union[
-    MessageOpenAIAssistantMessageParamContentUnionMember1OpenAIChatCompletionContentPartTextParam,
-    MessageOpenAIAssistantMessageParamContentUnionMember1OpenAIChatCompletionContentPartImageParam,
-]
 
 
 class MessageOpenAIAssistantMessageParamToolCallFunction(TypedDict, total=False):
@@ -266,32 +202,10 @@ class MessageOpenAIAssistantMessageParam(TypedDict, total=False):
     """List of tool calls. Each tool call is an OpenAIChatCompletionToolCall object."""
 
 
-class MessageOpenAIToolMessageParamContentUnionMember1OpenAIChatCompletionContentPartTextParam(TypedDict, total=False):
+class MessageOpenAIToolMessageParamContentUnionMember1(TypedDict, total=False):
     text: Required[str]
 
     type: Required[Literal["text"]]
-
-
-class MessageOpenAIToolMessageParamContentUnionMember1OpenAIChatCompletionContentPartImageParamImageURL(
-    TypedDict, total=False
-):
-    url: Required[str]
-
-    detail: str
-
-
-class MessageOpenAIToolMessageParamContentUnionMember1OpenAIChatCompletionContentPartImageParam(TypedDict, total=False):
-    image_url: Required[
-        MessageOpenAIToolMessageParamContentUnionMember1OpenAIChatCompletionContentPartImageParamImageURL
-    ]
-
-    type: Required[Literal["image_url"]]
-
-
-MessageOpenAIToolMessageParamContentUnionMember1: TypeAlias = Union[
-    MessageOpenAIToolMessageParamContentUnionMember1OpenAIChatCompletionContentPartTextParam,
-    MessageOpenAIToolMessageParamContentUnionMember1OpenAIChatCompletionContentPartImageParam,
-]
 
 
 class MessageOpenAIToolMessageParam(TypedDict, total=False):
@@ -305,36 +219,10 @@ class MessageOpenAIToolMessageParam(TypedDict, total=False):
     """Unique identifier for the tool call this response is for"""
 
 
-class MessageOpenAIDeveloperMessageParamContentUnionMember1OpenAIChatCompletionContentPartTextParam(
-    TypedDict, total=False
-):
+class MessageOpenAIDeveloperMessageParamContentUnionMember1(TypedDict, total=False):
     text: Required[str]
 
     type: Required[Literal["text"]]
-
-
-class MessageOpenAIDeveloperMessageParamContentUnionMember1OpenAIChatCompletionContentPartImageParamImageURL(
-    TypedDict, total=False
-):
-    url: Required[str]
-
-    detail: str
-
-
-class MessageOpenAIDeveloperMessageParamContentUnionMember1OpenAIChatCompletionContentPartImageParam(
-    TypedDict, total=False
-):
-    image_url: Required[
-        MessageOpenAIDeveloperMessageParamContentUnionMember1OpenAIChatCompletionContentPartImageParamImageURL
-    ]
-
-    type: Required[Literal["image_url"]]
-
-
-MessageOpenAIDeveloperMessageParamContentUnionMember1: TypeAlias = Union[
-    MessageOpenAIDeveloperMessageParamContentUnionMember1OpenAIChatCompletionContentPartTextParam,
-    MessageOpenAIDeveloperMessageParamContentUnionMember1OpenAIChatCompletionContentPartImageParam,
-]
 
 
 class MessageOpenAIDeveloperMessageParam(TypedDict, total=False):

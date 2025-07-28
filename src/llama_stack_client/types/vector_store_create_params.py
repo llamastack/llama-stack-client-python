@@ -3,15 +3,12 @@
 from __future__ import annotations
 
 from typing import Dict, List, Union, Iterable
-from typing_extensions import Required, TypedDict
+from typing_extensions import TypedDict
 
 __all__ = ["VectorStoreCreateParams"]
 
 
 class VectorStoreCreateParams(TypedDict, total=False):
-    name: Required[str]
-    """A name for the vector store."""
-
     chunking_strategy: Dict[str, Union[bool, float, str, Iterable[object], object, None]]
     """The chunking strategy used to chunk the file(s).
 
@@ -35,6 +32,9 @@ class VectorStoreCreateParams(TypedDict, total=False):
 
     metadata: Dict[str, Union[bool, float, str, Iterable[object], object, None]]
     """Set of 16 key-value pairs that can be attached to an object."""
+
+    name: str
+    """A name for the vector store."""
 
     provider_id: str
     """The ID of the provider to use for this vector store."""
