@@ -24,9 +24,6 @@ You can find more example apps with client SDKs to talk with the Llama Stack ser
 pip install llama-stack-client
 ```
 
-> [!NOTE]
-> Once this package is [published to PyPI](https://www.stainless.com/docs/guides/publish), this will become: `pip install llama_stack_client`
-
 ## Usage
 
 The full API of this library can be found in [api.md](api.md). You may find basic client examples in our [llama-stack-apps](https://github.com/meta-llama/llama-stack-apps/tree/main) repo.
