@@ -55,7 +55,7 @@ class QueryConfig(BaseModel):
     query_generator_config: QueryGeneratorConfig
     """Configuration for the query generator."""
 
-    mode: Optional[str] = None
+    mode: Optional[Literal["vector", "keyword", "hybrid"]] = None
     """Search mode for retrieval—either "vector", "keyword", or "hybrid".
 
     Default "vector".

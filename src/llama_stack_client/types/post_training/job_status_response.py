@@ -6,11 +6,35 @@ from typing_extensions import Literal
 
 from ..._models import BaseModel
 
-__all__ = ["JobStatusResponse"]
+__all__ = ["JobStatusResponse", "Checkpoint", "CheckpointTrainingMetrics"]
+
+
+class CheckpointTrainingMetrics(BaseModel):
+    epoch: int
+
+    perplexity: float
+
+    train_loss: float
+
+    validation_loss: float
+
+
+class Checkpoint(BaseModel):
+    created_at: datetime
+
+    epoch: int
+
+    identifier: str
+
+    path: str
+
+    post_training_job_id: str
+
+    training_metrics: Optional[CheckpointTrainingMetrics] = None
 
 
 class JobStatusResponse(BaseModel):
-    checkpoints: List[object]
+    checkpoints: List[Checkpoint]
 
     job_uuid: str
 

@@ -74,7 +74,6 @@ class VectorStoresResource(SyncAPIResource):
         file_ids: List[str] | NotGiven = NOT_GIVEN,
         metadata: Dict[str, Union[bool, float, str, Iterable[object], object, None]] | NotGiven = NOT_GIVEN,
         provider_id: str | NotGiven = NOT_GIVEN,
-        provider_vector_db_id: str | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -104,8 +103,6 @@ class VectorStoresResource(SyncAPIResource):
 
           provider_id: The ID of the provider to use for this vector store.
 
-          provider_vector_db_id: The provider-specific vector database ID.
-
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -126,7 +123,6 @@ class VectorStoresResource(SyncAPIResource):
                     "file_ids": file_ids,
                     "metadata": metadata,
                     "provider_id": provider_id,
-                    "provider_vector_db_id": provider_vector_db_id,
                 },
                 vector_store_create_params.VectorStoreCreateParams,
             ),
@@ -411,7 +407,6 @@ class AsyncVectorStoresResource(AsyncAPIResource):
         file_ids: List[str] | NotGiven = NOT_GIVEN,
         metadata: Dict[str, Union[bool, float, str, Iterable[object], object, None]] | NotGiven = NOT_GIVEN,
         provider_id: str | NotGiven = NOT_GIVEN,
-        provider_vector_db_id: str | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -441,8 +436,6 @@ class AsyncVectorStoresResource(AsyncAPIResource):
 
           provider_id: The ID of the provider to use for this vector store.
 
-          provider_vector_db_id: The provider-specific vector database ID.
-
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -463,7 +456,6 @@ class AsyncVectorStoresResource(AsyncAPIResource):
                     "file_ids": file_ids,
                     "metadata": metadata,
                     "provider_id": provider_id,
-                    "provider_vector_db_id": provider_vector_db_id,
                 },
                 vector_store_create_params.VectorStoreCreateParams,
             ),

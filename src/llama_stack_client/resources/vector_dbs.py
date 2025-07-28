@@ -110,6 +110,7 @@ class VectorDBsResource(SyncAPIResource):
         embedding_dimension: int | NotGiven = NOT_GIVEN,
         provider_id: str | NotGiven = NOT_GIVEN,
         provider_vector_db_id: str | NotGiven = NOT_GIVEN,
+        vector_db_name: str | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -131,6 +132,8 @@ class VectorDBsResource(SyncAPIResource):
 
           provider_vector_db_id: The identifier of the vector database in the provider.
 
+          vector_db_name: The name of the vector database.
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -148,6 +151,7 @@ class VectorDBsResource(SyncAPIResource):
                     "embedding_dimension": embedding_dimension,
                     "provider_id": provider_id,
                     "provider_vector_db_id": provider_vector_db_id,
+                    "vector_db_name": vector_db_name,
                 },
                 vector_db_register_params.VectorDBRegisterParams,
             ),
@@ -276,6 +280,7 @@ class AsyncVectorDBsResource(AsyncAPIResource):
         embedding_dimension: int | NotGiven = NOT_GIVEN,
         provider_id: str | NotGiven = NOT_GIVEN,
         provider_vector_db_id: str | NotGiven = NOT_GIVEN,
+        vector_db_name: str | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -297,6 +302,8 @@ class AsyncVectorDBsResource(AsyncAPIResource):
 
           provider_vector_db_id: The identifier of the vector database in the provider.
 
+          vector_db_name: The name of the vector database.
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -314,6 +321,7 @@ class AsyncVectorDBsResource(AsyncAPIResource):
                     "embedding_dimension": embedding_dimension,
                     "provider_id": provider_id,
                     "provider_vector_db_id": provider_vector_db_id,
+                    "vector_db_name": vector_db_name,
                 },
                 vector_db_register_params.VectorDBRegisterParams,
             ),
