@@ -36,13 +36,9 @@ class PostTrainingPreferenceOptimizeParams(TypedDict, total=False):
 
 
 class AlgorithmConfig(TypedDict, total=False):
-    epsilon: Required[float]
+    beta: Required[float]
 
-    gamma: Required[float]
-
-    reward_clip: Required[float]
-
-    reward_scale: Required[float]
+    loss_type: Required[Literal["sigmoid", "hinge", "ipo", "kto_pair"]]
 
 
 class TrainingConfigDataConfig(TypedDict, total=False):

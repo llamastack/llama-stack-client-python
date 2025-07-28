@@ -23,10 +23,8 @@ class TestPostTraining:
     def test_method_preference_optimize(self, client: LlamaStackClient) -> None:
         post_training = client.post_training.preference_optimize(
             algorithm_config={
-                "epsilon": 0,
-                "gamma": 0,
-                "reward_clip": 0,
-                "reward_scale": 0,
+                "beta": 0,
+                "loss_type": "sigmoid",
             },
             finetuned_model="finetuned_model",
             hyperparam_search_config={"foo": True},
@@ -44,10 +42,8 @@ class TestPostTraining:
     def test_method_preference_optimize_with_all_params(self, client: LlamaStackClient) -> None:
         post_training = client.post_training.preference_optimize(
             algorithm_config={
-                "epsilon": 0,
-                "gamma": 0,
-                "reward_clip": 0,
-                "reward_scale": 0,
+                "beta": 0,
+                "loss_type": "sigmoid",
             },
             finetuned_model="finetuned_model",
             hyperparam_search_config={"foo": True},
@@ -88,10 +84,8 @@ class TestPostTraining:
     def test_raw_response_preference_optimize(self, client: LlamaStackClient) -> None:
         response = client.post_training.with_raw_response.preference_optimize(
             algorithm_config={
-                "epsilon": 0,
-                "gamma": 0,
-                "reward_clip": 0,
-                "reward_scale": 0,
+                "beta": 0,
+                "loss_type": "sigmoid",
             },
             finetuned_model="finetuned_model",
             hyperparam_search_config={"foo": True},
@@ -113,10 +107,8 @@ class TestPostTraining:
     def test_streaming_response_preference_optimize(self, client: LlamaStackClient) -> None:
         with client.post_training.with_streaming_response.preference_optimize(
             algorithm_config={
-                "epsilon": 0,
-                "gamma": 0,
-                "reward_clip": 0,
-                "reward_scale": 0,
+                "beta": 0,
+                "loss_type": "sigmoid",
             },
             finetuned_model="finetuned_model",
             hyperparam_search_config={"foo": True},
@@ -247,10 +239,8 @@ class TestAsyncPostTraining:
     async def test_method_preference_optimize(self, async_client: AsyncLlamaStackClient) -> None:
         post_training = await async_client.post_training.preference_optimize(
             algorithm_config={
-                "epsilon": 0,
-                "gamma": 0,
-                "reward_clip": 0,
-                "reward_scale": 0,
+                "beta": 0,
+                "loss_type": "sigmoid",
             },
             finetuned_model="finetuned_model",
             hyperparam_search_config={"foo": True},
@@ -268,10 +258,8 @@ class TestAsyncPostTraining:
     async def test_method_preference_optimize_with_all_params(self, async_client: AsyncLlamaStackClient) -> None:
         post_training = await async_client.post_training.preference_optimize(
             algorithm_config={
-                "epsilon": 0,
-                "gamma": 0,
-                "reward_clip": 0,
-                "reward_scale": 0,
+                "beta": 0,
+                "loss_type": "sigmoid",
             },
             finetuned_model="finetuned_model",
             hyperparam_search_config={"foo": True},
@@ -312,10 +300,8 @@ class TestAsyncPostTraining:
     async def test_raw_response_preference_optimize(self, async_client: AsyncLlamaStackClient) -> None:
         response = await async_client.post_training.with_raw_response.preference_optimize(
             algorithm_config={
-                "epsilon": 0,
-                "gamma": 0,
-                "reward_clip": 0,
-                "reward_scale": 0,
+                "beta": 0,
+                "loss_type": "sigmoid",
             },
             finetuned_model="finetuned_model",
             hyperparam_search_config={"foo": True},
@@ -337,10 +323,8 @@ class TestAsyncPostTraining:
     async def test_streaming_response_preference_optimize(self, async_client: AsyncLlamaStackClient) -> None:
         async with async_client.post_training.with_streaming_response.preference_optimize(
             algorithm_config={
-                "epsilon": 0,
-                "gamma": 0,
-                "reward_clip": 0,
-                "reward_scale": 0,
+                "beta": 0,
+                "loss_type": "sigmoid",
             },
             finetuned_model="finetuned_model",
             hyperparam_search_config={"foo": True},

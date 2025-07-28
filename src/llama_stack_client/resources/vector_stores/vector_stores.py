@@ -66,13 +66,13 @@ class VectorStoresResource(SyncAPIResource):
     def create(
         self,
         *,
-        name: str,
         chunking_strategy: Dict[str, Union[bool, float, str, Iterable[object], object, None]] | NotGiven = NOT_GIVEN,
         embedding_dimension: int | NotGiven = NOT_GIVEN,
         embedding_model: str | NotGiven = NOT_GIVEN,
         expires_after: Dict[str, Union[bool, float, str, Iterable[object], object, None]] | NotGiven = NOT_GIVEN,
         file_ids: List[str] | NotGiven = NOT_GIVEN,
         metadata: Dict[str, Union[bool, float, str, Iterable[object], object, None]] | NotGiven = NOT_GIVEN,
+        name: str | NotGiven = NOT_GIVEN,
         provider_id: str | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -85,8 +85,6 @@ class VectorStoresResource(SyncAPIResource):
         Creates a vector store.
 
         Args:
-          name: A name for the vector store.
-
           chunking_strategy: The chunking strategy used to chunk the file(s). If not set, will use the `auto`
               strategy.
 
@@ -100,6 +98,8 @@ class VectorStoresResource(SyncAPIResource):
               `file_search` that can access files.
 
           metadata: Set of 16 key-value pairs that can be attached to an object.
+
+          name: A name for the vector store.
 
           provider_id: The ID of the provider to use for this vector store.
 
@@ -115,13 +115,13 @@ class VectorStoresResource(SyncAPIResource):
             "/v1/openai/v1/vector_stores",
             body=maybe_transform(
                 {
-                    "name": name,
                     "chunking_strategy": chunking_strategy,
                     "embedding_dimension": embedding_dimension,
                     "embedding_model": embedding_model,
                     "expires_after": expires_after,
                     "file_ids": file_ids,
                     "metadata": metadata,
+                    "name": name,
                     "provider_id": provider_id,
                 },
                 vector_store_create_params.VectorStoreCreateParams,
@@ -399,13 +399,13 @@ class AsyncVectorStoresResource(AsyncAPIResource):
     async def create(
         self,
         *,
-        name: str,
         chunking_strategy: Dict[str, Union[bool, float, str, Iterable[object], object, None]] | NotGiven = NOT_GIVEN,
         embedding_dimension: int | NotGiven = NOT_GIVEN,
         embedding_model: str | NotGiven = NOT_GIVEN,
         expires_after: Dict[str, Union[bool, float, str, Iterable[object], object, None]] | NotGiven = NOT_GIVEN,
         file_ids: List[str] | NotGiven = NOT_GIVEN,
         metadata: Dict[str, Union[bool, float, str, Iterable[object], object, None]] | NotGiven = NOT_GIVEN,
+        name: str | NotGiven = NOT_GIVEN,
         provider_id: str | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -418,8 +418,6 @@ class AsyncVectorStoresResource(AsyncAPIResource):
         Creates a vector store.
 
         Args:
-          name: A name for the vector store.
-
           chunking_strategy: The chunking strategy used to chunk the file(s). If not set, will use the `auto`
               strategy.
 
@@ -433,6 +431,8 @@ class AsyncVectorStoresResource(AsyncAPIResource):
               `file_search` that can access files.
 
           metadata: Set of 16 key-value pairs that can be attached to an object.
+
+          name: A name for the vector store.
 
           provider_id: The ID of the provider to use for this vector store.
 
@@ -448,13 +448,13 @@ class AsyncVectorStoresResource(AsyncAPIResource):
             "/v1/openai/v1/vector_stores",
             body=await async_maybe_transform(
                 {
-                    "name": name,
                     "chunking_strategy": chunking_strategy,
                     "embedding_dimension": embedding_dimension,
                     "embedding_model": embedding_model,
                     "expires_after": expires_after,
                     "file_ids": file_ids,
                     "metadata": metadata,
+                    "name": name,
                     "provider_id": provider_id,
                 },
                 vector_store_create_params.VectorStoreCreateParams,
