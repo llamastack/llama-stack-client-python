@@ -3,7 +3,7 @@ name = "llama_stack_client"
 version = "0.2.17"
 description = "The official Python library for the llama-stack-client API"
 dynamic = ["readme"]
-license = "Apache-2.0"
+license = "MIT"
 authors = [{ name = "Meta Llama", email = "llama-oss@meta.com" }]
 dependencies = [
     "httpx>=0.23.0, <1",
@@ -34,7 +34,7 @@ classifiers = [
   "Operating System :: POSIX :: Linux",
   "Operating System :: Microsoft :: Windows",
   "Topic :: Software Development :: Libraries :: Python Modules",
-  "License :: OSI Approved :: Apache Software License"
+  "License :: OSI Approved :: MIT License"
 ]
 
 [dependency-groups]
