@@ -15,6 +15,8 @@ __all__ = [
     "ChoiceMessageOpenAIUserMessageParamContentUnionMember1OpenAIChatCompletionContentPartTextParam",
     "ChoiceMessageOpenAIUserMessageParamContentUnionMember1OpenAIChatCompletionContentPartImageParam",
     "ChoiceMessageOpenAIUserMessageParamContentUnionMember1OpenAIChatCompletionContentPartImageParamImageURL",
+    "ChoiceMessageOpenAIUserMessageParamContentUnionMember1OpenAIFile",
+    "ChoiceMessageOpenAIUserMessageParamContentUnionMember1OpenAIFileFile",
     "ChoiceMessageOpenAISystemMessageParam",
     "ChoiceMessageOpenAISystemMessageParamContentUnionMember1",
     "ChoiceMessageOpenAIAssistantMessageParam",
@@ -36,6 +38,8 @@ __all__ = [
     "InputMessageOpenAIUserMessageParamContentUnionMember1OpenAIChatCompletionContentPartTextParam",
     "InputMessageOpenAIUserMessageParamContentUnionMember1OpenAIChatCompletionContentPartImageParam",
     "InputMessageOpenAIUserMessageParamContentUnionMember1OpenAIChatCompletionContentPartImageParamImageURL",
+    "InputMessageOpenAIUserMessageParamContentUnionMember1OpenAIFile",
+    "InputMessageOpenAIUserMessageParamContentUnionMember1OpenAIFileFile",
     "InputMessageOpenAISystemMessageParam",
     "InputMessageOpenAISystemMessageParamContentUnionMember1",
     "InputMessageOpenAIAssistantMessageParam",
@@ -69,10 +73,25 @@ class ChoiceMessageOpenAIUserMessageParamContentUnionMember1OpenAIChatCompletion
     type: Literal["image_url"]
 
 
+class ChoiceMessageOpenAIUserMessageParamContentUnionMember1OpenAIFileFile(BaseModel):
+    file_data: Optional[str] = None
+
+    file_id: Optional[str] = None
+
+    filename: Optional[str] = None
+
+
+class ChoiceMessageOpenAIUserMessageParamContentUnionMember1OpenAIFile(BaseModel):
+    file: ChoiceMessageOpenAIUserMessageParamContentUnionMember1OpenAIFileFile
+
+    type: Literal["file"]
+
+
 ChoiceMessageOpenAIUserMessageParamContentUnionMember1: TypeAlias = Annotated[
     Union[
         ChoiceMessageOpenAIUserMessageParamContentUnionMember1OpenAIChatCompletionContentPartTextParam,
         ChoiceMessageOpenAIUserMessageParamContentUnionMember1OpenAIChatCompletionContentPartImageParam,
+        ChoiceMessageOpenAIUserMessageParamContentUnionMember1OpenAIFile,
     ],
     PropertyInfo(discriminator="type"),
 ]
@@ -269,10 +288,25 @@ class InputMessageOpenAIUserMessageParamContentUnionMember1OpenAIChatCompletionC
     type: Literal["image_url"]
 
 
+class InputMessageOpenAIUserMessageParamContentUnionMember1OpenAIFileFile(BaseModel):
+    file_data: Optional[str] = None
+
+    file_id: Optional[str] = None
+
+    filename: Optional[str] = None
+
+
+class InputMessageOpenAIUserMessageParamContentUnionMember1OpenAIFile(BaseModel):
+    file: InputMessageOpenAIUserMessageParamContentUnionMember1OpenAIFileFile
+
+    type: Literal["file"]
+
+
 InputMessageOpenAIUserMessageParamContentUnionMember1: TypeAlias = Annotated[
     Union[
         InputMessageOpenAIUserMessageParamContentUnionMember1OpenAIChatCompletionContentPartTextParam,
         InputMessageOpenAIUserMessageParamContentUnionMember1OpenAIChatCompletionContentPartImageParam,
+        InputMessageOpenAIUserMessageParamContentUnionMember1OpenAIFile,
     ],
     PropertyInfo(discriminator="type"),
 ]
