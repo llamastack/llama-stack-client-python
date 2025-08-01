@@ -1,5 +1,78 @@
 # Changelog
 
+## 0.3.0 (2025-08-01)
+
+Full Changelog: [v0.2.15...v0.3.0](https://github.com/llamastack/llama-stack-client-python/compare/v0.2.15...v0.3.0)
+
+### Features
+
+* **api:** update via SDK Studio ([80a2969](https://github.com/llamastack/llama-stack-client-python/commit/80a296977917382fa42b0def0c6bf1a66be45780))
+* **api:** update via SDK Studio ([748e6db](https://github.com/llamastack/llama-stack-client-python/commit/748e6db5002f1ec2c8880414b803d1cfc3ff95ea))
+* **api:** update via SDK Studio ([b6fa2b1](https://github.com/llamastack/llama-stack-client-python/commit/b6fa2b194bc4d66adcc40b5cc07404c45a211cd3))
+* **api:** update via SDK Studio ([e97f870](https://github.com/llamastack/llama-stack-client-python/commit/e97f870b037685af1e65d8d895a063ab2381dc81))
+* **api:** update via SDK Studio ([489b54d](https://github.com/llamastack/llama-stack-client-python/commit/489b54d7acfee41874e2fa253578d3e95f6b111a))
+* **api:** update via SDK Studio ([13cfa4a](https://github.com/llamastack/llama-stack-client-python/commit/13cfa4aa1f12b7369f1bc13c3dff8d4cea46a3f6))
+* **api:** update via SDK Studio ([25c1e49](https://github.com/llamastack/llama-stack-client-python/commit/25c1e49f503e15649e0cdc18b0ac8dd00c2dff7e))
+* **api:** update via SDK Studio ([4a54d61](https://github.com/llamastack/llama-stack-client-python/commit/4a54d613ee0a7ff7a561bc41db626aaea3c00096))
+* **api:** update via SDK Studio ([ac4614a](https://github.com/llamastack/llama-stack-client-python/commit/ac4614a70aa632a7bc55037aa777f0ab40ea908b))
+* **api:** update via SDK Studio ([a201e22](https://github.com/llamastack/llama-stack-client-python/commit/a201e22e2bad1b2290092784d4e2255eaaf73758))
+* **client:** support file upload requests ([6c73da7](https://github.com/llamastack/llama-stack-client-python/commit/6c73da7c97a558468296f1e8d6da5ba7ae9ea1c4))
+
+
+### Bug Fixes
+
+* **ci:** correct conditional ([4368fbd](https://github.com/llamastack/llama-stack-client-python/commit/4368fbd1f733cfda7a2d4273f0c983e44be63fe1))
+* **client:** don't send Content-Type header on GET requests ([c6e0026](https://github.com/llamastack/llama-stack-client-python/commit/c6e0026218d4fde46e23663b55384bdf417fbcbf))
+* helptext for 'inspect version' and 'providers inspect' ([#8](https://github.com/llamastack/llama-stack-client-python/issues/8)) ([d79345e](https://github.com/llamastack/llama-stack-client-python/commit/d79345e42d6a3f3b828396b1ac00e2ecf196c0eb))
+* kill requirements.txt ([a6bd44c](https://github.com/llamastack/llama-stack-client-python/commit/a6bd44c5bdb9415a8cacd53b552b8b43e341d91c))
+* model register missing model-type and not accepting metadata ([#11](https://github.com/llamastack/llama-stack-client-python/issues/11)) ([f3f4515](https://github.com/llamastack/llama-stack-client-python/commit/f3f45155864379f227824d00f6febb1b46ed4839))
+* **parsing:** correctly handle nested discriminated unions ([8b7e9ba](https://github.com/llamastack/llama-stack-client-python/commit/8b7e9ba42dbafb89d765f870d7874c86f47b2e7b))
+* **parsing:** ignore empty metadata ([264f24c](https://github.com/llamastack/llama-stack-client-python/commit/264f24c9c564a0a5ea862418bfebb6c3cad01cf0))
+* **parsing:** parse extra field types ([d54c5db](https://github.com/llamastack/llama-stack-client-python/commit/d54c5db3df7b6e5dca66e8e7c855998c67d03250))
+* update agent event logger ([#10](https://github.com/llamastack/llama-stack-client-python/issues/10)) ([0a10b70](https://github.com/llamastack/llama-stack-client-python/commit/0a10b70f91f28f533710433ae860789f2cb0f70f))
+
+
+### Chores
+
+* **ci:** change upload type ([5febc13](https://github.com/llamastack/llama-stack-client-python/commit/5febc136956ce6ac5af8e638a6fa430a9d0f3dc3))
+* **ci:** only run for pushes and fork pull requests ([4da7f49](https://github.com/llamastack/llama-stack-client-python/commit/4da7f495eb06d0cb386deeef3825c4876c64cbe2))
+* **ci:** only run for pushes and fork pull requests ([8b37cd3](https://github.com/llamastack/llama-stack-client-python/commit/8b37cd35c06ba045c25be9f6777b854bd9d9dbf8))
+* **ci:** only run for pushes and fork pull requests ([3f0a4b9](https://github.com/llamastack/llama-stack-client-python/commit/3f0a4b9ba82bd9db5ae9f854a2a775781eb75fd0))
+* **ci:** only run for pushes and fork pull requests ([8a1efad](https://github.com/llamastack/llama-stack-client-python/commit/8a1efade982126d1742c912069321ce7bd267bd8))
+* **internal:** bump pinned h11 dep ([0568d6d](https://github.com/llamastack/llama-stack-client-python/commit/0568d6d078eab8f65ac191218d6467df9bfa7901))
+* **internal:** codegen related update ([c27a701](https://github.com/llamastack/llama-stack-client-python/commit/c27a7015e1627582e00de6c4f6cbc9df9da99c54))
+* **internal:** codegen related update ([aa45ba3](https://github.com/llamastack/llama-stack-client-python/commit/aa45ba35f7107e6278c45134f6130ffaf99eb20e))
+* **internal:** codegen related update ([5d6ccb5](https://github.com/llamastack/llama-stack-client-python/commit/5d6ccb56adf0cdeafd2d027ba2f897fd2f5c7070))
+* **internal:** version bump ([4132af9](https://github.com/llamastack/llama-stack-client-python/commit/4132af981fe9d59864c6f2d23258c893200355c1))
+* **internal:** version bump ([e6ae920](https://github.com/llamastack/llama-stack-client-python/commit/e6ae920385cf6a92f1f0623428a61e0325521e67))
+* **internal:** version bump ([96768dc](https://github.com/llamastack/llama-stack-client-python/commit/96768dc3db60936a960a9a46b9597df292a9e85e))
+* **internal:** version bump ([74f7eda](https://github.com/llamastack/llama-stack-client-python/commit/74f7eda7bf4a5d024bdeaf36a0f228d610134530))
+* **internal:** version bump ([d59862a](https://github.com/llamastack/llama-stack-client-python/commit/d59862a1bca2d31bf0f6cd0138bf2a1d804aad9d))
+* **internal:** version bump ([ce98414](https://github.com/llamastack/llama-stack-client-python/commit/ce98414b294a451ac67b9fcee045f28ecce7b408))
+* **internal:** version bump ([9746774](https://github.com/llamastack/llama-stack-client-python/commit/9746774316aed9a04b5ee161452df14e88f3e62c))
+* **internal:** version bump ([6114dbf](https://github.com/llamastack/llama-stack-client-python/commit/6114dbf530354a56539a16a49a7c314bf643fca7))
+* **internal:** version bump ([02c9953](https://github.com/llamastack/llama-stack-client-python/commit/02c9953a78c22d447d5a93b901a2684cce25ee3d))
+* **internal:** version bump ([16f2953](https://github.com/llamastack/llama-stack-client-python/commit/16f2953d3292c3787e28f5178d1d149d6c808258))
+* **internal:** version bump ([c32029b](https://github.com/llamastack/llama-stack-client-python/commit/c32029b26c4e10bba8378cbb61d6b2d7e6c3d10d))
+* **internal:** version bump ([aef5dee](https://github.com/llamastack/llama-stack-client-python/commit/aef5dee81270b6372479fbeb2257d42f487dfcf3))
+* **internal:** version bump ([590de6d](https://github.com/llamastack/llama-stack-client-python/commit/590de6d2ac748199b489c00fe8f79d9f8111a283))
+* **internal:** version bump ([072269f](https://github.com/llamastack/llama-stack-client-python/commit/072269f0c2421313a1ba7a9feb372a72cc5f5f0f))
+* **internal:** version bump ([eee6f0b](https://github.com/llamastack/llama-stack-client-python/commit/eee6f0b5cd146fc962d13da371e09e5abd66f05e))
+* **internal:** version bump ([e6a964e](https://github.com/llamastack/llama-stack-client-python/commit/e6a964e9970e5d4bbd9f3bb9dae959ce6488b3bf))
+* **package:** mark python 3.13 as supported ([d1a4e40](https://github.com/llamastack/llama-stack-client-python/commit/d1a4e40ba6a6d1b0ecf7b84cff55a79a6c00b925))
+* **project:** add settings file for vscode ([1dd3e53](https://github.com/llamastack/llama-stack-client-python/commit/1dd3e5310f668e81d246f929e2bd6b216a4ac9ad))
+* **readme:** fix version rendering on pypi ([193fb64](https://github.com/llamastack/llama-stack-client-python/commit/193fb64864ce57e9a488d9ee874cededeaad1eae))
+* update SDK settings ([59b933c](https://github.com/llamastack/llama-stack-client-python/commit/59b933ca39e08b9a36669995b3b5424231df84f5))
+* update version ([10ef53e](https://github.com/llamastack/llama-stack-client-python/commit/10ef53e74dbdd72a8dd829957820e61522fbe6ad))
+
+
+### Build System
+
+* Bump version to 0.2.14 ([745a94e](https://github.com/llamastack/llama-stack-client-python/commit/745a94e1d2875c8e7b4fac5b1676b890aebf4915))
+* Bump version to 0.2.15 ([8700dc6](https://github.com/llamastack/llama-stack-client-python/commit/8700dc6ed9411d436422ee94af2702f10a96b49e))
+* Bump version to 0.2.15 ([4692024](https://github.com/llamastack/llama-stack-client-python/commit/46920241be5f8b921bbba367e65a7afa3aefd612))
+* Bump version to 0.2.16 ([6ce9b84](https://github.com/llamastack/llama-stack-client-python/commit/6ce9b84007967702f6844679604e1b812df864e4))
+
 ## 0.1.0-alpha.4 (2025-06-27)
 
 Full Changelog: [v0.1.0-alpha.3...v0.1.0-alpha.4](https://github.com/llamastack/llama-stack-client-python/compare/v0.1.0-alpha.3...v0.1.0-alpha.4)
