@@ -5,10 +5,10 @@ from __future__ import annotations
 from typing import List, Union
 from typing_extensions import Required, TypedDict
 
-__all__ = ["SafetyOpenAIModerationsParams"]
+__all__ = ["SafetyCreateParams"]
 
 
-class SafetyOpenAIModerationsParams(TypedDict, total=False):
+class SafetyCreateParams(TypedDict, total=False):
     input: Required[Union[str, List[str]]]
     """Input (or inputs) to classify.
 
@@ -16,5 +16,5 @@ class SafetyOpenAIModerationsParams(TypedDict, total=False):
     objects similar to other models.
     """
 
-    model: str
+    model: Required[str]
     """The content moderation model you would like to use."""

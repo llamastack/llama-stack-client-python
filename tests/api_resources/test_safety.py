@@ -9,10 +9,7 @@ import pytest
 
 from tests.utils import assert_matches_type
 from llama_stack_client import LlamaStackClient, AsyncLlamaStackClient
-from llama_stack_client.types import (
-    RunShieldResponse,
-    OpenAIModerationsResponse,
-)
+from llama_stack_client.types import CreateResponse, RunShieldResponse
 
 base_url = os.environ.get("TEST_API_BASE_URL", "http://127.0.0.1:4010")
 
@@ -21,41 +18,36 @@ class TestSafety:
     parametrize = pytest.mark.parametrize("client", [False, True], indirect=True, ids=["loose", "strict"])
 
     @parametrize
-    def test_method_openai_moderations(self, client: LlamaStackClient) -> None:
-        safety = client.safety.openai_moderations(
-            input="string",
-        )
-        assert_matches_type(OpenAIModerationsResponse, safety, path=["response"])
-
-    @parametrize
-    def test_method_openai_moderations_with_all_params(self, client: LlamaStackClient) -> None:
-        safety = client.safety.openai_moderations(
+    def test_method_create(self, client: LlamaStackClient) -> None:
+        safety = client.safety.create(
             input="string",
             model="model",
         )
-        assert_matches_type(OpenAIModerationsResponse, safety, path=["response"])
+        assert_matches_type(CreateResponse, safety, path=["response"])
 
     @parametrize
-    def test_raw_response_openai_moderations(self, client: LlamaStackClient) -> None:
-        response = client.safety.with_raw_response.openai_moderations(
+    def test_raw_response_create(self, client: LlamaStackClient) -> None:
+        response = client.safety.with_raw_response.create(
             input="string",
+            model="model",
         )
 
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         safety = response.parse()
-        assert_matches_type(OpenAIModerationsResponse, safety, path=["response"])
+        assert_matches_type(CreateResponse, safety, path=["response"])
 
     @parametrize
-    def test_streaming_response_openai_moderations(self, client: LlamaStackClient) -> None:
-        with client.safety.with_streaming_response.openai_moderations(
+    def test_streaming_response_create(self, client: LlamaStackClient) -> None:
+        with client.safety.with_streaming_response.create(
             input="string",
+            model="model",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             safety = response.parse()
-            assert_matches_type(OpenAIModerationsResponse, safety, path=["response"])
+            assert_matches_type(CreateResponse, safety, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -118,41 +110,36 @@ class TestAsyncSafety:
     )
 
     @parametrize
-    async def test_method_openai_moderations(self, async_client: AsyncLlamaStackClient) -> None:
-        safety = await async_client.safety.openai_moderations(
-            input="string",
-        )
-        assert_matches_type(OpenAIModerationsResponse, safety, path=["response"])
-
-    @parametrize
-    async def test_method_openai_moderations_with_all_params(self, async_client: AsyncLlamaStackClient) -> None:
-        safety = await async_client.safety.openai_moderations(
+    async def test_method_create(self, async_client: AsyncLlamaStackClient) -> None:
+        safety = await async_client.safety.create(
             input="string",
             model="model",
         )
-        assert_matches_type(OpenAIModerationsResponse, safety, path=["response"])
+        assert_matches_type(CreateResponse, safety, path=["response"])
 
     @parametrize
-    async def test_raw_response_openai_moderations(self, async_client: AsyncLlamaStackClient) -> None:
-        response = await async_client.safety.with_raw_response.openai_moderations(
+    async def test_raw_response_create(self, async_client: AsyncLlamaStackClient) -> None:
+        response = await async_client.safety.with_raw_response.create(
             input="string",
+            model="model",
         )
 
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         safety = await response.parse()
-        assert_matches_type(OpenAIModerationsResponse, safety, path=["response"])
+        assert_matches_type(CreateResponse, safety, path=["response"])
 
     @parametrize
-    async def test_streaming_response_openai_moderations(self, async_client: AsyncLlamaStackClient) -> None:
-        async with async_client.safety.with_streaming_response.openai_moderations(
+    async def test_streaming_response_create(self, async_client: AsyncLlamaStackClient) -> None:
+        async with async_client.safety.with_streaming_response.create(
             input="string",
+            model="model",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             safety = await response.parse()
-            assert_matches_type(OpenAIModerationsResponse, safety, path=["response"])
+            assert_matches_type(CreateResponse, safety, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 

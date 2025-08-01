@@ -13,6 +13,8 @@ __all__ = [
     "MessageOpenAIUserMessageParamContentUnionMember1OpenAIChatCompletionContentPartTextParam",
     "MessageOpenAIUserMessageParamContentUnionMember1OpenAIChatCompletionContentPartImageParam",
     "MessageOpenAIUserMessageParamContentUnionMember1OpenAIChatCompletionContentPartImageParamImageURL",
+    "MessageOpenAIUserMessageParamContentUnionMember1OpenAIFile",
+    "MessageOpenAIUserMessageParamContentUnionMember1OpenAIFileFile",
     "MessageOpenAISystemMessageParam",
     "MessageOpenAISystemMessageParamContentUnionMember1",
     "MessageOpenAIAssistantMessageParam",
@@ -127,9 +129,24 @@ class MessageOpenAIUserMessageParamContentUnionMember1OpenAIChatCompletionConten
     type: Required[Literal["image_url"]]
 
 
+class MessageOpenAIUserMessageParamContentUnionMember1OpenAIFileFile(TypedDict, total=False):
+    file_data: str
+
+    file_id: str
+
+    filename: str
+
+
+class MessageOpenAIUserMessageParamContentUnionMember1OpenAIFile(TypedDict, total=False):
+    file: Required[MessageOpenAIUserMessageParamContentUnionMember1OpenAIFileFile]
+
+    type: Required[Literal["file"]]
+
+
 MessageOpenAIUserMessageParamContentUnionMember1: TypeAlias = Union[
     MessageOpenAIUserMessageParamContentUnionMember1OpenAIChatCompletionContentPartTextParam,
     MessageOpenAIUserMessageParamContentUnionMember1OpenAIChatCompletionContentPartImageParam,
+    MessageOpenAIUserMessageParamContentUnionMember1OpenAIFile,
 ]
 
 
