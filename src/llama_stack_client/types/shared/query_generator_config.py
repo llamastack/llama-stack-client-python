@@ -11,16 +11,21 @@ __all__ = ["QueryGeneratorConfig", "DefaultRagQueryGeneratorConfig", "LlmragQuer
 
 class DefaultRagQueryGeneratorConfig(BaseModel):
     separator: str
+    """String separator used to join query terms"""
 
     type: Literal["default"]
+    """Type of query generator, always 'default'"""
 
 
 class LlmragQueryGeneratorConfig(BaseModel):
     model: str
+    """Name of the language model to use for query generation"""
 
     template: str
+    """Template string for formatting the query generation prompt"""
 
     type: Literal["llm"]
+    """Type of query generator, always 'llm'"""
 
 
 QueryGeneratorConfig: TypeAlias = Annotated[

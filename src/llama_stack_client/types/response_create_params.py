@@ -62,42 +62,57 @@ class ResponseCreateParamsBase(TypedDict, total=False):
     temperature: float
 
     text: Text
+    """Text response configuration for OpenAI responses."""
 
     tools: Iterable[Tool]
 
 
 class InputUnionMember1OpenAIResponseOutputMessageWebSearchToolCall(TypedDict, total=False):
     id: Required[str]
+    """Unique identifier for this tool call"""
 
     status: Required[str]
+    """Current status of the web search operation"""
 
     type: Required[Literal["web_search_call"]]
+    """Tool call type identifier, always "web_search_call" """
 
 
 class InputUnionMember1OpenAIResponseOutputMessageFileSearchToolCall(TypedDict, total=False):
     id: Required[str]
+    """Unique identifier for this tool call"""
 
     queries: Required[List[str]]
+    """List of search queries executed"""
 
     status: Required[str]
+    """Current status of the file search operation"""
 
     type: Required[Literal["file_search_call"]]
+    """Tool call type identifier, always "file_search_call" """
 
     results: Iterable[Dict[str, Union[bool, float, str, Iterable[object], object, None]]]
+    """(Optional) Search results returned by the file search operation"""
 
 
 class InputUnionMember1OpenAIResponseOutputMessageFunctionToolCall(TypedDict, total=False):
     arguments: Required[str]
+    """JSON string containing the function arguments"""
 
     call_id: Required[str]
+    """Unique identifier for the function call"""
 
     name: Required[str]
+    """Name of the function being called"""
 
     type: Required[Literal["function_call"]]
+    """Tool call type identifier, always "function_call" """
 
     id: str
+    """(Optional) Additional identifier for the tool call"""
 
     status: str
+    """(Optional) Current status of the function call execution"""
 
 
 class InputUnionMember1OpenAIResponseInputFunctionToolCallOutput(TypedDict, total=False):
@@ -116,18 +131,23 @@ class InputUnionMember1OpenAIResponseMessageContentUnionMember1OpenAIResponseInp
     TypedDict, total=False
 ):
     text: Required[str]
+    """The text content of the input message"""
 
     type: Required[Literal["input_text"]]
+    """Content type identifier, always "input_text" """
 
 
 class InputUnionMember1OpenAIResponseMessageContentUnionMember1OpenAIResponseInputMessageContentImage(
     TypedDict, total=False
 ):
     detail: Required[Literal["low", "high", "auto"]]
+    """Level of detail for image processing, can be "low", "high", or "auto" """
 
     type: Required[Literal["input_image"]]
+    """Content type identifier, always "input_image" """
 
     image_url: str
+    """(Optional) URL of the image content"""
 
 
 InputUnionMember1OpenAIResponseMessageContentUnionMember1: TypeAlias = Union[
@@ -140,26 +160,35 @@ class InputUnionMember1OpenAIResponseMessageContentUnionMember2AnnotationOpenAIR
     TypedDict, total=False
 ):
     file_id: Required[str]
+    """Unique identifier of the referenced file"""
 
     filename: Required[str]
+    """Name of the referenced file"""
 
     index: Required[int]
+    """Position index of the citation within the content"""
 
     type: Required[Literal["file_citation"]]
+    """Annotation type identifier, always "file_citation" """
 
 
 class InputUnionMember1OpenAIResponseMessageContentUnionMember2AnnotationOpenAIResponseAnnotationCitation(
     TypedDict, total=False
 ):
     end_index: Required[int]
+    """End position of the citation span in the content"""
 
     start_index: Required[int]
+    """Start position of the citation span in the content"""
 
     title: Required[str]
+    """Title of the referenced web resource"""
 
     type: Required[Literal["url_citation"]]
+    """Annotation type identifier, always "url_citation" """
 
     url: Required[str]
+    """URL of the referenced web resource"""
 
 
 class InputUnionMember1OpenAIResponseMessageContentUnionMember2AnnotationOpenAIResponseAnnotationContainerFileCitation(
@@ -256,49 +285,65 @@ class TextFormat(TypedDict, total=False):
 
 class Text(TypedDict, total=False):
     format: TextFormat
-    """Configuration for Responses API text format."""
+    """(Optional) Text format configuration specifying output format requirements"""
 
 
 class ToolOpenAIResponseInputToolWebSearch(TypedDict, total=False):
     type: Required[Literal["web_search", "web_search_preview", "web_search_preview_2025_03_11"]]
+    """Web search tool type variant to use"""
 
     search_context_size: str
+    """(Optional) Size of search context, must be "low", "medium", or "high" """
 
 
 class ToolOpenAIResponseInputToolFileSearchRankingOptions(TypedDict, total=False):
     ranker: str
+    """(Optional) Name of the ranking algorithm to use"""
 
     score_threshold: float
+    """(Optional) Minimum relevance score threshold for results"""
 
 
 class ToolOpenAIResponseInputToolFileSearch(TypedDict, total=False):
     type: Required[Literal["file_search"]]
+    """Tool type identifier, always "file_search" """
 
     vector_store_ids: Required[List[str]]
+    """List of vector store identifiers to search within"""
 
     filters: Dict[str, Union[bool, float, str, Iterable[object], object, None]]
+    """(Optional) Additional filters to apply to the search"""
 
     max_num_results: int
+    """(Optional) Maximum number of search results to return (1-50)"""
 
     ranking_options: ToolOpenAIResponseInputToolFileSearchRankingOptions
+    """(Optional) Options for ranking and scoring search results"""
 
 
 class ToolOpenAIResponseInputToolFunction(TypedDict, total=False):
     name: Required[str]
+    """Name of the function that can be called"""
 
     type: Required[Literal["function"]]
+    """Tool type identifier, always "function" """
 
     description: str
+    """(Optional) Description of what the function does"""
 
     parameters: Dict[str, Union[bool, float, str, Iterable[object], object, None]]
+    """(Optional) JSON schema defining the function's parameters"""
 
     strict: bool
+    """(Optional) Whether to enforce strict parameter validation"""
 
 
 class ToolOpenAIResponseInputToolMcpRequireApprovalApprovalFilter(TypedDict, total=False):
     always: List[str]
+    """(Optional) List of tool names that always require approval"""
 
     never: List[str]
+    """(Optional) List of tool names that never require approval"""
 
 
 ToolOpenAIResponseInputToolMcpRequireApproval: TypeAlias = Union[
@@ -308,6 +353,7 @@ ToolOpenAIResponseInputToolMcpRequireApproval: TypeAlias = Union[
 
 class ToolOpenAIResponseInputToolMcpAllowedToolsAllowedToolsFilter(TypedDict, total=False):
     tool_names: List[str]
+    """(Optional) List of specific tool names that are allowed"""
 
 
 ToolOpenAIResponseInputToolMcpAllowedTools: TypeAlias = Union[
@@ -317,16 +363,22 @@ ToolOpenAIResponseInputToolMcpAllowedTools: TypeAlias = Union[
 
 class ToolOpenAIResponseInputToolMcp(TypedDict, total=False):
     require_approval: Required[ToolOpenAIResponseInputToolMcpRequireApproval]
+    """Approval requirement for tool calls ("always", "never", or filter)"""
 
     server_label: Required[str]
+    """Label to identify this MCP server"""
 
     server_url: Required[str]
+    """URL endpoint of the MCP server"""
 
     type: Required[Literal["mcp"]]
+    """Tool type identifier, always "mcp" """
 
     allowed_tools: ToolOpenAIResponseInputToolMcpAllowedTools
+    """(Optional) Restriction on which tools can be used from this server"""
 
     headers: Dict[str, Union[bool, float, str, Iterable[object], object, None]]
+    """(Optional) HTTP headers to include when connecting to the server"""
 
 
 Tool: TypeAlias = Union[

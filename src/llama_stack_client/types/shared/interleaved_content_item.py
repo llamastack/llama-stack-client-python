@@ -17,6 +17,7 @@ __all__ = [
 
 class ImageContentItemImageURL(BaseModel):
     uri: str
+    """The URL string pointing to the resource"""
 
 
 class ImageContentItemImage(BaseModel):

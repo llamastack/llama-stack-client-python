@@ -60,9 +60,15 @@ class RagToolResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
     ) -> None:
         """
-        Index documents so they can be used by the RAG system
+        Index documents so they can be used by the RAG system.
 
         Args:
+          chunk_size_in_tokens: (Optional) Size in tokens for document chunking during indexing
+
+          documents: List of documents to index in the RAG system
+
+          vector_db_id: ID of the vector database to store the document embeddings
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -102,12 +108,14 @@ class RagToolResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
     ) -> QueryResult:
         """
-        Query the RAG system for context; typically invoked by the agent
+        Query the RAG system for context; typically invoked by the agent.
 
         Args:
-          content: A image content item
+          content: The query content to search for in the indexed documents
 
-          query_config: Configuration for the RAG query generation.
+          vector_db_ids: List of vector database IDs to search within
+
+          query_config: (Optional) Configuration parameters for the query operation
 
           extra_headers: Send extra headers
 
@@ -168,9 +176,15 @@ class AsyncRagToolResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
     ) -> None:
         """
-        Index documents so they can be used by the RAG system
+        Index documents so they can be used by the RAG system.
 
         Args:
+          chunk_size_in_tokens: (Optional) Size in tokens for document chunking during indexing
+
+          documents: List of documents to index in the RAG system
+
+          vector_db_id: ID of the vector database to store the document embeddings
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -210,12 +224,14 @@ class AsyncRagToolResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
     ) -> QueryResult:
         """
-        Query the RAG system for context; typically invoked by the agent
+        Query the RAG system for context; typically invoked by the agent.
 
         Args:
-          content: A image content item
+          content: The query content to search for in the indexed documents
 
-          query_config: Configuration for the RAG query generation.
+          vector_db_ids: List of vector database IDs to search within
+
+          query_config: (Optional) Configuration parameters for the query operation
 
           extra_headers: Send extra headers
 

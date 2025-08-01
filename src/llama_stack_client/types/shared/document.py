@@ -19,6 +19,7 @@ __all__ = [
 
 class ContentImageContentItemImageURL(BaseModel):
     uri: str
+    """The URL string pointing to the resource"""
 
 
 class ContentImageContentItemImage(BaseModel):
@@ -50,6 +51,7 @@ class ContentTextContentItem(BaseModel):
 
 class ContentURL(BaseModel):
     uri: str
+    """The URL string pointing to the resource"""
 
 
 Content: TypeAlias = Union[

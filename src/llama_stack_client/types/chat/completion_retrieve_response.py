@@ -55,22 +55,31 @@ __all__ = [
 
 class ChoiceMessageOpenAIUserMessageParamContentUnionMember1OpenAIChatCompletionContentPartTextParam(BaseModel):
     text: str
+    """The text content of the message"""
 
     type: Literal["text"]
+    """Must be "text" to identify this as text content"""
 
 
 class ChoiceMessageOpenAIUserMessageParamContentUnionMember1OpenAIChatCompletionContentPartImageParamImageURL(
     BaseModel
 ):
     url: str
+    """URL of the image to include in the message"""
 
     detail: Optional[str] = None
+    """(Optional) Level of detail for image processing.
+
+    Can be "low", "high", or "auto"
+    """
 
 
 class ChoiceMessageOpenAIUserMessageParamContentUnionMember1OpenAIChatCompletionContentPartImageParam(BaseModel):
     image_url: ChoiceMessageOpenAIUserMessageParamContentUnionMember1OpenAIChatCompletionContentPartImageParamImageURL
+    """Image URL specification and processing details"""
 
     type: Literal["image_url"]
+    """Must be "image_url" to identify this as image content"""
 
 
 class ChoiceMessageOpenAIUserMessageParamContentUnionMember1OpenAIFileFile(BaseModel):
@@ -110,8 +119,10 @@ class ChoiceMessageOpenAIUserMessageParam(BaseModel):
 
 class ChoiceMessageOpenAISystemMessageParamContentUnionMember1(BaseModel):
     text: str
+    """The text content of the message"""
 
     type: Literal["text"]
+    """Must be "text" to identify this as text content"""
 
 
 class ChoiceMessageOpenAISystemMessageParam(BaseModel):
@@ -132,24 +143,32 @@ class ChoiceMessageOpenAISystemMessageParam(BaseModel):
 
 class ChoiceMessageOpenAIAssistantMessageParamContentUnionMember1(BaseModel):
     text: str
+    """The text content of the message"""
 
     type: Literal["text"]
+    """Must be "text" to identify this as text content"""
 
 
 class ChoiceMessageOpenAIAssistantMessageParamToolCallFunction(BaseModel):
     arguments: Optional[str] = None
+    """(Optional) Arguments to pass to the function as a JSON string"""
 
     name: Optional[str] = None
+    """(Optional) Name of the function to call"""
 
 
 class ChoiceMessageOpenAIAssistantMessageParamToolCall(BaseModel):
     type: Literal["function"]
+    """Must be "function" to identify this as a function call"""
 
     id: Optional[str] = None
+    """(Optional) Unique identifier for the tool call"""
 
     function: Optional[ChoiceMessageOpenAIAssistantMessageParamToolCallFunction] = None
+    """(Optional) Function call details"""
 
     index: Optional[int] = None
+    """(Optional) Index of the tool call in the list"""
 
 
 class ChoiceMessageOpenAIAssistantMessageParam(BaseModel):
@@ -168,8 +187,10 @@ class ChoiceMessageOpenAIAssistantMessageParam(BaseModel):
 
 class ChoiceMessageOpenAIToolMessageParamContentUnionMember1(BaseModel):
     text: str
+    """The text content of the message"""
 
     type: Literal["text"]
+    """Must be "text" to identify this as text content"""
 
 
 class ChoiceMessageOpenAIToolMessageParam(BaseModel):
@@ -185,8 +206,10 @@ class ChoiceMessageOpenAIToolMessageParam(BaseModel):
 
 class ChoiceMessageOpenAIDeveloperMessageParamContentUnionMember1(BaseModel):
     text: str
+    """The text content of the message"""
 
     type: Literal["text"]
+    """Must be "text" to identify this as text content"""
 
 
 class ChoiceMessageOpenAIDeveloperMessageParam(BaseModel):
@@ -272,20 +295,29 @@ class Choice(BaseModel):
 
 class InputMessageOpenAIUserMessageParamContentUnionMember1OpenAIChatCompletionContentPartTextParam(BaseModel):
     text: str
+    """The text content of the message"""
 
     type: Literal["text"]
+    """Must be "text" to identify this as text content"""
 
 
 class InputMessageOpenAIUserMessageParamContentUnionMember1OpenAIChatCompletionContentPartImageParamImageURL(BaseModel):
     url: str
+    """URL of the image to include in the message"""
 
     detail: Optional[str] = None
+    """(Optional) Level of detail for image processing.
+
+    Can be "low", "high", or "auto"
+    """
 
 
 class InputMessageOpenAIUserMessageParamContentUnionMember1OpenAIChatCompletionContentPartImageParam(BaseModel):
     image_url: InputMessageOpenAIUserMessageParamContentUnionMember1OpenAIChatCompletionContentPartImageParamImageURL
+    """Image URL specification and processing details"""
 
     type: Literal["image_url"]
+    """Must be "image_url" to identify this as image content"""
 
 
 class InputMessageOpenAIUserMessageParamContentUnionMember1OpenAIFileFile(BaseModel):
@@ -325,8 +357,10 @@ class InputMessageOpenAIUserMessageParam(BaseModel):
 
 class InputMessageOpenAISystemMessageParamContentUnionMember1(BaseModel):
     text: str
+    """The text content of the message"""
 
     type: Literal["text"]
+    """Must be "text" to identify this as text content"""
 
 
 class InputMessageOpenAISystemMessageParam(BaseModel):
@@ -347,24 +381,32 @@ class InputMessageOpenAISystemMessageParam(BaseModel):
 
 class InputMessageOpenAIAssistantMessageParamContentUnionMember1(BaseModel):
     text: str
+    """The text content of the message"""
 
     type: Literal["text"]
+    """Must be "text" to identify this as text content"""
 
 
 class InputMessageOpenAIAssistantMessageParamToolCallFunction(BaseModel):
     arguments: Optional[str] = None
+    """(Optional) Arguments to pass to the function as a JSON string"""
 
     name: Optional[str] = None
+    """(Optional) Name of the function to call"""
 
 
 class InputMessageOpenAIAssistantMessageParamToolCall(BaseModel):
     type: Literal["function"]
+    """Must be "function" to identify this as a function call"""
 
     id: Optional[str] = None
+    """(Optional) Unique identifier for the tool call"""
 
     function: Optional[InputMessageOpenAIAssistantMessageParamToolCallFunction] = None
+    """(Optional) Function call details"""
 
     index: Optional[int] = None
+    """(Optional) Index of the tool call in the list"""
 
 
 class InputMessageOpenAIAssistantMessageParam(BaseModel):
@@ -383,8 +425,10 @@ class InputMessageOpenAIAssistantMessageParam(BaseModel):
 
 class InputMessageOpenAIToolMessageParamContentUnionMember1(BaseModel):
     text: str
+    """The text content of the message"""
 
     type: Literal["text"]
+    """Must be "text" to identify this as text content"""
 
 
 class InputMessageOpenAIToolMessageParam(BaseModel):
@@ -400,8 +444,10 @@ class InputMessageOpenAIToolMessageParam(BaseModel):
 
 class InputMessageOpenAIDeveloperMessageParamContentUnionMember1(BaseModel):
     text: str
+    """The text content of the message"""
 
     type: Literal["text"]
+    """Must be "text" to identify this as text content"""
 
 
 class InputMessageOpenAIDeveloperMessageParam(BaseModel):

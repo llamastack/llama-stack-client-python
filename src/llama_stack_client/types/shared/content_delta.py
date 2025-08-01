@@ -12,22 +12,29 @@ __all__ = ["ContentDelta", "TextDelta", "ImageDelta", "ToolCallDelta"]
 
 class TextDelta(BaseModel):
     text: str
+    """The incremental text content"""
 
     type: Literal["text"]
+    """Discriminator type of the delta. Always "text" """
 
 
 class ImageDelta(BaseModel):
     image: str
+    """The incremental image data as bytes"""
 
     type: Literal["image"]
+    """Discriminator type of the delta. Always "image" """
 
 
 class ToolCallDelta(BaseModel):
     parse_status: Literal["started", "in_progress", "failed", "succeeded"]
+    """Current parsing status of the tool call"""
 
     tool_call: ToolCallOrString
+    """Either an in-progress tool call string or the final parsed tool call"""
 
     type: Literal["tool_call"]
+    """Discriminator type of the delta. Always "tool_call" """
 
 
 ContentDelta: TypeAlias = Annotated[Union[TextDelta, ImageDelta, ToolCallDelta], PropertyInfo(discriminator="type")]

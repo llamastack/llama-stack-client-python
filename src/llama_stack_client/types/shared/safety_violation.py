@@ -10,7 +10,13 @@ __all__ = ["SafetyViolation"]
 
 class SafetyViolation(BaseModel):
     metadata: Dict[str, Union[bool, float, str, List[object], object, None]]
+    """
+    Additional metadata including specific violation codes for debugging and
+    telemetry
+    """
 
     violation_level: Literal["info", "warn", "error"]
+    """Severity level of the violation"""
 
     user_message: Optional[str] = None
+    """(Optional) Message to convey to the user about the violation"""

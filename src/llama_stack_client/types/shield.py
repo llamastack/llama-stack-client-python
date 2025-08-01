@@ -14,7 +14,9 @@ class Shield(BaseModel):
     provider_id: str
 
     type: Literal["shield"]
+    """The resource type, always shield"""
 
     params: Optional[Dict[str, Union[bool, float, str, List[object], object, None]]] = None
+    """(Optional) Configuration parameters for the shield"""
 
     provider_resource_id: Optional[str] = None

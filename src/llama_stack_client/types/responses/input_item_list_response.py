@@ -28,36 +28,50 @@ __all__ = [
 
 class DataOpenAIResponseOutputMessageWebSearchToolCall(BaseModel):
     id: str
+    """Unique identifier for this tool call"""
 
     status: str
+    """Current status of the web search operation"""
 
     type: Literal["web_search_call"]
+    """Tool call type identifier, always "web_search_call" """
 
 
 class DataOpenAIResponseOutputMessageFileSearchToolCall(BaseModel):
     id: str
+    """Unique identifier for this tool call"""
 
     queries: List[str]
+    """List of search queries executed"""
 
     status: str
+    """Current status of the file search operation"""
 
     type: Literal["file_search_call"]
+    """Tool call type identifier, always "file_search_call" """
 
     results: Optional[List[Dict[str, Union[bool, float, str, List[object], object, None]]]] = None
+    """(Optional) Search results returned by the file search operation"""
 
 
 class DataOpenAIResponseOutputMessageFunctionToolCall(BaseModel):
     arguments: str
+    """JSON string containing the function arguments"""
 
     call_id: str
+    """Unique identifier for the function call"""
 
     name: str
+    """Name of the function being called"""
 
     type: Literal["function_call"]
+    """Tool call type identifier, always "function_call" """
 
     id: Optional[str] = None
+    """(Optional) Additional identifier for the tool call"""
 
     status: Optional[str] = None
+    """(Optional) Current status of the function call execution"""
 
 
 class DataOpenAIResponseInputFunctionToolCallOutput(BaseModel):
@@ -74,16 +88,21 @@ class DataOpenAIResponseInputFunctionToolCallOutput(BaseModel):
 
 class DataOpenAIResponseMessageContentUnionMember1OpenAIResponseInputMessageContentText(BaseModel):
     text: str
+    """The text content of the input message"""
 
     type: Literal["input_text"]
+    """Content type identifier, always "input_text" """
 
 
 class DataOpenAIResponseMessageContentUnionMember1OpenAIResponseInputMessageContentImage(BaseModel):
     detail: Literal["low", "high", "auto"]
+    """Level of detail for image processing, can be "low", "high", or "auto" """
 
     type: Literal["input_image"]
+    """Content type identifier, always "input_image" """
 
     image_url: Optional[str] = None
+    """(Optional) URL of the image content"""
 
 
 DataOpenAIResponseMessageContentUnionMember1: TypeAlias = Annotated[
@@ -97,24 +116,33 @@ DataOpenAIResponseMessageContentUnionMember1: TypeAlias = Annotated[
 
 class DataOpenAIResponseMessageContentUnionMember2AnnotationOpenAIResponseAnnotationFileCitation(BaseModel):
     file_id: str
+    """Unique identifier of the referenced file"""
 
     filename: str
+    """Name of the referenced file"""
 
     index: int
+    """Position index of the citation within the content"""
 
     type: Literal["file_citation"]
+    """Annotation type identifier, always "file_citation" """
 
 
 class DataOpenAIResponseMessageContentUnionMember2AnnotationOpenAIResponseAnnotationCitation(BaseModel):
     end_index: int
+    """End position of the citation span in the content"""
 
     start_index: int
+    """Start position of the citation span in the content"""
 
     title: str
+    """Title of the referenced web resource"""
 
     type: Literal["url_citation"]
+    """Annotation type identifier, always "url_citation" """
 
     url: str
+    """URL of the referenced web resource"""
 
 
 class DataOpenAIResponseMessageContentUnionMember2AnnotationOpenAIResponseAnnotationContainerFileCitation(BaseModel):
@@ -183,5 +211,7 @@ Data: TypeAlias = Union[
 
 class InputItemListResponse(BaseModel):
     data: List[Data]
+    """List of input items"""
 
     object: Literal["list"]
+    """Object type identifier, always "list" """

@@ -16,20 +16,26 @@ __all__ = [
 
 class StrategyGreedySamplingStrategy(TypedDict, total=False):
     type: Required[Literal["greedy"]]
+    """Must be "greedy" to identify this sampling strategy"""
 
 
 class StrategyTopPSamplingStrategy(TypedDict, total=False):
     type: Required[Literal["top_p"]]
+    """Must be "top_p" to identify this sampling strategy"""
 
     temperature: float
+    """Controls randomness in sampling. Higher values increase randomness"""
 
     top_p: float
+    """Cumulative probability threshold for nucleus sampling. Defaults to 0.95"""
 
 
 class StrategyTopKSamplingStrategy(TypedDict, total=False):
     top_k: Required[int]
+    """Number of top tokens to consider for sampling. Must be at least 1"""
 
     type: Required[Literal["top_k"]]
+    """Must be "top_k" to identify this sampling strategy"""
 
 
 Strategy: TypeAlias = Union[StrategyGreedySamplingStrategy, StrategyTopPSamplingStrategy, StrategyTopKSamplingStrategy]

@@ -20,6 +20,7 @@ __all__ = [
 
 class ContentImageContentItemImageURL(TypedDict, total=False):
     uri: Required[str]
+    """The URL string pointing to the resource"""
 
 
 class ContentImageContentItemImage(TypedDict, total=False):
@@ -51,6 +52,7 @@ class ContentTextContentItem(TypedDict, total=False):
 
 class ContentURL(TypedDict, total=False):
     uri: Required[str]
+    """The URL string pointing to the resource"""
 
 
 Content: TypeAlias = Union[
