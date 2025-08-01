@@ -1,9 +1,9 @@
 [project]
 name = "llama_stack_client"
-version = "0.2.16"
+version = "0.3.0"
 description = "The official Python library for the llama-stack-client API"
 dynamic = ["readme"]
-license = "Apache-2.0"
+license = "MIT"
 authors = [{ name = "Meta Llama", email = "llama-oss@meta.com" }]
 dependencies = [
     "httpx>=0.23.0, <1",
@@ -27,13 +27,14 @@ classifiers = [
   "Typing :: Typed",
   "Intended Audience :: Developers",
   "Programming Language :: Python :: 3.12",
+  "Programming Language :: Python :: 3.13",
   "Operating System :: OS Independent",
   "Operating System :: POSIX",
   "Operating System :: MacOS",
   "Operating System :: POSIX :: Linux",
   "Operating System :: Microsoft :: Windows",
   "Topic :: Software Development :: Libraries :: Python Modules",
-  "License :: OSI Approved :: Apache Software License"
+  "License :: OSI Approved :: MIT License"
 ]
 
 [dependency-groups]
@@ -51,8 +52,6 @@ dev = [
 [project.urls]
 Homepage = "https://github.com/llamastack/llama-stack-client-python"
 Repository = "https://github.com/llamastack/llama-stack-client-python"
-
-
 
 [build-system]
 requires = ["hatchling==1.26.3", "hatch-fancy-pypi-readme"]

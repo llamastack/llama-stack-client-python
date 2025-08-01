@@ -7,7 +7,10 @@ __all__ = ["VectorStoreDeleteResponse"]
 
 class VectorStoreDeleteResponse(BaseModel):
     id: str
+    """Unique identifier of the deleted vector store"""
 
     deleted: bool
+    """Whether the deletion operation was successful"""
 
     object: str
+    """Object type identifier for the deletion response"""

@@ -10,3 +10,4 @@ __all__ = ["RunShieldResponse"]
 
 class RunShieldResponse(BaseModel):
     violation: Optional[SafetyViolation] = None
+    """(Optional) Safety violation detected by the shield, if any"""

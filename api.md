@@ -458,11 +458,12 @@ Methods:
 Types:
 
 ```python
-from llama_stack_client.types import RunShieldResponse
+from llama_stack_client.types import CreateResponse, RunShieldResponse
 ```
 
 Methods:
 
+- <code title="post /v1/openai/v1/moderations">client.safety.<a href="./src/llama_stack_client/resources/safety.py">create</a>(\*\*<a href="src/llama_stack_client/types/safety_create_params.py">params</a>) -> <a href="./src/llama_stack_client/types/create_response.py">CreateResponse</a></code>
 - <code title="post /v1/safety/run-shield">client.safety.<a href="./src/llama_stack_client/resources/safety.py">run_shield</a>(\*\*<a href="src/llama_stack_client/types/safety_run_shield_params.py">params</a>) -> <a href="./src/llama_stack_client/types/run_shield_response.py">RunShieldResponse</a></code>
 
 # Shields

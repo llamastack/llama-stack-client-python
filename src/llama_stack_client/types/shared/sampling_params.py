@@ -17,20 +17,26 @@ __all__ = [
 
 class StrategyGreedySamplingStrategy(BaseModel):
     type: Literal["greedy"]
+    """Must be "greedy" to identify this sampling strategy"""
 
 
 class StrategyTopPSamplingStrategy(BaseModel):
     type: Literal["top_p"]
+    """Must be "top_p" to identify this sampling strategy"""
 
     temperature: Optional[float] = None
+    """Controls randomness in sampling. Higher values increase randomness"""
 
     top_p: Optional[float] = None
+    """Cumulative probability threshold for nucleus sampling. Defaults to 0.95"""
 
 
 class StrategyTopKSamplingStrategy(BaseModel):
     top_k: int
+    """Number of top tokens to consider for sampling. Must be at least 1"""
 
     type: Literal["top_k"]
+    """Must be "top_k" to identify this sampling strategy"""
 
 
 Strategy: TypeAlias = Annotated[

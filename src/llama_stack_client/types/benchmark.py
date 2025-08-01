@@ -10,15 +10,19 @@ __all__ = ["Benchmark"]
 
 class Benchmark(BaseModel):
     dataset_id: str
+    """Identifier of the dataset to use for the benchmark evaluation"""
 
     identifier: str
 
     metadata: Dict[str, Union[bool, float, str, List[object], object, None]]
+    """Metadata for this evaluation task"""
 
     provider_id: str
 
     scoring_functions: List[str]
+    """List of scoring function identifiers to apply during evaluation"""
 
     type: Literal["benchmark"]
+    """The resource type, always benchmark"""
 
     provider_resource_id: Optional[str] = None

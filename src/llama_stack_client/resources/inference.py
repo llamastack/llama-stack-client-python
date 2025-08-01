@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import typing_extensions
 from typing import List, Union, Iterable
 from typing_extensions import Literal, overload
 
@@ -183,6 +184,9 @@ class InferenceResource(SyncAPIResource):
             cast_to=BatchCompletion,
         )
 
+    @typing_extensions.deprecated(
+        "/v1/inference/chat-completion is deprecated. Please use /v1/openai/v1/chat/completions."
+    )
     @overload
     def chat_completion(
         self,
@@ -251,6 +255,9 @@ class InferenceResource(SyncAPIResource):
         """
         ...
 
+    @typing_extensions.deprecated(
+        "/v1/inference/chat-completion is deprecated. Please use /v1/openai/v1/chat/completions."
+    )
     @overload
     def chat_completion(
         self,
@@ -319,6 +326,9 @@ class InferenceResource(SyncAPIResource):
         """
         ...
 
+    @typing_extensions.deprecated(
+        "/v1/inference/chat-completion is deprecated. Please use /v1/openai/v1/chat/completions."
+    )
     @overload
     def chat_completion(
         self,
@@ -387,6 +397,9 @@ class InferenceResource(SyncAPIResource):
         """
         ...
 
+    @typing_extensions.deprecated(
+        "/v1/inference/chat-completion is deprecated. Please use /v1/openai/v1/chat/completions."
+    )
     @required_args(["messages", "model_id"], ["messages", "model_id", "stream"])
     def chat_completion(
         self,
@@ -437,6 +450,7 @@ class InferenceResource(SyncAPIResource):
             stream_cls=Stream[ChatCompletionResponseStreamChunk],
         )
 
+    @typing_extensions.deprecated("/v1/inference/completion is deprecated. Please use /v1/openai/v1/completions.")
     @overload
     def completion(
         self,
@@ -483,6 +497,7 @@ class InferenceResource(SyncAPIResource):
         """
         ...
 
+    @typing_extensions.deprecated("/v1/inference/completion is deprecated. Please use /v1/openai/v1/completions.")
     @overload
     def completion(
         self,
@@ -529,6 +544,7 @@ class InferenceResource(SyncAPIResource):
         """
         ...
 
+    @typing_extensions.deprecated("/v1/inference/completion is deprecated. Please use /v1/openai/v1/completions.")
     @overload
     def completion(
         self,
@@ -575,6 +591,7 @@ class InferenceResource(SyncAPIResource):
         """
         ...
 
+    @typing_extensions.deprecated("/v1/inference/completion is deprecated. Please use /v1/openai/v1/completions.")
     @required_args(["content", "model_id"], ["content", "model_id", "stream"])
     def completion(
         self,
@@ -617,6 +634,7 @@ class InferenceResource(SyncAPIResource):
             stream_cls=Stream[CompletionResponse],
         )
 
+    @typing_extensions.deprecated("/v1/inference/embeddings is deprecated. Please use /v1/openai/v1/embeddings.")
     def embeddings(
         self,
         *,
@@ -821,6 +839,9 @@ class AsyncInferenceResource(AsyncAPIResource):
             cast_to=BatchCompletion,
         )
 
+    @typing_extensions.deprecated(
+        "/v1/inference/chat-completion is deprecated. Please use /v1/openai/v1/chat/completions."
+    )
     @overload
     async def chat_completion(
         self,
@@ -889,6 +910,9 @@ class AsyncInferenceResource(AsyncAPIResource):
         """
         ...
 
+    @typing_extensions.deprecated(
+        "/v1/inference/chat-completion is deprecated. Please use /v1/openai/v1/chat/completions."
+    )
     @overload
     async def chat_completion(
         self,
@@ -957,6 +981,9 @@ class AsyncInferenceResource(AsyncAPIResource):
         """
         ...
 
+    @typing_extensions.deprecated(
+        "/v1/inference/chat-completion is deprecated. Please use /v1/openai/v1/chat/completions."
+    )
     @overload
     async def chat_completion(
         self,
@@ -1025,6 +1052,9 @@ class AsyncInferenceResource(AsyncAPIResource):
         """
         ...
 
+    @typing_extensions.deprecated(
+        "/v1/inference/chat-completion is deprecated. Please use /v1/openai/v1/chat/completions."
+    )
     @required_args(["messages", "model_id"], ["messages", "model_id", "stream"])
     async def chat_completion(
         self,
@@ -1075,6 +1105,7 @@ class AsyncInferenceResource(AsyncAPIResource):
             stream_cls=AsyncStream[ChatCompletionResponseStreamChunk],
         )
 
+    @typing_extensions.deprecated("/v1/inference/completion is deprecated. Please use /v1/openai/v1/completions.")
     @overload
     async def completion(
         self,
@@ -1121,6 +1152,7 @@ class AsyncInferenceResource(AsyncAPIResource):
         """
         ...
 
+    @typing_extensions.deprecated("/v1/inference/completion is deprecated. Please use /v1/openai/v1/completions.")
     @overload
     async def completion(
         self,
@@ -1167,6 +1199,7 @@ class AsyncInferenceResource(AsyncAPIResource):
         """
         ...
 
+    @typing_extensions.deprecated("/v1/inference/completion is deprecated. Please use /v1/openai/v1/completions.")
     @overload
     async def completion(
         self,
@@ -1213,6 +1246,7 @@ class AsyncInferenceResource(AsyncAPIResource):
         """
         ...
 
+    @typing_extensions.deprecated("/v1/inference/completion is deprecated. Please use /v1/openai/v1/completions.")
     @required_args(["content", "model_id"], ["content", "model_id", "stream"])
     async def completion(
         self,
@@ -1255,6 +1289,7 @@ class AsyncInferenceResource(AsyncAPIResource):
             stream_cls=AsyncStream[CompletionResponse],
         )
 
+    @typing_extensions.deprecated("/v1/inference/embeddings is deprecated. Please use /v1/openai/v1/embeddings.")
     async def embeddings(
         self,
         *,
@@ -1327,14 +1362,20 @@ class InferenceResourceWithRawResponse:
         self.batch_completion = to_raw_response_wrapper(
             inference.batch_completion,
         )
-        self.chat_completion = to_raw_response_wrapper(
-            inference.chat_completion,
+        self.chat_completion = (  # pyright: ignore[reportDeprecated]
+            to_raw_response_wrapper(
+                inference.chat_completion  # pyright: ignore[reportDeprecated],
+            )
         )
-        self.completion = to_raw_response_wrapper(
-            inference.completion,
+        self.completion = (  # pyright: ignore[reportDeprecated]
+            to_raw_response_wrapper(
+                inference.completion  # pyright: ignore[reportDeprecated],
+            )
         )
-        self.embeddings = to_raw_response_wrapper(
-            inference.embeddings,
+        self.embeddings = (  # pyright: ignore[reportDeprecated]
+            to_raw_response_wrapper(
+                inference.embeddings  # pyright: ignore[reportDeprecated],
+            )
         )
 
 
@@ -1348,14 +1389,20 @@ class AsyncInferenceResourceWithRawResponse:
         self.batch_completion = async_to_raw_response_wrapper(
             inference.batch_completion,
         )
-        self.chat_completion = async_to_raw_response_wrapper(
-            inference.chat_completion,
+        self.chat_completion = (  # pyright: ignore[reportDeprecated]
+            async_to_raw_response_wrapper(
+                inference.chat_completion  # pyright: ignore[reportDeprecated],
+            )
         )
-        self.completion = async_to_raw_response_wrapper(
-            inference.completion,
+        self.completion = (  # pyright: ignore[reportDeprecated]
+            async_to_raw_response_wrapper(
+                inference.completion  # pyright: ignore[reportDeprecated],
+            )
         )
-        self.embeddings = async_to_raw_response_wrapper(
-            inference.embeddings,
+        self.embeddings = (  # pyright: ignore[reportDeprecated]
+            async_to_raw_response_wrapper(
+                inference.embeddings  # pyright: ignore[reportDeprecated],
+            )
         )
 
 
@@ -1369,14 +1416,20 @@ class InferenceResourceWithStreamingResponse:
         self.batch_completion = to_streamed_response_wrapper(
             inference.batch_completion,
         )
-        self.chat_completion = to_streamed_response_wrapper(
-            inference.chat_completion,
+        self.chat_completion = (  # pyright: ignore[reportDeprecated]
+            to_streamed_response_wrapper(
+                inference.chat_completion  # pyright: ignore[reportDeprecated],
+            )
         )
-        self.completion = to_streamed_response_wrapper(
-            inference.completion,
+        self.completion = (  # pyright: ignore[reportDeprecated]
+            to_streamed_response_wrapper(
+                inference.completion  # pyright: ignore[reportDeprecated],
+            )
         )
-        self.embeddings = to_streamed_response_wrapper(
-            inference.embeddings,
+        self.embeddings = (  # pyright: ignore[reportDeprecated]
+            to_streamed_response_wrapper(
+                inference.embeddings  # pyright: ignore[reportDeprecated],
+            )
         )
 
 
@@ -1390,12 +1443,18 @@ class AsyncInferenceResourceWithStreamingResponse:
         self.batch_completion = async_to_streamed_response_wrapper(
             inference.batch_completion,
         )
-        self.chat_completion = async_to_streamed_response_wrapper(
-            inference.chat_completion,
+        self.chat_completion = (  # pyright: ignore[reportDeprecated]
+            async_to_streamed_response_wrapper(
+                inference.chat_completion  # pyright: ignore[reportDeprecated],
+            )
         )
-        self.completion = async_to_streamed_response_wrapper(
-            inference.completion,
+        self.completion = (  # pyright: ignore[reportDeprecated]
+            async_to_streamed_response_wrapper(
+                inference.completion  # pyright: ignore[reportDeprecated],
+            )
         )
-        self.embeddings = async_to_streamed_response_wrapper(
-            inference.embeddings,
+        self.embeddings = (  # pyright: ignore[reportDeprecated]
+            async_to_streamed_response_wrapper(
+                inference.embeddings  # pyright: ignore[reportDeprecated],
+            )
         )

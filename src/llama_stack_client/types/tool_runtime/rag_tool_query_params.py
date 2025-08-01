@@ -13,9 +13,10 @@ __all__ = ["RagToolQueryParams"]
 
 class RagToolQueryParams(TypedDict, total=False):
     content: Required[InterleavedContent]
-    """A image content item"""
+    """The query content to search for in the indexed documents"""
 
     vector_db_ids: Required[List[str]]
+    """List of vector database IDs to search within"""
 
     query_config: QueryConfig
-    """Configuration for the RAG query generation."""
+    """(Optional) Configuration parameters for the query operation"""

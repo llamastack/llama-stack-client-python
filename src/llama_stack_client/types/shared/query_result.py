@@ -10,6 +10,7 @@ __all__ = ["QueryResult"]
 
 class QueryResult(BaseModel):
     metadata: Dict[str, Union[bool, float, str, List[object], object, None]]
+    """Additional metadata about the query result"""
 
     content: Optional[InterleavedContent] = None
-    """A image content item"""
+    """(Optional) The retrieved content from the query"""

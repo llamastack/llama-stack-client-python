@@ -14,8 +14,7 @@ class RankerRrfRanker(TypedDict, total=False):
     impact_factor: Required[float]
     """The impact factor for RRF scoring.
 
-    Higher values give more weight to higher-ranked results. Must be greater than 0.
-    Default of 60 is from the original RRF paper (Cormack et al., 2009).
+    Higher values give more weight to higher-ranked results. Must be greater than 0
     """
 
     type: Required[Literal["rrf"]]
@@ -55,7 +54,7 @@ class QueryConfig(TypedDict, total=False):
     query_generator_config: Required[QueryGeneratorConfig]
     """Configuration for the query generator."""
 
-    mode: str
+    mode: Literal["vector", "keyword", "hybrid"]
     """Search mode for retrieval—either "vector", "keyword", or "hybrid".
 
     Default "vector".

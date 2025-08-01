@@ -10,6 +10,7 @@ __all__ = ["ToolGroup", "McpEndpoint"]
 
 class McpEndpoint(BaseModel):
     uri: str
+    """The URL string pointing to the resource"""
 
 
 class ToolGroup(BaseModel):
@@ -18,9 +19,12 @@ class ToolGroup(BaseModel):
     provider_id: str
 
     type: Literal["tool_group"]
+    """Type of resource, always 'tool_group'"""
 
     args: Optional[Dict[str, Union[bool, float, str, List[object], object, None]]] = None
+    """(Optional) Additional arguments for the tool group"""
 
     mcp_endpoint: Optional[McpEndpoint] = None
+    """(Optional) Model Context Protocol endpoint for remote tools"""
 
     provider_resource_id: Optional[str] = None

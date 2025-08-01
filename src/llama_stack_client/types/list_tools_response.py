@@ -8,3 +8,4 @@ __all__ = ["ListToolsResponse"]
 
 class ListToolsResponse(BaseModel):
     data: ToolListResponse
+    """List of tools"""

@@ -24,3 +24,4 @@ class ToolgroupRegisterParams(TypedDict, total=False):
 
 class McpEndpoint(TypedDict, total=False):
     uri: Required[str]
+    """The URL string pointing to the resource"""

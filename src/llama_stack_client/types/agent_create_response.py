@@ -7,3 +7,4 @@ __all__ = ["AgentCreateResponse"]
 
 class AgentCreateResponse(BaseModel):
     agent_id: str
+    """Unique identifier for the created agent"""

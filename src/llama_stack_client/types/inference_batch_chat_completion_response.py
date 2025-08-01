@@ -10,3 +10,4 @@ __all__ = ["InferenceBatchChatCompletionResponse"]
 
 class InferenceBatchChatCompletionResponse(BaseModel):
     batch: List[ChatCompletionResponse]
+    """List of chat completion responses, one for each conversation in the batch"""

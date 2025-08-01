@@ -16,6 +16,7 @@ __all__ = [
 
 class ImageContentItemImageURL(TypedDict, total=False):
     uri: Required[str]
+    """The URL string pointing to the resource"""
 
 
 class ImageContentItemImage(TypedDict, total=False):

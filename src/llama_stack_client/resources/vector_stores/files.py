@@ -193,6 +193,20 @@ class FilesResource(SyncAPIResource):
         List files in a vector store.
 
         Args:
+          after: (Optional) A cursor for use in pagination. `after` is an object ID that defines
+              your place in the list.
+
+          before: (Optional) A cursor for use in pagination. `before` is an object ID that defines
+              your place in the list.
+
+          filter: (Optional) Filter by file status to only return files with the specified status.
+
+          limit: (Optional) A limit on the number of objects to be returned. Limit can range
+              between 1 and 100, and the default is 20.
+
+          order: (Optional) Sort order by the `created_at` timestamp of the objects. `asc` for
+              ascending order and `desc` for descending order.
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -463,6 +477,20 @@ class AsyncFilesResource(AsyncAPIResource):
         List files in a vector store.
 
         Args:
+          after: (Optional) A cursor for use in pagination. `after` is an object ID that defines
+              your place in the list.
+
+          before: (Optional) A cursor for use in pagination. `before` is an object ID that defines
+              your place in the list.
+
+          filter: (Optional) Filter by file status to only return files with the specified status.
+
+          limit: (Optional) A limit on the number of objects to be returned. Limit can range
+              between 1 and 100, and the default is 20.
+
+          order: (Optional) Sort order by the `created_at` timestamp of the objects. `asc` for
+              ascending order and `desc` for descending order.
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request

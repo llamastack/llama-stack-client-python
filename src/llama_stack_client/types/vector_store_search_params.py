@@ -30,5 +30,7 @@ class VectorStoreSearchParams(TypedDict, total=False):
 
 class RankingOptions(TypedDict, total=False):
     ranker: str
+    """(Optional) Name of the ranking algorithm to use"""
 
     score_threshold: float
+    """(Optional) Minimum relevance score threshold for results"""

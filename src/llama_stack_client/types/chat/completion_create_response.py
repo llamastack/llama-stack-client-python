@@ -17,28 +17,18 @@ __all__ = [
     "OpenAIChatCompletionChoiceMessageOpenAIUserMessageParamContentUnionMember1OpenAIChatCompletionContentPartTextParam",
     "OpenAIChatCompletionChoiceMessageOpenAIUserMessageParamContentUnionMember1OpenAIChatCompletionContentPartImageParam",
     "OpenAIChatCompletionChoiceMessageOpenAIUserMessageParamContentUnionMember1OpenAIChatCompletionContentPartImageParamImageURL",
+    "OpenAIChatCompletionChoiceMessageOpenAIUserMessageParamContentUnionMember1OpenAIFile",
+    "OpenAIChatCompletionChoiceMessageOpenAIUserMessageParamContentUnionMember1OpenAIFileFile",
     "OpenAIChatCompletionChoiceMessageOpenAISystemMessageParam",
     "OpenAIChatCompletionChoiceMessageOpenAISystemMessageParamContentUnionMember1",
-    "OpenAIChatCompletionChoiceMessageOpenAISystemMessageParamContentUnionMember1OpenAIChatCompletionContentPartTextParam",
-    "OpenAIChatCompletionChoiceMessageOpenAISystemMessageParamContentUnionMember1OpenAIChatCompletionContentPartImageParam",
-    "OpenAIChatCompletionChoiceMessageOpenAISystemMessageParamContentUnionMember1OpenAIChatCompletionContentPartImageParamImageURL",
     "OpenAIChatCompletionChoiceMessageOpenAIAssistantMessageParam",
     "OpenAIChatCompletionChoiceMessageOpenAIAssistantMessageParamContentUnionMember1",
-    "OpenAIChatCompletionChoiceMessageOpenAIAssistantMessageParamContentUnionMember1OpenAIChatCompletionContentPartTextParam",
-    "OpenAIChatCompletionChoiceMessageOpenAIAssistantMessageParamContentUnionMember1OpenAIChatCompletionContentPartImageParam",
-    "OpenAIChatCompletionChoiceMessageOpenAIAssistantMessageParamContentUnionMember1OpenAIChatCompletionContentPartImageParamImageURL",
     "OpenAIChatCompletionChoiceMessageOpenAIAssistantMessageParamToolCall",
     "OpenAIChatCompletionChoiceMessageOpenAIAssistantMessageParamToolCallFunction",
     "OpenAIChatCompletionChoiceMessageOpenAIToolMessageParam",
     "OpenAIChatCompletionChoiceMessageOpenAIToolMessageParamContentUnionMember1",
-    "OpenAIChatCompletionChoiceMessageOpenAIToolMessageParamContentUnionMember1OpenAIChatCompletionContentPartTextParam",
-    "OpenAIChatCompletionChoiceMessageOpenAIToolMessageParamContentUnionMember1OpenAIChatCompletionContentPartImageParam",
-    "OpenAIChatCompletionChoiceMessageOpenAIToolMessageParamContentUnionMember1OpenAIChatCompletionContentPartImageParamImageURL",
     "OpenAIChatCompletionChoiceMessageOpenAIDeveloperMessageParam",
     "OpenAIChatCompletionChoiceMessageOpenAIDeveloperMessageParamContentUnionMember1",
-    "OpenAIChatCompletionChoiceMessageOpenAIDeveloperMessageParamContentUnionMember1OpenAIChatCompletionContentPartTextParam",
-    "OpenAIChatCompletionChoiceMessageOpenAIDeveloperMessageParamContentUnionMember1OpenAIChatCompletionContentPartImageParam",
-    "OpenAIChatCompletionChoiceMessageOpenAIDeveloperMessageParamContentUnionMember1OpenAIChatCompletionContentPartImageParamImageURL",
     "OpenAIChatCompletionChoiceLogprobs",
     "OpenAIChatCompletionChoiceLogprobsContent",
     "OpenAIChatCompletionChoiceLogprobsContentTopLogprob",
@@ -51,30 +41,54 @@ class OpenAIChatCompletionChoiceMessageOpenAIUserMessageParamContentUnionMember1
     BaseModel
 ):
     text: str
+    """The text content of the message"""
 
     type: Literal["text"]
+    """Must be "text" to identify this as text content"""
 
 
 class OpenAIChatCompletionChoiceMessageOpenAIUserMessageParamContentUnionMember1OpenAIChatCompletionContentPartImageParamImageURL(
     BaseModel
 ):
     url: str
+    """URL of the image to include in the message"""
 
     detail: Optional[str] = None
+    """(Optional) Level of detail for image processing.
+
+    Can be "low", "high", or "auto"
+    """
 
 
 class OpenAIChatCompletionChoiceMessageOpenAIUserMessageParamContentUnionMember1OpenAIChatCompletionContentPartImageParam(
     BaseModel
 ):
     image_url: OpenAIChatCompletionChoiceMessageOpenAIUserMessageParamContentUnionMember1OpenAIChatCompletionContentPartImageParamImageURL
+    """Image URL specification and processing details"""
 
     type: Literal["image_url"]
+    """Must be "image_url" to identify this as image content"""
+
+
+class OpenAIChatCompletionChoiceMessageOpenAIUserMessageParamContentUnionMember1OpenAIFileFile(BaseModel):
+    file_data: Optional[str] = None
+
+    file_id: Optional[str] = None
+
+    filename: Optional[str] = None
+
+
+class OpenAIChatCompletionChoiceMessageOpenAIUserMessageParamContentUnionMember1OpenAIFile(BaseModel):
+    file: OpenAIChatCompletionChoiceMessageOpenAIUserMessageParamContentUnionMember1OpenAIFileFile
+
+    type: Literal["file"]
 
 
 OpenAIChatCompletionChoiceMessageOpenAIUserMessageParamContentUnionMember1: TypeAlias = Annotated[
     Union[
         OpenAIChatCompletionChoiceMessageOpenAIUserMessageParamContentUnionMember1OpenAIChatCompletionContentPartTextParam,
         OpenAIChatCompletionChoiceMessageOpenAIUserMessageParamContentUnionMember1OpenAIChatCompletionContentPartImageParam,
+        OpenAIChatCompletionChoiceMessageOpenAIUserMessageParamContentUnionMember1OpenAIFile,
     ],
     PropertyInfo(discriminator="type"),
 ]
@@ -91,37 +105,12 @@ class OpenAIChatCompletionChoiceMessageOpenAIUserMessageParam(BaseModel):
     """(Optional) The name of the user message participant."""
 
 
-class OpenAIChatCompletionChoiceMessageOpenAISystemMessageParamContentUnionMember1OpenAIChatCompletionContentPartTextParam(
-    BaseModel
-):
+class OpenAIChatCompletionChoiceMessageOpenAISystemMessageParamContentUnionMember1(BaseModel):
     text: str
+    """The text content of the message"""
 
     type: Literal["text"]
-
-
-class OpenAIChatCompletionChoiceMessageOpenAISystemMessageParamContentUnionMember1OpenAIChatCompletionContentPartImageParamImageURL(
-    BaseModel
-):
-    url: str
-
-    detail: Optional[str] = None
-
-
-class OpenAIChatCompletionChoiceMessageOpenAISystemMessageParamContentUnionMember1OpenAIChatCompletionContentPartImageParam(
-    BaseModel
-):
-    image_url: OpenAIChatCompletionChoiceMessageOpenAISystemMessageParamContentUnionMember1OpenAIChatCompletionContentPartImageParamImageURL
-
-    type: Literal["image_url"]
-
-
-OpenAIChatCompletionChoiceMessageOpenAISystemMessageParamContentUnionMember1: TypeAlias = Annotated[
-    Union[
-        OpenAIChatCompletionChoiceMessageOpenAISystemMessageParamContentUnionMember1OpenAIChatCompletionContentPartTextParam,
-        OpenAIChatCompletionChoiceMessageOpenAISystemMessageParamContentUnionMember1OpenAIChatCompletionContentPartImageParam,
-    ],
-    PropertyInfo(discriminator="type"),
-]
+    """Must be "text" to identify this as text content"""
 
 
 class OpenAIChatCompletionChoiceMessageOpenAISystemMessageParam(BaseModel):
@@ -140,53 +129,34 @@ class OpenAIChatCompletionChoiceMessageOpenAISystemMessageParam(BaseModel):
     """(Optional) The name of the system message participant."""
 
 
-class OpenAIChatCompletionChoiceMessageOpenAIAssistantMessageParamContentUnionMember1OpenAIChatCompletionContentPartTextParam(
-    BaseModel
-):
+class OpenAIChatCompletionChoiceMessageOpenAIAssistantMessageParamContentUnionMember1(BaseModel):
     text: str
+    """The text content of the message"""
 
     type: Literal["text"]
-
-
-class OpenAIChatCompletionChoiceMessageOpenAIAssistantMessageParamContentUnionMember1OpenAIChatCompletionContentPartImageParamImageURL(
-    BaseModel
-):
-    url: str
-
-    detail: Optional[str] = None
-
-
-class OpenAIChatCompletionChoiceMessageOpenAIAssistantMessageParamContentUnionMember1OpenAIChatCompletionContentPartImageParam(
-    BaseModel
-):
-    image_url: OpenAIChatCompletionChoiceMessageOpenAIAssistantMessageParamContentUnionMember1OpenAIChatCompletionContentPartImageParamImageURL
-
-    type: Literal["image_url"]
-
-
-OpenAIChatCompletionChoiceMessageOpenAIAssistantMessageParamContentUnionMember1: TypeAlias = Annotated[
-    Union[
-        OpenAIChatCompletionChoiceMessageOpenAIAssistantMessageParamContentUnionMember1OpenAIChatCompletionContentPartTextParam,
-        OpenAIChatCompletionChoiceMessageOpenAIAssistantMessageParamContentUnionMember1OpenAIChatCompletionContentPartImageParam,
-    ],
-    PropertyInfo(discriminator="type"),
-]
+    """Must be "text" to identify this as text content"""
 
 
 class OpenAIChatCompletionChoiceMessageOpenAIAssistantMessageParamToolCallFunction(BaseModel):
     arguments: Optional[str] = None
+    """(Optional) Arguments to pass to the function as a JSON string"""
 
     name: Optional[str] = None
+    """(Optional) Name of the function to call"""
 
 
 class OpenAIChatCompletionChoiceMessageOpenAIAssistantMessageParamToolCall(BaseModel):
     type: Literal["function"]
+    """Must be "function" to identify this as a function call"""
 
     id: Optional[str] = None
+    """(Optional) Unique identifier for the tool call"""
 
     function: Optional[OpenAIChatCompletionChoiceMessageOpenAIAssistantMessageParamToolCallFunction] = None
+    """(Optional) Function call details"""
 
     index: Optional[int] = None
+    """(Optional) Index of the tool call in the list"""
 
 
 class OpenAIChatCompletionChoiceMessageOpenAIAssistantMessageParam(BaseModel):
@@ -205,37 +175,12 @@ class OpenAIChatCompletionChoiceMessageOpenAIAssistantMessageParam(BaseModel):
     """List of tool calls. Each tool call is an OpenAIChatCompletionToolCall object."""
 
 
-class OpenAIChatCompletionChoiceMessageOpenAIToolMessageParamContentUnionMember1OpenAIChatCompletionContentPartTextParam(
-    BaseModel
-):
+class OpenAIChatCompletionChoiceMessageOpenAIToolMessageParamContentUnionMember1(BaseModel):
     text: str
+    """The text content of the message"""
 
     type: Literal["text"]
-
-
-class OpenAIChatCompletionChoiceMessageOpenAIToolMessageParamContentUnionMember1OpenAIChatCompletionContentPartImageParamImageURL(
-    BaseModel
-):
-    url: str
-
-    detail: Optional[str] = None
-
-
-class OpenAIChatCompletionChoiceMessageOpenAIToolMessageParamContentUnionMember1OpenAIChatCompletionContentPartImageParam(
-    BaseModel
-):
-    image_url: OpenAIChatCompletionChoiceMessageOpenAIToolMessageParamContentUnionMember1OpenAIChatCompletionContentPartImageParamImageURL
-
-    type: Literal["image_url"]
-
-
-OpenAIChatCompletionChoiceMessageOpenAIToolMessageParamContentUnionMember1: TypeAlias = Annotated[
-    Union[
-        OpenAIChatCompletionChoiceMessageOpenAIToolMessageParamContentUnionMember1OpenAIChatCompletionContentPartTextParam,
-        OpenAIChatCompletionChoiceMessageOpenAIToolMessageParamContentUnionMember1OpenAIChatCompletionContentPartImageParam,
-    ],
-    PropertyInfo(discriminator="type"),
-]
+    """Must be "text" to identify this as text content"""
 
 
 class OpenAIChatCompletionChoiceMessageOpenAIToolMessageParam(BaseModel):
@@ -249,37 +194,12 @@ class OpenAIChatCompletionChoiceMessageOpenAIToolMessageParam(BaseModel):
     """Unique identifier for the tool call this response is for"""
 
 
-class OpenAIChatCompletionChoiceMessageOpenAIDeveloperMessageParamContentUnionMember1OpenAIChatCompletionContentPartTextParam(
-    BaseModel
-):
+class OpenAIChatCompletionChoiceMessageOpenAIDeveloperMessageParamContentUnionMember1(BaseModel):
     text: str
+    """The text content of the message"""
 
     type: Literal["text"]
-
-
-class OpenAIChatCompletionChoiceMessageOpenAIDeveloperMessageParamContentUnionMember1OpenAIChatCompletionContentPartImageParamImageURL(
-    BaseModel
-):
-    url: str
-
-    detail: Optional[str] = None
-
-
-class OpenAIChatCompletionChoiceMessageOpenAIDeveloperMessageParamContentUnionMember1OpenAIChatCompletionContentPartImageParam(
-    BaseModel
-):
-    image_url: OpenAIChatCompletionChoiceMessageOpenAIDeveloperMessageParamContentUnionMember1OpenAIChatCompletionContentPartImageParamImageURL
-
-    type: Literal["image_url"]
-
-
-OpenAIChatCompletionChoiceMessageOpenAIDeveloperMessageParamContentUnionMember1: TypeAlias = Annotated[
-    Union[
-        OpenAIChatCompletionChoiceMessageOpenAIDeveloperMessageParamContentUnionMember1OpenAIChatCompletionContentPartTextParam,
-        OpenAIChatCompletionChoiceMessageOpenAIDeveloperMessageParamContentUnionMember1OpenAIChatCompletionContentPartImageParam,
-    ],
-    PropertyInfo(discriminator="type"),
-]
+    """Must be "text" to identify this as text content"""
 
 
 class OpenAIChatCompletionChoiceMessageOpenAIDeveloperMessageParam(BaseModel):

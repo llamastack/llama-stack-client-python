@@ -22,3 +22,6 @@ class VectorDBRegisterParams(TypedDict, total=False):
 
     provider_vector_db_id: str
     """The identifier of the vector database in the provider."""
+
+    vector_db_name: str
+    """The name of the vector database."""

@@ -12,13 +12,19 @@ __all__ = ["Model"]
 
 class Model(BaseModel):
     identifier: str
+    """Unique identifier for this resource in llama stack"""
 
     metadata: Dict[str, Union[bool, float, str, List[object], object, None]]
+    """Any additional metadata for this model"""
 
     api_model_type: Literal["llm", "embedding"] = FieldInfo(alias="model_type")
+    """The type of model (LLM or embedding model)"""
 
     provider_id: str
+    """ID of the provider that owns this resource"""
 
     type: Literal["model"]
+    """The resource type, always 'model' for model resources"""
 
     provider_resource_id: Optional[str] = None
+    """Unique identifier for this resource in the provider"""
