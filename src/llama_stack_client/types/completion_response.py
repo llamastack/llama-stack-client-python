@@ -11,10 +11,13 @@ __all__ = ["CompletionResponse", "Metric"]
 
 class Metric(BaseModel):
     metric: str
+    """The name of the metric"""
 
     value: float
+    """The numeric value of the metric"""
 
     unit: Optional[str] = None
+    """(Optional) The unit of measurement for the metric value"""
 
 
 class CompletionResponse(BaseModel):
@@ -28,3 +31,4 @@ class CompletionResponse(BaseModel):
     """Optional log probabilities for generated tokens"""
 
     metrics: Optional[List[Metric]] = None
+    """(Optional) List of metrics associated with the API response"""

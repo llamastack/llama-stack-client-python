@@ -11,10 +11,13 @@ __all__ = ["ToolResponse"]
 
 class ToolResponse(BaseModel):
     call_id: str
+    """Unique identifier for the tool call this response is for"""
 
     content: InterleavedContent
-    """A image content item"""
+    """The response content from the tool"""
 
     tool_name: Union[Literal["brave_search", "wolfram_alpha", "photogen", "code_interpreter"], str]
+    """Name of the tool that was invoked"""
 
     metadata: Optional[Dict[str, Union[bool, float, str, List[object], object, None]]] = None
+    """(Optional) Additional metadata about the tool response"""

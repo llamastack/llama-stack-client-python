@@ -54,6 +54,7 @@ Message: TypeAlias = Union[UserMessage, ToolResponseMessage]
 
 class DocumentContentImageContentItemImageURL(TypedDict, total=False):
     uri: Required[str]
+    """The URL string pointing to the resource"""
 
 
 class DocumentContentImageContentItemImage(TypedDict, total=False):
@@ -85,6 +86,7 @@ class DocumentContentTextContentItem(TypedDict, total=False):
 
 class DocumentContentURL(TypedDict, total=False):
     uri: Required[str]
+    """The URL string pointing to the resource"""
 
 
 DocumentContent: TypeAlias = Union[

@@ -14,10 +14,13 @@ class ListFilesResponse(BaseModel):
     """List of file objects"""
 
     first_id: str
+    """ID of the first file in the list for pagination"""
 
     has_more: bool
+    """Whether there are more files available beyond this page"""
 
     last_id: str
+    """ID of the last file in the list for pagination"""
 
     object: Literal["list"]
     """The object type, which is always "list" """

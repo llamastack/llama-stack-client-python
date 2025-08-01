@@ -92,6 +92,8 @@ class ResponsesResource(SyncAPIResource):
               response. This can be used to easily fork-off new responses from existing
               responses.
 
+          text: Text response configuration for OpenAI responses.
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -135,6 +137,8 @@ class ResponsesResource(SyncAPIResource):
               response. This can be used to easily fork-off new responses from existing
               responses.
 
+          text: Text response configuration for OpenAI responses.
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -177,6 +181,8 @@ class ResponsesResource(SyncAPIResource):
           previous_response_id: (Optional) if specified, the new response will be a continuation of the previous
               response. This can be used to easily fork-off new responses from existing
               responses.
+
+          text: Text response configuration for OpenAI responses.
 
           extra_headers: Send extra headers
 
@@ -381,6 +387,8 @@ class AsyncResponsesResource(AsyncAPIResource):
               response. This can be used to easily fork-off new responses from existing
               responses.
 
+          text: Text response configuration for OpenAI responses.
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -424,6 +432,8 @@ class AsyncResponsesResource(AsyncAPIResource):
               response. This can be used to easily fork-off new responses from existing
               responses.
 
+          text: Text response configuration for OpenAI responses.
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -466,6 +476,8 @@ class AsyncResponsesResource(AsyncAPIResource):
           previous_response_id: (Optional) if specified, the new response will be a continuation of the previous
               response. This can be used to easily fork-off new responses from existing
               responses.
+
+          text: Text response configuration for OpenAI responses.
 
           extra_headers: Send extra headers
 

@@ -21,18 +21,24 @@ __all__ = [
 
 class ChoiceDeltaToolCallFunction(BaseModel):
     arguments: Optional[str] = None
+    """(Optional) Arguments to pass to the function as a JSON string"""
 
     name: Optional[str] = None
+    """(Optional) Name of the function to call"""
 
 
 class ChoiceDeltaToolCall(BaseModel):
     type: Literal["function"]
+    """Must be "function" to identify this as a function call"""
 
     id: Optional[str] = None
+    """(Optional) Unique identifier for the tool call"""
 
     function: Optional[ChoiceDeltaToolCallFunction] = None
+    """(Optional) Function call details"""
 
     index: Optional[int] = None
+    """(Optional) Index of the tool call in the list"""
 
 
 class ChoiceDelta(BaseModel):

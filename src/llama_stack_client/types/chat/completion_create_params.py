@@ -109,24 +109,33 @@ class CompletionCreateParamsBase(TypedDict, total=False):
 
 class MessageOpenAIUserMessageParamContentUnionMember1OpenAIChatCompletionContentPartTextParam(TypedDict, total=False):
     text: Required[str]
+    """The text content of the message"""
 
     type: Required[Literal["text"]]
+    """Must be "text" to identify this as text content"""
 
 
 class MessageOpenAIUserMessageParamContentUnionMember1OpenAIChatCompletionContentPartImageParamImageURL(
     TypedDict, total=False
 ):
     url: Required[str]
+    """URL of the image to include in the message"""
 
     detail: str
+    """(Optional) Level of detail for image processing.
+
+    Can be "low", "high", or "auto"
+    """
 
 
 class MessageOpenAIUserMessageParamContentUnionMember1OpenAIChatCompletionContentPartImageParam(TypedDict, total=False):
     image_url: Required[
         MessageOpenAIUserMessageParamContentUnionMember1OpenAIChatCompletionContentPartImageParamImageURL
     ]
+    """Image URL specification and processing details"""
 
     type: Required[Literal["image_url"]]
+    """Must be "image_url" to identify this as image content"""
 
 
 class MessageOpenAIUserMessageParamContentUnionMember1OpenAIFileFile(TypedDict, total=False):
@@ -163,8 +172,10 @@ class MessageOpenAIUserMessageParam(TypedDict, total=False):
 
 class MessageOpenAISystemMessageParamContentUnionMember1(TypedDict, total=False):
     text: Required[str]
+    """The text content of the message"""
 
     type: Required[Literal["text"]]
+    """Must be "text" to identify this as text content"""
 
 
 class MessageOpenAISystemMessageParam(TypedDict, total=False):
@@ -185,24 +196,32 @@ class MessageOpenAISystemMessageParam(TypedDict, total=False):
 
 class MessageOpenAIAssistantMessageParamContentUnionMember1(TypedDict, total=False):
     text: Required[str]
+    """The text content of the message"""
 
     type: Required[Literal["text"]]
+    """Must be "text" to identify this as text content"""
 
 
 class MessageOpenAIAssistantMessageParamToolCallFunction(TypedDict, total=False):
     arguments: str
+    """(Optional) Arguments to pass to the function as a JSON string"""
 
     name: str
+    """(Optional) Name of the function to call"""
 
 
 class MessageOpenAIAssistantMessageParamToolCall(TypedDict, total=False):
     type: Required[Literal["function"]]
+    """Must be "function" to identify this as a function call"""
 
     id: str
+    """(Optional) Unique identifier for the tool call"""
 
     function: MessageOpenAIAssistantMessageParamToolCallFunction
+    """(Optional) Function call details"""
 
     index: int
+    """(Optional) Index of the tool call in the list"""
 
 
 class MessageOpenAIAssistantMessageParam(TypedDict, total=False):
@@ -221,8 +240,10 @@ class MessageOpenAIAssistantMessageParam(TypedDict, total=False):
 
 class MessageOpenAIToolMessageParamContentUnionMember1(TypedDict, total=False):
     text: Required[str]
+    """The text content of the message"""
 
     type: Required[Literal["text"]]
+    """Must be "text" to identify this as text content"""
 
 
 class MessageOpenAIToolMessageParam(TypedDict, total=False):
@@ -238,8 +259,10 @@ class MessageOpenAIToolMessageParam(TypedDict, total=False):
 
 class MessageOpenAIDeveloperMessageParamContentUnionMember1(TypedDict, total=False):
     text: Required[str]
+    """The text content of the message"""
 
     type: Required[Literal["text"]]
+    """Must be "text" to identify this as text content"""
 
 
 class MessageOpenAIDeveloperMessageParam(TypedDict, total=False):
@@ -264,26 +287,34 @@ Message: TypeAlias = Union[
 
 class ResponseFormatOpenAIResponseFormatText(TypedDict, total=False):
     type: Required[Literal["text"]]
+    """Must be "text" to indicate plain text response format"""
 
 
 class ResponseFormatOpenAIResponseFormatJsonSchemaJsonSchema(TypedDict, total=False):
     name: Required[str]
+    """Name of the schema"""
 
     description: str
+    """(Optional) Description of the schema"""
 
     schema: Dict[str, Union[bool, float, str, Iterable[object], object, None]]
+    """(Optional) The JSON schema definition"""
 
     strict: bool
+    """(Optional) Whether to enforce strict adherence to the schema"""
 
 
 class ResponseFormatOpenAIResponseFormatJsonSchema(TypedDict, total=False):
     json_schema: Required[ResponseFormatOpenAIResponseFormatJsonSchemaJsonSchema]
+    """The JSON schema specification for the response"""
 
     type: Required[Literal["json_schema"]]
+    """Must be "json_schema" to indicate structured JSON response format"""
 
 
 class ResponseFormatOpenAIResponseFormatJsonObject(TypedDict, total=False):
     type: Required[Literal["json_object"]]
+    """Must be "json_object" to indicate generic JSON object response format"""
 
 
 ResponseFormat: TypeAlias = Union[

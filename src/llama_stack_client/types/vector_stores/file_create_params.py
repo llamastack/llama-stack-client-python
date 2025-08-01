@@ -27,18 +27,23 @@ class FileCreateParams(TypedDict, total=False):
 
 class ChunkingStrategyVectorStoreChunkingStrategyAuto(TypedDict, total=False):
     type: Required[Literal["auto"]]
+    """Strategy type, always "auto" for automatic chunking"""
 
 
 class ChunkingStrategyVectorStoreChunkingStrategyStaticStatic(TypedDict, total=False):
     chunk_overlap_tokens: Required[int]
+    """Number of tokens to overlap between adjacent chunks"""
 
     max_chunk_size_tokens: Required[int]
+    """Maximum number of tokens per chunk, must be between 100 and 4096"""
 
 
 class ChunkingStrategyVectorStoreChunkingStrategyStatic(TypedDict, total=False):
     static: Required[ChunkingStrategyVectorStoreChunkingStrategyStaticStatic]
+    """Configuration parameters for the static chunking strategy"""
 
     type: Required[Literal["static"]]
+    """Strategy type, always "static" for static chunking"""
 
 
 ChunkingStrategy: TypeAlias = Union[

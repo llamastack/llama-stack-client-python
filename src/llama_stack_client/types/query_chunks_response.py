@@ -76,5 +76,7 @@ class Chunk(BaseModel):
 
 class QueryChunksResponse(BaseModel):
     chunks: List[Chunk]
+    """List of content chunks returned from the query"""
 
     scores: List[float]
+    """Relevance scores corresponding to each returned chunk"""

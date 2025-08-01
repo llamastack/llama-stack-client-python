@@ -8,3 +8,4 @@ __all__ = ["TurnResponseEvent"]
 
 class TurnResponseEvent(BaseModel):
     payload: TurnResponseEventPayload
+    """Event-specific payload containing event data"""

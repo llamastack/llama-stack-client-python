@@ -20,9 +20,11 @@ class ScoringFn(BaseModel):
     return_type: ReturnType
 
     type: Literal["scoring_function"]
+    """The resource type, always scoring_function"""
 
     description: Optional[str] = None
 
     params: Optional[ScoringFnParams] = None
+    """Parameters for LLM-as-judge scoring function configuration."""
 
     provider_resource_id: Optional[str] = None

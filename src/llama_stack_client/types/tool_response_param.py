@@ -12,10 +12,13 @@ __all__ = ["ToolResponseParam"]
 
 class ToolResponseParam(TypedDict, total=False):
     call_id: Required[str]
+    """Unique identifier for the tool call this response is for"""
 
     content: Required[InterleavedContent]
-    """A image content item"""
+    """The response content from the tool"""
 
     tool_name: Required[Union[Literal["brave_search", "wolfram_alpha", "photogen", "code_interpreter"], str]]
+    """Name of the tool that was invoked"""
 
     metadata: Dict[str, Union[bool, float, str, Iterable[object], object, None]]
+    """(Optional) Additional metadata about the tool response"""

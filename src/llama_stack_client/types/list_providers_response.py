@@ -8,3 +8,4 @@ __all__ = ["ListProvidersResponse"]
 
 class ListProvidersResponse(BaseModel):
     data: ProviderListResponse
+    """List of provider information objects"""

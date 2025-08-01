@@ -9,11 +9,16 @@ __all__ = ["ProviderInfo"]
 
 class ProviderInfo(BaseModel):
     api: str
+    """The API name this provider implements"""
 
     config: Dict[str, Union[bool, float, str, List[object], object, None]]
+    """Configuration parameters for the provider"""
 
     health: Dict[str, Union[bool, float, str, List[object], object, None]]
+    """Current health status of the provider"""
 
     provider_id: str
+    """Unique identifier for the provider"""
 
     provider_type: str
+    """The type of provider implementation"""

@@ -8,3 +8,4 @@ __all__ = ["AgentTurnResponseStreamChunk"]
 
 class AgentTurnResponseStreamChunk(BaseModel):
     event: TurnResponseEvent
+    """Individual event in the agent turn response stream"""

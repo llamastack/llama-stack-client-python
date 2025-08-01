@@ -8,3 +8,4 @@ __all__ = ["ListDatasetsResponse"]
 
 class ListDatasetsResponse(BaseModel):
     data: DatasetListResponse
+    """List of datasets"""

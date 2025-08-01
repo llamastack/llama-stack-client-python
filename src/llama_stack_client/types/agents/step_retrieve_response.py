@@ -20,4 +20,4 @@ Step: TypeAlias = Annotated[
 
 class StepRetrieveResponse(BaseModel):
     step: Step
-    """An inference step in an agent turn."""
+    """The complete step data and execution details"""
