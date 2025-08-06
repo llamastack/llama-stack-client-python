@@ -2,11 +2,11 @@
 
 from __future__ import annotations
 
-from typing import Dict, Union, Iterable
+from typing import List, Union
 
 import httpx
 
-from ..types import safety_run_shield_params
+from ..types import moderation_create_params
 from .._types import NOT_GIVEN, Body, Query, Headers, NotGiven
 from .._utils import maybe_transform, async_maybe_transform
 from .._compat import cached_property
@@ -18,54 +18,51 @@ from .._response import (
     async_to_streamed_response_wrapper,
 )
 from .._base_client import make_request_options
-from ..types.run_shield_response import RunShieldResponse
-from ..types.shared_params.message import Message
+from ..types.create_response import CreateResponse
 
-__all__ = ["SafetyResource", "AsyncSafetyResource"]
+__all__ = ["ModerationsResource", "AsyncModerationsResource"]
 
 
-class SafetyResource(SyncAPIResource):
+class ModerationsResource(SyncAPIResource):
     @cached_property
-    def with_raw_response(self) -> SafetyResourceWithRawResponse:
+    def with_raw_response(self) -> ModerationsResourceWithRawResponse:
         """
         This property can be used as a prefix for any HTTP method call to return
         the raw response object instead of the parsed content.
 
         For more information, see https://www.github.com/llamastack/llama-stack-client-python#accessing-raw-response-data-eg-headers
         """
-        return SafetyResourceWithRawResponse(self)
+        return ModerationsResourceWithRawResponse(self)
 
     @cached_property
-    def with_streaming_response(self) -> SafetyResourceWithStreamingResponse:
+    def with_streaming_response(self) -> ModerationsResourceWithStreamingResponse:
         """
         An alternative to `.with_raw_response` that doesn't eagerly read the response body.
 
         For more information, see https://www.github.com/llamastack/llama-stack-client-python#with_streaming_response
         """
-        return SafetyResourceWithStreamingResponse(self)
+        return ModerationsResourceWithStreamingResponse(self)
 
-    def run_shield(
+    def create(
         self,
         *,
-        messages: Iterable[Message],
-        params: Dict[str, Union[bool, float, str, Iterable[object], object, None]],
-        shield_id: str,
+        input: Union[str, List[str]],
+        model: str,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> RunShieldResponse:
+    ) -> CreateResponse:
         """
-        Run a shield.
+        Classifies if text and/or image inputs are potentially harmful.
 
         Args:
-          messages: The messages to run the shield on.
+          input: Input (or inputs) to classify. Can be a single string, an array of strings, or
+              an array of multi-modal input objects similar to other models.
 
-          params: The parameters of the shield.
-
-          shield_id: The identifier of the shield to run.
+          model: The content moderation model you would like to use.
 
           extra_headers: Send extra headers
 
@@ -76,64 +73,61 @@ class SafetyResource(SyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         return self._post(
-            "/v1/safety/run-shield",
+            "/v1/openai/v1/moderations",
             body=maybe_transform(
                 {
-                    "messages": messages,
-                    "params": params,
-                    "shield_id": shield_id,
+                    "input": input,
+                    "model": model,
                 },
-                safety_run_shield_params.SafetyRunShieldParams,
+                moderation_create_params.ModerationCreateParams,
             ),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=RunShieldResponse,
+            cast_to=CreateResponse,
         )
 
 
-class AsyncSafetyResource(AsyncAPIResource):
+class AsyncModerationsResource(AsyncAPIResource):
     @cached_property
-    def with_raw_response(self) -> AsyncSafetyResourceWithRawResponse:
+    def with_raw_response(self) -> AsyncModerationsResourceWithRawResponse:
         """
         This property can be used as a prefix for any HTTP method call to return
         the raw response object instead of the parsed content.
 
         For more information, see https://www.github.com/llamastack/llama-stack-client-python#accessing-raw-response-data-eg-headers
         """
-        return AsyncSafetyResourceWithRawResponse(self)
+        return AsyncModerationsResourceWithRawResponse(self)
 
     @cached_property
-    def with_streaming_response(self) -> AsyncSafetyResourceWithStreamingResponse:
+    def with_streaming_response(self) -> AsyncModerationsResourceWithStreamingResponse:
         """
         An alternative to `.with_raw_response` that doesn't eagerly read the response body.
 
         For more information, see https://www.github.com/llamastack/llama-stack-client-python#with_streaming_response
         """
-        return AsyncSafetyResourceWithStreamingResponse(self)
+        return AsyncModerationsResourceWithStreamingResponse(self)
 
-    async def run_shield(
+    async def create(
         self,
         *,
-        messages: Iterable[Message],
-        params: Dict[str, Union[bool, float, str, Iterable[object], object, None]],
-        shield_id: str,
+        input: Union[str, List[str]],
+        model: str,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> RunShieldResponse:
+    ) -> CreateResponse:
         """
-        Run a shield.
+        Classifies if text and/or image inputs are potentially harmful.
 
         Args:
-          messages: The messages to run the shield on.
+          input: Input (or inputs) to classify. Can be a single string, an array of strings, or
+              an array of multi-modal input objects similar to other models.
 
-          params: The parameters of the shield.
-
-          shield_id: The identifier of the shield to run.
+          model: The content moderation model you would like to use.
 
           extra_headers: Send extra headers
 
@@ -144,53 +138,52 @@ class AsyncSafetyResource(AsyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         return await self._post(
-            "/v1/safety/run-shield",
+            "/v1/openai/v1/moderations",
             body=await async_maybe_transform(
                 {
-                    "messages": messages,
-                    "params": params,
-                    "shield_id": shield_id,
+                    "input": input,
+                    "model": model,
                 },
-                safety_run_shield_params.SafetyRunShieldParams,
+                moderation_create_params.ModerationCreateParams,
             ),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=RunShieldResponse,
+            cast_to=CreateResponse,
         )
 
 
-class SafetyResourceWithRawResponse:
-    def __init__(self, safety: SafetyResource) -> None:
-        self._safety = safety
+class ModerationsResourceWithRawResponse:
+    def __init__(self, moderations: ModerationsResource) -> None:
+        self._moderations = moderations
 
-        self.run_shield = to_raw_response_wrapper(
-            safety.run_shield,
+        self.create = to_raw_response_wrapper(
+            moderations.create,
         )
 
 
-class AsyncSafetyResourceWithRawResponse:
-    def __init__(self, safety: AsyncSafetyResource) -> None:
-        self._safety = safety
+class AsyncModerationsResourceWithRawResponse:
+    def __init__(self, moderations: AsyncModerationsResource) -> None:
+        self._moderations = moderations
 
-        self.run_shield = async_to_raw_response_wrapper(
-            safety.run_shield,
+        self.create = async_to_raw_response_wrapper(
+            moderations.create,
         )
 
 
-class SafetyResourceWithStreamingResponse:
-    def __init__(self, safety: SafetyResource) -> None:
-        self._safety = safety
+class ModerationsResourceWithStreamingResponse:
+    def __init__(self, moderations: ModerationsResource) -> None:
+        self._moderations = moderations
 
-        self.run_shield = to_streamed_response_wrapper(
-            safety.run_shield,
+        self.create = to_streamed_response_wrapper(
+            moderations.create,
         )
 
 
-class AsyncSafetyResourceWithStreamingResponse:
-    def __init__(self, safety: AsyncSafetyResource) -> None:
-        self._safety = safety
+class AsyncModerationsResourceWithStreamingResponse:
+    def __init__(self, moderations: AsyncModerationsResource) -> None:
+        self._moderations = moderations
 
-        self.run_shield = async_to_streamed_response_wrapper(
-            safety.run_shield,
+        self.create = async_to_streamed_response_wrapper(
+            moderations.create,
         )

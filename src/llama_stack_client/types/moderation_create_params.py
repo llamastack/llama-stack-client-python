@@ -5,10 +5,10 @@ from __future__ import annotations
 from typing import List, Union
 from typing_extensions import Required, TypedDict
 
-__all__ = ["SafetyCreateParams"]
+__all__ = ["ModerationCreateParams"]
 
 
-class SafetyCreateParams(TypedDict, total=False):
+class ModerationCreateParams(TypedDict, total=False):
     input: Required[Union[str, List[str]]]
     """Input (or inputs) to classify.
 

@@ -176,6 +176,14 @@ from .completions import (
     CompletionsResourceWithStreamingResponse,
     AsyncCompletionsResourceWithStreamingResponse,
 )
+from .moderations import (
+    ModerationsResource,
+    AsyncModerationsResource,
+    ModerationsResourceWithRawResponse,
+    AsyncModerationsResourceWithRawResponse,
+    ModerationsResourceWithStreamingResponse,
+    AsyncModerationsResourceWithStreamingResponse,
+)
 from .tool_runtime import (
     ToolRuntimeResource,
     AsyncToolRuntimeResource,
@@ -332,6 +340,12 @@ __all__ = [
     "AsyncRoutesResourceWithRawResponse",
     "RoutesResourceWithStreamingResponse",
     "AsyncRoutesResourceWithStreamingResponse",
+    "ModerationsResource",
+    "AsyncModerationsResource",
+    "ModerationsResourceWithRawResponse",
+    "AsyncModerationsResourceWithRawResponse",
+    "ModerationsResourceWithStreamingResponse",
+    "AsyncModerationsResourceWithStreamingResponse",
     "SafetyResource",
     "AsyncSafetyResource",
     "SafetyResourceWithRawResponse",

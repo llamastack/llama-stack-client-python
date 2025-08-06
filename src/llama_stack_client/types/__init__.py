@@ -78,7 +78,6 @@ from .list_models_response import ListModelsResponse as ListModelsResponse
 from .list_routes_response import ListRoutesResponse as ListRoutesResponse
 from .query_spans_response import QuerySpansResponse as QuerySpansResponse
 from .response_list_params import ResponseListParams as ResponseListParams
-from .safety_create_params import SafetyCreateParams as SafetyCreateParams
 from .scoring_score_params import ScoringScoreParams as ScoringScoreParams
 from .shield_list_response import ShieldListResponse as ShieldListResponse
 from .agent_create_response import AgentCreateResponse as AgentCreateResponse
@@ -113,6 +112,7 @@ from .vector_io_insert_params import VectorIoInsertParams as VectorIoInsertParam
 from .completion_create_params import CompletionCreateParams as CompletionCreateParams
 from .list_benchmarks_response import ListBenchmarksResponse as ListBenchmarksResponse
 from .list_vector_dbs_response import ListVectorDBsResponse as ListVectorDBsResponse
+from .moderation_create_params import ModerationCreateParams as ModerationCreateParams
 from .safety_run_shield_params import SafetyRunShieldParams as SafetyRunShieldParams
 from .vector_store_list_params import VectorStoreListParams as VectorStoreListParams
 from .benchmark_register_params import BenchmarkRegisterParams as BenchmarkRegisterParams

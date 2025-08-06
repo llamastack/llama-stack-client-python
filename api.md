@@ -453,17 +453,28 @@ Methods:
 
 - <code title="get /v1/inspect/routes">client.routes.<a href="./src/llama_stack_client/resources/routes.py">list</a>() -> <a href="./src/llama_stack_client/types/route_list_response.py">RouteListResponse</a></code>
 
+# Moderations
+
+Types:
+
+```python
+from llama_stack_client.types import CreateResponse
+```
+
+Methods:
+
+- <code title="post /v1/openai/v1/moderations">client.moderations.<a href="./src/llama_stack_client/resources/moderations.py">create</a>(\*\*<a href="src/llama_stack_client/types/moderation_create_params.py">params</a>) -> <a href="./src/llama_stack_client/types/create_response.py">CreateResponse</a></code>
+
 # Safety
 
 Types:
 
 ```python
-from llama_stack_client.types import CreateResponse, RunShieldResponse
+from llama_stack_client.types import RunShieldResponse
 ```
 
 Methods:
 
-- <code title="post /v1/openai/v1/moderations">client.safety.<a href="./src/llama_stack_client/resources/safety.py">create</a>(\*\*<a href="src/llama_stack_client/types/safety_create_params.py">params</a>) -> <a href="./src/llama_stack_client/types/create_response.py">CreateResponse</a></code>
 - <code title="post /v1/safety/run-shield">client.safety.<a href="./src/llama_stack_client/resources/safety.py">run_shield</a>(\*\*<a href="src/llama_stack_client/types/safety_run_shield_params.py">params</a>) -> <a href="./src/llama_stack_client/types/run_shield_response.py">RunShieldResponse</a></code>
 
 # Shields
