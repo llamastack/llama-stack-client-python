@@ -142,7 +142,7 @@ class Agent:
         response_format: Optional[ResponseFormat] = None,
         enable_session_persistence: Optional[bool] = None,
         extra_headers: Headers | None = None,
-        name: str | None = None
+        name: str | None = None,
     ):
         """Construct an Agent with the given parameters.
 
@@ -395,7 +395,7 @@ class AsyncAgent:
         response_format: Optional[ResponseFormat] = None,
         enable_session_persistence: Optional[bool] = None,
         extra_headers: Headers | None = None,
-        name: str | None = None
+        name: str | None = None,
     ):
         """Construct an Agent with the given parameters.
 
