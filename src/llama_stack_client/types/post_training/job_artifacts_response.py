@@ -1,13 +1,50 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-from typing import List
+from typing import List, Optional
+from datetime import datetime
 
 from ..._models import BaseModel
 
-__all__ = ["JobArtifactsResponse"]
+__all__ = ["JobArtifactsResponse", "Checkpoint", "CheckpointTrainingMetrics"]
+
+
+class CheckpointTrainingMetrics(BaseModel):
+    epoch: int
+    """Training epoch number"""
+
+    perplexity: float
+    """Perplexity metric indicating model confidence"""
+
+    train_loss: float
+    """Loss value on the training dataset"""
+
+    validation_loss: float
+    """Loss value on the validation dataset"""
+
+
+class Checkpoint(BaseModel):
+    created_at: datetime
+    """Timestamp when the checkpoint was created"""
+
+    epoch: int
+    """Training epoch when the checkpoint was saved"""
+
+    identifier: str
+    """Unique identifier for the checkpoint"""
+
+    path: str
+    """File system path where the checkpoint is stored"""
+
+    post_training_job_id: str
+    """Identifier of the training job that created this checkpoint"""
+
+    training_metrics: Optional[CheckpointTrainingMetrics] = None
+    """(Optional) Training metrics associated with this checkpoint"""
 
 
 class JobArtifactsResponse(BaseModel):
-    checkpoints: List[object]
+    checkpoints: List[Checkpoint]
+    """List of model checkpoints created during training"""
 
     job_uuid: str
+    """Unique identifier for the training job"""

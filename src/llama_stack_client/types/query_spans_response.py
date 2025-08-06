@@ -8,3 +8,4 @@ __all__ = ["QuerySpansResponse"]
 
 class QuerySpansResponse(BaseModel):
     data: TelemetryQuerySpansResponse
+    """List of spans matching the query criteria"""

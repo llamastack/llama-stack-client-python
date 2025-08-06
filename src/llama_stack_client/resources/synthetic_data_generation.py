@@ -59,8 +59,15 @@ class SyntheticDataGenerationResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
     ) -> SyntheticDataGenerationResponse:
         """
+        Generate synthetic data based on input dialogs and apply filtering.
+
         Args:
-          filtering_function: The type of filtering function.
+          dialogs: List of conversation messages to use as input for synthetic data generation
+
+          filtering_function: Type of filtering to apply to generated synthetic data samples
+
+          model: (Optional) The identifier of the model to use. The model must be registered with
+              Llama Stack and available via the /models endpoint
 
           extra_headers: Send extra headers
 
@@ -121,8 +128,15 @@ class AsyncSyntheticDataGenerationResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
     ) -> SyntheticDataGenerationResponse:
         """
+        Generate synthetic data based on input dialogs and apply filtering.
+
         Args:
-          filtering_function: The type of filtering function.
+          dialogs: List of conversation messages to use as input for synthetic data generation
+
+          filtering_function: Type of filtering to apply to generated synthetic data samples
+
+          model: (Optional) The identifier of the model to use. The model must be registered with
+              Llama Stack and available via the /models endpoint
 
           extra_headers: Send extra headers
 

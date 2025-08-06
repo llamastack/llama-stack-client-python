@@ -9,5 +9,10 @@ __all__ = ["SyntheticDataGenerationResponse"]
 
 class SyntheticDataGenerationResponse(BaseModel):
     synthetic_data: List[Dict[str, Union[bool, float, str, List[object], object, None]]]
+    """List of generated synthetic data samples that passed the filtering criteria"""
 
     statistics: Optional[Dict[str, Union[bool, float, str, List[object], object, None]]] = None
+    """
+    (Optional) Statistical information about the generation process and filtering
+    results
+    """

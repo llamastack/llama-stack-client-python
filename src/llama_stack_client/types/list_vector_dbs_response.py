@@ -8,3 +8,4 @@ __all__ = ["ListVectorDBsResponse"]
 
 class ListVectorDBsResponse(BaseModel):
     data: VectorDBListResponse
+    """List of vector databases"""

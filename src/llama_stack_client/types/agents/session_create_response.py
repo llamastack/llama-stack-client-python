@@ -7,3 +7,4 @@ __all__ = ["SessionCreateResponse"]
 
 class SessionCreateResponse(BaseModel):
     session_id: str
+    """Unique identifier for the created session"""

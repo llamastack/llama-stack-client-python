@@ -10,8 +10,10 @@ __all__ = ["AgentRetrieveResponse"]
 
 class AgentRetrieveResponse(BaseModel):
     agent_config: AgentConfig
-    """Configuration for an agent."""
+    """Configuration settings for the agent"""
 
     agent_id: str
+    """Unique identifier for the agent"""
 
     created_at: datetime
+    """Timestamp when the agent was created"""

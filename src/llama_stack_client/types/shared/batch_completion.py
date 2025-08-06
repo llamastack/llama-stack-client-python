@@ -10,3 +10,4 @@ __all__ = ["BatchCompletion"]
 
 class BatchCompletion(BaseModel):
     batch: List[CompletionResponse]
+    """List of completion responses, one for each input in the batch"""

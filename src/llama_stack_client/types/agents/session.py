@@ -11,9 +11,13 @@ __all__ = ["Session"]
 
 class Session(BaseModel):
     session_id: str
+    """Unique identifier for the conversation session"""
 
     session_name: str
+    """Human-readable name for the session"""
 
     started_at: datetime
+    """Timestamp when the session was created"""
 
     turns: List[Turn]
+    """List of all turns that have occurred in this session"""

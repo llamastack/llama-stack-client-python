@@ -12,8 +12,14 @@ __all__ = ["SyntheticDataGenerationGenerateParams"]
 
 class SyntheticDataGenerationGenerateParams(TypedDict, total=False):
     dialogs: Required[Iterable[Message]]
+    """List of conversation messages to use as input for synthetic data generation"""
 
     filtering_function: Required[Literal["none", "random", "top_k", "top_p", "top_k_top_p", "sigmoid"]]
-    """The type of filtering function."""
+    """Type of filtering to apply to generated synthetic data samples"""
 
     model: str
+    """(Optional) The identifier of the model to use.
+
+    The model must be registered with Llama Stack and available via the /models
+    endpoint
+    """

@@ -41,6 +41,7 @@ from .resources import (
     toolgroups,
     vector_dbs,
     completions,
+    moderations,
     scoring_functions,
     synthetic_data_generation,
 )
@@ -91,6 +92,7 @@ class LlamaStackClient(SyncAPIClient):
     post_training: post_training.PostTrainingResource
     providers: providers.ProvidersResource
     routes: routes.RoutesResource
+    moderations: moderations.ModerationsResource
     safety: safety.SafetyResource
     shields: shields.ShieldsResource
     synthetic_data_generation: synthetic_data_generation.SyntheticDataGenerationResource
@@ -177,6 +179,7 @@ class LlamaStackClient(SyncAPIClient):
         self.post_training = post_training.PostTrainingResource(self)
         self.providers = providers.ProvidersResource(self)
         self.routes = routes.RoutesResource(self)
+        self.moderations = moderations.ModerationsResource(self)
         self.safety = safety.SafetyResource(self)
         self.shields = shields.ShieldsResource(self)
         self.synthetic_data_generation = synthetic_data_generation.SyntheticDataGenerationResource(self)
@@ -315,6 +318,7 @@ class AsyncLlamaStackClient(AsyncAPIClient):
     post_training: post_training.AsyncPostTrainingResource
     providers: providers.AsyncProvidersResource
     routes: routes.AsyncRoutesResource
+    moderations: moderations.AsyncModerationsResource
     safety: safety.AsyncSafetyResource
     shields: shields.AsyncShieldsResource
     synthetic_data_generation: synthetic_data_generation.AsyncSyntheticDataGenerationResource
@@ -401,6 +405,7 @@ class AsyncLlamaStackClient(AsyncAPIClient):
         self.post_training = post_training.AsyncPostTrainingResource(self)
         self.providers = providers.AsyncProvidersResource(self)
         self.routes = routes.AsyncRoutesResource(self)
+        self.moderations = moderations.AsyncModerationsResource(self)
         self.safety = safety.AsyncSafetyResource(self)
         self.shields = shields.AsyncShieldsResource(self)
         self.synthetic_data_generation = synthetic_data_generation.AsyncSyntheticDataGenerationResource(self)
@@ -540,6 +545,7 @@ class LlamaStackClientWithRawResponse:
         self.post_training = post_training.PostTrainingResourceWithRawResponse(client.post_training)
         self.providers = providers.ProvidersResourceWithRawResponse(client.providers)
         self.routes = routes.RoutesResourceWithRawResponse(client.routes)
+        self.moderations = moderations.ModerationsResourceWithRawResponse(client.moderations)
         self.safety = safety.SafetyResourceWithRawResponse(client.safety)
         self.shields = shields.ShieldsResourceWithRawResponse(client.shields)
         self.synthetic_data_generation = synthetic_data_generation.SyntheticDataGenerationResourceWithRawResponse(
@@ -573,6 +579,7 @@ class AsyncLlamaStackClientWithRawResponse:
         self.post_training = post_training.AsyncPostTrainingResourceWithRawResponse(client.post_training)
         self.providers = providers.AsyncProvidersResourceWithRawResponse(client.providers)
         self.routes = routes.AsyncRoutesResourceWithRawResponse(client.routes)
+        self.moderations = moderations.AsyncModerationsResourceWithRawResponse(client.moderations)
         self.safety = safety.AsyncSafetyResourceWithRawResponse(client.safety)
         self.shields = shields.AsyncShieldsResourceWithRawResponse(client.shields)
         self.synthetic_data_generation = synthetic_data_generation.AsyncSyntheticDataGenerationResourceWithRawResponse(
@@ -608,6 +615,7 @@ class LlamaStackClientWithStreamedResponse:
         self.post_training = post_training.PostTrainingResourceWithStreamingResponse(client.post_training)
         self.providers = providers.ProvidersResourceWithStreamingResponse(client.providers)
         self.routes = routes.RoutesResourceWithStreamingResponse(client.routes)
+        self.moderations = moderations.ModerationsResourceWithStreamingResponse(client.moderations)
         self.safety = safety.SafetyResourceWithStreamingResponse(client.safety)
         self.shields = shields.ShieldsResourceWithStreamingResponse(client.shields)
         self.synthetic_data_generation = synthetic_data_generation.SyntheticDataGenerationResourceWithStreamingResponse(
@@ -643,6 +651,7 @@ class AsyncLlamaStackClientWithStreamedResponse:
         self.post_training = post_training.AsyncPostTrainingResourceWithStreamingResponse(client.post_training)
         self.providers = providers.AsyncProvidersResourceWithStreamingResponse(client.providers)
         self.routes = routes.AsyncRoutesResourceWithStreamingResponse(client.routes)
+        self.moderations = moderations.AsyncModerationsResourceWithStreamingResponse(client.moderations)
         self.safety = safety.AsyncSafetyResourceWithStreamingResponse(client.safety)
         self.shields = shields.AsyncShieldsResourceWithStreamingResponse(client.shields)
         self.synthetic_data_generation = (

@@ -38,6 +38,7 @@ Step: TypeAlias = Annotated[
 
 class OutputAttachmentContentImageContentItemImageURL(BaseModel):
     uri: str
+    """The URL string pointing to the resource"""
 
 
 class OutputAttachmentContentImageContentItemImage(BaseModel):
@@ -69,6 +70,7 @@ class OutputAttachmentContentTextContentItem(BaseModel):
 
 class OutputAttachmentContentURL(BaseModel):
     uri: str
+    """The URL string pointing to the resource"""
 
 
 OutputAttachmentContent: TypeAlias = Union[
@@ -90,18 +92,25 @@ class OutputAttachment(BaseModel):
 
 class Turn(BaseModel):
     input_messages: List[InputMessage]
+    """List of messages that initiated this turn"""
 
     output_message: CompletionMessage
-    """A message containing the model's (assistant) response in a chat conversation."""
+    """The model's generated response containing content and metadata"""
 
     session_id: str
+    """Unique identifier for the conversation session"""
 
     started_at: datetime
+    """Timestamp when the turn began"""
 
     steps: List[Step]
+    """Ordered list of processing steps executed during this turn"""
 
     turn_id: str
+    """Unique identifier for the turn within a session"""
 
     completed_at: Optional[datetime] = None
+    """(Optional) Timestamp when the turn finished, if completed"""
 
     output_attachments: Optional[List[OutputAttachment]] = None
+    """(Optional) Files or media attached to the agent's response"""

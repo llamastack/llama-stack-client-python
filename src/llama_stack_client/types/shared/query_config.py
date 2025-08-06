@@ -14,8 +14,7 @@ class RankerRrfRanker(BaseModel):
     impact_factor: float
     """The impact factor for RRF scoring.
 
-    Higher values give more weight to higher-ranked results. Must be greater than 0.
-    Default of 60 is from the original RRF paper (Cormack et al., 2009).
+    Higher values give more weight to higher-ranked results. Must be greater than 0
     """
 
     type: Literal["rrf"]
@@ -55,7 +54,7 @@ class QueryConfig(BaseModel):
     query_generator_config: QueryGeneratorConfig
     """Configuration for the query generator."""
 
-    mode: Optional[str] = None
+    mode: Optional[Literal["vector", "keyword", "hybrid"]] = None
     """Search mode for retrieval—either "vector", "keyword", or "hybrid".
 
     Default "vector".

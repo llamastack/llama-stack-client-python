@@ -47,16 +47,18 @@ class DatasetListResponseItem(BaseModel):
     identifier: str
 
     metadata: Dict[str, Union[bool, float, str, List[object], object, None]]
+    """Additional metadata for the dataset"""
 
     provider_id: str
 
     purpose: Literal["post-training/messages", "eval/question-answer", "eval/messages-answer"]
-    """Purpose of the dataset. Each purpose has a required input data schema."""
+    """Purpose of the dataset indicating its intended use"""
 
     source: DatasetListResponseItemSource
-    """A dataset that can be obtained from a URI."""
+    """Data source configuration for the dataset"""
 
     type: Literal["dataset"]
+    """Type of resource, always 'dataset' for datasets"""
 
     provider_resource_id: Optional[str] = None
 
