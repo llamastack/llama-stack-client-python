@@ -79,6 +79,7 @@ class AgentUtils:
         output_shields: Optional[List[str]] = None,
         response_format: Optional[ResponseFormat] = None,
         enable_session_persistence: Optional[bool] = None,
+        name: str | None = None,
     ) -> AgentConfig:
         # Create a minimal valid AgentConfig with required fields
         if model is None or instructions is None:
@@ -106,6 +107,8 @@ class AgentUtils:
             agent_config["sampling_params"] = sampling_params
         if tool_config is not None:
             agent_config["tool_config"] = tool_config
+        if name is not None:
+            agent_config["name"] = name
         if tools is not None:
             toolgroups: List[Toolgroup] = []
             for tool in tools:
@@ -139,6 +142,7 @@ class Agent:
         response_format: Optional[ResponseFormat] = None,
         enable_session_persistence: Optional[bool] = None,
         extra_headers: Headers | None = None,
+        name: str | None = None,
     ):
         """Construct an Agent with the given parameters.
 
@@ -164,6 +168,7 @@ class Agent:
         :param response_format: The response format for the agent.
         :param enable_session_persistence: Whether to enable session persistence.
         :param extra_headers: Extra headers to add to all requests sent by the agent.
+        :param name: Optional name for the agent, used in telemetry and identification.
         """
         self.client = client
 
@@ -185,6 +190,7 @@ class Agent:
                 output_shields=output_shields,
                 response_format=response_format,
                 enable_session_persistence=enable_session_persistence,
+                name=name,
             )
             client_tools = AgentUtils.get_client_tools(tools)
 
@@ -389,6 +395,7 @@ class AsyncAgent:
         response_format: Optional[ResponseFormat] = None,
         enable_session_persistence: Optional[bool] = None,
         extra_headers: Headers | None = None,
+        name: str | None = None,
     ):
         """Construct an Agent with the given parameters.
 
@@ -414,6 +421,7 @@ class AsyncAgent:
         :param response_format: The response format for the agent.
         :param enable_session_persistence: Whether to enable session persistence.
         :param extra_headers: Extra headers to add to all requests sent by the agent.
+        :param name: Optional name for the agent, used in telemetry and identification.
         """
         self.client = client
 
@@ -435,6 +443,7 @@ class AsyncAgent:
                 output_shields=output_shields,
                 response_format=response_format,
                 enable_session_persistence=enable_session_persistence,
+                name=name,
             )
             client_tools = AgentUtils.get_client_tools(tools)
 
