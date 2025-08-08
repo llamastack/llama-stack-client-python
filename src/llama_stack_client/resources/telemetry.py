@@ -12,6 +12,7 @@ from ..types import (
     telemetry_query_traces_params,
     telemetry_get_span_tree_params,
     telemetry_save_spans_to_dataset_params,
+    telemetry_query_metrics_params,
 )
 from .._types import NOT_GIVEN, Body, Query, Headers, NoneType, NotGiven
 from .._utils import maybe_transform, async_maybe_transform
@@ -27,11 +28,15 @@ from .._wrappers import DataWrapper
 from ..types.trace import Trace
 from .._base_client import make_request_options
 from ..types.event_param import EventParam
+
+from ..types.metric_label_matcher_param import MetricLabelMatcherParam
+from ..types.metric_query_type_param import MetricQueryTypeParam
 from ..types.query_condition_param import QueryConditionParam
 from ..types.telemetry_get_span_response import TelemetryGetSpanResponse
 from ..types.telemetry_query_spans_response import TelemetryQuerySpansResponse
 from ..types.telemetry_query_traces_response import TelemetryQueryTracesResponse
 from ..types.telemetry_get_span_tree_response import TelemetryGetSpanTreeResponse
+from ..types.telemetry_query_metrics_response import TelemetryQueryMetricsResponse
 
 __all__ = ["TelemetryResource", "AsyncTelemetryResource"]
 
@@ -377,6 +382,66 @@ class TelemetryResource(SyncAPIResource):
             cast_to=NoneType,
         )
 
+    def query_metrics(
+        self,
+        *,
+        metric_name: str,
+        start_time: int,
+        end_time: int | None = None,
+        granularity: str | None = "1d",
+        query_type: MetricQueryTypeParam = MetricQueryTypeParam.RANGE,
+        label_matchers: Iterable[MetricLabelMatcherParam] | None = None,
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> TelemetryQueryMetricsResponse:
+        """
+        Query metrics.
+
+        Args:
+          metric_name: The name of the metric to query
+
+          start_time: The start time for the query (Unix timestamp)
+
+          end_time: (Optional) The end time for the query (Unix timestamp)
+
+          granularity: (Optional) The granularity of the query (e.g., '1d', '1h')
+
+          query_type: (Optional) The type of metric query to perform
+
+          label_matchers: (Optional) Label matchers to filter the metrics
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        return self._post(
+            f"/v1/telemetry/metrics/{metric_name}",
+            body=maybe_transform(
+                {
+                    "start_time": start_time,
+                    "end_time": end_time,
+                    "granularity": granularity,
+                    "query_type": query_type.value if query_type else None,
+                    "label_matchers": label_matchers,
+                },
+                telemetry_query_metrics_params.TelemetryQueryMetricsParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                post_parser=DataWrapper[TelemetryQueryMetricsResponse]._unwrapper,
+            ),
+            cast_to=cast(Type[TelemetryQueryMetricsResponse], DataWrapper[TelemetryQueryMetricsResponse]),
+        )
+
 
 class AsyncTelemetryResource(AsyncAPIResource):
     @cached_property
@@ -560,6 +625,68 @@ class AsyncTelemetryResource(AsyncAPIResource):
             ),
             cast_to=NoneType,
         )
+    
+
+    async def query_metrics(
+        self,
+        *,
+        metric_name: str,
+        start_time: int,
+        end_time: int | None = None,
+        granularity: str | None = "1d",
+        query_type: MetricQueryTypeParam = MetricQueryTypeParam.RANGE,
+        label_matchers: Iterable[MetricLabelMatcherParam] | None = None,
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> TelemetryQueryMetricsResponse:
+        """
+        Query metrics.
+
+        Args:
+          metric_name: The name of the metric to query
+
+          start_time: The start time for the query (Unix timestamp)
+
+          end_time: (Optional) The end time for the query (Unix timestamp)
+
+          granularity: (Optional) The granularity of the query (e.g., '1d', '1h')
+
+          query_type: (Optional) The type of metric query to perform
+
+          label_matchers: (Optional) Label matchers to filter the metrics
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        return await self._post(
+            f"/v1/telemetry/metrics/{metric_name}",
+            body=await async_maybe_transform(
+                {
+                    "start_time": start_time,
+                    "end_time": end_time,
+                    "granularity": granularity,
+                    "query_type": query_type.value if query_type else None,
+                    "label_matchers": label_matchers,
+                },
+                telemetry_query_metrics_params.TelemetryQueryMetricsParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                post_parser=DataWrapper[TelemetryQueryMetricsResponse]._unwrapper,
+            ),
+            cast_to=cast(Type[TelemetryQueryMetricsResponse], DataWrapper[TelemetryQueryMetricsResponse]),
+        )
+
 
     async def query_spans(
         self,
@@ -742,6 +869,9 @@ class TelemetryResourceWithRawResponse:
         self.query_traces = to_raw_response_wrapper(
             telemetry.query_traces,
         )
+        self.query_metrics = to_raw_response_wrapper(
+            telemetry.query_metrics,
+        )
         self.save_spans_to_dataset = to_raw_response_wrapper(
             telemetry.save_spans_to_dataset,
         )
@@ -768,6 +898,9 @@ class AsyncTelemetryResourceWithRawResponse:
         )
         self.query_traces = async_to_raw_response_wrapper(
             telemetry.query_traces,
+        )
+        self.query_metrics = async_to_raw_response_wrapper(
+            telemetry.query_metrics,
         )
         self.save_spans_to_dataset = async_to_raw_response_wrapper(
             telemetry.save_spans_to_dataset,
@@ -796,6 +929,9 @@ class TelemetryResourceWithStreamingResponse:
         self.query_traces = to_streamed_response_wrapper(
             telemetry.query_traces,
         )
+        self.query_metrics = to_streamed_response_wrapper(
+            telemetry.query_metrics,
+        )
         self.save_spans_to_dataset = to_streamed_response_wrapper(
             telemetry.save_spans_to_dataset,
         )
@@ -822,6 +958,9 @@ class AsyncTelemetryResourceWithStreamingResponse:
         )
         self.query_traces = async_to_streamed_response_wrapper(
             telemetry.query_traces,
+        )
+        self.query_metrics = async_to_streamed_response_wrapper(
+            telemetry.query_metrics,
         )
         self.save_spans_to_dataset = async_to_streamed_response_wrapper(
             telemetry.save_spans_to_dataset,
