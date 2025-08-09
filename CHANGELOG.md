@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.2.18 (2025-08-09)
+
+Full Changelog: [v0.2.17...v0.2.18](https://github.com/llamastack/llama-stack-client-python/compare/v0.2.17...v0.2.18)
+
+### Chores
+
+* update @stainless-api/prism-cli to v5.15.0 ([5f8ae94](https://github.com/llamastack/llama-stack-client-python/commit/5f8ae94955bb3403c0abe89f2999c2d49af97b07))
+
 ## 0.2.17 (2025-08-06)
 
 Full Changelog: [v0.2.15...v0.2.17](https://github.com/llamastack/llama-stack-client-python/compare/v0.2.15...v0.2.17)
