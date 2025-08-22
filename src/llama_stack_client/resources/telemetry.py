@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 from typing import List, Type, Iterable, cast
+from typing_extensions import Literal
 
 import httpx
 
@@ -11,6 +12,7 @@ from ..types import (
     telemetry_query_spans_params,
     telemetry_query_traces_params,
     telemetry_get_span_tree_params,
+    telemetry_query_metrics_params,
     telemetry_save_spans_to_dataset_params,
 )
 from .._types import NOT_GIVEN, Body, Query, Headers, NoneType, NotGiven
@@ -32,6 +34,7 @@ from ..types.telemetry_get_span_response import TelemetryGetSpanResponse
 from ..types.telemetry_query_spans_response import TelemetryQuerySpansResponse
 from ..types.telemetry_query_traces_response import TelemetryQueryTracesResponse
 from ..types.telemetry_get_span_tree_response import TelemetryGetSpanTreeResponse
+from ..types.telemetry_query_metrics_response import TelemetryQueryMetricsResponse
 
 __all__ = ["TelemetryResource", "AsyncTelemetryResource"]
 
@@ -217,6 +220,68 @@ class TelemetryResource(SyncAPIResource):
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
             cast_to=NoneType,
+        )
+
+    def query_metrics(
+        self,
+        metric_name: str,
+        *,
+        query_type: Literal["range", "instant"],
+        start_time: int,
+        end_time: int | NotGiven = NOT_GIVEN,
+        granularity: str | NotGiven = NOT_GIVEN,
+        label_matchers: Iterable[telemetry_query_metrics_params.LabelMatcher] | NotGiven = NOT_GIVEN,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> TelemetryQueryMetricsResponse:
+        """
+        Query metrics.
+
+        Args:
+          query_type: The type of query to perform.
+
+          start_time: The start time of the metric to query.
+
+          end_time: The end time of the metric to query.
+
+          granularity: The granularity of the metric to query.
+
+          label_matchers: The label matchers to apply to the metric.
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not metric_name:
+            raise ValueError(f"Expected a non-empty value for `metric_name` but received {metric_name!r}")
+        return self._post(
+            f"/v1/telemetry/metrics/{metric_name}",
+            body=maybe_transform(
+                {
+                    "query_type": query_type,
+                    "start_time": start_time,
+                    "end_time": end_time,
+                    "granularity": granularity,
+                    "label_matchers": label_matchers,
+                },
+                telemetry_query_metrics_params.TelemetryQueryMetricsParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                post_parser=DataWrapper[TelemetryQueryMetricsResponse]._unwrapper,
+            ),
+            cast_to=cast(Type[TelemetryQueryMetricsResponse], DataWrapper[TelemetryQueryMetricsResponse]),
         )
 
     def query_spans(
@@ -561,6 +626,68 @@ class AsyncTelemetryResource(AsyncAPIResource):
             cast_to=NoneType,
         )
 
+    async def query_metrics(
+        self,
+        metric_name: str,
+        *,
+        query_type: Literal["range", "instant"],
+        start_time: int,
+        end_time: int | NotGiven = NOT_GIVEN,
+        granularity: str | NotGiven = NOT_GIVEN,
+        label_matchers: Iterable[telemetry_query_metrics_params.LabelMatcher] | NotGiven = NOT_GIVEN,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> TelemetryQueryMetricsResponse:
+        """
+        Query metrics.
+
+        Args:
+          query_type: The type of query to perform.
+
+          start_time: The start time of the metric to query.
+
+          end_time: The end time of the metric to query.
+
+          granularity: The granularity of the metric to query.
+
+          label_matchers: The label matchers to apply to the metric.
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not metric_name:
+            raise ValueError(f"Expected a non-empty value for `metric_name` but received {metric_name!r}")
+        return await self._post(
+            f"/v1/telemetry/metrics/{metric_name}",
+            body=await async_maybe_transform(
+                {
+                    "query_type": query_type,
+                    "start_time": start_time,
+                    "end_time": end_time,
+                    "granularity": granularity,
+                    "label_matchers": label_matchers,
+                },
+                telemetry_query_metrics_params.TelemetryQueryMetricsParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                post_parser=DataWrapper[TelemetryQueryMetricsResponse]._unwrapper,
+            ),
+            cast_to=cast(Type[TelemetryQueryMetricsResponse], DataWrapper[TelemetryQueryMetricsResponse]),
+        )
+
     async def query_spans(
         self,
         *,
@@ -736,6 +863,9 @@ class TelemetryResourceWithRawResponse:
         self.log_event = to_raw_response_wrapper(
             telemetry.log_event,
         )
+        self.query_metrics = to_raw_response_wrapper(
+            telemetry.query_metrics,
+        )
         self.query_spans = to_raw_response_wrapper(
             telemetry.query_spans,
         )
@@ -762,6 +892,9 @@ class AsyncTelemetryResourceWithRawResponse:
         )
         self.log_event = async_to_raw_response_wrapper(
             telemetry.log_event,
+        )
+        self.query_metrics = async_to_raw_response_wrapper(
+            telemetry.query_metrics,
         )
         self.query_spans = async_to_raw_response_wrapper(
             telemetry.query_spans,
@@ -790,6 +923,9 @@ class TelemetryResourceWithStreamingResponse:
         self.log_event = to_streamed_response_wrapper(
             telemetry.log_event,
         )
+        self.query_metrics = to_streamed_response_wrapper(
+            telemetry.query_metrics,
+        )
         self.query_spans = to_streamed_response_wrapper(
             telemetry.query_spans,
         )
@@ -816,6 +952,9 @@ class AsyncTelemetryResourceWithStreamingResponse:
         )
         self.log_event = async_to_streamed_response_wrapper(
             telemetry.log_event,
+        )
+        self.query_metrics = async_to_streamed_response_wrapper(
+            telemetry.query_metrics,
         )
         self.query_spans = async_to_streamed_response_wrapper(
             telemetry.query_spans,

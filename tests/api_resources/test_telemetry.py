@@ -15,6 +15,7 @@ from llama_stack_client.types import (
     TelemetryQuerySpansResponse,
     TelemetryGetSpanTreeResponse,
     TelemetryQueryTracesResponse,
+    TelemetryQueryMetricsResponse,
 )
 from llama_stack_client._utils import parse_datetime
 
@@ -227,6 +228,75 @@ class TestTelemetry:
             assert telemetry is None
 
         assert cast(Any, response.is_closed) is True
+
+    @pytest.mark.skip(reason="unsupported query params in java / kotlin")
+    @parametrize
+    def test_method_query_metrics(self, client: LlamaStackClient) -> None:
+        telemetry = client.telemetry.query_metrics(
+            metric_name="metric_name",
+            query_type="range",
+            start_time=0,
+        )
+        assert_matches_type(TelemetryQueryMetricsResponse, telemetry, path=["response"])
+
+    @pytest.mark.skip(reason="unsupported query params in java / kotlin")
+    @parametrize
+    def test_method_query_metrics_with_all_params(self, client: LlamaStackClient) -> None:
+        telemetry = client.telemetry.query_metrics(
+            metric_name="metric_name",
+            query_type="range",
+            start_time=0,
+            end_time=0,
+            granularity="granularity",
+            label_matchers=[
+                {
+                    "name": "name",
+                    "operator": "=",
+                    "value": "value",
+                }
+            ],
+        )
+        assert_matches_type(TelemetryQueryMetricsResponse, telemetry, path=["response"])
+
+    @pytest.mark.skip(reason="unsupported query params in java / kotlin")
+    @parametrize
+    def test_raw_response_query_metrics(self, client: LlamaStackClient) -> None:
+        response = client.telemetry.with_raw_response.query_metrics(
+            metric_name="metric_name",
+            query_type="range",
+            start_time=0,
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        telemetry = response.parse()
+        assert_matches_type(TelemetryQueryMetricsResponse, telemetry, path=["response"])
+
+    @pytest.mark.skip(reason="unsupported query params in java / kotlin")
+    @parametrize
+    def test_streaming_response_query_metrics(self, client: LlamaStackClient) -> None:
+        with client.telemetry.with_streaming_response.query_metrics(
+            metric_name="metric_name",
+            query_type="range",
+            start_time=0,
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            telemetry = response.parse()
+            assert_matches_type(TelemetryQueryMetricsResponse, telemetry, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @pytest.mark.skip(reason="unsupported query params in java / kotlin")
+    @parametrize
+    def test_path_params_query_metrics(self, client: LlamaStackClient) -> None:
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `metric_name` but received ''"):
+            client.telemetry.with_raw_response.query_metrics(
+                metric_name="",
+                query_type="range",
+                start_time=0,
+            )
 
     @pytest.mark.skip(reason="unsupported query params in java / kotlin")
     @parametrize
@@ -624,6 +694,75 @@ class TestAsyncTelemetry:
             assert telemetry is None
 
         assert cast(Any, response.is_closed) is True
+
+    @pytest.mark.skip(reason="unsupported query params in java / kotlin")
+    @parametrize
+    async def test_method_query_metrics(self, async_client: AsyncLlamaStackClient) -> None:
+        telemetry = await async_client.telemetry.query_metrics(
+            metric_name="metric_name",
+            query_type="range",
+            start_time=0,
+        )
+        assert_matches_type(TelemetryQueryMetricsResponse, telemetry, path=["response"])
+
+    @pytest.mark.skip(reason="unsupported query params in java / kotlin")
+    @parametrize
+    async def test_method_query_metrics_with_all_params(self, async_client: AsyncLlamaStackClient) -> None:
+        telemetry = await async_client.telemetry.query_metrics(
+            metric_name="metric_name",
+            query_type="range",
+            start_time=0,
+            end_time=0,
+            granularity="granularity",
+            label_matchers=[
+                {
+                    "name": "name",
+                    "operator": "=",
+                    "value": "value",
+                }
+            ],
+        )
+        assert_matches_type(TelemetryQueryMetricsResponse, telemetry, path=["response"])
+
+    @pytest.mark.skip(reason="unsupported query params in java / kotlin")
+    @parametrize
+    async def test_raw_response_query_metrics(self, async_client: AsyncLlamaStackClient) -> None:
+        response = await async_client.telemetry.with_raw_response.query_metrics(
+            metric_name="metric_name",
+            query_type="range",
+            start_time=0,
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        telemetry = await response.parse()
+        assert_matches_type(TelemetryQueryMetricsResponse, telemetry, path=["response"])
+
+    @pytest.mark.skip(reason="unsupported query params in java / kotlin")
+    @parametrize
+    async def test_streaming_response_query_metrics(self, async_client: AsyncLlamaStackClient) -> None:
+        async with async_client.telemetry.with_streaming_response.query_metrics(
+            metric_name="metric_name",
+            query_type="range",
+            start_time=0,
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            telemetry = await response.parse()
+            assert_matches_type(TelemetryQueryMetricsResponse, telemetry, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @pytest.mark.skip(reason="unsupported query params in java / kotlin")
+    @parametrize
+    async def test_path_params_query_metrics(self, async_client: AsyncLlamaStackClient) -> None:
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `metric_name` but received ''"):
+            await async_client.telemetry.with_raw_response.query_metrics(
+                metric_name="",
+                query_type="range",
+                start_time=0,
+            )
 
     @pytest.mark.skip(reason="unsupported query params in java / kotlin")
     @parametrize

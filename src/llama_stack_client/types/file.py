@@ -26,5 +26,5 @@ class File(BaseModel):
     object: Literal["file"]
     """The object type, which is always "file" """
 
-    purpose: Literal["assistants"]
+    purpose: Literal["assistants", "batch"]
     """The intended purpose of the file"""

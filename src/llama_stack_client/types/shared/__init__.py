@@ -22,5 +22,6 @@ from .tool_call_or_string import ToolCallOrString as ToolCallOrString
 from .tool_param_definition import ToolParamDefinition as ToolParamDefinition
 from .tool_response_message import ToolResponseMessage as ToolResponseMessage
 from .query_generator_config import QueryGeneratorConfig as QueryGeneratorConfig
+from .shared_token_log_probs import SharedTokenLogProbs as SharedTokenLogProbs
 from .chat_completion_response import ChatCompletionResponse as ChatCompletionResponse
 from .interleaved_content_item import InterleavedContentItem as InterleavedContentItem

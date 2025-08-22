@@ -3,11 +3,12 @@
 from typing import List, Optional
 from typing_extensions import Literal
 
+from .metric import Metric
 from .._models import BaseModel
-from .token_log_probs import TokenLogProbs
 from .shared.content_delta import ContentDelta
+from .shared.shared_token_log_probs import SharedTokenLogProbs
 
-__all__ = ["ChatCompletionResponseStreamChunk", "Event", "Metric"]
+__all__ = ["ChatCompletionResponseStreamChunk", "Event"]
 
 
 class Event(BaseModel):
@@ -20,22 +21,11 @@ class Event(BaseModel):
     event_type: Literal["start", "complete", "progress"]
     """Type of the event"""
 
-    logprobs: Optional[List[TokenLogProbs]] = None
+    logprobs: Optional[List[SharedTokenLogProbs]] = None
     """Optional log probabilities for generated tokens"""
 
     stop_reason: Optional[Literal["end_of_turn", "end_of_message", "out_of_tokens"]] = None
     """Optional reason why generation stopped, if complete"""
-
-
-class Metric(BaseModel):
-    metric: str
-    """The name of the metric"""
-
-    value: float
-    """The numeric value of the metric"""
-
-    unit: Optional[str] = None
-    """(Optional) The unit of measurement for the metric value"""
 
 
 class ChatCompletionResponseStreamChunk(BaseModel):

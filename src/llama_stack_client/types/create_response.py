@@ -22,13 +22,7 @@ class Result(BaseModel):
     """
 
     category_scores: Optional[Dict[str, float]] = None
-    """A list of the categories along with their scores as predicted by model.
-
-    Required set of categories that need to be in response - violence -
-    violence/graphic - harassment - harassment/threatening - hate -
-    hate/threatening - illicit - illicit/violent - sexual - sexual/minors -
-    self-harm - self-harm/intent - self-harm/instructions
-    """
+    """A list of the categories along with their scores as predicted by model."""
 
     user_message: Optional[str] = None
 

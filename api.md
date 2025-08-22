@@ -20,6 +20,7 @@ from llama_stack_client.types import (
     SafetyViolation,
     SamplingParams,
     ScoringResult,
+    SharedTokenLogProbs,
     SystemMessage,
     ToolCall,
     ToolCallOrString,
@@ -62,7 +63,7 @@ Methods:
 Types:
 
 ```python
-from llama_stack_client.types import ToolDef, ToolInvocationResult, ToolRuntimeListToolsResponse
+from llama_stack_client.types import ToolInvocationResult, ToolRuntimeListToolsResponse
 ```
 
 Methods:
@@ -239,7 +240,6 @@ Types:
 ```python
 from llama_stack_client.types import (
     ChatCompletionResponseStreamChunk,
-    CompletionResponse,
     EmbeddingsResponse,
     TokenLogProbs,
     InferenceBatchChatCompletionResponse,
@@ -251,7 +251,7 @@ Methods:
 - <code title="post /v1/inference/batch-chat-completion">client.inference.<a href="./src/llama_stack_client/resources/inference.py">batch_chat_completion</a>(\*\*<a href="src/llama_stack_client/types/inference_batch_chat_completion_params.py">params</a>) -> <a href="./src/llama_stack_client/types/inference_batch_chat_completion_response.py">InferenceBatchChatCompletionResponse</a></code>
 - <code title="post /v1/inference/batch-completion">client.inference.<a href="./src/llama_stack_client/resources/inference.py">batch_completion</a>(\*\*<a href="src/llama_stack_client/types/inference_batch_completion_params.py">params</a>) -> <a href="./src/llama_stack_client/types/shared/batch_completion.py">BatchCompletion</a></code>
 - <code title="post /v1/inference/chat-completion">client.inference.<a href="./src/llama_stack_client/resources/inference.py">chat_completion</a>(\*\*<a href="src/llama_stack_client/types/inference_chat_completion_params.py">params</a>) -> <a href="./src/llama_stack_client/types/shared/chat_completion_response.py">ChatCompletionResponse</a></code>
-- <code title="post /v1/inference/completion">client.inference.<a href="./src/llama_stack_client/resources/inference.py">completion</a>(\*\*<a href="src/llama_stack_client/types/inference_completion_params.py">params</a>) -> <a href="./src/llama_stack_client/types/completion_response.py">CompletionResponse</a></code>
+- <code title="post /v1/inference/completion">client.inference.<a href="./src/llama_stack_client/resources/inference.py">completion</a>(\*\*<a href="src/llama_stack_client/types/inference_completion_params.py">params</a>) -> UnnamedTypeWithNoPropertyInfoOrParent0</code>
 - <code title="post /v1/inference/embeddings">client.inference.<a href="./src/llama_stack_client/resources/inference.py">embeddings</a>(\*\*<a href="src/llama_stack_client/types/inference_embeddings_params.py">params</a>) -> <a href="./src/llama_stack_client/types/embeddings_response.py">EmbeddingsResponse</a></code>
 
 # Embeddings
@@ -509,12 +509,14 @@ Types:
 ```python
 from llama_stack_client.types import (
     Event,
+    Metric,
     QueryCondition,
     QuerySpansResponse,
     SpanWithStatus,
     Trace,
     TelemetryGetSpanResponse,
     TelemetryGetSpanTreeResponse,
+    TelemetryQueryMetricsResponse,
     TelemetryQuerySpansResponse,
     TelemetryQueryTracesResponse,
 )
@@ -526,6 +528,7 @@ Methods:
 - <code title="post /v1/telemetry/spans/{span_id}/tree">client.telemetry.<a href="./src/llama_stack_client/resources/telemetry.py">get_span_tree</a>(span_id, \*\*<a href="src/llama_stack_client/types/telemetry_get_span_tree_params.py">params</a>) -> <a href="./src/llama_stack_client/types/telemetry_get_span_tree_response.py">TelemetryGetSpanTreeResponse</a></code>
 - <code title="get /v1/telemetry/traces/{trace_id}">client.telemetry.<a href="./src/llama_stack_client/resources/telemetry.py">get_trace</a>(trace_id) -> <a href="./src/llama_stack_client/types/trace.py">Trace</a></code>
 - <code title="post /v1/telemetry/events">client.telemetry.<a href="./src/llama_stack_client/resources/telemetry.py">log_event</a>(\*\*<a href="src/llama_stack_client/types/telemetry_log_event_params.py">params</a>) -> None</code>
+- <code title="post /v1/telemetry/metrics/{metric_name}">client.telemetry.<a href="./src/llama_stack_client/resources/telemetry.py">query_metrics</a>(metric_name, \*\*<a href="src/llama_stack_client/types/telemetry_query_metrics_params.py">params</a>) -> <a href="./src/llama_stack_client/types/telemetry_query_metrics_response.py">TelemetryQueryMetricsResponse</a></code>
 - <code title="post /v1/telemetry/spans">client.telemetry.<a href="./src/llama_stack_client/resources/telemetry.py">query_spans</a>(\*\*<a href="src/llama_stack_client/types/telemetry_query_spans_params.py">params</a>) -> <a href="./src/llama_stack_client/types/telemetry_query_spans_response.py">TelemetryQuerySpansResponse</a></code>
 - <code title="post /v1/telemetry/traces">client.telemetry.<a href="./src/llama_stack_client/resources/telemetry.py">query_traces</a>(\*\*<a href="src/llama_stack_client/types/telemetry_query_traces_params.py">params</a>) -> <a href="./src/llama_stack_client/types/telemetry_query_traces_response.py">TelemetryQueryTracesResponse</a></code>
 - <code title="post /v1/telemetry/spans/export">client.telemetry.<a href="./src/llama_stack_client/resources/telemetry.py">save_spans_to_dataset</a>(\*\*<a href="src/llama_stack_client/types/telemetry_save_spans_to_dataset_params.py">params</a>) -> None</code>

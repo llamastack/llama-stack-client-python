@@ -4,11 +4,48 @@ from typing import Dict, List, Union, Optional
 from typing_extensions import Literal, TypeAlias
 
 from ..._models import BaseModel
-from ..tool_def import ToolDef
 from .response_format import ResponseFormat
 from .sampling_params import SamplingParams
 
-__all__ = ["AgentConfig", "ToolConfig", "Toolgroup", "ToolgroupAgentToolGroupWithArgs"]
+__all__ = [
+    "AgentConfig",
+    "ClientTool",
+    "ClientToolParameter",
+    "ToolConfig",
+    "Toolgroup",
+    "ToolgroupAgentToolGroupWithArgs",
+]
+
+
+class ClientToolParameter(BaseModel):
+    description: str
+    """Human-readable description of what the parameter does"""
+
+    name: str
+    """Name of the parameter"""
+
+    parameter_type: str
+    """Type of the parameter (e.g., string, integer)"""
+
+    required: bool
+    """Whether this parameter is required for tool invocation"""
+
+    default: Union[bool, float, str, List[object], object, None] = None
+    """(Optional) Default value for the parameter if not provided"""
+
+
+class ClientTool(BaseModel):
+    name: str
+    """Name of the tool"""
+
+    description: Optional[str] = None
+    """(Optional) Human-readable description of what the tool does"""
+
+    metadata: Optional[Dict[str, Union[bool, float, str, List[object], object, None]]] = None
+    """(Optional) Additional metadata about the tool"""
+
+    parameters: Optional[List[ClientToolParameter]] = None
+    """(Optional) List of parameters this tool accepts"""
 
 
 class ToolConfig(BaseModel):
@@ -56,7 +93,7 @@ class AgentConfig(BaseModel):
     model: str
     """The model identifier to use for the agent"""
 
-    client_tools: Optional[List[ToolDef]] = None
+    client_tools: Optional[List[ClientTool]] = None
 
     enable_session_persistence: Optional[bool] = None
     """Optional flag indicating whether session data has to be persisted"""

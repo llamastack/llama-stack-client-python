@@ -12,5 +12,5 @@ __all__ = ["FileCreateParams"]
 class FileCreateParams(TypedDict, total=False):
     file: Required[FileTypes]
 
-    purpose: Required[Literal["assistants"]]
+    purpose: Required[Literal["assistants", "batch"]]
     """Valid purpose values for OpenAI Files API."""
