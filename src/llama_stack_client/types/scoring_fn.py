@@ -5,9 +5,23 @@ from typing_extensions import Literal
 
 from .._models import BaseModel
 from .scoring_fn_params import ScoringFnParams
-from .shared.return_type import ReturnType
 
-__all__ = ["ScoringFn"]
+__all__ = ["ScoringFn", "ReturnType"]
+
+
+class ReturnType(BaseModel):
+    type: Literal[
+        "string",
+        "number",
+        "boolean",
+        "array",
+        "object",
+        "json",
+        "union",
+        "chat_completion_input",
+        "completion_input",
+        "agent_turn_input",
+    ]
 
 
 class ScoringFn(BaseModel):

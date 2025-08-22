@@ -7,13 +7,12 @@ from .file import File as File
 from .tool import Tool as Tool
 from .model import Model as Model
 from .trace import Trace as Trace
-from .metric import Metric as Metric
 from .shared import (
+    Metric as Metric,
     Message as Message,
     Document as Document,
     ToolCall as ToolCall,
     ParamType as ParamType,
-    ReturnType as ReturnType,
     AgentConfig as AgentConfig,
     QueryConfig as QueryConfig,
     QueryResult as QueryResult,
@@ -25,7 +24,6 @@ from .shared import (
     SamplingParams as SamplingParams,
     BatchCompletion as BatchCompletion,
     SafetyViolation as SafetyViolation,
-    ToolCallOrString as ToolCallOrString,
     CompletionMessage as CompletionMessage,
     InterleavedContent as InterleavedContent,
     SharedTokenLogProbs as SharedTokenLogProbs,

@@ -21,7 +21,6 @@ from .._wrappers import DataWrapper
 from .._base_client import make_request_options
 from ..types.scoring_fn import ScoringFn
 from ..types.scoring_fn_params_param import ScoringFnParamsParam
-from ..types.shared_params.return_type import ReturnType
 from ..types.scoring_function_list_response import ScoringFunctionListResponse
 
 __all__ = ["ScoringFunctionsResource", "AsyncScoringFunctionsResource"]
@@ -107,7 +106,7 @@ class ScoringFunctionsResource(SyncAPIResource):
         self,
         *,
         description: str,
-        return_type: ReturnType,
+        return_type: scoring_function_register_params.ReturnType,
         scoring_fn_id: str,
         params: ScoringFnParamsParam | NotGiven = NOT_GIVEN,
         provider_id: str | NotGiven = NOT_GIVEN,
@@ -243,7 +242,7 @@ class AsyncScoringFunctionsResource(AsyncAPIResource):
         self,
         *,
         description: str,
-        return_type: ReturnType,
+        return_type: scoring_function_register_params.ReturnType,
         scoring_fn_id: str,
         params: ScoringFnParamsParam | NotGiven = NOT_GIVEN,
         provider_id: str | NotGiven = NOT_GIVEN,

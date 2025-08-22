@@ -2,12 +2,11 @@
 
 from __future__ import annotations
 
-from typing_extensions import Required, TypedDict
+from typing_extensions import Literal, Required, TypedDict
 
 from .scoring_fn_params_param import ScoringFnParamsParam
-from .shared_params.return_type import ReturnType
 
-__all__ = ["ScoringFunctionRegisterParams"]
+__all__ = ["ScoringFunctionRegisterParams", "ReturnType"]
 
 
 class ScoringFunctionRegisterParams(TypedDict, total=False):
@@ -30,3 +29,20 @@ class ScoringFunctionRegisterParams(TypedDict, total=False):
 
     provider_scoring_fn_id: str
     """The ID of the provider scoring function to use for the scoring function."""
+
+
+class ReturnType(TypedDict, total=False):
+    type: Required[
+        Literal[
+            "string",
+            "number",
+            "boolean",
+            "array",
+            "object",
+            "json",
+            "union",
+            "chat_completion_input",
+            "completion_input",
+            "agent_turn_input",
+        ]
+    ]

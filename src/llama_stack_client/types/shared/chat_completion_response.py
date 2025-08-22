@@ -2,7 +2,7 @@
 
 from typing import List, Optional
 
-from ..metric import Metric
+from .metric import Metric
 from ..._models import BaseModel
 from .completion_message import CompletionMessage
 from .shared_token_log_probs import SharedTokenLogProbs

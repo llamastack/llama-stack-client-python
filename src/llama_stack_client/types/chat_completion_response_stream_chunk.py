@@ -3,8 +3,8 @@
 from typing import List, Optional
 from typing_extensions import Literal
 
-from .metric import Metric
 from .._models import BaseModel
+from .shared.metric import Metric
 from .shared.content_delta import ContentDelta
 from .shared.shared_token_log_probs import SharedTokenLogProbs
 

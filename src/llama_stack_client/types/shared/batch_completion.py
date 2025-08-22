@@ -3,7 +3,7 @@
 from typing import List, Optional
 from typing_extensions import Literal
 
-from ..metric import Metric
+from .metric import Metric
 from ..._models import BaseModel
 from .shared_token_log_probs import SharedTokenLogProbs
 
