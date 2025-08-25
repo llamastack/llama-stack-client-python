@@ -3,7 +3,7 @@
 from __future__ import annotations
 
 import os
-from typing import Any, Union, Mapping
+from typing import TYPE_CHECKING, Any, Union, Mapping
 from typing_extensions import Self, override
 
 import httpx
@@ -20,30 +20,8 @@ from ._types import (
     RequestOptions,
 )
 from ._utils import is_given, get_async_library
+from ._compat import cached_property
 from ._version import __version__
-from .resources import (
-    files,
-    tools,
-    models,
-    routes,
-    safety,
-    inspect,
-    scoring,
-    shields,
-    datasets,
-    inference,
-    providers,
-    telemetry,
-    vector_io,
-    benchmarks,
-    embeddings,
-    toolgroups,
-    vector_dbs,
-    completions,
-    moderations,
-    scoring_functions,
-    synthetic_data_generation,
-)
 from ._streaming import Stream as Stream, AsyncStream as AsyncStream
 from ._exceptions import APIStatusError
 from ._base_client import (
@@ -51,13 +29,69 @@ from ._base_client import (
     SyncAPIClient,
     AsyncAPIClient,
 )
-from .resources.chat import chat
-from .resources.eval import eval
-from .resources.agents import agents
-from .resources.responses import responses
-from .resources.tool_runtime import tool_runtime
-from .resources.post_training import post_training
-from .resources.vector_stores import vector_stores
+
+if TYPE_CHECKING:
+    from .resources import (
+        chat,
+        eval,
+        files,
+        tools,
+        agents,
+        models,
+        routes,
+        safety,
+        inspect,
+        scoring,
+        shields,
+        datasets,
+        inference,
+        providers,
+        responses,
+        telemetry,
+        vector_io,
+        benchmarks,
+        embeddings,
+        toolgroups,
+        vector_dbs,
+        completions,
+        moderations,
+        tool_runtime,
+        post_training,
+        vector_stores,
+        scoring_functions,
+        synthetic_data_generation,
+    )
+    from .resources.files import FilesResource, AsyncFilesResource
+    from .resources.tools import ToolsResource, AsyncToolsResource
+    from .resources.models import ModelsResource, AsyncModelsResource
+    from .resources.routes import RoutesResource, AsyncRoutesResource
+    from .resources.safety import SafetyResource, AsyncSafetyResource
+    from .resources.inspect import InspectResource, AsyncInspectResource
+    from .resources.scoring import ScoringResource, AsyncScoringResource
+    from .resources.shields import ShieldsResource, AsyncShieldsResource
+    from .resources.datasets import DatasetsResource, AsyncDatasetsResource
+    from .resources.chat.chat import ChatResource, AsyncChatResource
+    from .resources.eval.eval import EvalResource, AsyncEvalResource
+    from .resources.inference import InferenceResource, AsyncInferenceResource
+    from .resources.providers import ProvidersResource, AsyncProvidersResource
+    from .resources.telemetry import TelemetryResource, AsyncTelemetryResource
+    from .resources.vector_io import VectorIoResource, AsyncVectorIoResource
+    from .resources.benchmarks import BenchmarksResource, AsyncBenchmarksResource
+    from .resources.embeddings import EmbeddingsResource, AsyncEmbeddingsResource
+    from .resources.toolgroups import ToolgroupsResource, AsyncToolgroupsResource
+    from .resources.vector_dbs import VectorDBsResource, AsyncVectorDBsResource
+    from .resources.completions import CompletionsResource, AsyncCompletionsResource
+    from .resources.moderations import ModerationsResource, AsyncModerationsResource
+    from .resources.agents.agents import AgentsResource, AsyncAgentsResource
+    from .resources.scoring_functions import ScoringFunctionsResource, AsyncScoringFunctionsResource
+    from .resources.responses.responses import ResponsesResource, AsyncResponsesResource
+    from .resources.synthetic_data_generation import (
+        SyntheticDataGenerationResource,
+        AsyncSyntheticDataGenerationResource,
+    )
+    from .resources.tool_runtime.tool_runtime import ToolRuntimeResource, AsyncToolRuntimeResource
+    from .resources.post_training.post_training import PostTrainingResource, AsyncPostTrainingResource
+    from .resources.vector_stores.vector_stores import VectorStoresResource, AsyncVectorStoresResource
 
 __all__ = [
     "Timeout",
@@ -72,37 +106,6 @@ __all__ = [
 
 
 class LlamaStackClient(SyncAPIClient):
-    toolgroups: toolgroups.ToolgroupsResource
-    tools: tools.ToolsResource
-    tool_runtime: tool_runtime.ToolRuntimeResource
-    responses: responses.ResponsesResource
-    agents: agents.AgentsResource
-    datasets: datasets.DatasetsResource
-    eval: eval.EvalResource
-    inspect: inspect.InspectResource
-    inference: inference.InferenceResource
-    embeddings: embeddings.EmbeddingsResource
-    chat: chat.ChatResource
-    completions: completions.CompletionsResource
-    vector_io: vector_io.VectorIoResource
-    vector_dbs: vector_dbs.VectorDBsResource
-    vector_stores: vector_stores.VectorStoresResource
-    models: models.ModelsResource
-    post_training: post_training.PostTrainingResource
-    providers: providers.ProvidersResource
-    routes: routes.RoutesResource
-    moderations: moderations.ModerationsResource
-    safety: safety.SafetyResource
-    shields: shields.ShieldsResource
-    synthetic_data_generation: synthetic_data_generation.SyntheticDataGenerationResource
-    telemetry: telemetry.TelemetryResource
-    scoring: scoring.ScoringResource
-    scoring_functions: scoring_functions.ScoringFunctionsResource
-    benchmarks: benchmarks.BenchmarksResource
-    files: files.FilesResource
-    with_raw_response: LlamaStackClientWithRawResponse
-    with_streaming_response: LlamaStackClientWithStreamedResponse
-
     # client options
     api_key: str | None
 
@@ -153,36 +156,181 @@ class LlamaStackClient(SyncAPIClient):
             _strict_response_validation=_strict_response_validation,
         )
 
-        self.toolgroups = toolgroups.ToolgroupsResource(self)
-        self.tools = tools.ToolsResource(self)
-        self.tool_runtime = tool_runtime.ToolRuntimeResource(self)
-        self.responses = responses.ResponsesResource(self)
-        self.agents = agents.AgentsResource(self)
-        self.datasets = datasets.DatasetsResource(self)
-        self.eval = eval.EvalResource(self)
-        self.inspect = inspect.InspectResource(self)
-        self.inference = inference.InferenceResource(self)
-        self.embeddings = embeddings.EmbeddingsResource(self)
-        self.chat = chat.ChatResource(self)
-        self.completions = completions.CompletionsResource(self)
-        self.vector_io = vector_io.VectorIoResource(self)
-        self.vector_dbs = vector_dbs.VectorDBsResource(self)
-        self.vector_stores = vector_stores.VectorStoresResource(self)
-        self.models = models.ModelsResource(self)
-        self.post_training = post_training.PostTrainingResource(self)
-        self.providers = providers.ProvidersResource(self)
-        self.routes = routes.RoutesResource(self)
-        self.moderations = moderations.ModerationsResource(self)
-        self.safety = safety.SafetyResource(self)
-        self.shields = shields.ShieldsResource(self)
-        self.synthetic_data_generation = synthetic_data_generation.SyntheticDataGenerationResource(self)
-        self.telemetry = telemetry.TelemetryResource(self)
-        self.scoring = scoring.ScoringResource(self)
-        self.scoring_functions = scoring_functions.ScoringFunctionsResource(self)
-        self.benchmarks = benchmarks.BenchmarksResource(self)
-        self.files = files.FilesResource(self)
-        self.with_raw_response = LlamaStackClientWithRawResponse(self)
-        self.with_streaming_response = LlamaStackClientWithStreamedResponse(self)
+    @cached_property
+    def toolgroups(self) -> ToolgroupsResource:
+        from .resources.toolgroups import ToolgroupsResource
+
+        return ToolgroupsResource(self)
+
+    @cached_property
+    def tools(self) -> ToolsResource:
+        from .resources.tools import ToolsResource
+
+        return ToolsResource(self)
+
+    @cached_property
+    def tool_runtime(self) -> ToolRuntimeResource:
+        from .resources.tool_runtime import ToolRuntimeResource
+
+        return ToolRuntimeResource(self)
+
+    @cached_property
+    def responses(self) -> ResponsesResource:
+        from .resources.responses import ResponsesResource
+
+        return ResponsesResource(self)
+
+    @cached_property
+    def agents(self) -> AgentsResource:
+        from .resources.agents import AgentsResource
+
+        return AgentsResource(self)
+
+    @cached_property
+    def datasets(self) -> DatasetsResource:
+        from .resources.datasets import DatasetsResource
+
+        return DatasetsResource(self)
+
+    @cached_property
+    def eval(self) -> EvalResource:
+        from .resources.eval import EvalResource
+
+        return EvalResource(self)
+
+    @cached_property
+    def inspect(self) -> InspectResource:
+        from .resources.inspect import InspectResource
+
+        return InspectResource(self)
+
+    @cached_property
+    def inference(self) -> InferenceResource:
+        from .resources.inference import InferenceResource
+
+        return InferenceResource(self)
+
+    @cached_property
+    def embeddings(self) -> EmbeddingsResource:
+        from .resources.embeddings import EmbeddingsResource
+
+        return EmbeddingsResource(self)
+
+    @cached_property
+    def chat(self) -> ChatResource:
+        from .resources.chat import ChatResource
+
+        return ChatResource(self)
+
+    @cached_property
+    def completions(self) -> CompletionsResource:
+        from .resources.completions import CompletionsResource
+
+        return CompletionsResource(self)
+
+    @cached_property
+    def vector_io(self) -> VectorIoResource:
+        from .resources.vector_io import VectorIoResource
+
+        return VectorIoResource(self)
+
+    @cached_property
+    def vector_dbs(self) -> VectorDBsResource:
+        from .resources.vector_dbs import VectorDBsResource
+
+        return VectorDBsResource(self)
+
+    @cached_property
+    def vector_stores(self) -> VectorStoresResource:
+        from .resources.vector_stores import VectorStoresResource
+
+        return VectorStoresResource(self)
+
+    @cached_property
+    def models(self) -> ModelsResource:
+        from .resources.models import ModelsResource
+
+        return ModelsResource(self)
+
+    @cached_property
+    def post_training(self) -> PostTrainingResource:
+        from .resources.post_training import PostTrainingResource
+
+        return PostTrainingResource(self)
+
+    @cached_property
+    def providers(self) -> ProvidersResource:
+        from .resources.providers import ProvidersResource
+
+        return ProvidersResource(self)
+
+    @cached_property
+    def routes(self) -> RoutesResource:
+        from .resources.routes import RoutesResource
+
+        return RoutesResource(self)
+
+    @cached_property
+    def moderations(self) -> ModerationsResource:
+        from .resources.moderations import ModerationsResource
+
+        return ModerationsResource(self)
+
+    @cached_property
+    def safety(self) -> SafetyResource:
+        from .resources.safety import SafetyResource
+
+        return SafetyResource(self)
+
+    @cached_property
+    def shields(self) -> ShieldsResource:
+        from .resources.shields import ShieldsResource
+
+        return ShieldsResource(self)
+
+    @cached_property
+    def synthetic_data_generation(self) -> SyntheticDataGenerationResource:
+        from .resources.synthetic_data_generation import SyntheticDataGenerationResource
+
+        return SyntheticDataGenerationResource(self)
+
+    @cached_property
+    def telemetry(self) -> TelemetryResource:
+        from .resources.telemetry import TelemetryResource
+
+        return TelemetryResource(self)
+
+    @cached_property
+    def scoring(self) -> ScoringResource:
+        from .resources.scoring import ScoringResource
+
+        return ScoringResource(self)
+
+    @cached_property
+    def scoring_functions(self) -> ScoringFunctionsResource:
+        from .resources.scoring_functions import ScoringFunctionsResource
+
+        return ScoringFunctionsResource(self)
+
+    @cached_property
+    def benchmarks(self) -> BenchmarksResource:
+        from .resources.benchmarks import BenchmarksResource
+
+        return BenchmarksResource(self)
+
+    @cached_property
+    def files(self) -> FilesResource:
+        from .resources.files import FilesResource
+
+        return FilesResource(self)
+
+    @cached_property
+    def with_raw_response(self) -> LlamaStackClientWithRawResponse:
+        return LlamaStackClientWithRawResponse(self)
+
+    @cached_property
+    def with_streaming_response(self) -> LlamaStackClientWithStreamedResponse:
+        return LlamaStackClientWithStreamedResponse(self)
 
     @property
     @override
@@ -292,37 +440,6 @@ class LlamaStackClient(SyncAPIClient):
 
 
 class AsyncLlamaStackClient(AsyncAPIClient):
-    toolgroups: toolgroups.AsyncToolgroupsResource
-    tools: tools.AsyncToolsResource
-    tool_runtime: tool_runtime.AsyncToolRuntimeResource
-    responses: responses.AsyncResponsesResource
-    agents: agents.AsyncAgentsResource
-    datasets: datasets.AsyncDatasetsResource
-    eval: eval.AsyncEvalResource
-    inspect: inspect.AsyncInspectResource
-    inference: inference.AsyncInferenceResource
-    embeddings: embeddings.AsyncEmbeddingsResource
-    chat: chat.AsyncChatResource
-    completions: completions.AsyncCompletionsResource
-    vector_io: vector_io.AsyncVectorIoResource
-    vector_dbs: vector_dbs.AsyncVectorDBsResource
-    vector_stores: vector_stores.AsyncVectorStoresResource
-    models: models.AsyncModelsResource
-    post_training: post_training.AsyncPostTrainingResource
-    providers: providers.AsyncProvidersResource
-    routes: routes.AsyncRoutesResource
-    moderations: moderations.AsyncModerationsResource
-    safety: safety.AsyncSafetyResource
-    shields: shields.AsyncShieldsResource
-    synthetic_data_generation: synthetic_data_generation.AsyncSyntheticDataGenerationResource
-    telemetry: telemetry.AsyncTelemetryResource
-    scoring: scoring.AsyncScoringResource
-    scoring_functions: scoring_functions.AsyncScoringFunctionsResource
-    benchmarks: benchmarks.AsyncBenchmarksResource
-    files: files.AsyncFilesResource
-    with_raw_response: AsyncLlamaStackClientWithRawResponse
-    with_streaming_response: AsyncLlamaStackClientWithStreamedResponse
-
     # client options
     api_key: str | None
 
@@ -373,36 +490,181 @@ class AsyncLlamaStackClient(AsyncAPIClient):
             _strict_response_validation=_strict_response_validation,
         )
 
-        self.toolgroups = toolgroups.AsyncToolgroupsResource(self)
-        self.tools = tools.AsyncToolsResource(self)
-        self.tool_runtime = tool_runtime.AsyncToolRuntimeResource(self)
-        self.responses = responses.AsyncResponsesResource(self)
-        self.agents = agents.AsyncAgentsResource(self)
-        self.datasets = datasets.AsyncDatasetsResource(self)
-        self.eval = eval.AsyncEvalResource(self)
-        self.inspect = inspect.AsyncInspectResource(self)
-        self.inference = inference.AsyncInferenceResource(self)
-        self.embeddings = embeddings.AsyncEmbeddingsResource(self)
-        self.chat = chat.AsyncChatResource(self)
-        self.completions = completions.AsyncCompletionsResource(self)
-        self.vector_io = vector_io.AsyncVectorIoResource(self)
-        self.vector_dbs = vector_dbs.AsyncVectorDBsResource(self)
-        self.vector_stores = vector_stores.AsyncVectorStoresResource(self)
-        self.models = models.AsyncModelsResource(self)
-        self.post_training = post_training.AsyncPostTrainingResource(self)
-        self.providers = providers.AsyncProvidersResource(self)
-        self.routes = routes.AsyncRoutesResource(self)
-        self.moderations = moderations.AsyncModerationsResource(self)
-        self.safety = safety.AsyncSafetyResource(self)
-        self.shields = shields.AsyncShieldsResource(self)
-        self.synthetic_data_generation = synthetic_data_generation.AsyncSyntheticDataGenerationResource(self)
-        self.telemetry = telemetry.AsyncTelemetryResource(self)
-        self.scoring = scoring.AsyncScoringResource(self)
-        self.scoring_functions = scoring_functions.AsyncScoringFunctionsResource(self)
-        self.benchmarks = benchmarks.AsyncBenchmarksResource(self)
-        self.files = files.AsyncFilesResource(self)
-        self.with_raw_response = AsyncLlamaStackClientWithRawResponse(self)
-        self.with_streaming_response = AsyncLlamaStackClientWithStreamedResponse(self)
+    @cached_property
+    def toolgroups(self) -> AsyncToolgroupsResource:
+        from .resources.toolgroups import AsyncToolgroupsResource
+
+        return AsyncToolgroupsResource(self)
+
+    @cached_property
+    def tools(self) -> AsyncToolsResource:
+        from .resources.tools import AsyncToolsResource
+
+        return AsyncToolsResource(self)
+
+    @cached_property
+    def tool_runtime(self) -> AsyncToolRuntimeResource:
+        from .resources.tool_runtime import AsyncToolRuntimeResource
+
+        return AsyncToolRuntimeResource(self)
+
+    @cached_property
+    def responses(self) -> AsyncResponsesResource:
+        from .resources.responses import AsyncResponsesResource
+
+        return AsyncResponsesResource(self)
+
+    @cached_property
+    def agents(self) -> AsyncAgentsResource:
+        from .resources.agents import AsyncAgentsResource
+
+        return AsyncAgentsResource(self)
+
+    @cached_property
+    def datasets(self) -> AsyncDatasetsResource:
+        from .resources.datasets import AsyncDatasetsResource
+
+        return AsyncDatasetsResource(self)
+
+    @cached_property
+    def eval(self) -> AsyncEvalResource:
+        from .resources.eval import AsyncEvalResource
+
+        return AsyncEvalResource(self)
+
+    @cached_property
+    def inspect(self) -> AsyncInspectResource:
+        from .resources.inspect import AsyncInspectResource
+
+        return AsyncInspectResource(self)
+
+    @cached_property
+    def inference(self) -> AsyncInferenceResource:
+        from .resources.inference import AsyncInferenceResource
+
+        return AsyncInferenceResource(self)
+
+    @cached_property
+    def embeddings(self) -> AsyncEmbeddingsResource:
+        from .resources.embeddings import AsyncEmbeddingsResource
+
+        return AsyncEmbeddingsResource(self)
+
+    @cached_property
+    def chat(self) -> AsyncChatResource:
+        from .resources.chat import AsyncChatResource
+
+        return AsyncChatResource(self)
+
+    @cached_property
+    def completions(self) -> AsyncCompletionsResource:
+        from .resources.completions import AsyncCompletionsResource
+
+        return AsyncCompletionsResource(self)
+
+    @cached_property
+    def vector_io(self) -> AsyncVectorIoResource:
+        from .resources.vector_io import AsyncVectorIoResource
+
+        return AsyncVectorIoResource(self)
+
+    @cached_property
+    def vector_dbs(self) -> AsyncVectorDBsResource:
+        from .resources.vector_dbs import AsyncVectorDBsResource
+
+        return AsyncVectorDBsResource(self)
+
+    @cached_property
+    def vector_stores(self) -> AsyncVectorStoresResource:
+        from .resources.vector_stores import AsyncVectorStoresResource
+
+        return AsyncVectorStoresResource(self)
+
+    @cached_property
+    def models(self) -> AsyncModelsResource:
+        from .resources.models import AsyncModelsResource
+
+        return AsyncModelsResource(self)
+
+    @cached_property
+    def post_training(self) -> AsyncPostTrainingResource:
+        from .resources.post_training import AsyncPostTrainingResource
+
+        return AsyncPostTrainingResource(self)
+
+    @cached_property
+    def providers(self) -> AsyncProvidersResource:
+        from .resources.providers import AsyncProvidersResource
+
+        return AsyncProvidersResource(self)
+
+    @cached_property
+    def routes(self) -> AsyncRoutesResource:
+        from .resources.routes import AsyncRoutesResource
+
+        return AsyncRoutesResource(self)
+
+    @cached_property
+    def moderations(self) -> AsyncModerationsResource:
+        from .resources.moderations import AsyncModerationsResource
+
+        return AsyncModerationsResource(self)
+
+    @cached_property
+    def safety(self) -> AsyncSafetyResource:
+        from .resources.safety import AsyncSafetyResource
+
+        return AsyncSafetyResource(self)
+
+    @cached_property
+    def shields(self) -> AsyncShieldsResource:
+        from .resources.shields import AsyncShieldsResource
+
+        return AsyncShieldsResource(self)
+
+    @cached_property
+    def synthetic_data_generation(self) -> AsyncSyntheticDataGenerationResource:
+        from .resources.synthetic_data_generation import AsyncSyntheticDataGenerationResource
+
+        return AsyncSyntheticDataGenerationResource(self)
+
+    @cached_property
+    def telemetry(self) -> AsyncTelemetryResource:
+        from .resources.telemetry import AsyncTelemetryResource
+
+        return AsyncTelemetryResource(self)
+
+    @cached_property
+    def scoring(self) -> AsyncScoringResource:
+        from .resources.scoring import AsyncScoringResource
+
+        return AsyncScoringResource(self)
+
+    @cached_property
+    def scoring_functions(self) -> AsyncScoringFunctionsResource:
+        from .resources.scoring_functions import AsyncScoringFunctionsResource
+
+        return AsyncScoringFunctionsResource(self)
+
+    @cached_property
+    def benchmarks(self) -> AsyncBenchmarksResource:
+        from .resources.benchmarks import AsyncBenchmarksResource
+
+        return AsyncBenchmarksResource(self)
+
+    @cached_property
+    def files(self) -> AsyncFilesResource:
+        from .resources.files import AsyncFilesResource
+
+        return AsyncFilesResource(self)
+
+    @cached_property
+    def with_raw_response(self) -> AsyncLlamaStackClientWithRawResponse:
+        return AsyncLlamaStackClientWithRawResponse(self)
+
+    @cached_property
+    def with_streaming_response(self) -> AsyncLlamaStackClientWithStreamedResponse:
+        return AsyncLlamaStackClientWithStreamedResponse(self)
 
     @property
     @override
@@ -512,147 +774,709 @@ class AsyncLlamaStackClient(AsyncAPIClient):
 
 
 class LlamaStackClientWithRawResponse:
+    _client: LlamaStackClient
+
     def __init__(self, client: LlamaStackClient) -> None:
-        self.toolgroups = toolgroups.ToolgroupsResourceWithRawResponse(client.toolgroups)
-        self.tools = tools.ToolsResourceWithRawResponse(client.tools)
-        self.tool_runtime = tool_runtime.ToolRuntimeResourceWithRawResponse(client.tool_runtime)
-        self.responses = responses.ResponsesResourceWithRawResponse(client.responses)
-        self.agents = agents.AgentsResourceWithRawResponse(client.agents)
-        self.datasets = datasets.DatasetsResourceWithRawResponse(client.datasets)
-        self.eval = eval.EvalResourceWithRawResponse(client.eval)
-        self.inspect = inspect.InspectResourceWithRawResponse(client.inspect)
-        self.inference = inference.InferenceResourceWithRawResponse(client.inference)
-        self.embeddings = embeddings.EmbeddingsResourceWithRawResponse(client.embeddings)
-        self.chat = chat.ChatResourceWithRawResponse(client.chat)
-        self.completions = completions.CompletionsResourceWithRawResponse(client.completions)
-        self.vector_io = vector_io.VectorIoResourceWithRawResponse(client.vector_io)
-        self.vector_dbs = vector_dbs.VectorDBsResourceWithRawResponse(client.vector_dbs)
-        self.vector_stores = vector_stores.VectorStoresResourceWithRawResponse(client.vector_stores)
-        self.models = models.ModelsResourceWithRawResponse(client.models)
-        self.post_training = post_training.PostTrainingResourceWithRawResponse(client.post_training)
-        self.providers = providers.ProvidersResourceWithRawResponse(client.providers)
-        self.routes = routes.RoutesResourceWithRawResponse(client.routes)
-        self.moderations = moderations.ModerationsResourceWithRawResponse(client.moderations)
-        self.safety = safety.SafetyResourceWithRawResponse(client.safety)
-        self.shields = shields.ShieldsResourceWithRawResponse(client.shields)
-        self.synthetic_data_generation = synthetic_data_generation.SyntheticDataGenerationResourceWithRawResponse(
-            client.synthetic_data_generation
-        )
-        self.telemetry = telemetry.TelemetryResourceWithRawResponse(client.telemetry)
-        self.scoring = scoring.ScoringResourceWithRawResponse(client.scoring)
-        self.scoring_functions = scoring_functions.ScoringFunctionsResourceWithRawResponse(client.scoring_functions)
-        self.benchmarks = benchmarks.BenchmarksResourceWithRawResponse(client.benchmarks)
-        self.files = files.FilesResourceWithRawResponse(client.files)
+        self._client = client
+
+    @cached_property
+    def toolgroups(self) -> toolgroups.ToolgroupsResourceWithRawResponse:
+        from .resources.toolgroups import ToolgroupsResourceWithRawResponse
+
+        return ToolgroupsResourceWithRawResponse(self._client.toolgroups)
+
+    @cached_property
+    def tools(self) -> tools.ToolsResourceWithRawResponse:
+        from .resources.tools import ToolsResourceWithRawResponse
+
+        return ToolsResourceWithRawResponse(self._client.tools)
+
+    @cached_property
+    def tool_runtime(self) -> tool_runtime.ToolRuntimeResourceWithRawResponse:
+        from .resources.tool_runtime import ToolRuntimeResourceWithRawResponse
+
+        return ToolRuntimeResourceWithRawResponse(self._client.tool_runtime)
+
+    @cached_property
+    def responses(self) -> responses.ResponsesResourceWithRawResponse:
+        from .resources.responses import ResponsesResourceWithRawResponse
+
+        return ResponsesResourceWithRawResponse(self._client.responses)
+
+    @cached_property
+    def agents(self) -> agents.AgentsResourceWithRawResponse:
+        from .resources.agents import AgentsResourceWithRawResponse
+
+        return AgentsResourceWithRawResponse(self._client.agents)
+
+    @cached_property
+    def datasets(self) -> datasets.DatasetsResourceWithRawResponse:
+        from .resources.datasets import DatasetsResourceWithRawResponse
+
+        return DatasetsResourceWithRawResponse(self._client.datasets)
+
+    @cached_property
+    def eval(self) -> eval.EvalResourceWithRawResponse:
+        from .resources.eval import EvalResourceWithRawResponse
+
+        return EvalResourceWithRawResponse(self._client.eval)
+
+    @cached_property
+    def inspect(self) -> inspect.InspectResourceWithRawResponse:
+        from .resources.inspect import InspectResourceWithRawResponse
+
+        return InspectResourceWithRawResponse(self._client.inspect)
+
+    @cached_property
+    def inference(self) -> inference.InferenceResourceWithRawResponse:
+        from .resources.inference import InferenceResourceWithRawResponse
+
+        return InferenceResourceWithRawResponse(self._client.inference)
+
+    @cached_property
+    def embeddings(self) -> embeddings.EmbeddingsResourceWithRawResponse:
+        from .resources.embeddings import EmbeddingsResourceWithRawResponse
+
+        return EmbeddingsResourceWithRawResponse(self._client.embeddings)
+
+    @cached_property
+    def chat(self) -> chat.ChatResourceWithRawResponse:
+        from .resources.chat import ChatResourceWithRawResponse
+
+        return ChatResourceWithRawResponse(self._client.chat)
+
+    @cached_property
+    def completions(self) -> completions.CompletionsResourceWithRawResponse:
+        from .resources.completions import CompletionsResourceWithRawResponse
+
+        return CompletionsResourceWithRawResponse(self._client.completions)
+
+    @cached_property
+    def vector_io(self) -> vector_io.VectorIoResourceWithRawResponse:
+        from .resources.vector_io import VectorIoResourceWithRawResponse
+
+        return VectorIoResourceWithRawResponse(self._client.vector_io)
+
+    @cached_property
+    def vector_dbs(self) -> vector_dbs.VectorDBsResourceWithRawResponse:
+        from .resources.vector_dbs import VectorDBsResourceWithRawResponse
+
+        return VectorDBsResourceWithRawResponse(self._client.vector_dbs)
+
+    @cached_property
+    def vector_stores(self) -> vector_stores.VectorStoresResourceWithRawResponse:
+        from .resources.vector_stores import VectorStoresResourceWithRawResponse
+
+        return VectorStoresResourceWithRawResponse(self._client.vector_stores)
+
+    @cached_property
+    def models(self) -> models.ModelsResourceWithRawResponse:
+        from .resources.models import ModelsResourceWithRawResponse
+
+        return ModelsResourceWithRawResponse(self._client.models)
+
+    @cached_property
+    def post_training(self) -> post_training.PostTrainingResourceWithRawResponse:
+        from .resources.post_training import PostTrainingResourceWithRawResponse
+
+        return PostTrainingResourceWithRawResponse(self._client.post_training)
+
+    @cached_property
+    def providers(self) -> providers.ProvidersResourceWithRawResponse:
+        from .resources.providers import ProvidersResourceWithRawResponse
+
+        return ProvidersResourceWithRawResponse(self._client.providers)
+
+    @cached_property
+    def routes(self) -> routes.RoutesResourceWithRawResponse:
+        from .resources.routes import RoutesResourceWithRawResponse
+
+        return RoutesResourceWithRawResponse(self._client.routes)
+
+    @cached_property
+    def moderations(self) -> moderations.ModerationsResourceWithRawResponse:
+        from .resources.moderations import ModerationsResourceWithRawResponse
+
+        return ModerationsResourceWithRawResponse(self._client.moderations)
+
+    @cached_property
+    def safety(self) -> safety.SafetyResourceWithRawResponse:
+        from .resources.safety import SafetyResourceWithRawResponse
+
+        return SafetyResourceWithRawResponse(self._client.safety)
+
+    @cached_property
+    def shields(self) -> shields.ShieldsResourceWithRawResponse:
+        from .resources.shields import ShieldsResourceWithRawResponse
+
+        return ShieldsResourceWithRawResponse(self._client.shields)
+
+    @cached_property
+    def synthetic_data_generation(self) -> synthetic_data_generation.SyntheticDataGenerationResourceWithRawResponse:
+        from .resources.synthetic_data_generation import SyntheticDataGenerationResourceWithRawResponse
+
+        return SyntheticDataGenerationResourceWithRawResponse(self._client.synthetic_data_generation)
+
+    @cached_property
+    def telemetry(self) -> telemetry.TelemetryResourceWithRawResponse:
+        from .resources.telemetry import TelemetryResourceWithRawResponse
+
+        return TelemetryResourceWithRawResponse(self._client.telemetry)
+
+    @cached_property
+    def scoring(self) -> scoring.ScoringResourceWithRawResponse:
+        from .resources.scoring import ScoringResourceWithRawResponse
+
+        return ScoringResourceWithRawResponse(self._client.scoring)
+
+    @cached_property
+    def scoring_functions(self) -> scoring_functions.ScoringFunctionsResourceWithRawResponse:
+        from .resources.scoring_functions import ScoringFunctionsResourceWithRawResponse
+
+        return ScoringFunctionsResourceWithRawResponse(self._client.scoring_functions)
+
+    @cached_property
+    def benchmarks(self) -> benchmarks.BenchmarksResourceWithRawResponse:
+        from .resources.benchmarks import BenchmarksResourceWithRawResponse
+
+        return BenchmarksResourceWithRawResponse(self._client.benchmarks)
+
+    @cached_property
+    def files(self) -> files.FilesResourceWithRawResponse:
+        from .resources.files import FilesResourceWithRawResponse
+
+        return FilesResourceWithRawResponse(self._client.files)
 
 
 class AsyncLlamaStackClientWithRawResponse:
+    _client: AsyncLlamaStackClient
+
     def __init__(self, client: AsyncLlamaStackClient) -> None:
-        self.toolgroups = toolgroups.AsyncToolgroupsResourceWithRawResponse(client.toolgroups)
-        self.tools = tools.AsyncToolsResourceWithRawResponse(client.tools)
-        self.tool_runtime = tool_runtime.AsyncToolRuntimeResourceWithRawResponse(client.tool_runtime)
-        self.responses = responses.AsyncResponsesResourceWithRawResponse(client.responses)
-        self.agents = agents.AsyncAgentsResourceWithRawResponse(client.agents)
-        self.datasets = datasets.AsyncDatasetsResourceWithRawResponse(client.datasets)
-        self.eval = eval.AsyncEvalResourceWithRawResponse(client.eval)
-        self.inspect = inspect.AsyncInspectResourceWithRawResponse(client.inspect)
-        self.inference = inference.AsyncInferenceResourceWithRawResponse(client.inference)
-        self.embeddings = embeddings.AsyncEmbeddingsResourceWithRawResponse(client.embeddings)
-        self.chat = chat.AsyncChatResourceWithRawResponse(client.chat)
-        self.completions = completions.AsyncCompletionsResourceWithRawResponse(client.completions)
-        self.vector_io = vector_io.AsyncVectorIoResourceWithRawResponse(client.vector_io)
-        self.vector_dbs = vector_dbs.AsyncVectorDBsResourceWithRawResponse(client.vector_dbs)
-        self.vector_stores = vector_stores.AsyncVectorStoresResourceWithRawResponse(client.vector_stores)
-        self.models = models.AsyncModelsResourceWithRawResponse(client.models)
-        self.post_training = post_training.AsyncPostTrainingResourceWithRawResponse(client.post_training)
-        self.providers = providers.AsyncProvidersResourceWithRawResponse(client.providers)
-        self.routes = routes.AsyncRoutesResourceWithRawResponse(client.routes)
-        self.moderations = moderations.AsyncModerationsResourceWithRawResponse(client.moderations)
-        self.safety = safety.AsyncSafetyResourceWithRawResponse(client.safety)
-        self.shields = shields.AsyncShieldsResourceWithRawResponse(client.shields)
-        self.synthetic_data_generation = synthetic_data_generation.AsyncSyntheticDataGenerationResourceWithRawResponse(
-            client.synthetic_data_generation
-        )
-        self.telemetry = telemetry.AsyncTelemetryResourceWithRawResponse(client.telemetry)
-        self.scoring = scoring.AsyncScoringResourceWithRawResponse(client.scoring)
-        self.scoring_functions = scoring_functions.AsyncScoringFunctionsResourceWithRawResponse(
-            client.scoring_functions
-        )
-        self.benchmarks = benchmarks.AsyncBenchmarksResourceWithRawResponse(client.benchmarks)
-        self.files = files.AsyncFilesResourceWithRawResponse(client.files)
+        self._client = client
+
+    @cached_property
+    def toolgroups(self) -> toolgroups.AsyncToolgroupsResourceWithRawResponse:
+        from .resources.toolgroups import AsyncToolgroupsResourceWithRawResponse
+
+        return AsyncToolgroupsResourceWithRawResponse(self._client.toolgroups)
+
+    @cached_property
+    def tools(self) -> tools.AsyncToolsResourceWithRawResponse:
+        from .resources.tools import AsyncToolsResourceWithRawResponse
+
+        return AsyncToolsResourceWithRawResponse(self._client.tools)
+
+    @cached_property
+    def tool_runtime(self) -> tool_runtime.AsyncToolRuntimeResourceWithRawResponse:
+        from .resources.tool_runtime import AsyncToolRuntimeResourceWithRawResponse
+
+        return AsyncToolRuntimeResourceWithRawResponse(self._client.tool_runtime)
+
+    @cached_property
+    def responses(self) -> responses.AsyncResponsesResourceWithRawResponse:
+        from .resources.responses import AsyncResponsesResourceWithRawResponse
+
+        return AsyncResponsesResourceWithRawResponse(self._client.responses)
+
+    @cached_property
+    def agents(self) -> agents.AsyncAgentsResourceWithRawResponse:
+        from .resources.agents import AsyncAgentsResourceWithRawResponse
+
+        return AsyncAgentsResourceWithRawResponse(self._client.agents)
+
+    @cached_property
+    def datasets(self) -> datasets.AsyncDatasetsResourceWithRawResponse:
+        from .resources.datasets import AsyncDatasetsResourceWithRawResponse
+
+        return AsyncDatasetsResourceWithRawResponse(self._client.datasets)
+
+    @cached_property
+    def eval(self) -> eval.AsyncEvalResourceWithRawResponse:
+        from .resources.eval import AsyncEvalResourceWithRawResponse
+
+        return AsyncEvalResourceWithRawResponse(self._client.eval)
+
+    @cached_property
+    def inspect(self) -> inspect.AsyncInspectResourceWithRawResponse:
+        from .resources.inspect import AsyncInspectResourceWithRawResponse
+
+        return AsyncInspectResourceWithRawResponse(self._client.inspect)
+
+    @cached_property
+    def inference(self) -> inference.AsyncInferenceResourceWithRawResponse:
+        from .resources.inference import AsyncInferenceResourceWithRawResponse
+
+        return AsyncInferenceResourceWithRawResponse(self._client.inference)
+
+    @cached_property
+    def embeddings(self) -> embeddings.AsyncEmbeddingsResourceWithRawResponse:
+        from .resources.embeddings import AsyncEmbeddingsResourceWithRawResponse
+
+        return AsyncEmbeddingsResourceWithRawResponse(self._client.embeddings)
+
+    @cached_property
+    def chat(self) -> chat.AsyncChatResourceWithRawResponse:
+        from .resources.chat import AsyncChatResourceWithRawResponse
+
+        return AsyncChatResourceWithRawResponse(self._client.chat)
+
+    @cached_property
+    def completions(self) -> completions.AsyncCompletionsResourceWithRawResponse:
+        from .resources.completions import AsyncCompletionsResourceWithRawResponse
+
+        return AsyncCompletionsResourceWithRawResponse(self._client.completions)
+
+    @cached_property
+    def vector_io(self) -> vector_io.AsyncVectorIoResourceWithRawResponse:
+        from .resources.vector_io import AsyncVectorIoResourceWithRawResponse
+
+        return AsyncVectorIoResourceWithRawResponse(self._client.vector_io)
+
+    @cached_property
+    def vector_dbs(self) -> vector_dbs.AsyncVectorDBsResourceWithRawResponse:
+        from .resources.vector_dbs import AsyncVectorDBsResourceWithRawResponse
+
+        return AsyncVectorDBsResourceWithRawResponse(self._client.vector_dbs)
+
+    @cached_property
+    def vector_stores(self) -> vector_stores.AsyncVectorStoresResourceWithRawResponse:
+        from .resources.vector_stores import AsyncVectorStoresResourceWithRawResponse
+
+        return AsyncVectorStoresResourceWithRawResponse(self._client.vector_stores)
+
+    @cached_property
+    def models(self) -> models.AsyncModelsResourceWithRawResponse:
+        from .resources.models import AsyncModelsResourceWithRawResponse
+
+        return AsyncModelsResourceWithRawResponse(self._client.models)
+
+    @cached_property
+    def post_training(self) -> post_training.AsyncPostTrainingResourceWithRawResponse:
+        from .resources.post_training import AsyncPostTrainingResourceWithRawResponse
+
+        return AsyncPostTrainingResourceWithRawResponse(self._client.post_training)
+
+    @cached_property
+    def providers(self) -> providers.AsyncProvidersResourceWithRawResponse:
+        from .resources.providers import AsyncProvidersResourceWithRawResponse
+
+        return AsyncProvidersResourceWithRawResponse(self._client.providers)
+
+    @cached_property
+    def routes(self) -> routes.AsyncRoutesResourceWithRawResponse:
+        from .resources.routes import AsyncRoutesResourceWithRawResponse
+
+        return AsyncRoutesResourceWithRawResponse(self._client.routes)
+
+    @cached_property
+    def moderations(self) -> moderations.AsyncModerationsResourceWithRawResponse:
+        from .resources.moderations import AsyncModerationsResourceWithRawResponse
+
+        return AsyncModerationsResourceWithRawResponse(self._client.moderations)
+
+    @cached_property
+    def safety(self) -> safety.AsyncSafetyResourceWithRawResponse:
+        from .resources.safety import AsyncSafetyResourceWithRawResponse
+
+        return AsyncSafetyResourceWithRawResponse(self._client.safety)
+
+    @cached_property
+    def shields(self) -> shields.AsyncShieldsResourceWithRawResponse:
+        from .resources.shields import AsyncShieldsResourceWithRawResponse
+
+        return AsyncShieldsResourceWithRawResponse(self._client.shields)
+
+    @cached_property
+    def synthetic_data_generation(
+        self,
+    ) -> synthetic_data_generation.AsyncSyntheticDataGenerationResourceWithRawResponse:
+        from .resources.synthetic_data_generation import AsyncSyntheticDataGenerationResourceWithRawResponse
+
+        return AsyncSyntheticDataGenerationResourceWithRawResponse(self._client.synthetic_data_generation)
+
+    @cached_property
+    def telemetry(self) -> telemetry.AsyncTelemetryResourceWithRawResponse:
+        from .resources.telemetry import AsyncTelemetryResourceWithRawResponse
+
+        return AsyncTelemetryResourceWithRawResponse(self._client.telemetry)
+
+    @cached_property
+    def scoring(self) -> scoring.AsyncScoringResourceWithRawResponse:
+        from .resources.scoring import AsyncScoringResourceWithRawResponse
+
+        return AsyncScoringResourceWithRawResponse(self._client.scoring)
+
+    @cached_property
+    def scoring_functions(self) -> scoring_functions.AsyncScoringFunctionsResourceWithRawResponse:
+        from .resources.scoring_functions import AsyncScoringFunctionsResourceWithRawResponse
+
+        return AsyncScoringFunctionsResourceWithRawResponse(self._client.scoring_functions)
+
+    @cached_property
+    def benchmarks(self) -> benchmarks.AsyncBenchmarksResourceWithRawResponse:
+        from .resources.benchmarks import AsyncBenchmarksResourceWithRawResponse
+
+        return AsyncBenchmarksResourceWithRawResponse(self._client.benchmarks)
+
+    @cached_property
+    def files(self) -> files.AsyncFilesResourceWithRawResponse:
+        from .resources.files import AsyncFilesResourceWithRawResponse
+
+        return AsyncFilesResourceWithRawResponse(self._client.files)
 
 
 class LlamaStackClientWithStreamedResponse:
+    _client: LlamaStackClient
+
     def __init__(self, client: LlamaStackClient) -> None:
-        self.toolgroups = toolgroups.ToolgroupsResourceWithStreamingResponse(client.toolgroups)
-        self.tools = tools.ToolsResourceWithStreamingResponse(client.tools)
-        self.tool_runtime = tool_runtime.ToolRuntimeResourceWithStreamingResponse(client.tool_runtime)
-        self.responses = responses.ResponsesResourceWithStreamingResponse(client.responses)
-        self.agents = agents.AgentsResourceWithStreamingResponse(client.agents)
-        self.datasets = datasets.DatasetsResourceWithStreamingResponse(client.datasets)
-        self.eval = eval.EvalResourceWithStreamingResponse(client.eval)
-        self.inspect = inspect.InspectResourceWithStreamingResponse(client.inspect)
-        self.inference = inference.InferenceResourceWithStreamingResponse(client.inference)
-        self.embeddings = embeddings.EmbeddingsResourceWithStreamingResponse(client.embeddings)
-        self.chat = chat.ChatResourceWithStreamingResponse(client.chat)
-        self.completions = completions.CompletionsResourceWithStreamingResponse(client.completions)
-        self.vector_io = vector_io.VectorIoResourceWithStreamingResponse(client.vector_io)
-        self.vector_dbs = vector_dbs.VectorDBsResourceWithStreamingResponse(client.vector_dbs)
-        self.vector_stores = vector_stores.VectorStoresResourceWithStreamingResponse(client.vector_stores)
-        self.models = models.ModelsResourceWithStreamingResponse(client.models)
-        self.post_training = post_training.PostTrainingResourceWithStreamingResponse(client.post_training)
-        self.providers = providers.ProvidersResourceWithStreamingResponse(client.providers)
-        self.routes = routes.RoutesResourceWithStreamingResponse(client.routes)
-        self.moderations = moderations.ModerationsResourceWithStreamingResponse(client.moderations)
-        self.safety = safety.SafetyResourceWithStreamingResponse(client.safety)
-        self.shields = shields.ShieldsResourceWithStreamingResponse(client.shields)
-        self.synthetic_data_generation = synthetic_data_generation.SyntheticDataGenerationResourceWithStreamingResponse(
-            client.synthetic_data_generation
-        )
-        self.telemetry = telemetry.TelemetryResourceWithStreamingResponse(client.telemetry)
-        self.scoring = scoring.ScoringResourceWithStreamingResponse(client.scoring)
-        self.scoring_functions = scoring_functions.ScoringFunctionsResourceWithStreamingResponse(
-            client.scoring_functions
-        )
-        self.benchmarks = benchmarks.BenchmarksResourceWithStreamingResponse(client.benchmarks)
-        self.files = files.FilesResourceWithStreamingResponse(client.files)
+        self._client = client
+
+    @cached_property
+    def toolgroups(self) -> toolgroups.ToolgroupsResourceWithStreamingResponse:
+        from .resources.toolgroups import ToolgroupsResourceWithStreamingResponse
+
+        return ToolgroupsResourceWithStreamingResponse(self._client.toolgroups)
+
+    @cached_property
+    def tools(self) -> tools.ToolsResourceWithStreamingResponse:
+        from .resources.tools import ToolsResourceWithStreamingResponse
+
+        return ToolsResourceWithStreamingResponse(self._client.tools)
+
+    @cached_property
+    def tool_runtime(self) -> tool_runtime.ToolRuntimeResourceWithStreamingResponse:
+        from .resources.tool_runtime import ToolRuntimeResourceWithStreamingResponse
+
+        return ToolRuntimeResourceWithStreamingResponse(self._client.tool_runtime)
+
+    @cached_property
+    def responses(self) -> responses.ResponsesResourceWithStreamingResponse:
+        from .resources.responses import ResponsesResourceWithStreamingResponse
+
+        return ResponsesResourceWithStreamingResponse(self._client.responses)
+
+    @cached_property
+    def agents(self) -> agents.AgentsResourceWithStreamingResponse:
+        from .resources.agents import AgentsResourceWithStreamingResponse
+
+        return AgentsResourceWithStreamingResponse(self._client.agents)
+
+    @cached_property
+    def datasets(self) -> datasets.DatasetsResourceWithStreamingResponse:
+        from .resources.datasets import DatasetsResourceWithStreamingResponse
+
+        return DatasetsResourceWithStreamingResponse(self._client.datasets)
+
+    @cached_property
+    def eval(self) -> eval.EvalResourceWithStreamingResponse:
+        from .resources.eval import EvalResourceWithStreamingResponse
+
+        return EvalResourceWithStreamingResponse(self._client.eval)
+
+    @cached_property
+    def inspect(self) -> inspect.InspectResourceWithStreamingResponse:
+        from .resources.inspect import InspectResourceWithStreamingResponse
+
+        return InspectResourceWithStreamingResponse(self._client.inspect)
+
+    @cached_property
+    def inference(self) -> inference.InferenceResourceWithStreamingResponse:
+        from .resources.inference import InferenceResourceWithStreamingResponse
+
+        return InferenceResourceWithStreamingResponse(self._client.inference)
+
+    @cached_property
+    def embeddings(self) -> embeddings.EmbeddingsResourceWithStreamingResponse:
+        from .resources.embeddings import EmbeddingsResourceWithStreamingResponse
+
+        return EmbeddingsResourceWithStreamingResponse(self._client.embeddings)
+
+    @cached_property
+    def chat(self) -> chat.ChatResourceWithStreamingResponse:
+        from .resources.chat import ChatResourceWithStreamingResponse
+
+        return ChatResourceWithStreamingResponse(self._client.chat)
+
+    @cached_property
+    def completions(self) -> completions.CompletionsResourceWithStreamingResponse:
+        from .resources.completions import CompletionsResourceWithStreamingResponse
+
+        return CompletionsResourceWithStreamingResponse(self._client.completions)
+
+    @cached_property
+    def vector_io(self) -> vector_io.VectorIoResourceWithStreamingResponse:
+        from .resources.vector_io import VectorIoResourceWithStreamingResponse
+
+        return VectorIoResourceWithStreamingResponse(self._client.vector_io)
+
+    @cached_property
+    def vector_dbs(self) -> vector_dbs.VectorDBsResourceWithStreamingResponse:
+        from .resources.vector_dbs import VectorDBsResourceWithStreamingResponse
+
+        return VectorDBsResourceWithStreamingResponse(self._client.vector_dbs)
+
+    @cached_property
+    def vector_stores(self) -> vector_stores.VectorStoresResourceWithStreamingResponse:
+        from .resources.vector_stores import VectorStoresResourceWithStreamingResponse
+
+        return VectorStoresResourceWithStreamingResponse(self._client.vector_stores)
+
+    @cached_property
+    def models(self) -> models.ModelsResourceWithStreamingResponse:
+        from .resources.models import ModelsResourceWithStreamingResponse
+
+        return ModelsResourceWithStreamingResponse(self._client.models)
+
+    @cached_property
+    def post_training(self) -> post_training.PostTrainingResourceWithStreamingResponse:
+        from .resources.post_training import PostTrainingResourceWithStreamingResponse
+
+        return PostTrainingResourceWithStreamingResponse(self._client.post_training)
+
+    @cached_property
+    def providers(self) -> providers.ProvidersResourceWithStreamingResponse:
+        from .resources.providers import ProvidersResourceWithStreamingResponse
+
+        return ProvidersResourceWithStreamingResponse(self._client.providers)
+
+    @cached_property
+    def routes(self) -> routes.RoutesResourceWithStreamingResponse:
+        from .resources.routes import RoutesResourceWithStreamingResponse
+
+        return RoutesResourceWithStreamingResponse(self._client.routes)
+
+    @cached_property
+    def moderations(self) -> moderations.ModerationsResourceWithStreamingResponse:
+        from .resources.moderations import ModerationsResourceWithStreamingResponse
+
+        return ModerationsResourceWithStreamingResponse(self._client.moderations)
+
+    @cached_property
+    def safety(self) -> safety.SafetyResourceWithStreamingResponse:
+        from .resources.safety import SafetyResourceWithStreamingResponse
+
+        return SafetyResourceWithStreamingResponse(self._client.safety)
+
+    @cached_property
+    def shields(self) -> shields.ShieldsResourceWithStreamingResponse:
+        from .resources.shields import ShieldsResourceWithStreamingResponse
+
+        return ShieldsResourceWithStreamingResponse(self._client.shields)
+
+    @cached_property
+    def synthetic_data_generation(
+        self,
+    ) -> synthetic_data_generation.SyntheticDataGenerationResourceWithStreamingResponse:
+        from .resources.synthetic_data_generation import SyntheticDataGenerationResourceWithStreamingResponse
+
+        return SyntheticDataGenerationResourceWithStreamingResponse(self._client.synthetic_data_generation)
+
+    @cached_property
+    def telemetry(self) -> telemetry.TelemetryResourceWithStreamingResponse:
+        from .resources.telemetry import TelemetryResourceWithStreamingResponse
+
+        return TelemetryResourceWithStreamingResponse(self._client.telemetry)
+
+    @cached_property
+    def scoring(self) -> scoring.ScoringResourceWithStreamingResponse:
+        from .resources.scoring import ScoringResourceWithStreamingResponse
+
+        return ScoringResourceWithStreamingResponse(self._client.scoring)
+
+    @cached_property
+    def scoring_functions(self) -> scoring_functions.ScoringFunctionsResourceWithStreamingResponse:
+        from .resources.scoring_functions import ScoringFunctionsResourceWithStreamingResponse
+
+        return ScoringFunctionsResourceWithStreamingResponse(self._client.scoring_functions)
+
+    @cached_property
+    def benchmarks(self) -> benchmarks.BenchmarksResourceWithStreamingResponse:
+        from .resources.benchmarks import BenchmarksResourceWithStreamingResponse
+
+        return BenchmarksResourceWithStreamingResponse(self._client.benchmarks)
+
+    @cached_property
+    def files(self) -> files.FilesResourceWithStreamingResponse:
+        from .resources.files import FilesResourceWithStreamingResponse
+
+        return FilesResourceWithStreamingResponse(self._client.files)
 
 
 class AsyncLlamaStackClientWithStreamedResponse:
+    _client: AsyncLlamaStackClient
+
     def __init__(self, client: AsyncLlamaStackClient) -> None:
-        self.toolgroups = toolgroups.AsyncToolgroupsResourceWithStreamingResponse(client.toolgroups)
-        self.tools = tools.AsyncToolsResourceWithStreamingResponse(client.tools)
-        self.tool_runtime = tool_runtime.AsyncToolRuntimeResourceWithStreamingResponse(client.tool_runtime)
-        self.responses = responses.AsyncResponsesResourceWithStreamingResponse(client.responses)
-        self.agents = agents.AsyncAgentsResourceWithStreamingResponse(client.agents)
-        self.datasets = datasets.AsyncDatasetsResourceWithStreamingResponse(client.datasets)
-        self.eval = eval.AsyncEvalResourceWithStreamingResponse(client.eval)
-        self.inspect = inspect.AsyncInspectResourceWithStreamingResponse(client.inspect)
-        self.inference = inference.AsyncInferenceResourceWithStreamingResponse(client.inference)
-        self.embeddings = embeddings.AsyncEmbeddingsResourceWithStreamingResponse(client.embeddings)
-        self.chat = chat.AsyncChatResourceWithStreamingResponse(client.chat)
-        self.completions = completions.AsyncCompletionsResourceWithStreamingResponse(client.completions)
-        self.vector_io = vector_io.AsyncVectorIoResourceWithStreamingResponse(client.vector_io)
-        self.vector_dbs = vector_dbs.AsyncVectorDBsResourceWithStreamingResponse(client.vector_dbs)
-        self.vector_stores = vector_stores.AsyncVectorStoresResourceWithStreamingResponse(client.vector_stores)
-        self.models = models.AsyncModelsResourceWithStreamingResponse(client.models)
-        self.post_training = post_training.AsyncPostTrainingResourceWithStreamingResponse(client.post_training)
-        self.providers = providers.AsyncProvidersResourceWithStreamingResponse(client.providers)
-        self.routes = routes.AsyncRoutesResourceWithStreamingResponse(client.routes)
-        self.moderations = moderations.AsyncModerationsResourceWithStreamingResponse(client.moderations)
-        self.safety = safety.AsyncSafetyResourceWithStreamingResponse(client.safety)
-        self.shields = shields.AsyncShieldsResourceWithStreamingResponse(client.shields)
-        self.synthetic_data_generation = (
-            synthetic_data_generation.AsyncSyntheticDataGenerationResourceWithStreamingResponse(
-                client.synthetic_data_generation
-            )
-        )
-        self.telemetry = telemetry.AsyncTelemetryResourceWithStreamingResponse(client.telemetry)
-        self.scoring = scoring.AsyncScoringResourceWithStreamingResponse(client.scoring)
-        self.scoring_functions = scoring_functions.AsyncScoringFunctionsResourceWithStreamingResponse(
-            client.scoring_functions
-        )
-        self.benchmarks = benchmarks.AsyncBenchmarksResourceWithStreamingResponse(client.benchmarks)
-        self.files = files.AsyncFilesResourceWithStreamingResponse(client.files)
+        self._client = client
+
+    @cached_property
+    def toolgroups(self) -> toolgroups.AsyncToolgroupsResourceWithStreamingResponse:
+        from .resources.toolgroups import AsyncToolgroupsResourceWithStreamingResponse
+
+        return AsyncToolgroupsResourceWithStreamingResponse(self._client.toolgroups)
+
+    @cached_property
+    def tools(self) -> tools.AsyncToolsResourceWithStreamingResponse:
+        from .resources.tools import AsyncToolsResourceWithStreamingResponse
+
+        return AsyncToolsResourceWithStreamingResponse(self._client.tools)
+
+    @cached_property
+    def tool_runtime(self) -> tool_runtime.AsyncToolRuntimeResourceWithStreamingResponse:
+        from .resources.tool_runtime import AsyncToolRuntimeResourceWithStreamingResponse
+
+        return AsyncToolRuntimeResourceWithStreamingResponse(self._client.tool_runtime)
+
+    @cached_property
+    def responses(self) -> responses.AsyncResponsesResourceWithStreamingResponse:
+        from .resources.responses import AsyncResponsesResourceWithStreamingResponse
+
+        return AsyncResponsesResourceWithStreamingResponse(self._client.responses)
+
+    @cached_property
+    def agents(self) -> agents.AsyncAgentsResourceWithStreamingResponse:
+        from .resources.agents import AsyncAgentsResourceWithStreamingResponse
+
+        return AsyncAgentsResourceWithStreamingResponse(self._client.agents)
+
+    @cached_property
+    def datasets(self) -> datasets.AsyncDatasetsResourceWithStreamingResponse:
+        from .resources.datasets import AsyncDatasetsResourceWithStreamingResponse
+
+        return AsyncDatasetsResourceWithStreamingResponse(self._client.datasets)
+
+    @cached_property
+    def eval(self) -> eval.AsyncEvalResourceWithStreamingResponse:
+        from .resources.eval import AsyncEvalResourceWithStreamingResponse
+
+        return AsyncEvalResourceWithStreamingResponse(self._client.eval)
+
+    @cached_property
+    def inspect(self) -> inspect.AsyncInspectResourceWithStreamingResponse:
+        from .resources.inspect import AsyncInspectResourceWithStreamingResponse
+
+        return AsyncInspectResourceWithStreamingResponse(self._client.inspect)
+
+    @cached_property
+    def inference(self) -> inference.AsyncInferenceResourceWithStreamingResponse:
+        from .resources.inference import AsyncInferenceResourceWithStreamingResponse
+
+        return AsyncInferenceResourceWithStreamingResponse(self._client.inference)
+
+    @cached_property
+    def embeddings(self) -> embeddings.AsyncEmbeddingsResourceWithStreamingResponse:
+        from .resources.embeddings import AsyncEmbeddingsResourceWithStreamingResponse
+
+        return AsyncEmbeddingsResourceWithStreamingResponse(self._client.embeddings)
+
+    @cached_property
+    def chat(self) -> chat.AsyncChatResourceWithStreamingResponse:
+        from .resources.chat import AsyncChatResourceWithStreamingResponse
+
+        return AsyncChatResourceWithStreamingResponse(self._client.chat)
+
+    @cached_property
+    def completions(self) -> completions.AsyncCompletionsResourceWithStreamingResponse:
+        from .resources.completions import AsyncCompletionsResourceWithStreamingResponse
+
+        return AsyncCompletionsResourceWithStreamingResponse(self._client.completions)
+
+    @cached_property
+    def vector_io(self) -> vector_io.AsyncVectorIoResourceWithStreamingResponse:
+        from .resources.vector_io import AsyncVectorIoResourceWithStreamingResponse
+
+        return AsyncVectorIoResourceWithStreamingResponse(self._client.vector_io)
+
+    @cached_property
+    def vector_dbs(self) -> vector_dbs.AsyncVectorDBsResourceWithStreamingResponse:
+        from .resources.vector_dbs import AsyncVectorDBsResourceWithStreamingResponse
+
+        return AsyncVectorDBsResourceWithStreamingResponse(self._client.vector_dbs)
+
+    @cached_property
+    def vector_stores(self) -> vector_stores.AsyncVectorStoresResourceWithStreamingResponse:
+        from .resources.vector_stores import AsyncVectorStoresResourceWithStreamingResponse
+
+        return AsyncVectorStoresResourceWithStreamingResponse(self._client.vector_stores)
+
+    @cached_property
+    def models(self) -> models.AsyncModelsResourceWithStreamingResponse:
+        from .resources.models import AsyncModelsResourceWithStreamingResponse
+
+        return AsyncModelsResourceWithStreamingResponse(self._client.models)
+
+    @cached_property
+    def post_training(self) -> post_training.AsyncPostTrainingResourceWithStreamingResponse:
+        from .resources.post_training import AsyncPostTrainingResourceWithStreamingResponse
+
+        return AsyncPostTrainingResourceWithStreamingResponse(self._client.post_training)
+
+    @cached_property
+    def providers(self) -> providers.AsyncProvidersResourceWithStreamingResponse:
+        from .resources.providers import AsyncProvidersResourceWithStreamingResponse
+
+        return AsyncProvidersResourceWithStreamingResponse(self._client.providers)
+
+    @cached_property
+    def routes(self) -> routes.AsyncRoutesResourceWithStreamingResponse:
+        from .resources.routes import AsyncRoutesResourceWithStreamingResponse
+
+        return AsyncRoutesResourceWithStreamingResponse(self._client.routes)
+
+    @cached_property
+    def moderations(self) -> moderations.AsyncModerationsResourceWithStreamingResponse:
+        from .resources.moderations import AsyncModerationsResourceWithStreamingResponse
+
+        return AsyncModerationsResourceWithStreamingResponse(self._client.moderations)
+
+    @cached_property
+    def safety(self) -> safety.AsyncSafetyResourceWithStreamingResponse:
+        from .resources.safety import AsyncSafetyResourceWithStreamingResponse
+
+        return AsyncSafetyResourceWithStreamingResponse(self._client.safety)
+
+    @cached_property
+    def shields(self) -> shields.AsyncShieldsResourceWithStreamingResponse:
+        from .resources.shields import AsyncShieldsResourceWithStreamingResponse
+
+        return AsyncShieldsResourceWithStreamingResponse(self._client.shields)
+
+    @cached_property
+    def synthetic_data_generation(
+        self,
+    ) -> synthetic_data_generation.AsyncSyntheticDataGenerationResourceWithStreamingResponse:
+        from .resources.synthetic_data_generation import AsyncSyntheticDataGenerationResourceWithStreamingResponse
+
+        return AsyncSyntheticDataGenerationResourceWithStreamingResponse(self._client.synthetic_data_generation)
+
+    @cached_property
+    def telemetry(self) -> telemetry.AsyncTelemetryResourceWithStreamingResponse:
+        from .resources.telemetry import AsyncTelemetryResourceWithStreamingResponse
+
+        return AsyncTelemetryResourceWithStreamingResponse(self._client.telemetry)
+
+    @cached_property
+    def scoring(self) -> scoring.AsyncScoringResourceWithStreamingResponse:
+        from .resources.scoring import AsyncScoringResourceWithStreamingResponse
+
+        return AsyncScoringResourceWithStreamingResponse(self._client.scoring)
+
+    @cached_property
+    def scoring_functions(self) -> scoring_functions.AsyncScoringFunctionsResourceWithStreamingResponse:
+        from .resources.scoring_functions import AsyncScoringFunctionsResourceWithStreamingResponse
+
+        return AsyncScoringFunctionsResourceWithStreamingResponse(self._client.scoring_functions)
+
+    @cached_property
+    def benchmarks(self) -> benchmarks.AsyncBenchmarksResourceWithStreamingResponse:
+        from .resources.benchmarks import AsyncBenchmarksResourceWithStreamingResponse
+
+        return AsyncBenchmarksResourceWithStreamingResponse(self._client.benchmarks)
+
+    @cached_property
+    def files(self) -> files.AsyncFilesResourceWithStreamingResponse:
+        from .resources.files import AsyncFilesResourceWithStreamingResponse
+
+        return AsyncFilesResourceWithStreamingResponse(self._client.files)
 
 
 Client = LlamaStackClient
