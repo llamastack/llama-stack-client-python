@@ -24,13 +24,10 @@ class SyncDatasetsIterrows(BaseSyncPage[_T], BasePage[_T], Generic[_T]):
     @override
     def next_page_info(self) -> Optional[PageInfo]:
         next_index = self.next_index
-        if next_index is None:
-            return None  # type: ignore[unreachable]
+        if not next_index:
+            return None
 
-        length = len(self._get_page_items())
-        current_count = next_index + length
-
-        return PageInfo(params={"start_index": current_count})
+        return PageInfo(params={"start_index": next_index})
 
 
 class AsyncDatasetsIterrows(BaseAsyncPage[_T], BasePage[_T], Generic[_T]):
@@ -47,13 +44,10 @@ class AsyncDatasetsIterrows(BaseAsyncPage[_T], BasePage[_T], Generic[_T]):
     @override
     def next_page_info(self) -> Optional[PageInfo]:
         next_index = self.next_index
-        if next_index is None:
-            return None  # type: ignore[unreachable]
+        if not next_index:
+            return None
 
-        length = len(self._get_page_items())
-        current_count = next_index + length
-
-        return PageInfo(params={"start_index": current_count})
+        return PageInfo(params={"start_index": next_index})
 
 
 class SyncOpenAICursorPage(BaseSyncPage[_T], BasePage[_T], Generic[_T]):

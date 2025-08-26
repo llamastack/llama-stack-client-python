@@ -10,11 +10,11 @@ import pytest
 from tests.utils import assert_matches_type
 from llama_stack_client import LlamaStackClient, AsyncLlamaStackClient
 from llama_stack_client.types import (
+    CompletionResponse,
     EmbeddingsResponse,
     InferenceBatchChatCompletionResponse,
 )
 from llama_stack_client.types.shared import BatchCompletion, ChatCompletionResponse
-from llama_stack_client.types.inference_completion_params import UnnamedTypeWithNoPropertyInfoOrParent0
 
 # pyright: reportDeprecated=false
 
@@ -392,7 +392,7 @@ class TestInference:
                 model_id="model_id",
             )
 
-        assert_matches_type(UnnamedTypeWithNoPropertyInfoOrParent0, inference, path=["response"])
+        assert_matches_type(CompletionResponse, inference, path=["response"])
 
     @parametrize
     def test_method_completion_with_all_params_overload_1(self, client: LlamaStackClient) -> None:
@@ -414,7 +414,7 @@ class TestInference:
                 stream=False,
             )
 
-        assert_matches_type(UnnamedTypeWithNoPropertyInfoOrParent0, inference, path=["response"])
+        assert_matches_type(CompletionResponse, inference, path=["response"])
 
     @parametrize
     def test_raw_response_completion_overload_1(self, client: LlamaStackClient) -> None:
@@ -427,7 +427,7 @@ class TestInference:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         inference = response.parse()
-        assert_matches_type(UnnamedTypeWithNoPropertyInfoOrParent0, inference, path=["response"])
+        assert_matches_type(CompletionResponse, inference, path=["response"])
 
     @parametrize
     def test_streaming_response_completion_overload_1(self, client: LlamaStackClient) -> None:
@@ -440,7 +440,7 @@ class TestInference:
                 assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
                 inference = response.parse()
-                assert_matches_type(UnnamedTypeWithNoPropertyInfoOrParent0, inference, path=["response"])
+                assert_matches_type(CompletionResponse, inference, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -931,7 +931,7 @@ class TestAsyncInference:
                 model_id="model_id",
             )
 
-        assert_matches_type(UnnamedTypeWithNoPropertyInfoOrParent0, inference, path=["response"])
+        assert_matches_type(CompletionResponse, inference, path=["response"])
 
     @parametrize
     async def test_method_completion_with_all_params_overload_1(self, async_client: AsyncLlamaStackClient) -> None:
@@ -953,7 +953,7 @@ class TestAsyncInference:
                 stream=False,
             )
 
-        assert_matches_type(UnnamedTypeWithNoPropertyInfoOrParent0, inference, path=["response"])
+        assert_matches_type(CompletionResponse, inference, path=["response"])
 
     @parametrize
     async def test_raw_response_completion_overload_1(self, async_client: AsyncLlamaStackClient) -> None:
@@ -966,7 +966,7 @@ class TestAsyncInference:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         inference = await response.parse()
-        assert_matches_type(UnnamedTypeWithNoPropertyInfoOrParent0, inference, path=["response"])
+        assert_matches_type(CompletionResponse, inference, path=["response"])
 
     @parametrize
     async def test_streaming_response_completion_overload_1(self, async_client: AsyncLlamaStackClient) -> None:
@@ -979,7 +979,7 @@ class TestAsyncInference:
                 assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
                 inference = await response.parse()
-                assert_matches_type(UnnamedTypeWithNoPropertyInfoOrParent0, inference, path=["response"])
+                assert_matches_type(CompletionResponse, inference, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
