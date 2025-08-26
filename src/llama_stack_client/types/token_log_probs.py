@@ -2,11 +2,11 @@
 
 from typing import Dict
 
-from ..._models import BaseModel
+from .._models import BaseModel
 
-__all__ = ["SharedTokenLogProbs"]
+__all__ = ["TokenLogProbs"]
 
 
-class SharedTokenLogProbs(BaseModel):
+class TokenLogProbs(BaseModel):
     logprobs_by_token: Dict[str, float]
     """Dictionary mapping tokens to their log probabilities"""

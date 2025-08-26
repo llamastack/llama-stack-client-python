@@ -20,7 +20,6 @@ from llama_stack_client.types import (
     SafetyViolation,
     SamplingParams,
     ScoringResult,
-    SharedTokenLogProbs,
     SystemMessage,
     ToolCall,
     ToolParamDefinition,
@@ -62,7 +61,7 @@ Methods:
 Types:
 
 ```python
-from llama_stack_client.types import ToolInvocationResult, ToolRuntimeListToolsResponse
+from llama_stack_client.types import ToolDef, ToolInvocationResult, ToolRuntimeListToolsResponse
 ```
 
 Methods:
@@ -239,6 +238,7 @@ Types:
 ```python
 from llama_stack_client.types import (
     ChatCompletionResponseStreamChunk,
+    CompletionResponse,
     EmbeddingsResponse,
     TokenLogProbs,
     InferenceBatchChatCompletionResponse,
@@ -250,7 +250,7 @@ Methods:
 - <code title="post /v1/inference/batch-chat-completion">client.inference.<a href="./src/llama_stack_client/resources/inference.py">batch_chat_completion</a>(\*\*<a href="src/llama_stack_client/types/inference_batch_chat_completion_params.py">params</a>) -> <a href="./src/llama_stack_client/types/inference_batch_chat_completion_response.py">InferenceBatchChatCompletionResponse</a></code>
 - <code title="post /v1/inference/batch-completion">client.inference.<a href="./src/llama_stack_client/resources/inference.py">batch_completion</a>(\*\*<a href="src/llama_stack_client/types/inference_batch_completion_params.py">params</a>) -> <a href="./src/llama_stack_client/types/shared/batch_completion.py">BatchCompletion</a></code>
 - <code title="post /v1/inference/chat-completion">client.inference.<a href="./src/llama_stack_client/resources/inference.py">chat_completion</a>(\*\*<a href="src/llama_stack_client/types/inference_chat_completion_params.py">params</a>) -> <a href="./src/llama_stack_client/types/shared/chat_completion_response.py">ChatCompletionResponse</a></code>
-- <code title="post /v1/inference/completion">client.inference.<a href="./src/llama_stack_client/resources/inference.py">completion</a>(\*\*<a href="src/llama_stack_client/types/inference_completion_params.py">params</a>) -> UnnamedTypeWithNoPropertyInfoOrParent0</code>
+- <code title="post /v1/inference/completion">client.inference.<a href="./src/llama_stack_client/resources/inference.py">completion</a>(\*\*<a href="src/llama_stack_client/types/inference_completion_params.py">params</a>) -> <a href="./src/llama_stack_client/types/completion_response.py">CompletionResponse</a></code>
 - <code title="post /v1/inference/embeddings">client.inference.<a href="./src/llama_stack_client/resources/inference.py">embeddings</a>(\*\*<a href="src/llama_stack_client/types/inference_embeddings_params.py">params</a>) -> <a href="./src/llama_stack_client/types/embeddings_response.py">EmbeddingsResponse</a></code>
 
 # Embeddings
