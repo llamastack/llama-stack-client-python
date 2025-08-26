@@ -25,7 +25,7 @@ function is_overriding_api_base_url() {
   [ -n "$TEST_API_BASE_URL" ]
 }
 
-if ! is_overriding_api_base_url && ! prism_is_running ; then
+if ! is_overriding_api_base_url && ! prism_is_running; then
   # When we exit this script, make sure to kill the background mock server process
   trap 'kill_server_on_port 4010' EXIT
 
@@ -33,10 +33,10 @@ if ! is_overriding_api_base_url && ! prism_is_running ; then
   ./scripts/mock --daemon
 fi
 
-if is_overriding_api_base_url ; then
+if is_overriding_api_base_url; then
   echo -e "${GREEN}✔ Running tests against ${TEST_API_BASE_URL}${NC}"
   echo
-elif ! prism_is_running ; then
+elif ! prism_is_running; then
   echo -e "${RED}ERROR:${NC} The test suite will not run without a mock Prism server"
   echo -e "running against your OpenAPI spec."
   echo
@@ -54,8 +54,17 @@ fi
 
 export DEFER_PYDANTIC_BUILD=false
 
-echo "==> Running tests"
-rye run pytest "$@"
+function run_tests() {
+  echo "==> Running tests with Pydantic v2"
+  uv run --all-extras pytest "$@"
+}
 
-echo "==> Running Pydantic v1 tests"
-rye run nox -s test-pydantic-v1 -- "$@"
+# If UV_PYTHON is already set in the environment, just run the command once
+if [[ -n "$UV_PYTHON" ]]; then
+  run_tests "$@"
+else
+  # If UV_PYTHON is not set, run the command for min and max versions
+
+  echo "==> Running tests for Python 3.13"
+  UV_PYTHON=3.13 run_tests "$@"
+fi
