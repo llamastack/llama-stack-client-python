@@ -20,7 +20,7 @@ from typing import (
 )
 
 from llama_stack_client.types import CompletionMessage, Message, ToolResponse
-from llama_stack_client.types.tool import Parameter, Tool
+from llama_stack_client.types.tool_def_param import Parameter, ToolDefParam
 
 
 class ClientTool:
@@ -61,8 +61,8 @@ class ClientTool:
             }
         )
 
-    def get_tool_definition(self) -> Tool:
-        return Tool(
+    def get_tool_definition(self) -> ToolDefParam:
+        return ToolDefParam(
             name=self.get_name(),
             description=self.get_description(),
             parameters=list(self.get_params_definition().values()),
