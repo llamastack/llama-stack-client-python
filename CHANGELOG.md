@@ -1,5 +1,26 @@
 # Changelog
 
+## 0.2.19-alpha.1 (2025-08-26)
+
+Full Changelog: [v0.2.18-alpha.3...v0.2.19-alpha.1](https://github.com/llamastack/llama-stack-client-python/compare/v0.2.18-alpha.3...v0.2.19-alpha.1)
+
+### Features
+
+* **api:** fix completion response breakage perhaps? ([f3b87fb](https://github.com/llamastack/llama-stack-client-python/commit/f3b87fb8922e781745aa55e2cfb8a421f769c8b1))
+* **api:** manual updates ([214d838](https://github.com/llamastack/llama-stack-client-python/commit/214d838dcfec5acede2951642b99d5b389ff2481))
+* **api:** use uv for python build ([8549433](https://github.com/llamastack/llama-stack-client-python/commit/854943368ba5e892818d69c1473aefcd6b03a87c))
+
+
+### Bug Fixes
+
+* **ci:** disabling tests due to issues ([f4ca280](https://github.com/llamastack/llama-stack-client-python/commit/f4ca28093eabcab9f7b078a6f5f1a5e4864dcd72))
+
+
+### Chores
+
+* **internal:** change ci workflow machines ([8d48d47](https://github.com/llamastack/llama-stack-client-python/commit/8d48d47eaeb5cc0ddbfb5ecd5482b79906dfcc9f))
+* sync repo ([7501b6e](https://github.com/llamastack/llama-stack-client-python/commit/7501b6e151771176d825bff9c2e85c40d221a705))
+
 ## 0.2.18-alpha.3 (2025-08-14)
 
 Full Changelog: [v0.2.18-alpha.2...v0.2.18-alpha.3](https://github.com/llamastack/llama-stack-client-python/compare/v0.2.18-alpha.2...v0.2.18-alpha.3)
