@@ -36,7 +36,45 @@ classifiers = [
   "License :: OSI Approved :: MIT License"
 ]
 
+[project.urls]
+Homepage = "https://github.com/llamastack/llama-stack-client-python"
+Repository = "https://github.com/llamastack/llama-stack-client-python"
+
+[project.optional-dependencies]
+aiohttp = ["aiohttp", "httpx_aiohttp>=0.1.8"]
+
+[tool.uv]
+managed = true
+required-version = ">=0.5.0"
+# version pins are in uv.lock
+dev-dependencies = [
+    "pyright==1.1.399",
+    "mypy",
+    "respx",
+    "pytest",
+    "pytest-asyncio",
+    "ruff",
+    "time-machine",
+    "dirty-equals>=0.6.0",
+    "importlib-metadata>=6.7.0",
+    "rich>=13.7.1",
+    "nest_asyncio==1.6.0",
+    "pytest-xdist>=3.6.1",
+]
+conflicts = [
+    [
+      { group = "pydantic-v1" },
+      { group = "pydantic-v2" },
+    ],
+]
+
 [dependency-groups]
+pydantic-v1 = [
+    "pydantic>=1.9.0,<2",
+]
+pydantic-v2 = [
+    "pydantic>=2,<3",
+]
 dev = [
     "pytest>=7.1.1",
     "pytest-asyncio",
@@ -48,9 +86,6 @@ dev = [
     "dirty-equals"
 ]
 
-[project.urls]
-Homepage = "https://github.com/llamastack/llama-stack-client-python"
-Repository = "https://github.com/llamastack/llama-stack-client-python"
 
 [build-system]
 requires = ["hatchling==1.26.3", "hatch-fancy-pypi-readme"]

@@ -1,5 +1,6 @@
 import os
 import logging
+
 from rich.logging import RichHandler
 
 logger: logging.Logger = logging.getLogger("llama_stack_client")
