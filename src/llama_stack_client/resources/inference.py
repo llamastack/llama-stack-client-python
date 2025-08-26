@@ -27,10 +27,10 @@ from .._response import (
 )
 from .._streaming import Stream, AsyncStream
 from .._base_client import make_request_options
+from ..types.completion_response import CompletionResponse
 from ..types.embeddings_response import EmbeddingsResponse
 from ..types.shared_params.message import Message
 from ..types.shared.batch_completion import BatchCompletion
-from ..types.inference_completion_params import UnnamedTypeWithNoPropertyInfoOrParent0
 from ..types.shared_params.response_format import ResponseFormat
 from ..types.shared_params.sampling_params import SamplingParams
 from ..types.shared.chat_completion_response import ChatCompletionResponse
@@ -465,7 +465,7 @@ class InferenceResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> UnnamedTypeWithNoPropertyInfoOrParent0:
+    ) -> CompletionResponse:
         """
         Generate a completion for the given content using the specified model.
 
@@ -512,7 +512,7 @@ class InferenceResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> Stream[UnnamedTypeWithNoPropertyInfoOrParent0]:
+    ) -> Stream[CompletionResponse]:
         """
         Generate a completion for the given content using the specified model.
 
@@ -559,7 +559,7 @@ class InferenceResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> UnnamedTypeWithNoPropertyInfoOrParent0 | Stream[UnnamedTypeWithNoPropertyInfoOrParent0]:
+    ) -> CompletionResponse | Stream[CompletionResponse]:
         """
         Generate a completion for the given content using the specified model.
 
@@ -606,7 +606,7 @@ class InferenceResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> UnnamedTypeWithNoPropertyInfoOrParent0 | Stream[UnnamedTypeWithNoPropertyInfoOrParent0]:
+    ) -> CompletionResponse | Stream[CompletionResponse]:
         return self._post(
             "/v1/inference/completion",
             body=maybe_transform(
@@ -625,9 +625,9 @@ class InferenceResource(SyncAPIResource):
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=UnnamedTypeWithNoPropertyInfoOrParent0,
+            cast_to=CompletionResponse,
             stream=stream or False,
-            stream_cls=Stream[UnnamedTypeWithNoPropertyInfoOrParent0],
+            stream_cls=Stream[CompletionResponse],
         )
 
     @typing_extensions.deprecated("/v1/inference/embeddings is deprecated. Please use /v1/openai/v1/embeddings.")
@@ -1116,7 +1116,7 @@ class AsyncInferenceResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> UnnamedTypeWithNoPropertyInfoOrParent0:
+    ) -> CompletionResponse:
         """
         Generate a completion for the given content using the specified model.
 
@@ -1163,7 +1163,7 @@ class AsyncInferenceResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> AsyncStream[UnnamedTypeWithNoPropertyInfoOrParent0]:
+    ) -> AsyncStream[CompletionResponse]:
         """
         Generate a completion for the given content using the specified model.
 
@@ -1210,7 +1210,7 @@ class AsyncInferenceResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> UnnamedTypeWithNoPropertyInfoOrParent0 | AsyncStream[UnnamedTypeWithNoPropertyInfoOrParent0]:
+    ) -> CompletionResponse | AsyncStream[CompletionResponse]:
         """
         Generate a completion for the given content using the specified model.
 
@@ -1257,7 +1257,7 @@ class AsyncInferenceResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> UnnamedTypeWithNoPropertyInfoOrParent0 | AsyncStream[UnnamedTypeWithNoPropertyInfoOrParent0]:
+    ) -> CompletionResponse | AsyncStream[CompletionResponse]:
         return await self._post(
             "/v1/inference/completion",
             body=await async_maybe_transform(
@@ -1276,9 +1276,9 @@ class AsyncInferenceResource(AsyncAPIResource):
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=UnnamedTypeWithNoPropertyInfoOrParent0,
+            cast_to=CompletionResponse,
             stream=stream or False,
-            stream_cls=AsyncStream[UnnamedTypeWithNoPropertyInfoOrParent0],
+            stream_cls=AsyncStream[CompletionResponse],
         )
 
     @typing_extensions.deprecated("/v1/inference/embeddings is deprecated. Please use /v1/openai/v1/embeddings.")

@@ -5,48 +5,11 @@ from __future__ import annotations
 from typing import Dict, List, Union, Iterable
 from typing_extensions import Literal, Required, TypeAlias, TypedDict
 
+from ..tool_def_param import ToolDefParam
 from .response_format import ResponseFormat
 from .sampling_params import SamplingParams
 
-__all__ = [
-    "AgentConfig",
-    "ClientTool",
-    "ClientToolParameter",
-    "ToolConfig",
-    "Toolgroup",
-    "ToolgroupAgentToolGroupWithArgs",
-]
-
-
-class ClientToolParameter(TypedDict, total=False):
-    description: Required[str]
-    """Human-readable description of what the parameter does"""
-
-    name: Required[str]
-    """Name of the parameter"""
-
-    parameter_type: Required[str]
-    """Type of the parameter (e.g., string, integer)"""
-
-    required: Required[bool]
-    """Whether this parameter is required for tool invocation"""
-
-    default: Union[bool, float, str, Iterable[object], object, None]
-    """(Optional) Default value for the parameter if not provided"""
-
-
-class ClientTool(TypedDict, total=False):
-    name: Required[str]
-    """Name of the tool"""
-
-    description: str
-    """(Optional) Human-readable description of what the tool does"""
-
-    metadata: Dict[str, Union[bool, float, str, Iterable[object], object, None]]
-    """(Optional) Additional metadata about the tool"""
-
-    parameters: Iterable[ClientToolParameter]
-    """(Optional) List of parameters this tool accepts"""
+__all__ = ["AgentConfig", "ToolConfig", "Toolgroup", "ToolgroupAgentToolGroupWithArgs"]
 
 
 class ToolConfig(TypedDict, total=False):
@@ -94,7 +57,7 @@ class AgentConfig(TypedDict, total=False):
     model: Required[str]
     """The model identifier to use for the agent"""
 
-    client_tools: Iterable[ClientTool]
+    client_tools: Iterable[ToolDefParam]
 
     enable_session_persistence: bool
     """Optional flag indicating whether session data has to be persisted"""
