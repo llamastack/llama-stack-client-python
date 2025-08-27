@@ -1356,17 +1356,17 @@ class InferenceResourceWithRawResponse:
         )
         self.chat_completion = (  # pyright: ignore[reportDeprecated]
             to_raw_response_wrapper(
-                inference.chat_completion  # pyright: ignore[reportDeprecated],
+                inference.chat_completion,  # pyright: ignore[reportDeprecated],
             )
         )
         self.completion = (  # pyright: ignore[reportDeprecated]
             to_raw_response_wrapper(
-                inference.completion  # pyright: ignore[reportDeprecated],
+                inference.completion,  # pyright: ignore[reportDeprecated],
             )
         )
         self.embeddings = (  # pyright: ignore[reportDeprecated]
             to_raw_response_wrapper(
-                inference.embeddings  # pyright: ignore[reportDeprecated],
+                inference.embeddings,  # pyright: ignore[reportDeprecated],
             )
         )
 
@@ -1383,17 +1383,17 @@ class AsyncInferenceResourceWithRawResponse:
         )
         self.chat_completion = (  # pyright: ignore[reportDeprecated]
             async_to_raw_response_wrapper(
-                inference.chat_completion  # pyright: ignore[reportDeprecated],
+                inference.chat_completion,  # pyright: ignore[reportDeprecated],
             )
         )
         self.completion = (  # pyright: ignore[reportDeprecated]
             async_to_raw_response_wrapper(
-                inference.completion  # pyright: ignore[reportDeprecated],
+                inference.completion,  # pyright: ignore[reportDeprecated],
             )
         )
         self.embeddings = (  # pyright: ignore[reportDeprecated]
             async_to_raw_response_wrapper(
-                inference.embeddings  # pyright: ignore[reportDeprecated],
+                inference.embeddings,  # pyright: ignore[reportDeprecated],
             )
         )
 
@@ -1410,17 +1410,17 @@ class InferenceResourceWithStreamingResponse:
         )
         self.chat_completion = (  # pyright: ignore[reportDeprecated]
             to_streamed_response_wrapper(
-                inference.chat_completion  # pyright: ignore[reportDeprecated],
+                inference.chat_completion,  # pyright: ignore[reportDeprecated],
             )
         )
         self.completion = (  # pyright: ignore[reportDeprecated]
             to_streamed_response_wrapper(
-                inference.completion  # pyright: ignore[reportDeprecated],
+                inference.completion,  # pyright: ignore[reportDeprecated],
             )
         )
         self.embeddings = (  # pyright: ignore[reportDeprecated]
             to_streamed_response_wrapper(
-                inference.embeddings  # pyright: ignore[reportDeprecated],
+                inference.embeddings,  # pyright: ignore[reportDeprecated],
             )
         )
 
@@ -1437,16 +1437,16 @@ class AsyncInferenceResourceWithStreamingResponse:
         )
         self.chat_completion = (  # pyright: ignore[reportDeprecated]
             async_to_streamed_response_wrapper(
-                inference.chat_completion  # pyright: ignore[reportDeprecated],
+                inference.chat_completion,  # pyright: ignore[reportDeprecated],
             )
         )
         self.completion = (  # pyright: ignore[reportDeprecated]
             async_to_streamed_response_wrapper(
-                inference.completion  # pyright: ignore[reportDeprecated],
+                inference.completion,  # pyright: ignore[reportDeprecated],
             )
         )
         self.embeddings = (  # pyright: ignore[reportDeprecated]
             async_to_streamed_response_wrapper(
-                inference.embeddings  # pyright: ignore[reportDeprecated],
+                inference.embeddings,  # pyright: ignore[reportDeprecated],
             )
         )
