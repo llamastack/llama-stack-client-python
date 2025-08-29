@@ -1,5 +1,20 @@
 # Changelog
 
+## 0.2.20-alpha.1 (2025-08-29)
+
+Full Changelog: [v0.2.19-alpha.1...v0.2.20-alpha.1](https://github.com/llamastack/llama-stack-client-python/compare/v0.2.19-alpha.1...v0.2.20-alpha.1)
+
+### Bug Fixes
+
+* avoid newer type syntax ([d29b146](https://github.com/llamastack/llama-stack-client-python/commit/d29b1469423c632f048654dfb3589b8da832f9a3))
+* **tool:** revert the ToolDefParam stuff because we reverted the bad commit ([e2d543d](https://github.com/llamastack/llama-stack-client-python/commit/e2d543dfe2cdab2e1d74e3fa2bd2334af040b56d))
+
+
+### Build System
+
+* Bump version to 0.2.19 ([034b3a9](https://github.com/llamastack/llama-stack-client-python/commit/034b3a9debdb85be0cbe42cb8711e37629d3376c))
+* Bump version to 0.2.20 ([b178953](https://github.com/llamastack/llama-stack-client-python/commit/b178953c51e1bfe5075fe942eacab90e0caad180))
+
 ## 0.2.19-alpha.1 (2025-08-26)
 
 Full Changelog: [v0.2.18-alpha.3...v0.2.19-alpha.1](https://github.com/llamastack/llama-stack-client-python/compare/v0.2.18-alpha.3...v0.2.19-alpha.1)
