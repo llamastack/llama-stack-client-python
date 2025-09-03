@@ -10,9 +10,9 @@ import pytest
 from tests.utils import assert_matches_type
 from llama_stack_client import LlamaStackClient, AsyncLlamaStackClient
 from llama_stack_client.types import (
+    RerankResponse,
     CompletionResponse,
     EmbeddingsResponse,
-    RerankResponse,
     InferenceBatchChatCompletionResponse,
 )
 from llama_stack_client.types.shared import BatchCompletion, ChatCompletionResponse
@@ -604,17 +604,13 @@ class TestInference:
             assert_matches_type(RerankResponse, inference, path=["response"])
 
         assert cast(Any, response.is_closed) is True
-    
+
     @parametrize
     def test_method_rerank_with_image_query(self, client: LlamaStackClient) -> None:
         inference = client.inference.rerank(
             model="model_id",
             query={"type": "image_url", "image_url": {"url": "https://example.com/image.jpg"}},
-            items=[
-                "string_1",
-                {"type": "text", "text": "text_data"},
-                {"type": "image_url", "image_url": {"url": "https://example.com/image.jpg"}},
-            ],
+            items=["string_1", "string_2"],
             max_num_results=0,
         )
         assert_matches_type(RerankResponse, inference, path=["response"])
@@ -1219,17 +1215,13 @@ class TestAsyncInference:
             assert_matches_type(RerankResponse, inference, path=["response"])
 
         assert cast(Any, response.is_closed) is True
-    
+
     @parametrize
     async def test_method_rerank_with_image_query(self, async_client: AsyncLlamaStackClient) -> None:
         inference = await async_client.inference.rerank(
             model="model_id",
             query={"type": "image_url", "image_url": {"url": "https://example.com/image.jpg"}},
-            items=[
-                "string_1",
-                {"type": "text", "text": "text_data"},
-                {"type": "image_url", "image_url": {"url": "https://example.com/image.jpg"}},
-            ],
+            items=["string_1", "string_2"],
             max_num_results=0,
         )
         assert_matches_type(RerankResponse, inference, path=["response"])

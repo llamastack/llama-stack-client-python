@@ -51,6 +51,7 @@ class TextContentItem(TypedDict, total=False):
 
 InterleavedContentItem: TypeAlias = Union[ImageContentItem, TextContentItem]
 
+
 class OpenAIImageURL(TypedDict, total=False):
     url: Required[str]
     """URL of the image to include in the message"""
@@ -70,6 +71,6 @@ class OpenAIChatCompletionContentPartTextParam(TypedDict, total=False):
 class OpenAIChatCompletionContentPartImageParam(TypedDict, total=False):
     type: Required[Literal["image_url"]]
     """Must be "image_url" to identify this as image content"""
-    
+
     image_url: Required[OpenAIImageURL]
     """Image URL specification and processing details"""

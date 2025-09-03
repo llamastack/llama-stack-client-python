@@ -47,9 +47,9 @@ from .tool_response import ToolResponse as ToolResponse
 from .inference_step import InferenceStep as InferenceStep
 from .tool_def_param import ToolDefParam as ToolDefParam
 from .create_response import CreateResponse as CreateResponse
+from .rerank_response import RerankData as RerankData, RerankResponse as RerankResponse
 from .response_object import ResponseObject as ResponseObject
 from .token_log_probs import TokenLogProbs as TokenLogProbs
-from .rerank_response import RerankResponse as RerankResponse, RerankData as RerankData
 from .file_list_params import FileListParams as FileListParams
 from .shield_call_step import ShieldCallStep as ShieldCallStep
 from .span_with_status import SpanWithStatus as SpanWithStatus

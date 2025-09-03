@@ -3,15 +3,15 @@
 from __future__ import annotations
 
 import typing_extensions
-from typing import Any, List, Union, Iterable
+from typing import List, Union, Iterable
 from typing_extensions import Literal, overload
 
 import httpx
 
 from ..types import (
+    inference_rerank_params,
     inference_completion_params,
     inference_embeddings_params,
-    inference_rerank_params,
     inference_chat_completion_params,
     inference_batch_completion_params,
     inference_batch_chat_completion_params,
@@ -28,9 +28,9 @@ from .._response import (
 )
 from .._streaming import Stream, AsyncStream
 from .._base_client import make_request_options
+from ..types.rerank_response import RerankResponse
 from ..types.completion_response import CompletionResponse
 from ..types.embeddings_response import EmbeddingsResponse
-from ..types.rerank_response import RerankResponse
 from ..types.shared_params.message import Message
 from ..types.shared.batch_completion import BatchCompletion
 from ..types.shared_params.response_format import ResponseFormat
@@ -720,8 +720,7 @@ class InferenceResource(SyncAPIResource):
         Rerank a list of documents based on their relevance to a query.
 
         Args:
-          model: The identifier of the reranking model to use. The model must be a reranking model
-              registered with Llama Stack and available via the /models endpoint.
+          model: The identifier of the reranking model to use. The model must be a reranking model registered with Llama Stack and available via the /models endpoint.
 
           query: The search query to rank items against. Can be a string, text content part, or image content part. The input must not exceed the model's max input token length.
 
@@ -1427,8 +1426,7 @@ class AsyncInferenceResource(AsyncAPIResource):
         Rerank a list of documents based on their relevance to a query.
 
         Args:
-          model: The identifier of the reranking model to use. The model must be a reranking model
-              registered with Llama Stack and available via the /models endpoint.
+          model: The identifier of the reranking model to use. The model must be a reranking model registered with Llama Stack and available via the /models endpoint.
 
           query: The search query to rank items against. Can be a string, text content part, or image content part. The input must not exceed the model's max input token length.
 
