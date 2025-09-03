@@ -2,12 +2,11 @@
 
 from __future__ import annotations
 
-from typing import List
 from typing_extensions import Literal
 
 import httpx
 
-from ..._types import NOT_GIVEN, Body, Query, Headers, NotGiven
+from ..._types import NOT_GIVEN, Body, Query, Headers, NotGiven, SequenceNotStr
 from ..._utils import maybe_transform, async_maybe_transform
 from ..._compat import cached_property
 from ..._resource import SyncAPIResource, AsyncAPIResource
@@ -50,7 +49,7 @@ class InputItemsResource(SyncAPIResource):
         *,
         after: str | NotGiven = NOT_GIVEN,
         before: str | NotGiven = NOT_GIVEN,
-        include: List[str] | NotGiven = NOT_GIVEN,
+        include: SequenceNotStr[str] | NotGiven = NOT_GIVEN,
         limit: int | NotGiven = NOT_GIVEN,
         order: Literal["asc", "desc"] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -133,7 +132,7 @@ class AsyncInputItemsResource(AsyncAPIResource):
         *,
         after: str | NotGiven = NOT_GIVEN,
         before: str | NotGiven = NOT_GIVEN,
-        include: List[str] | NotGiven = NOT_GIVEN,
+        include: SequenceNotStr[str] | NotGiven = NOT_GIVEN,
         limit: int | NotGiven = NOT_GIVEN,
         order: Literal["asc", "desc"] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.

@@ -2,8 +2,9 @@
 
 from __future__ import annotations
 
-from typing import List
 from typing_extensions import Literal, TypedDict
+
+from ..._types import SequenceNotStr
 
 __all__ = ["InputItemListParams"]
 
@@ -15,7 +16,7 @@ class InputItemListParams(TypedDict, total=False):
     before: str
     """An item ID to list items before, used for pagination."""
 
-    include: List[str]
+    include: SequenceNotStr[str]
     """Additional fields to include in the response."""
 
     limit: int

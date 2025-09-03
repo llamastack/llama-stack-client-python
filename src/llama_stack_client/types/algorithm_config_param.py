@@ -2,8 +2,10 @@
 
 from __future__ import annotations
 
-from typing import List, Union
+from typing import Union
 from typing_extensions import Literal, Required, TypeAlias, TypedDict
+
+from .._types import SequenceNotStr
 
 __all__ = ["AlgorithmConfigParam", "LoraFinetuningConfig", "QatFinetuningConfig"]
 
@@ -18,7 +20,7 @@ class LoraFinetuningConfig(TypedDict, total=False):
     apply_lora_to_output: Required[bool]
     """Whether to apply LoRA to output projection layers"""
 
-    lora_attn_modules: Required[List[str]]
+    lora_attn_modules: Required[SequenceNotStr[str]]
     """List of attention module names to apply LoRA to"""
 
     rank: Required[int]

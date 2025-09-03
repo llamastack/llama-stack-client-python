@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from typing import List, Type, Iterable, cast
+from typing import Type, Iterable, cast
 from typing_extensions import Literal
 
 import httpx
@@ -15,7 +15,7 @@ from ..types import (
     telemetry_query_metrics_params,
     telemetry_save_spans_to_dataset_params,
 )
-from .._types import NOT_GIVEN, Body, Query, Headers, NoneType, NotGiven
+from .._types import NOT_GIVEN, Body, Query, Headers, NoneType, NotGiven, SequenceNotStr
 from .._utils import maybe_transform, async_maybe_transform
 from .._compat import cached_property
 from .._resource import SyncAPIResource, AsyncAPIResource
@@ -99,7 +99,7 @@ class TelemetryResource(SyncAPIResource):
         self,
         span_id: str,
         *,
-        attributes_to_return: List[str] | NotGiven = NOT_GIVEN,
+        attributes_to_return: SequenceNotStr[str] | NotGiven = NOT_GIVEN,
         max_depth: int | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -288,7 +288,7 @@ class TelemetryResource(SyncAPIResource):
         self,
         *,
         attribute_filters: Iterable[QueryConditionParam],
-        attributes_to_return: List[str],
+        attributes_to_return: SequenceNotStr[str],
         max_depth: int | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -341,7 +341,7 @@ class TelemetryResource(SyncAPIResource):
         attribute_filters: Iterable[QueryConditionParam] | NotGiven = NOT_GIVEN,
         limit: int | NotGiven = NOT_GIVEN,
         offset: int | NotGiven = NOT_GIVEN,
-        order_by: List[str] | NotGiven = NOT_GIVEN,
+        order_by: SequenceNotStr[str] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -394,7 +394,7 @@ class TelemetryResource(SyncAPIResource):
         self,
         *,
         attribute_filters: Iterable[QueryConditionParam],
-        attributes_to_save: List[str],
+        attributes_to_save: SequenceNotStr[str],
         dataset_id: str,
         max_depth: int | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -503,7 +503,7 @@ class AsyncTelemetryResource(AsyncAPIResource):
         self,
         span_id: str,
         *,
-        attributes_to_return: List[str] | NotGiven = NOT_GIVEN,
+        attributes_to_return: SequenceNotStr[str] | NotGiven = NOT_GIVEN,
         max_depth: int | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -692,7 +692,7 @@ class AsyncTelemetryResource(AsyncAPIResource):
         self,
         *,
         attribute_filters: Iterable[QueryConditionParam],
-        attributes_to_return: List[str],
+        attributes_to_return: SequenceNotStr[str],
         max_depth: int | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -745,7 +745,7 @@ class AsyncTelemetryResource(AsyncAPIResource):
         attribute_filters: Iterable[QueryConditionParam] | NotGiven = NOT_GIVEN,
         limit: int | NotGiven = NOT_GIVEN,
         offset: int | NotGiven = NOT_GIVEN,
-        order_by: List[str] | NotGiven = NOT_GIVEN,
+        order_by: SequenceNotStr[str] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -798,7 +798,7 @@ class AsyncTelemetryResource(AsyncAPIResource):
         self,
         *,
         attribute_filters: Iterable[QueryConditionParam],
-        attributes_to_save: List[str],
+        attributes_to_save: SequenceNotStr[str],
         dataset_id: str,
         max_depth: int | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
