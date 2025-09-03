@@ -3,7 +3,7 @@
 from __future__ import annotations
 
 import typing_extensions
-from typing import List, Union, Iterable
+from typing import Union, Iterable
 from typing_extensions import Literal, overload
 
 import httpx
@@ -15,7 +15,7 @@ from ..types import (
     inference_batch_completion_params,
     inference_batch_chat_completion_params,
 )
-from .._types import NOT_GIVEN, Body, Query, Headers, NotGiven
+from .._types import NOT_GIVEN, Body, Query, Headers, NotGiven, SequenceNotStr
 from .._utils import required_args, maybe_transform, async_maybe_transform
 from .._compat import cached_property
 from .._resource import SyncAPIResource, AsyncAPIResource
@@ -130,7 +130,7 @@ class InferenceResource(SyncAPIResource):
     def batch_completion(
         self,
         *,
-        content_batch: List[InterleavedContent],
+        content_batch: SequenceNotStr[InterleavedContent],
         model_id: str,
         logprobs: inference_batch_completion_params.Logprobs | NotGiven = NOT_GIVEN,
         response_format: ResponseFormat | NotGiven = NOT_GIVEN,
@@ -638,7 +638,7 @@ class InferenceResource(SyncAPIResource):
     def embeddings(
         self,
         *,
-        contents: Union[List[str], Iterable[InterleavedContentItem]],
+        contents: Union[SequenceNotStr[str], Iterable[InterleavedContentItem]],
         model_id: str,
         output_dimension: int | NotGiven = NOT_GIVEN,
         task_type: Literal["query", "document"] | NotGiven = NOT_GIVEN,
@@ -785,7 +785,7 @@ class AsyncInferenceResource(AsyncAPIResource):
     async def batch_completion(
         self,
         *,
-        content_batch: List[InterleavedContent],
+        content_batch: SequenceNotStr[InterleavedContent],
         model_id: str,
         logprobs: inference_batch_completion_params.Logprobs | NotGiven = NOT_GIVEN,
         response_format: ResponseFormat | NotGiven = NOT_GIVEN,
@@ -1293,7 +1293,7 @@ class AsyncInferenceResource(AsyncAPIResource):
     async def embeddings(
         self,
         *,
-        contents: Union[List[str], Iterable[InterleavedContentItem]],
+        contents: Union[SequenceNotStr[str], Iterable[InterleavedContentItem]],
         model_id: str,
         output_dimension: int | NotGiven = NOT_GIVEN,
         task_type: Literal["query", "document"] | NotGiven = NOT_GIVEN,

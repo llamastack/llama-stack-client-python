@@ -2,8 +2,10 @@
 
 from __future__ import annotations
 
-from typing import Dict, List, Union, Iterable
+from typing import Dict, Union, Iterable
 from typing_extensions import Literal, Required, TypeAlias, TypedDict
+
+from ..._types import SequenceNotStr
 
 __all__ = [
     "CompletionCreateParamsBase",
@@ -82,7 +84,7 @@ class CompletionCreateParamsBase(TypedDict, total=False):
     seed: int
     """(Optional) The seed to use."""
 
-    stop: Union[str, List[str]]
+    stop: Union[str, SequenceNotStr[str]]
     """(Optional) The stop tokens to use."""
 
     stream_options: Dict[str, Union[bool, float, str, Iterable[object], object, None]]

@@ -2,8 +2,10 @@
 
 from __future__ import annotations
 
-from typing import Dict, List, Union, Iterable
+from typing import Dict, Union, Iterable
 from typing_extensions import Literal, Required, TypeAlias, TypedDict
+
+from .._types import SequenceNotStr
 
 __all__ = [
     "ResponseCreateParamsBase",
@@ -47,7 +49,7 @@ class ResponseCreateParamsBase(TypedDict, total=False):
     model: Required[str]
     """The underlying LLM used for completions."""
 
-    include: List[str]
+    include: SequenceNotStr[str]
     """(Optional) Additional fields to include in the response."""
 
     instructions: str
@@ -103,7 +105,7 @@ class InputUnionMember1OpenAIResponseOutputMessageFileSearchToolCall(TypedDict, 
     id: Required[str]
     """Unique identifier for this tool call"""
 
-    queries: Required[List[str]]
+    queries: Required[SequenceNotStr[str]]
     """List of search queries executed"""
 
     status: Required[str]
@@ -329,7 +331,7 @@ class ToolOpenAIResponseInputToolFileSearch(TypedDict, total=False):
     type: Required[Literal["file_search"]]
     """Tool type identifier, always "file_search" """
 
-    vector_store_ids: Required[List[str]]
+    vector_store_ids: Required[SequenceNotStr[str]]
     """List of vector store identifiers to search within"""
 
     filters: Dict[str, Union[bool, float, str, Iterable[object], object, None]]
@@ -360,10 +362,10 @@ class ToolOpenAIResponseInputToolFunction(TypedDict, total=False):
 
 
 class ToolOpenAIResponseInputToolMcpRequireApprovalApprovalFilter(TypedDict, total=False):
-    always: List[str]
+    always: SequenceNotStr[str]
     """(Optional) List of tool names that always require approval"""
 
-    never: List[str]
+    never: SequenceNotStr[str]
     """(Optional) List of tool names that never require approval"""
 
 
@@ -373,12 +375,12 @@ ToolOpenAIResponseInputToolMcpRequireApproval: TypeAlias = Union[
 
 
 class ToolOpenAIResponseInputToolMcpAllowedToolsAllowedToolsFilter(TypedDict, total=False):
-    tool_names: List[str]
+    tool_names: SequenceNotStr[str]
     """(Optional) List of specific tool names that are allowed"""
 
 
 ToolOpenAIResponseInputToolMcpAllowedTools: TypeAlias = Union[
-    List[str], ToolOpenAIResponseInputToolMcpAllowedToolsAllowedToolsFilter
+    SequenceNotStr[str], ToolOpenAIResponseInputToolMcpAllowedToolsAllowedToolsFilter
 ]
 
 

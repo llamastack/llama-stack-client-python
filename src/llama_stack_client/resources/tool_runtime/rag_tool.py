@@ -2,11 +2,11 @@
 
 from __future__ import annotations
 
-from typing import List, Iterable
+from typing import Iterable
 
 import httpx
 
-from ..._types import NOT_GIVEN, Body, Query, Headers, NoneType, NotGiven
+from ..._types import NOT_GIVEN, Body, Query, Headers, NoneType, NotGiven, SequenceNotStr
 from ..._utils import maybe_transform, async_maybe_transform
 from ..._compat import cached_property
 from ..._resource import SyncAPIResource, AsyncAPIResource
@@ -98,7 +98,7 @@ class RagToolResource(SyncAPIResource):
         self,
         *,
         content: InterleavedContent,
-        vector_db_ids: List[str],
+        vector_db_ids: SequenceNotStr[str],
         query_config: QueryConfig | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -214,7 +214,7 @@ class AsyncRagToolResource(AsyncAPIResource):
         self,
         *,
         content: InterleavedContent,
-        vector_db_ids: List[str],
+        vector_db_ids: SequenceNotStr[str],
         query_config: QueryConfig | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.

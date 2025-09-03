@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from typing import Dict, List, Union, Iterable
+from typing import Dict, Union, Iterable
 
 import httpx
 
@@ -20,7 +20,7 @@ from ...types import (
     vector_store_search_params,
     vector_store_update_params,
 )
-from ..._types import NOT_GIVEN, Body, Query, Headers, NotGiven
+from ..._types import NOT_GIVEN, Body, Query, Headers, NotGiven, SequenceNotStr
 from ..._utils import maybe_transform, async_maybe_transform
 from ..._compat import cached_property
 from ..._resource import SyncAPIResource, AsyncAPIResource
@@ -70,7 +70,7 @@ class VectorStoresResource(SyncAPIResource):
         embedding_dimension: int | NotGiven = NOT_GIVEN,
         embedding_model: str | NotGiven = NOT_GIVEN,
         expires_after: Dict[str, Union[bool, float, str, Iterable[object], object, None]] | NotGiven = NOT_GIVEN,
-        file_ids: List[str] | NotGiven = NOT_GIVEN,
+        file_ids: SequenceNotStr[str] | NotGiven = NOT_GIVEN,
         metadata: Dict[str, Union[bool, float, str, Iterable[object], object, None]] | NotGiven = NOT_GIVEN,
         name: str | NotGiven = NOT_GIVEN,
         provider_id: str | NotGiven = NOT_GIVEN,
@@ -312,7 +312,7 @@ class VectorStoresResource(SyncAPIResource):
         self,
         vector_store_id: str,
         *,
-        query: Union[str, List[str]],
+        query: Union[str, SequenceNotStr[str]],
         filters: Dict[str, Union[bool, float, str, Iterable[object], object, None]] | NotGiven = NOT_GIVEN,
         max_num_results: int | NotGiven = NOT_GIVEN,
         ranking_options: vector_store_search_params.RankingOptions | NotGiven = NOT_GIVEN,
@@ -404,7 +404,7 @@ class AsyncVectorStoresResource(AsyncAPIResource):
         embedding_dimension: int | NotGiven = NOT_GIVEN,
         embedding_model: str | NotGiven = NOT_GIVEN,
         expires_after: Dict[str, Union[bool, float, str, Iterable[object], object, None]] | NotGiven = NOT_GIVEN,
-        file_ids: List[str] | NotGiven = NOT_GIVEN,
+        file_ids: SequenceNotStr[str] | NotGiven = NOT_GIVEN,
         metadata: Dict[str, Union[bool, float, str, Iterable[object], object, None]] | NotGiven = NOT_GIVEN,
         name: str | NotGiven = NOT_GIVEN,
         provider_id: str | NotGiven = NOT_GIVEN,
@@ -646,7 +646,7 @@ class AsyncVectorStoresResource(AsyncAPIResource):
         self,
         vector_store_id: str,
         *,
-        query: Union[str, List[str]],
+        query: Union[str, SequenceNotStr[str]],
         filters: Dict[str, Union[bool, float, str, Iterable[object], object, None]] | NotGiven = NOT_GIVEN,
         max_num_results: int | NotGiven = NOT_GIVEN,
         ranking_options: vector_store_search_params.RankingOptions | NotGiven = NOT_GIVEN,
