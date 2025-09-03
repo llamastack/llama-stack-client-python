@@ -2,12 +2,12 @@
 
 from __future__ import annotations
 
-from typing import Dict, List, Type, Union, Iterable, cast
+from typing import Dict, Type, Union, Iterable, cast
 
 import httpx
 
 from ..types import benchmark_register_params
-from .._types import NOT_GIVEN, Body, Query, Headers, NoneType, NotGiven
+from .._types import NOT_GIVEN, Body, Query, Headers, NoneType, NotGiven, SequenceNotStr
 from .._utils import maybe_transform, async_maybe_transform
 from .._compat import cached_property
 from .._resource import SyncAPIResource, AsyncAPIResource
@@ -106,7 +106,7 @@ class BenchmarksResource(SyncAPIResource):
         *,
         benchmark_id: str,
         dataset_id: str,
-        scoring_functions: List[str],
+        scoring_functions: SequenceNotStr[str],
         metadata: Dict[str, Union[bool, float, str, Iterable[object], object, None]] | NotGiven = NOT_GIVEN,
         provider_benchmark_id: str | NotGiven = NOT_GIVEN,
         provider_id: str | NotGiven = NOT_GIVEN,
@@ -243,7 +243,7 @@ class AsyncBenchmarksResource(AsyncAPIResource):
         *,
         benchmark_id: str,
         dataset_id: str,
-        scoring_functions: List[str],
+        scoring_functions: SequenceNotStr[str],
         metadata: Dict[str, Union[bool, float, str, Iterable[object], object, None]] | NotGiven = NOT_GIVEN,
         provider_benchmark_id: str | NotGiven = NOT_GIVEN,
         provider_id: str | NotGiven = NOT_GIVEN,

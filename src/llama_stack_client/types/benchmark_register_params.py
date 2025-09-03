@@ -2,8 +2,10 @@
 
 from __future__ import annotations
 
-from typing import Dict, List, Union, Iterable
+from typing import Dict, Union, Iterable
 from typing_extensions import Required, TypedDict
+
+from .._types import SequenceNotStr
 
 __all__ = ["BenchmarkRegisterParams"]
 
@@ -15,7 +17,7 @@ class BenchmarkRegisterParams(TypedDict, total=False):
     dataset_id: Required[str]
     """The ID of the dataset to use for the benchmark."""
 
-    scoring_functions: Required[List[str]]
+    scoring_functions: Required[SequenceNotStr[str]]
     """The scoring functions to use for the benchmark."""
 
     metadata: Dict[str, Union[bool, float, str, Iterable[object], object, None]]

@@ -2,13 +2,13 @@
 
 from __future__ import annotations
 
-from typing import List, Union, Iterable
+from typing import Union, Iterable
 from typing_extensions import Literal, overload
 
 import httpx
 
 from ...types import response_list_params, response_create_params
-from ..._types import NOT_GIVEN, Body, Query, Headers, NotGiven
+from ..._types import NOT_GIVEN, Body, Query, Headers, NotGiven, SequenceNotStr
 from ..._utils import required_args, maybe_transform, async_maybe_transform
 from ..._compat import cached_property
 from ..._resource import SyncAPIResource, AsyncAPIResource
@@ -66,7 +66,7 @@ class ResponsesResource(SyncAPIResource):
         *,
         input: Union[str, Iterable[response_create_params.InputUnionMember1]],
         model: str,
-        include: List[str] | NotGiven = NOT_GIVEN,
+        include: SequenceNotStr[str] | NotGiven = NOT_GIVEN,
         instructions: str | NotGiven = NOT_GIVEN,
         max_infer_iters: int | NotGiven = NOT_GIVEN,
         previous_response_id: str | NotGiven = NOT_GIVEN,
@@ -115,7 +115,7 @@ class ResponsesResource(SyncAPIResource):
         input: Union[str, Iterable[response_create_params.InputUnionMember1]],
         model: str,
         stream: Literal[True],
-        include: List[str] | NotGiven = NOT_GIVEN,
+        include: SequenceNotStr[str] | NotGiven = NOT_GIVEN,
         instructions: str | NotGiven = NOT_GIVEN,
         max_infer_iters: int | NotGiven = NOT_GIVEN,
         previous_response_id: str | NotGiven = NOT_GIVEN,
@@ -163,7 +163,7 @@ class ResponsesResource(SyncAPIResource):
         input: Union[str, Iterable[response_create_params.InputUnionMember1]],
         model: str,
         stream: bool,
-        include: List[str] | NotGiven = NOT_GIVEN,
+        include: SequenceNotStr[str] | NotGiven = NOT_GIVEN,
         instructions: str | NotGiven = NOT_GIVEN,
         max_infer_iters: int | NotGiven = NOT_GIVEN,
         previous_response_id: str | NotGiven = NOT_GIVEN,
@@ -210,7 +210,7 @@ class ResponsesResource(SyncAPIResource):
         *,
         input: Union[str, Iterable[response_create_params.InputUnionMember1]],
         model: str,
-        include: List[str] | NotGiven = NOT_GIVEN,
+        include: SequenceNotStr[str] | NotGiven = NOT_GIVEN,
         instructions: str | NotGiven = NOT_GIVEN,
         max_infer_iters: int | NotGiven = NOT_GIVEN,
         previous_response_id: str | NotGiven = NOT_GIVEN,
@@ -373,7 +373,7 @@ class AsyncResponsesResource(AsyncAPIResource):
         *,
         input: Union[str, Iterable[response_create_params.InputUnionMember1]],
         model: str,
-        include: List[str] | NotGiven = NOT_GIVEN,
+        include: SequenceNotStr[str] | NotGiven = NOT_GIVEN,
         instructions: str | NotGiven = NOT_GIVEN,
         max_infer_iters: int | NotGiven = NOT_GIVEN,
         previous_response_id: str | NotGiven = NOT_GIVEN,
@@ -422,7 +422,7 @@ class AsyncResponsesResource(AsyncAPIResource):
         input: Union[str, Iterable[response_create_params.InputUnionMember1]],
         model: str,
         stream: Literal[True],
-        include: List[str] | NotGiven = NOT_GIVEN,
+        include: SequenceNotStr[str] | NotGiven = NOT_GIVEN,
         instructions: str | NotGiven = NOT_GIVEN,
         max_infer_iters: int | NotGiven = NOT_GIVEN,
         previous_response_id: str | NotGiven = NOT_GIVEN,
@@ -470,7 +470,7 @@ class AsyncResponsesResource(AsyncAPIResource):
         input: Union[str, Iterable[response_create_params.InputUnionMember1]],
         model: str,
         stream: bool,
-        include: List[str] | NotGiven = NOT_GIVEN,
+        include: SequenceNotStr[str] | NotGiven = NOT_GIVEN,
         instructions: str | NotGiven = NOT_GIVEN,
         max_infer_iters: int | NotGiven = NOT_GIVEN,
         previous_response_id: str | NotGiven = NOT_GIVEN,
@@ -517,7 +517,7 @@ class AsyncResponsesResource(AsyncAPIResource):
         *,
         input: Union[str, Iterable[response_create_params.InputUnionMember1]],
         model: str,
-        include: List[str] | NotGiven = NOT_GIVEN,
+        include: SequenceNotStr[str] | NotGiven = NOT_GIVEN,
         instructions: str | NotGiven = NOT_GIVEN,
         max_infer_iters: int | NotGiven = NOT_GIVEN,
         previous_response_id: str | NotGiven = NOT_GIVEN,

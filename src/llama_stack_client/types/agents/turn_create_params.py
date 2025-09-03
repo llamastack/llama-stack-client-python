@@ -2,9 +2,10 @@
 
 from __future__ import annotations
 
-from typing import Dict, List, Union, Iterable
+from typing import Dict, Union, Iterable
 from typing_extensions import Literal, Required, TypeAlias, TypedDict
 
+from ..._types import SequenceNotStr
 from ..shared_params.user_message import UserMessage
 from ..shared_params.tool_response_message import ToolResponseMessage
 from ..shared_params.interleaved_content_item import InterleavedContentItem
@@ -42,7 +43,7 @@ class TurnCreateParamsBase(TypedDict, total=False):
     override the agent's tool_config.
     """
 
-    toolgroups: List[Toolgroup]
+    toolgroups: SequenceNotStr[Toolgroup]
     """
     (Optional) List of toolgroups to create the turn with, will be used in addition
     to the agent's config toolgroups for the request.
