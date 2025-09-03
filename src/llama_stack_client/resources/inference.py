@@ -3,7 +3,7 @@
 from __future__ import annotations
 
 import typing_extensions
-from typing import List, Union, Iterable
+from typing import Any, List, Union, Iterable
 from typing_extensions import Literal, overload
 
 import httpx
@@ -11,6 +11,7 @@ import httpx
 from ..types import (
     inference_completion_params,
     inference_embeddings_params,
+    inference_rerank_params,
     inference_chat_completion_params,
     inference_batch_completion_params,
     inference_batch_chat_completion_params,
@@ -29,6 +30,7 @@ from .._streaming import Stream, AsyncStream
 from .._base_client import make_request_options
 from ..types.completion_response import CompletionResponse
 from ..types.embeddings_response import EmbeddingsResponse
+from ..types.rerank_response import RerankResponse
 from ..types.shared_params.message import Message
 from ..types.shared.batch_completion import BatchCompletion
 from ..types.shared_params.response_format import ResponseFormat
@@ -36,7 +38,11 @@ from ..types.shared_params.sampling_params import SamplingParams
 from ..types.shared.chat_completion_response import ChatCompletionResponse
 from ..types.shared_params.interleaved_content import InterleavedContent
 from ..types.chat_completion_response_stream_chunk import ChatCompletionResponseStreamChunk
-from ..types.shared_params.interleaved_content_item import InterleavedContentItem
+from ..types.shared_params.interleaved_content_item import (
+    InterleavedContentItem,
+    OpenAIChatCompletionContentPartTextParam,
+    OpenAIChatCompletionContentPartImageParam,
+)
 from ..types.inference_batch_chat_completion_response import InferenceBatchChatCompletionResponse
 
 __all__ = ["InferenceResource", "AsyncInferenceResource"]
@@ -696,6 +702,58 @@ class InferenceResource(SyncAPIResource):
             cast_to=EmbeddingsResponse,
         )
 
+    def rerank(
+        self,
+        *,
+        model: str,
+        query: str | OpenAIChatCompletionContentPartTextParam | OpenAIChatCompletionContentPartImageParam,
+        items: List[str | OpenAIChatCompletionContentPartTextParam | OpenAIChatCompletionContentPartImageParam],
+        max_num_results: int | NotGiven = NOT_GIVEN,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> RerankResponse:
+        """
+        Rerank a list of documents based on their relevance to a query.
+
+        Args:
+          model: The identifier of the reranking model to use. The model must be a reranking model
+              registered with Llama Stack and available via the /models endpoint.
+
+          query: The search query to rank items against. Can be a string, text content part, or image content part. The input must not exceed the model's max input token length.
+
+          items: List of items to rerank. Each item can be a string, text content part, or image content part. Each input must not exceed the model's max input token length.
+
+          max_num_results: (Optional) Maximum number of results to return. Default: returns all.
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        return self._post(
+            "/v1/inference/rerank",
+            body=maybe_transform(
+                {
+                    "model": model,
+                    "query": query,
+                    "items": items,
+                    "max_num_results": max_num_results,
+                },
+                inference_rerank_params.InferenceRerankParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=RerankResponse,
+        )
+
 
 class AsyncInferenceResource(AsyncAPIResource):
     @cached_property
@@ -1351,6 +1409,58 @@ class AsyncInferenceResource(AsyncAPIResource):
             cast_to=EmbeddingsResponse,
         )
 
+    async def rerank(
+        self,
+        *,
+        model: str,
+        query: str | OpenAIChatCompletionContentPartTextParam | OpenAIChatCompletionContentPartImageParam,
+        items: List[str | OpenAIChatCompletionContentPartTextParam | OpenAIChatCompletionContentPartImageParam],
+        max_num_results: int | NotGiven = NOT_GIVEN,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> RerankResponse:
+        """
+        Rerank a list of documents based on their relevance to a query.
+
+        Args:
+          model: The identifier of the reranking model to use. The model must be a reranking model
+              registered with Llama Stack and available via the /models endpoint.
+
+          query: The search query to rank items against. Can be a string, text content part, or image content part. The input must not exceed the model's max input token length.
+
+          items: List of items to rerank. Each item can be a string, text content part, or image content part. Each input must not exceed the model's max input token length.
+
+          max_num_results: (Optional) Maximum number of results to return. Default: returns all.
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        return await self._post(
+            "/v1/inference/rerank",
+            body=await async_maybe_transform(
+                {
+                    "model": model,
+                    "query": query,
+                    "items": items,
+                    "max_num_results": max_num_results,
+                },
+                inference_rerank_params.InferenceRerankParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=RerankResponse,
+        )
+
 
 class InferenceResourceWithRawResponse:
     def __init__(self, inference: InferenceResource) -> None:
@@ -1376,6 +1486,9 @@ class InferenceResourceWithRawResponse:
             to_raw_response_wrapper(
                 inference.embeddings  # pyright: ignore[reportDeprecated],
             )
+        )
+        self.rerank = to_raw_response_wrapper(
+            inference.rerank,
         )
 
 
@@ -1404,6 +1517,9 @@ class AsyncInferenceResourceWithRawResponse:
                 inference.embeddings  # pyright: ignore[reportDeprecated],
             )
         )
+        self.rerank = async_to_raw_response_wrapper(
+            inference.rerank,
+        )
 
 
 class InferenceResourceWithStreamingResponse:
@@ -1431,6 +1547,9 @@ class InferenceResourceWithStreamingResponse:
                 inference.embeddings  # pyright: ignore[reportDeprecated],
             )
         )
+        self.rerank = to_streamed_response_wrapper(
+            inference.rerank,
+        )
 
 
 class AsyncInferenceResourceWithStreamingResponse:
@@ -1457,4 +1576,7 @@ class AsyncInferenceResourceWithStreamingResponse:
             async_to_streamed_response_wrapper(
                 inference.embeddings  # pyright: ignore[reportDeprecated],
             )
+        )
+        self.rerank = async_to_streamed_response_wrapper(
+            inference.rerank,
         )

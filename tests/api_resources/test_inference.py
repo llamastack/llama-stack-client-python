@@ -12,6 +12,7 @@ from llama_stack_client import LlamaStackClient, AsyncLlamaStackClient
 from llama_stack_client.types import (
     CompletionResponse,
     EmbeddingsResponse,
+    RerankResponse,
     InferenceBatchChatCompletionResponse,
 )
 from llama_stack_client.types.shared import BatchCompletion, ChatCompletionResponse
@@ -557,6 +558,82 @@ class TestInference:
 
         assert cast(Any, response.is_closed) is True
 
+    @parametrize
+    def test_method_rerank(self, client: LlamaStackClient) -> None:
+        inference = client.inference.rerank(
+            model="model_id",
+            query="string",
+            items=["string_1", "string_2"],
+        )
+        assert_matches_type(RerankResponse, inference, path=["response"])
+
+    @parametrize
+    def test_method_rerank_with_all_params(self, client: LlamaStackClient) -> None:
+        inference = client.inference.rerank(
+            model="model_id",
+            query="string",
+            items=["string_1", "string_2"],
+            max_num_results=0,
+        )
+        assert_matches_type(RerankResponse, inference, path=["response"])
+
+    @parametrize
+    def test_raw_response_rerank(self, client: LlamaStackClient) -> None:
+        response = client.inference.with_raw_response.rerank(
+            model="model_id",
+            query="string",
+            items=["string_1", "string_2"],
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        inference = response.parse()
+        assert_matches_type(RerankResponse, inference, path=["response"])
+
+    @parametrize
+    def test_streaming_response_rerank(self, client: LlamaStackClient) -> None:
+        with client.inference.with_streaming_response.rerank(
+            model="model_id",
+            query="string",
+            items=["string_1", "string_2"],
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            inference = response.parse()
+            assert_matches_type(RerankResponse, inference, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+    
+    @parametrize
+    def test_method_rerank_with_image_query(self, client: LlamaStackClient) -> None:
+        inference = client.inference.rerank(
+            model="model_id",
+            query={"type": "image_url", "image_url": {"url": "https://example.com/image.jpg"}},
+            items=[
+                "string_1",
+                {"type": "text", "text": "text_data"},
+                {"type": "image_url", "image_url": {"url": "https://example.com/image.jpg"}},
+            ],
+            max_num_results=0,
+        )
+        assert_matches_type(RerankResponse, inference, path=["response"])
+
+    @parametrize
+    def test_method_rerank_with_interleaved_content(self, client: LlamaStackClient) -> None:
+        inference = client.inference.rerank(
+            model="model_id",
+            query={"type": "text", "text": "query_string"},
+            items=[
+                "string_1",
+                {"type": "text", "text": "text_data"},
+                {"type": "image_url", "image_url": {"url": "https://example.com/image.jpg"}},
+                {"type": "image_url", "image_url": {"url": "https://example.com/image.png", "detail": "high"}},
+            ],
+            max_num_results=0,
+        )
+        assert_matches_type(RerankResponse, inference, path=["response"])
+
 
 class TestAsyncInference:
     parametrize = pytest.mark.parametrize(
@@ -1095,3 +1172,79 @@ class TestAsyncInference:
                 assert_matches_type(EmbeddingsResponse, inference, path=["response"])
 
         assert cast(Any, response.is_closed) is True
+
+    @parametrize
+    async def test_method_rerank(self, async_client: AsyncLlamaStackClient) -> None:
+        inference = await async_client.inference.rerank(
+            model="model_id",
+            query="string",
+            items=["string_1", "string_2"],
+        )
+        assert_matches_type(RerankResponse, inference, path=["response"])
+
+    @parametrize
+    async def test_method_rerank_with_all_params(self, async_client: AsyncLlamaStackClient) -> None:
+        inference = await async_client.inference.rerank(
+            model="model_id",
+            query="string",
+            items=["string_1", "string_2"],
+            max_num_results=0,
+        )
+        assert_matches_type(RerankResponse, inference, path=["response"])
+
+    @parametrize
+    async def test_raw_response_rerank(self, async_client: AsyncLlamaStackClient) -> None:
+        response = await async_client.inference.with_raw_response.rerank(
+            model="model_id",
+            query="string",
+            items=["string_1", "string_2"],
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        inference = await response.parse()
+        assert_matches_type(RerankResponse, inference, path=["response"])
+
+    @parametrize
+    async def test_streaming_response_rerank(self, async_client: AsyncLlamaStackClient) -> None:
+        async with async_client.inference.with_streaming_response.rerank(
+            model="model_id",
+            query="string",
+            items=["string_1", "string_2"],
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            inference = await response.parse()
+            assert_matches_type(RerankResponse, inference, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+    
+    @parametrize
+    async def test_method_rerank_with_image_query(self, async_client: AsyncLlamaStackClient) -> None:
+        inference = await async_client.inference.rerank(
+            model="model_id",
+            query={"type": "image_url", "image_url": {"url": "https://example.com/image.jpg"}},
+            items=[
+                "string_1",
+                {"type": "text", "text": "text_data"},
+                {"type": "image_url", "image_url": {"url": "https://example.com/image.jpg"}},
+            ],
+            max_num_results=0,
+        )
+        assert_matches_type(RerankResponse, inference, path=["response"])
+
+    @parametrize
+    async def test_method_rerank_with_interleaved_content(self, async_client: AsyncLlamaStackClient) -> None:
+        inference = await async_client.inference.rerank(
+            model="model_id",
+            query={"type": "text", "text": "query_string"},
+            items=[
+                "string_1",
+                {"type": "text", "text": "text_data"},
+                {"type": "image_url", "image_url": {"url": "https://example.com/image.jpg"}},
+                {"type": "image_url", "image_url": {"url": "https://example.com/image.png", "detail": "high"}},
+            ],
+            max_num_results=0,
+        )
+        assert_matches_type(RerankResponse, inference, path=["response"])

@@ -240,6 +240,7 @@ from llama_stack_client.types import (
     ChatCompletionResponseStreamChunk,
     CompletionResponse,
     EmbeddingsResponse,
+    RerankResponse,
     TokenLogProbs,
     InferenceBatchChatCompletionResponse,
 )
@@ -252,6 +253,7 @@ Methods:
 - <code title="post /v1/inference/chat-completion">client.inference.<a href="./src/llama_stack_client/resources/inference.py">chat_completion</a>(\*\*<a href="src/llama_stack_client/types/inference_chat_completion_params.py">params</a>) -> <a href="./src/llama_stack_client/types/shared/chat_completion_response.py">ChatCompletionResponse</a></code>
 - <code title="post /v1/inference/completion">client.inference.<a href="./src/llama_stack_client/resources/inference.py">completion</a>(\*\*<a href="src/llama_stack_client/types/inference_completion_params.py">params</a>) -> <a href="./src/llama_stack_client/types/completion_response.py">CompletionResponse</a></code>
 - <code title="post /v1/inference/embeddings">client.inference.<a href="./src/llama_stack_client/resources/inference.py">embeddings</a>(\*\*<a href="src/llama_stack_client/types/inference_embeddings_params.py">params</a>) -> <a href="./src/llama_stack_client/types/embeddings_response.py">EmbeddingsResponse</a></code>
+- <code title="post /v1/inference/rerank">client.inference.<a href="./src/llama_stack_client/resources/inference.py">rerank</a>(\*\*<a href="src/llama_stack_client/types/inference_rerank_params.py">params</a>) -> <a href="./src/llama_stack_client/types/rerank_response.py">RerankResponse</a></code>
 
 # Embeddings
 
