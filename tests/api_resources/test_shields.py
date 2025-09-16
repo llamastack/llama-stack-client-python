@@ -121,6 +121,37 @@ class TestShields:
 
         assert cast(Any, response.is_closed) is True
 
+    @parametrize
+    def test_method_unregister(self, client: LlamaStackClient) -> None:
+        shield = client.shields.unregister(
+            identifier="identifier",
+        )
+        assert shield is None
+
+    @parametrize
+    def test_raw_response_unregister(self, client: LlamaStackClient) -> None:
+        response = client.shields.with_raw_response.unregister(
+            identifier="identifier",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        shield = response.parse()
+        assert shield is None
+
+    @parametrize
+    def test_streaming_response_unregister(self, client: LlamaStackClient) -> None:
+        with client.shields.with_streaming_response.unregister(
+            identifier="identifier",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            shield = response.parse()
+            assert shield is None
+
+        assert cast(Any, response.is_closed) is True
+
 
 class TestAsyncShields:
     parametrize = pytest.mark.parametrize(
@@ -228,5 +259,36 @@ class TestAsyncShields:
 
             shield = await response.parse()
             assert_matches_type(Shield, shield, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @parametrize
+    async def test_method_unregister(self, async_client: AsyncLlamaStackClient) -> None:
+        shield = await async_client.shields.unregister(
+            identifier="identifier",
+        )
+        assert shield is None
+
+    @parametrize
+    async def test_raw_response_unregister(self, async_client: AsyncLlamaStackClient) -> None:
+        response = await async_client.shields.with_raw_response.unregister(
+            identifier="identifier",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        shield = await response.parse()
+        assert shield is None
+
+    @parametrize
+    async def test_streaming_response_unregister(self, async_client: AsyncLlamaStackClient) -> None:
+        async with async_client.shields.with_streaming_response.unregister(
+            identifier="identifier",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            shield = await response.parse()
+            assert shield is None
 
         assert cast(Any, response.is_closed) is True

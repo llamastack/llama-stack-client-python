@@ -93,6 +93,19 @@ def register(
         click.echo(yaml.dump(response.dict()))
 
 
+@shields.command()
+@click.help_option("-h", "--help")
+@click.argument("shield-id", required=True)
+@click.pass_context
+@handle_client_errors("unregister shield")
+def unregister(ctx, shield_id: str):
+    """Unregister a shield"""
+    client = ctx.obj["client"]
+    client.shields.unregister(identifier=shield_id)
+    click.echo(f"Successfully unregistered shield {shield_id}")
+
+
 # Register subcommands
 shields.add_command(list)
 shields.add_command(register)
+shields.add_command(unregister)
