@@ -89,9 +89,9 @@ prompt-toolkit==3.0.52
     # via llama-stack-client
 pyaml==25.7.0
     # via llama-stack-client
-pydantic==2.10.3
+pydantic==2.11.9
     # via llama-stack-client
-pydantic-core==2.27.1
+pydantic-core==2.33.2
     # via pydantic
 pygments==2.19.1
     # via
@@ -141,6 +141,9 @@ typing-extensions==4.12.2
     #   pydantic
     #   pydantic-core
     #   pyright
+    #   typing-inspection
+typing-inspection==0.4.1
+    # via pydantic
 tzdata==2025.2
     # via pandas
 urllib3==2.5.0
