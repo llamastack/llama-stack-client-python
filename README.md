@@ -36,9 +36,7 @@ client = LlamaStackClient(
 )
 
 response = client.chat.completions.create(
-    messages=[
-        {"role": "user", "content": "hello world, write me a 2 sentence poem about the moon"}
-    ],
+    messages=[{"role": "user", "content": "hello world, write me a 2 sentence poem about the moon"}],
     model="meta-llama/Llama-3.2-3B-Instruct",
     stream=False,
 )
@@ -54,33 +52,33 @@ llama-stack-client inference chat-completion --message "hello, what model are yo
 
 ```python
 OpenAIChatCompletion(
-    id="AmivnS0iMv-mmEE4_A0DK1T",
+    id='AmivnS0iMv-mmEE4_A0DK1T',
     choices=[
         OpenAIChatCompletionChoice(
-            finish_reason="stop",
+            finish_reason='stop',
             index=0,
             message=OpenAIChatCompletionChoiceMessageOpenAIAssistantMessageParam(
-                role="assistant",
+                role='assistant',
                 content="Hello! I am an AI designed by Meta AI, and my model is a type of recurrent neural network (RNN) called a transformer. My specific architecture is based on the BERT (Bidirectional Encoder Representations from Transformers) model, which is a pre-trained language model that has been fine-tuned for a variety of natural language processing tasks.\n\nHere are some key details about my model:\n\n* **Model type:** Transformer-based language model\n* **Architecture:** BERT (Bidirectional Encoder Representations from Transformers)\n* **Training data:** A massive corpus of text data, including but not limited to:\n\t+ Web pages\n\t+ Books\n\t+ Articles\n\t+ Forums\n\t+ Social media platforms\n* **Parameters:** My model has approximately 1.5 billion parameters, which allows me to understand and generate human-like language.\n* **Capabilities:** I can perform a wide range of tasks, including but not limited to:\n\t+ Answering questions\n\t+ Generating text\n\t+ Translating languages\n\t+ Summarizing content\n\t+ Offering suggestions and ideas\n\nI'm constantly learning and improving, so please bear with me if I make any mistakes or don't quite understand what you're asking. How can I assist you today?",
                 name=None,
                 tool_calls=None,
-                function_call=None,
+                function_call=None
             ),
-            logprobs=OpenAIChatCompletionChoiceLogprobs(content=None, refusal=None),
+            logprobs=OpenAIChatCompletionChoiceLogprobs(content=None, refusal=None)
         )
     ],
     created=1749825661,
-    model="Llama-3.3-70B-Instruct",
-    object="chat.completion",
+    model='Llama-3.3-70B-Instruct',
+    object='chat.completion',
     system_fingerprint=None,
     usage={
-        "completion_tokens": 258,
-        "prompt_tokens": 16,
-        "total_tokens": 274,
-        "completion_tokens_details": None,
-        "prompt_tokens_details": None,
+        'completion_tokens': 258,
+        'prompt_tokens': 16,
+        'total_tokens': 274,
+        'completion_tokens_details': None,
+        'prompt_tokens_details': None
     },
-    service_tier=None,
+    service_tier=None
 )
 ```
 
