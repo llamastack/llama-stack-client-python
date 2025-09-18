@@ -60,7 +60,10 @@ export DEFER_PYDANTIC_BUILD=false
 
 function run_tests() {
   echo "==> Running tests with Pydantic v2"
-  uv run --all-extras pytest -W ignore::DeprecationWarning "$@"
+  uv run --isolated --all-extras pytest -W ignore::DeprecationWarning "$@"
+
+  echo "==> Running tests with Pydantic v1"
+  uv run --isolated --all-extras --group=pydantic-v1 pytest -W ignore::DeprecationWarning "$@"
 }
 
 # If UV_PYTHON is already set in the environment, just run the command once
