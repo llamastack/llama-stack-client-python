@@ -20,7 +20,7 @@ from ...types import (
     vector_store_search_params,
     vector_store_update_params,
 )
-from ..._types import NOT_GIVEN, Body, Query, Headers, NotGiven, SequenceNotStr
+from ..._types import Body, Omit, Query, Headers, NotGiven, SequenceNotStr, omit, not_given
 from ..._utils import maybe_transform, async_maybe_transform
 from ..._compat import cached_property
 from ..._resource import SyncAPIResource, AsyncAPIResource
@@ -66,20 +66,20 @@ class VectorStoresResource(SyncAPIResource):
     def create(
         self,
         *,
-        chunking_strategy: Dict[str, Union[bool, float, str, Iterable[object], object, None]] | NotGiven = NOT_GIVEN,
-        embedding_dimension: int | NotGiven = NOT_GIVEN,
-        embedding_model: str | NotGiven = NOT_GIVEN,
-        expires_after: Dict[str, Union[bool, float, str, Iterable[object], object, None]] | NotGiven = NOT_GIVEN,
-        file_ids: SequenceNotStr[str] | NotGiven = NOT_GIVEN,
-        metadata: Dict[str, Union[bool, float, str, Iterable[object], object, None]] | NotGiven = NOT_GIVEN,
-        name: str | NotGiven = NOT_GIVEN,
-        provider_id: str | NotGiven = NOT_GIVEN,
+        chunking_strategy: Dict[str, Union[bool, float, str, Iterable[object], object, None]] | Omit = omit,
+        embedding_dimension: int | Omit = omit,
+        embedding_model: str | Omit = omit,
+        expires_after: Dict[str, Union[bool, float, str, Iterable[object], object, None]] | Omit = omit,
+        file_ids: SequenceNotStr[str] | Omit = omit,
+        metadata: Dict[str, Union[bool, float, str, Iterable[object], object, None]] | Omit = omit,
+        name: str | Omit = omit,
+        provider_id: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> VectorStore:
         """
         Creates a vector store.
@@ -141,7 +141,7 @@ class VectorStoresResource(SyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> VectorStore:
         """
         Retrieves a vector store.
@@ -169,15 +169,15 @@ class VectorStoresResource(SyncAPIResource):
         self,
         vector_store_id: str,
         *,
-        expires_after: Dict[str, Union[bool, float, str, Iterable[object], object, None]] | NotGiven = NOT_GIVEN,
-        metadata: Dict[str, Union[bool, float, str, Iterable[object], object, None]] | NotGiven = NOT_GIVEN,
-        name: str | NotGiven = NOT_GIVEN,
+        expires_after: Dict[str, Union[bool, float, str, Iterable[object], object, None]] | Omit = omit,
+        metadata: Dict[str, Union[bool, float, str, Iterable[object], object, None]] | Omit = omit,
+        name: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> VectorStore:
         """
         Updates a vector store.
@@ -218,16 +218,16 @@ class VectorStoresResource(SyncAPIResource):
     def list(
         self,
         *,
-        after: str | NotGiven = NOT_GIVEN,
-        before: str | NotGiven = NOT_GIVEN,
-        limit: int | NotGiven = NOT_GIVEN,
-        order: str | NotGiven = NOT_GIVEN,
+        after: str | Omit = omit,
+        before: str | Omit = omit,
+        limit: int | Omit = omit,
+        order: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> SyncOpenAICursorPage[VectorStore]:
         """Returns a list of vector stores.
 
@@ -284,7 +284,7 @@ class VectorStoresResource(SyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> VectorStoreDeleteResponse:
         """
         Delete a vector store.
@@ -313,17 +313,17 @@ class VectorStoresResource(SyncAPIResource):
         vector_store_id: str,
         *,
         query: Union[str, SequenceNotStr[str]],
-        filters: Dict[str, Union[bool, float, str, Iterable[object], object, None]] | NotGiven = NOT_GIVEN,
-        max_num_results: int | NotGiven = NOT_GIVEN,
-        ranking_options: vector_store_search_params.RankingOptions | NotGiven = NOT_GIVEN,
-        rewrite_query: bool | NotGiven = NOT_GIVEN,
-        search_mode: str | NotGiven = NOT_GIVEN,
+        filters: Dict[str, Union[bool, float, str, Iterable[object], object, None]] | Omit = omit,
+        max_num_results: int | Omit = omit,
+        ranking_options: vector_store_search_params.RankingOptions | Omit = omit,
+        rewrite_query: bool | Omit = omit,
+        search_mode: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> VectorStoreSearchResponse:
         """Search for chunks in a vector store.
 
@@ -400,20 +400,20 @@ class AsyncVectorStoresResource(AsyncAPIResource):
     async def create(
         self,
         *,
-        chunking_strategy: Dict[str, Union[bool, float, str, Iterable[object], object, None]] | NotGiven = NOT_GIVEN,
-        embedding_dimension: int | NotGiven = NOT_GIVEN,
-        embedding_model: str | NotGiven = NOT_GIVEN,
-        expires_after: Dict[str, Union[bool, float, str, Iterable[object], object, None]] | NotGiven = NOT_GIVEN,
-        file_ids: SequenceNotStr[str] | NotGiven = NOT_GIVEN,
-        metadata: Dict[str, Union[bool, float, str, Iterable[object], object, None]] | NotGiven = NOT_GIVEN,
-        name: str | NotGiven = NOT_GIVEN,
-        provider_id: str | NotGiven = NOT_GIVEN,
+        chunking_strategy: Dict[str, Union[bool, float, str, Iterable[object], object, None]] | Omit = omit,
+        embedding_dimension: int | Omit = omit,
+        embedding_model: str | Omit = omit,
+        expires_after: Dict[str, Union[bool, float, str, Iterable[object], object, None]] | Omit = omit,
+        file_ids: SequenceNotStr[str] | Omit = omit,
+        metadata: Dict[str, Union[bool, float, str, Iterable[object], object, None]] | Omit = omit,
+        name: str | Omit = omit,
+        provider_id: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> VectorStore:
         """
         Creates a vector store.
@@ -475,7 +475,7 @@ class AsyncVectorStoresResource(AsyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> VectorStore:
         """
         Retrieves a vector store.
@@ -503,15 +503,15 @@ class AsyncVectorStoresResource(AsyncAPIResource):
         self,
         vector_store_id: str,
         *,
-        expires_after: Dict[str, Union[bool, float, str, Iterable[object], object, None]] | NotGiven = NOT_GIVEN,
-        metadata: Dict[str, Union[bool, float, str, Iterable[object], object, None]] | NotGiven = NOT_GIVEN,
-        name: str | NotGiven = NOT_GIVEN,
+        expires_after: Dict[str, Union[bool, float, str, Iterable[object], object, None]] | Omit = omit,
+        metadata: Dict[str, Union[bool, float, str, Iterable[object], object, None]] | Omit = omit,
+        name: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> VectorStore:
         """
         Updates a vector store.
@@ -552,16 +552,16 @@ class AsyncVectorStoresResource(AsyncAPIResource):
     def list(
         self,
         *,
-        after: str | NotGiven = NOT_GIVEN,
-        before: str | NotGiven = NOT_GIVEN,
-        limit: int | NotGiven = NOT_GIVEN,
-        order: str | NotGiven = NOT_GIVEN,
+        after: str | Omit = omit,
+        before: str | Omit = omit,
+        limit: int | Omit = omit,
+        order: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> AsyncPaginator[VectorStore, AsyncOpenAICursorPage[VectorStore]]:
         """Returns a list of vector stores.
 
@@ -618,7 +618,7 @@ class AsyncVectorStoresResource(AsyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> VectorStoreDeleteResponse:
         """
         Delete a vector store.
@@ -647,17 +647,17 @@ class AsyncVectorStoresResource(AsyncAPIResource):
         vector_store_id: str,
         *,
         query: Union[str, SequenceNotStr[str]],
-        filters: Dict[str, Union[bool, float, str, Iterable[object], object, None]] | NotGiven = NOT_GIVEN,
-        max_num_results: int | NotGiven = NOT_GIVEN,
-        ranking_options: vector_store_search_params.RankingOptions | NotGiven = NOT_GIVEN,
-        rewrite_query: bool | NotGiven = NOT_GIVEN,
-        search_mode: str | NotGiven = NOT_GIVEN,
+        filters: Dict[str, Union[bool, float, str, Iterable[object], object, None]] | Omit = omit,
+        max_num_results: int | Omit = omit,
+        ranking_options: vector_store_search_params.RankingOptions | Omit = omit,
+        rewrite_query: bool | Omit = omit,
+        search_mode: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> VectorStoreSearchResponse:
         """Search for chunks in a vector store.
 

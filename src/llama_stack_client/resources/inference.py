@@ -15,7 +15,7 @@ from ..types import (
     inference_batch_completion_params,
     inference_batch_chat_completion_params,
 )
-from .._types import NOT_GIVEN, Body, Query, Headers, NotGiven, SequenceNotStr
+from .._types import Body, Omit, Query, Headers, NotGiven, SequenceNotStr, omit, not_given
 from .._utils import required_args, maybe_transform, async_maybe_transform
 from .._compat import cached_property
 from .._resource import SyncAPIResource, AsyncAPIResource
@@ -67,17 +67,17 @@ class InferenceResource(SyncAPIResource):
         *,
         messages_batch: Iterable[Iterable[Message]],
         model_id: str,
-        logprobs: inference_batch_chat_completion_params.Logprobs | NotGiven = NOT_GIVEN,
-        response_format: ResponseFormat | NotGiven = NOT_GIVEN,
-        sampling_params: SamplingParams | NotGiven = NOT_GIVEN,
-        tool_config: inference_batch_chat_completion_params.ToolConfig | NotGiven = NOT_GIVEN,
-        tools: Iterable[inference_batch_chat_completion_params.Tool] | NotGiven = NOT_GIVEN,
+        logprobs: inference_batch_chat_completion_params.Logprobs | Omit = omit,
+        response_format: ResponseFormat | Omit = omit,
+        sampling_params: SamplingParams | Omit = omit,
+        tool_config: inference_batch_chat_completion_params.ToolConfig | Omit = omit,
+        tools: Iterable[inference_batch_chat_completion_params.Tool] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> InferenceBatchChatCompletionResponse:
         """
         Generate chat completions for a batch of messages using the specified model.
@@ -132,15 +132,15 @@ class InferenceResource(SyncAPIResource):
         *,
         content_batch: SequenceNotStr[InterleavedContent],
         model_id: str,
-        logprobs: inference_batch_completion_params.Logprobs | NotGiven = NOT_GIVEN,
-        response_format: ResponseFormat | NotGiven = NOT_GIVEN,
-        sampling_params: SamplingParams | NotGiven = NOT_GIVEN,
+        logprobs: inference_batch_completion_params.Logprobs | Omit = omit,
+        response_format: ResponseFormat | Omit = omit,
+        sampling_params: SamplingParams | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> BatchCompletion:
         """
         Generate completions for a batch of content using the specified model.
@@ -193,20 +193,20 @@ class InferenceResource(SyncAPIResource):
         *,
         messages: Iterable[Message],
         model_id: str,
-        logprobs: inference_chat_completion_params.Logprobs | NotGiven = NOT_GIVEN,
-        response_format: ResponseFormat | NotGiven = NOT_GIVEN,
-        sampling_params: SamplingParams | NotGiven = NOT_GIVEN,
-        stream: Literal[False] | NotGiven = NOT_GIVEN,
-        tool_choice: Literal["auto", "required", "none"] | NotGiven = NOT_GIVEN,
-        tool_config: inference_chat_completion_params.ToolConfig | NotGiven = NOT_GIVEN,
-        tool_prompt_format: Literal["json", "function_tag", "python_list"] | NotGiven = NOT_GIVEN,
-        tools: Iterable[inference_chat_completion_params.Tool] | NotGiven = NOT_GIVEN,
+        logprobs: inference_chat_completion_params.Logprobs | Omit = omit,
+        response_format: ResponseFormat | Omit = omit,
+        sampling_params: SamplingParams | Omit = omit,
+        stream: Literal[False] | Omit = omit,
+        tool_choice: Literal["auto", "required", "none"] | Omit = omit,
+        tool_config: inference_chat_completion_params.ToolConfig | Omit = omit,
+        tool_prompt_format: Literal["json", "function_tag", "python_list"] | Omit = omit,
+        tools: Iterable[inference_chat_completion_params.Tool] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> ChatCompletionResponse:
         """
         Generate a chat completion for the given messages using the specified model.
@@ -265,19 +265,19 @@ class InferenceResource(SyncAPIResource):
         messages: Iterable[Message],
         model_id: str,
         stream: Literal[True],
-        logprobs: inference_chat_completion_params.Logprobs | NotGiven = NOT_GIVEN,
-        response_format: ResponseFormat | NotGiven = NOT_GIVEN,
-        sampling_params: SamplingParams | NotGiven = NOT_GIVEN,
-        tool_choice: Literal["auto", "required", "none"] | NotGiven = NOT_GIVEN,
-        tool_config: inference_chat_completion_params.ToolConfig | NotGiven = NOT_GIVEN,
-        tool_prompt_format: Literal["json", "function_tag", "python_list"] | NotGiven = NOT_GIVEN,
-        tools: Iterable[inference_chat_completion_params.Tool] | NotGiven = NOT_GIVEN,
+        logprobs: inference_chat_completion_params.Logprobs | Omit = omit,
+        response_format: ResponseFormat | Omit = omit,
+        sampling_params: SamplingParams | Omit = omit,
+        tool_choice: Literal["auto", "required", "none"] | Omit = omit,
+        tool_config: inference_chat_completion_params.ToolConfig | Omit = omit,
+        tool_prompt_format: Literal["json", "function_tag", "python_list"] | Omit = omit,
+        tools: Iterable[inference_chat_completion_params.Tool] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> Stream[ChatCompletionResponseStreamChunk]:
         """
         Generate a chat completion for the given messages using the specified model.
@@ -336,19 +336,19 @@ class InferenceResource(SyncAPIResource):
         messages: Iterable[Message],
         model_id: str,
         stream: bool,
-        logprobs: inference_chat_completion_params.Logprobs | NotGiven = NOT_GIVEN,
-        response_format: ResponseFormat | NotGiven = NOT_GIVEN,
-        sampling_params: SamplingParams | NotGiven = NOT_GIVEN,
-        tool_choice: Literal["auto", "required", "none"] | NotGiven = NOT_GIVEN,
-        tool_config: inference_chat_completion_params.ToolConfig | NotGiven = NOT_GIVEN,
-        tool_prompt_format: Literal["json", "function_tag", "python_list"] | NotGiven = NOT_GIVEN,
-        tools: Iterable[inference_chat_completion_params.Tool] | NotGiven = NOT_GIVEN,
+        logprobs: inference_chat_completion_params.Logprobs | Omit = omit,
+        response_format: ResponseFormat | Omit = omit,
+        sampling_params: SamplingParams | Omit = omit,
+        tool_choice: Literal["auto", "required", "none"] | Omit = omit,
+        tool_config: inference_chat_completion_params.ToolConfig | Omit = omit,
+        tool_prompt_format: Literal["json", "function_tag", "python_list"] | Omit = omit,
+        tools: Iterable[inference_chat_completion_params.Tool] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> ChatCompletionResponse | Stream[ChatCompletionResponseStreamChunk]:
         """
         Generate a chat completion for the given messages using the specified model.
@@ -406,20 +406,20 @@ class InferenceResource(SyncAPIResource):
         *,
         messages: Iterable[Message],
         model_id: str,
-        logprobs: inference_chat_completion_params.Logprobs | NotGiven = NOT_GIVEN,
-        response_format: ResponseFormat | NotGiven = NOT_GIVEN,
-        sampling_params: SamplingParams | NotGiven = NOT_GIVEN,
-        stream: Literal[False] | Literal[True] | NotGiven = NOT_GIVEN,
-        tool_choice: Literal["auto", "required", "none"] | NotGiven = NOT_GIVEN,
-        tool_config: inference_chat_completion_params.ToolConfig | NotGiven = NOT_GIVEN,
-        tool_prompt_format: Literal["json", "function_tag", "python_list"] | NotGiven = NOT_GIVEN,
-        tools: Iterable[inference_chat_completion_params.Tool] | NotGiven = NOT_GIVEN,
+        logprobs: inference_chat_completion_params.Logprobs | Omit = omit,
+        response_format: ResponseFormat | Omit = omit,
+        sampling_params: SamplingParams | Omit = omit,
+        stream: Literal[False] | Literal[True] | Omit = omit,
+        tool_choice: Literal["auto", "required", "none"] | Omit = omit,
+        tool_config: inference_chat_completion_params.ToolConfig | Omit = omit,
+        tool_prompt_format: Literal["json", "function_tag", "python_list"] | Omit = omit,
+        tools: Iterable[inference_chat_completion_params.Tool] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> ChatCompletionResponse | Stream[ChatCompletionResponseStreamChunk]:
         if stream:
             extra_headers = {"Accept": "text/event-stream", **(extra_headers or {})}
@@ -457,16 +457,16 @@ class InferenceResource(SyncAPIResource):
         *,
         content: InterleavedContent,
         model_id: str,
-        logprobs: inference_completion_params.Logprobs | NotGiven = NOT_GIVEN,
-        response_format: ResponseFormat | NotGiven = NOT_GIVEN,
-        sampling_params: SamplingParams | NotGiven = NOT_GIVEN,
-        stream: Literal[False] | NotGiven = NOT_GIVEN,
+        logprobs: inference_completion_params.Logprobs | Omit = omit,
+        response_format: ResponseFormat | Omit = omit,
+        sampling_params: SamplingParams | Omit = omit,
+        stream: Literal[False] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> CompletionResponse:
         """
         Generate a completion for the given content using the specified model.
@@ -505,15 +505,15 @@ class InferenceResource(SyncAPIResource):
         content: InterleavedContent,
         model_id: str,
         stream: Literal[True],
-        logprobs: inference_completion_params.Logprobs | NotGiven = NOT_GIVEN,
-        response_format: ResponseFormat | NotGiven = NOT_GIVEN,
-        sampling_params: SamplingParams | NotGiven = NOT_GIVEN,
+        logprobs: inference_completion_params.Logprobs | Omit = omit,
+        response_format: ResponseFormat | Omit = omit,
+        sampling_params: SamplingParams | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> Stream[CompletionResponse]:
         """
         Generate a completion for the given content using the specified model.
@@ -552,15 +552,15 @@ class InferenceResource(SyncAPIResource):
         content: InterleavedContent,
         model_id: str,
         stream: bool,
-        logprobs: inference_completion_params.Logprobs | NotGiven = NOT_GIVEN,
-        response_format: ResponseFormat | NotGiven = NOT_GIVEN,
-        sampling_params: SamplingParams | NotGiven = NOT_GIVEN,
+        logprobs: inference_completion_params.Logprobs | Omit = omit,
+        response_format: ResponseFormat | Omit = omit,
+        sampling_params: SamplingParams | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> CompletionResponse | Stream[CompletionResponse]:
         """
         Generate a completion for the given content using the specified model.
@@ -598,16 +598,16 @@ class InferenceResource(SyncAPIResource):
         *,
         content: InterleavedContent,
         model_id: str,
-        logprobs: inference_completion_params.Logprobs | NotGiven = NOT_GIVEN,
-        response_format: ResponseFormat | NotGiven = NOT_GIVEN,
-        sampling_params: SamplingParams | NotGiven = NOT_GIVEN,
-        stream: Literal[False] | Literal[True] | NotGiven = NOT_GIVEN,
+        logprobs: inference_completion_params.Logprobs | Omit = omit,
+        response_format: ResponseFormat | Omit = omit,
+        sampling_params: SamplingParams | Omit = omit,
+        stream: Literal[False] | Literal[True] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> CompletionResponse | Stream[CompletionResponse]:
         if stream:
             extra_headers = {"Accept": "text/event-stream", **(extra_headers or {})}
@@ -640,15 +640,15 @@ class InferenceResource(SyncAPIResource):
         *,
         contents: Union[SequenceNotStr[str], Iterable[InterleavedContentItem]],
         model_id: str,
-        output_dimension: int | NotGiven = NOT_GIVEN,
-        task_type: Literal["query", "document"] | NotGiven = NOT_GIVEN,
-        text_truncation: Literal["none", "start", "end"] | NotGiven = NOT_GIVEN,
+        output_dimension: int | Omit = omit,
+        task_type: Literal["query", "document"] | Omit = omit,
+        text_truncation: Literal["none", "start", "end"] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> EmbeddingsResponse:
         """
         Generate embeddings for content pieces using the specified model.
@@ -722,17 +722,17 @@ class AsyncInferenceResource(AsyncAPIResource):
         *,
         messages_batch: Iterable[Iterable[Message]],
         model_id: str,
-        logprobs: inference_batch_chat_completion_params.Logprobs | NotGiven = NOT_GIVEN,
-        response_format: ResponseFormat | NotGiven = NOT_GIVEN,
-        sampling_params: SamplingParams | NotGiven = NOT_GIVEN,
-        tool_config: inference_batch_chat_completion_params.ToolConfig | NotGiven = NOT_GIVEN,
-        tools: Iterable[inference_batch_chat_completion_params.Tool] | NotGiven = NOT_GIVEN,
+        logprobs: inference_batch_chat_completion_params.Logprobs | Omit = omit,
+        response_format: ResponseFormat | Omit = omit,
+        sampling_params: SamplingParams | Omit = omit,
+        tool_config: inference_batch_chat_completion_params.ToolConfig | Omit = omit,
+        tools: Iterable[inference_batch_chat_completion_params.Tool] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> InferenceBatchChatCompletionResponse:
         """
         Generate chat completions for a batch of messages using the specified model.
@@ -787,15 +787,15 @@ class AsyncInferenceResource(AsyncAPIResource):
         *,
         content_batch: SequenceNotStr[InterleavedContent],
         model_id: str,
-        logprobs: inference_batch_completion_params.Logprobs | NotGiven = NOT_GIVEN,
-        response_format: ResponseFormat | NotGiven = NOT_GIVEN,
-        sampling_params: SamplingParams | NotGiven = NOT_GIVEN,
+        logprobs: inference_batch_completion_params.Logprobs | Omit = omit,
+        response_format: ResponseFormat | Omit = omit,
+        sampling_params: SamplingParams | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> BatchCompletion:
         """
         Generate completions for a batch of content using the specified model.
@@ -848,20 +848,20 @@ class AsyncInferenceResource(AsyncAPIResource):
         *,
         messages: Iterable[Message],
         model_id: str,
-        logprobs: inference_chat_completion_params.Logprobs | NotGiven = NOT_GIVEN,
-        response_format: ResponseFormat | NotGiven = NOT_GIVEN,
-        sampling_params: SamplingParams | NotGiven = NOT_GIVEN,
-        stream: Literal[False] | NotGiven = NOT_GIVEN,
-        tool_choice: Literal["auto", "required", "none"] | NotGiven = NOT_GIVEN,
-        tool_config: inference_chat_completion_params.ToolConfig | NotGiven = NOT_GIVEN,
-        tool_prompt_format: Literal["json", "function_tag", "python_list"] | NotGiven = NOT_GIVEN,
-        tools: Iterable[inference_chat_completion_params.Tool] | NotGiven = NOT_GIVEN,
+        logprobs: inference_chat_completion_params.Logprobs | Omit = omit,
+        response_format: ResponseFormat | Omit = omit,
+        sampling_params: SamplingParams | Omit = omit,
+        stream: Literal[False] | Omit = omit,
+        tool_choice: Literal["auto", "required", "none"] | Omit = omit,
+        tool_config: inference_chat_completion_params.ToolConfig | Omit = omit,
+        tool_prompt_format: Literal["json", "function_tag", "python_list"] | Omit = omit,
+        tools: Iterable[inference_chat_completion_params.Tool] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> ChatCompletionResponse:
         """
         Generate a chat completion for the given messages using the specified model.
@@ -920,19 +920,19 @@ class AsyncInferenceResource(AsyncAPIResource):
         messages: Iterable[Message],
         model_id: str,
         stream: Literal[True],
-        logprobs: inference_chat_completion_params.Logprobs | NotGiven = NOT_GIVEN,
-        response_format: ResponseFormat | NotGiven = NOT_GIVEN,
-        sampling_params: SamplingParams | NotGiven = NOT_GIVEN,
-        tool_choice: Literal["auto", "required", "none"] | NotGiven = NOT_GIVEN,
-        tool_config: inference_chat_completion_params.ToolConfig | NotGiven = NOT_GIVEN,
-        tool_prompt_format: Literal["json", "function_tag", "python_list"] | NotGiven = NOT_GIVEN,
-        tools: Iterable[inference_chat_completion_params.Tool] | NotGiven = NOT_GIVEN,
+        logprobs: inference_chat_completion_params.Logprobs | Omit = omit,
+        response_format: ResponseFormat | Omit = omit,
+        sampling_params: SamplingParams | Omit = omit,
+        tool_choice: Literal["auto", "required", "none"] | Omit = omit,
+        tool_config: inference_chat_completion_params.ToolConfig | Omit = omit,
+        tool_prompt_format: Literal["json", "function_tag", "python_list"] | Omit = omit,
+        tools: Iterable[inference_chat_completion_params.Tool] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> AsyncStream[ChatCompletionResponseStreamChunk]:
         """
         Generate a chat completion for the given messages using the specified model.
@@ -991,19 +991,19 @@ class AsyncInferenceResource(AsyncAPIResource):
         messages: Iterable[Message],
         model_id: str,
         stream: bool,
-        logprobs: inference_chat_completion_params.Logprobs | NotGiven = NOT_GIVEN,
-        response_format: ResponseFormat | NotGiven = NOT_GIVEN,
-        sampling_params: SamplingParams | NotGiven = NOT_GIVEN,
-        tool_choice: Literal["auto", "required", "none"] | NotGiven = NOT_GIVEN,
-        tool_config: inference_chat_completion_params.ToolConfig | NotGiven = NOT_GIVEN,
-        tool_prompt_format: Literal["json", "function_tag", "python_list"] | NotGiven = NOT_GIVEN,
-        tools: Iterable[inference_chat_completion_params.Tool] | NotGiven = NOT_GIVEN,
+        logprobs: inference_chat_completion_params.Logprobs | Omit = omit,
+        response_format: ResponseFormat | Omit = omit,
+        sampling_params: SamplingParams | Omit = omit,
+        tool_choice: Literal["auto", "required", "none"] | Omit = omit,
+        tool_config: inference_chat_completion_params.ToolConfig | Omit = omit,
+        tool_prompt_format: Literal["json", "function_tag", "python_list"] | Omit = omit,
+        tools: Iterable[inference_chat_completion_params.Tool] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> ChatCompletionResponse | AsyncStream[ChatCompletionResponseStreamChunk]:
         """
         Generate a chat completion for the given messages using the specified model.
@@ -1061,20 +1061,20 @@ class AsyncInferenceResource(AsyncAPIResource):
         *,
         messages: Iterable[Message],
         model_id: str,
-        logprobs: inference_chat_completion_params.Logprobs | NotGiven = NOT_GIVEN,
-        response_format: ResponseFormat | NotGiven = NOT_GIVEN,
-        sampling_params: SamplingParams | NotGiven = NOT_GIVEN,
-        stream: Literal[False] | Literal[True] | NotGiven = NOT_GIVEN,
-        tool_choice: Literal["auto", "required", "none"] | NotGiven = NOT_GIVEN,
-        tool_config: inference_chat_completion_params.ToolConfig | NotGiven = NOT_GIVEN,
-        tool_prompt_format: Literal["json", "function_tag", "python_list"] | NotGiven = NOT_GIVEN,
-        tools: Iterable[inference_chat_completion_params.Tool] | NotGiven = NOT_GIVEN,
+        logprobs: inference_chat_completion_params.Logprobs | Omit = omit,
+        response_format: ResponseFormat | Omit = omit,
+        sampling_params: SamplingParams | Omit = omit,
+        stream: Literal[False] | Literal[True] | Omit = omit,
+        tool_choice: Literal["auto", "required", "none"] | Omit = omit,
+        tool_config: inference_chat_completion_params.ToolConfig | Omit = omit,
+        tool_prompt_format: Literal["json", "function_tag", "python_list"] | Omit = omit,
+        tools: Iterable[inference_chat_completion_params.Tool] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> ChatCompletionResponse | AsyncStream[ChatCompletionResponseStreamChunk]:
         if stream:
             extra_headers = {"Accept": "text/event-stream", **(extra_headers or {})}
@@ -1112,16 +1112,16 @@ class AsyncInferenceResource(AsyncAPIResource):
         *,
         content: InterleavedContent,
         model_id: str,
-        logprobs: inference_completion_params.Logprobs | NotGiven = NOT_GIVEN,
-        response_format: ResponseFormat | NotGiven = NOT_GIVEN,
-        sampling_params: SamplingParams | NotGiven = NOT_GIVEN,
-        stream: Literal[False] | NotGiven = NOT_GIVEN,
+        logprobs: inference_completion_params.Logprobs | Omit = omit,
+        response_format: ResponseFormat | Omit = omit,
+        sampling_params: SamplingParams | Omit = omit,
+        stream: Literal[False] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> CompletionResponse:
         """
         Generate a completion for the given content using the specified model.
@@ -1160,15 +1160,15 @@ class AsyncInferenceResource(AsyncAPIResource):
         content: InterleavedContent,
         model_id: str,
         stream: Literal[True],
-        logprobs: inference_completion_params.Logprobs | NotGiven = NOT_GIVEN,
-        response_format: ResponseFormat | NotGiven = NOT_GIVEN,
-        sampling_params: SamplingParams | NotGiven = NOT_GIVEN,
+        logprobs: inference_completion_params.Logprobs | Omit = omit,
+        response_format: ResponseFormat | Omit = omit,
+        sampling_params: SamplingParams | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> AsyncStream[CompletionResponse]:
         """
         Generate a completion for the given content using the specified model.
@@ -1207,15 +1207,15 @@ class AsyncInferenceResource(AsyncAPIResource):
         content: InterleavedContent,
         model_id: str,
         stream: bool,
-        logprobs: inference_completion_params.Logprobs | NotGiven = NOT_GIVEN,
-        response_format: ResponseFormat | NotGiven = NOT_GIVEN,
-        sampling_params: SamplingParams | NotGiven = NOT_GIVEN,
+        logprobs: inference_completion_params.Logprobs | Omit = omit,
+        response_format: ResponseFormat | Omit = omit,
+        sampling_params: SamplingParams | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> CompletionResponse | AsyncStream[CompletionResponse]:
         """
         Generate a completion for the given content using the specified model.
@@ -1253,16 +1253,16 @@ class AsyncInferenceResource(AsyncAPIResource):
         *,
         content: InterleavedContent,
         model_id: str,
-        logprobs: inference_completion_params.Logprobs | NotGiven = NOT_GIVEN,
-        response_format: ResponseFormat | NotGiven = NOT_GIVEN,
-        sampling_params: SamplingParams | NotGiven = NOT_GIVEN,
-        stream: Literal[False] | Literal[True] | NotGiven = NOT_GIVEN,
+        logprobs: inference_completion_params.Logprobs | Omit = omit,
+        response_format: ResponseFormat | Omit = omit,
+        sampling_params: SamplingParams | Omit = omit,
+        stream: Literal[False] | Literal[True] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> CompletionResponse | AsyncStream[CompletionResponse]:
         if stream:
             extra_headers = {"Accept": "text/event-stream", **(extra_headers or {})}
@@ -1295,15 +1295,15 @@ class AsyncInferenceResource(AsyncAPIResource):
         *,
         contents: Union[SequenceNotStr[str], Iterable[InterleavedContentItem]],
         model_id: str,
-        output_dimension: int | NotGiven = NOT_GIVEN,
-        task_type: Literal["query", "document"] | NotGiven = NOT_GIVEN,
-        text_truncation: Literal["none", "start", "end"] | NotGiven = NOT_GIVEN,
+        output_dimension: int | Omit = omit,
+        task_type: Literal["query", "document"] | Omit = omit,
+        text_truncation: Literal["none", "start", "end"] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> EmbeddingsResponse:
         """
         Generate embeddings for content pieces using the specified model.

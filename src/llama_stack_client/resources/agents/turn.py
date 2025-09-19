@@ -7,7 +7,7 @@ from typing_extensions import Literal, overload
 
 import httpx
 
-from ..._types import NOT_GIVEN, Body, Query, Headers, NotGiven, SequenceNotStr
+from ..._types import Body, Omit, Query, Headers, NotGiven, SequenceNotStr, omit, not_given
 from ..._utils import required_args, maybe_transform, async_maybe_transform
 from ..._compat import cached_property
 from ..._resource import SyncAPIResource, AsyncAPIResource
@@ -54,16 +54,16 @@ class TurnResource(SyncAPIResource):
         *,
         agent_id: str,
         messages: Iterable[turn_create_params.Message],
-        documents: Iterable[turn_create_params.Document] | NotGiven = NOT_GIVEN,
-        stream: Literal[False] | NotGiven = NOT_GIVEN,
-        tool_config: turn_create_params.ToolConfig | NotGiven = NOT_GIVEN,
-        toolgroups: SequenceNotStr[turn_create_params.Toolgroup] | NotGiven = NOT_GIVEN,
+        documents: Iterable[turn_create_params.Document] | Omit = omit,
+        stream: Literal[False] | Omit = omit,
+        tool_config: turn_create_params.ToolConfig | Omit = omit,
+        toolgroups: SequenceNotStr[turn_create_params.Toolgroup] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> Turn:
         """
         Create a new turn for an agent.
@@ -100,15 +100,15 @@ class TurnResource(SyncAPIResource):
         agent_id: str,
         messages: Iterable[turn_create_params.Message],
         stream: Literal[True],
-        documents: Iterable[turn_create_params.Document] | NotGiven = NOT_GIVEN,
-        tool_config: turn_create_params.ToolConfig | NotGiven = NOT_GIVEN,
-        toolgroups: SequenceNotStr[turn_create_params.Toolgroup] | NotGiven = NOT_GIVEN,
+        documents: Iterable[turn_create_params.Document] | Omit = omit,
+        tool_config: turn_create_params.ToolConfig | Omit = omit,
+        toolgroups: SequenceNotStr[turn_create_params.Toolgroup] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> Stream[AgentTurnResponseStreamChunk]:
         """
         Create a new turn for an agent.
@@ -145,15 +145,15 @@ class TurnResource(SyncAPIResource):
         agent_id: str,
         messages: Iterable[turn_create_params.Message],
         stream: bool,
-        documents: Iterable[turn_create_params.Document] | NotGiven = NOT_GIVEN,
-        tool_config: turn_create_params.ToolConfig | NotGiven = NOT_GIVEN,
-        toolgroups: SequenceNotStr[turn_create_params.Toolgroup] | NotGiven = NOT_GIVEN,
+        documents: Iterable[turn_create_params.Document] | Omit = omit,
+        tool_config: turn_create_params.ToolConfig | Omit = omit,
+        toolgroups: SequenceNotStr[turn_create_params.Toolgroup] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> Turn | Stream[AgentTurnResponseStreamChunk]:
         """
         Create a new turn for an agent.
@@ -189,16 +189,16 @@ class TurnResource(SyncAPIResource):
         *,
         agent_id: str,
         messages: Iterable[turn_create_params.Message],
-        documents: Iterable[turn_create_params.Document] | NotGiven = NOT_GIVEN,
-        stream: Literal[False] | Literal[True] | NotGiven = NOT_GIVEN,
-        tool_config: turn_create_params.ToolConfig | NotGiven = NOT_GIVEN,
-        toolgroups: SequenceNotStr[turn_create_params.Toolgroup] | NotGiven = NOT_GIVEN,
+        documents: Iterable[turn_create_params.Document] | Omit = omit,
+        stream: Literal[False] | Literal[True] | Omit = omit,
+        tool_config: turn_create_params.ToolConfig | Omit = omit,
+        toolgroups: SequenceNotStr[turn_create_params.Toolgroup] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> Turn | Stream[AgentTurnResponseStreamChunk]:
         if not agent_id:
             raise ValueError(f"Expected a non-empty value for `agent_id` but received {agent_id!r}")
@@ -237,7 +237,7 @@ class TurnResource(SyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> Turn:
         """
         Retrieve an agent turn by its ID.
@@ -273,13 +273,13 @@ class TurnResource(SyncAPIResource):
         agent_id: str,
         session_id: str,
         tool_responses: Iterable[ToolResponseParam],
-        stream: Literal[False] | NotGiven = NOT_GIVEN,
+        stream: Literal[False] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> Turn:
         """Resume an agent turn with executed tool call responses.
 
@@ -317,7 +317,7 @@ class TurnResource(SyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> Stream[AgentTurnResponseStreamChunk]:
         """Resume an agent turn with executed tool call responses.
 
@@ -355,7 +355,7 @@ class TurnResource(SyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> Turn | Stream[AgentTurnResponseStreamChunk]:
         """Resume an agent turn with executed tool call responses.
 
@@ -387,13 +387,13 @@ class TurnResource(SyncAPIResource):
         agent_id: str,
         session_id: str,
         tool_responses: Iterable[ToolResponseParam],
-        stream: Literal[False] | Literal[True] | NotGiven = NOT_GIVEN,
+        stream: Literal[False] | Literal[True] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> Turn | Stream[AgentTurnResponseStreamChunk]:
         if not agent_id:
             raise ValueError(f"Expected a non-empty value for `agent_id` but received {agent_id!r}")
@@ -448,16 +448,16 @@ class AsyncTurnResource(AsyncAPIResource):
         *,
         agent_id: str,
         messages: Iterable[turn_create_params.Message],
-        documents: Iterable[turn_create_params.Document] | NotGiven = NOT_GIVEN,
-        stream: Literal[False] | NotGiven = NOT_GIVEN,
-        tool_config: turn_create_params.ToolConfig | NotGiven = NOT_GIVEN,
-        toolgroups: SequenceNotStr[turn_create_params.Toolgroup] | NotGiven = NOT_GIVEN,
+        documents: Iterable[turn_create_params.Document] | Omit = omit,
+        stream: Literal[False] | Omit = omit,
+        tool_config: turn_create_params.ToolConfig | Omit = omit,
+        toolgroups: SequenceNotStr[turn_create_params.Toolgroup] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> Turn:
         """
         Create a new turn for an agent.
@@ -494,15 +494,15 @@ class AsyncTurnResource(AsyncAPIResource):
         agent_id: str,
         messages: Iterable[turn_create_params.Message],
         stream: Literal[True],
-        documents: Iterable[turn_create_params.Document] | NotGiven = NOT_GIVEN,
-        tool_config: turn_create_params.ToolConfig | NotGiven = NOT_GIVEN,
-        toolgroups: SequenceNotStr[turn_create_params.Toolgroup] | NotGiven = NOT_GIVEN,
+        documents: Iterable[turn_create_params.Document] | Omit = omit,
+        tool_config: turn_create_params.ToolConfig | Omit = omit,
+        toolgroups: SequenceNotStr[turn_create_params.Toolgroup] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> AsyncStream[AgentTurnResponseStreamChunk]:
         """
         Create a new turn for an agent.
@@ -539,15 +539,15 @@ class AsyncTurnResource(AsyncAPIResource):
         agent_id: str,
         messages: Iterable[turn_create_params.Message],
         stream: bool,
-        documents: Iterable[turn_create_params.Document] | NotGiven = NOT_GIVEN,
-        tool_config: turn_create_params.ToolConfig | NotGiven = NOT_GIVEN,
-        toolgroups: SequenceNotStr[turn_create_params.Toolgroup] | NotGiven = NOT_GIVEN,
+        documents: Iterable[turn_create_params.Document] | Omit = omit,
+        tool_config: turn_create_params.ToolConfig | Omit = omit,
+        toolgroups: SequenceNotStr[turn_create_params.Toolgroup] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> Turn | AsyncStream[AgentTurnResponseStreamChunk]:
         """
         Create a new turn for an agent.
@@ -583,16 +583,16 @@ class AsyncTurnResource(AsyncAPIResource):
         *,
         agent_id: str,
         messages: Iterable[turn_create_params.Message],
-        documents: Iterable[turn_create_params.Document] | NotGiven = NOT_GIVEN,
-        stream: Literal[False] | Literal[True] | NotGiven = NOT_GIVEN,
-        tool_config: turn_create_params.ToolConfig | NotGiven = NOT_GIVEN,
-        toolgroups: SequenceNotStr[turn_create_params.Toolgroup] | NotGiven = NOT_GIVEN,
+        documents: Iterable[turn_create_params.Document] | Omit = omit,
+        stream: Literal[False] | Literal[True] | Omit = omit,
+        tool_config: turn_create_params.ToolConfig | Omit = omit,
+        toolgroups: SequenceNotStr[turn_create_params.Toolgroup] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> Turn | AsyncStream[AgentTurnResponseStreamChunk]:
         if not agent_id:
             raise ValueError(f"Expected a non-empty value for `agent_id` but received {agent_id!r}")
@@ -631,7 +631,7 @@ class AsyncTurnResource(AsyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> Turn:
         """
         Retrieve an agent turn by its ID.
@@ -667,13 +667,13 @@ class AsyncTurnResource(AsyncAPIResource):
         agent_id: str,
         session_id: str,
         tool_responses: Iterable[ToolResponseParam],
-        stream: Literal[False] | NotGiven = NOT_GIVEN,
+        stream: Literal[False] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> Turn:
         """Resume an agent turn with executed tool call responses.
 
@@ -711,7 +711,7 @@ class AsyncTurnResource(AsyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> AsyncStream[AgentTurnResponseStreamChunk]:
         """Resume an agent turn with executed tool call responses.
 
@@ -749,7 +749,7 @@ class AsyncTurnResource(AsyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> Turn | AsyncStream[AgentTurnResponseStreamChunk]:
         """Resume an agent turn with executed tool call responses.
 
@@ -781,13 +781,13 @@ class AsyncTurnResource(AsyncAPIResource):
         agent_id: str,
         session_id: str,
         tool_responses: Iterable[ToolResponseParam],
-        stream: Literal[False] | Literal[True] | NotGiven = NOT_GIVEN,
+        stream: Literal[False] | Literal[True] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> Turn | AsyncStream[AgentTurnResponseStreamChunk]:
         if not agent_id:
             raise ValueError(f"Expected a non-empty value for `agent_id` but received {agent_id!r}")

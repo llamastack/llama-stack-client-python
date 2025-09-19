@@ -7,7 +7,7 @@ from typing import Dict, Type, Union, Iterable, cast
 import httpx
 
 from ..types import shield_register_params
-from .._types import NOT_GIVEN, Body, Query, Headers, NotGiven
+from .._types import Body, Omit, Query, Headers, NotGiven, omit, not_given
 from .._utils import maybe_transform, async_maybe_transform
 from .._compat import cached_property
 from .._resource import SyncAPIResource, AsyncAPIResource
@@ -54,7 +54,7 @@ class ShieldsResource(SyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> Shield:
         """
         Get a shield by its identifier.
@@ -86,7 +86,7 @@ class ShieldsResource(SyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> ShieldListResponse:
         """List all shields."""
         return self._get(
@@ -105,15 +105,15 @@ class ShieldsResource(SyncAPIResource):
         self,
         *,
         shield_id: str,
-        params: Dict[str, Union[bool, float, str, Iterable[object], object, None]] | NotGiven = NOT_GIVEN,
-        provider_id: str | NotGiven = NOT_GIVEN,
-        provider_shield_id: str | NotGiven = NOT_GIVEN,
+        params: Dict[str, Union[bool, float, str, Iterable[object], object, None]] | Omit = omit,
+        provider_id: str | Omit = omit,
+        provider_shield_id: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> Shield:
         """
         Register a shield.
@@ -182,7 +182,7 @@ class AsyncShieldsResource(AsyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> Shield:
         """
         Get a shield by its identifier.
@@ -214,7 +214,7 @@ class AsyncShieldsResource(AsyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> ShieldListResponse:
         """List all shields."""
         return await self._get(
@@ -233,15 +233,15 @@ class AsyncShieldsResource(AsyncAPIResource):
         self,
         *,
         shield_id: str,
-        params: Dict[str, Union[bool, float, str, Iterable[object], object, None]] | NotGiven = NOT_GIVEN,
-        provider_id: str | NotGiven = NOT_GIVEN,
-        provider_shield_id: str | NotGiven = NOT_GIVEN,
+        params: Dict[str, Union[bool, float, str, Iterable[object], object, None]] | Omit = omit,
+        provider_id: str | Omit = omit,
+        provider_shield_id: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> Shield:
         """
         Register a shield.

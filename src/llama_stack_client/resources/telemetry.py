@@ -15,7 +15,7 @@ from ..types import (
     telemetry_query_metrics_params,
     telemetry_save_spans_to_dataset_params,
 )
-from .._types import NOT_GIVEN, Body, Query, Headers, NoneType, NotGiven, SequenceNotStr
+from .._types import Body, Omit, Query, Headers, NoneType, NotGiven, SequenceNotStr, omit, not_given
 from .._utils import maybe_transform, async_maybe_transform
 from .._compat import cached_property
 from .._resource import SyncAPIResource, AsyncAPIResource
@@ -69,7 +69,7 @@ class TelemetryResource(SyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> TelemetryGetSpanResponse:
         """
         Get a span by its ID.
@@ -99,14 +99,14 @@ class TelemetryResource(SyncAPIResource):
         self,
         span_id: str,
         *,
-        attributes_to_return: SequenceNotStr[str] | NotGiven = NOT_GIVEN,
-        max_depth: int | NotGiven = NOT_GIVEN,
+        attributes_to_return: SequenceNotStr[str] | Omit = omit,
+        max_depth: int | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> TelemetryGetSpanTreeResponse:
         """
         Get a span tree by its ID.
@@ -154,7 +154,7 @@ class TelemetryResource(SyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> Trace:
         """
         Get a trace by its ID.
@@ -188,7 +188,7 @@ class TelemetryResource(SyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> None:
         """
         Log an event.
@@ -228,15 +228,15 @@ class TelemetryResource(SyncAPIResource):
         *,
         query_type: Literal["range", "instant"],
         start_time: int,
-        end_time: int | NotGiven = NOT_GIVEN,
-        granularity: str | NotGiven = NOT_GIVEN,
-        label_matchers: Iterable[telemetry_query_metrics_params.LabelMatcher] | NotGiven = NOT_GIVEN,
+        end_time: int | Omit = omit,
+        granularity: str | Omit = omit,
+        label_matchers: Iterable[telemetry_query_metrics_params.LabelMatcher] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> TelemetryQueryMetricsResponse:
         """
         Query metrics.
@@ -289,13 +289,13 @@ class TelemetryResource(SyncAPIResource):
         *,
         attribute_filters: Iterable[QueryConditionParam],
         attributes_to_return: SequenceNotStr[str],
-        max_depth: int | NotGiven = NOT_GIVEN,
+        max_depth: int | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> TelemetryQuerySpansResponse:
         """
         Query spans.
@@ -338,16 +338,16 @@ class TelemetryResource(SyncAPIResource):
     def query_traces(
         self,
         *,
-        attribute_filters: Iterable[QueryConditionParam] | NotGiven = NOT_GIVEN,
-        limit: int | NotGiven = NOT_GIVEN,
-        offset: int | NotGiven = NOT_GIVEN,
-        order_by: SequenceNotStr[str] | NotGiven = NOT_GIVEN,
+        attribute_filters: Iterable[QueryConditionParam] | Omit = omit,
+        limit: int | Omit = omit,
+        offset: int | Omit = omit,
+        order_by: SequenceNotStr[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> TelemetryQueryTracesResponse:
         """
         Query traces.
@@ -396,13 +396,13 @@ class TelemetryResource(SyncAPIResource):
         attribute_filters: Iterable[QueryConditionParam],
         attributes_to_save: SequenceNotStr[str],
         dataset_id: str,
-        max_depth: int | NotGiven = NOT_GIVEN,
+        max_depth: int | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> None:
         """
         Save spans to a dataset.
@@ -473,7 +473,7 @@ class AsyncTelemetryResource(AsyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> TelemetryGetSpanResponse:
         """
         Get a span by its ID.
@@ -503,14 +503,14 @@ class AsyncTelemetryResource(AsyncAPIResource):
         self,
         span_id: str,
         *,
-        attributes_to_return: SequenceNotStr[str] | NotGiven = NOT_GIVEN,
-        max_depth: int | NotGiven = NOT_GIVEN,
+        attributes_to_return: SequenceNotStr[str] | Omit = omit,
+        max_depth: int | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> TelemetryGetSpanTreeResponse:
         """
         Get a span tree by its ID.
@@ -558,7 +558,7 @@ class AsyncTelemetryResource(AsyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> Trace:
         """
         Get a trace by its ID.
@@ -592,7 +592,7 @@ class AsyncTelemetryResource(AsyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> None:
         """
         Log an event.
@@ -632,15 +632,15 @@ class AsyncTelemetryResource(AsyncAPIResource):
         *,
         query_type: Literal["range", "instant"],
         start_time: int,
-        end_time: int | NotGiven = NOT_GIVEN,
-        granularity: str | NotGiven = NOT_GIVEN,
-        label_matchers: Iterable[telemetry_query_metrics_params.LabelMatcher] | NotGiven = NOT_GIVEN,
+        end_time: int | Omit = omit,
+        granularity: str | Omit = omit,
+        label_matchers: Iterable[telemetry_query_metrics_params.LabelMatcher] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> TelemetryQueryMetricsResponse:
         """
         Query metrics.
@@ -693,13 +693,13 @@ class AsyncTelemetryResource(AsyncAPIResource):
         *,
         attribute_filters: Iterable[QueryConditionParam],
         attributes_to_return: SequenceNotStr[str],
-        max_depth: int | NotGiven = NOT_GIVEN,
+        max_depth: int | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> TelemetryQuerySpansResponse:
         """
         Query spans.
@@ -742,16 +742,16 @@ class AsyncTelemetryResource(AsyncAPIResource):
     async def query_traces(
         self,
         *,
-        attribute_filters: Iterable[QueryConditionParam] | NotGiven = NOT_GIVEN,
-        limit: int | NotGiven = NOT_GIVEN,
-        offset: int | NotGiven = NOT_GIVEN,
-        order_by: SequenceNotStr[str] | NotGiven = NOT_GIVEN,
+        attribute_filters: Iterable[QueryConditionParam] | Omit = omit,
+        limit: int | Omit = omit,
+        offset: int | Omit = omit,
+        order_by: SequenceNotStr[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> TelemetryQueryTracesResponse:
         """
         Query traces.
@@ -800,13 +800,13 @@ class AsyncTelemetryResource(AsyncAPIResource):
         attribute_filters: Iterable[QueryConditionParam],
         attributes_to_save: SequenceNotStr[str],
         dataset_id: str,
-        max_depth: int | NotGiven = NOT_GIVEN,
+        max_depth: int | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> None:
         """
         Save spans to a dataset.
