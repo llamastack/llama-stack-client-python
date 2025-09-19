@@ -8,7 +8,7 @@ from typing_extensions import Literal, overload
 import httpx
 
 from ...types import response_list_params, response_create_params
-from ..._types import NOT_GIVEN, Body, Query, Headers, NotGiven, SequenceNotStr
+from ..._types import Body, Omit, Query, Headers, NotGiven, SequenceNotStr, omit, not_given
 from ..._utils import required_args, maybe_transform, async_maybe_transform
 from ..._compat import cached_property
 from ..._resource import SyncAPIResource, AsyncAPIResource
@@ -66,21 +66,21 @@ class ResponsesResource(SyncAPIResource):
         *,
         input: Union[str, Iterable[response_create_params.InputUnionMember1]],
         model: str,
-        include: SequenceNotStr[str] | NotGiven = NOT_GIVEN,
-        instructions: str | NotGiven = NOT_GIVEN,
-        max_infer_iters: int | NotGiven = NOT_GIVEN,
-        previous_response_id: str | NotGiven = NOT_GIVEN,
-        store: bool | NotGiven = NOT_GIVEN,
-        stream: Literal[False] | NotGiven = NOT_GIVEN,
-        temperature: float | NotGiven = NOT_GIVEN,
-        text: response_create_params.Text | NotGiven = NOT_GIVEN,
-        tools: Iterable[response_create_params.Tool] | NotGiven = NOT_GIVEN,
+        include: SequenceNotStr[str] | Omit = omit,
+        instructions: str | Omit = omit,
+        max_infer_iters: int | Omit = omit,
+        previous_response_id: str | Omit = omit,
+        store: bool | Omit = omit,
+        stream: Literal[False] | Omit = omit,
+        temperature: float | Omit = omit,
+        text: response_create_params.Text | Omit = omit,
+        tools: Iterable[response_create_params.Tool] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> ResponseObject:
         """
         Create a new OpenAI response.
@@ -115,20 +115,20 @@ class ResponsesResource(SyncAPIResource):
         input: Union[str, Iterable[response_create_params.InputUnionMember1]],
         model: str,
         stream: Literal[True],
-        include: SequenceNotStr[str] | NotGiven = NOT_GIVEN,
-        instructions: str | NotGiven = NOT_GIVEN,
-        max_infer_iters: int | NotGiven = NOT_GIVEN,
-        previous_response_id: str | NotGiven = NOT_GIVEN,
-        store: bool | NotGiven = NOT_GIVEN,
-        temperature: float | NotGiven = NOT_GIVEN,
-        text: response_create_params.Text | NotGiven = NOT_GIVEN,
-        tools: Iterable[response_create_params.Tool] | NotGiven = NOT_GIVEN,
+        include: SequenceNotStr[str] | Omit = omit,
+        instructions: str | Omit = omit,
+        max_infer_iters: int | Omit = omit,
+        previous_response_id: str | Omit = omit,
+        store: bool | Omit = omit,
+        temperature: float | Omit = omit,
+        text: response_create_params.Text | Omit = omit,
+        tools: Iterable[response_create_params.Tool] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> Stream[ResponseObjectStream]:
         """
         Create a new OpenAI response.
@@ -163,20 +163,20 @@ class ResponsesResource(SyncAPIResource):
         input: Union[str, Iterable[response_create_params.InputUnionMember1]],
         model: str,
         stream: bool,
-        include: SequenceNotStr[str] | NotGiven = NOT_GIVEN,
-        instructions: str | NotGiven = NOT_GIVEN,
-        max_infer_iters: int | NotGiven = NOT_GIVEN,
-        previous_response_id: str | NotGiven = NOT_GIVEN,
-        store: bool | NotGiven = NOT_GIVEN,
-        temperature: float | NotGiven = NOT_GIVEN,
-        text: response_create_params.Text | NotGiven = NOT_GIVEN,
-        tools: Iterable[response_create_params.Tool] | NotGiven = NOT_GIVEN,
+        include: SequenceNotStr[str] | Omit = omit,
+        instructions: str | Omit = omit,
+        max_infer_iters: int | Omit = omit,
+        previous_response_id: str | Omit = omit,
+        store: bool | Omit = omit,
+        temperature: float | Omit = omit,
+        text: response_create_params.Text | Omit = omit,
+        tools: Iterable[response_create_params.Tool] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> ResponseObject | Stream[ResponseObjectStream]:
         """
         Create a new OpenAI response.
@@ -210,21 +210,21 @@ class ResponsesResource(SyncAPIResource):
         *,
         input: Union[str, Iterable[response_create_params.InputUnionMember1]],
         model: str,
-        include: SequenceNotStr[str] | NotGiven = NOT_GIVEN,
-        instructions: str | NotGiven = NOT_GIVEN,
-        max_infer_iters: int | NotGiven = NOT_GIVEN,
-        previous_response_id: str | NotGiven = NOT_GIVEN,
-        store: bool | NotGiven = NOT_GIVEN,
-        stream: Literal[False] | Literal[True] | NotGiven = NOT_GIVEN,
-        temperature: float | NotGiven = NOT_GIVEN,
-        text: response_create_params.Text | NotGiven = NOT_GIVEN,
-        tools: Iterable[response_create_params.Tool] | NotGiven = NOT_GIVEN,
+        include: SequenceNotStr[str] | Omit = omit,
+        instructions: str | Omit = omit,
+        max_infer_iters: int | Omit = omit,
+        previous_response_id: str | Omit = omit,
+        store: bool | Omit = omit,
+        stream: Literal[False] | Literal[True] | Omit = omit,
+        temperature: float | Omit = omit,
+        text: response_create_params.Text | Omit = omit,
+        tools: Iterable[response_create_params.Tool] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> ResponseObject | Stream[ResponseObjectStream]:
         return self._post(
             "/v1/openai/v1/responses",
@@ -263,7 +263,7 @@ class ResponsesResource(SyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> ResponseObject:
         """
         Retrieve an OpenAI response by its ID.
@@ -290,16 +290,16 @@ class ResponsesResource(SyncAPIResource):
     def list(
         self,
         *,
-        after: str | NotGiven = NOT_GIVEN,
-        limit: int | NotGiven = NOT_GIVEN,
-        model: str | NotGiven = NOT_GIVEN,
-        order: Literal["asc", "desc"] | NotGiven = NOT_GIVEN,
+        after: str | Omit = omit,
+        limit: int | Omit = omit,
+        model: str | Omit = omit,
+        order: Literal["asc", "desc"] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> SyncOpenAICursorPage[ResponseListResponse]:
         """
         List all OpenAI responses.
@@ -373,21 +373,21 @@ class AsyncResponsesResource(AsyncAPIResource):
         *,
         input: Union[str, Iterable[response_create_params.InputUnionMember1]],
         model: str,
-        include: SequenceNotStr[str] | NotGiven = NOT_GIVEN,
-        instructions: str | NotGiven = NOT_GIVEN,
-        max_infer_iters: int | NotGiven = NOT_GIVEN,
-        previous_response_id: str | NotGiven = NOT_GIVEN,
-        store: bool | NotGiven = NOT_GIVEN,
-        stream: Literal[False] | NotGiven = NOT_GIVEN,
-        temperature: float | NotGiven = NOT_GIVEN,
-        text: response_create_params.Text | NotGiven = NOT_GIVEN,
-        tools: Iterable[response_create_params.Tool] | NotGiven = NOT_GIVEN,
+        include: SequenceNotStr[str] | Omit = omit,
+        instructions: str | Omit = omit,
+        max_infer_iters: int | Omit = omit,
+        previous_response_id: str | Omit = omit,
+        store: bool | Omit = omit,
+        stream: Literal[False] | Omit = omit,
+        temperature: float | Omit = omit,
+        text: response_create_params.Text | Omit = omit,
+        tools: Iterable[response_create_params.Tool] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> ResponseObject:
         """
         Create a new OpenAI response.
@@ -422,20 +422,20 @@ class AsyncResponsesResource(AsyncAPIResource):
         input: Union[str, Iterable[response_create_params.InputUnionMember1]],
         model: str,
         stream: Literal[True],
-        include: SequenceNotStr[str] | NotGiven = NOT_GIVEN,
-        instructions: str | NotGiven = NOT_GIVEN,
-        max_infer_iters: int | NotGiven = NOT_GIVEN,
-        previous_response_id: str | NotGiven = NOT_GIVEN,
-        store: bool | NotGiven = NOT_GIVEN,
-        temperature: float | NotGiven = NOT_GIVEN,
-        text: response_create_params.Text | NotGiven = NOT_GIVEN,
-        tools: Iterable[response_create_params.Tool] | NotGiven = NOT_GIVEN,
+        include: SequenceNotStr[str] | Omit = omit,
+        instructions: str | Omit = omit,
+        max_infer_iters: int | Omit = omit,
+        previous_response_id: str | Omit = omit,
+        store: bool | Omit = omit,
+        temperature: float | Omit = omit,
+        text: response_create_params.Text | Omit = omit,
+        tools: Iterable[response_create_params.Tool] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> AsyncStream[ResponseObjectStream]:
         """
         Create a new OpenAI response.
@@ -470,20 +470,20 @@ class AsyncResponsesResource(AsyncAPIResource):
         input: Union[str, Iterable[response_create_params.InputUnionMember1]],
         model: str,
         stream: bool,
-        include: SequenceNotStr[str] | NotGiven = NOT_GIVEN,
-        instructions: str | NotGiven = NOT_GIVEN,
-        max_infer_iters: int | NotGiven = NOT_GIVEN,
-        previous_response_id: str | NotGiven = NOT_GIVEN,
-        store: bool | NotGiven = NOT_GIVEN,
-        temperature: float | NotGiven = NOT_GIVEN,
-        text: response_create_params.Text | NotGiven = NOT_GIVEN,
-        tools: Iterable[response_create_params.Tool] | NotGiven = NOT_GIVEN,
+        include: SequenceNotStr[str] | Omit = omit,
+        instructions: str | Omit = omit,
+        max_infer_iters: int | Omit = omit,
+        previous_response_id: str | Omit = omit,
+        store: bool | Omit = omit,
+        temperature: float | Omit = omit,
+        text: response_create_params.Text | Omit = omit,
+        tools: Iterable[response_create_params.Tool] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> ResponseObject | AsyncStream[ResponseObjectStream]:
         """
         Create a new OpenAI response.
@@ -517,21 +517,21 @@ class AsyncResponsesResource(AsyncAPIResource):
         *,
         input: Union[str, Iterable[response_create_params.InputUnionMember1]],
         model: str,
-        include: SequenceNotStr[str] | NotGiven = NOT_GIVEN,
-        instructions: str | NotGiven = NOT_GIVEN,
-        max_infer_iters: int | NotGiven = NOT_GIVEN,
-        previous_response_id: str | NotGiven = NOT_GIVEN,
-        store: bool | NotGiven = NOT_GIVEN,
-        stream: Literal[False] | Literal[True] | NotGiven = NOT_GIVEN,
-        temperature: float | NotGiven = NOT_GIVEN,
-        text: response_create_params.Text | NotGiven = NOT_GIVEN,
-        tools: Iterable[response_create_params.Tool] | NotGiven = NOT_GIVEN,
+        include: SequenceNotStr[str] | Omit = omit,
+        instructions: str | Omit = omit,
+        max_infer_iters: int | Omit = omit,
+        previous_response_id: str | Omit = omit,
+        store: bool | Omit = omit,
+        stream: Literal[False] | Literal[True] | Omit = omit,
+        temperature: float | Omit = omit,
+        text: response_create_params.Text | Omit = omit,
+        tools: Iterable[response_create_params.Tool] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> ResponseObject | AsyncStream[ResponseObjectStream]:
         return await self._post(
             "/v1/openai/v1/responses",
@@ -570,7 +570,7 @@ class AsyncResponsesResource(AsyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> ResponseObject:
         """
         Retrieve an OpenAI response by its ID.
@@ -597,16 +597,16 @@ class AsyncResponsesResource(AsyncAPIResource):
     def list(
         self,
         *,
-        after: str | NotGiven = NOT_GIVEN,
-        limit: int | NotGiven = NOT_GIVEN,
-        model: str | NotGiven = NOT_GIVEN,
-        order: Literal["asc", "desc"] | NotGiven = NOT_GIVEN,
+        after: str | Omit = omit,
+        limit: int | Omit = omit,
+        model: str | Omit = omit,
+        order: Literal["asc", "desc"] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> AsyncPaginator[ResponseListResponse, AsyncOpenAICursorPage[ResponseListResponse]]:
         """
         List all OpenAI responses.

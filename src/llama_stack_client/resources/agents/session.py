@@ -4,7 +4,7 @@ from __future__ import annotations
 
 import httpx
 
-from ..._types import NOT_GIVEN, Body, Query, Headers, NoneType, NotGiven, SequenceNotStr
+from ..._types import Body, Omit, Query, Headers, NoneType, NotGiven, SequenceNotStr, omit, not_given
 from ..._utils import maybe_transform, async_maybe_transform
 from ..._compat import cached_property
 from ..._resource import SyncAPIResource, AsyncAPIResource
@@ -53,7 +53,7 @@ class SessionResource(SyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> SessionCreateResponse:
         """
         Create a new session for an agent.
@@ -85,13 +85,13 @@ class SessionResource(SyncAPIResource):
         session_id: str,
         *,
         agent_id: str,
-        turn_ids: SequenceNotStr[str] | NotGiven = NOT_GIVEN,
+        turn_ids: SequenceNotStr[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> Session:
         """
         Retrieve an agent session by its ID.
@@ -127,14 +127,14 @@ class SessionResource(SyncAPIResource):
         self,
         agent_id: str,
         *,
-        limit: int | NotGiven = NOT_GIVEN,
-        start_index: int | NotGiven = NOT_GIVEN,
+        limit: int | Omit = omit,
+        start_index: int | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> SessionListResponse:
         """
         List all session(s) of a given agent.
@@ -182,7 +182,7 @@ class SessionResource(SyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> None:
         """
         Delete an agent session by its ID and its associated turns.
@@ -240,7 +240,7 @@ class AsyncSessionResource(AsyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> SessionCreateResponse:
         """
         Create a new session for an agent.
@@ -272,13 +272,13 @@ class AsyncSessionResource(AsyncAPIResource):
         session_id: str,
         *,
         agent_id: str,
-        turn_ids: SequenceNotStr[str] | NotGiven = NOT_GIVEN,
+        turn_ids: SequenceNotStr[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> Session:
         """
         Retrieve an agent session by its ID.
@@ -316,14 +316,14 @@ class AsyncSessionResource(AsyncAPIResource):
         self,
         agent_id: str,
         *,
-        limit: int | NotGiven = NOT_GIVEN,
-        start_index: int | NotGiven = NOT_GIVEN,
+        limit: int | Omit = omit,
+        start_index: int | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> SessionListResponse:
         """
         List all session(s) of a given agent.
@@ -371,7 +371,7 @@ class AsyncSessionResource(AsyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> None:
         """
         Delete an agent session by its ID and its associated turns.

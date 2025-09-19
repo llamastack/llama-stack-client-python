@@ -7,7 +7,7 @@ from typing import Dict, Type, Union, Iterable, cast
 import httpx
 
 from ..types import toolgroup_register_params
-from .._types import NOT_GIVEN, Body, Query, Headers, NoneType, NotGiven
+from .._types import Body, Omit, Query, Headers, NoneType, NotGiven, omit, not_given
 from .._utils import maybe_transform, async_maybe_transform
 from .._compat import cached_property
 from .._resource import SyncAPIResource, AsyncAPIResource
@@ -53,7 +53,7 @@ class ToolgroupsResource(SyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> ToolgroupListResponse:
         """List tool groups with optional provider."""
         return self._get(
@@ -77,7 +77,7 @@ class ToolgroupsResource(SyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> ToolGroup:
         """
         Get a tool group by its ID.
@@ -106,14 +106,14 @@ class ToolgroupsResource(SyncAPIResource):
         *,
         provider_id: str,
         toolgroup_id: str,
-        args: Dict[str, Union[bool, float, str, Iterable[object], object, None]] | NotGiven = NOT_GIVEN,
-        mcp_endpoint: toolgroup_register_params.McpEndpoint | NotGiven = NOT_GIVEN,
+        args: Dict[str, Union[bool, float, str, Iterable[object], object, None]] | Omit = omit,
+        mcp_endpoint: toolgroup_register_params.McpEndpoint | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> None:
         """
         Register a tool group.
@@ -162,7 +162,7 @@ class ToolgroupsResource(SyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> None:
         """
         Unregister a tool group.
@@ -216,7 +216,7 @@ class AsyncToolgroupsResource(AsyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> ToolgroupListResponse:
         """List tool groups with optional provider."""
         return await self._get(
@@ -240,7 +240,7 @@ class AsyncToolgroupsResource(AsyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> ToolGroup:
         """
         Get a tool group by its ID.
@@ -269,14 +269,14 @@ class AsyncToolgroupsResource(AsyncAPIResource):
         *,
         provider_id: str,
         toolgroup_id: str,
-        args: Dict[str, Union[bool, float, str, Iterable[object], object, None]] | NotGiven = NOT_GIVEN,
-        mcp_endpoint: toolgroup_register_params.McpEndpoint | NotGiven = NOT_GIVEN,
+        args: Dict[str, Union[bool, float, str, Iterable[object], object, None]] | Omit = omit,
+        mcp_endpoint: toolgroup_register_params.McpEndpoint | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> None:
         """
         Register a tool group.
@@ -325,7 +325,7 @@ class AsyncToolgroupsResource(AsyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> None:
         """
         Unregister a tool group.

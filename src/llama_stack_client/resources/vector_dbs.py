@@ -7,7 +7,7 @@ from typing import Type, cast
 import httpx
 
 from ..types import vector_db_register_params
-from .._types import NOT_GIVEN, Body, Query, Headers, NoneType, NotGiven
+from .._types import Body, Omit, Query, Headers, NoneType, NotGiven, omit, not_given
 from .._utils import maybe_transform, async_maybe_transform
 from .._compat import cached_property
 from .._resource import SyncAPIResource, AsyncAPIResource
@@ -55,7 +55,7 @@ class VectorDBsResource(SyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> VectorDBRetrieveResponse:
         """
         Get a vector database by its identifier.
@@ -87,7 +87,7 @@ class VectorDBsResource(SyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> VectorDBListResponse:
         """List all vector databases."""
         return self._get(
@@ -107,16 +107,16 @@ class VectorDBsResource(SyncAPIResource):
         *,
         embedding_model: str,
         vector_db_id: str,
-        embedding_dimension: int | NotGiven = NOT_GIVEN,
-        provider_id: str | NotGiven = NOT_GIVEN,
-        provider_vector_db_id: str | NotGiven = NOT_GIVEN,
-        vector_db_name: str | NotGiven = NOT_GIVEN,
+        embedding_dimension: int | Omit = omit,
+        provider_id: str | Omit = omit,
+        provider_vector_db_id: str | Omit = omit,
+        vector_db_name: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> VectorDBRegisterResponse:
         """
         Register a vector database.
@@ -170,7 +170,7 @@ class VectorDBsResource(SyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> None:
         """
         Unregister a vector database.
@@ -225,7 +225,7 @@ class AsyncVectorDBsResource(AsyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> VectorDBRetrieveResponse:
         """
         Get a vector database by its identifier.
@@ -257,7 +257,7 @@ class AsyncVectorDBsResource(AsyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> VectorDBListResponse:
         """List all vector databases."""
         return await self._get(
@@ -277,16 +277,16 @@ class AsyncVectorDBsResource(AsyncAPIResource):
         *,
         embedding_model: str,
         vector_db_id: str,
-        embedding_dimension: int | NotGiven = NOT_GIVEN,
-        provider_id: str | NotGiven = NOT_GIVEN,
-        provider_vector_db_id: str | NotGiven = NOT_GIVEN,
-        vector_db_name: str | NotGiven = NOT_GIVEN,
+        embedding_dimension: int | Omit = omit,
+        provider_id: str | Omit = omit,
+        provider_vector_db_id: str | Omit = omit,
+        vector_db_name: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> VectorDBRegisterResponse:
         """
         Register a vector database.
@@ -340,7 +340,7 @@ class AsyncVectorDBsResource(AsyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> None:
         """
         Unregister a vector database.

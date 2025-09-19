@@ -7,7 +7,7 @@ from typing import Dict, Type, Union, Iterable, cast
 import httpx
 
 from ...types import tool_runtime_list_tools_params, tool_runtime_invoke_tool_params
-from ..._types import NOT_GIVEN, Body, Query, Headers, NotGiven
+from ..._types import Body, Omit, Query, Headers, NotGiven, omit, not_given
 from ..._utils import maybe_transform, async_maybe_transform
 from .rag_tool import (
     RagToolResource,
@@ -67,7 +67,7 @@ class ToolRuntimeResource(SyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> ToolInvocationResult:
         """
         Run a tool with the given arguments.
@@ -103,14 +103,14 @@ class ToolRuntimeResource(SyncAPIResource):
     def list_tools(
         self,
         *,
-        mcp_endpoint: tool_runtime_list_tools_params.McpEndpoint | NotGiven = NOT_GIVEN,
-        tool_group_id: str | NotGiven = NOT_GIVEN,
+        mcp_endpoint: tool_runtime_list_tools_params.McpEndpoint | Omit = omit,
+        tool_group_id: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> ToolRuntimeListToolsResponse:
         """
         List all tools in the runtime.
@@ -182,7 +182,7 @@ class AsyncToolRuntimeResource(AsyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> ToolInvocationResult:
         """
         Run a tool with the given arguments.
@@ -218,14 +218,14 @@ class AsyncToolRuntimeResource(AsyncAPIResource):
     async def list_tools(
         self,
         *,
-        mcp_endpoint: tool_runtime_list_tools_params.McpEndpoint | NotGiven = NOT_GIVEN,
-        tool_group_id: str | NotGiven = NOT_GIVEN,
+        mcp_endpoint: tool_runtime_list_tools_params.McpEndpoint | Omit = omit,
+        tool_group_id: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> ToolRuntimeListToolsResponse:
         """
         List all tools in the runtime.
