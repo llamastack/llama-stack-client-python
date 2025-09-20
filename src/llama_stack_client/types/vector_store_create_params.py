@@ -2,8 +2,10 @@
 
 from __future__ import annotations
 
-from typing import Dict, List, Union, Iterable
+from typing import Dict, Union, Iterable
 from typing_extensions import TypedDict
+
+from .._types import SequenceNotStr
 
 __all__ = ["VectorStoreCreateParams"]
 
@@ -24,7 +26,7 @@ class VectorStoreCreateParams(TypedDict, total=False):
     expires_after: Dict[str, Union[bool, float, str, Iterable[object], object, None]]
     """The expiration policy for a vector store."""
 
-    file_ids: List[str]
+    file_ids: SequenceNotStr[str]
     """A list of File IDs that the vector store should use.
 
     Useful for tools like `file_search` that can access files.

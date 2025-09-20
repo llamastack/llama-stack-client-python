@@ -2,14 +2,16 @@
 
 from __future__ import annotations
 
-from typing import Dict, List, Union, Iterable
+from typing import Dict, Union, Iterable
 from typing_extensions import Required, TypedDict
+
+from .._types import SequenceNotStr
 
 __all__ = ["VectorStoreSearchParams", "RankingOptions"]
 
 
 class VectorStoreSearchParams(TypedDict, total=False):
-    query: Required[Union[str, List[str]]]
+    query: Required[Union[str, SequenceNotStr[str]]]
     """The query string or array for performing the search."""
 
     filters: Dict[str, Union[bool, float, str, Iterable[object], object, None]]

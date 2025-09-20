@@ -18,7 +18,7 @@ from ...types import (
     post_training_preference_optimize_params,
     post_training_supervised_fine_tune_params,
 )
-from ..._types import NOT_GIVEN, Body, Query, Headers, NotGiven
+from ..._types import Body, Omit, Query, Headers, NotGiven, omit, not_given
 from ..._utils import maybe_transform, async_maybe_transform
 from ..._compat import cached_property
 from ..._resource import SyncAPIResource, AsyncAPIResource
@@ -73,7 +73,7 @@ class PostTrainingResource(SyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> PostTrainingJob:
         """
         Run preference optimization of a model.
@@ -125,15 +125,15 @@ class PostTrainingResource(SyncAPIResource):
         job_uuid: str,
         logger_config: Dict[str, Union[bool, float, str, Iterable[object], object, None]],
         training_config: post_training_supervised_fine_tune_params.TrainingConfig,
-        algorithm_config: AlgorithmConfigParam | NotGiven = NOT_GIVEN,
-        checkpoint_dir: str | NotGiven = NOT_GIVEN,
-        model: str | NotGiven = NOT_GIVEN,
+        algorithm_config: AlgorithmConfigParam | Omit = omit,
+        checkpoint_dir: str | Omit = omit,
+        model: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> PostTrainingJob:
         """
         Run supervised fine-tuning of a model.
@@ -220,7 +220,7 @@ class AsyncPostTrainingResource(AsyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> PostTrainingJob:
         """
         Run preference optimization of a model.
@@ -272,15 +272,15 @@ class AsyncPostTrainingResource(AsyncAPIResource):
         job_uuid: str,
         logger_config: Dict[str, Union[bool, float, str, Iterable[object], object, None]],
         training_config: post_training_supervised_fine_tune_params.TrainingConfig,
-        algorithm_config: AlgorithmConfigParam | NotGiven = NOT_GIVEN,
-        checkpoint_dir: str | NotGiven = NOT_GIVEN,
-        model: str | NotGiven = NOT_GIVEN,
+        algorithm_config: AlgorithmConfigParam | Omit = omit,
+        checkpoint_dir: str | Omit = omit,
+        model: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> PostTrainingJob:
         """
         Run supervised fine-tuning of a model.

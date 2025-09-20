@@ -7,7 +7,7 @@ from typing import Dict, Union, Iterable
 import httpx
 
 from ..types import vector_io_query_params, vector_io_insert_params
-from .._types import NOT_GIVEN, Body, Query, Headers, NoneType, NotGiven
+from .._types import Body, Omit, Query, Headers, NoneType, NotGiven, omit, not_given
 from .._utils import maybe_transform, async_maybe_transform
 from .._compat import cached_property
 from .._resource import SyncAPIResource, AsyncAPIResource
@@ -49,13 +49,13 @@ class VectorIoResource(SyncAPIResource):
         *,
         chunks: Iterable[vector_io_insert_params.Chunk],
         vector_db_id: str,
-        ttl_seconds: int | NotGiven = NOT_GIVEN,
+        ttl_seconds: int | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> None:
         """Insert chunks into a vector database.
 
@@ -102,13 +102,13 @@ class VectorIoResource(SyncAPIResource):
         *,
         query: InterleavedContent,
         vector_db_id: str,
-        params: Dict[str, Union[bool, float, str, Iterable[object], object, None]] | NotGiven = NOT_GIVEN,
+        params: Dict[str, Union[bool, float, str, Iterable[object], object, None]] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> QueryChunksResponse:
         """
         Query chunks from a vector database.
@@ -170,13 +170,13 @@ class AsyncVectorIoResource(AsyncAPIResource):
         *,
         chunks: Iterable[vector_io_insert_params.Chunk],
         vector_db_id: str,
-        ttl_seconds: int | NotGiven = NOT_GIVEN,
+        ttl_seconds: int | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> None:
         """Insert chunks into a vector database.
 
@@ -223,13 +223,13 @@ class AsyncVectorIoResource(AsyncAPIResource):
         *,
         query: InterleavedContent,
         vector_db_id: str,
-        params: Dict[str, Union[bool, float, str, Iterable[object], object, None]] | NotGiven = NOT_GIVEN,
+        params: Dict[str, Union[bool, float, str, Iterable[object], object, None]] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> QueryChunksResponse:
         """
         Query chunks from a vector database.

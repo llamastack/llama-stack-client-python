@@ -2,9 +2,9 @@
 
 from __future__ import annotations
 
-from typing import List
 from typing_extensions import Required, TypedDict
 
+from .._types import SequenceNotStr
 from .shared_params.response_format import ResponseFormat
 from .shared_params.sampling_params import SamplingParams
 from .shared_params.interleaved_content import InterleavedContent
@@ -13,7 +13,7 @@ __all__ = ["InferenceBatchCompletionParams", "Logprobs"]
 
 
 class InferenceBatchCompletionParams(TypedDict, total=False):
-    content_batch: Required[List[InterleavedContent]]
+    content_batch: Required[SequenceNotStr[InterleavedContent]]
     """The content to generate completions for."""
 
     model_id: Required[str]

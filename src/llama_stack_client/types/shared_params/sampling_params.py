@@ -2,8 +2,10 @@
 
 from __future__ import annotations
 
-from typing import List, Union
+from typing import Union
 from typing_extensions import Literal, Required, TypeAlias, TypedDict
+
+from ..._types import SequenceNotStr
 
 __all__ = [
     "SamplingParams",
@@ -59,7 +61,7 @@ class SamplingParams(TypedDict, total=False):
     far, increasing the model's likelihood to talk about new topics.
     """
 
-    stop: List[str]
+    stop: SequenceNotStr[str]
     """Up to 4 sequences where the API will stop generating further tokens.
 
     The returned text will not contain the stop sequence.

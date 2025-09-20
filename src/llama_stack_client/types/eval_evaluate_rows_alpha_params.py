@@ -2,9 +2,10 @@
 
 from __future__ import annotations
 
-from typing import Dict, List, Union, Iterable
+from typing import Dict, Union, Iterable
 from typing_extensions import Required, TypedDict
 
+from .._types import SequenceNotStr
 from .benchmark_config_param import BenchmarkConfigParam
 
 __all__ = ["EvalEvaluateRowsAlphaParams"]
@@ -17,5 +18,5 @@ class EvalEvaluateRowsAlphaParams(TypedDict, total=False):
     input_rows: Required[Iterable[Dict[str, Union[bool, float, str, Iterable[object], object, None]]]]
     """The rows to evaluate."""
 
-    scoring_functions: Required[List[str]]
+    scoring_functions: Required[SequenceNotStr[str]]
     """The scoring functions to use for the evaluation."""

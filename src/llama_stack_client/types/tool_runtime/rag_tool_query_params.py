@@ -2,9 +2,9 @@
 
 from __future__ import annotations
 
-from typing import List
 from typing_extensions import Required, TypedDict
 
+from ..._types import SequenceNotStr
 from ..shared_params.query_config import QueryConfig
 from ..shared_params.interleaved_content import InterleavedContent
 
@@ -15,7 +15,7 @@ class RagToolQueryParams(TypedDict, total=False):
     content: Required[InterleavedContent]
     """The query content to search for in the indexed documents"""
 
-    vector_db_ids: Required[List[str]]
+    vector_db_ids: Required[SequenceNotStr[str]]
     """List of vector database IDs to search within"""
 
     query_config: QueryConfig

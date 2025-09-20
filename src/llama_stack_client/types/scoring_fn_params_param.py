@@ -5,6 +5,8 @@ from __future__ import annotations
 from typing import List, Union
 from typing_extensions import Literal, Required, TypeAlias, TypedDict
 
+from .._types import SequenceNotStr
+
 __all__ = ["ScoringFnParamsParam", "LlmAsJudgeScoringFnParams", "RegexParserScoringFnParams", "BasicScoringFnParams"]
 
 
@@ -17,7 +19,7 @@ class LlmAsJudgeScoringFnParams(TypedDict, total=False):
     judge_model: Required[str]
     """Identifier of the LLM model to use as a judge for scoring"""
 
-    judge_score_regexes: Required[List[str]]
+    judge_score_regexes: Required[SequenceNotStr[str]]
     """Regexes to extract the answer from generated response"""
 
     type: Required[Literal["llm_as_judge"]]
@@ -33,7 +35,7 @@ class RegexParserScoringFnParams(TypedDict, total=False):
     ]
     """Aggregation functions to apply to the scores of each row"""
 
-    parsing_regexes: Required[List[str]]
+    parsing_regexes: Required[SequenceNotStr[str]]
     """Regex to extract the answer from generated response"""
 
     type: Required[Literal["regex_parser"]]

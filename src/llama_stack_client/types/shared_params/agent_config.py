@@ -2,9 +2,10 @@
 
 from __future__ import annotations
 
-from typing import Dict, List, Union, Iterable
+from typing import Dict, Union, Iterable
 from typing_extensions import Literal, Required, TypeAlias, TypedDict
 
+from ..._types import SequenceNotStr
 from ..tool_def_param import ToolDefParam
 from .response_format import ResponseFormat
 from .sampling_params import SamplingParams
@@ -62,14 +63,14 @@ class AgentConfig(TypedDict, total=False):
     enable_session_persistence: bool
     """Optional flag indicating whether session data has to be persisted"""
 
-    input_shields: List[str]
+    input_shields: SequenceNotStr[str]
 
     max_infer_iters: int
 
     name: str
     """Optional name for the agent, used in telemetry and identification"""
 
-    output_shields: List[str]
+    output_shields: SequenceNotStr[str]
 
     response_format: ResponseFormat
     """Optional response format configuration"""
@@ -90,4 +91,4 @@ class AgentConfig(TypedDict, total=False):
     tool_prompt_format: Literal["json", "function_tag", "python_list"]
     """Prompt format for calling custom / zero shot tools."""
 
-    toolgroups: List[Toolgroup]
+    toolgroups: SequenceNotStr[Toolgroup]

@@ -2,16 +2,17 @@
 
 from __future__ import annotations
 
-from typing import List, Union, Iterable
+from typing import Union, Iterable
 from typing_extensions import Literal, Required, TypedDict
 
+from .._types import SequenceNotStr
 from .shared_params.interleaved_content_item import InterleavedContentItem
 
 __all__ = ["InferenceEmbeddingsParams"]
 
 
 class InferenceEmbeddingsParams(TypedDict, total=False):
-    contents: Required[Union[List[str], Iterable[InterleavedContentItem]]]
+    contents: Required[Union[SequenceNotStr[str], Iterable[InterleavedContentItem]]]
     """List of contents to generate embeddings for.
 
     Each content can be a string or an InterleavedContentItem (and hence can be

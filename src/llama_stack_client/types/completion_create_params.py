@@ -2,8 +2,10 @@
 
 from __future__ import annotations
 
-from typing import Dict, List, Union, Iterable
+from typing import Dict, Union, Iterable
 from typing_extensions import Literal, Required, TypedDict
+
+from .._types import SequenceNotStr
 
 __all__ = ["CompletionCreateParamsBase", "CompletionCreateParamsNonStreaming", "CompletionCreateParamsStreaming"]
 
@@ -16,7 +18,7 @@ class CompletionCreateParamsBase(TypedDict, total=False):
     endpoint.
     """
 
-    prompt: Required[Union[str, List[str], Iterable[int], Iterable[Iterable[int]]]]
+    prompt: Required[Union[str, SequenceNotStr[str], Iterable[int], Iterable[Iterable[int]]]]
     """The prompt to generate a completion for."""
 
     best_of: int
@@ -28,7 +30,7 @@ class CompletionCreateParamsBase(TypedDict, total=False):
     frequency_penalty: float
     """(Optional) The penalty for repeated tokens."""
 
-    guided_choice: List[str]
+    guided_choice: SequenceNotStr[str]
 
     logit_bias: Dict[str, float]
     """(Optional) The logit bias to use."""
@@ -50,7 +52,7 @@ class CompletionCreateParamsBase(TypedDict, total=False):
     seed: int
     """(Optional) The seed to use."""
 
-    stop: Union[str, List[str]]
+    stop: Union[str, SequenceNotStr[str]]
     """(Optional) The stop tokens to use."""
 
     stream_options: Dict[str, Union[bool, float, str, Iterable[object], object, None]]

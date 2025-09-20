@@ -2,9 +2,10 @@
 
 from __future__ import annotations
 
-from typing import List, Iterable
+from typing import Iterable
 from typing_extensions import TypedDict
 
+from .._types import SequenceNotStr
 from .query_condition_param import QueryConditionParam
 
 __all__ = ["TelemetryQueryTracesParams"]
@@ -20,5 +21,5 @@ class TelemetryQueryTracesParams(TypedDict, total=False):
     offset: int
     """The offset of the traces to return."""
 
-    order_by: List[str]
+    order_by: SequenceNotStr[str]
     """The order by of the traces to return."""

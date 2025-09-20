@@ -2,8 +2,10 @@
 
 from __future__ import annotations
 
-from typing import Dict, List, Union
+from typing import Dict, Union
 from typing_extensions import Literal, Required, TypedDict
+
+from ..._types import SequenceNotStr
 
 __all__ = ["ToolCall"]
 
@@ -18,7 +20,7 @@ class ToolCall(TypedDict, total=False):
                     str,
                     float,
                     bool,
-                    List[Union[str, float, bool, None]],
+                    SequenceNotStr[Union[str, float, bool, None]],
                     Dict[str, Union[str, float, bool, None]],
                     None,
                 ],
