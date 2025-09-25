@@ -81,7 +81,12 @@ Methods:
 Types:
 
 ```python
-from llama_stack_client.types import ResponseObject, ResponseObjectStream, ResponseListResponse
+from llama_stack_client.types import (
+    ResponseObject,
+    ResponseObjectStream,
+    ResponseListResponse,
+    ResponseDeleteResponse,
+)
 ```
 
 Methods:
@@ -89,6 +94,7 @@ Methods:
 - <code title="post /v1/openai/v1/responses">client.responses.<a href="./src/llama_stack_client/resources/responses/responses.py">create</a>(\*\*<a href="src/llama_stack_client/types/response_create_params.py">params</a>) -> <a href="./src/llama_stack_client/types/response_object.py">ResponseObject</a></code>
 - <code title="get /v1/openai/v1/responses/{response_id}">client.responses.<a href="./src/llama_stack_client/resources/responses/responses.py">retrieve</a>(response_id) -> <a href="./src/llama_stack_client/types/response_object.py">ResponseObject</a></code>
 - <code title="get /v1/openai/v1/responses">client.responses.<a href="./src/llama_stack_client/resources/responses/responses.py">list</a>(\*\*<a href="src/llama_stack_client/types/response_list_params.py">params</a>) -> <a href="./src/llama_stack_client/types/response_list_response.py">SyncOpenAICursorPage[ResponseListResponse]</a></code>
+- <code title="delete /v1/openai/v1/responses/{response_id}">client.responses.<a href="./src/llama_stack_client/resources/responses/responses.py">delete</a>(response_id) -> <a href="./src/llama_stack_client/types/response_delete_response.py">ResponseDeleteResponse</a></code>
 
 ## InputItems
 
@@ -242,6 +248,7 @@ from llama_stack_client.types import (
     EmbeddingsResponse,
     TokenLogProbs,
     InferenceBatchChatCompletionResponse,
+    InferenceRerankResponse,
 )
 ```
 
@@ -252,6 +259,7 @@ Methods:
 - <code title="post /v1/inference/chat-completion">client.inference.<a href="./src/llama_stack_client/resources/inference.py">chat_completion</a>(\*\*<a href="src/llama_stack_client/types/inference_chat_completion_params.py">params</a>) -> <a href="./src/llama_stack_client/types/shared/chat_completion_response.py">ChatCompletionResponse</a></code>
 - <code title="post /v1/inference/completion">client.inference.<a href="./src/llama_stack_client/resources/inference.py">completion</a>(\*\*<a href="src/llama_stack_client/types/inference_completion_params.py">params</a>) -> <a href="./src/llama_stack_client/types/completion_response.py">CompletionResponse</a></code>
 - <code title="post /v1/inference/embeddings">client.inference.<a href="./src/llama_stack_client/resources/inference.py">embeddings</a>(\*\*<a href="src/llama_stack_client/types/inference_embeddings_params.py">params</a>) -> <a href="./src/llama_stack_client/types/embeddings_response.py">EmbeddingsResponse</a></code>
+- <code title="post /v1/inference/rerank">client.inference.<a href="./src/llama_stack_client/resources/inference.py">rerank</a>(\*\*<a href="src/llama_stack_client/types/inference_rerank_params.py">params</a>) -> <a href="./src/llama_stack_client/types/inference_rerank_response.py">InferenceRerankResponse</a></code>
 
 # Embeddings
 
@@ -389,10 +397,22 @@ from llama_stack_client.types import ListModelsResponse, Model, ModelListRespons
 
 Methods:
 
-- <code title="get /v1/models/{model_id}">client.models.<a href="./src/llama_stack_client/resources/models.py">retrieve</a>(model_id) -> <a href="./src/llama_stack_client/types/model.py">Model</a></code>
-- <code title="get /v1/models">client.models.<a href="./src/llama_stack_client/resources/models.py">list</a>() -> <a href="./src/llama_stack_client/types/model_list_response.py">ModelListResponse</a></code>
-- <code title="post /v1/models">client.models.<a href="./src/llama_stack_client/resources/models.py">register</a>(\*\*<a href="src/llama_stack_client/types/model_register_params.py">params</a>) -> <a href="./src/llama_stack_client/types/model.py">Model</a></code>
-- <code title="delete /v1/models/{model_id}">client.models.<a href="./src/llama_stack_client/resources/models.py">unregister</a>(model_id) -> None</code>
+- <code title="get /v1/models/{model_id}">client.models.<a href="./src/llama_stack_client/resources/models/models.py">retrieve</a>(model_id) -> <a href="./src/llama_stack_client/types/model.py">Model</a></code>
+- <code title="get /v1/models">client.models.<a href="./src/llama_stack_client/resources/models/models.py">list</a>() -> <a href="./src/llama_stack_client/types/model_list_response.py">ModelListResponse</a></code>
+- <code title="post /v1/models">client.models.<a href="./src/llama_stack_client/resources/models/models.py">register</a>(\*\*<a href="src/llama_stack_client/types/model_register_params.py">params</a>) -> <a href="./src/llama_stack_client/types/model.py">Model</a></code>
+- <code title="delete /v1/models/{model_id}">client.models.<a href="./src/llama_stack_client/resources/models/models.py">unregister</a>(model_id) -> None</code>
+
+## OpenAI
+
+Types:
+
+```python
+from llama_stack_client.types.models import OpenAIListResponse
+```
+
+Methods:
+
+- <code title="get /v1/openai/v1/models">client.models.openai.<a href="./src/llama_stack_client/resources/models/openai.py">list</a>() -> <a href="./src/llama_stack_client/types/models/openai_list_response.py">OpenAIListResponse</a></code>
 
 # PostTraining
 
@@ -487,6 +507,7 @@ Methods:
 
 - <code title="get /v1/shields/{identifier}">client.shields.<a href="./src/llama_stack_client/resources/shields.py">retrieve</a>(identifier) -> <a href="./src/llama_stack_client/types/shield.py">Shield</a></code>
 - <code title="get /v1/shields">client.shields.<a href="./src/llama_stack_client/resources/shields.py">list</a>() -> <a href="./src/llama_stack_client/types/shield_list_response.py">ShieldListResponse</a></code>
+- <code title="delete /v1/shields/{identifier}">client.shields.<a href="./src/llama_stack_client/resources/shields.py">delete</a>(identifier) -> None</code>
 - <code title="post /v1/shields">client.shields.<a href="./src/llama_stack_client/resources/shields.py">register</a>(\*\*<a href="src/llama_stack_client/types/shield_register_params.py">params</a>) -> <a href="./src/llama_stack_client/types/shield.py">Shield</a></code>
 
 # SyntheticDataGeneration

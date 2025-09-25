@@ -7,26 +7,38 @@ from typing_extensions import Literal
 
 import httpx
 
-from ..types import model_register_params
-from .._types import Body, Omit, Query, Headers, NoneType, NotGiven, omit, not_given
-from .._utils import maybe_transform, async_maybe_transform
-from .._compat import cached_property
-from .._resource import SyncAPIResource, AsyncAPIResource
-from .._response import (
+from .openai import (
+    OpenAIResource,
+    AsyncOpenAIResource,
+    OpenAIResourceWithRawResponse,
+    AsyncOpenAIResourceWithRawResponse,
+    OpenAIResourceWithStreamingResponse,
+    AsyncOpenAIResourceWithStreamingResponse,
+)
+from ...types import model_register_params
+from ..._types import Body, Omit, Query, Headers, NoneType, NotGiven, omit, not_given
+from ..._utils import maybe_transform, async_maybe_transform
+from ..._compat import cached_property
+from ..._resource import SyncAPIResource, AsyncAPIResource
+from ..._response import (
     to_raw_response_wrapper,
     to_streamed_response_wrapper,
     async_to_raw_response_wrapper,
     async_to_streamed_response_wrapper,
 )
-from .._wrappers import DataWrapper
-from ..types.model import Model
-from .._base_client import make_request_options
-from ..types.model_list_response import ModelListResponse
+from ..._wrappers import DataWrapper
+from ...types.model import Model
+from ..._base_client import make_request_options
+from ...types.model_list_response import ModelListResponse
 
 __all__ = ["ModelsResource", "AsyncModelsResource"]
 
 
 class ModelsResource(SyncAPIResource):
+    @cached_property
+    def openai(self) -> OpenAIResource:
+        return OpenAIResource(self._client)
+
     @cached_property
     def with_raw_response(self) -> ModelsResourceWithRawResponse:
         """
@@ -193,6 +205,10 @@ class ModelsResource(SyncAPIResource):
 
 
 class AsyncModelsResource(AsyncAPIResource):
+    @cached_property
+    def openai(self) -> AsyncOpenAIResource:
+        return AsyncOpenAIResource(self._client)
+
     @cached_property
     def with_raw_response(self) -> AsyncModelsResourceWithRawResponse:
         """
@@ -375,6 +391,10 @@ class ModelsResourceWithRawResponse:
             models.unregister,
         )
 
+    @cached_property
+    def openai(self) -> OpenAIResourceWithRawResponse:
+        return OpenAIResourceWithRawResponse(self._models.openai)
+
 
 class AsyncModelsResourceWithRawResponse:
     def __init__(self, models: AsyncModelsResource) -> None:
@@ -392,6 +412,10 @@ class AsyncModelsResourceWithRawResponse:
         self.unregister = async_to_raw_response_wrapper(
             models.unregister,
         )
+
+    @cached_property
+    def openai(self) -> AsyncOpenAIResourceWithRawResponse:
+        return AsyncOpenAIResourceWithRawResponse(self._models.openai)
 
 
 class ModelsResourceWithStreamingResponse:
@@ -411,6 +435,10 @@ class ModelsResourceWithStreamingResponse:
             models.unregister,
         )
 
+    @cached_property
+    def openai(self) -> OpenAIResourceWithStreamingResponse:
+        return OpenAIResourceWithStreamingResponse(self._models.openai)
+
 
 class AsyncModelsResourceWithStreamingResponse:
     def __init__(self, models: AsyncModelsResource) -> None:
@@ -428,3 +456,7 @@ class AsyncModelsResourceWithStreamingResponse:
         self.unregister = async_to_streamed_response_wrapper(
             models.unregister,
         )
+
+    @cached_property
+    def openai(self) -> AsyncOpenAIResourceWithStreamingResponse:
+        return AsyncOpenAIResourceWithStreamingResponse(self._models.openai)
