@@ -7,7 +7,7 @@ from typing import Dict, Type, Union, Iterable, cast
 import httpx
 
 from ..types import shield_register_params
-from .._types import Body, Omit, Query, Headers, NotGiven, omit, not_given
+from .._types import Body, Omit, Query, Headers, NoneType, NotGiven, omit, not_given
 from .._utils import maybe_transform, async_maybe_transform
 from .._compat import cached_property
 from .._resource import SyncAPIResource, AsyncAPIResource
@@ -99,6 +99,40 @@ class ShieldsResource(SyncAPIResource):
                 post_parser=DataWrapper[ShieldListResponse]._unwrapper,
             ),
             cast_to=cast(Type[ShieldListResponse], DataWrapper[ShieldListResponse]),
+        )
+
+    def delete(
+        self,
+        identifier: str,
+        *,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> None:
+        """
+        Unregister a shield.
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not identifier:
+            raise ValueError(f"Expected a non-empty value for `identifier` but received {identifier!r}")
+        extra_headers = {"Accept": "*/*", **(extra_headers or {})}
+        return self._delete(
+            f"/v1/shields/{identifier}",
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=NoneType,
         )
 
     def register(
@@ -229,6 +263,40 @@ class AsyncShieldsResource(AsyncAPIResource):
             cast_to=cast(Type[ShieldListResponse], DataWrapper[ShieldListResponse]),
         )
 
+    async def delete(
+        self,
+        identifier: str,
+        *,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> None:
+        """
+        Unregister a shield.
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not identifier:
+            raise ValueError(f"Expected a non-empty value for `identifier` but received {identifier!r}")
+        extra_headers = {"Accept": "*/*", **(extra_headers or {})}
+        return await self._delete(
+            f"/v1/shields/{identifier}",
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=NoneType,
+        )
+
     async def register(
         self,
         *,
@@ -291,6 +359,9 @@ class ShieldsResourceWithRawResponse:
         self.list = to_raw_response_wrapper(
             shields.list,
         )
+        self.delete = to_raw_response_wrapper(
+            shields.delete,
+        )
         self.register = to_raw_response_wrapper(
             shields.register,
         )
@@ -305,6 +376,9 @@ class AsyncShieldsResourceWithRawResponse:
         )
         self.list = async_to_raw_response_wrapper(
             shields.list,
+        )
+        self.delete = async_to_raw_response_wrapper(
+            shields.delete,
         )
         self.register = async_to_raw_response_wrapper(
             shields.register,
@@ -321,6 +395,9 @@ class ShieldsResourceWithStreamingResponse:
         self.list = to_streamed_response_wrapper(
             shields.list,
         )
+        self.delete = to_streamed_response_wrapper(
+            shields.delete,
+        )
         self.register = to_streamed_response_wrapper(
             shields.register,
         )
@@ -335,6 +412,9 @@ class AsyncShieldsResourceWithStreamingResponse:
         )
         self.list = async_to_streamed_response_wrapper(
             shields.list,
+        )
+        self.delete = async_to_streamed_response_wrapper(
+            shields.delete,
         )
         self.register = async_to_streamed_response_wrapper(
             shields.register,
