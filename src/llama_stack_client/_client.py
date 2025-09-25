@@ -63,7 +63,6 @@ if TYPE_CHECKING:
     )
     from .resources.files import FilesResource, AsyncFilesResource
     from .resources.tools import ToolsResource, AsyncToolsResource
-    from .resources.models import ModelsResource, AsyncModelsResource
     from .resources.routes import RoutesResource, AsyncRoutesResource
     from .resources.safety import SafetyResource, AsyncSafetyResource
     from .resources.inspect import InspectResource, AsyncInspectResource
@@ -83,6 +82,7 @@ if TYPE_CHECKING:
     from .resources.completions import CompletionsResource, AsyncCompletionsResource
     from .resources.moderations import ModerationsResource, AsyncModerationsResource
     from .resources.agents.agents import AgentsResource, AsyncAgentsResource
+    from .resources.models.models import ModelsResource, AsyncModelsResource
     from .resources.scoring_functions import ScoringFunctionsResource, AsyncScoringFunctionsResource
     from .resources.responses.responses import ResponsesResource, AsyncResponsesResource
     from .resources.synthetic_data_generation import (

@@ -32,6 +32,7 @@ from ..._base_client import AsyncPaginator, make_request_options
 from ...types.response_object import ResponseObject
 from ...types.response_list_response import ResponseListResponse
 from ...types.response_object_stream import ResponseObjectStream
+from ...types.response_delete_response import ResponseDeleteResponse
 
 __all__ = ["ResponsesResource", "AsyncResponsesResource"]
 
@@ -342,6 +343,39 @@ class ResponsesResource(SyncAPIResource):
             model=ResponseListResponse,
         )
 
+    def delete(
+        self,
+        response_id: str,
+        *,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> ResponseDeleteResponse:
+        """
+        Delete an OpenAI response by its ID.
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not response_id:
+            raise ValueError(f"Expected a non-empty value for `response_id` but received {response_id!r}")
+        return self._delete(
+            f"/v1/openai/v1/responses/{response_id}",
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=ResponseDeleteResponse,
+        )
+
 
 class AsyncResponsesResource(AsyncAPIResource):
     @cached_property
@@ -649,6 +683,39 @@ class AsyncResponsesResource(AsyncAPIResource):
             model=ResponseListResponse,
         )
 
+    async def delete(
+        self,
+        response_id: str,
+        *,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> ResponseDeleteResponse:
+        """
+        Delete an OpenAI response by its ID.
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not response_id:
+            raise ValueError(f"Expected a non-empty value for `response_id` but received {response_id!r}")
+        return await self._delete(
+            f"/v1/openai/v1/responses/{response_id}",
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=ResponseDeleteResponse,
+        )
+
 
 class ResponsesResourceWithRawResponse:
     def __init__(self, responses: ResponsesResource) -> None:
@@ -662,6 +729,9 @@ class ResponsesResourceWithRawResponse:
         )
         self.list = to_raw_response_wrapper(
             responses.list,
+        )
+        self.delete = to_raw_response_wrapper(
+            responses.delete,
         )
 
     @cached_property
@@ -682,6 +752,9 @@ class AsyncResponsesResourceWithRawResponse:
         self.list = async_to_raw_response_wrapper(
             responses.list,
         )
+        self.delete = async_to_raw_response_wrapper(
+            responses.delete,
+        )
 
     @cached_property
     def input_items(self) -> AsyncInputItemsResourceWithRawResponse:
@@ -701,6 +774,9 @@ class ResponsesResourceWithStreamingResponse:
         self.list = to_streamed_response_wrapper(
             responses.list,
         )
+        self.delete = to_streamed_response_wrapper(
+            responses.delete,
+        )
 
     @cached_property
     def input_items(self) -> InputItemsResourceWithStreamingResponse:
@@ -719,6 +795,9 @@ class AsyncResponsesResourceWithStreamingResponse:
         )
         self.list = async_to_streamed_response_wrapper(
             responses.list,
+        )
+        self.delete = async_to_streamed_response_wrapper(
+            responses.delete,
         )
 
     @cached_property
