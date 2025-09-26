@@ -222,10 +222,10 @@ Note that requests that time out are [retried twice by default](#retries).
 
 We use the standard library [`logging`](https://docs.python.org/3/library/logging.html) module.
 
-You can enable logging by setting the environment variable `LLAMA_STACK_CLIENT_LOG` to `debug`.
+You can enable logging by setting the environment variable `LLAMA_STACK_LOG` to `debug`.
 
 ```shell
-$ export LLAMA_STACK_CLIENT_LOG=debug
+$ export LLAMA_STACK_LOG=debug
 ```
 
 ### How to tell whether `None` means `null` or missing
