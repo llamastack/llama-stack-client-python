@@ -59,7 +59,7 @@ dev = [
     "pyright==1.1.399",
     "mypy",
     "respx",
-    "pytest",
+    "pytest>=7.1.1",
     "pytest-asyncio",
     "ruff",
     "time-machine",
@@ -67,22 +67,14 @@ dev = [
     "importlib-metadata>=6.7.0",
     "rich>=13.7.1",
     "pytest-xdist>=3.6.1",
+    "pre-commit",
+    "black",
 ]
 pydantic-v1 = [
     "pydantic>=1.9.0,<2",
 ]
 pydantic-v2 = [
     "pydantic>=2,<3",
-]
-dev = [
-    "pytest>=7.1.1",
-    "pytest-asyncio",
-    "pre-commit",
-    "black",
-    "ruff",
-    "mypy",
-    "respx",
-    "dirty-equals"
 ]
 
 
