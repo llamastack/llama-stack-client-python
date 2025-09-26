@@ -1,5 +1,45 @@
 # Changelog
 
+## 0.2.23-alpha.1 (2025-09-26)
+
+Full Changelog: [v0.2.19-alpha.1...v0.2.23-alpha.1](https://github.com/llamastack/llama-stack-client-python/compare/v0.2.19-alpha.1...v0.2.23-alpha.1)
+
+### Features
+
+* **api:** manual updates ([e9873f9](https://github.com/llamastack/llama-stack-client-python/commit/e9873f92a90262e76e67b50a054c3632dddab572))
+* improve future compat with pydantic v3 ([5c7b05b](https://github.com/llamastack/llama-stack-client-python/commit/5c7b05b5bcb922d82b57838f31a734588f31855a))
+* **types:** replace List[str] with SequenceNotStr in params ([2c0cdd1](https://github.com/llamastack/llama-stack-client-python/commit/2c0cdd14a84245001b2f46d220950b7828e4675d))
+
+
+### Bug Fixes
+
+* avoid newer type syntax ([c94275d](https://github.com/llamastack/llama-stack-client-python/commit/c94275d8aea13deafb0821e535774f48f0063a37))
+* **client:** fix circular dependencies and offset pagination ([fc50cbe](https://github.com/llamastack/llama-stack-client-python/commit/fc50cbe63b0483b1ac786e09134ae8917d0a40b7))
+* **project:** avoid duplicate dev dep sections ([ccc9dd2](https://github.com/llamastack/llama-stack-client-python/commit/ccc9dd2d704424b0b1f6a3f1d0da09385bfda5cf))
+* **tool:** revert the ToolDefParam stuff because we reverted the bad commit ([e2d543d](https://github.com/llamastack/llama-stack-client-python/commit/e2d543dfe2cdab2e1d74e3fa2bd2334af040b56d))
+
+
+### Chores
+
+* **deps:** move deprecated `dev-dependencies` in `pyproject.toml` to dev group ([a2f4544](https://github.com/llamastack/llama-stack-client-python/commit/a2f45441edf67842c2db37765ee773394cd2dda3))
+* do not install brew dependencies in ./scripts/bootstrap by default ([6f269ff](https://github.com/llamastack/llama-stack-client-python/commit/6f269ff5dec08256d4e2e144b85cd67c8f860bb2))
+* **internal:** add Sequence related utils ([54fd160](https://github.com/llamastack/llama-stack-client-python/commit/54fd1607f0dc4506a329b8a8f3c747cc6a413789))
+* **internal:** codegen related update ([1cf74fe](https://github.com/llamastack/llama-stack-client-python/commit/1cf74fec41180b9357ad91cf6f67b950c98db150))
+* **internal:** minor formatting change ([1956d9a](https://github.com/llamastack/llama-stack-client-python/commit/1956d9aaf2aec0ab8bee590dc8df3d049689acd9))
+* **internal:** move mypy configurations to `pyproject.toml` file ([a27daa1](https://github.com/llamastack/llama-stack-client-python/commit/a27daa1627b674eb431175629f9be54e9fc8a39e))
+* **internal:** run tests in an isolated environment ([c101839](https://github.com/llamastack/llama-stack-client-python/commit/c1018390ca2754d8d6152bc3a350e95ce1138ac9))
+* **internal:** update pydantic dependency ([b48f1f4](https://github.com/llamastack/llama-stack-client-python/commit/b48f1f4d730751de94029733e9466edd08589464))
+* **internal:** update pyright exclude list ([402a316](https://github.com/llamastack/llama-stack-client-python/commit/402a3160399d676cdcd214ea8a776fd2ce7c2db3))
+* **types:** change optional parameter type from NotGiven to Omit ([c241e7e](https://github.com/llamastack/llama-stack-client-python/commit/c241e7e5f4986b304bf9003eaf3224c7b141a500))
+
+
+### Build System
+
+* Bump version to 0.2.19 ([034b3a9](https://github.com/llamastack/llama-stack-client-python/commit/034b3a9debdb85be0cbe42cb8711e37629d3376c))
+* Bump version to 0.2.20 ([b178953](https://github.com/llamastack/llama-stack-client-python/commit/b178953c51e1bfe5075fe942eacab90e0caad180))
+* Bump version to 0.2.21 ([bb25f4a](https://github.com/llamastack/llama-stack-client-python/commit/bb25f4aab73df2f336a3f3ff184476367a1b66b4))
+* Bump version to 0.2.22 ([ba825eb](https://github.com/llamastack/llama-stack-client-python/commit/ba825eb25975fa7ae8589365871e59d1b02168d8))
+
 ## 0.2.19-alpha.1 (2025-08-26)
 
 Full Changelog: [v0.2.18-alpha.3...v0.2.19-alpha.1](https://github.com/llamastack/llama-stack-client-python/compare/v0.2.18-alpha.3...v0.2.19-alpha.1)
