@@ -499,13 +499,11 @@ provides-extras = ["aiohttp"]
 [package.metadata.requires-dev]
 dev = [
     { name = "black" },
-    { name = "dirty-equals" },
     { name = "dirty-equals", specifier = ">=0.6.0" },
     { name = "importlib-metadata", specifier = ">=6.7.0" },
     { name = "mypy" },
     { name = "pre-commit" },
     { name = "pyright", specifier = "==1.1.399" },
-    { name = "pytest" },
     { name = "pytest", specifier = ">=7.1.1" },
     { name = "pytest-asyncio" },
     { name = "pytest-xdist", specifier = ">=3.6.1" },
