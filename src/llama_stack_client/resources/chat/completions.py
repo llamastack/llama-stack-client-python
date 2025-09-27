@@ -372,7 +372,7 @@ class CompletionsResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> CompletionCreateResponse | Stream[ChatCompletionChunk]:
         return self._post(
-            "/v1/openai/v1/chat/completions",
+            "/v1/chat/completions",
             body=maybe_transform(
                 {
                     "messages": messages,
@@ -439,7 +439,7 @@ class CompletionsResource(SyncAPIResource):
         if not completion_id:
             raise ValueError(f"Expected a non-empty value for `completion_id` but received {completion_id!r}")
         return self._get(
-            f"/v1/openai/v1/chat/completions/{completion_id}",
+            f"/v1/chat/completions/{completion_id}",
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -481,7 +481,7 @@ class CompletionsResource(SyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         return self._get_api_list(
-            "/v1/openai/v1/chat/completions",
+            "/v1/chat/completions",
             page=SyncOpenAICursorPage[CompletionListResponse],
             options=make_request_options(
                 extra_headers=extra_headers,
@@ -845,7 +845,7 @@ class AsyncCompletionsResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> CompletionCreateResponse | AsyncStream[ChatCompletionChunk]:
         return await self._post(
-            "/v1/openai/v1/chat/completions",
+            "/v1/chat/completions",
             body=await async_maybe_transform(
                 {
                     "messages": messages,
@@ -912,7 +912,7 @@ class AsyncCompletionsResource(AsyncAPIResource):
         if not completion_id:
             raise ValueError(f"Expected a non-empty value for `completion_id` but received {completion_id!r}")
         return await self._get(
-            f"/v1/openai/v1/chat/completions/{completion_id}",
+            f"/v1/chat/completions/{completion_id}",
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -954,7 +954,7 @@ class AsyncCompletionsResource(AsyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         return self._get_api_list(
-            "/v1/openai/v1/chat/completions",
+            "/v1/chat/completions",
             page=AsyncOpenAICursorPage[CompletionListResponse],
             options=make_request_options(
                 extra_headers=extra_headers,

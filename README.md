@@ -181,6 +181,8 @@ from llama_stack_client import LlamaStackClient
 client = LlamaStackClient()
 
 client.files.create(
+    expires_after_anchor="expires_after_anchor",
+    expires_after_seconds=0,
     file=Path("/path/to/file"),
     purpose="assistants",
 )
