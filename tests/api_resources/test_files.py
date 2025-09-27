@@ -21,6 +21,8 @@ class TestFiles:
     @parametrize
     def test_method_create(self, client: LlamaStackClient) -> None:
         file = client.files.create(
+            expires_after_anchor="expires_after_anchor",
+            expires_after_seconds=0,
             file=b"raw file contents",
             purpose="assistants",
         )
@@ -29,6 +31,8 @@ class TestFiles:
     @parametrize
     def test_raw_response_create(self, client: LlamaStackClient) -> None:
         response = client.files.with_raw_response.create(
+            expires_after_anchor="expires_after_anchor",
+            expires_after_seconds=0,
             file=b"raw file contents",
             purpose="assistants",
         )
@@ -41,6 +45,8 @@ class TestFiles:
     @parametrize
     def test_streaming_response_create(self, client: LlamaStackClient) -> None:
         with client.files.with_streaming_response.create(
+            expires_after_anchor="expires_after_anchor",
+            expires_after_seconds=0,
             file=b"raw file contents",
             purpose="assistants",
         ) as response:
@@ -210,6 +216,8 @@ class TestAsyncFiles:
     @parametrize
     async def test_method_create(self, async_client: AsyncLlamaStackClient) -> None:
         file = await async_client.files.create(
+            expires_after_anchor="expires_after_anchor",
+            expires_after_seconds=0,
             file=b"raw file contents",
             purpose="assistants",
         )
@@ -218,6 +226,8 @@ class TestAsyncFiles:
     @parametrize
     async def test_raw_response_create(self, async_client: AsyncLlamaStackClient) -> None:
         response = await async_client.files.with_raw_response.create(
+            expires_after_anchor="expires_after_anchor",
+            expires_after_seconds=0,
             file=b"raw file contents",
             purpose="assistants",
         )
@@ -230,6 +240,8 @@ class TestAsyncFiles:
     @parametrize
     async def test_streaming_response_create(self, async_client: AsyncLlamaStackClient) -> None:
         async with async_client.files.with_streaming_response.create(
+            expires_after_anchor="expires_after_anchor",
+            expires_after_seconds=0,
             file=b"raw file contents",
             purpose="assistants",
         ) as response:

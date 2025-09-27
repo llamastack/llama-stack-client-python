@@ -73,7 +73,7 @@ class ModerationsResource(SyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         return self._post(
-            "/v1/openai/v1/moderations",
+            "/v1/moderations",
             body=maybe_transform(
                 {
                     "input": input,
@@ -138,7 +138,7 @@ class AsyncModerationsResource(AsyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         return await self._post(
-            "/v1/openai/v1/moderations",
+            "/v1/moderations",
             body=await async_maybe_transform(
                 {
                     "input": input,

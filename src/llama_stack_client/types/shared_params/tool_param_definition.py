@@ -15,4 +15,8 @@ class ToolParamDefinition(TypedDict, total=False):
 
     description: str
 
+    items: Union[bool, float, str, Iterable[object], object, None]
+
     required: bool
+
+    title: str
