@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from typing import Mapping, cast
+from typing import Mapping, Optional, cast
 from typing_extensions import Literal
 
 import httpx
@@ -49,6 +49,8 @@ class FilesResource(SyncAPIResource):
     def create(
         self,
         *,
+        expires_after_anchor: Optional[str],
+        expires_after_seconds: Optional[int],
         file: FileTypes,
         purpose: Literal["assistants", "batch"],
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -65,6 +67,9 @@ class FilesResource(SyncAPIResource):
 
         - file: The File object (not file name) to be uploaded.
         - purpose: The intended purpose of the uploaded file.
+        - expires_after: Optional form values describing expiration for the file.
+          Expected expires_after[anchor] = "created_at", expires_after[seconds] =
+          {integer}. Seconds must be between 3600 and 2592000 (1 hour to 30 days).
 
         Args:
           purpose: Valid purpose values for OpenAI Files API.
@@ -79,6 +84,8 @@ class FilesResource(SyncAPIResource):
         """
         body = deepcopy_minimal(
             {
+                "expires_after_anchor": expires_after_anchor,
+                "expires_after_seconds": expires_after_seconds,
                 "file": file,
                 "purpose": purpose,
             }
@@ -89,7 +96,7 @@ class FilesResource(SyncAPIResource):
         # multipart/form-data; boundary=---abc--
         extra_headers = {"Content-Type": "multipart/form-data", **(extra_headers or {})}
         return self._post(
-            "/v1/openai/v1/files",
+            "/v1/files",
             body=maybe_transform(body, file_create_params.FileCreateParams),
             files=files,
             options=make_request_options(
@@ -124,7 +131,7 @@ class FilesResource(SyncAPIResource):
         if not file_id:
             raise ValueError(f"Expected a non-empty value for `file_id` but received {file_id!r}")
         return self._get(
-            f"/v1/openai/v1/files/{file_id}",
+            f"/v1/files/{file_id}",
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -171,7 +178,7 @@ class FilesResource(SyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         return self._get_api_list(
-            "/v1/openai/v1/files",
+            "/v1/files",
             page=SyncOpenAICursorPage[File],
             options=make_request_options(
                 extra_headers=extra_headers,
@@ -217,7 +224,7 @@ class FilesResource(SyncAPIResource):
         if not file_id:
             raise ValueError(f"Expected a non-empty value for `file_id` but received {file_id!r}")
         return self._delete(
-            f"/v1/openai/v1/files/{file_id}",
+            f"/v1/files/{file_id}",
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -250,7 +257,7 @@ class FilesResource(SyncAPIResource):
         if not file_id:
             raise ValueError(f"Expected a non-empty value for `file_id` but received {file_id!r}")
         return self._get(
-            f"/v1/openai/v1/files/{file_id}/content",
+            f"/v1/files/{file_id}/content",
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -281,6 +288,8 @@ class AsyncFilesResource(AsyncAPIResource):
     async def create(
         self,
         *,
+        expires_after_anchor: Optional[str],
+        expires_after_seconds: Optional[int],
         file: FileTypes,
         purpose: Literal["assistants", "batch"],
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -297,6 +306,9 @@ class AsyncFilesResource(AsyncAPIResource):
 
         - file: The File object (not file name) to be uploaded.
         - purpose: The intended purpose of the uploaded file.
+        - expires_after: Optional form values describing expiration for the file.
+          Expected expires_after[anchor] = "created_at", expires_after[seconds] =
+          {integer}. Seconds must be between 3600 and 2592000 (1 hour to 30 days).
 
         Args:
           purpose: Valid purpose values for OpenAI Files API.
@@ -311,6 +323,8 @@ class AsyncFilesResource(AsyncAPIResource):
         """
         body = deepcopy_minimal(
             {
+                "expires_after_anchor": expires_after_anchor,
+                "expires_after_seconds": expires_after_seconds,
                 "file": file,
                 "purpose": purpose,
             }
@@ -321,7 +335,7 @@ class AsyncFilesResource(AsyncAPIResource):
         # multipart/form-data; boundary=---abc--
         extra_headers = {"Content-Type": "multipart/form-data", **(extra_headers or {})}
         return await self._post(
-            "/v1/openai/v1/files",
+            "/v1/files",
             body=await async_maybe_transform(body, file_create_params.FileCreateParams),
             files=files,
             options=make_request_options(
@@ -356,7 +370,7 @@ class AsyncFilesResource(AsyncAPIResource):
         if not file_id:
             raise ValueError(f"Expected a non-empty value for `file_id` but received {file_id!r}")
         return await self._get(
-            f"/v1/openai/v1/files/{file_id}",
+            f"/v1/files/{file_id}",
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -403,7 +417,7 @@ class AsyncFilesResource(AsyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         return self._get_api_list(
-            "/v1/openai/v1/files",
+            "/v1/files",
             page=AsyncOpenAICursorPage[File],
             options=make_request_options(
                 extra_headers=extra_headers,
@@ -449,7 +463,7 @@ class AsyncFilesResource(AsyncAPIResource):
         if not file_id:
             raise ValueError(f"Expected a non-empty value for `file_id` but received {file_id!r}")
         return await self._delete(
-            f"/v1/openai/v1/files/{file_id}",
+            f"/v1/files/{file_id}",
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -482,7 +496,7 @@ class AsyncFilesResource(AsyncAPIResource):
         if not file_id:
             raise ValueError(f"Expected a non-empty value for `file_id` but received {file_id!r}")
         return await self._get(
-            f"/v1/openai/v1/files/{file_id}/content",
+            f"/v1/files/{file_id}/content",
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),

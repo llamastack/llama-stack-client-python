@@ -85,7 +85,7 @@ class InputItemsResource(SyncAPIResource):
         if not response_id:
             raise ValueError(f"Expected a non-empty value for `response_id` but received {response_id!r}")
         return self._get(
-            f"/v1/openai/v1/responses/{response_id}/input_items",
+            f"/v1/responses/{response_id}/input_items",
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
@@ -168,7 +168,7 @@ class AsyncInputItemsResource(AsyncAPIResource):
         if not response_id:
             raise ValueError(f"Expected a non-empty value for `response_id` but received {response_id!r}")
         return await self._get(
-            f"/v1/openai/v1/responses/{response_id}/input_items",
+            f"/v1/responses/{response_id}/input_items",
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,

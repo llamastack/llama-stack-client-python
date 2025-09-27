@@ -23,6 +23,12 @@ class Parameter(BaseModel):
     default: Union[bool, float, str, List[object], object, None] = None
     """(Optional) Default value for the parameter if not provided"""
 
+    items: Optional[object] = None
+    """Type of the elements when parameter_type is array"""
+
+    title: Optional[str] = None
+    """(Optional) Title of the parameter"""
+
 
 class ToolDef(BaseModel):
     name: str

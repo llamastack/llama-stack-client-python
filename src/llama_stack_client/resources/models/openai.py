@@ -54,7 +54,7 @@ class OpenAIResource(SyncAPIResource):
     ) -> OpenAIListResponse:
         """List models using the OpenAI API."""
         return self._get(
-            "/v1/openai/v1/models",
+            "/v1/models",
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
@@ -98,7 +98,7 @@ class AsyncOpenAIResource(AsyncAPIResource):
     ) -> OpenAIListResponse:
         """List models using the OpenAI API."""
         return await self._get(
-            "/v1/openai/v1/models",
+            "/v1/models",
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,

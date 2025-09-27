@@ -22,7 +22,6 @@ from .shared import (
     SystemMessage as SystemMessage,
     ResponseFormat as ResponseFormat,
     SamplingParams as SamplingParams,
-    BatchCompletion as BatchCompletion,
     SafetyViolation as SafetyViolation,
     CompletionMessage as CompletionMessage,
     InterleavedContent as InterleavedContent,
@@ -61,7 +60,6 @@ from .file_create_params import FileCreateParams as FileCreateParams
 from .tool_list_response import ToolListResponse as ToolListResponse
 from .agent_create_params import AgentCreateParams as AgentCreateParams
 from .agent_list_response import AgentListResponse as AgentListResponse
-from .completion_response import CompletionResponse as CompletionResponse
 from .embeddings_response import EmbeddingsResponse as EmbeddingsResponse
 from .list_files_response import ListFilesResponse as ListFilesResponse
 from .list_tools_response import ListToolsResponse as ListToolsResponse
@@ -73,7 +71,6 @@ from .tool_response_param import ToolResponseParam as ToolResponseParam
 from .delete_file_response import DeleteFileResponse as DeleteFileResponse
 from .eval_candidate_param import EvalCandidateParam as EvalCandidateParam
 from .eval_run_eval_params import EvalRunEvalParams as EvalRunEvalParams
-from .list_models_response import ListModelsResponse as ListModelsResponse
 from .list_routes_response import ListRoutesResponse as ListRoutesResponse
 from .query_spans_response import QuerySpansResponse as QuerySpansResponse
 from .response_list_params import ResponseListParams as ResponseListParams
@@ -134,7 +131,6 @@ from .telemetry_log_event_params import TelemetryLogEventParams as TelemetryLogE
 from .vector_store_create_params import VectorStoreCreateParams as VectorStoreCreateParams
 from .vector_store_search_params import VectorStoreSearchParams as VectorStoreSearchParams
 from .vector_store_update_params import VectorStoreUpdateParams as VectorStoreUpdateParams
-from .inference_completion_params import InferenceCompletionParams as InferenceCompletionParams
 from .inference_embeddings_params import InferenceEmbeddingsParams as InferenceEmbeddingsParams
 from .list_vector_stores_response import ListVectorStoresResponse as ListVectorStoresResponse
 from .telemetry_get_span_response import TelemetryGetSpanResponse as TelemetryGetSpanResponse
@@ -160,19 +156,12 @@ from .scoring_function_register_params import ScoringFunctionRegisterParams as S
 from .telemetry_get_span_tree_response import TelemetryGetSpanTreeResponse as TelemetryGetSpanTreeResponse
 from .telemetry_query_metrics_response import TelemetryQueryMetricsResponse as TelemetryQueryMetricsResponse
 from .tool_runtime_list_tools_response import ToolRuntimeListToolsResponse as ToolRuntimeListToolsResponse
-from .inference_batch_completion_params import InferenceBatchCompletionParams as InferenceBatchCompletionParams
 from .synthetic_data_generation_response import SyntheticDataGenerationResponse as SyntheticDataGenerationResponse
 from .chat_completion_response_stream_chunk import (
     ChatCompletionResponseStreamChunk as ChatCompletionResponseStreamChunk,
 )
-from .inference_batch_chat_completion_params import (
-    InferenceBatchChatCompletionParams as InferenceBatchChatCompletionParams,
-)
 from .telemetry_save_spans_to_dataset_params import (
     TelemetrySaveSpansToDatasetParams as TelemetrySaveSpansToDatasetParams,
-)
-from .inference_batch_chat_completion_response import (
-    InferenceBatchChatCompletionResponse as InferenceBatchChatCompletionResponse,
 )
 from .post_training_preference_optimize_params import (
     PostTrainingPreferenceOptimizeParams as PostTrainingPreferenceOptimizeParams,

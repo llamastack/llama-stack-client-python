@@ -326,7 +326,7 @@ class CompletionsResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> CompletionCreateResponse | Stream[CompletionCreateResponse]:
         return self._post(
-            "/v1/openai/v1/completions",
+            "/v1/completions",
             body=maybe_transform(
                 {
                     "model": model,
@@ -664,7 +664,7 @@ class AsyncCompletionsResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> CompletionCreateResponse | AsyncStream[CompletionCreateResponse]:
         return await self._post(
-            "/v1/openai/v1/completions",
+            "/v1/completions",
             body=await async_maybe_transform(
                 {
                     "model": model,

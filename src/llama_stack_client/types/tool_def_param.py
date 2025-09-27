@@ -24,6 +24,12 @@ class Parameter(TypedDict, total=False):
     default: Union[bool, float, str, Iterable[object], object, None]
     """(Optional) Default value for the parameter if not provided"""
 
+    items: object
+    """Type of the elements when parameter_type is array"""
+
+    title: str
+    """(Optional) Title of the parameter"""
+
 
 class ToolDefParam(TypedDict, total=False):
     name: Required[str]

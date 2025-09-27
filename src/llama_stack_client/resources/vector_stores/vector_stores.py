@@ -112,7 +112,7 @@ class VectorStoresResource(SyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         return self._post(
-            "/v1/openai/v1/vector_stores",
+            "/v1/vector_stores",
             body=maybe_transform(
                 {
                     "chunking_strategy": chunking_strategy,
@@ -158,7 +158,7 @@ class VectorStoresResource(SyncAPIResource):
         if not vector_store_id:
             raise ValueError(f"Expected a non-empty value for `vector_store_id` but received {vector_store_id!r}")
         return self._get(
-            f"/v1/openai/v1/vector_stores/{vector_store_id}",
+            f"/v1/vector_stores/{vector_store_id}",
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -200,7 +200,7 @@ class VectorStoresResource(SyncAPIResource):
         if not vector_store_id:
             raise ValueError(f"Expected a non-empty value for `vector_store_id` but received {vector_store_id!r}")
         return self._post(
-            f"/v1/openai/v1/vector_stores/{vector_store_id}",
+            f"/v1/vector_stores/{vector_store_id}",
             body=maybe_transform(
                 {
                     "expires_after": expires_after,
@@ -255,7 +255,7 @@ class VectorStoresResource(SyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         return self._get_api_list(
-            "/v1/openai/v1/vector_stores",
+            "/v1/vector_stores",
             page=SyncOpenAICursorPage[VectorStore],
             options=make_request_options(
                 extra_headers=extra_headers,
@@ -301,7 +301,7 @@ class VectorStoresResource(SyncAPIResource):
         if not vector_store_id:
             raise ValueError(f"Expected a non-empty value for `vector_store_id` but received {vector_store_id!r}")
         return self._delete(
-            f"/v1/openai/v1/vector_stores/{vector_store_id}",
+            f"/v1/vector_stores/{vector_store_id}",
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -354,7 +354,7 @@ class VectorStoresResource(SyncAPIResource):
         if not vector_store_id:
             raise ValueError(f"Expected a non-empty value for `vector_store_id` but received {vector_store_id!r}")
         return self._post(
-            f"/v1/openai/v1/vector_stores/{vector_store_id}/search",
+            f"/v1/vector_stores/{vector_store_id}/search",
             body=maybe_transform(
                 {
                     "query": query,
@@ -446,7 +446,7 @@ class AsyncVectorStoresResource(AsyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         return await self._post(
-            "/v1/openai/v1/vector_stores",
+            "/v1/vector_stores",
             body=await async_maybe_transform(
                 {
                     "chunking_strategy": chunking_strategy,
@@ -492,7 +492,7 @@ class AsyncVectorStoresResource(AsyncAPIResource):
         if not vector_store_id:
             raise ValueError(f"Expected a non-empty value for `vector_store_id` but received {vector_store_id!r}")
         return await self._get(
-            f"/v1/openai/v1/vector_stores/{vector_store_id}",
+            f"/v1/vector_stores/{vector_store_id}",
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -534,7 +534,7 @@ class AsyncVectorStoresResource(AsyncAPIResource):
         if not vector_store_id:
             raise ValueError(f"Expected a non-empty value for `vector_store_id` but received {vector_store_id!r}")
         return await self._post(
-            f"/v1/openai/v1/vector_stores/{vector_store_id}",
+            f"/v1/vector_stores/{vector_store_id}",
             body=await async_maybe_transform(
                 {
                     "expires_after": expires_after,
@@ -589,7 +589,7 @@ class AsyncVectorStoresResource(AsyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         return self._get_api_list(
-            "/v1/openai/v1/vector_stores",
+            "/v1/vector_stores",
             page=AsyncOpenAICursorPage[VectorStore],
             options=make_request_options(
                 extra_headers=extra_headers,
@@ -635,7 +635,7 @@ class AsyncVectorStoresResource(AsyncAPIResource):
         if not vector_store_id:
             raise ValueError(f"Expected a non-empty value for `vector_store_id` but received {vector_store_id!r}")
         return await self._delete(
-            f"/v1/openai/v1/vector_stores/{vector_store_id}",
+            f"/v1/vector_stores/{vector_store_id}",
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -688,7 +688,7 @@ class AsyncVectorStoresResource(AsyncAPIResource):
         if not vector_store_id:
             raise ValueError(f"Expected a non-empty value for `vector_store_id` but received {vector_store_id!r}")
         return await self._post(
-            f"/v1/openai/v1/vector_stores/{vector_store_id}/search",
+            f"/v1/vector_stores/{vector_store_id}/search",
             body=await async_maybe_transform(
                 {
                     "query": query,

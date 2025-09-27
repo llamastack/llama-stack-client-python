@@ -49,6 +49,8 @@ class TestAgents:
                                 "parameter_type": "parameter_type",
                                 "required": True,
                                 "default": True,
+                                "items": {},
+                                "title": "title",
                             }
                         ],
                     }
@@ -253,6 +255,8 @@ class TestAsyncAgents:
                                 "parameter_type": "parameter_type",
                                 "required": True,
                                 "default": True,
+                                "items": {},
+                                "title": "title",
                             }
                         ],
                     }

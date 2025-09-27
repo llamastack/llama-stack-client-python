@@ -8,14 +8,7 @@ from typing_extensions import Literal, overload
 
 import httpx
 
-from ..types import (
-    inference_rerank_params,
-    inference_completion_params,
-    inference_embeddings_params,
-    inference_chat_completion_params,
-    inference_batch_completion_params,
-    inference_batch_chat_completion_params,
-)
+from ..types import inference_rerank_params, inference_embeddings_params, inference_chat_completion_params
 from .._types import Body, Omit, Query, Headers, NotGiven, SequenceNotStr, omit, not_given
 from .._utils import required_args, maybe_transform, async_maybe_transform
 from .._compat import cached_property
@@ -29,18 +22,14 @@ from .._response import (
 from .._wrappers import DataWrapper
 from .._streaming import Stream, AsyncStream
 from .._base_client import make_request_options
-from ..types.completion_response import CompletionResponse
 from ..types.embeddings_response import EmbeddingsResponse
 from ..types.shared_params.message import Message
-from ..types.shared.batch_completion import BatchCompletion
 from ..types.inference_rerank_response import InferenceRerankResponse
 from ..types.shared_params.response_format import ResponseFormat
 from ..types.shared_params.sampling_params import SamplingParams
 from ..types.shared.chat_completion_response import ChatCompletionResponse
-from ..types.shared_params.interleaved_content import InterleavedContent
 from ..types.chat_completion_response_stream_chunk import ChatCompletionResponseStreamChunk
 from ..types.shared_params.interleaved_content_item import InterleavedContentItem
-from ..types.inference_batch_chat_completion_response import InferenceBatchChatCompletionResponse
 
 __all__ = ["InferenceResource", "AsyncInferenceResource"]
 
@@ -65,131 +54,7 @@ class InferenceResource(SyncAPIResource):
         """
         return InferenceResourceWithStreamingResponse(self)
 
-    def batch_chat_completion(
-        self,
-        *,
-        messages_batch: Iterable[Iterable[Message]],
-        model_id: str,
-        logprobs: inference_batch_chat_completion_params.Logprobs | Omit = omit,
-        response_format: ResponseFormat | Omit = omit,
-        sampling_params: SamplingParams | Omit = omit,
-        tool_config: inference_batch_chat_completion_params.ToolConfig | Omit = omit,
-        tools: Iterable[inference_batch_chat_completion_params.Tool] | Omit = omit,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> InferenceBatchChatCompletionResponse:
-        """
-        Generate chat completions for a batch of messages using the specified model.
-
-        Args:
-          messages_batch: The messages to generate completions for.
-
-          model_id: The identifier of the model to use. The model must be registered with Llama
-              Stack and available via the /models endpoint.
-
-          logprobs: (Optional) If specified, log probabilities for each token position will be
-              returned.
-
-          response_format: (Optional) Grammar specification for guided (structured) decoding.
-
-          sampling_params: (Optional) Parameters to control the sampling strategy.
-
-          tool_config: (Optional) Configuration for tool use.
-
-          tools: (Optional) List of tool definitions available to the model.
-
-          extra_headers: Send extra headers
-
-          extra_query: Add additional query parameters to the request
-
-          extra_body: Add additional JSON properties to the request
-
-          timeout: Override the client-level default timeout for this request, in seconds
-        """
-        return self._post(
-            "/v1/inference/batch-chat-completion",
-            body=maybe_transform(
-                {
-                    "messages_batch": messages_batch,
-                    "model_id": model_id,
-                    "logprobs": logprobs,
-                    "response_format": response_format,
-                    "sampling_params": sampling_params,
-                    "tool_config": tool_config,
-                    "tools": tools,
-                },
-                inference_batch_chat_completion_params.InferenceBatchChatCompletionParams,
-            ),
-            options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
-            ),
-            cast_to=InferenceBatchChatCompletionResponse,
-        )
-
-    def batch_completion(
-        self,
-        *,
-        content_batch: SequenceNotStr[InterleavedContent],
-        model_id: str,
-        logprobs: inference_batch_completion_params.Logprobs | Omit = omit,
-        response_format: ResponseFormat | Omit = omit,
-        sampling_params: SamplingParams | Omit = omit,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> BatchCompletion:
-        """
-        Generate completions for a batch of content using the specified model.
-
-        Args:
-          content_batch: The content to generate completions for.
-
-          model_id: The identifier of the model to use. The model must be registered with Llama
-              Stack and available via the /models endpoint.
-
-          logprobs: (Optional) If specified, log probabilities for each token position will be
-              returned.
-
-          response_format: (Optional) Grammar specification for guided (structured) decoding.
-
-          sampling_params: (Optional) Parameters to control the sampling strategy.
-
-          extra_headers: Send extra headers
-
-          extra_query: Add additional query parameters to the request
-
-          extra_body: Add additional JSON properties to the request
-
-          timeout: Override the client-level default timeout for this request, in seconds
-        """
-        return self._post(
-            "/v1/inference/batch-completion",
-            body=maybe_transform(
-                {
-                    "content_batch": content_batch,
-                    "model_id": model_id,
-                    "logprobs": logprobs,
-                    "response_format": response_format,
-                    "sampling_params": sampling_params,
-                },
-                inference_batch_completion_params.InferenceBatchCompletionParams,
-            ),
-            options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
-            ),
-            cast_to=BatchCompletion,
-        )
-
-    @typing_extensions.deprecated(
-        "/v1/inference/chat-completion is deprecated. Please use /v1/openai/v1/chat/completions."
-    )
+    @typing_extensions.deprecated("/v1/inference/chat-completion is deprecated. Please use /v1/chat/completions.")
     @overload
     def chat_completion(
         self,
@@ -258,9 +123,7 @@ class InferenceResource(SyncAPIResource):
         """
         ...
 
-    @typing_extensions.deprecated(
-        "/v1/inference/chat-completion is deprecated. Please use /v1/openai/v1/chat/completions."
-    )
+    @typing_extensions.deprecated("/v1/inference/chat-completion is deprecated. Please use /v1/chat/completions.")
     @overload
     def chat_completion(
         self,
@@ -329,9 +192,7 @@ class InferenceResource(SyncAPIResource):
         """
         ...
 
-    @typing_extensions.deprecated(
-        "/v1/inference/chat-completion is deprecated. Please use /v1/openai/v1/chat/completions."
-    )
+    @typing_extensions.deprecated("/v1/inference/chat-completion is deprecated. Please use /v1/chat/completions.")
     @overload
     def chat_completion(
         self,
@@ -400,9 +261,7 @@ class InferenceResource(SyncAPIResource):
         """
         ...
 
-    @typing_extensions.deprecated(
-        "/v1/inference/chat-completion is deprecated. Please use /v1/openai/v1/chat/completions."
-    )
+    @typing_extensions.deprecated("/v1/inference/chat-completion is deprecated. Please use /v1/chat/completions.")
     @required_args(["messages", "model_id"], ["messages", "model_id", "stream"])
     def chat_completion(
         self,
@@ -453,7 +312,7 @@ class InferenceResource(SyncAPIResource):
             stream_cls=Stream[ChatCompletionResponseStreamChunk],
         )
 
-    @typing_extensions.deprecated("/v1/inference/completion is deprecated. Please use /v1/openai/v1/completions.")
+    @typing_extensions.deprecated("/v1/inference/completion is deprecated. Please use /v1/completions.")
     @overload
     def completion(
         self,
@@ -500,7 +359,7 @@ class InferenceResource(SyncAPIResource):
         """
         ...
 
-    @typing_extensions.deprecated("/v1/inference/completion is deprecated. Please use /v1/openai/v1/completions.")
+    @typing_extensions.deprecated("/v1/inference/completion is deprecated. Please use /v1/completions.")
     @overload
     def completion(
         self,
@@ -547,7 +406,7 @@ class InferenceResource(SyncAPIResource):
         """
         ...
 
-    @typing_extensions.deprecated("/v1/inference/completion is deprecated. Please use /v1/openai/v1/completions.")
+    @typing_extensions.deprecated("/v1/inference/completion is deprecated. Please use /v1/completions.")
     @overload
     def completion(
         self,
@@ -594,7 +453,7 @@ class InferenceResource(SyncAPIResource):
         """
         ...
 
-    @typing_extensions.deprecated("/v1/inference/completion is deprecated. Please use /v1/openai/v1/completions.")
+    @typing_extensions.deprecated("/v1/inference/completion is deprecated. Please use /v1/completions.")
     @required_args(["content", "model_id"], ["content", "model_id", "stream"])
     def completion(
         self,
@@ -637,7 +496,7 @@ class InferenceResource(SyncAPIResource):
             stream_cls=Stream[CompletionResponse],
         )
 
-    @typing_extensions.deprecated("/v1/inference/embeddings is deprecated. Please use /v1/openai/v1/embeddings.")
+    @typing_extensions.deprecated("/v1/inference/embeddings is deprecated. Please use /v1/embeddings.")
     def embeddings(
         self,
         *,
@@ -778,131 +637,7 @@ class AsyncInferenceResource(AsyncAPIResource):
         """
         return AsyncInferenceResourceWithStreamingResponse(self)
 
-    async def batch_chat_completion(
-        self,
-        *,
-        messages_batch: Iterable[Iterable[Message]],
-        model_id: str,
-        logprobs: inference_batch_chat_completion_params.Logprobs | Omit = omit,
-        response_format: ResponseFormat | Omit = omit,
-        sampling_params: SamplingParams | Omit = omit,
-        tool_config: inference_batch_chat_completion_params.ToolConfig | Omit = omit,
-        tools: Iterable[inference_batch_chat_completion_params.Tool] | Omit = omit,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> InferenceBatchChatCompletionResponse:
-        """
-        Generate chat completions for a batch of messages using the specified model.
-
-        Args:
-          messages_batch: The messages to generate completions for.
-
-          model_id: The identifier of the model to use. The model must be registered with Llama
-              Stack and available via the /models endpoint.
-
-          logprobs: (Optional) If specified, log probabilities for each token position will be
-              returned.
-
-          response_format: (Optional) Grammar specification for guided (structured) decoding.
-
-          sampling_params: (Optional) Parameters to control the sampling strategy.
-
-          tool_config: (Optional) Configuration for tool use.
-
-          tools: (Optional) List of tool definitions available to the model.
-
-          extra_headers: Send extra headers
-
-          extra_query: Add additional query parameters to the request
-
-          extra_body: Add additional JSON properties to the request
-
-          timeout: Override the client-level default timeout for this request, in seconds
-        """
-        return await self._post(
-            "/v1/inference/batch-chat-completion",
-            body=await async_maybe_transform(
-                {
-                    "messages_batch": messages_batch,
-                    "model_id": model_id,
-                    "logprobs": logprobs,
-                    "response_format": response_format,
-                    "sampling_params": sampling_params,
-                    "tool_config": tool_config,
-                    "tools": tools,
-                },
-                inference_batch_chat_completion_params.InferenceBatchChatCompletionParams,
-            ),
-            options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
-            ),
-            cast_to=InferenceBatchChatCompletionResponse,
-        )
-
-    async def batch_completion(
-        self,
-        *,
-        content_batch: SequenceNotStr[InterleavedContent],
-        model_id: str,
-        logprobs: inference_batch_completion_params.Logprobs | Omit = omit,
-        response_format: ResponseFormat | Omit = omit,
-        sampling_params: SamplingParams | Omit = omit,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> BatchCompletion:
-        """
-        Generate completions for a batch of content using the specified model.
-
-        Args:
-          content_batch: The content to generate completions for.
-
-          model_id: The identifier of the model to use. The model must be registered with Llama
-              Stack and available via the /models endpoint.
-
-          logprobs: (Optional) If specified, log probabilities for each token position will be
-              returned.
-
-          response_format: (Optional) Grammar specification for guided (structured) decoding.
-
-          sampling_params: (Optional) Parameters to control the sampling strategy.
-
-          extra_headers: Send extra headers
-
-          extra_query: Add additional query parameters to the request
-
-          extra_body: Add additional JSON properties to the request
-
-          timeout: Override the client-level default timeout for this request, in seconds
-        """
-        return await self._post(
-            "/v1/inference/batch-completion",
-            body=await async_maybe_transform(
-                {
-                    "content_batch": content_batch,
-                    "model_id": model_id,
-                    "logprobs": logprobs,
-                    "response_format": response_format,
-                    "sampling_params": sampling_params,
-                },
-                inference_batch_completion_params.InferenceBatchCompletionParams,
-            ),
-            options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
-            ),
-            cast_to=BatchCompletion,
-        )
-
-    @typing_extensions.deprecated(
-        "/v1/inference/chat-completion is deprecated. Please use /v1/openai/v1/chat/completions."
-    )
+    @typing_extensions.deprecated("/v1/inference/chat-completion is deprecated. Please use /v1/chat/completions.")
     @overload
     async def chat_completion(
         self,
@@ -971,9 +706,7 @@ class AsyncInferenceResource(AsyncAPIResource):
         """
         ...
 
-    @typing_extensions.deprecated(
-        "/v1/inference/chat-completion is deprecated. Please use /v1/openai/v1/chat/completions."
-    )
+    @typing_extensions.deprecated("/v1/inference/chat-completion is deprecated. Please use /v1/chat/completions.")
     @overload
     async def chat_completion(
         self,
@@ -1042,9 +775,7 @@ class AsyncInferenceResource(AsyncAPIResource):
         """
         ...
 
-    @typing_extensions.deprecated(
-        "/v1/inference/chat-completion is deprecated. Please use /v1/openai/v1/chat/completions."
-    )
+    @typing_extensions.deprecated("/v1/inference/chat-completion is deprecated. Please use /v1/chat/completions.")
     @overload
     async def chat_completion(
         self,
@@ -1113,9 +844,7 @@ class AsyncInferenceResource(AsyncAPIResource):
         """
         ...
 
-    @typing_extensions.deprecated(
-        "/v1/inference/chat-completion is deprecated. Please use /v1/openai/v1/chat/completions."
-    )
+    @typing_extensions.deprecated("/v1/inference/chat-completion is deprecated. Please use /v1/chat/completions.")
     @required_args(["messages", "model_id"], ["messages", "model_id", "stream"])
     async def chat_completion(
         self,
@@ -1166,7 +895,7 @@ class AsyncInferenceResource(AsyncAPIResource):
             stream_cls=AsyncStream[ChatCompletionResponseStreamChunk],
         )
 
-    @typing_extensions.deprecated("/v1/inference/completion is deprecated. Please use /v1/openai/v1/completions.")
+    @typing_extensions.deprecated("/v1/inference/completion is deprecated. Please use /v1/completions.")
     @overload
     async def completion(
         self,
@@ -1260,7 +989,7 @@ class AsyncInferenceResource(AsyncAPIResource):
         """
         ...
 
-    @typing_extensions.deprecated("/v1/inference/completion is deprecated. Please use /v1/openai/v1/completions.")
+    @typing_extensions.deprecated("/v1/inference/completion is deprecated. Please use /v1/completions.")
     @overload
     async def completion(
         self,
@@ -1307,7 +1036,7 @@ class AsyncInferenceResource(AsyncAPIResource):
         """
         ...
 
-    @typing_extensions.deprecated("/v1/inference/completion is deprecated. Please use /v1/openai/v1/completions.")
+    @typing_extensions.deprecated("/v1/inference/completion is deprecated. Please use /v1/completions.")
     @required_args(["content", "model_id"], ["content", "model_id", "stream"])
     async def completion(
         self,
@@ -1350,7 +1079,7 @@ class AsyncInferenceResource(AsyncAPIResource):
             stream_cls=AsyncStream[CompletionResponse],
         )
 
-    @typing_extensions.deprecated("/v1/inference/embeddings is deprecated. Please use /v1/openai/v1/embeddings.")
+    @typing_extensions.deprecated("/v1/inference/embeddings is deprecated. Please use /v1/embeddings.")
     async def embeddings(
         self,
         *,
@@ -1475,20 +1204,9 @@ class InferenceResourceWithRawResponse:
     def __init__(self, inference: InferenceResource) -> None:
         self._inference = inference
 
-        self.batch_chat_completion = to_raw_response_wrapper(
-            inference.batch_chat_completion,
-        )
-        self.batch_completion = to_raw_response_wrapper(
-            inference.batch_completion,
-        )
         self.chat_completion = (  # pyright: ignore[reportDeprecated]
             to_raw_response_wrapper(
                 inference.chat_completion,  # pyright: ignore[reportDeprecated],
-            )
-        )
-        self.completion = (  # pyright: ignore[reportDeprecated]
-            to_raw_response_wrapper(
-                inference.completion,  # pyright: ignore[reportDeprecated],
             )
         )
         self.embeddings = (  # pyright: ignore[reportDeprecated]
@@ -1505,20 +1223,9 @@ class AsyncInferenceResourceWithRawResponse:
     def __init__(self, inference: AsyncInferenceResource) -> None:
         self._inference = inference
 
-        self.batch_chat_completion = async_to_raw_response_wrapper(
-            inference.batch_chat_completion,
-        )
-        self.batch_completion = async_to_raw_response_wrapper(
-            inference.batch_completion,
-        )
         self.chat_completion = (  # pyright: ignore[reportDeprecated]
             async_to_raw_response_wrapper(
                 inference.chat_completion,  # pyright: ignore[reportDeprecated],
-            )
-        )
-        self.completion = (  # pyright: ignore[reportDeprecated]
-            async_to_raw_response_wrapper(
-                inference.completion,  # pyright: ignore[reportDeprecated],
             )
         )
         self.embeddings = (  # pyright: ignore[reportDeprecated]
@@ -1535,20 +1242,9 @@ class InferenceResourceWithStreamingResponse:
     def __init__(self, inference: InferenceResource) -> None:
         self._inference = inference
 
-        self.batch_chat_completion = to_streamed_response_wrapper(
-            inference.batch_chat_completion,
-        )
-        self.batch_completion = to_streamed_response_wrapper(
-            inference.batch_completion,
-        )
         self.chat_completion = (  # pyright: ignore[reportDeprecated]
             to_streamed_response_wrapper(
                 inference.chat_completion,  # pyright: ignore[reportDeprecated],
-            )
-        )
-        self.completion = (  # pyright: ignore[reportDeprecated]
-            to_streamed_response_wrapper(
-                inference.completion,  # pyright: ignore[reportDeprecated],
             )
         )
         self.embeddings = (  # pyright: ignore[reportDeprecated]
@@ -1565,20 +1261,9 @@ class AsyncInferenceResourceWithStreamingResponse:
     def __init__(self, inference: AsyncInferenceResource) -> None:
         self._inference = inference
 
-        self.batch_chat_completion = async_to_streamed_response_wrapper(
-            inference.batch_chat_completion,
-        )
-        self.batch_completion = async_to_streamed_response_wrapper(
-            inference.batch_completion,
-        )
         self.chat_completion = (  # pyright: ignore[reportDeprecated]
             async_to_streamed_response_wrapper(
                 inference.chat_completion,  # pyright: ignore[reportDeprecated],
-            )
-        )
-        self.completion = (  # pyright: ignore[reportDeprecated]
-            async_to_streamed_response_wrapper(
-                inference.completion,  # pyright: ignore[reportDeprecated],
             )
         )
         self.embeddings = (  # pyright: ignore[reportDeprecated]

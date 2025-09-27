@@ -228,7 +228,7 @@ class ResponsesResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> ResponseObject | Stream[ResponseObjectStream]:
         return self._post(
-            "/v1/openai/v1/responses",
+            "/v1/responses",
             body=maybe_transform(
                 {
                     "input": input,
@@ -281,7 +281,7 @@ class ResponsesResource(SyncAPIResource):
         if not response_id:
             raise ValueError(f"Expected a non-empty value for `response_id` but received {response_id!r}")
         return self._get(
-            f"/v1/openai/v1/responses/{response_id}",
+            f"/v1/responses/{response_id}",
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -323,7 +323,7 @@ class ResponsesResource(SyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         return self._get_api_list(
-            "/v1/openai/v1/responses",
+            "/v1/responses",
             page=SyncOpenAICursorPage[ResponseListResponse],
             options=make_request_options(
                 extra_headers=extra_headers,
@@ -369,7 +369,7 @@ class ResponsesResource(SyncAPIResource):
         if not response_id:
             raise ValueError(f"Expected a non-empty value for `response_id` but received {response_id!r}")
         return self._delete(
-            f"/v1/openai/v1/responses/{response_id}",
+            f"/v1/responses/{response_id}",
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -568,7 +568,7 @@ class AsyncResponsesResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> ResponseObject | AsyncStream[ResponseObjectStream]:
         return await self._post(
-            "/v1/openai/v1/responses",
+            "/v1/responses",
             body=await async_maybe_transform(
                 {
                     "input": input,
@@ -621,7 +621,7 @@ class AsyncResponsesResource(AsyncAPIResource):
         if not response_id:
             raise ValueError(f"Expected a non-empty value for `response_id` but received {response_id!r}")
         return await self._get(
-            f"/v1/openai/v1/responses/{response_id}",
+            f"/v1/responses/{response_id}",
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -663,7 +663,7 @@ class AsyncResponsesResource(AsyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         return self._get_api_list(
-            "/v1/openai/v1/responses",
+            "/v1/responses",
             page=AsyncOpenAICursorPage[ResponseListResponse],
             options=make_request_options(
                 extra_headers=extra_headers,
@@ -709,7 +709,7 @@ class AsyncResponsesResource(AsyncAPIResource):
         if not response_id:
             raise ValueError(f"Expected a non-empty value for `response_id` but received {response_id!r}")
         return await self._delete(
-            f"/v1/openai/v1/responses/{response_id}",
+            f"/v1/responses/{response_id}",
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
