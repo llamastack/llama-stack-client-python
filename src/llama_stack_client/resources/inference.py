@@ -737,7 +737,7 @@ class InferenceResource(SyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         return self._post(
-            "/v1/inference/rerank",
+            "/v1alpha/inference/rerank",
             body=maybe_transform(
                 {
                     "items": items,
@@ -1450,7 +1450,7 @@ class AsyncInferenceResource(AsyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         return await self._post(
-            "/v1/inference/rerank",
+            "/v1alpha/inference/rerank",
             body=await async_maybe_transform(
                 {
                     "items": items,
