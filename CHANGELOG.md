@@ -1,5 +1,22 @@
 # Changelog
 
+## 0.3.0-alpha.2 (2025-09-30)
+
+Full Changelog: [v0.3.0-alpha.1...v0.3.0-alpha.2](https://github.com/llamastack/llama-stack-client-python/compare/v0.3.0-alpha.1...v0.3.0-alpha.2)
+
+### Features
+
+* **api:** move post_training and eval under alpha namespace ([51a54d4](https://github.com/llamastack/llama-stack-client-python/commit/51a54d458f950da36bccab067a46f255a49933a1))
+* **api:** moving { rerank, agents } to `client.alpha.` ([04caaad](https://github.com/llamastack/llama-stack-client-python/commit/04caaad5e2631d66f5a0d30c07e1872d3aded894))
+* **api:** SDKs for vector store file batches ([ee323a0](https://github.com/llamastack/llama-stack-client-python/commit/ee323a0e29892ef53b7d98bf8ad943cd865fb785))
+* **api:** SDKs for vector store file batches apis ([6e0dcff](https://github.com/llamastack/llama-stack-client-python/commit/6e0dcff322ca2a62e027b0089c3bd6fdfec4f27a))
+
+
+### Bug Fixes
+
+* fix stream event model reference ([0208f2a](https://github.com/llamastack/llama-stack-client-python/commit/0208f2aa0153d65ed4d46123d4509c66d2730e3c))
+* **manual:** update lib/ references to use the alpha namespace ([08670f1](https://github.com/llamastack/llama-stack-client-python/commit/08670f1023a73edea559bd896a59cbbd127c5a6b))
+
 ## 0.3.0-alpha.1 (2025-09-30)
 
 Full Changelog: [v0.2.23-alpha.1...v0.3.0-alpha.1](https://github.com/llamastack/llama-stack-client-python/compare/v0.2.23-alpha.1...v0.3.0-alpha.1)
