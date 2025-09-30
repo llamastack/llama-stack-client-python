@@ -16,6 +16,14 @@ from .eval import (
     EvalResourceWithStreamingResponse,
     AsyncEvalResourceWithStreamingResponse,
 )
+from .alpha import (
+    AlphaResource,
+    AsyncAlphaResource,
+    AlphaResourceWithRawResponse,
+    AsyncAlphaResourceWithRawResponse,
+    AlphaResourceWithStreamingResponse,
+    AsyncAlphaResourceWithStreamingResponse,
+)
 from .files import (
     FilesResource,
     AsyncFilesResource,
@@ -31,14 +39,6 @@ from .tools import (
     AsyncToolsResourceWithRawResponse,
     ToolsResourceWithStreamingResponse,
     AsyncToolsResourceWithStreamingResponse,
-)
-from .agents import (
-    AgentsResource,
-    AsyncAgentsResource,
-    AgentsResourceWithRawResponse,
-    AsyncAgentsResourceWithRawResponse,
-    AgentsResourceWithStreamingResponse,
-    AsyncAgentsResourceWithStreamingResponse,
 )
 from .models import (
     ModelsResource,
@@ -95,14 +95,6 @@ from .datasets import (
     AsyncDatasetsResourceWithRawResponse,
     DatasetsResourceWithStreamingResponse,
     AsyncDatasetsResourceWithStreamingResponse,
-)
-from .inference import (
-    InferenceResource,
-    AsyncInferenceResource,
-    InferenceResourceWithRawResponse,
-    AsyncInferenceResourceWithRawResponse,
-    InferenceResourceWithStreamingResponse,
-    AsyncInferenceResourceWithStreamingResponse,
 )
 from .providers import (
     ProvidersResource,
@@ -250,12 +242,6 @@ __all__ = [
     "AsyncResponsesResourceWithRawResponse",
     "ResponsesResourceWithStreamingResponse",
     "AsyncResponsesResourceWithStreamingResponse",
-    "AgentsResource",
-    "AsyncAgentsResource",
-    "AgentsResourceWithRawResponse",
-    "AsyncAgentsResourceWithRawResponse",
-    "AgentsResourceWithStreamingResponse",
-    "AsyncAgentsResourceWithStreamingResponse",
     "DatasetsResource",
     "AsyncDatasetsResource",
     "DatasetsResourceWithRawResponse",
@@ -274,12 +260,6 @@ __all__ = [
     "AsyncInspectResourceWithRawResponse",
     "InspectResourceWithStreamingResponse",
     "AsyncInspectResourceWithStreamingResponse",
-    "InferenceResource",
-    "AsyncInferenceResource",
-    "InferenceResourceWithRawResponse",
-    "AsyncInferenceResourceWithRawResponse",
-    "InferenceResourceWithStreamingResponse",
-    "AsyncInferenceResourceWithStreamingResponse",
     "EmbeddingsResource",
     "AsyncEmbeddingsResource",
     "EmbeddingsResourceWithRawResponse",
@@ -394,4 +374,10 @@ __all__ = [
     "AsyncFilesResourceWithRawResponse",
     "FilesResourceWithStreamingResponse",
     "AsyncFilesResourceWithStreamingResponse",
+    "AlphaResource",
+    "AsyncAlphaResource",
+    "AlphaResourceWithRawResponse",
+    "AsyncAlphaResourceWithRawResponse",
+    "AlphaResourceWithStreamingResponse",
+    "AsyncAlphaResourceWithStreamingResponse",
 ]

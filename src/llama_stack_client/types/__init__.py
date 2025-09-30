@@ -8,7 +8,6 @@ from .tool import Tool as Tool
 from .model import Model as Model
 from .trace import Trace as Trace
 from .shared import (
-    Metric as Metric,
     Message as Message,
     Document as Document,
     ToolCall as ToolCall,
@@ -24,9 +23,7 @@ from .shared import (
     SafetyViolation as SafetyViolation,
     CompletionMessage as CompletionMessage,
     InterleavedContent as InterleavedContent,
-    ToolParamDefinition as ToolParamDefinition,
     ToolResponseMessage as ToolResponseMessage,
-    ChatCompletionResponse as ChatCompletionResponse,
     InterleavedContentItem as InterleavedContentItem,
 )
 from .shield import Shield as Shield
@@ -40,30 +37,22 @@ from .health_info import HealthInfo as HealthInfo
 from .vector_store import VectorStore as VectorStore
 from .version_info import VersionInfo as VersionInfo
 from .provider_info import ProviderInfo as ProviderInfo
-from .tool_response import ToolResponse as ToolResponse
-from .inference_step import InferenceStep as InferenceStep
 from .tool_def_param import ToolDefParam as ToolDefParam
 from .create_response import CreateResponse as CreateResponse
 from .response_object import ResponseObject as ResponseObject
 from .file_list_params import FileListParams as FileListParams
-from .shield_call_step import ShieldCallStep as ShieldCallStep
 from .span_with_status import SpanWithStatus as SpanWithStatus
 from .tool_list_params import ToolListParams as ToolListParams
-from .agent_list_params import AgentListParams as AgentListParams
 from .evaluate_response import EvaluateResponse as EvaluateResponse
 from .post_training_job import PostTrainingJob as PostTrainingJob
 from .scoring_fn_params import ScoringFnParams as ScoringFnParams
 from .file_create_params import FileCreateParams as FileCreateParams
 from .tool_list_response import ToolListResponse as ToolListResponse
-from .agent_create_params import AgentCreateParams as AgentCreateParams
-from .agent_list_response import AgentListResponse as AgentListResponse
 from .list_files_response import ListFilesResponse as ListFilesResponse
 from .list_tools_response import ListToolsResponse as ListToolsResponse
 from .model_list_response import ModelListResponse as ModelListResponse
 from .route_list_response import RouteListResponse as RouteListResponse
 from .run_shield_response import RunShieldResponse as RunShieldResponse
-from .tool_execution_step import ToolExecutionStep as ToolExecutionStep
-from .tool_response_param import ToolResponseParam as ToolResponseParam
 from .delete_file_response import DeleteFileResponse as DeleteFileResponse
 from .eval_run_eval_params import EvalRunEvalParams as EvalRunEvalParams
 from .list_models_response import ListModelsResponse as ListModelsResponse
@@ -72,11 +61,9 @@ from .query_spans_response import QuerySpansResponse as QuerySpansResponse
 from .response_list_params import ResponseListParams as ResponseListParams
 from .scoring_score_params import ScoringScoreParams as ScoringScoreParams
 from .shield_list_response import ShieldListResponse as ShieldListResponse
-from .agent_create_response import AgentCreateResponse as AgentCreateResponse
 from .chat_completion_chunk import ChatCompletionChunk as ChatCompletionChunk
 from .dataset_list_response import DatasetListResponse as DatasetListResponse
 from .list_shields_response import ListShieldsResponse as ListShieldsResponse
-from .memory_retrieval_step import MemoryRetrievalStep as MemoryRetrievalStep
 from .model_register_params import ModelRegisterParams as ModelRegisterParams
 from .query_chunks_response import QueryChunksResponse as QueryChunksResponse
 from .query_condition_param import QueryConditionParam as QueryConditionParam
@@ -91,12 +78,10 @@ from .scoring_score_response import ScoringScoreResponse as ScoringScoreResponse
 from .shield_register_params import ShieldRegisterParams as ShieldRegisterParams
 from .tool_invocation_result import ToolInvocationResult as ToolInvocationResult
 from .vector_io_query_params import VectorIoQueryParams as VectorIoQueryParams
-from .agent_retrieve_response import AgentRetrieveResponse as AgentRetrieveResponse
 from .benchmark_list_response import BenchmarkListResponse as BenchmarkListResponse
 from .dataset_iterrows_params import DatasetIterrowsParams as DatasetIterrowsParams
 from .dataset_register_params import DatasetRegisterParams as DatasetRegisterParams
 from .embedding_create_params import EmbeddingCreateParams as EmbeddingCreateParams
-from .inference_rerank_params import InferenceRerankParams as InferenceRerankParams
 from .list_providers_response import ListProvidersResponse as ListProvidersResponse
 from .scoring_fn_params_param import ScoringFnParamsParam as ScoringFnParamsParam
 from .toolgroup_list_response import ToolgroupListResponse as ToolgroupListResponse
@@ -115,7 +100,6 @@ from .dataset_iterrows_response import DatasetIterrowsResponse as DatasetIterrow
 from .dataset_register_response import DatasetRegisterResponse as DatasetRegisterResponse
 from .dataset_retrieve_response import DatasetRetrieveResponse as DatasetRetrieveResponse
 from .eval_evaluate_rows_params import EvalEvaluateRowsParams as EvalEvaluateRowsParams
-from .inference_rerank_response import InferenceRerankResponse as InferenceRerankResponse
 from .list_tool_groups_response import ListToolGroupsResponse as ListToolGroupsResponse
 from .toolgroup_register_params import ToolgroupRegisterParams as ToolgroupRegisterParams
 from .vector_db_register_params import VectorDBRegisterParams as VectorDBRegisterParams

@@ -34,9 +34,9 @@ if TYPE_CHECKING:
     from .resources import (
         chat,
         eval,
+        alpha,
         files,
         tools,
-        agents,
         models,
         routes,
         safety,
@@ -44,7 +44,6 @@ if TYPE_CHECKING:
         scoring,
         shields,
         datasets,
-        inference,
         providers,
         responses,
         telemetry,
@@ -71,7 +70,6 @@ if TYPE_CHECKING:
     from .resources.datasets import DatasetsResource, AsyncDatasetsResource
     from .resources.chat.chat import ChatResource, AsyncChatResource
     from .resources.eval.eval import EvalResource, AsyncEvalResource
-    from .resources.inference import InferenceResource, AsyncInferenceResource
     from .resources.providers import ProvidersResource, AsyncProvidersResource
     from .resources.telemetry import TelemetryResource, AsyncTelemetryResource
     from .resources.vector_io import VectorIoResource, AsyncVectorIoResource
@@ -79,9 +77,9 @@ if TYPE_CHECKING:
     from .resources.embeddings import EmbeddingsResource, AsyncEmbeddingsResource
     from .resources.toolgroups import ToolgroupsResource, AsyncToolgroupsResource
     from .resources.vector_dbs import VectorDBsResource, AsyncVectorDBsResource
+    from .resources.alpha.alpha import AlphaResource, AsyncAlphaResource
     from .resources.completions import CompletionsResource, AsyncCompletionsResource
     from .resources.moderations import ModerationsResource, AsyncModerationsResource
-    from .resources.agents.agents import AgentsResource, AsyncAgentsResource
     from .resources.models.models import ModelsResource, AsyncModelsResource
     from .resources.scoring_functions import ScoringFunctionsResource, AsyncScoringFunctionsResource
     from .resources.responses.responses import ResponsesResource, AsyncResponsesResource
@@ -181,12 +179,6 @@ class LlamaStackClient(SyncAPIClient):
         return ResponsesResource(self)
 
     @cached_property
-    def agents(self) -> AgentsResource:
-        from .resources.agents import AgentsResource
-
-        return AgentsResource(self)
-
-    @cached_property
     def datasets(self) -> DatasetsResource:
         from .resources.datasets import DatasetsResource
 
@@ -203,12 +195,6 @@ class LlamaStackClient(SyncAPIClient):
         from .resources.inspect import InspectResource
 
         return InspectResource(self)
-
-    @cached_property
-    def inference(self) -> InferenceResource:
-        from .resources.inference import InferenceResource
-
-        return InferenceResource(self)
 
     @cached_property
     def embeddings(self) -> EmbeddingsResource:
@@ -323,6 +309,12 @@ class LlamaStackClient(SyncAPIClient):
         from .resources.files import FilesResource
 
         return FilesResource(self)
+
+    @cached_property
+    def alpha(self) -> AlphaResource:
+        from .resources.alpha import AlphaResource
+
+        return AlphaResource(self)
 
     @cached_property
     def with_raw_response(self) -> LlamaStackClientWithRawResponse:
@@ -515,12 +507,6 @@ class AsyncLlamaStackClient(AsyncAPIClient):
         return AsyncResponsesResource(self)
 
     @cached_property
-    def agents(self) -> AsyncAgentsResource:
-        from .resources.agents import AsyncAgentsResource
-
-        return AsyncAgentsResource(self)
-
-    @cached_property
     def datasets(self) -> AsyncDatasetsResource:
         from .resources.datasets import AsyncDatasetsResource
 
@@ -537,12 +523,6 @@ class AsyncLlamaStackClient(AsyncAPIClient):
         from .resources.inspect import AsyncInspectResource
 
         return AsyncInspectResource(self)
-
-    @cached_property
-    def inference(self) -> AsyncInferenceResource:
-        from .resources.inference import AsyncInferenceResource
-
-        return AsyncInferenceResource(self)
 
     @cached_property
     def embeddings(self) -> AsyncEmbeddingsResource:
@@ -657,6 +637,12 @@ class AsyncLlamaStackClient(AsyncAPIClient):
         from .resources.files import AsyncFilesResource
 
         return AsyncFilesResource(self)
+
+    @cached_property
+    def alpha(self) -> AsyncAlphaResource:
+        from .resources.alpha import AsyncAlphaResource
+
+        return AsyncAlphaResource(self)
 
     @cached_property
     def with_raw_response(self) -> AsyncLlamaStackClientWithRawResponse:
@@ -804,12 +790,6 @@ class LlamaStackClientWithRawResponse:
         return ResponsesResourceWithRawResponse(self._client.responses)
 
     @cached_property
-    def agents(self) -> agents.AgentsResourceWithRawResponse:
-        from .resources.agents import AgentsResourceWithRawResponse
-
-        return AgentsResourceWithRawResponse(self._client.agents)
-
-    @cached_property
     def datasets(self) -> datasets.DatasetsResourceWithRawResponse:
         from .resources.datasets import DatasetsResourceWithRawResponse
 
@@ -826,12 +806,6 @@ class LlamaStackClientWithRawResponse:
         from .resources.inspect import InspectResourceWithRawResponse
 
         return InspectResourceWithRawResponse(self._client.inspect)
-
-    @cached_property
-    def inference(self) -> inference.InferenceResourceWithRawResponse:
-        from .resources.inference import InferenceResourceWithRawResponse
-
-        return InferenceResourceWithRawResponse(self._client.inference)
 
     @cached_property
     def embeddings(self) -> embeddings.EmbeddingsResourceWithRawResponse:
@@ -947,6 +921,12 @@ class LlamaStackClientWithRawResponse:
 
         return FilesResourceWithRawResponse(self._client.files)
 
+    @cached_property
+    def alpha(self) -> alpha.AlphaResourceWithRawResponse:
+        from .resources.alpha import AlphaResourceWithRawResponse
+
+        return AlphaResourceWithRawResponse(self._client.alpha)
+
 
 class AsyncLlamaStackClientWithRawResponse:
     _client: AsyncLlamaStackClient
@@ -979,12 +959,6 @@ class AsyncLlamaStackClientWithRawResponse:
         return AsyncResponsesResourceWithRawResponse(self._client.responses)
 
     @cached_property
-    def agents(self) -> agents.AsyncAgentsResourceWithRawResponse:
-        from .resources.agents import AsyncAgentsResourceWithRawResponse
-
-        return AsyncAgentsResourceWithRawResponse(self._client.agents)
-
-    @cached_property
     def datasets(self) -> datasets.AsyncDatasetsResourceWithRawResponse:
         from .resources.datasets import AsyncDatasetsResourceWithRawResponse
 
@@ -1001,12 +975,6 @@ class AsyncLlamaStackClientWithRawResponse:
         from .resources.inspect import AsyncInspectResourceWithRawResponse
 
         return AsyncInspectResourceWithRawResponse(self._client.inspect)
-
-    @cached_property
-    def inference(self) -> inference.AsyncInferenceResourceWithRawResponse:
-        from .resources.inference import AsyncInferenceResourceWithRawResponse
-
-        return AsyncInferenceResourceWithRawResponse(self._client.inference)
 
     @cached_property
     def embeddings(self) -> embeddings.AsyncEmbeddingsResourceWithRawResponse:
@@ -1124,6 +1092,12 @@ class AsyncLlamaStackClientWithRawResponse:
 
         return AsyncFilesResourceWithRawResponse(self._client.files)
 
+    @cached_property
+    def alpha(self) -> alpha.AsyncAlphaResourceWithRawResponse:
+        from .resources.alpha import AsyncAlphaResourceWithRawResponse
+
+        return AsyncAlphaResourceWithRawResponse(self._client.alpha)
+
 
 class LlamaStackClientWithStreamedResponse:
     _client: LlamaStackClient
@@ -1156,12 +1130,6 @@ class LlamaStackClientWithStreamedResponse:
         return ResponsesResourceWithStreamingResponse(self._client.responses)
 
     @cached_property
-    def agents(self) -> agents.AgentsResourceWithStreamingResponse:
-        from .resources.agents import AgentsResourceWithStreamingResponse
-
-        return AgentsResourceWithStreamingResponse(self._client.agents)
-
-    @cached_property
     def datasets(self) -> datasets.DatasetsResourceWithStreamingResponse:
         from .resources.datasets import DatasetsResourceWithStreamingResponse
 
@@ -1178,12 +1146,6 @@ class LlamaStackClientWithStreamedResponse:
         from .resources.inspect import InspectResourceWithStreamingResponse
 
         return InspectResourceWithStreamingResponse(self._client.inspect)
-
-    @cached_property
-    def inference(self) -> inference.InferenceResourceWithStreamingResponse:
-        from .resources.inference import InferenceResourceWithStreamingResponse
-
-        return InferenceResourceWithStreamingResponse(self._client.inference)
 
     @cached_property
     def embeddings(self) -> embeddings.EmbeddingsResourceWithStreamingResponse:
@@ -1301,6 +1263,12 @@ class LlamaStackClientWithStreamedResponse:
 
         return FilesResourceWithStreamingResponse(self._client.files)
 
+    @cached_property
+    def alpha(self) -> alpha.AlphaResourceWithStreamingResponse:
+        from .resources.alpha import AlphaResourceWithStreamingResponse
+
+        return AlphaResourceWithStreamingResponse(self._client.alpha)
+
 
 class AsyncLlamaStackClientWithStreamedResponse:
     _client: AsyncLlamaStackClient
@@ -1333,12 +1301,6 @@ class AsyncLlamaStackClientWithStreamedResponse:
         return AsyncResponsesResourceWithStreamingResponse(self._client.responses)
 
     @cached_property
-    def agents(self) -> agents.AsyncAgentsResourceWithStreamingResponse:
-        from .resources.agents import AsyncAgentsResourceWithStreamingResponse
-
-        return AsyncAgentsResourceWithStreamingResponse(self._client.agents)
-
-    @cached_property
     def datasets(self) -> datasets.AsyncDatasetsResourceWithStreamingResponse:
         from .resources.datasets import AsyncDatasetsResourceWithStreamingResponse
 
@@ -1355,12 +1317,6 @@ class AsyncLlamaStackClientWithStreamedResponse:
         from .resources.inspect import AsyncInspectResourceWithStreamingResponse
 
         return AsyncInspectResourceWithStreamingResponse(self._client.inspect)
-
-    @cached_property
-    def inference(self) -> inference.AsyncInferenceResourceWithStreamingResponse:
-        from .resources.inference import AsyncInferenceResourceWithStreamingResponse
-
-        return AsyncInferenceResourceWithStreamingResponse(self._client.inference)
 
     @cached_property
     def embeddings(self) -> embeddings.AsyncEmbeddingsResourceWithStreamingResponse:
@@ -1477,6 +1433,12 @@ class AsyncLlamaStackClientWithStreamedResponse:
         from .resources.files import AsyncFilesResourceWithStreamingResponse
 
         return AsyncFilesResourceWithStreamingResponse(self._client.files)
+
+    @cached_property
+    def alpha(self) -> alpha.AsyncAlphaResourceWithStreamingResponse:
+        from .resources.alpha import AsyncAlphaResourceWithStreamingResponse
+
+        return AsyncAlphaResourceWithStreamingResponse(self._client.alpha)
 
 
 Client = LlamaStackClient

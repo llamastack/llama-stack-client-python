@@ -1,6 +1,5 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-from .metric import Metric as Metric
 from .message import Message as Message
 from .document import Document as Document
 from .tool_call import ToolCall as ToolCall
@@ -16,7 +15,5 @@ from .sampling_params import SamplingParams as SamplingParams
 from .safety_violation import SafetyViolation as SafetyViolation
 from .completion_message import CompletionMessage as CompletionMessage
 from .interleaved_content import InterleavedContent as InterleavedContent
-from .tool_param_definition import ToolParamDefinition as ToolParamDefinition
 from .tool_response_message import ToolResponseMessage as ToolResponseMessage
-from .chat_completion_response import ChatCompletionResponse as ChatCompletionResponse
 from .interleaved_content_item import InterleavedContentItem as InterleavedContentItem
