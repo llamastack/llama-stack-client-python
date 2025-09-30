@@ -1,5 +1,36 @@
 # Changelog
 
+## 0.3.0-alpha.1 (2025-09-30)
+
+Full Changelog: [v0.2.23-alpha.1...v0.3.0-alpha.1](https://github.com/llamastack/llama-stack-client-python/compare/v0.2.23-alpha.1...v0.3.0-alpha.1)
+
+### ⚠ BREAKING CHANGES
+
+* **api:** fixes to remove deprecated inference resources
+
+### Features
+
+* **api:** expires_after changes for /files ([7f24c43](https://github.com/llamastack/llama-stack-client-python/commit/7f24c432dc1859312710a4a1ff4a80f6f861bee8))
+* **api:** fixes to remove deprecated inference resources ([04834d2](https://github.com/llamastack/llama-stack-client-python/commit/04834d2189ae4e4b8cd2c9370d1d39857bc6e9ec))
+* **api:** removing openai/v1 ([a918b43](https://github.com/llamastack/llama-stack-client-python/commit/a918b4323118c18f77c2abe7e1a3054c1eebeaac))
+* **api:** updating post /v1/files to have correct multipart/form-data ([433a996](https://github.com/llamastack/llama-stack-client-python/commit/433a996527bcca131ada4730376d8993f34ad6f5))
+
+
+### Bug Fixes
+
+* clean up deprecated code ([f10ead0](https://github.com/llamastack/llama-stack-client-python/commit/f10ead00522b7ca803cd7dc3617da0d451efa7da))
+* Don't retry for non-recoverable server http errors ([#212](https://github.com/llamastack/llama-stack-client-python/issues/212)) ([6782e8f](https://github.com/llamastack/llama-stack-client-python/commit/6782e8fc5931369223ed4446f8e7732f62712eff))
+
+
+### Documentation
+
+* update examples ([f896747](https://github.com/llamastack/llama-stack-client-python/commit/f89674726f55915a8cda0e2b4284be3c92978121))
+
+
+### Build System
+
+* Bump version to 0.2.23 ([0d4dc64](https://github.com/llamastack/llama-stack-client-python/commit/0d4dc6449224fa2a0f6d20f6229dd9d1a5427861))
+
 ## 0.2.23-alpha.1 (2025-09-26)
 
 Full Changelog: [v0.2.19-alpha.1...v0.2.23-alpha.1](https://github.com/llamastack/llama-stack-client-python/compare/v0.2.19-alpha.1...v0.2.23-alpha.1)
