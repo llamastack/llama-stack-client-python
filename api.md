@@ -241,19 +241,12 @@ Methods:
 Types:
 
 ```python
-from llama_stack_client.types import (
-    ChatCompletionResponseStreamChunk,
-    EmbeddingsResponse,
-    TokenLogProbs,
-    InferenceRerankResponse,
-)
+from llama_stack_client.types import ChatCompletionResponseStreamChunk, TokenLogProbs
 ```
 
 Methods:
 
 - <code title="post /v1/inference/chat-completion">client.inference.<a href="./src/llama_stack_client/resources/inference.py">chat_completion</a>(\*\*<a href="src/llama_stack_client/types/inference_chat_completion_params.py">params</a>) -> <a href="./src/llama_stack_client/types/shared/chat_completion_response.py">ChatCompletionResponse</a></code>
-- <code title="post /v1/inference/embeddings">client.inference.<a href="./src/llama_stack_client/resources/inference.py">embeddings</a>(\*\*<a href="src/llama_stack_client/types/inference_embeddings_params.py">params</a>) -> <a href="./src/llama_stack_client/types/embeddings_response.py">EmbeddingsResponse</a></code>
-- <code title="post /v1/inference/rerank">client.inference.<a href="./src/llama_stack_client/resources/inference.py">rerank</a>(\*\*<a href="src/llama_stack_client/types/inference_rerank_params.py">params</a>) -> <a href="./src/llama_stack_client/types/inference_rerank_response.py">InferenceRerankResponse</a></code>
 
 # Embeddings
 
@@ -406,7 +399,7 @@ from llama_stack_client.types.models import OpenAIListResponse
 
 Methods:
 
-- <code title="get /v1/models">client.models.openai.<a href="./src/llama_stack_client/resources/models/openai.py">list</a>() -> <a href="./src/llama_stack_client/types/models/openai_list_response.py">OpenAIListResponse</a></code>
+- <code title="get /v1/models">client.models.openai.<a href="./src/llama_stack_client/resources/models/openai.py">list</a>() -> <a href="./src/llama_stack_client/types/model_list_response.py">ModelListResponse</a></code>
 
 # PostTraining
 

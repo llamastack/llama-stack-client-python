@@ -3,13 +3,13 @@
 from __future__ import annotations
 
 import typing_extensions
-from typing import Type, Union, Iterable, cast
+from typing import Iterable
 from typing_extensions import Literal, overload
 
 import httpx
 
-from ..types import inference_rerank_params, inference_embeddings_params, inference_chat_completion_params
-from .._types import Body, Omit, Query, Headers, NotGiven, SequenceNotStr, omit, not_given
+from ..types import inference_chat_completion_params
+from .._types import Body, Omit, Query, Headers, NotGiven, omit, not_given
 from .._utils import required_args, maybe_transform, async_maybe_transform
 from .._compat import cached_property
 from .._resource import SyncAPIResource, AsyncAPIResource
@@ -19,17 +19,13 @@ from .._response import (
     async_to_raw_response_wrapper,
     async_to_streamed_response_wrapper,
 )
-from .._wrappers import DataWrapper
 from .._streaming import Stream, AsyncStream
 from .._base_client import make_request_options
-from ..types.embeddings_response import EmbeddingsResponse
 from ..types.shared_params.message import Message
-from ..types.inference_rerank_response import InferenceRerankResponse
 from ..types.shared_params.response_format import ResponseFormat
 from ..types.shared_params.sampling_params import SamplingParams
 from ..types.shared.chat_completion_response import ChatCompletionResponse
 from ..types.chat_completion_response_stream_chunk import ChatCompletionResponseStreamChunk
-from ..types.shared_params.interleaved_content_item import InterleavedContentItem
 
 __all__ = ["InferenceResource", "AsyncInferenceResource"]
 
@@ -310,126 +306,6 @@ class InferenceResource(SyncAPIResource):
             stream_cls=Stream[ChatCompletionResponseStreamChunk],
         )
 
-    @typing_extensions.deprecated("/v1/inference/embeddings is deprecated. Please use /v1/embeddings.")
-    def embeddings(
-        self,
-        *,
-        contents: Union[SequenceNotStr[str], Iterable[InterleavedContentItem]],
-        model_id: str,
-        output_dimension: int | Omit = omit,
-        task_type: Literal["query", "document"] | Omit = omit,
-        text_truncation: Literal["none", "start", "end"] | Omit = omit,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> EmbeddingsResponse:
-        """
-        Generate embeddings for content pieces using the specified model.
-
-        Args:
-          contents: List of contents to generate embeddings for. Each content can be a string or an
-              InterleavedContentItem (and hence can be multimodal). The behavior depends on
-              the model and provider. Some models may only support text.
-
-          model_id: The identifier of the model to use. The model must be an embedding model
-              registered with Llama Stack and available via the /models endpoint.
-
-          output_dimension: (Optional) Output dimensionality for the embeddings. Only supported by
-              Matryoshka models.
-
-          task_type: (Optional) How is the embedding being used? This is only supported by asymmetric
-              embedding models.
-
-          text_truncation: (Optional) Config for how to truncate text for embedding when text is longer
-              than the model's max sequence length.
-
-          extra_headers: Send extra headers
-
-          extra_query: Add additional query parameters to the request
-
-          extra_body: Add additional JSON properties to the request
-
-          timeout: Override the client-level default timeout for this request, in seconds
-        """
-        return self._post(
-            "/v1/inference/embeddings",
-            body=maybe_transform(
-                {
-                    "contents": contents,
-                    "model_id": model_id,
-                    "output_dimension": output_dimension,
-                    "task_type": task_type,
-                    "text_truncation": text_truncation,
-                },
-                inference_embeddings_params.InferenceEmbeddingsParams,
-            ),
-            options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
-            ),
-            cast_to=EmbeddingsResponse,
-        )
-
-    def rerank(
-        self,
-        *,
-        items: SequenceNotStr[inference_rerank_params.Item],
-        model: str,
-        query: inference_rerank_params.Query,
-        max_num_results: int | Omit = omit,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> InferenceRerankResponse:
-        """
-        Rerank a list of documents based on their relevance to a query.
-
-        Args:
-          items: List of items to rerank. Each item can be a string, text content part, or image
-              content part. Each input must not exceed the model's max input token length.
-
-          model: The identifier of the reranking model to use.
-
-          query: The search query to rank items against. Can be a string, text content part, or
-              image content part. The input must not exceed the model's max input token
-              length.
-
-          max_num_results: (Optional) Maximum number of results to return. Default: returns all.
-
-          extra_headers: Send extra headers
-
-          extra_query: Add additional query parameters to the request
-
-          extra_body: Add additional JSON properties to the request
-
-          timeout: Override the client-level default timeout for this request, in seconds
-        """
-        return self._post(
-            "/v1/inference/rerank",
-            body=maybe_transform(
-                {
-                    "items": items,
-                    "model": model,
-                    "query": query,
-                    "max_num_results": max_num_results,
-                },
-                inference_rerank_params.InferenceRerankParams,
-            ),
-            options=make_request_options(
-                extra_headers=extra_headers,
-                extra_query=extra_query,
-                extra_body=extra_body,
-                timeout=timeout,
-                post_parser=DataWrapper[InferenceRerankResponse]._unwrapper,
-            ),
-            cast_to=cast(Type[InferenceRerankResponse], DataWrapper[InferenceRerankResponse]),
-        )
-
 
 class AsyncInferenceResource(AsyncAPIResource):
     @cached_property
@@ -707,126 +583,6 @@ class AsyncInferenceResource(AsyncAPIResource):
             stream_cls=AsyncStream[ChatCompletionResponseStreamChunk],
         )
 
-    @typing_extensions.deprecated("/v1/inference/embeddings is deprecated. Please use /v1/embeddings.")
-    async def embeddings(
-        self,
-        *,
-        contents: Union[SequenceNotStr[str], Iterable[InterleavedContentItem]],
-        model_id: str,
-        output_dimension: int | Omit = omit,
-        task_type: Literal["query", "document"] | Omit = omit,
-        text_truncation: Literal["none", "start", "end"] | Omit = omit,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> EmbeddingsResponse:
-        """
-        Generate embeddings for content pieces using the specified model.
-
-        Args:
-          contents: List of contents to generate embeddings for. Each content can be a string or an
-              InterleavedContentItem (and hence can be multimodal). The behavior depends on
-              the model and provider. Some models may only support text.
-
-          model_id: The identifier of the model to use. The model must be an embedding model
-              registered with Llama Stack and available via the /models endpoint.
-
-          output_dimension: (Optional) Output dimensionality for the embeddings. Only supported by
-              Matryoshka models.
-
-          task_type: (Optional) How is the embedding being used? This is only supported by asymmetric
-              embedding models.
-
-          text_truncation: (Optional) Config for how to truncate text for embedding when text is longer
-              than the model's max sequence length.
-
-          extra_headers: Send extra headers
-
-          extra_query: Add additional query parameters to the request
-
-          extra_body: Add additional JSON properties to the request
-
-          timeout: Override the client-level default timeout for this request, in seconds
-        """
-        return await self._post(
-            "/v1/inference/embeddings",
-            body=await async_maybe_transform(
-                {
-                    "contents": contents,
-                    "model_id": model_id,
-                    "output_dimension": output_dimension,
-                    "task_type": task_type,
-                    "text_truncation": text_truncation,
-                },
-                inference_embeddings_params.InferenceEmbeddingsParams,
-            ),
-            options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
-            ),
-            cast_to=EmbeddingsResponse,
-        )
-
-    async def rerank(
-        self,
-        *,
-        items: SequenceNotStr[inference_rerank_params.Item],
-        model: str,
-        query: inference_rerank_params.Query,
-        max_num_results: int | Omit = omit,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> InferenceRerankResponse:
-        """
-        Rerank a list of documents based on their relevance to a query.
-
-        Args:
-          items: List of items to rerank. Each item can be a string, text content part, or image
-              content part. Each input must not exceed the model's max input token length.
-
-          model: The identifier of the reranking model to use.
-
-          query: The search query to rank items against. Can be a string, text content part, or
-              image content part. The input must not exceed the model's max input token
-              length.
-
-          max_num_results: (Optional) Maximum number of results to return. Default: returns all.
-
-          extra_headers: Send extra headers
-
-          extra_query: Add additional query parameters to the request
-
-          extra_body: Add additional JSON properties to the request
-
-          timeout: Override the client-level default timeout for this request, in seconds
-        """
-        return await self._post(
-            "/v1/inference/rerank",
-            body=await async_maybe_transform(
-                {
-                    "items": items,
-                    "model": model,
-                    "query": query,
-                    "max_num_results": max_num_results,
-                },
-                inference_rerank_params.InferenceRerankParams,
-            ),
-            options=make_request_options(
-                extra_headers=extra_headers,
-                extra_query=extra_query,
-                extra_body=extra_body,
-                timeout=timeout,
-                post_parser=DataWrapper[InferenceRerankResponse]._unwrapper,
-            ),
-            cast_to=cast(Type[InferenceRerankResponse], DataWrapper[InferenceRerankResponse]),
-        )
-
 
 class InferenceResourceWithRawResponse:
     def __init__(self, inference: InferenceResource) -> None:
@@ -836,14 +592,6 @@ class InferenceResourceWithRawResponse:
             to_raw_response_wrapper(
                 inference.chat_completion,  # pyright: ignore[reportDeprecated],
             )
-        )
-        self.embeddings = (  # pyright: ignore[reportDeprecated]
-            to_raw_response_wrapper(
-                inference.embeddings,  # pyright: ignore[reportDeprecated],
-            )
-        )
-        self.rerank = to_raw_response_wrapper(
-            inference.rerank,
         )
 
 
@@ -856,14 +604,6 @@ class AsyncInferenceResourceWithRawResponse:
                 inference.chat_completion,  # pyright: ignore[reportDeprecated],
             )
         )
-        self.embeddings = (  # pyright: ignore[reportDeprecated]
-            async_to_raw_response_wrapper(
-                inference.embeddings,  # pyright: ignore[reportDeprecated],
-            )
-        )
-        self.rerank = async_to_raw_response_wrapper(
-            inference.rerank,
-        )
 
 
 class InferenceResourceWithStreamingResponse:
@@ -875,14 +615,6 @@ class InferenceResourceWithStreamingResponse:
                 inference.chat_completion,  # pyright: ignore[reportDeprecated],
             )
         )
-        self.embeddings = (  # pyright: ignore[reportDeprecated]
-            to_streamed_response_wrapper(
-                inference.embeddings,  # pyright: ignore[reportDeprecated],
-            )
-        )
-        self.rerank = to_streamed_response_wrapper(
-            inference.rerank,
-        )
 
 
 class AsyncInferenceResourceWithStreamingResponse:
@@ -893,12 +625,4 @@ class AsyncInferenceResourceWithStreamingResponse:
             async_to_streamed_response_wrapper(
                 inference.chat_completion,  # pyright: ignore[reportDeprecated],
             )
-        )
-        self.embeddings = (  # pyright: ignore[reportDeprecated]
-            async_to_streamed_response_wrapper(
-                inference.embeddings,  # pyright: ignore[reportDeprecated],
-            )
-        )
-        self.rerank = async_to_streamed_response_wrapper(
-            inference.rerank,
         )
