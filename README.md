@@ -109,6 +109,50 @@ asyncio.run(main())
 
 Functionality between the synchronous and asynchronous clients is otherwise identical.
 
+## Streaming responses
+
+We provide support for streaming responses using Server Side Events (SSE).
+
+```python
+from llama_stack_client import LlamaStackClient
+
+client = LlamaStackClient()
+
+stream = client.chat.completions.create(
+    messages=[
+        {
+            "content": "string",
+            "role": "user",
+        }
+    ],
+    model="model",
+    stream=True,
+)
+for completion in stream:
+    print(completion)
+```
+
+The async client uses the exact same interface.
+
+```python
+from llama_stack_client import AsyncLlamaStackClient
+
+client = AsyncLlamaStackClient()
+
+stream = await client.chat.completions.create(
+    messages=[
+        {
+            "content": "string",
+            "role": "user",
+        }
+    ],
+    model="model",
+    stream=True,
+)
+async for completion in stream:
+    print(completion)
+```
+
 ## Using types
 
 Nested request parameters are [TypedDicts](https://docs.python.org/3/library/typing.html#typing.TypedDict). Responses are [Pydantic models](https://docs.pydantic.dev) which also provide helper methods for things like:
@@ -168,7 +212,15 @@ from llama_stack_client import LlamaStackClient
 client = LlamaStackClient()
 
 try:
-    client.agents.toolgroups.list()
+    client.chat.completions.create(
+        messages=[
+            {
+                "content": "string",
+                "role": "user",
+            }
+        ],
+        model="model",
+    )
 except llama_stack_client.APIConnectionError as e:
     print("The server could not be reached")
     print(e.__cause__)  # an underlying Exception, likely raised within httpx.
@@ -211,7 +263,15 @@ client = LlamaStackClient(
 )
 
 # Or, configure per-request:
-client.with_options(max_retries=5).toolgroups.list.create()
+client.with_options(max_retries=5).chat.completions.create(
+    messages=[
+        {
+            "content": "string",
+            "role": "user",
+        }
+    ],
+    model="model",
+)
 ```
 
 ### Timeouts
@@ -234,7 +294,15 @@ client = LlamaStackClient(
 )
 
 # Override per-request:
-client.with_options(timeout=5.0).toolgroups.list.create()
+client.with_options(timeout=5.0).chat.completions.create(
+    messages=[
+        {
+            "content": "string",
+            "role": "user",
+        }
+    ],
+    model="model",
+)
 ```
 
 On timeout, an `APITimeoutError` is thrown.
@@ -273,11 +341,17 @@ The "raw" Response object can be accessed by prefixing `.with_raw_response.` to 
 from llama_stack_client import LlamaStackClient
 
 client = LlamaStackClient()
-response = client.toolgroups.with_raw_response.list()
+response = client.chat.completions.with_raw_response.create(
+    messages=[{
+        "content": "string",
+        "role": "user",
+    }],
+    model="model",
+)
 print(response.headers.get('X-My-Header'))
 
-toolgroup = response.parse()  # get the object that `toolgroups.list()` would have returned
-print(toolgroup)
+completion = response.parse()  # get the object that `chat.completions.create()` would have returned
+print(completion)
 ```
 
 These methods return an [`APIResponse`](https://github.com/meta-llama/llama-stack-python/tree/main/src/llama_stack_client/_response.py) object.
@@ -291,7 +365,15 @@ The above interface eagerly reads the full response body when you make the reque
 To stream the response body, use `.with_streaming_response` instead, which requires a context manager and only reads the response body once you call `.read()`, `.text()`, `.json()`, `.iter_bytes()`, `.iter_text()`, `.iter_lines()` or `.parse()`. In the async client, these are async methods.
 
 ```python
-with client.agents.toolgroups.with_streaming_response.list() as response:
+with client.chat.completions.with_streaming_response.create(
+    messages=[
+        {
+            "content": "string",
+            "role": "user",
+        }
+    ],
+    model="model",
+) as response:
     print(response.headers.get("X-My-Header"))
 
     for line in response.iter_lines():
