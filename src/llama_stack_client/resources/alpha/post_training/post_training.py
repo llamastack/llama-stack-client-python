@@ -14,23 +14,23 @@ from .job import (
     JobResourceWithStreamingResponse,
     AsyncJobResourceWithStreamingResponse,
 )
-from ...types import (
-    post_training_preference_optimize_params,
-    post_training_supervised_fine_tune_params,
-)
-from ..._types import Body, Omit, Query, Headers, NotGiven, omit, not_given
-from ..._utils import maybe_transform, async_maybe_transform
-from ..._compat import cached_property
-from ..._resource import SyncAPIResource, AsyncAPIResource
-from ..._response import (
+from ...._types import Body, Omit, Query, Headers, NotGiven, omit, not_given
+from ...._utils import maybe_transform, async_maybe_transform
+from ...._compat import cached_property
+from ...._resource import SyncAPIResource, AsyncAPIResource
+from ...._response import (
     to_raw_response_wrapper,
     to_streamed_response_wrapper,
     async_to_raw_response_wrapper,
     async_to_streamed_response_wrapper,
 )
-from ..._base_client import make_request_options
-from ...types.post_training_job import PostTrainingJob
-from ...types.algorithm_config_param import AlgorithmConfigParam
+from ....types.alpha import (
+    post_training_preference_optimize_params,
+    post_training_supervised_fine_tune_params,
+)
+from ...._base_client import make_request_options
+from ....types.alpha.post_training_job import PostTrainingJob
+from ....types.alpha.algorithm_config_param import AlgorithmConfigParam
 
 __all__ = ["PostTrainingResource", "AsyncPostTrainingResource"]
 
@@ -100,7 +100,7 @@ class PostTrainingResource(SyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         return self._post(
-            "/v1/post-training/preference-optimize",
+            "/v1alpha/post-training/preference-optimize",
             body=maybe_transform(
                 {
                     "algorithm_config": algorithm_config,
@@ -162,7 +162,7 @@ class PostTrainingResource(SyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         return self._post(
-            "/v1/post-training/supervised-fine-tune",
+            "/v1alpha/post-training/supervised-fine-tune",
             body=maybe_transform(
                 {
                     "hyperparam_search_config": hyperparam_search_config,
@@ -247,7 +247,7 @@ class AsyncPostTrainingResource(AsyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         return await self._post(
-            "/v1/post-training/preference-optimize",
+            "/v1alpha/post-training/preference-optimize",
             body=await async_maybe_transform(
                 {
                     "algorithm_config": algorithm_config,
@@ -309,7 +309,7 @@ class AsyncPostTrainingResource(AsyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         return await self._post(
-            "/v1/post-training/supervised-fine-tune",
+            "/v1alpha/post-training/supervised-fine-tune",
             body=await async_maybe_transform(
                 {
                     "hyperparam_search_config": hyperparam_search_config,

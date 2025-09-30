@@ -34,7 +34,6 @@ from ._base_client import (
 if TYPE_CHECKING:
     from .resources import (
         chat,
-        eval,
         alpha,
         files,
         tools,
@@ -56,7 +55,6 @@ if TYPE_CHECKING:
         completions,
         moderations,
         tool_runtime,
-        post_training,
         vector_stores,
         scoring_functions,
         synthetic_data_generation,
@@ -70,7 +68,6 @@ if TYPE_CHECKING:
     from .resources.shields import ShieldsResource, AsyncShieldsResource
     from .resources.datasets import DatasetsResource, AsyncDatasetsResource
     from .resources.chat.chat import ChatResource, AsyncChatResource
-    from .resources.eval.eval import EvalResource, AsyncEvalResource
     from .resources.providers import ProvidersResource, AsyncProvidersResource
     from .resources.telemetry import TelemetryResource, AsyncTelemetryResource
     from .resources.vector_io import VectorIoResource, AsyncVectorIoResource
@@ -89,7 +86,6 @@ if TYPE_CHECKING:
         AsyncSyntheticDataGenerationResource,
     )
     from .resources.tool_runtime.tool_runtime import ToolRuntimeResource, AsyncToolRuntimeResource
-    from .resources.post_training.post_training import PostTrainingResource, AsyncPostTrainingResource
     from .resources.vector_stores.vector_stores import VectorStoresResource, AsyncVectorStoresResource
 
 __all__ = [
@@ -192,12 +188,6 @@ class LlamaStackClient(SyncAPIClient):
         return DatasetsResource(self)
 
     @cached_property
-    def eval(self) -> EvalResource:
-        from .resources.eval import EvalResource
-
-        return EvalResource(self)
-
-    @cached_property
     def inspect(self) -> InspectResource:
         from .resources.inspect import InspectResource
 
@@ -244,12 +234,6 @@ class LlamaStackClient(SyncAPIClient):
         from .resources.models import ModelsResource
 
         return ModelsResource(self)
-
-    @cached_property
-    def post_training(self) -> PostTrainingResource:
-        from .resources.post_training import PostTrainingResource
-
-        return PostTrainingResource(self)
 
     @cached_property
     def providers(self) -> ProvidersResource:
@@ -526,12 +510,6 @@ class AsyncLlamaStackClient(AsyncAPIClient):
         return AsyncDatasetsResource(self)
 
     @cached_property
-    def eval(self) -> AsyncEvalResource:
-        from .resources.eval import AsyncEvalResource
-
-        return AsyncEvalResource(self)
-
-    @cached_property
     def inspect(self) -> AsyncInspectResource:
         from .resources.inspect import AsyncInspectResource
 
@@ -578,12 +556,6 @@ class AsyncLlamaStackClient(AsyncAPIClient):
         from .resources.models import AsyncModelsResource
 
         return AsyncModelsResource(self)
-
-    @cached_property
-    def post_training(self) -> AsyncPostTrainingResource:
-        from .resources.post_training import AsyncPostTrainingResource
-
-        return AsyncPostTrainingResource(self)
 
     @cached_property
     def providers(self) -> AsyncProvidersResource:
@@ -809,12 +781,6 @@ class LlamaStackClientWithRawResponse:
         return DatasetsResourceWithRawResponse(self._client.datasets)
 
     @cached_property
-    def eval(self) -> eval.EvalResourceWithRawResponse:
-        from .resources.eval import EvalResourceWithRawResponse
-
-        return EvalResourceWithRawResponse(self._client.eval)
-
-    @cached_property
     def inspect(self) -> inspect.InspectResourceWithRawResponse:
         from .resources.inspect import InspectResourceWithRawResponse
 
@@ -861,12 +827,6 @@ class LlamaStackClientWithRawResponse:
         from .resources.models import ModelsResourceWithRawResponse
 
         return ModelsResourceWithRawResponse(self._client.models)
-
-    @cached_property
-    def post_training(self) -> post_training.PostTrainingResourceWithRawResponse:
-        from .resources.post_training import PostTrainingResourceWithRawResponse
-
-        return PostTrainingResourceWithRawResponse(self._client.post_training)
 
     @cached_property
     def providers(self) -> providers.ProvidersResourceWithRawResponse:
@@ -978,12 +938,6 @@ class AsyncLlamaStackClientWithRawResponse:
         return AsyncDatasetsResourceWithRawResponse(self._client.datasets)
 
     @cached_property
-    def eval(self) -> eval.AsyncEvalResourceWithRawResponse:
-        from .resources.eval import AsyncEvalResourceWithRawResponse
-
-        return AsyncEvalResourceWithRawResponse(self._client.eval)
-
-    @cached_property
     def inspect(self) -> inspect.AsyncInspectResourceWithRawResponse:
         from .resources.inspect import AsyncInspectResourceWithRawResponse
 
@@ -1030,12 +984,6 @@ class AsyncLlamaStackClientWithRawResponse:
         from .resources.models import AsyncModelsResourceWithRawResponse
 
         return AsyncModelsResourceWithRawResponse(self._client.models)
-
-    @cached_property
-    def post_training(self) -> post_training.AsyncPostTrainingResourceWithRawResponse:
-        from .resources.post_training import AsyncPostTrainingResourceWithRawResponse
-
-        return AsyncPostTrainingResourceWithRawResponse(self._client.post_training)
 
     @cached_property
     def providers(self) -> providers.AsyncProvidersResourceWithRawResponse:
@@ -1149,12 +1097,6 @@ class LlamaStackClientWithStreamedResponse:
         return DatasetsResourceWithStreamingResponse(self._client.datasets)
 
     @cached_property
-    def eval(self) -> eval.EvalResourceWithStreamingResponse:
-        from .resources.eval import EvalResourceWithStreamingResponse
-
-        return EvalResourceWithStreamingResponse(self._client.eval)
-
-    @cached_property
     def inspect(self) -> inspect.InspectResourceWithStreamingResponse:
         from .resources.inspect import InspectResourceWithStreamingResponse
 
@@ -1201,12 +1143,6 @@ class LlamaStackClientWithStreamedResponse:
         from .resources.models import ModelsResourceWithStreamingResponse
 
         return ModelsResourceWithStreamingResponse(self._client.models)
-
-    @cached_property
-    def post_training(self) -> post_training.PostTrainingResourceWithStreamingResponse:
-        from .resources.post_training import PostTrainingResourceWithStreamingResponse
-
-        return PostTrainingResourceWithStreamingResponse(self._client.post_training)
 
     @cached_property
     def providers(self) -> providers.ProvidersResourceWithStreamingResponse:
@@ -1320,12 +1256,6 @@ class AsyncLlamaStackClientWithStreamedResponse:
         return AsyncDatasetsResourceWithStreamingResponse(self._client.datasets)
 
     @cached_property
-    def eval(self) -> eval.AsyncEvalResourceWithStreamingResponse:
-        from .resources.eval import AsyncEvalResourceWithStreamingResponse
-
-        return AsyncEvalResourceWithStreamingResponse(self._client.eval)
-
-    @cached_property
     def inspect(self) -> inspect.AsyncInspectResourceWithStreamingResponse:
         from .resources.inspect import AsyncInspectResourceWithStreamingResponse
 
@@ -1372,12 +1302,6 @@ class AsyncLlamaStackClientWithStreamedResponse:
         from .resources.models import AsyncModelsResourceWithStreamingResponse
 
         return AsyncModelsResourceWithStreamingResponse(self._client.models)
-
-    @cached_property
-    def post_training(self) -> post_training.AsyncPostTrainingResourceWithStreamingResponse:
-        from .resources.post_training import AsyncPostTrainingResourceWithStreamingResponse
-
-        return AsyncPostTrainingResourceWithStreamingResponse(self._client.post_training)
 
     @cached_property
     def providers(self) -> providers.AsyncProvidersResourceWithStreamingResponse:
