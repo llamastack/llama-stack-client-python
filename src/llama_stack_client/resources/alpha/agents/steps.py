@@ -74,7 +74,7 @@ class StepsResource(SyncAPIResource):
         if not step_id:
             raise ValueError(f"Expected a non-empty value for `step_id` but received {step_id!r}")
         return self._get(
-            f"/v1/agents/{agent_id}/session/{session_id}/turn/{turn_id}/step/{step_id}",
+            f"/v1alpha/agents/{agent_id}/session/{session_id}/turn/{turn_id}/step/{step_id}",
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -137,7 +137,7 @@ class AsyncStepsResource(AsyncAPIResource):
         if not step_id:
             raise ValueError(f"Expected a non-empty value for `step_id` but received {step_id!r}")
         return await self._get(
-            f"/v1/agents/{agent_id}/session/{session_id}/turn/{turn_id}/step/{step_id}",
+            f"/v1alpha/agents/{agent_id}/session/{session_id}/turn/{turn_id}/step/{step_id}",
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),

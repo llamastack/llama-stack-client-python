@@ -8,14 +8,6 @@ from .chat import (
     ChatResourceWithStreamingResponse,
     AsyncChatResourceWithStreamingResponse,
 )
-from .eval import (
-    EvalResource,
-    AsyncEvalResource,
-    EvalResourceWithRawResponse,
-    AsyncEvalResourceWithRawResponse,
-    EvalResourceWithStreamingResponse,
-    AsyncEvalResourceWithStreamingResponse,
-)
 from .alpha import (
     AlphaResource,
     AsyncAlphaResource,
@@ -184,14 +176,6 @@ from .tool_runtime import (
     ToolRuntimeResourceWithStreamingResponse,
     AsyncToolRuntimeResourceWithStreamingResponse,
 )
-from .post_training import (
-    PostTrainingResource,
-    AsyncPostTrainingResource,
-    PostTrainingResourceWithRawResponse,
-    AsyncPostTrainingResourceWithRawResponse,
-    PostTrainingResourceWithStreamingResponse,
-    AsyncPostTrainingResourceWithStreamingResponse,
-)
 from .vector_stores import (
     VectorStoresResource,
     AsyncVectorStoresResource,
@@ -248,12 +232,6 @@ __all__ = [
     "AsyncDatasetsResourceWithRawResponse",
     "DatasetsResourceWithStreamingResponse",
     "AsyncDatasetsResourceWithStreamingResponse",
-    "EvalResource",
-    "AsyncEvalResource",
-    "EvalResourceWithRawResponse",
-    "AsyncEvalResourceWithRawResponse",
-    "EvalResourceWithStreamingResponse",
-    "AsyncEvalResourceWithStreamingResponse",
     "InspectResource",
     "AsyncInspectResource",
     "InspectResourceWithRawResponse",
@@ -302,12 +280,6 @@ __all__ = [
     "AsyncModelsResourceWithRawResponse",
     "ModelsResourceWithStreamingResponse",
     "AsyncModelsResourceWithStreamingResponse",
-    "PostTrainingResource",
-    "AsyncPostTrainingResource",
-    "PostTrainingResourceWithRawResponse",
-    "AsyncPostTrainingResourceWithRawResponse",
-    "PostTrainingResourceWithStreamingResponse",
-    "AsyncPostTrainingResourceWithStreamingResponse",
     "ProvidersResource",
     "AsyncProvidersResource",
     "ProvidersResourceWithRawResponse",

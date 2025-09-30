@@ -2,8 +2,8 @@
 
 from typing import Dict, List, Union
 
-from .._models import BaseModel
-from .shared.scoring_result import ScoringResult
+from ..._models import BaseModel
+from ..shared.scoring_result import ScoringResult
 
 __all__ = ["EvaluateResponse"]
 

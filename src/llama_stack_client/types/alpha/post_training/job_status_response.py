@@ -1,11 +1,12 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-from typing import List, Optional
+from typing import Dict, List, Union, Optional
 from datetime import datetime
+from typing_extensions import Literal
 
-from ..._models import BaseModel
+from ...._models import BaseModel
 
-__all__ = ["JobArtifactsResponse", "Checkpoint", "CheckpointTrainingMetrics"]
+__all__ = ["JobStatusResponse", "Checkpoint", "CheckpointTrainingMetrics"]
 
 
 class CheckpointTrainingMetrics(BaseModel):
@@ -42,9 +43,24 @@ class Checkpoint(BaseModel):
     """(Optional) Training metrics associated with this checkpoint"""
 
 
-class JobArtifactsResponse(BaseModel):
+class JobStatusResponse(BaseModel):
     checkpoints: List[Checkpoint]
     """List of model checkpoints created during training"""
 
     job_uuid: str
     """Unique identifier for the training job"""
+
+    status: Literal["completed", "in_progress", "failed", "scheduled", "cancelled"]
+    """Current status of the training job"""
+
+    completed_at: Optional[datetime] = None
+    """(Optional) Timestamp when the job finished, if completed"""
+
+    resources_allocated: Optional[Dict[str, Union[bool, float, str, List[object], object, None]]] = None
+    """(Optional) Information about computational resources allocated to the job"""
+
+    scheduled_at: Optional[datetime] = None
+    """(Optional) Timestamp when the job was scheduled"""
+
+    started_at: Optional[datetime] = None
+    """(Optional) Timestamp when the job execution began"""

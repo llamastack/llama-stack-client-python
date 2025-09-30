@@ -205,7 +205,7 @@ class TurnResource(SyncAPIResource):
         if not session_id:
             raise ValueError(f"Expected a non-empty value for `session_id` but received {session_id!r}")
         return self._post(
-            f"/v1/agents/{agent_id}/session/{session_id}/turn",
+            f"/v1alpha/agents/{agent_id}/session/{session_id}/turn",
             body=maybe_transform(
                 {
                     "messages": messages,
@@ -258,7 +258,7 @@ class TurnResource(SyncAPIResource):
         if not turn_id:
             raise ValueError(f"Expected a non-empty value for `turn_id` but received {turn_id!r}")
         return self._get(
-            f"/v1/agents/{agent_id}/session/{session_id}/turn/{turn_id}",
+            f"/v1alpha/agents/{agent_id}/session/{session_id}/turn/{turn_id}",
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -402,7 +402,7 @@ class TurnResource(SyncAPIResource):
         if not turn_id:
             raise ValueError(f"Expected a non-empty value for `turn_id` but received {turn_id!r}")
         return self._post(
-            f"/v1/agents/{agent_id}/session/{session_id}/turn/{turn_id}/resume",
+            f"/v1alpha/agents/{agent_id}/session/{session_id}/turn/{turn_id}/resume",
             body=maybe_transform(
                 {
                     "tool_responses": tool_responses,
@@ -599,7 +599,7 @@ class AsyncTurnResource(AsyncAPIResource):
         if not session_id:
             raise ValueError(f"Expected a non-empty value for `session_id` but received {session_id!r}")
         return await self._post(
-            f"/v1/agents/{agent_id}/session/{session_id}/turn",
+            f"/v1alpha/agents/{agent_id}/session/{session_id}/turn",
             body=await async_maybe_transform(
                 {
                     "messages": messages,
@@ -652,7 +652,7 @@ class AsyncTurnResource(AsyncAPIResource):
         if not turn_id:
             raise ValueError(f"Expected a non-empty value for `turn_id` but received {turn_id!r}")
         return await self._get(
-            f"/v1/agents/{agent_id}/session/{session_id}/turn/{turn_id}",
+            f"/v1alpha/agents/{agent_id}/session/{session_id}/turn/{turn_id}",
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -796,7 +796,7 @@ class AsyncTurnResource(AsyncAPIResource):
         if not turn_id:
             raise ValueError(f"Expected a non-empty value for `turn_id` but received {turn_id!r}")
         return await self._post(
-            f"/v1/agents/{agent_id}/session/{session_id}/turn/{turn_id}/resume",
+            f"/v1alpha/agents/{agent_id}/session/{session_id}/turn/{turn_id}/resume",
             body=await async_maybe_transform(
                 {
                     "tool_responses": tool_responses,
