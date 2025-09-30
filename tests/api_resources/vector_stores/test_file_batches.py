@@ -122,67 +122,6 @@ class TestFileBatches:
             )
 
     @parametrize
-    def test_method_list(self, client: LlamaStackClient) -> None:
-        file_batch = client.vector_stores.file_batches.list(
-            batch_id="batch_id",
-            vector_store_id="vector_store_id",
-        )
-        assert_matches_type(SyncOpenAICursorPage[VectorStoreFile], file_batch, path=["response"])
-
-    @parametrize
-    def test_method_list_with_all_params(self, client: LlamaStackClient) -> None:
-        file_batch = client.vector_stores.file_batches.list(
-            batch_id="batch_id",
-            vector_store_id="vector_store_id",
-            after="after",
-            before="before",
-            filter="filter",
-            limit=0,
-            order="order",
-        )
-        assert_matches_type(SyncOpenAICursorPage[VectorStoreFile], file_batch, path=["response"])
-
-    @parametrize
-    def test_raw_response_list(self, client: LlamaStackClient) -> None:
-        response = client.vector_stores.file_batches.with_raw_response.list(
-            batch_id="batch_id",
-            vector_store_id="vector_store_id",
-        )
-
-        assert response.is_closed is True
-        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-        file_batch = response.parse()
-        assert_matches_type(SyncOpenAICursorPage[VectorStoreFile], file_batch, path=["response"])
-
-    @parametrize
-    def test_streaming_response_list(self, client: LlamaStackClient) -> None:
-        with client.vector_stores.file_batches.with_streaming_response.list(
-            batch_id="batch_id",
-            vector_store_id="vector_store_id",
-        ) as response:
-            assert not response.is_closed
-            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-
-            file_batch = response.parse()
-            assert_matches_type(SyncOpenAICursorPage[VectorStoreFile], file_batch, path=["response"])
-
-        assert cast(Any, response.is_closed) is True
-
-    @parametrize
-    def test_path_params_list(self, client: LlamaStackClient) -> None:
-        with pytest.raises(ValueError, match=r"Expected a non-empty value for `vector_store_id` but received ''"):
-            client.vector_stores.file_batches.with_raw_response.list(
-                batch_id="batch_id",
-                vector_store_id="",
-            )
-
-        with pytest.raises(ValueError, match=r"Expected a non-empty value for `batch_id` but received ''"):
-            client.vector_stores.file_batches.with_raw_response.list(
-                batch_id="",
-                vector_store_id="vector_store_id",
-            )
-
-    @parametrize
     def test_method_cancel(self, client: LlamaStackClient) -> None:
         file_batch = client.vector_stores.file_batches.cancel(
             batch_id="batch_id",
@@ -226,6 +165,67 @@ class TestFileBatches:
 
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `batch_id` but received ''"):
             client.vector_stores.file_batches.with_raw_response.cancel(
+                batch_id="",
+                vector_store_id="vector_store_id",
+            )
+
+    @parametrize
+    def test_method_list_files(self, client: LlamaStackClient) -> None:
+        file_batch = client.vector_stores.file_batches.list_files(
+            batch_id="batch_id",
+            vector_store_id="vector_store_id",
+        )
+        assert_matches_type(SyncOpenAICursorPage[VectorStoreFile], file_batch, path=["response"])
+
+    @parametrize
+    def test_method_list_files_with_all_params(self, client: LlamaStackClient) -> None:
+        file_batch = client.vector_stores.file_batches.list_files(
+            batch_id="batch_id",
+            vector_store_id="vector_store_id",
+            after="after",
+            before="before",
+            filter="filter",
+            limit=0,
+            order="order",
+        )
+        assert_matches_type(SyncOpenAICursorPage[VectorStoreFile], file_batch, path=["response"])
+
+    @parametrize
+    def test_raw_response_list_files(self, client: LlamaStackClient) -> None:
+        response = client.vector_stores.file_batches.with_raw_response.list_files(
+            batch_id="batch_id",
+            vector_store_id="vector_store_id",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        file_batch = response.parse()
+        assert_matches_type(SyncOpenAICursorPage[VectorStoreFile], file_batch, path=["response"])
+
+    @parametrize
+    def test_streaming_response_list_files(self, client: LlamaStackClient) -> None:
+        with client.vector_stores.file_batches.with_streaming_response.list_files(
+            batch_id="batch_id",
+            vector_store_id="vector_store_id",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            file_batch = response.parse()
+            assert_matches_type(SyncOpenAICursorPage[VectorStoreFile], file_batch, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @parametrize
+    def test_path_params_list_files(self, client: LlamaStackClient) -> None:
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `vector_store_id` but received ''"):
+            client.vector_stores.file_batches.with_raw_response.list_files(
+                batch_id="batch_id",
+                vector_store_id="",
+            )
+
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `batch_id` but received ''"):
+            client.vector_stores.file_batches.with_raw_response.list_files(
                 batch_id="",
                 vector_store_id="vector_store_id",
             )
@@ -337,67 +337,6 @@ class TestAsyncFileBatches:
             )
 
     @parametrize
-    async def test_method_list(self, async_client: AsyncLlamaStackClient) -> None:
-        file_batch = await async_client.vector_stores.file_batches.list(
-            batch_id="batch_id",
-            vector_store_id="vector_store_id",
-        )
-        assert_matches_type(AsyncOpenAICursorPage[VectorStoreFile], file_batch, path=["response"])
-
-    @parametrize
-    async def test_method_list_with_all_params(self, async_client: AsyncLlamaStackClient) -> None:
-        file_batch = await async_client.vector_stores.file_batches.list(
-            batch_id="batch_id",
-            vector_store_id="vector_store_id",
-            after="after",
-            before="before",
-            filter="filter",
-            limit=0,
-            order="order",
-        )
-        assert_matches_type(AsyncOpenAICursorPage[VectorStoreFile], file_batch, path=["response"])
-
-    @parametrize
-    async def test_raw_response_list(self, async_client: AsyncLlamaStackClient) -> None:
-        response = await async_client.vector_stores.file_batches.with_raw_response.list(
-            batch_id="batch_id",
-            vector_store_id="vector_store_id",
-        )
-
-        assert response.is_closed is True
-        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-        file_batch = await response.parse()
-        assert_matches_type(AsyncOpenAICursorPage[VectorStoreFile], file_batch, path=["response"])
-
-    @parametrize
-    async def test_streaming_response_list(self, async_client: AsyncLlamaStackClient) -> None:
-        async with async_client.vector_stores.file_batches.with_streaming_response.list(
-            batch_id="batch_id",
-            vector_store_id="vector_store_id",
-        ) as response:
-            assert not response.is_closed
-            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-
-            file_batch = await response.parse()
-            assert_matches_type(AsyncOpenAICursorPage[VectorStoreFile], file_batch, path=["response"])
-
-        assert cast(Any, response.is_closed) is True
-
-    @parametrize
-    async def test_path_params_list(self, async_client: AsyncLlamaStackClient) -> None:
-        with pytest.raises(ValueError, match=r"Expected a non-empty value for `vector_store_id` but received ''"):
-            await async_client.vector_stores.file_batches.with_raw_response.list(
-                batch_id="batch_id",
-                vector_store_id="",
-            )
-
-        with pytest.raises(ValueError, match=r"Expected a non-empty value for `batch_id` but received ''"):
-            await async_client.vector_stores.file_batches.with_raw_response.list(
-                batch_id="",
-                vector_store_id="vector_store_id",
-            )
-
-    @parametrize
     async def test_method_cancel(self, async_client: AsyncLlamaStackClient) -> None:
         file_batch = await async_client.vector_stores.file_batches.cancel(
             batch_id="batch_id",
@@ -441,6 +380,67 @@ class TestAsyncFileBatches:
 
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `batch_id` but received ''"):
             await async_client.vector_stores.file_batches.with_raw_response.cancel(
+                batch_id="",
+                vector_store_id="vector_store_id",
+            )
+
+    @parametrize
+    async def test_method_list_files(self, async_client: AsyncLlamaStackClient) -> None:
+        file_batch = await async_client.vector_stores.file_batches.list_files(
+            batch_id="batch_id",
+            vector_store_id="vector_store_id",
+        )
+        assert_matches_type(AsyncOpenAICursorPage[VectorStoreFile], file_batch, path=["response"])
+
+    @parametrize
+    async def test_method_list_files_with_all_params(self, async_client: AsyncLlamaStackClient) -> None:
+        file_batch = await async_client.vector_stores.file_batches.list_files(
+            batch_id="batch_id",
+            vector_store_id="vector_store_id",
+            after="after",
+            before="before",
+            filter="filter",
+            limit=0,
+            order="order",
+        )
+        assert_matches_type(AsyncOpenAICursorPage[VectorStoreFile], file_batch, path=["response"])
+
+    @parametrize
+    async def test_raw_response_list_files(self, async_client: AsyncLlamaStackClient) -> None:
+        response = await async_client.vector_stores.file_batches.with_raw_response.list_files(
+            batch_id="batch_id",
+            vector_store_id="vector_store_id",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        file_batch = await response.parse()
+        assert_matches_type(AsyncOpenAICursorPage[VectorStoreFile], file_batch, path=["response"])
+
+    @parametrize
+    async def test_streaming_response_list_files(self, async_client: AsyncLlamaStackClient) -> None:
+        async with async_client.vector_stores.file_batches.with_streaming_response.list_files(
+            batch_id="batch_id",
+            vector_store_id="vector_store_id",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            file_batch = await response.parse()
+            assert_matches_type(AsyncOpenAICursorPage[VectorStoreFile], file_batch, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @parametrize
+    async def test_path_params_list_files(self, async_client: AsyncLlamaStackClient) -> None:
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `vector_store_id` but received ''"):
+            await async_client.vector_stores.file_batches.with_raw_response.list_files(
+                batch_id="batch_id",
+                vector_store_id="",
+            )
+
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `batch_id` but received ''"):
+            await async_client.vector_stores.file_batches.with_raw_response.list_files(
                 batch_id="",
                 vector_store_id="vector_store_id",
             )
