@@ -5,13 +5,13 @@ from __future__ import annotations
 from typing import Dict, Union, Iterable
 from typing_extensions import Required, TypedDict
 
-from .._types import SequenceNotStr
+from ..._types import SequenceNotStr
 from .benchmark_config_param import BenchmarkConfigParam
 
-__all__ = ["EvalEvaluateRowsParams"]
+__all__ = ["EvalEvaluateRowsAlphaParams"]
 
 
-class EvalEvaluateRowsParams(TypedDict, total=False):
+class EvalEvaluateRowsAlphaParams(TypedDict, total=False):
     benchmark_config: Required[BenchmarkConfigParam]
     """The configuration for the benchmark."""
 

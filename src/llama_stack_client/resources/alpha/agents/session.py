@@ -72,7 +72,7 @@ class SessionResource(SyncAPIResource):
         if not agent_id:
             raise ValueError(f"Expected a non-empty value for `agent_id` but received {agent_id!r}")
         return self._post(
-            f"/v1/agents/{agent_id}/session",
+            f"/v1alpha/agents/{agent_id}/session",
             body=maybe_transform({"session_name": session_name}, session_create_params.SessionCreateParams),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
@@ -112,7 +112,7 @@ class SessionResource(SyncAPIResource):
         if not session_id:
             raise ValueError(f"Expected a non-empty value for `session_id` but received {session_id!r}")
         return self._get(
-            f"/v1/agents/{agent_id}/session/{session_id}",
+            f"/v1alpha/agents/{agent_id}/session/{session_id}",
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
@@ -155,7 +155,7 @@ class SessionResource(SyncAPIResource):
         if not agent_id:
             raise ValueError(f"Expected a non-empty value for `agent_id` but received {agent_id!r}")
         return self._get(
-            f"/v1/agents/{agent_id}/sessions",
+            f"/v1alpha/agents/{agent_id}/sessions",
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
@@ -202,7 +202,7 @@ class SessionResource(SyncAPIResource):
             raise ValueError(f"Expected a non-empty value for `session_id` but received {session_id!r}")
         extra_headers = {"Accept": "*/*", **(extra_headers or {})}
         return self._delete(
-            f"/v1/agents/{agent_id}/session/{session_id}",
+            f"/v1alpha/agents/{agent_id}/session/{session_id}",
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -259,7 +259,7 @@ class AsyncSessionResource(AsyncAPIResource):
         if not agent_id:
             raise ValueError(f"Expected a non-empty value for `agent_id` but received {agent_id!r}")
         return await self._post(
-            f"/v1/agents/{agent_id}/session",
+            f"/v1alpha/agents/{agent_id}/session",
             body=await async_maybe_transform({"session_name": session_name}, session_create_params.SessionCreateParams),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
@@ -299,7 +299,7 @@ class AsyncSessionResource(AsyncAPIResource):
         if not session_id:
             raise ValueError(f"Expected a non-empty value for `session_id` but received {session_id!r}")
         return await self._get(
-            f"/v1/agents/{agent_id}/session/{session_id}",
+            f"/v1alpha/agents/{agent_id}/session/{session_id}",
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
@@ -344,7 +344,7 @@ class AsyncSessionResource(AsyncAPIResource):
         if not agent_id:
             raise ValueError(f"Expected a non-empty value for `agent_id` but received {agent_id!r}")
         return await self._get(
-            f"/v1/agents/{agent_id}/sessions",
+            f"/v1alpha/agents/{agent_id}/sessions",
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
@@ -391,7 +391,7 @@ class AsyncSessionResource(AsyncAPIResource):
             raise ValueError(f"Expected a non-empty value for `session_id` but received {session_id!r}")
         extra_headers = {"Accept": "*/*", **(extra_headers or {})}
         return await self._delete(
-            f"/v1/agents/{agent_id}/session/{session_id}",
+            f"/v1alpha/agents/{agent_id}/session/{session_id}",
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),

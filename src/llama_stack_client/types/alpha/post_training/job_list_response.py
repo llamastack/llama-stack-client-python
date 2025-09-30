@@ -3,7 +3,7 @@
 from typing import List
 from typing_extensions import TypeAlias
 
-from ..._models import BaseModel
+from ...._models import BaseModel
 
 __all__ = ["JobListResponse", "JobListResponseItem"]
 

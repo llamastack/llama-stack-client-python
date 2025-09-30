@@ -2,7 +2,6 @@
 
 from __future__ import annotations
 
-from .job import Job as Job
 from .file import File as File
 from .tool import Tool as Tool
 from .model import Model as Model
@@ -43,8 +42,6 @@ from .response_object import ResponseObject as ResponseObject
 from .file_list_params import FileListParams as FileListParams
 from .span_with_status import SpanWithStatus as SpanWithStatus
 from .tool_list_params import ToolListParams as ToolListParams
-from .evaluate_response import EvaluateResponse as EvaluateResponse
-from .post_training_job import PostTrainingJob as PostTrainingJob
 from .scoring_fn_params import ScoringFnParams as ScoringFnParams
 from .file_create_params import FileCreateParams as FileCreateParams
 from .tool_list_response import ToolListResponse as ToolListResponse
@@ -54,7 +51,6 @@ from .model_list_response import ModelListResponse as ModelListResponse
 from .route_list_response import RouteListResponse as RouteListResponse
 from .run_shield_response import RunShieldResponse as RunShieldResponse
 from .delete_file_response import DeleteFileResponse as DeleteFileResponse
-from .eval_run_eval_params import EvalRunEvalParams as EvalRunEvalParams
 from .list_models_response import ListModelsResponse as ListModelsResponse
 from .list_routes_response import ListRoutesResponse as ListRoutesResponse
 from .query_spans_response import QuerySpansResponse as QuerySpansResponse
@@ -67,8 +63,6 @@ from .list_shields_response import ListShieldsResponse as ListShieldsResponse
 from .model_register_params import ModelRegisterParams as ModelRegisterParams
 from .query_chunks_response import QueryChunksResponse as QueryChunksResponse
 from .query_condition_param import QueryConditionParam as QueryConditionParam
-from .algorithm_config_param import AlgorithmConfigParam as AlgorithmConfigParam
-from .benchmark_config_param import BenchmarkConfigParam as BenchmarkConfigParam
 from .list_datasets_response import ListDatasetsResponse as ListDatasetsResponse
 from .provider_list_response import ProviderListResponse as ProviderListResponse
 from .response_create_params import ResponseCreateParams as ResponseCreateParams
@@ -99,13 +93,11 @@ from .dataset_appendrows_params import DatasetAppendrowsParams as DatasetAppendr
 from .dataset_iterrows_response import DatasetIterrowsResponse as DatasetIterrowsResponse
 from .dataset_register_response import DatasetRegisterResponse as DatasetRegisterResponse
 from .dataset_retrieve_response import DatasetRetrieveResponse as DatasetRetrieveResponse
-from .eval_evaluate_rows_params import EvalEvaluateRowsParams as EvalEvaluateRowsParams
 from .list_tool_groups_response import ListToolGroupsResponse as ListToolGroupsResponse
 from .toolgroup_register_params import ToolgroupRegisterParams as ToolgroupRegisterParams
 from .vector_db_register_params import VectorDBRegisterParams as VectorDBRegisterParams
 from .completion_create_response import CompletionCreateResponse as CompletionCreateResponse
 from .create_embeddings_response import CreateEmbeddingsResponse as CreateEmbeddingsResponse
-from .eval_run_eval_alpha_params import EvalRunEvalAlphaParams as EvalRunEvalAlphaParams
 from .scoring_score_batch_params import ScoringScoreBatchParams as ScoringScoreBatchParams
 from .telemetry_log_event_params import TelemetryLogEventParams as TelemetryLogEventParams
 from .vector_store_create_params import VectorStoreCreateParams as VectorStoreCreateParams
@@ -125,11 +117,9 @@ from .telemetry_get_span_tree_params import TelemetryGetSpanTreeParams as Teleme
 from .telemetry_query_metrics_params import TelemetryQueryMetricsParams as TelemetryQueryMetricsParams
 from .telemetry_query_spans_response import TelemetryQuerySpansResponse as TelemetryQuerySpansResponse
 from .tool_runtime_list_tools_params import ToolRuntimeListToolsParams as ToolRuntimeListToolsParams
-from .eval_evaluate_rows_alpha_params import EvalEvaluateRowsAlphaParams as EvalEvaluateRowsAlphaParams
 from .list_scoring_functions_response import ListScoringFunctionsResponse as ListScoringFunctionsResponse
 from .telemetry_query_traces_response import TelemetryQueryTracesResponse as TelemetryQueryTracesResponse
 from .tool_runtime_invoke_tool_params import ToolRuntimeInvokeToolParams as ToolRuntimeInvokeToolParams
-from .list_post_training_jobs_response import ListPostTrainingJobsResponse as ListPostTrainingJobsResponse
 from .scoring_function_register_params import ScoringFunctionRegisterParams as ScoringFunctionRegisterParams
 from .telemetry_get_span_tree_response import TelemetryGetSpanTreeResponse as TelemetryGetSpanTreeResponse
 from .telemetry_query_metrics_response import TelemetryQueryMetricsResponse as TelemetryQueryMetricsResponse
@@ -137,12 +127,6 @@ from .tool_runtime_list_tools_response import ToolRuntimeListToolsResponse as To
 from .synthetic_data_generation_response import SyntheticDataGenerationResponse as SyntheticDataGenerationResponse
 from .telemetry_save_spans_to_dataset_params import (
     TelemetrySaveSpansToDatasetParams as TelemetrySaveSpansToDatasetParams,
-)
-from .post_training_preference_optimize_params import (
-    PostTrainingPreferenceOptimizeParams as PostTrainingPreferenceOptimizeParams,
-)
-from .post_training_supervised_fine_tune_params import (
-    PostTrainingSupervisedFineTuneParams as PostTrainingSupervisedFineTuneParams,
 )
 from .synthetic_data_generation_generate_params import (
     SyntheticDataGenerationGenerateParams as SyntheticDataGenerationGenerateParams,

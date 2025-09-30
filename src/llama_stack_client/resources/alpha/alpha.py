@@ -3,6 +3,14 @@
 from __future__ import annotations
 
 from ..._compat import cached_property
+from .eval.eval import (
+    EvalResource,
+    AsyncEvalResource,
+    EvalResourceWithRawResponse,
+    AsyncEvalResourceWithRawResponse,
+    EvalResourceWithStreamingResponse,
+    AsyncEvalResourceWithStreamingResponse,
+)
 from .inference import (
     InferenceResource,
     AsyncInferenceResource,
@@ -20,6 +28,14 @@ from .agents.agents import (
     AgentsResourceWithStreamingResponse,
     AsyncAgentsResourceWithStreamingResponse,
 )
+from .post_training.post_training import (
+    PostTrainingResource,
+    AsyncPostTrainingResource,
+    PostTrainingResourceWithRawResponse,
+    AsyncPostTrainingResourceWithRawResponse,
+    PostTrainingResourceWithStreamingResponse,
+    AsyncPostTrainingResourceWithStreamingResponse,
+)
 
 __all__ = ["AlphaResource", "AsyncAlphaResource"]
 
@@ -28,6 +44,14 @@ class AlphaResource(SyncAPIResource):
     @cached_property
     def inference(self) -> InferenceResource:
         return InferenceResource(self._client)
+
+    @cached_property
+    def post_training(self) -> PostTrainingResource:
+        return PostTrainingResource(self._client)
+
+    @cached_property
+    def eval(self) -> EvalResource:
+        return EvalResource(self._client)
 
     @cached_property
     def agents(self) -> AgentsResource:
@@ -57,6 +81,14 @@ class AsyncAlphaResource(AsyncAPIResource):
     @cached_property
     def inference(self) -> AsyncInferenceResource:
         return AsyncInferenceResource(self._client)
+
+    @cached_property
+    def post_training(self) -> AsyncPostTrainingResource:
+        return AsyncPostTrainingResource(self._client)
+
+    @cached_property
+    def eval(self) -> AsyncEvalResource:
+        return AsyncEvalResource(self._client)
 
     @cached_property
     def agents(self) -> AsyncAgentsResource:
@@ -91,6 +123,14 @@ class AlphaResourceWithRawResponse:
         return InferenceResourceWithRawResponse(self._alpha.inference)
 
     @cached_property
+    def post_training(self) -> PostTrainingResourceWithRawResponse:
+        return PostTrainingResourceWithRawResponse(self._alpha.post_training)
+
+    @cached_property
+    def eval(self) -> EvalResourceWithRawResponse:
+        return EvalResourceWithRawResponse(self._alpha.eval)
+
+    @cached_property
     def agents(self) -> AgentsResourceWithRawResponse:
         return AgentsResourceWithRawResponse(self._alpha.agents)
 
@@ -102,6 +142,14 @@ class AsyncAlphaResourceWithRawResponse:
     @cached_property
     def inference(self) -> AsyncInferenceResourceWithRawResponse:
         return AsyncInferenceResourceWithRawResponse(self._alpha.inference)
+
+    @cached_property
+    def post_training(self) -> AsyncPostTrainingResourceWithRawResponse:
+        return AsyncPostTrainingResourceWithRawResponse(self._alpha.post_training)
+
+    @cached_property
+    def eval(self) -> AsyncEvalResourceWithRawResponse:
+        return AsyncEvalResourceWithRawResponse(self._alpha.eval)
 
     @cached_property
     def agents(self) -> AsyncAgentsResourceWithRawResponse:
@@ -117,6 +165,14 @@ class AlphaResourceWithStreamingResponse:
         return InferenceResourceWithStreamingResponse(self._alpha.inference)
 
     @cached_property
+    def post_training(self) -> PostTrainingResourceWithStreamingResponse:
+        return PostTrainingResourceWithStreamingResponse(self._alpha.post_training)
+
+    @cached_property
+    def eval(self) -> EvalResourceWithStreamingResponse:
+        return EvalResourceWithStreamingResponse(self._alpha.eval)
+
+    @cached_property
     def agents(self) -> AgentsResourceWithStreamingResponse:
         return AgentsResourceWithStreamingResponse(self._alpha.agents)
 
@@ -128,6 +184,14 @@ class AsyncAlphaResourceWithStreamingResponse:
     @cached_property
     def inference(self) -> AsyncInferenceResourceWithStreamingResponse:
         return AsyncInferenceResourceWithStreamingResponse(self._alpha.inference)
+
+    @cached_property
+    def post_training(self) -> AsyncPostTrainingResourceWithStreamingResponse:
+        return AsyncPostTrainingResourceWithStreamingResponse(self._alpha.post_training)
+
+    @cached_property
+    def eval(self) -> AsyncEvalResourceWithStreamingResponse:
+        return AsyncEvalResourceWithStreamingResponse(self._alpha.eval)
 
     @cached_property
     def agents(self) -> AsyncAgentsResourceWithStreamingResponse:

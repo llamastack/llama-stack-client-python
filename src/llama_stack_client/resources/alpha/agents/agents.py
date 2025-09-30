@@ -106,7 +106,7 @@ class AgentsResource(SyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         return self._post(
-            "/v1/agents",
+            "/v1alpha/agents",
             body=maybe_transform({"agent_config": agent_config}, agent_create_params.AgentCreateParams),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
@@ -140,7 +140,7 @@ class AgentsResource(SyncAPIResource):
         if not agent_id:
             raise ValueError(f"Expected a non-empty value for `agent_id` but received {agent_id!r}")
         return self._get(
-            f"/v1/agents/{agent_id}",
+            f"/v1alpha/agents/{agent_id}",
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -176,7 +176,7 @@ class AgentsResource(SyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         return self._get(
-            "/v1/agents",
+            "/v1alpha/agents",
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
@@ -220,7 +220,7 @@ class AgentsResource(SyncAPIResource):
             raise ValueError(f"Expected a non-empty value for `agent_id` but received {agent_id!r}")
         extra_headers = {"Accept": "*/*", **(extra_headers or {})}
         return self._delete(
-            f"/v1/agents/{agent_id}",
+            f"/v1alpha/agents/{agent_id}",
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -286,7 +286,7 @@ class AsyncAgentsResource(AsyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         return await self._post(
-            "/v1/agents",
+            "/v1alpha/agents",
             body=await async_maybe_transform({"agent_config": agent_config}, agent_create_params.AgentCreateParams),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
@@ -320,7 +320,7 @@ class AsyncAgentsResource(AsyncAPIResource):
         if not agent_id:
             raise ValueError(f"Expected a non-empty value for `agent_id` but received {agent_id!r}")
         return await self._get(
-            f"/v1/agents/{agent_id}",
+            f"/v1alpha/agents/{agent_id}",
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -356,7 +356,7 @@ class AsyncAgentsResource(AsyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         return await self._get(
-            "/v1/agents",
+            "/v1alpha/agents",
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
@@ -400,7 +400,7 @@ class AsyncAgentsResource(AsyncAPIResource):
             raise ValueError(f"Expected a non-empty value for `agent_id` but received {agent_id!r}")
         extra_headers = {"Accept": "*/*", **(extra_headers or {})}
         return await self._delete(
-            f"/v1/agents/{agent_id}",
+            f"/v1alpha/agents/{agent_id}",
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),

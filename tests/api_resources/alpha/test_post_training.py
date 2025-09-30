@@ -9,7 +9,7 @@ import pytest
 
 from tests.utils import assert_matches_type
 from llama_stack_client import LlamaStackClient, AsyncLlamaStackClient
-from llama_stack_client.types import (
+from llama_stack_client.types.alpha import (
     PostTrainingJob,
 )
 
@@ -21,7 +21,7 @@ class TestPostTraining:
 
     @parametrize
     def test_method_preference_optimize(self, client: LlamaStackClient) -> None:
-        post_training = client.post_training.preference_optimize(
+        post_training = client.alpha.post_training.preference_optimize(
             algorithm_config={
                 "beta": 0,
                 "loss_type": "sigmoid",
@@ -40,7 +40,7 @@ class TestPostTraining:
 
     @parametrize
     def test_method_preference_optimize_with_all_params(self, client: LlamaStackClient) -> None:
-        post_training = client.post_training.preference_optimize(
+        post_training = client.alpha.post_training.preference_optimize(
             algorithm_config={
                 "beta": 0,
                 "loss_type": "sigmoid",
@@ -82,7 +82,7 @@ class TestPostTraining:
 
     @parametrize
     def test_raw_response_preference_optimize(self, client: LlamaStackClient) -> None:
-        response = client.post_training.with_raw_response.preference_optimize(
+        response = client.alpha.post_training.with_raw_response.preference_optimize(
             algorithm_config={
                 "beta": 0,
                 "loss_type": "sigmoid",
@@ -105,7 +105,7 @@ class TestPostTraining:
 
     @parametrize
     def test_streaming_response_preference_optimize(self, client: LlamaStackClient) -> None:
-        with client.post_training.with_streaming_response.preference_optimize(
+        with client.alpha.post_training.with_streaming_response.preference_optimize(
             algorithm_config={
                 "beta": 0,
                 "loss_type": "sigmoid",
@@ -130,7 +130,7 @@ class TestPostTraining:
 
     @parametrize
     def test_method_supervised_fine_tune(self, client: LlamaStackClient) -> None:
-        post_training = client.post_training.supervised_fine_tune(
+        post_training = client.alpha.post_training.supervised_fine_tune(
             hyperparam_search_config={"foo": True},
             job_uuid="job_uuid",
             logger_config={"foo": True},
@@ -144,7 +144,7 @@ class TestPostTraining:
 
     @parametrize
     def test_method_supervised_fine_tune_with_all_params(self, client: LlamaStackClient) -> None:
-        post_training = client.post_training.supervised_fine_tune(
+        post_training = client.alpha.post_training.supervised_fine_tune(
             hyperparam_search_config={"foo": True},
             job_uuid="job_uuid",
             logger_config={"foo": True},
@@ -193,7 +193,7 @@ class TestPostTraining:
 
     @parametrize
     def test_raw_response_supervised_fine_tune(self, client: LlamaStackClient) -> None:
-        response = client.post_training.with_raw_response.supervised_fine_tune(
+        response = client.alpha.post_training.with_raw_response.supervised_fine_tune(
             hyperparam_search_config={"foo": True},
             job_uuid="job_uuid",
             logger_config={"foo": True},
@@ -211,7 +211,7 @@ class TestPostTraining:
 
     @parametrize
     def test_streaming_response_supervised_fine_tune(self, client: LlamaStackClient) -> None:
-        with client.post_training.with_streaming_response.supervised_fine_tune(
+        with client.alpha.post_training.with_streaming_response.supervised_fine_tune(
             hyperparam_search_config={"foo": True},
             job_uuid="job_uuid",
             logger_config={"foo": True},
@@ -237,7 +237,7 @@ class TestAsyncPostTraining:
 
     @parametrize
     async def test_method_preference_optimize(self, async_client: AsyncLlamaStackClient) -> None:
-        post_training = await async_client.post_training.preference_optimize(
+        post_training = await async_client.alpha.post_training.preference_optimize(
             algorithm_config={
                 "beta": 0,
                 "loss_type": "sigmoid",
@@ -256,7 +256,7 @@ class TestAsyncPostTraining:
 
     @parametrize
     async def test_method_preference_optimize_with_all_params(self, async_client: AsyncLlamaStackClient) -> None:
-        post_training = await async_client.post_training.preference_optimize(
+        post_training = await async_client.alpha.post_training.preference_optimize(
             algorithm_config={
                 "beta": 0,
                 "loss_type": "sigmoid",
@@ -298,7 +298,7 @@ class TestAsyncPostTraining:
 
     @parametrize
     async def test_raw_response_preference_optimize(self, async_client: AsyncLlamaStackClient) -> None:
-        response = await async_client.post_training.with_raw_response.preference_optimize(
+        response = await async_client.alpha.post_training.with_raw_response.preference_optimize(
             algorithm_config={
                 "beta": 0,
                 "loss_type": "sigmoid",
@@ -321,7 +321,7 @@ class TestAsyncPostTraining:
 
     @parametrize
     async def test_streaming_response_preference_optimize(self, async_client: AsyncLlamaStackClient) -> None:
-        async with async_client.post_training.with_streaming_response.preference_optimize(
+        async with async_client.alpha.post_training.with_streaming_response.preference_optimize(
             algorithm_config={
                 "beta": 0,
                 "loss_type": "sigmoid",
@@ -346,7 +346,7 @@ class TestAsyncPostTraining:
 
     @parametrize
     async def test_method_supervised_fine_tune(self, async_client: AsyncLlamaStackClient) -> None:
-        post_training = await async_client.post_training.supervised_fine_tune(
+        post_training = await async_client.alpha.post_training.supervised_fine_tune(
             hyperparam_search_config={"foo": True},
             job_uuid="job_uuid",
             logger_config={"foo": True},
@@ -360,7 +360,7 @@ class TestAsyncPostTraining:
 
     @parametrize
     async def test_method_supervised_fine_tune_with_all_params(self, async_client: AsyncLlamaStackClient) -> None:
-        post_training = await async_client.post_training.supervised_fine_tune(
+        post_training = await async_client.alpha.post_training.supervised_fine_tune(
             hyperparam_search_config={"foo": True},
             job_uuid="job_uuid",
             logger_config={"foo": True},
@@ -409,7 +409,7 @@ class TestAsyncPostTraining:
 
     @parametrize
     async def test_raw_response_supervised_fine_tune(self, async_client: AsyncLlamaStackClient) -> None:
-        response = await async_client.post_training.with_raw_response.supervised_fine_tune(
+        response = await async_client.alpha.post_training.with_raw_response.supervised_fine_tune(
             hyperparam_search_config={"foo": True},
             job_uuid="job_uuid",
             logger_config={"foo": True},
@@ -427,7 +427,7 @@ class TestAsyncPostTraining:
 
     @parametrize
     async def test_streaming_response_supervised_fine_tune(self, async_client: AsyncLlamaStackClient) -> None:
-        async with async_client.post_training.with_streaming_response.supervised_fine_tune(
+        async with async_client.alpha.post_training.with_streaming_response.supervised_fine_tune(
             hyperparam_search_config={"foo": True},
             job_uuid="job_uuid",
             logger_config={"foo": True},
