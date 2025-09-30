@@ -361,6 +361,3 @@ class ResponseObject(BaseModel):
 
     truncation: Optional[str] = None
     """(Optional) Truncation strategy applied to the response"""
-
-    user: Optional[str] = None
-    """(Optional) User identifier associated with the request"""
