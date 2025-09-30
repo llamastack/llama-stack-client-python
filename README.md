@@ -95,50 +95,6 @@ async def main() -> None:
 asyncio.run(main())
 ```
 
-## Streaming responses
-
-We provide support for streaming responses using Server Side Events (SSE).
-
-```python
-from llama_stack_client import LlamaStackClient
-
-client = LlamaStackClient()
-
-stream = client.inference.chat_completion(
-    messages=[
-        {
-            "content": "string",
-            "role": "user",
-        }
-    ],
-    model_id="model_id",
-    stream=True,
-)
-for chat_completion_response in stream:
-    print(chat_completion_response.completion_message)
-```
-
-The async client uses the exact same interface.
-
-```python
-from llama_stack_client import AsyncLlamaStackClient
-
-client = AsyncLlamaStackClient()
-
-stream = await client.inference.chat_completion(
-    messages=[
-        {
-            "content": "string",
-            "role": "user",
-        }
-    ],
-    model_id="model_id",
-    stream=True,
-)
-async for chat_completion_response in stream:
-    print(chat_completion_response.completion_message)
-```
-
 ## Using types
 
 Nested request parameters are [TypedDicts](https://docs.python.org/3/library/typing.html#typing.TypedDict). Responses are [Pydantic models](https://docs.pydantic.dev) which also provide helper methods for things like:
@@ -157,17 +113,11 @@ from llama_stack_client import LlamaStackClient
 
 client = LlamaStackClient()
 
-chat_completion_response = client.inference.chat_completion(
-    messages=[
-        {
-            "content": "string",
-            "role": "user",
-        }
-    ],
-    model_id="model_id",
-    logprobs={},
+client.toolgroups.register(
+    provider_id="provider_id",
+    toolgroup_id="toolgroup_id",
+    mcp_endpoint={"uri": "uri"},
 )
-print(chat_completion_response.logprobs)
 ```
 
 ## File uploads
@@ -203,15 +153,7 @@ from llama_stack_client import LlamaStackClient
 client = LlamaStackClient()
 
 try:
-    client.inference.chat_completion(
-        messages=[
-            {
-                "content": "string",
-                "role": "user",
-            }
-        ],
-        model_id="model_id",
-    )
+    client.toolgroups.list()
 except llama_stack_client.APIConnectionError as e:
     print("The server could not be reached")
     print(e.__cause__)  # an underlying Exception, likely raised within httpx.
@@ -254,15 +196,7 @@ client = LlamaStackClient(
 )
 
 # Or, configure per-request:
-client.with_options(max_retries=5).inference.chat_completion(
-    messages=[
-        {
-            "content": "string",
-            "role": "user",
-        }
-    ],
-    model_id="model_id",
-)
+client.with_options(max_retries=5).toolgroups.list()
 ```
 
 ### Timeouts
@@ -285,15 +219,7 @@ client = LlamaStackClient(
 )
 
 # Override per-request:
-client.with_options(timeout=5.0).inference.chat_completion(
-    messages=[
-        {
-            "content": "string",
-            "role": "user",
-        }
-    ],
-    model_id="model_id",
-)
+client.with_options(timeout=5.0).toolgroups.list()
 ```
 
 On timeout, an `APITimeoutError` is thrown.
@@ -334,17 +260,11 @@ The "raw" Response object can be accessed by prefixing `.with_raw_response.` to 
 from llama_stack_client import LlamaStackClient
 
 client = LlamaStackClient()
-response = client.inference.with_raw_response.chat_completion(
-    messages=[{
-        "content": "string",
-        "role": "user",
-    }],
-    model_id="model_id",
-)
+response = client.toolgroups.with_raw_response.list()
 print(response.headers.get('X-My-Header'))
 
-inference = response.parse()  # get the object that `inference.chat_completion()` would have returned
-print(inference.completion_message)
+toolgroup = response.parse()  # get the object that `toolgroups.list()` would have returned
+print(toolgroup)
 ```
 
 These methods return an [`APIResponse`](https://github.com/llamastack/llama-stack-client-python/tree/main/src/llama_stack_client/_response.py) object.
@@ -358,15 +278,7 @@ The above interface eagerly reads the full response body when you make the reque
 To stream the response body, use `.with_streaming_response` instead, which requires a context manager and only reads the response body once you call `.read()`, `.text()`, `.json()`, `.iter_bytes()`, `.iter_text()`, `.iter_lines()` or `.parse()`. In the async client, these are async methods.
 
 ```python
-with client.inference.with_streaming_response.chat_completion(
-    messages=[
-        {
-            "content": "string",
-            "role": "user",
-        }
-    ],
-    model_id="model_id",
-) as response:
+with client.toolgroups.with_streaming_response.list() as response:
     print(response.headers.get("X-My-Header"))
 
     for line in response.iter_lines():

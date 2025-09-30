@@ -47,7 +47,6 @@ from .inference_step import InferenceStep as InferenceStep
 from .tool_def_param import ToolDefParam as ToolDefParam
 from .create_response import CreateResponse as CreateResponse
 from .response_object import ResponseObject as ResponseObject
-from .token_log_probs import TokenLogProbs as TokenLogProbs
 from .file_list_params import FileListParams as FileListParams
 from .shield_call_step import ShieldCallStep as ShieldCallStep
 from .span_with_status import SpanWithStatus as SpanWithStatus
@@ -100,6 +99,7 @@ from .benchmark_list_response import BenchmarkListResponse as BenchmarkListRespo
 from .dataset_iterrows_params import DatasetIterrowsParams as DatasetIterrowsParams
 from .dataset_register_params import DatasetRegisterParams as DatasetRegisterParams
 from .embedding_create_params import EmbeddingCreateParams as EmbeddingCreateParams
+from .inference_rerank_params import InferenceRerankParams as InferenceRerankParams
 from .list_providers_response import ListProvidersResponse as ListProvidersResponse
 from .scoring_fn_params_param import ScoringFnParamsParam as ScoringFnParamsParam
 from .toolgroup_list_response import ToolgroupListResponse as ToolgroupListResponse
@@ -118,6 +118,7 @@ from .dataset_iterrows_response import DatasetIterrowsResponse as DatasetIterrow
 from .dataset_register_response import DatasetRegisterResponse as DatasetRegisterResponse
 from .dataset_retrieve_response import DatasetRetrieveResponse as DatasetRetrieveResponse
 from .eval_evaluate_rows_params import EvalEvaluateRowsParams as EvalEvaluateRowsParams
+from .inference_rerank_response import InferenceRerankResponse as InferenceRerankResponse
 from .list_tool_groups_response import ListToolGroupsResponse as ListToolGroupsResponse
 from .toolgroup_register_params import ToolgroupRegisterParams as ToolgroupRegisterParams
 from .vector_db_register_params import VectorDBRegisterParams as VectorDBRegisterParams
@@ -147,16 +148,12 @@ from .eval_evaluate_rows_alpha_params import EvalEvaluateRowsAlphaParams as Eval
 from .list_scoring_functions_response import ListScoringFunctionsResponse as ListScoringFunctionsResponse
 from .telemetry_query_traces_response import TelemetryQueryTracesResponse as TelemetryQueryTracesResponse
 from .tool_runtime_invoke_tool_params import ToolRuntimeInvokeToolParams as ToolRuntimeInvokeToolParams
-from .inference_chat_completion_params import InferenceChatCompletionParams as InferenceChatCompletionParams
 from .list_post_training_jobs_response import ListPostTrainingJobsResponse as ListPostTrainingJobsResponse
 from .scoring_function_register_params import ScoringFunctionRegisterParams as ScoringFunctionRegisterParams
 from .telemetry_get_span_tree_response import TelemetryGetSpanTreeResponse as TelemetryGetSpanTreeResponse
 from .telemetry_query_metrics_response import TelemetryQueryMetricsResponse as TelemetryQueryMetricsResponse
 from .tool_runtime_list_tools_response import ToolRuntimeListToolsResponse as ToolRuntimeListToolsResponse
 from .synthetic_data_generation_response import SyntheticDataGenerationResponse as SyntheticDataGenerationResponse
-from .chat_completion_response_stream_chunk import (
-    ChatCompletionResponseStreamChunk as ChatCompletionResponseStreamChunk,
-)
 from .telemetry_save_spans_to_dataset_params import (
     TelemetrySaveSpansToDatasetParams as TelemetrySaveSpansToDatasetParams,
 )
