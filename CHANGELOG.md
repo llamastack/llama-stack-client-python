@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.3.0-alpha.3 (2025-09-30)
+
+Full Changelog: [v0.3.0-alpha.2...v0.3.0-alpha.3](https://github.com/llamastack/llama-stack-client-python/compare/v0.3.0-alpha.2...v0.3.0-alpha.3)
+
+### Features
+
+* **api:** fix file batches SDK to list_files ([9808a5b](https://github.com/llamastack/llama-stack-client-python/commit/9808a5bc904a7e727bd003f85ec520047e6ac033))
+
 ## 0.3.0-alpha.2 (2025-09-30)
 
 Full Changelog: [v0.3.0-alpha.1...v0.3.0-alpha.2](https://github.com/llamastack/llama-stack-client-python/compare/v0.3.0-alpha.1...v0.3.0-alpha.2)
