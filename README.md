@@ -127,17 +127,11 @@ from llama_stack_client import LlamaStackClient
 
 client = LlamaStackClient()
 
-chat_completion_response = client.inference.chat_completion(
-    messages=[
-        {
-            "content": "string",
-            "role": "user",
-        }
-    ],
-    model_id="model_id",
-    logprobs={},
+client.toolgroups.register(
+    provider_id="provider_id",
+    toolgroup_id="toolgroup_id",
+    mcp_endpoint={"uri": "uri"},
 )
-print(chat_completion_response.logprobs)
 ```
 
 ## File uploads
@@ -173,10 +167,7 @@ from llama_stack_client import LlamaStackClient
 client = LlamaStackClient()
 
 try:
-    client.agents.sessions.create(
-        agent_id="agent_id",
-        session_name="session_name",
-    )
+    client.agents.toolgroups.list()
 except llama_stack_client.APIConnectionError as e:
     print("The server could not be reached")
     print(e.__cause__)  # an underlying Exception, likely raised within httpx.
@@ -219,10 +210,7 @@ client = LlamaStackClient(
 )
 
 # Or, configure per-request:
-client.with_options(max_retries=5).agents.sessions.create(
-    agent_id="agent_id",
-    session_name="session_name",
-)
+client.with_options(max_retries=5).toolgroups.list.create()
 ```
 
 ### Timeouts
@@ -245,10 +233,7 @@ client = LlamaStackClient(
 )
 
 # Override per-request:
-client.with_options(timeout=5.0).agents.sessions.create(
-    agent_id="agent_id",
-    session_name="session_name",
-)
+client.with_options(timeout=5.0).toolgroups.list.create()
 ```
 
 On timeout, an `APITimeoutError` is thrown.
@@ -287,14 +272,11 @@ The "raw" Response object can be accessed by prefixing `.with_raw_response.` to 
 from llama_stack_client import LlamaStackClient
 
 client = LlamaStackClient()
-response = client.agents.sessions.with_raw_response.create(
-    agent_id="agent_id",
-    session_name="session_name",
-)
+response = client.toolgroups.with_raw_response.list()
 print(response.headers.get('X-My-Header'))
 
-session = response.parse()  # get the object that `agents.sessions.create()` would have returned
-print(session.session_id)
+toolgroup = response.parse()  # get the object that `toolgroups.list()` would have returned
+print(toolgroup)
 ```
 
 These methods return an [`APIResponse`](https://github.com/meta-llama/llama-stack-python/tree/main/src/llama_stack_client/_response.py) object.
@@ -308,10 +290,7 @@ The above interface eagerly reads the full response body when you make the reque
 To stream the response body, use `.with_streaming_response` instead, which requires a context manager and only reads the response body once you call `.read()`, `.text()`, `.json()`, `.iter_bytes()`, `.iter_text()`, `.iter_lines()` or `.parse()`. In the async client, these are async methods.
 
 ```python
-with client.agents.sessions.with_streaming_response.create(
-    agent_id="agent_id",
-    session_name="session_name",
-) as response:
+with client.agents.toolgroups.with_streaming_response.list() as response:
     print(response.headers.get("X-My-Header"))
 
     for line in response.iter_lines():
