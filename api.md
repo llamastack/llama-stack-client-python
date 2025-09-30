@@ -351,7 +351,11 @@ Methods:
 Types:
 
 ```python
-from llama_stack_client.types.vector_stores import VectorStoreFile, FileDeleteResponse
+from llama_stack_client.types.vector_stores import (
+    VectorStoreFile,
+    FileDeleteResponse,
+    FileContentResponse,
+)
 ```
 
 Methods:
@@ -361,6 +365,25 @@ Methods:
 - <code title="post /v1/vector_stores/{vector_store_id}/files/{file_id}">client.vector_stores.files.<a href="./src/llama_stack_client/resources/vector_stores/files.py">update</a>(file_id, \*, vector_store_id, \*\*<a href="src/llama_stack_client/types/vector_stores/file_update_params.py">params</a>) -> <a href="./src/llama_stack_client/types/vector_stores/vector_store_file.py">VectorStoreFile</a></code>
 - <code title="get /v1/vector_stores/{vector_store_id}/files">client.vector_stores.files.<a href="./src/llama_stack_client/resources/vector_stores/files.py">list</a>(vector_store_id, \*\*<a href="src/llama_stack_client/types/vector_stores/file_list_params.py">params</a>) -> <a href="./src/llama_stack_client/types/vector_stores/vector_store_file.py">SyncOpenAICursorPage[VectorStoreFile]</a></code>
 - <code title="delete /v1/vector_stores/{vector_store_id}/files/{file_id}">client.vector_stores.files.<a href="./src/llama_stack_client/resources/vector_stores/files.py">delete</a>(file_id, \*, vector_store_id) -> <a href="./src/llama_stack_client/types/vector_stores/file_delete_response.py">FileDeleteResponse</a></code>
+- <code title="get /v1/vector_stores/{vector_store_id}/files/{file_id}/content">client.vector_stores.files.<a href="./src/llama_stack_client/resources/vector_stores/files.py">content</a>(file_id, \*, vector_store_id) -> <a href="./src/llama_stack_client/types/vector_stores/file_content_response.py">FileContentResponse</a></code>
+
+## FileBatches
+
+Types:
+
+```python
+from llama_stack_client.types.vector_stores import (
+    ListVectorStoreFilesInBatchResponse,
+    VectorStoreFileBatches,
+)
+```
+
+Methods:
+
+- <code title="post /v1/vector_stores/{vector_store_id}/file_batches">client.vector_stores.file_batches.<a href="./src/llama_stack_client/resources/vector_stores/file_batches.py">create</a>(vector_store_id, \*\*<a href="src/llama_stack_client/types/vector_stores/file_batch_create_params.py">params</a>) -> <a href="./src/llama_stack_client/types/vector_stores/vector_store_file_batches.py">VectorStoreFileBatches</a></code>
+- <code title="get /v1/vector_stores/{vector_store_id}/file_batches/{batch_id}">client.vector_stores.file_batches.<a href="./src/llama_stack_client/resources/vector_stores/file_batches.py">retrieve</a>(batch_id, \*, vector_store_id) -> <a href="./src/llama_stack_client/types/vector_stores/vector_store_file_batches.py">VectorStoreFileBatches</a></code>
+- <code title="get /v1/vector_stores/{vector_store_id}/file_batches/{batch_id}/files">client.vector_stores.file_batches.<a href="./src/llama_stack_client/resources/vector_stores/file_batches.py">list</a>(batch_id, \*, vector_store_id, \*\*<a href="src/llama_stack_client/types/vector_stores/file_batch_list_params.py">params</a>) -> <a href="./src/llama_stack_client/types/vector_stores/vector_store_file.py">SyncOpenAICursorPage[VectorStoreFile]</a></code>
+- <code title="post /v1/vector_stores/{vector_store_id}/file_batches/{batch_id}/cancel">client.vector_stores.file_batches.<a href="./src/llama_stack_client/resources/vector_stores/file_batches.py">cancel</a>(batch_id, \*, vector_store_id) -> <a href="./src/llama_stack_client/types/vector_stores/vector_store_file_batches.py">VectorStoreFileBatches</a></code>
 
 # Models
 
@@ -584,5 +607,7 @@ from llama_stack_client.types import DeleteFileResponse, File, ListFilesResponse
 Methods:
 
 - <code title="post /v1/files">client.files.<a href="./src/llama_stack_client/resources/files.py">create</a>(\*\*<a href="src/llama_stack_client/types/file_create_params.py">params</a>) -> <a href="./src/llama_stack_client/types/file.py">File</a></code>
+- <code title="get /v1/files/{file_id}">client.files.<a href="./src/llama_stack_client/resources/files.py">retrieve</a>(file_id) -> <a href="./src/llama_stack_client/types/file.py">File</a></code>
 - <code title="get /v1/files">client.files.<a href="./src/llama_stack_client/resources/files.py">list</a>(\*\*<a href="src/llama_stack_client/types/file_list_params.py">params</a>) -> <a href="./src/llama_stack_client/types/file.py">SyncOpenAICursorPage[File]</a></code>
+- <code title="delete /v1/files/{file_id}">client.files.<a href="./src/llama_stack_client/resources/files.py">delete</a>(file_id) -> <a href="./src/llama_stack_client/types/delete_file_response.py">DeleteFileResponse</a></code>
 - <code title="get /v1/files/{file_id}/content">client.files.<a href="./src/llama_stack_client/resources/files.py">content</a>(file_id) -> object</code>

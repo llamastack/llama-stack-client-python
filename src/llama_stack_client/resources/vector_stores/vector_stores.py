@@ -31,6 +31,14 @@ from ..._response import (
     async_to_streamed_response_wrapper,
 )
 from ...pagination import SyncOpenAICursorPage, AsyncOpenAICursorPage
+from .file_batches import (
+    FileBatchesResource,
+    AsyncFileBatchesResource,
+    FileBatchesResourceWithRawResponse,
+    AsyncFileBatchesResourceWithRawResponse,
+    FileBatchesResourceWithStreamingResponse,
+    AsyncFileBatchesResourceWithStreamingResponse,
+)
 from ..._base_client import AsyncPaginator, make_request_options
 from ...types.vector_store import VectorStore
 from ...types.vector_store_delete_response import VectorStoreDeleteResponse
@@ -43,6 +51,10 @@ class VectorStoresResource(SyncAPIResource):
     @cached_property
     def files(self) -> FilesResource:
         return FilesResource(self._client)
+
+    @cached_property
+    def file_batches(self) -> FileBatchesResource:
+        return FileBatchesResource(self._client)
 
     @cached_property
     def with_raw_response(self) -> VectorStoresResourceWithRawResponse:
@@ -377,6 +389,10 @@ class AsyncVectorStoresResource(AsyncAPIResource):
     @cached_property
     def files(self) -> AsyncFilesResource:
         return AsyncFilesResource(self._client)
+
+    @cached_property
+    def file_batches(self) -> AsyncFileBatchesResource:
+        return AsyncFileBatchesResource(self._client)
 
     @cached_property
     def with_raw_response(self) -> AsyncVectorStoresResourceWithRawResponse:
@@ -734,6 +750,10 @@ class VectorStoresResourceWithRawResponse:
     def files(self) -> FilesResourceWithRawResponse:
         return FilesResourceWithRawResponse(self._vector_stores.files)
 
+    @cached_property
+    def file_batches(self) -> FileBatchesResourceWithRawResponse:
+        return FileBatchesResourceWithRawResponse(self._vector_stores.file_batches)
+
 
 class AsyncVectorStoresResourceWithRawResponse:
     def __init__(self, vector_stores: AsyncVectorStoresResource) -> None:
@@ -761,6 +781,10 @@ class AsyncVectorStoresResourceWithRawResponse:
     @cached_property
     def files(self) -> AsyncFilesResourceWithRawResponse:
         return AsyncFilesResourceWithRawResponse(self._vector_stores.files)
+
+    @cached_property
+    def file_batches(self) -> AsyncFileBatchesResourceWithRawResponse:
+        return AsyncFileBatchesResourceWithRawResponse(self._vector_stores.file_batches)
 
 
 class VectorStoresResourceWithStreamingResponse:
@@ -790,6 +814,10 @@ class VectorStoresResourceWithStreamingResponse:
     def files(self) -> FilesResourceWithStreamingResponse:
         return FilesResourceWithStreamingResponse(self._vector_stores.files)
 
+    @cached_property
+    def file_batches(self) -> FileBatchesResourceWithStreamingResponse:
+        return FileBatchesResourceWithStreamingResponse(self._vector_stores.file_batches)
+
 
 class AsyncVectorStoresResourceWithStreamingResponse:
     def __init__(self, vector_stores: AsyncVectorStoresResource) -> None:
@@ -817,3 +845,7 @@ class AsyncVectorStoresResourceWithStreamingResponse:
     @cached_property
     def files(self) -> AsyncFilesResourceWithStreamingResponse:
         return AsyncFilesResourceWithStreamingResponse(self._vector_stores.files)
+
+    @cached_property
+    def file_batches(self) -> AsyncFileBatchesResourceWithStreamingResponse:
+        return AsyncFileBatchesResourceWithStreamingResponse(self._vector_stores.file_batches)
