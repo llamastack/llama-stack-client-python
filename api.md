@@ -3,13 +3,11 @@
 ```python
 from llama_stack_client.types import (
     AgentConfig,
-    ChatCompletionResponse,
     CompletionMessage,
     Document,
     InterleavedContent,
     InterleavedContentItem,
     Message,
-    Metric,
     ParamType,
     QueryConfig,
     QueryResult,
@@ -19,7 +17,6 @@ from llama_stack_client.types import (
     ScoringResult,
     SystemMessage,
     ToolCall,
-    ToolParamDefinition,
     ToolResponseMessage,
     UserMessage,
 )
@@ -105,71 +102,6 @@ Methods:
 
 - <code title="get /v1/responses/{response_id}/input_items">client.responses.input_items.<a href="./src/llama_stack_client/resources/responses/input_items.py">list</a>(response_id, \*\*<a href="src/llama_stack_client/types/responses/input_item_list_params.py">params</a>) -> <a href="./src/llama_stack_client/types/responses/input_item_list_response.py">InputItemListResponse</a></code>
 
-# Agents
-
-Types:
-
-```python
-from llama_stack_client.types import (
-    InferenceStep,
-    MemoryRetrievalStep,
-    ShieldCallStep,
-    ToolExecutionStep,
-    ToolResponse,
-    AgentCreateResponse,
-    AgentRetrieveResponse,
-    AgentListResponse,
-)
-```
-
-Methods:
-
-- <code title="post /v1/agents">client.agents.<a href="./src/llama_stack_client/resources/agents/agents.py">create</a>(\*\*<a href="src/llama_stack_client/types/agent_create_params.py">params</a>) -> <a href="./src/llama_stack_client/types/agent_create_response.py">AgentCreateResponse</a></code>
-- <code title="get /v1/agents/{agent_id}">client.agents.<a href="./src/llama_stack_client/resources/agents/agents.py">retrieve</a>(agent_id) -> <a href="./src/llama_stack_client/types/agent_retrieve_response.py">AgentRetrieveResponse</a></code>
-- <code title="get /v1/agents">client.agents.<a href="./src/llama_stack_client/resources/agents/agents.py">list</a>(\*\*<a href="src/llama_stack_client/types/agent_list_params.py">params</a>) -> <a href="./src/llama_stack_client/types/agent_list_response.py">AgentListResponse</a></code>
-- <code title="delete /v1/agents/{agent_id}">client.agents.<a href="./src/llama_stack_client/resources/agents/agents.py">delete</a>(agent_id) -> None</code>
-
-## Session
-
-Types:
-
-```python
-from llama_stack_client.types.agents import Session, SessionCreateResponse, SessionListResponse
-```
-
-Methods:
-
-- <code title="post /v1/agents/{agent_id}/session">client.agents.session.<a href="./src/llama_stack_client/resources/agents/session.py">create</a>(agent_id, \*\*<a href="src/llama_stack_client/types/agents/session_create_params.py">params</a>) -> <a href="./src/llama_stack_client/types/agents/session_create_response.py">SessionCreateResponse</a></code>
-- <code title="get /v1/agents/{agent_id}/session/{session_id}">client.agents.session.<a href="./src/llama_stack_client/resources/agents/session.py">retrieve</a>(session_id, \*, agent_id, \*\*<a href="src/llama_stack_client/types/agents/session_retrieve_params.py">params</a>) -> <a href="./src/llama_stack_client/types/agents/session.py">Session</a></code>
-- <code title="get /v1/agents/{agent_id}/sessions">client.agents.session.<a href="./src/llama_stack_client/resources/agents/session.py">list</a>(agent_id, \*\*<a href="src/llama_stack_client/types/agents/session_list_params.py">params</a>) -> <a href="./src/llama_stack_client/types/agents/session_list_response.py">SessionListResponse</a></code>
-- <code title="delete /v1/agents/{agent_id}/session/{session_id}">client.agents.session.<a href="./src/llama_stack_client/resources/agents/session.py">delete</a>(session_id, \*, agent_id) -> None</code>
-
-## Steps
-
-Types:
-
-```python
-from llama_stack_client.types.agents import StepRetrieveResponse
-```
-
-Methods:
-
-- <code title="get /v1/agents/{agent_id}/session/{session_id}/turn/{turn_id}/step/{step_id}">client.agents.steps.<a href="./src/llama_stack_client/resources/agents/steps.py">retrieve</a>(step_id, \*, agent_id, session_id, turn_id) -> <a href="./src/llama_stack_client/types/agents/step_retrieve_response.py">StepRetrieveResponse</a></code>
-
-## Turn
-
-Types:
-
-```python
-from llama_stack_client.types.agents import AgentTurnResponseStreamChunk, Turn, TurnResponseEvent
-```
-
-Methods:
-
-- <code title="post /v1/agents/{agent_id}/session/{session_id}/turn">client.agents.turn.<a href="./src/llama_stack_client/resources/agents/turn.py">create</a>(session_id, \*, agent_id, \*\*<a href="src/llama_stack_client/types/agents/turn_create_params.py">params</a>) -> <a href="./src/llama_stack_client/types/agents/turn.py">Turn</a></code>
-- <code title="get /v1/agents/{agent_id}/session/{session_id}/turn/{turn_id}">client.agents.turn.<a href="./src/llama_stack_client/resources/agents/turn.py">retrieve</a>(turn_id, \*, agent_id, session_id) -> <a href="./src/llama_stack_client/types/agents/turn.py">Turn</a></code>
-- <code title="post /v1/agents/{agent_id}/session/{session_id}/turn/{turn_id}/resume">client.agents.turn.<a href="./src/llama_stack_client/resources/agents/turn.py">resume</a>(turn_id, \*, agent_id, session_id, \*\*<a href="src/llama_stack_client/types/agents/turn_resume_params.py">params</a>) -> <a href="./src/llama_stack_client/types/agents/turn.py">Turn</a></code>
-
 # Datasets
 
 Types:
@@ -228,18 +160,6 @@ Methods:
 
 - <code title="get /v1/health">client.inspect.<a href="./src/llama_stack_client/resources/inspect.py">health</a>() -> <a href="./src/llama_stack_client/types/health_info.py">HealthInfo</a></code>
 - <code title="get /v1/version">client.inspect.<a href="./src/llama_stack_client/resources/inspect.py">version</a>() -> <a href="./src/llama_stack_client/types/version_info.py">VersionInfo</a></code>
-
-# Inference
-
-Types:
-
-```python
-from llama_stack_client.types import InferenceRerankResponse
-```
-
-Methods:
-
-- <code title="post /v1alpha/inference/rerank">client.inference.<a href="./src/llama_stack_client/resources/inference.py">rerank</a>(\*\*<a href="src/llama_stack_client/types/inference_rerank_params.py">params</a>) -> <a href="./src/llama_stack_client/types/inference_rerank_response.py">InferenceRerankResponse</a></code>
 
 # Embeddings
 
@@ -611,3 +531,90 @@ Methods:
 - <code title="get /v1/files">client.files.<a href="./src/llama_stack_client/resources/files.py">list</a>(\*\*<a href="src/llama_stack_client/types/file_list_params.py">params</a>) -> <a href="./src/llama_stack_client/types/file.py">SyncOpenAICursorPage[File]</a></code>
 - <code title="delete /v1/files/{file_id}">client.files.<a href="./src/llama_stack_client/resources/files.py">delete</a>(file_id) -> <a href="./src/llama_stack_client/types/delete_file_response.py">DeleteFileResponse</a></code>
 - <code title="get /v1/files/{file_id}/content">client.files.<a href="./src/llama_stack_client/resources/files.py">content</a>(file_id) -> object</code>
+
+# Alpha
+
+## Inference
+
+Types:
+
+```python
+from llama_stack_client.types.alpha import InferenceRerankResponse
+```
+
+Methods:
+
+- <code title="post /v1alpha/inference/rerank">client.alpha.inference.<a href="./src/llama_stack_client/resources/alpha/inference.py">rerank</a>(\*\*<a href="src/llama_stack_client/types/alpha/inference_rerank_params.py">params</a>) -> <a href="./src/llama_stack_client/types/alpha/inference_rerank_response.py">InferenceRerankResponse</a></code>
+
+## Agents
+
+Types:
+
+```python
+from llama_stack_client.types.alpha import (
+    InferenceStep,
+    MemoryRetrievalStep,
+    ShieldCallStep,
+    ToolExecutionStep,
+    ToolResponse,
+    AgentCreateResponse,
+    AgentRetrieveResponse,
+    AgentListResponse,
+)
+```
+
+Methods:
+
+- <code title="post /v1/agents">client.alpha.agents.<a href="./src/llama_stack_client/resources/alpha/agents/agents.py">create</a>(\*\*<a href="src/llama_stack_client/types/alpha/agent_create_params.py">params</a>) -> <a href="./src/llama_stack_client/types/alpha/agent_create_response.py">AgentCreateResponse</a></code>
+- <code title="get /v1/agents/{agent_id}">client.alpha.agents.<a href="./src/llama_stack_client/resources/alpha/agents/agents.py">retrieve</a>(agent_id) -> <a href="./src/llama_stack_client/types/alpha/agent_retrieve_response.py">AgentRetrieveResponse</a></code>
+- <code title="get /v1/agents">client.alpha.agents.<a href="./src/llama_stack_client/resources/alpha/agents/agents.py">list</a>(\*\*<a href="src/llama_stack_client/types/alpha/agent_list_params.py">params</a>) -> <a href="./src/llama_stack_client/types/alpha/agent_list_response.py">AgentListResponse</a></code>
+- <code title="delete /v1/agents/{agent_id}">client.alpha.agents.<a href="./src/llama_stack_client/resources/alpha/agents/agents.py">delete</a>(agent_id) -> None</code>
+
+### Session
+
+Types:
+
+```python
+from llama_stack_client.types.alpha.agents import (
+    Session,
+    SessionCreateResponse,
+    SessionListResponse,
+)
+```
+
+Methods:
+
+- <code title="post /v1/agents/{agent_id}/session">client.alpha.agents.session.<a href="./src/llama_stack_client/resources/alpha/agents/session.py">create</a>(agent_id, \*\*<a href="src/llama_stack_client/types/alpha/agents/session_create_params.py">params</a>) -> <a href="./src/llama_stack_client/types/alpha/agents/session_create_response.py">SessionCreateResponse</a></code>
+- <code title="get /v1/agents/{agent_id}/session/{session_id}">client.alpha.agents.session.<a href="./src/llama_stack_client/resources/alpha/agents/session.py">retrieve</a>(session_id, \*, agent_id, \*\*<a href="src/llama_stack_client/types/alpha/agents/session_retrieve_params.py">params</a>) -> <a href="./src/llama_stack_client/types/alpha/agents/session.py">Session</a></code>
+- <code title="get /v1/agents/{agent_id}/sessions">client.alpha.agents.session.<a href="./src/llama_stack_client/resources/alpha/agents/session.py">list</a>(agent_id, \*\*<a href="src/llama_stack_client/types/alpha/agents/session_list_params.py">params</a>) -> <a href="./src/llama_stack_client/types/alpha/agents/session_list_response.py">SessionListResponse</a></code>
+- <code title="delete /v1/agents/{agent_id}/session/{session_id}">client.alpha.agents.session.<a href="./src/llama_stack_client/resources/alpha/agents/session.py">delete</a>(session_id, \*, agent_id) -> None</code>
+
+### Steps
+
+Types:
+
+```python
+from llama_stack_client.types.alpha.agents import StepRetrieveResponse
+```
+
+Methods:
+
+- <code title="get /v1/agents/{agent_id}/session/{session_id}/turn/{turn_id}/step/{step_id}">client.alpha.agents.steps.<a href="./src/llama_stack_client/resources/alpha/agents/steps.py">retrieve</a>(step_id, \*, agent_id, session_id, turn_id) -> <a href="./src/llama_stack_client/types/alpha/agents/step_retrieve_response.py">StepRetrieveResponse</a></code>
+
+### Turn
+
+Types:
+
+```python
+from llama_stack_client.types.alpha.agents import (
+    AgentTurnResponseStreamChunk,
+    Turn,
+    TurnResponseEvent,
+)
+```
+
+Methods:
+
+- <code title="post /v1/agents/{agent_id}/session/{session_id}/turn">client.alpha.agents.turn.<a href="./src/llama_stack_client/resources/alpha/agents/turn.py">create</a>(session_id, \*, agent_id, \*\*<a href="src/llama_stack_client/types/alpha/agents/turn_create_params.py">params</a>) -> <a href="./src/llama_stack_client/types/alpha/agents/turn.py">Turn</a></code>
+- <code title="get /v1/agents/{agent_id}/session/{session_id}/turn/{turn_id}">client.alpha.agents.turn.<a href="./src/llama_stack_client/resources/alpha/agents/turn.py">retrieve</a>(turn_id, \*, agent_id, session_id) -> <a href="./src/llama_stack_client/types/alpha/agents/turn.py">Turn</a></code>
+- <code title="post /v1/agents/{agent_id}/session/{session_id}/turn/{turn_id}/resume">client.alpha.agents.turn.<a href="./src/llama_stack_client/resources/alpha/agents/turn.py">resume</a>(turn_id, \*, agent_id, session_id, \*\*<a href="src/llama_stack_client/types/alpha/agents/turn_resume_params.py">params</a>) -> <a href="./src/llama_stack_client/types/alpha/agents/turn.py">Turn</a></code>
