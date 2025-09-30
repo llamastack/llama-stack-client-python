@@ -146,6 +146,7 @@ client = LlamaStackClient()
 
 client.files.create(
     file=Path("/path/to/file"),
+    purpose="assistants",
 )
 ```
 
