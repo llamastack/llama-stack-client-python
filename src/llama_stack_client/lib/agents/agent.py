@@ -7,13 +7,14 @@ import logging
 from typing import Any, AsyncIterator, Callable, Iterator, List, Optional, Tuple, Union
 
 from llama_stack_client import LlamaStackClient
-from llama_stack_client.types import ToolResponseMessage, ToolResponseParam, UserMessage
-from llama_stack_client.types.agent_create_params import AgentConfig
-from llama_stack_client.types.agents.agent_turn_response_stream_chunk import (
+from llama_stack_client.types import ToolResponseMessage, UserMessage
+from llama_stack_client.types.alpha import ToolResponseParam
+from llama_stack_client.types.alpha.agent_create_params import AgentConfig
+from llama_stack_client.types.alpha.agents.agent_turn_response_stream_chunk import (
     AgentTurnResponseStreamChunk,
 )
-from llama_stack_client.types.agents.turn import CompletionMessage, Turn
-from llama_stack_client.types.agents.turn_create_params import Document, Toolgroup
+from llama_stack_client.types.alpha.agents.turn import CompletionMessage, Turn
+from llama_stack_client.types.alpha.agents.turn_create_params import Document, Toolgroup
 from llama_stack_client.types.shared.tool_call import ToolCall
 from llama_stack_client.types.shared_params.agent_config import ToolConfig
 from llama_stack_client.types.shared_params.response_format import ResponseFormat
@@ -203,7 +204,7 @@ class Agent:
         self.initialize()
 
     def initialize(self) -> None:
-        agentic_system_create_response = self.client.agents.create(
+        agentic_system_create_response = self.client.alpha.agents.create(
             agent_config=self.agent_config,
             extra_headers=self.extra_headers,
         )
@@ -214,7 +215,7 @@ class Agent:
                 self.builtin_tools[tool.identifier] = tg.get("args", {}) if isinstance(tg, dict) else {}
 
     def create_session(self, session_name: str) -> str:
-        agentic_system_create_session_response = self.client.agents.session.create(
+        agentic_system_create_session_response = self.client.alpha.agents.session.create(
             agent_id=self.agent_id,
             session_name=session_name,
             extra_headers=self.extra_headers,
@@ -322,7 +323,7 @@ class Agent:
         n_iter = 0
 
         # 1. create an agent turn
-        turn_response = self.client.agents.turn.create(
+        turn_response = self.client.alpha.agents.turn.create(
             agent_id=self.agent_id,
             # use specified session_id or last session created
             session_id=session_id or self.session_id[-1],
@@ -361,7 +362,7 @@ class Agent:
                     tool_responses = self._run_tool_calls(tool_calls)
 
                     # pass it to next iteration
-                    turn_response = self.client.agents.turn.resume(
+                    turn_response = self.client.alpha.agents.turn.resume(
                         agent_id=self.agent_id,
                         session_id=session_id or self.session_id[-1],
                         turn_id=turn_id,
@@ -468,7 +469,7 @@ class AsyncAgent:
         if self._agent_id:
             return
 
-        agentic_system_create_response = await self.client.agents.create(
+        agentic_system_create_response = await self.client.alpha.agents.create(
             agent_config=self.agent_config,
         )
         self._agent_id = agentic_system_create_response.agent_id
@@ -478,7 +479,7 @@ class AsyncAgent:
 
     async def create_session(self, session_name: str) -> str:
         await self.initialize()
-        agentic_system_create_session_response = await self.client.agents.session.create(
+        agentic_system_create_session_response = await self.client.alpha.agents.session.create(
             agent_id=self.agent_id,
             session_name=session_name,
             extra_headers=self.extra_headers,
@@ -558,7 +559,7 @@ class AsyncAgent:
         n_iter = 0
 
         # 1. create an agent turn
-        turn_response = await self.client.agents.turn.create(
+        turn_response = await self.client.alpha.agents.turn.create(
             agent_id=self.agent_id,
             # use specified session_id or last session created
             session_id=session_id or self.session_id[-1],
@@ -596,7 +597,7 @@ class AsyncAgent:
                     tool_responses = await self._run_tool_calls(tool_calls)
 
                     # pass it to next iteration
-                    turn_response = await self.client.agents.turn.resume(
+                    turn_response = await self.client.alpha.agents.turn.resume(
                         agent_id=self.agent_id,
                         session_id=session_id or self.session_id[-1],
                         turn_id=turn_id,

@@ -41,8 +41,8 @@ from ._utils._logs import setup_logging as _setup_logging
 from .lib.agents.agent import Agent
 from .lib.agents.event_logger import EventLogger as AgentEventLogger
 from .lib.inference.event_logger import EventLogger as InferenceEventLogger
+from .types.alpha.agents.turn_create_params import Document
 from .types.shared_params.document import Document as RAGDocument
-from .types.agents.turn_create_params import Document
 
 __all__ = [
     "types",

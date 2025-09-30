@@ -19,7 +19,8 @@ from typing import (
     Union,
 )
 
-from llama_stack_client.types import CompletionMessage, Message, ToolResponse
+from llama_stack_client.types import CompletionMessage, Message
+from llama_stack_client.types.alpha import ToolResponse
 from llama_stack_client.types.tool_def_param import Parameter, ToolDefParam
 
 
