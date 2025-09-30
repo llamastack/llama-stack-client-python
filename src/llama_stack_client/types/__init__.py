@@ -17,7 +17,6 @@ from .shared import (
     QueryConfig as QueryConfig,
     QueryResult as QueryResult,
     UserMessage as UserMessage,
-    ContentDelta as ContentDelta,
     ScoringResult as ScoringResult,
     SystemMessage as SystemMessage,
     ResponseFormat as ResponseFormat,
@@ -27,7 +26,6 @@ from .shared import (
     InterleavedContent as InterleavedContent,
     ToolParamDefinition as ToolParamDefinition,
     ToolResponseMessage as ToolResponseMessage,
-    QueryGeneratorConfig as QueryGeneratorConfig,
     ChatCompletionResponse as ChatCompletionResponse,
     InterleavedContentItem as InterleavedContentItem,
 )
@@ -67,7 +65,6 @@ from .run_shield_response import RunShieldResponse as RunShieldResponse
 from .tool_execution_step import ToolExecutionStep as ToolExecutionStep
 from .tool_response_param import ToolResponseParam as ToolResponseParam
 from .delete_file_response import DeleteFileResponse as DeleteFileResponse
-from .eval_candidate_param import EvalCandidateParam as EvalCandidateParam
 from .eval_run_eval_params import EvalRunEvalParams as EvalRunEvalParams
 from .list_models_response import ListModelsResponse as ListModelsResponse
 from .list_routes_response import ListRoutesResponse as ListRoutesResponse

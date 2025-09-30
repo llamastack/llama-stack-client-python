@@ -5,9 +5,41 @@ from typing_extensions import Literal, Annotated, TypeAlias
 
 from ..._utils import PropertyInfo
 from ..._models import BaseModel
-from .query_generator_config import QueryGeneratorConfig
 
-__all__ = ["QueryConfig", "Ranker", "RankerRrfRanker", "RankerWeightedRanker"]
+__all__ = [
+    "QueryConfig",
+    "QueryGeneratorConfig",
+    "QueryGeneratorConfigDefaultRagQueryGeneratorConfig",
+    "QueryGeneratorConfigLlmragQueryGeneratorConfig",
+    "Ranker",
+    "RankerRrfRanker",
+    "RankerWeightedRanker",
+]
+
+
+class QueryGeneratorConfigDefaultRagQueryGeneratorConfig(BaseModel):
+    separator: str
+    """String separator used to join query terms"""
+
+    type: Literal["default"]
+    """Type of query generator, always 'default'"""
+
+
+class QueryGeneratorConfigLlmragQueryGeneratorConfig(BaseModel):
+    model: str
+    """Name of the language model to use for query generation"""
+
+    template: str
+    """Template string for formatting the query generation prompt"""
+
+    type: Literal["llm"]
+    """Type of query generator, always 'llm'"""
+
+
+QueryGeneratorConfig: TypeAlias = Annotated[
+    Union[QueryGeneratorConfigDefaultRagQueryGeneratorConfig, QueryGeneratorConfigLlmragQueryGeneratorConfig],
+    PropertyInfo(discriminator="type"),
+]
 
 
 class RankerRrfRanker(BaseModel):
