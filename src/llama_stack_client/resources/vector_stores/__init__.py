@@ -8,6 +8,14 @@ from .files import (
     FilesResourceWithStreamingResponse,
     AsyncFilesResourceWithStreamingResponse,
 )
+from .file_batches import (
+    FileBatchesResource,
+    AsyncFileBatchesResource,
+    FileBatchesResourceWithRawResponse,
+    AsyncFileBatchesResourceWithRawResponse,
+    FileBatchesResourceWithStreamingResponse,
+    AsyncFileBatchesResourceWithStreamingResponse,
+)
 from .vector_stores import (
     VectorStoresResource,
     AsyncVectorStoresResource,
@@ -24,6 +32,12 @@ __all__ = [
     "AsyncFilesResourceWithRawResponse",
     "FilesResourceWithStreamingResponse",
     "AsyncFilesResourceWithStreamingResponse",
+    "FileBatchesResource",
+    "AsyncFileBatchesResource",
+    "FileBatchesResourceWithRawResponse",
+    "AsyncFileBatchesResourceWithRawResponse",
+    "FileBatchesResourceWithStreamingResponse",
+    "AsyncFileBatchesResourceWithStreamingResponse",
     "VectorStoresResource",
     "AsyncVectorStoresResource",
     "VectorStoresResourceWithRawResponse",
