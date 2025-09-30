@@ -5,9 +5,39 @@ from __future__ import annotations
 from typing import Union
 from typing_extensions import Literal, Required, TypeAlias, TypedDict
 
-from .query_generator_config import QueryGeneratorConfig
+__all__ = [
+    "QueryConfig",
+    "QueryGeneratorConfig",
+    "QueryGeneratorConfigDefaultRagQueryGeneratorConfig",
+    "QueryGeneratorConfigLlmragQueryGeneratorConfig",
+    "Ranker",
+    "RankerRrfRanker",
+    "RankerWeightedRanker",
+]
 
-__all__ = ["QueryConfig", "Ranker", "RankerRrfRanker", "RankerWeightedRanker"]
+
+class QueryGeneratorConfigDefaultRagQueryGeneratorConfig(TypedDict, total=False):
+    separator: Required[str]
+    """String separator used to join query terms"""
+
+    type: Required[Literal["default"]]
+    """Type of query generator, always 'default'"""
+
+
+class QueryGeneratorConfigLlmragQueryGeneratorConfig(TypedDict, total=False):
+    model: Required[str]
+    """Name of the language model to use for query generation"""
+
+    template: Required[str]
+    """Template string for formatting the query generation prompt"""
+
+    type: Required[Literal["llm"]]
+    """Type of query generator, always 'llm'"""
+
+
+QueryGeneratorConfig: TypeAlias = Union[
+    QueryGeneratorConfigDefaultRagQueryGeneratorConfig, QueryGeneratorConfigLlmragQueryGeneratorConfig
+]
 
 
 class RankerRrfRanker(TypedDict, total=False):

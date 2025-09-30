@@ -13,5 +13,4 @@ from .session_list_response import SessionListResponse as SessionListResponse
 from .step_retrieve_response import StepRetrieveResponse as StepRetrieveResponse
 from .session_create_response import SessionCreateResponse as SessionCreateResponse
 from .session_retrieve_params import SessionRetrieveParams as SessionRetrieveParams
-from .turn_response_event_payload import TurnResponseEventPayload as TurnResponseEventPayload
 from .agent_turn_response_stream_chunk import AgentTurnResponseStreamChunk as AgentTurnResponseStreamChunk

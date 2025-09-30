@@ -5,7 +5,6 @@ from llama_stack_client.types import (
     AgentConfig,
     ChatCompletionResponse,
     CompletionMessage,
-    ContentDelta,
     Document,
     InterleavedContent,
     InterleavedContentItem,
@@ -13,7 +12,6 @@ from llama_stack_client.types import (
     Metric,
     ParamType,
     QueryConfig,
-    QueryGeneratorConfig,
     QueryResult,
     ResponseFormat,
     SafetyViolation,
@@ -163,12 +161,7 @@ Methods:
 Types:
 
 ```python
-from llama_stack_client.types.agents import (
-    AgentTurnResponseStreamChunk,
-    Turn,
-    TurnResponseEvent,
-    TurnResponseEventPayload,
-)
+from llama_stack_client.types.agents import AgentTurnResponseStreamChunk, Turn, TurnResponseEvent
 ```
 
 Methods:
@@ -205,7 +198,7 @@ Methods:
 Types:
 
 ```python
-from llama_stack_client.types import BenchmarkConfig, EvalCandidate, EvaluateResponse, Job
+from llama_stack_client.types import BenchmarkConfig, EvaluateResponse, Job
 ```
 
 Methods:

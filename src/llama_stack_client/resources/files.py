@@ -50,6 +50,8 @@ class FilesResource(SyncAPIResource):
         self,
         *,
         file: FileTypes,
+        purpose: Literal["assistants", "batch"],
+        expires_after: file_create_params.ExpiresAfter | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -67,6 +69,14 @@ class FilesResource(SyncAPIResource):
         - expires_after: Optional form values describing expiration for the file.
 
         Args:
+          purpose: Valid purpose values for OpenAI Files API.
+
+          expires_after:
+              Control expiration of uploaded files. Params:
+
+              - anchor, must be "created_at"
+              - seconds, must be int between 3600 and 2592000 (1 hour to 30 days)
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -75,7 +85,13 @@ class FilesResource(SyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        body = deepcopy_minimal({"file": file})
+        body = deepcopy_minimal(
+            {
+                "file": file,
+                "purpose": purpose,
+                "expires_after": expires_after,
+            }
+        )
         files = extract_files(cast(Mapping[str, object], body), paths=[["file"]])
         # It should be noted that the actual Content-Type header that will be
         # sent to the server will contain a `boundary` parameter, e.g.
@@ -275,6 +291,8 @@ class AsyncFilesResource(AsyncAPIResource):
         self,
         *,
         file: FileTypes,
+        purpose: Literal["assistants", "batch"],
+        expires_after: file_create_params.ExpiresAfter | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -292,6 +310,14 @@ class AsyncFilesResource(AsyncAPIResource):
         - expires_after: Optional form values describing expiration for the file.
 
         Args:
+          purpose: Valid purpose values for OpenAI Files API.
+
+          expires_after:
+              Control expiration of uploaded files. Params:
+
+              - anchor, must be "created_at"
+              - seconds, must be int between 3600 and 2592000 (1 hour to 30 days)
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -300,7 +326,13 @@ class AsyncFilesResource(AsyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        body = deepcopy_minimal({"file": file})
+        body = deepcopy_minimal(
+            {
+                "file": file,
+                "purpose": purpose,
+                "expires_after": expires_after,
+            }
+        )
         files = extract_files(cast(Mapping[str, object], body), paths=[["file"]])
         # It should be noted that the actual Content-Type header that will be
         # sent to the server will contain a `boundary` parameter, e.g.
