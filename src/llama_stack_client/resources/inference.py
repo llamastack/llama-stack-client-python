@@ -2,15 +2,13 @@
 
 from __future__ import annotations
 
-import typing_extensions
-from typing import Iterable
-from typing_extensions import Literal, overload
+from typing import Type, cast
 
 import httpx
 
-from ..types import inference_chat_completion_params
-from .._types import Body, Omit, Query, Headers, NotGiven, omit, not_given
-from .._utils import required_args, maybe_transform, async_maybe_transform
+from ..types import inference_rerank_params
+from .._types import Body, Omit, Query, Headers, NotGiven, SequenceNotStr, omit, not_given
+from .._utils import maybe_transform, async_maybe_transform
 from .._compat import cached_property
 from .._resource import SyncAPIResource, AsyncAPIResource
 from .._response import (
@@ -19,13 +17,9 @@ from .._response import (
     async_to_raw_response_wrapper,
     async_to_streamed_response_wrapper,
 )
-from .._streaming import Stream, AsyncStream
+from .._wrappers import DataWrapper
 from .._base_client import make_request_options
-from ..types.shared_params.message import Message
-from ..types.shared_params.response_format import ResponseFormat
-from ..types.shared_params.sampling_params import SamplingParams
-from ..types.shared.chat_completion_response import ChatCompletionResponse
-from ..types.chat_completion_response_stream_chunk import ChatCompletionResponseStreamChunk
+from ..types.inference_rerank_response import InferenceRerankResponse
 
 __all__ = ["InferenceResource", "AsyncInferenceResource"]
 
@@ -50,64 +44,34 @@ class InferenceResource(SyncAPIResource):
         """
         return InferenceResourceWithStreamingResponse(self)
 
-    @typing_extensions.deprecated("/v1/inference/chat-completion is deprecated. Please use /v1/chat/completions.")
-    @overload
-    def chat_completion(
+    def rerank(
         self,
         *,
-        messages: Iterable[Message],
-        model_id: str,
-        logprobs: inference_chat_completion_params.Logprobs | Omit = omit,
-        response_format: ResponseFormat | Omit = omit,
-        sampling_params: SamplingParams | Omit = omit,
-        stream: Literal[False] | Omit = omit,
-        tool_choice: Literal["auto", "required", "none"] | Omit = omit,
-        tool_config: inference_chat_completion_params.ToolConfig | Omit = omit,
-        tool_prompt_format: Literal["json", "function_tag", "python_list"] | Omit = omit,
-        tools: Iterable[inference_chat_completion_params.Tool] | Omit = omit,
+        items: SequenceNotStr[inference_rerank_params.Item],
+        model: str,
+        query: inference_rerank_params.Query,
+        max_num_results: int | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> ChatCompletionResponse:
+    ) -> InferenceRerankResponse:
         """
-        Generate a chat completion for the given messages using the specified model.
+        Rerank a list of documents based on their relevance to a query.
 
         Args:
-          messages: List of messages in the conversation.
+          items: List of items to rerank. Each item can be a string, text content part, or image
+              content part. Each input must not exceed the model's max input token length.
 
-          model_id: The identifier of the model to use. The model must be registered with Llama
-              Stack and available via the /models endpoint.
+          model: The identifier of the reranking model to use.
 
-          logprobs: (Optional) If specified, log probabilities for each token position will be
-              returned.
+          query: The search query to rank items against. Can be a string, text content part, or
+              image content part. The input must not exceed the model's max input token
+              length.
 
-          response_format: (Optional) Grammar specification for guided (structured) decoding. There are two
-              options: - `ResponseFormat.json_schema`: The grammar is a JSON schema. Most
-              providers support this format. - `ResponseFormat.grammar`: The grammar is a BNF
-              grammar. This format is more flexible, but not all providers support it.
-
-          sampling_params: Parameters to control the sampling strategy.
-
-          stream: (Optional) If True, generate an SSE event stream of the response. Defaults to
-              False.
-
-          tool_choice: (Optional) Whether tool use is required or automatic. Defaults to
-              ToolChoice.auto. .. deprecated:: Use tool_config instead.
-
-          tool_config: (Optional) Configuration for tool use.
-
-          tool_prompt_format: (Optional) Instructs the model how to format tool calls. By default, Llama Stack
-              will attempt to use a format that is best adapted to the model. -
-              `ToolPromptFormat.json`: The tool calls are formatted as a JSON object. -
-              `ToolPromptFormat.function_tag`: The tool calls are enclosed in a
-              <function=function_name> tag. - `ToolPromptFormat.python_list`: The tool calls
-              are output as Python syntax -- a list of function calls. .. deprecated:: Use
-              tool_config instead.
-
-          tools: (Optional) List of tool definitions available to the model.
+          max_num_results: (Optional) Maximum number of results to return. Default: returns all.
 
           extra_headers: Send extra headers
 
@@ -117,195 +81,25 @@ class InferenceResource(SyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        ...
-
-    @typing_extensions.deprecated("/v1/inference/chat-completion is deprecated. Please use /v1/chat/completions.")
-    @overload
-    def chat_completion(
-        self,
-        *,
-        messages: Iterable[Message],
-        model_id: str,
-        stream: Literal[True],
-        logprobs: inference_chat_completion_params.Logprobs | Omit = omit,
-        response_format: ResponseFormat | Omit = omit,
-        sampling_params: SamplingParams | Omit = omit,
-        tool_choice: Literal["auto", "required", "none"] | Omit = omit,
-        tool_config: inference_chat_completion_params.ToolConfig | Omit = omit,
-        tool_prompt_format: Literal["json", "function_tag", "python_list"] | Omit = omit,
-        tools: Iterable[inference_chat_completion_params.Tool] | Omit = omit,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> Stream[ChatCompletionResponseStreamChunk]:
-        """
-        Generate a chat completion for the given messages using the specified model.
-
-        Args:
-          messages: List of messages in the conversation.
-
-          model_id: The identifier of the model to use. The model must be registered with Llama
-              Stack and available via the /models endpoint.
-
-          stream: (Optional) If True, generate an SSE event stream of the response. Defaults to
-              False.
-
-          logprobs: (Optional) If specified, log probabilities for each token position will be
-              returned.
-
-          response_format: (Optional) Grammar specification for guided (structured) decoding. There are two
-              options: - `ResponseFormat.json_schema`: The grammar is a JSON schema. Most
-              providers support this format. - `ResponseFormat.grammar`: The grammar is a BNF
-              grammar. This format is more flexible, but not all providers support it.
-
-          sampling_params: Parameters to control the sampling strategy.
-
-          tool_choice: (Optional) Whether tool use is required or automatic. Defaults to
-              ToolChoice.auto. .. deprecated:: Use tool_config instead.
-
-          tool_config: (Optional) Configuration for tool use.
-
-          tool_prompt_format: (Optional) Instructs the model how to format tool calls. By default, Llama Stack
-              will attempt to use a format that is best adapted to the model. -
-              `ToolPromptFormat.json`: The tool calls are formatted as a JSON object. -
-              `ToolPromptFormat.function_tag`: The tool calls are enclosed in a
-              <function=function_name> tag. - `ToolPromptFormat.python_list`: The tool calls
-              are output as Python syntax -- a list of function calls. .. deprecated:: Use
-              tool_config instead.
-
-          tools: (Optional) List of tool definitions available to the model.
-
-          extra_headers: Send extra headers
-
-          extra_query: Add additional query parameters to the request
-
-          extra_body: Add additional JSON properties to the request
-
-          timeout: Override the client-level default timeout for this request, in seconds
-        """
-        ...
-
-    @typing_extensions.deprecated("/v1/inference/chat-completion is deprecated. Please use /v1/chat/completions.")
-    @overload
-    def chat_completion(
-        self,
-        *,
-        messages: Iterable[Message],
-        model_id: str,
-        stream: bool,
-        logprobs: inference_chat_completion_params.Logprobs | Omit = omit,
-        response_format: ResponseFormat | Omit = omit,
-        sampling_params: SamplingParams | Omit = omit,
-        tool_choice: Literal["auto", "required", "none"] | Omit = omit,
-        tool_config: inference_chat_completion_params.ToolConfig | Omit = omit,
-        tool_prompt_format: Literal["json", "function_tag", "python_list"] | Omit = omit,
-        tools: Iterable[inference_chat_completion_params.Tool] | Omit = omit,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> ChatCompletionResponse | Stream[ChatCompletionResponseStreamChunk]:
-        """
-        Generate a chat completion for the given messages using the specified model.
-
-        Args:
-          messages: List of messages in the conversation.
-
-          model_id: The identifier of the model to use. The model must be registered with Llama
-              Stack and available via the /models endpoint.
-
-          stream: (Optional) If True, generate an SSE event stream of the response. Defaults to
-              False.
-
-          logprobs: (Optional) If specified, log probabilities for each token position will be
-              returned.
-
-          response_format: (Optional) Grammar specification for guided (structured) decoding. There are two
-              options: - `ResponseFormat.json_schema`: The grammar is a JSON schema. Most
-              providers support this format. - `ResponseFormat.grammar`: The grammar is a BNF
-              grammar. This format is more flexible, but not all providers support it.
-
-          sampling_params: Parameters to control the sampling strategy.
-
-          tool_choice: (Optional) Whether tool use is required or automatic. Defaults to
-              ToolChoice.auto. .. deprecated:: Use tool_config instead.
-
-          tool_config: (Optional) Configuration for tool use.
-
-          tool_prompt_format: (Optional) Instructs the model how to format tool calls. By default, Llama Stack
-              will attempt to use a format that is best adapted to the model. -
-              `ToolPromptFormat.json`: The tool calls are formatted as a JSON object. -
-              `ToolPromptFormat.function_tag`: The tool calls are enclosed in a
-              <function=function_name> tag. - `ToolPromptFormat.python_list`: The tool calls
-              are output as Python syntax -- a list of function calls. .. deprecated:: Use
-              tool_config instead.
-
-          tools: (Optional) List of tool definitions available to the model.
-
-          extra_headers: Send extra headers
-
-          extra_query: Add additional query parameters to the request
-
-          extra_body: Add additional JSON properties to the request
-
-          timeout: Override the client-level default timeout for this request, in seconds
-        """
-        ...
-
-    @typing_extensions.deprecated("/v1/inference/chat-completion is deprecated. Please use /v1/chat/completions.")
-    @required_args(["messages", "model_id"], ["messages", "model_id", "stream"])
-    def chat_completion(
-        self,
-        *,
-        messages: Iterable[Message],
-        model_id: str,
-        logprobs: inference_chat_completion_params.Logprobs | Omit = omit,
-        response_format: ResponseFormat | Omit = omit,
-        sampling_params: SamplingParams | Omit = omit,
-        stream: Literal[False] | Literal[True] | Omit = omit,
-        tool_choice: Literal["auto", "required", "none"] | Omit = omit,
-        tool_config: inference_chat_completion_params.ToolConfig | Omit = omit,
-        tool_prompt_format: Literal["json", "function_tag", "python_list"] | Omit = omit,
-        tools: Iterable[inference_chat_completion_params.Tool] | Omit = omit,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> ChatCompletionResponse | Stream[ChatCompletionResponseStreamChunk]:
-        if stream:
-            extra_headers = {"Accept": "text/event-stream", **(extra_headers or {})}
         return self._post(
-            "/v1/inference/chat-completion",
+            "/v1alpha/inference/rerank",
             body=maybe_transform(
                 {
-                    "messages": messages,
-                    "model_id": model_id,
-                    "logprobs": logprobs,
-                    "response_format": response_format,
-                    "sampling_params": sampling_params,
-                    "stream": stream,
-                    "tool_choice": tool_choice,
-                    "tool_config": tool_config,
-                    "tool_prompt_format": tool_prompt_format,
-                    "tools": tools,
+                    "items": items,
+                    "model": model,
+                    "query": query,
+                    "max_num_results": max_num_results,
                 },
-                inference_chat_completion_params.InferenceChatCompletionParamsStreaming
-                if stream
-                else inference_chat_completion_params.InferenceChatCompletionParamsNonStreaming,
+                inference_rerank_params.InferenceRerankParams,
             ),
             options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                post_parser=DataWrapper[InferenceRerankResponse]._unwrapper,
             ),
-            cast_to=ChatCompletionResponse,
-            stream=stream or False,
-            stream_cls=Stream[ChatCompletionResponseStreamChunk],
+            cast_to=cast(Type[InferenceRerankResponse], DataWrapper[InferenceRerankResponse]),
         )
 
     @typing_extensions.deprecated("/v1/inference/completion is deprecated. Please use /v1/completions.")
@@ -514,64 +308,34 @@ class AsyncInferenceResource(AsyncAPIResource):
         """
         return AsyncInferenceResourceWithStreamingResponse(self)
 
-    @typing_extensions.deprecated("/v1/inference/chat-completion is deprecated. Please use /v1/chat/completions.")
-    @overload
-    async def chat_completion(
+    async def rerank(
         self,
         *,
-        messages: Iterable[Message],
-        model_id: str,
-        logprobs: inference_chat_completion_params.Logprobs | Omit = omit,
-        response_format: ResponseFormat | Omit = omit,
-        sampling_params: SamplingParams | Omit = omit,
-        stream: Literal[False] | Omit = omit,
-        tool_choice: Literal["auto", "required", "none"] | Omit = omit,
-        tool_config: inference_chat_completion_params.ToolConfig | Omit = omit,
-        tool_prompt_format: Literal["json", "function_tag", "python_list"] | Omit = omit,
-        tools: Iterable[inference_chat_completion_params.Tool] | Omit = omit,
+        items: SequenceNotStr[inference_rerank_params.Item],
+        model: str,
+        query: inference_rerank_params.Query,
+        max_num_results: int | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> ChatCompletionResponse:
+    ) -> InferenceRerankResponse:
         """
-        Generate a chat completion for the given messages using the specified model.
+        Rerank a list of documents based on their relevance to a query.
 
         Args:
-          messages: List of messages in the conversation.
+          items: List of items to rerank. Each item can be a string, text content part, or image
+              content part. Each input must not exceed the model's max input token length.
 
-          model_id: The identifier of the model to use. The model must be registered with Llama
-              Stack and available via the /models endpoint.
+          model: The identifier of the reranking model to use.
 
-          logprobs: (Optional) If specified, log probabilities for each token position will be
-              returned.
+          query: The search query to rank items against. Can be a string, text content part, or
+              image content part. The input must not exceed the model's max input token
+              length.
 
-          response_format: (Optional) Grammar specification for guided (structured) decoding. There are two
-              options: - `ResponseFormat.json_schema`: The grammar is a JSON schema. Most
-              providers support this format. - `ResponseFormat.grammar`: The grammar is a BNF
-              grammar. This format is more flexible, but not all providers support it.
-
-          sampling_params: Parameters to control the sampling strategy.
-
-          stream: (Optional) If True, generate an SSE event stream of the response. Defaults to
-              False.
-
-          tool_choice: (Optional) Whether tool use is required or automatic. Defaults to
-              ToolChoice.auto. .. deprecated:: Use tool_config instead.
-
-          tool_config: (Optional) Configuration for tool use.
-
-          tool_prompt_format: (Optional) Instructs the model how to format tool calls. By default, Llama Stack
-              will attempt to use a format that is best adapted to the model. -
-              `ToolPromptFormat.json`: The tool calls are formatted as a JSON object. -
-              `ToolPromptFormat.function_tag`: The tool calls are enclosed in a
-              <function=function_name> tag. - `ToolPromptFormat.python_list`: The tool calls
-              are output as Python syntax -- a list of function calls. .. deprecated:: Use
-              tool_config instead.
-
-          tools: (Optional) List of tool definitions available to the model.
+          max_num_results: (Optional) Maximum number of results to return. Default: returns all.
 
           extra_headers: Send extra headers
 
@@ -581,195 +345,25 @@ class AsyncInferenceResource(AsyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        ...
-
-    @typing_extensions.deprecated("/v1/inference/chat-completion is deprecated. Please use /v1/chat/completions.")
-    @overload
-    async def chat_completion(
-        self,
-        *,
-        messages: Iterable[Message],
-        model_id: str,
-        stream: Literal[True],
-        logprobs: inference_chat_completion_params.Logprobs | Omit = omit,
-        response_format: ResponseFormat | Omit = omit,
-        sampling_params: SamplingParams | Omit = omit,
-        tool_choice: Literal["auto", "required", "none"] | Omit = omit,
-        tool_config: inference_chat_completion_params.ToolConfig | Omit = omit,
-        tool_prompt_format: Literal["json", "function_tag", "python_list"] | Omit = omit,
-        tools: Iterable[inference_chat_completion_params.Tool] | Omit = omit,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> AsyncStream[ChatCompletionResponseStreamChunk]:
-        """
-        Generate a chat completion for the given messages using the specified model.
-
-        Args:
-          messages: List of messages in the conversation.
-
-          model_id: The identifier of the model to use. The model must be registered with Llama
-              Stack and available via the /models endpoint.
-
-          stream: (Optional) If True, generate an SSE event stream of the response. Defaults to
-              False.
-
-          logprobs: (Optional) If specified, log probabilities for each token position will be
-              returned.
-
-          response_format: (Optional) Grammar specification for guided (structured) decoding. There are two
-              options: - `ResponseFormat.json_schema`: The grammar is a JSON schema. Most
-              providers support this format. - `ResponseFormat.grammar`: The grammar is a BNF
-              grammar. This format is more flexible, but not all providers support it.
-
-          sampling_params: Parameters to control the sampling strategy.
-
-          tool_choice: (Optional) Whether tool use is required or automatic. Defaults to
-              ToolChoice.auto. .. deprecated:: Use tool_config instead.
-
-          tool_config: (Optional) Configuration for tool use.
-
-          tool_prompt_format: (Optional) Instructs the model how to format tool calls. By default, Llama Stack
-              will attempt to use a format that is best adapted to the model. -
-              `ToolPromptFormat.json`: The tool calls are formatted as a JSON object. -
-              `ToolPromptFormat.function_tag`: The tool calls are enclosed in a
-              <function=function_name> tag. - `ToolPromptFormat.python_list`: The tool calls
-              are output as Python syntax -- a list of function calls. .. deprecated:: Use
-              tool_config instead.
-
-          tools: (Optional) List of tool definitions available to the model.
-
-          extra_headers: Send extra headers
-
-          extra_query: Add additional query parameters to the request
-
-          extra_body: Add additional JSON properties to the request
-
-          timeout: Override the client-level default timeout for this request, in seconds
-        """
-        ...
-
-    @typing_extensions.deprecated("/v1/inference/chat-completion is deprecated. Please use /v1/chat/completions.")
-    @overload
-    async def chat_completion(
-        self,
-        *,
-        messages: Iterable[Message],
-        model_id: str,
-        stream: bool,
-        logprobs: inference_chat_completion_params.Logprobs | Omit = omit,
-        response_format: ResponseFormat | Omit = omit,
-        sampling_params: SamplingParams | Omit = omit,
-        tool_choice: Literal["auto", "required", "none"] | Omit = omit,
-        tool_config: inference_chat_completion_params.ToolConfig | Omit = omit,
-        tool_prompt_format: Literal["json", "function_tag", "python_list"] | Omit = omit,
-        tools: Iterable[inference_chat_completion_params.Tool] | Omit = omit,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> ChatCompletionResponse | AsyncStream[ChatCompletionResponseStreamChunk]:
-        """
-        Generate a chat completion for the given messages using the specified model.
-
-        Args:
-          messages: List of messages in the conversation.
-
-          model_id: The identifier of the model to use. The model must be registered with Llama
-              Stack and available via the /models endpoint.
-
-          stream: (Optional) If True, generate an SSE event stream of the response. Defaults to
-              False.
-
-          logprobs: (Optional) If specified, log probabilities for each token position will be
-              returned.
-
-          response_format: (Optional) Grammar specification for guided (structured) decoding. There are two
-              options: - `ResponseFormat.json_schema`: The grammar is a JSON schema. Most
-              providers support this format. - `ResponseFormat.grammar`: The grammar is a BNF
-              grammar. This format is more flexible, but not all providers support it.
-
-          sampling_params: Parameters to control the sampling strategy.
-
-          tool_choice: (Optional) Whether tool use is required or automatic. Defaults to
-              ToolChoice.auto. .. deprecated:: Use tool_config instead.
-
-          tool_config: (Optional) Configuration for tool use.
-
-          tool_prompt_format: (Optional) Instructs the model how to format tool calls. By default, Llama Stack
-              will attempt to use a format that is best adapted to the model. -
-              `ToolPromptFormat.json`: The tool calls are formatted as a JSON object. -
-              `ToolPromptFormat.function_tag`: The tool calls are enclosed in a
-              <function=function_name> tag. - `ToolPromptFormat.python_list`: The tool calls
-              are output as Python syntax -- a list of function calls. .. deprecated:: Use
-              tool_config instead.
-
-          tools: (Optional) List of tool definitions available to the model.
-
-          extra_headers: Send extra headers
-
-          extra_query: Add additional query parameters to the request
-
-          extra_body: Add additional JSON properties to the request
-
-          timeout: Override the client-level default timeout for this request, in seconds
-        """
-        ...
-
-    @typing_extensions.deprecated("/v1/inference/chat-completion is deprecated. Please use /v1/chat/completions.")
-    @required_args(["messages", "model_id"], ["messages", "model_id", "stream"])
-    async def chat_completion(
-        self,
-        *,
-        messages: Iterable[Message],
-        model_id: str,
-        logprobs: inference_chat_completion_params.Logprobs | Omit = omit,
-        response_format: ResponseFormat | Omit = omit,
-        sampling_params: SamplingParams | Omit = omit,
-        stream: Literal[False] | Literal[True] | Omit = omit,
-        tool_choice: Literal["auto", "required", "none"] | Omit = omit,
-        tool_config: inference_chat_completion_params.ToolConfig | Omit = omit,
-        tool_prompt_format: Literal["json", "function_tag", "python_list"] | Omit = omit,
-        tools: Iterable[inference_chat_completion_params.Tool] | Omit = omit,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> ChatCompletionResponse | AsyncStream[ChatCompletionResponseStreamChunk]:
-        if stream:
-            extra_headers = {"Accept": "text/event-stream", **(extra_headers or {})}
         return await self._post(
-            "/v1/inference/chat-completion",
+            "/v1alpha/inference/rerank",
             body=await async_maybe_transform(
                 {
-                    "messages": messages,
-                    "model_id": model_id,
-                    "logprobs": logprobs,
-                    "response_format": response_format,
-                    "sampling_params": sampling_params,
-                    "stream": stream,
-                    "tool_choice": tool_choice,
-                    "tool_config": tool_config,
-                    "tool_prompt_format": tool_prompt_format,
-                    "tools": tools,
+                    "items": items,
+                    "model": model,
+                    "query": query,
+                    "max_num_results": max_num_results,
                 },
-                inference_chat_completion_params.InferenceChatCompletionParamsStreaming
-                if stream
-                else inference_chat_completion_params.InferenceChatCompletionParamsNonStreaming,
+                inference_rerank_params.InferenceRerankParams,
             ),
             options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                post_parser=DataWrapper[InferenceRerankResponse]._unwrapper,
             ),
-            cast_to=ChatCompletionResponse,
-            stream=stream or False,
-            stream_cls=AsyncStream[ChatCompletionResponseStreamChunk],
+            cast_to=cast(Type[InferenceRerankResponse], DataWrapper[InferenceRerankResponse]),
         )
 
     @typing_extensions.deprecated("/v1/inference/completion is deprecated. Please use /v1/completions.")
@@ -962,10 +556,8 @@ class InferenceResourceWithRawResponse:
     def __init__(self, inference: InferenceResource) -> None:
         self._inference = inference
 
-        self.chat_completion = (  # pyright: ignore[reportDeprecated]
-            to_raw_response_wrapper(
-                inference.chat_completion,  # pyright: ignore[reportDeprecated],
-            )
+        self.rerank = to_raw_response_wrapper(
+            inference.rerank,
         )
 
 
@@ -973,10 +565,8 @@ class AsyncInferenceResourceWithRawResponse:
     def __init__(self, inference: AsyncInferenceResource) -> None:
         self._inference = inference
 
-        self.chat_completion = (  # pyright: ignore[reportDeprecated]
-            async_to_raw_response_wrapper(
-                inference.chat_completion,  # pyright: ignore[reportDeprecated],
-            )
+        self.rerank = async_to_raw_response_wrapper(
+            inference.rerank,
         )
 
 
@@ -984,10 +574,8 @@ class InferenceResourceWithStreamingResponse:
     def __init__(self, inference: InferenceResource) -> None:
         self._inference = inference
 
-        self.chat_completion = (  # pyright: ignore[reportDeprecated]
-            to_streamed_response_wrapper(
-                inference.chat_completion,  # pyright: ignore[reportDeprecated],
-            )
+        self.rerank = to_streamed_response_wrapper(
+            inference.rerank,
         )
 
 
@@ -995,8 +583,6 @@ class AsyncInferenceResourceWithStreamingResponse:
     def __init__(self, inference: AsyncInferenceResource) -> None:
         self._inference = inference
 
-        self.chat_completion = (  # pyright: ignore[reportDeprecated]
-            async_to_streamed_response_wrapper(
-                inference.chat_completion,  # pyright: ignore[reportDeprecated],
-            )
+        self.rerank = async_to_streamed_response_wrapper(
+            inference.rerank,
         )

@@ -678,36 +678,20 @@ class TestLlamaStackClient:
     @mock.patch("llama_stack_client._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)
     @pytest.mark.respx(base_url=base_url)
     def test_retrying_timeout_errors_doesnt_leak(self, respx_mock: MockRouter, client: LlamaStackClient) -> None:
-        respx_mock.post("/v1/inference/chat-completion").mock(side_effect=httpx.TimeoutException("Test timeout error"))
+        respx_mock.get("/v1/toolgroups").mock(side_effect=httpx.TimeoutException("Test timeout error"))
 
         with pytest.raises(APITimeoutError):
-            client.inference.with_streaming_response.chat_completion(
-                messages=[
-                    {
-                        "content": "string",
-                        "role": "user",
-                    }
-                ],
-                model_id="model_id",
-            ).__enter__()
+            client.toolgroups.with_streaming_response.list().__enter__()
 
         assert _get_open_connections(self.client) == 0
 
     @mock.patch("llama_stack_client._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)
     @pytest.mark.respx(base_url=base_url)
     def test_retrying_status_errors_doesnt_leak(self, respx_mock: MockRouter, client: LlamaStackClient) -> None:
-        respx_mock.post("/v1/inference/chat-completion").mock(return_value=httpx.Response(500))
+        respx_mock.get("/v1/toolgroups").mock(return_value=httpx.Response(500))
 
         with pytest.raises(APIStatusError):
-            client.inference.with_streaming_response.chat_completion(
-                messages=[
-                    {
-                        "content": "string",
-                        "role": "user",
-                    }
-                ],
-                model_id="model_id",
-            ).__enter__()
+            client.toolgroups.with_streaming_response.list().__enter__()
         assert _get_open_connections(self.client) == 0
 
     @pytest.mark.parametrize("failures_before_success", [0, 2, 4])
@@ -734,17 +718,9 @@ class TestLlamaStackClient:
                 return httpx.Response(500)
             return httpx.Response(200)
 
-        respx_mock.post("/v1/inference/chat-completion").mock(side_effect=retry_handler)
+        respx_mock.get("/v1/toolgroups").mock(side_effect=retry_handler)
 
-        response = client.inference.with_raw_response.chat_completion(
-            messages=[
-                {
-                    "content": "string",
-                    "role": "user",
-                }
-            ],
-            model_id="model_id",
-        )
+        response = client.toolgroups.with_raw_response.list()
 
         assert response.retries_taken == failures_before_success
         assert int(response.http_request.headers.get("x-stainless-retry-count")) == failures_before_success
@@ -766,18 +742,9 @@ class TestLlamaStackClient:
                 return httpx.Response(500)
             return httpx.Response(200)
 
-        respx_mock.post("/v1/inference/chat-completion").mock(side_effect=retry_handler)
+        respx_mock.get("/v1/toolgroups").mock(side_effect=retry_handler)
 
-        response = client.inference.with_raw_response.chat_completion(
-            messages=[
-                {
-                    "content": "string",
-                    "role": "user",
-                }
-            ],
-            model_id="model_id",
-            extra_headers={"x-stainless-retry-count": Omit()},
-        )
+        response = client.toolgroups.with_raw_response.list(extra_headers={"x-stainless-retry-count": Omit()})
 
         assert len(response.http_request.headers.get_list("x-stainless-retry-count")) == 0
 
@@ -798,18 +765,9 @@ class TestLlamaStackClient:
                 return httpx.Response(500)
             return httpx.Response(200)
 
-        respx_mock.post("/v1/inference/chat-completion").mock(side_effect=retry_handler)
+        respx_mock.get("/v1/toolgroups").mock(side_effect=retry_handler)
 
-        response = client.inference.with_raw_response.chat_completion(
-            messages=[
-                {
-                    "content": "string",
-                    "role": "user",
-                }
-            ],
-            model_id="model_id",
-            extra_headers={"x-stainless-retry-count": "42"},
-        )
+        response = client.toolgroups.with_raw_response.list(extra_headers={"x-stainless-retry-count": "42"})
 
         assert response.http_request.headers.get("x-stainless-retry-count") == "42"
 
@@ -1498,18 +1456,10 @@ class TestAsyncLlamaStackClient:
     async def test_retrying_timeout_errors_doesnt_leak(
         self, respx_mock: MockRouter, async_client: AsyncLlamaStackClient
     ) -> None:
-        respx_mock.post("/v1/inference/chat-completion").mock(side_effect=httpx.TimeoutException("Test timeout error"))
+        respx_mock.get("/v1/toolgroups").mock(side_effect=httpx.TimeoutException("Test timeout error"))
 
         with pytest.raises(APITimeoutError):
-            await async_client.inference.with_streaming_response.chat_completion(
-                messages=[
-                    {
-                        "content": "string",
-                        "role": "user",
-                    }
-                ],
-                model_id="model_id",
-            ).__aenter__()
+            await async_client.toolgroups.with_streaming_response.list().__aenter__()
 
         assert _get_open_connections(self.client) == 0
 
@@ -1518,18 +1468,10 @@ class TestAsyncLlamaStackClient:
     async def test_retrying_status_errors_doesnt_leak(
         self, respx_mock: MockRouter, async_client: AsyncLlamaStackClient
     ) -> None:
-        respx_mock.post("/v1/inference/chat-completion").mock(return_value=httpx.Response(500))
+        respx_mock.get("/v1/toolgroups").mock(return_value=httpx.Response(500))
 
         with pytest.raises(APIStatusError):
-            await async_client.inference.with_streaming_response.chat_completion(
-                messages=[
-                    {
-                        "content": "string",
-                        "role": "user",
-                    }
-                ],
-                model_id="model_id",
-            ).__aenter__()
+            await async_client.toolgroups.with_streaming_response.list().__aenter__()
         assert _get_open_connections(self.client) == 0
 
     @pytest.mark.parametrize("failures_before_success", [0, 2, 4])
@@ -1557,17 +1499,9 @@ class TestAsyncLlamaStackClient:
                 return httpx.Response(500)
             return httpx.Response(200)
 
-        respx_mock.post("/v1/inference/chat-completion").mock(side_effect=retry_handler)
+        respx_mock.get("/v1/toolgroups").mock(side_effect=retry_handler)
 
-        response = await client.inference.with_raw_response.chat_completion(
-            messages=[
-                {
-                    "content": "string",
-                    "role": "user",
-                }
-            ],
-            model_id="model_id",
-        )
+        response = await client.toolgroups.with_raw_response.list()
 
         assert response.retries_taken == failures_before_success
         assert int(response.http_request.headers.get("x-stainless-retry-count")) == failures_before_success
@@ -1590,18 +1524,9 @@ class TestAsyncLlamaStackClient:
                 return httpx.Response(500)
             return httpx.Response(200)
 
-        respx_mock.post("/v1/inference/chat-completion").mock(side_effect=retry_handler)
+        respx_mock.get("/v1/toolgroups").mock(side_effect=retry_handler)
 
-        response = await client.inference.with_raw_response.chat_completion(
-            messages=[
-                {
-                    "content": "string",
-                    "role": "user",
-                }
-            ],
-            model_id="model_id",
-            extra_headers={"x-stainless-retry-count": Omit()},
-        )
+        response = await client.toolgroups.with_raw_response.list(extra_headers={"x-stainless-retry-count": Omit()})
 
         assert len(response.http_request.headers.get_list("x-stainless-retry-count")) == 0
 
@@ -1623,18 +1548,9 @@ class TestAsyncLlamaStackClient:
                 return httpx.Response(500)
             return httpx.Response(200)
 
-        respx_mock.post("/v1/inference/chat-completion").mock(side_effect=retry_handler)
+        respx_mock.get("/v1/toolgroups").mock(side_effect=retry_handler)
 
-        response = await client.inference.with_raw_response.chat_completion(
-            messages=[
-                {
-                    "content": "string",
-                    "role": "user",
-                }
-            ],
-            model_id="model_id",
-            extra_headers={"x-stainless-retry-count": "42"},
-        )
+        response = await client.toolgroups.with_raw_response.list(extra_headers={"x-stainless-retry-count": "42"})
 
         assert response.http_request.headers.get("x-stainless-retry-count") == "42"
 
