@@ -18,7 +18,7 @@ from ..._response import (
 )
 from ...pagination import SyncOpenAICursorPage, AsyncOpenAICursorPage
 from ..._base_client import AsyncPaginator, make_request_options
-from ...types.vector_stores import file_batch_list_params, file_batch_create_params
+from ...types.vector_stores import file_batch_create_params, file_batch_list_files_params
 from ...types.vector_stores.vector_store_file import VectorStoreFile
 from ...types.vector_stores.vector_store_file_batches import VectorStoreFileBatches
 
@@ -131,7 +131,43 @@ class FileBatchesResource(SyncAPIResource):
             cast_to=VectorStoreFileBatches,
         )
 
-    def list(
+    def cancel(
+        self,
+        batch_id: str,
+        *,
+        vector_store_id: str,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> VectorStoreFileBatches:
+        """
+        Cancels a vector store file batch.
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not vector_store_id:
+            raise ValueError(f"Expected a non-empty value for `vector_store_id` but received {vector_store_id!r}")
+        if not batch_id:
+            raise ValueError(f"Expected a non-empty value for `batch_id` but received {batch_id!r}")
+        return self._post(
+            f"/v1/vector_stores/{vector_store_id}/file_batches/{batch_id}/cancel",
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=VectorStoreFileBatches,
+        )
+
+    def list_files(
         self,
         batch_id: str,
         *,
@@ -194,46 +230,10 @@ class FileBatchesResource(SyncAPIResource):
                         "limit": limit,
                         "order": order,
                     },
-                    file_batch_list_params.FileBatchListParams,
+                    file_batch_list_files_params.FileBatchListFilesParams,
                 ),
             ),
             model=VectorStoreFile,
-        )
-
-    def cancel(
-        self,
-        batch_id: str,
-        *,
-        vector_store_id: str,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> VectorStoreFileBatches:
-        """
-        Cancels a vector store file batch.
-
-        Args:
-          extra_headers: Send extra headers
-
-          extra_query: Add additional query parameters to the request
-
-          extra_body: Add additional JSON properties to the request
-
-          timeout: Override the client-level default timeout for this request, in seconds
-        """
-        if not vector_store_id:
-            raise ValueError(f"Expected a non-empty value for `vector_store_id` but received {vector_store_id!r}")
-        if not batch_id:
-            raise ValueError(f"Expected a non-empty value for `batch_id` but received {batch_id!r}")
-        return self._post(
-            f"/v1/vector_stores/{vector_store_id}/file_batches/{batch_id}/cancel",
-            options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
-            ),
-            cast_to=VectorStoreFileBatches,
         )
 
 
@@ -343,7 +343,43 @@ class AsyncFileBatchesResource(AsyncAPIResource):
             cast_to=VectorStoreFileBatches,
         )
 
-    def list(
+    async def cancel(
+        self,
+        batch_id: str,
+        *,
+        vector_store_id: str,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> VectorStoreFileBatches:
+        """
+        Cancels a vector store file batch.
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not vector_store_id:
+            raise ValueError(f"Expected a non-empty value for `vector_store_id` but received {vector_store_id!r}")
+        if not batch_id:
+            raise ValueError(f"Expected a non-empty value for `batch_id` but received {batch_id!r}")
+        return await self._post(
+            f"/v1/vector_stores/{vector_store_id}/file_batches/{batch_id}/cancel",
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=VectorStoreFileBatches,
+        )
+
+    def list_files(
         self,
         batch_id: str,
         *,
@@ -406,46 +442,10 @@ class AsyncFileBatchesResource(AsyncAPIResource):
                         "limit": limit,
                         "order": order,
                     },
-                    file_batch_list_params.FileBatchListParams,
+                    file_batch_list_files_params.FileBatchListFilesParams,
                 ),
             ),
             model=VectorStoreFile,
-        )
-
-    async def cancel(
-        self,
-        batch_id: str,
-        *,
-        vector_store_id: str,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> VectorStoreFileBatches:
-        """
-        Cancels a vector store file batch.
-
-        Args:
-          extra_headers: Send extra headers
-
-          extra_query: Add additional query parameters to the request
-
-          extra_body: Add additional JSON properties to the request
-
-          timeout: Override the client-level default timeout for this request, in seconds
-        """
-        if not vector_store_id:
-            raise ValueError(f"Expected a non-empty value for `vector_store_id` but received {vector_store_id!r}")
-        if not batch_id:
-            raise ValueError(f"Expected a non-empty value for `batch_id` but received {batch_id!r}")
-        return await self._post(
-            f"/v1/vector_stores/{vector_store_id}/file_batches/{batch_id}/cancel",
-            options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
-            ),
-            cast_to=VectorStoreFileBatches,
         )
 
 
@@ -459,11 +459,11 @@ class FileBatchesResourceWithRawResponse:
         self.retrieve = to_raw_response_wrapper(
             file_batches.retrieve,
         )
-        self.list = to_raw_response_wrapper(
-            file_batches.list,
-        )
         self.cancel = to_raw_response_wrapper(
             file_batches.cancel,
+        )
+        self.list_files = to_raw_response_wrapper(
+            file_batches.list_files,
         )
 
 
@@ -477,11 +477,11 @@ class AsyncFileBatchesResourceWithRawResponse:
         self.retrieve = async_to_raw_response_wrapper(
             file_batches.retrieve,
         )
-        self.list = async_to_raw_response_wrapper(
-            file_batches.list,
-        )
         self.cancel = async_to_raw_response_wrapper(
             file_batches.cancel,
+        )
+        self.list_files = async_to_raw_response_wrapper(
+            file_batches.list_files,
         )
 
 
@@ -495,11 +495,11 @@ class FileBatchesResourceWithStreamingResponse:
         self.retrieve = to_streamed_response_wrapper(
             file_batches.retrieve,
         )
-        self.list = to_streamed_response_wrapper(
-            file_batches.list,
-        )
         self.cancel = to_streamed_response_wrapper(
             file_batches.cancel,
+        )
+        self.list_files = to_streamed_response_wrapper(
+            file_batches.list_files,
         )
 
 
@@ -513,9 +513,9 @@ class AsyncFileBatchesResourceWithStreamingResponse:
         self.retrieve = async_to_streamed_response_wrapper(
             file_batches.retrieve,
         )
-        self.list = async_to_streamed_response_wrapper(
-            file_batches.list,
-        )
         self.cancel = async_to_streamed_response_wrapper(
             file_batches.cancel,
+        )
+        self.list_files = async_to_streamed_response_wrapper(
+            file_batches.list_files,
         )

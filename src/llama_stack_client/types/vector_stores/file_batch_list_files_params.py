@@ -4,10 +4,10 @@ from __future__ import annotations
 
 from typing_extensions import Required, TypedDict
 
-__all__ = ["FileBatchListParams"]
+__all__ = ["FileBatchListFilesParams"]
 
 
-class FileBatchListParams(TypedDict, total=False):
+class FileBatchListFilesParams(TypedDict, total=False):
     vector_store_id: Required[str]
 
     after: str
