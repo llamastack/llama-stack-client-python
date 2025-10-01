@@ -28,6 +28,7 @@ __all__ = [
     "OutputOpenAIResponseOutputMessageMcpCall",
     "OutputOpenAIResponseOutputMessageMcpListTools",
     "OutputOpenAIResponseOutputMessageMcpListToolsTool",
+    "OutputOpenAIResponseMcpApprovalRequest",
     "Text",
     "TextFormat",
     "Error",
@@ -261,6 +262,18 @@ class OutputOpenAIResponseOutputMessageMcpListTools(BaseModel):
     """Tool call type identifier, always "mcp_list_tools" """
 
 
+class OutputOpenAIResponseMcpApprovalRequest(BaseModel):
+    id: str
+
+    arguments: str
+
+    name: str
+
+    server_label: str
+
+    type: Literal["mcp_approval_request"]
+
+
 Output: TypeAlias = Annotated[
     Union[
         OutputOpenAIResponseMessage,
@@ -269,6 +282,7 @@ Output: TypeAlias = Annotated[
         OutputOpenAIResponseOutputMessageFunctionToolCall,
         OutputOpenAIResponseOutputMessageMcpCall,
         OutputOpenAIResponseOutputMessageMcpListTools,
+        OutputOpenAIResponseMcpApprovalRequest,
     ],
     PropertyInfo(discriminator="type"),
 ]
