@@ -41,18 +41,9 @@ class TestAgents:
                     {
                         "name": "name",
                         "description": "description",
+                        "input_schema": {"foo": True},
                         "metadata": {"foo": True},
-                        "parameters": [
-                            {
-                                "description": "description",
-                                "name": "name",
-                                "parameter_type": "parameter_type",
-                                "required": True,
-                                "default": True,
-                                "items": {},
-                                "title": "title",
-                            }
-                        ],
+                        "output_schema": {"foo": True},
                     }
                 ],
                 "enable_session_persistence": True,
@@ -247,18 +238,9 @@ class TestAsyncAgents:
                     {
                         "name": "name",
                         "description": "description",
+                        "input_schema": {"foo": True},
                         "metadata": {"foo": True},
-                        "parameters": [
-                            {
-                                "description": "description",
-                                "name": "name",
-                                "parameter_type": "parameter_type",
-                                "required": True,
-                                "default": True,
-                                "items": {},
-                                "title": "title",
-                            }
-                        ],
+                        "output_schema": {"foo": True},
                     }
                 ],
                 "enable_session_persistence": True,

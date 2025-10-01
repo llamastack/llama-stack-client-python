@@ -15,6 +15,8 @@ __all__ = [
     "InputUnionMember1OpenAIResponseOutputMessageFileSearchToolCallResult",
     "InputUnionMember1OpenAIResponseOutputMessageFunctionToolCall",
     "InputUnionMember1OpenAIResponseInputFunctionToolCallOutput",
+    "InputUnionMember1OpenAIResponseMcpApprovalRequest",
+    "InputUnionMember1OpenAIResponseMcpApprovalResponse",
     "InputUnionMember1OpenAIResponseMessage",
     "InputUnionMember1OpenAIResponseMessageContentUnionMember1",
     "InputUnionMember1OpenAIResponseMessageContentUnionMember1OpenAIResponseInputMessageContentText",
@@ -150,6 +152,30 @@ class InputUnionMember1OpenAIResponseInputFunctionToolCallOutput(TypedDict, tota
     status: str
 
 
+class InputUnionMember1OpenAIResponseMcpApprovalRequest(TypedDict, total=False):
+    id: Required[str]
+
+    arguments: Required[str]
+
+    name: Required[str]
+
+    server_label: Required[str]
+
+    type: Required[Literal["mcp_approval_request"]]
+
+
+class InputUnionMember1OpenAIResponseMcpApprovalResponse(TypedDict, total=False):
+    approval_request_id: Required[str]
+
+    approve: Required[bool]
+
+    type: Required[Literal["mcp_approval_response"]]
+
+    id: str
+
+    reason: str
+
+
 class InputUnionMember1OpenAIResponseMessageContentUnionMember1OpenAIResponseInputMessageContentText(
     TypedDict, total=False
 ):
@@ -279,6 +305,8 @@ InputUnionMember1: TypeAlias = Union[
     InputUnionMember1OpenAIResponseOutputMessageFileSearchToolCall,
     InputUnionMember1OpenAIResponseOutputMessageFunctionToolCall,
     InputUnionMember1OpenAIResponseInputFunctionToolCallOutput,
+    InputUnionMember1OpenAIResponseMcpApprovalRequest,
+    InputUnionMember1OpenAIResponseMcpApprovalResponse,
     InputUnionMember1OpenAIResponseMessage,
 ]
 
