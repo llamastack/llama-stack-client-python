@@ -16,6 +16,8 @@ __all__ = [
     "InputOpenAIResponseOutputMessageFileSearchToolCallResult",
     "InputOpenAIResponseOutputMessageFunctionToolCall",
     "InputOpenAIResponseInputFunctionToolCallOutput",
+    "InputOpenAIResponseMcpApprovalRequest",
+    "InputOpenAIResponseMcpApprovalResponse",
     "InputOpenAIResponseMessage",
     "InputOpenAIResponseMessageContentUnionMember1",
     "InputOpenAIResponseMessageContentUnionMember1OpenAIResponseInputMessageContentText",
@@ -44,6 +46,7 @@ __all__ = [
     "OutputOpenAIResponseOutputMessageMcpCall",
     "OutputOpenAIResponseOutputMessageMcpListTools",
     "OutputOpenAIResponseOutputMessageMcpListToolsTool",
+    "OutputOpenAIResponseMcpApprovalRequest",
     "Text",
     "TextFormat",
     "Error",
@@ -125,6 +128,30 @@ class InputOpenAIResponseInputFunctionToolCallOutput(BaseModel):
     id: Optional[str] = None
 
     status: Optional[str] = None
+
+
+class InputOpenAIResponseMcpApprovalRequest(BaseModel):
+    id: str
+
+    arguments: str
+
+    name: str
+
+    server_label: str
+
+    type: Literal["mcp_approval_request"]
+
+
+class InputOpenAIResponseMcpApprovalResponse(BaseModel):
+    approval_request_id: str
+
+    approve: bool
+
+    type: Literal["mcp_approval_response"]
+
+    id: Optional[str] = None
+
+    reason: Optional[str] = None
 
 
 class InputOpenAIResponseMessageContentUnionMember1OpenAIResponseInputMessageContentText(BaseModel):
@@ -246,6 +273,8 @@ Input: TypeAlias = Union[
     InputOpenAIResponseOutputMessageFileSearchToolCall,
     InputOpenAIResponseOutputMessageFunctionToolCall,
     InputOpenAIResponseInputFunctionToolCallOutput,
+    InputOpenAIResponseMcpApprovalRequest,
+    InputOpenAIResponseMcpApprovalResponse,
     InputOpenAIResponseMessage,
 ]
 
@@ -477,6 +506,18 @@ class OutputOpenAIResponseOutputMessageMcpListTools(BaseModel):
     """Tool call type identifier, always "mcp_list_tools" """
 
 
+class OutputOpenAIResponseMcpApprovalRequest(BaseModel):
+    id: str
+
+    arguments: str
+
+    name: str
+
+    server_label: str
+
+    type: Literal["mcp_approval_request"]
+
+
 Output: TypeAlias = Annotated[
     Union[
         OutputOpenAIResponseMessage,
@@ -485,6 +526,7 @@ Output: TypeAlias = Annotated[
         OutputOpenAIResponseOutputMessageFunctionToolCall,
         OutputOpenAIResponseOutputMessageMcpCall,
         OutputOpenAIResponseOutputMessageMcpListTools,
+        OutputOpenAIResponseMcpApprovalRequest,
     ],
     PropertyInfo(discriminator="type"),
 ]

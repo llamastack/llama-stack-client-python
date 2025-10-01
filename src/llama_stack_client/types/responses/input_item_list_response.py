@@ -14,6 +14,8 @@ __all__ = [
     "DataOpenAIResponseOutputMessageFileSearchToolCallResult",
     "DataOpenAIResponseOutputMessageFunctionToolCall",
     "DataOpenAIResponseInputFunctionToolCallOutput",
+    "DataOpenAIResponseMcpApprovalRequest",
+    "DataOpenAIResponseMcpApprovalResponse",
     "DataOpenAIResponseMessage",
     "DataOpenAIResponseMessageContentUnionMember1",
     "DataOpenAIResponseMessageContentUnionMember1OpenAIResponseInputMessageContentText",
@@ -102,6 +104,30 @@ class DataOpenAIResponseInputFunctionToolCallOutput(BaseModel):
     id: Optional[str] = None
 
     status: Optional[str] = None
+
+
+class DataOpenAIResponseMcpApprovalRequest(BaseModel):
+    id: str
+
+    arguments: str
+
+    name: str
+
+    server_label: str
+
+    type: Literal["mcp_approval_request"]
+
+
+class DataOpenAIResponseMcpApprovalResponse(BaseModel):
+    approval_request_id: str
+
+    approve: bool
+
+    type: Literal["mcp_approval_response"]
+
+    id: Optional[str] = None
+
+    reason: Optional[str] = None
 
 
 class DataOpenAIResponseMessageContentUnionMember1OpenAIResponseInputMessageContentText(BaseModel):
@@ -223,6 +249,8 @@ Data: TypeAlias = Union[
     DataOpenAIResponseOutputMessageFileSearchToolCall,
     DataOpenAIResponseOutputMessageFunctionToolCall,
     DataOpenAIResponseInputFunctionToolCallOutput,
+    DataOpenAIResponseMcpApprovalRequest,
+    DataOpenAIResponseMcpApprovalResponse,
     DataOpenAIResponseMessage,
 ]
 

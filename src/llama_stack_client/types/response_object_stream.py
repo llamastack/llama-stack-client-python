@@ -29,6 +29,7 @@ __all__ = [
     "OpenAIResponseObjectStreamResponseOutputItemAddedItemOpenAIResponseOutputMessageMcpCall",
     "OpenAIResponseObjectStreamResponseOutputItemAddedItemOpenAIResponseOutputMessageMcpListTools",
     "OpenAIResponseObjectStreamResponseOutputItemAddedItemOpenAIResponseOutputMessageMcpListToolsTool",
+    "OpenAIResponseObjectStreamResponseOutputItemAddedItemOpenAIResponseMcpApprovalRequest",
     "OpenAIResponseObjectStreamResponseOutputItemDone",
     "OpenAIResponseObjectStreamResponseOutputItemDoneItem",
     "OpenAIResponseObjectStreamResponseOutputItemDoneItemOpenAIResponseMessage",
@@ -48,6 +49,7 @@ __all__ = [
     "OpenAIResponseObjectStreamResponseOutputItemDoneItemOpenAIResponseOutputMessageMcpCall",
     "OpenAIResponseObjectStreamResponseOutputItemDoneItemOpenAIResponseOutputMessageMcpListTools",
     "OpenAIResponseObjectStreamResponseOutputItemDoneItemOpenAIResponseOutputMessageMcpListToolsTool",
+    "OpenAIResponseObjectStreamResponseOutputItemDoneItemOpenAIResponseMcpApprovalRequest",
     "OpenAIResponseObjectStreamResponseOutputTextDelta",
     "OpenAIResponseObjectStreamResponseOutputTextDone",
     "OpenAIResponseObjectStreamResponseFunctionCallArgumentsDelta",
@@ -330,6 +332,18 @@ class OpenAIResponseObjectStreamResponseOutputItemAddedItemOpenAIResponseOutputM
     """Tool call type identifier, always "mcp_list_tools" """
 
 
+class OpenAIResponseObjectStreamResponseOutputItemAddedItemOpenAIResponseMcpApprovalRequest(BaseModel):
+    id: str
+
+    arguments: str
+
+    name: str
+
+    server_label: str
+
+    type: Literal["mcp_approval_request"]
+
+
 OpenAIResponseObjectStreamResponseOutputItemAddedItem: TypeAlias = Annotated[
     Union[
         OpenAIResponseObjectStreamResponseOutputItemAddedItemOpenAIResponseMessage,
@@ -338,6 +352,7 @@ OpenAIResponseObjectStreamResponseOutputItemAddedItem: TypeAlias = Annotated[
         OpenAIResponseObjectStreamResponseOutputItemAddedItemOpenAIResponseOutputMessageFunctionToolCall,
         OpenAIResponseObjectStreamResponseOutputItemAddedItemOpenAIResponseOutputMessageMcpCall,
         OpenAIResponseObjectStreamResponseOutputItemAddedItemOpenAIResponseOutputMessageMcpListTools,
+        OpenAIResponseObjectStreamResponseOutputItemAddedItemOpenAIResponseMcpApprovalRequest,
     ],
     PropertyInfo(discriminator="type"),
 ]
@@ -607,6 +622,18 @@ class OpenAIResponseObjectStreamResponseOutputItemDoneItemOpenAIResponseOutputMe
     """Tool call type identifier, always "mcp_list_tools" """
 
 
+class OpenAIResponseObjectStreamResponseOutputItemDoneItemOpenAIResponseMcpApprovalRequest(BaseModel):
+    id: str
+
+    arguments: str
+
+    name: str
+
+    server_label: str
+
+    type: Literal["mcp_approval_request"]
+
+
 OpenAIResponseObjectStreamResponseOutputItemDoneItem: TypeAlias = Annotated[
     Union[
         OpenAIResponseObjectStreamResponseOutputItemDoneItemOpenAIResponseMessage,
@@ -615,6 +642,7 @@ OpenAIResponseObjectStreamResponseOutputItemDoneItem: TypeAlias = Annotated[
         OpenAIResponseObjectStreamResponseOutputItemDoneItemOpenAIResponseOutputMessageFunctionToolCall,
         OpenAIResponseObjectStreamResponseOutputItemDoneItemOpenAIResponseOutputMessageMcpCall,
         OpenAIResponseObjectStreamResponseOutputItemDoneItemOpenAIResponseOutputMessageMcpListTools,
+        OpenAIResponseObjectStreamResponseOutputItemDoneItemOpenAIResponseMcpApprovalRequest,
     ],
     PropertyInfo(discriminator="type"),
 ]
