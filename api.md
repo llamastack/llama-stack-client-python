@@ -108,8 +108,23 @@ Methods:
 Types:
 
 ```python
-from llama_stack_client.types import ListDatasetsResponse
+from llama_stack_client.types import (
+    ListDatasetsResponse,
+    DatasetRetrieveResponse,
+    DatasetListResponse,
+    DatasetIterrowsResponse,
+    DatasetRegisterResponse,
+)
 ```
+
+Methods:
+
+- <code title="get /v1beta/datasets/{dataset_id}">client.datasets.<a href="./src/llama_stack_client/resources/datasets.py">retrieve</a>(dataset_id) -> <a href="./src/llama_stack_client/types/dataset_retrieve_response.py">DatasetRetrieveResponse</a></code>
+- <code title="get /v1beta/datasets">client.datasets.<a href="./src/llama_stack_client/resources/datasets.py">list</a>() -> <a href="./src/llama_stack_client/types/dataset_list_response.py">DatasetListResponse</a></code>
+- <code title="post /v1beta/datasetio/append-rows/{dataset_id}">client.datasets.<a href="./src/llama_stack_client/resources/datasets.py">appendrows</a>(dataset_id, \*\*<a href="src/llama_stack_client/types/dataset_appendrows_params.py">params</a>) -> None</code>
+- <code title="get /v1beta/datasetio/iterrows/{dataset_id}">client.datasets.<a href="./src/llama_stack_client/resources/datasets.py">iterrows</a>(dataset_id, \*\*<a href="src/llama_stack_client/types/dataset_iterrows_params.py">params</a>) -> <a href="./src/llama_stack_client/types/dataset_iterrows_response.py">DatasetIterrowsResponse</a></code>
+- <code title="post /v1beta/datasets">client.datasets.<a href="./src/llama_stack_client/resources/datasets.py">register</a>(\*\*<a href="src/llama_stack_client/types/dataset_register_params.py">params</a>) -> <a href="./src/llama_stack_client/types/dataset_register_response.py">DatasetRegisterResponse</a></code>
+- <code title="delete /v1beta/datasets/{dataset_id}">client.datasets.<a href="./src/llama_stack_client/resources/datasets.py">unregister</a>(dataset_id) -> None</code>
 
 # Inspect
 
@@ -382,12 +397,23 @@ from llama_stack_client.types import (
     QuerySpansResponse,
     SpanWithStatus,
     Trace,
+    TelemetryGetSpanResponse,
+    TelemetryGetSpanTreeResponse,
+    TelemetryQueryMetricsResponse,
+    TelemetryQuerySpansResponse,
+    TelemetryQueryTracesResponse,
 )
 ```
 
 Methods:
 
-- <code title="post /v1/telemetry/events">client.telemetry.<a href="./src/llama_stack_client/resources/telemetry.py">log_event</a>(\*\*<a href="src/llama_stack_client/types/telemetry_log_event_params.py">params</a>) -> None</code>
+- <code title="get /v1alpha/telemetry/traces/{trace_id}/spans/{span_id}">client.telemetry.<a href="./src/llama_stack_client/resources/telemetry.py">get_span</a>(span_id, \*, trace_id) -> <a href="./src/llama_stack_client/types/telemetry_get_span_response.py">TelemetryGetSpanResponse</a></code>
+- <code title="post /v1alpha/telemetry/spans/{span_id}/tree">client.telemetry.<a href="./src/llama_stack_client/resources/telemetry.py">get_span_tree</a>(span_id, \*\*<a href="src/llama_stack_client/types/telemetry_get_span_tree_params.py">params</a>) -> <a href="./src/llama_stack_client/types/telemetry_get_span_tree_response.py">TelemetryGetSpanTreeResponse</a></code>
+- <code title="get /v1alpha/telemetry/traces/{trace_id}">client.telemetry.<a href="./src/llama_stack_client/resources/telemetry.py">get_trace</a>(trace_id) -> <a href="./src/llama_stack_client/types/trace.py">Trace</a></code>
+- <code title="post /v1alpha/telemetry/metrics/{metric_name}">client.telemetry.<a href="./src/llama_stack_client/resources/telemetry.py">query_metrics</a>(metric_name, \*\*<a href="src/llama_stack_client/types/telemetry_query_metrics_params.py">params</a>) -> <a href="./src/llama_stack_client/types/telemetry_query_metrics_response.py">TelemetryQueryMetricsResponse</a></code>
+- <code title="post /v1alpha/telemetry/spans">client.telemetry.<a href="./src/llama_stack_client/resources/telemetry.py">query_spans</a>(\*\*<a href="src/llama_stack_client/types/telemetry_query_spans_params.py">params</a>) -> <a href="./src/llama_stack_client/types/telemetry_query_spans_response.py">TelemetryQuerySpansResponse</a></code>
+- <code title="post /v1alpha/telemetry/traces">client.telemetry.<a href="./src/llama_stack_client/resources/telemetry.py">query_traces</a>(\*\*<a href="src/llama_stack_client/types/telemetry_query_traces_params.py">params</a>) -> <a href="./src/llama_stack_client/types/telemetry_query_traces_response.py">TelemetryQueryTracesResponse</a></code>
+- <code title="post /v1alpha/telemetry/spans/export">client.telemetry.<a href="./src/llama_stack_client/resources/telemetry.py">save_spans_to_dataset</a>(\*\*<a href="src/llama_stack_client/types/telemetry_save_spans_to_dataset_params.py">params</a>) -> None</code>
 
 # Scoring
 
@@ -426,8 +452,14 @@ Methods:
 Types:
 
 ```python
-from llama_stack_client.types import Benchmark, ListBenchmarksResponse
+from llama_stack_client.types import Benchmark, ListBenchmarksResponse, BenchmarkListResponse
 ```
+
+Methods:
+
+- <code title="get /v1alpha/eval/benchmarks/{benchmark_id}">client.benchmarks.<a href="./src/llama_stack_client/resources/benchmarks.py">retrieve</a>(benchmark_id) -> <a href="./src/llama_stack_client/types/benchmark.py">Benchmark</a></code>
+- <code title="get /v1alpha/eval/benchmarks">client.benchmarks.<a href="./src/llama_stack_client/resources/benchmarks.py">list</a>() -> <a href="./src/llama_stack_client/types/benchmark_list_response.py">BenchmarkListResponse</a></code>
+- <code title="post /v1alpha/eval/benchmarks">client.benchmarks.<a href="./src/llama_stack_client/resources/benchmarks.py">register</a>(\*\*<a href="src/llama_stack_client/types/benchmark_register_params.py">params</a>) -> None</code>
 
 # Files
 
