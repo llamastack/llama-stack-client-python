@@ -2,13 +2,14 @@
 
 from __future__ import annotations
 
+from typing import Union, Iterable
 from typing_extensions import Literal, overload
 
 import httpx
 
 from ...types import response_list_params, response_create_params
-from ..._types import Body, Omit, Query, Headers, NotGiven, omit, not_given
-from ..._utils import maybe_transform, async_maybe_transform
+from ..._types import Body, Omit, Query, Headers, NotGiven, SequenceNotStr, omit, not_given
+from ..._utils import required_args, maybe_transform, async_maybe_transform
 from ..._compat import cached_property
 from ..._resource import SyncAPIResource, AsyncAPIResource
 from ..._response import (
@@ -31,7 +32,6 @@ from ..._base_client import AsyncPaginator, make_request_options
 from ...types.response_object import ResponseObject
 from ...types.response_list_response import ResponseListResponse
 from ...types.response_object_stream import ResponseObjectStream
-from ...types.response_create_response import ResponseCreateResponse
 from ...types.response_delete_response import ResponseDeleteResponse
 
 __all__ = ["ResponsesResource", "AsyncResponsesResource"]
@@ -65,28 +65,39 @@ class ResponsesResource(SyncAPIResource):
     def create(
         self,
         *,
-        after: str | Omit = omit,
-        limit: int | Omit = omit,
-        model: str | Omit = omit,
-        order: Literal["asc", "desc"] | Omit = omit,
+        input: Union[str, Iterable[response_create_params.InputUnionMember1]],
+        model: str,
+        include: SequenceNotStr[str] | Omit = omit,
+        instructions: str | Omit = omit,
+        max_infer_iters: int | Omit = omit,
+        previous_response_id: str | Omit = omit,
+        store: bool | Omit = omit,
+        stream: Literal[False] | Omit = omit,
+        temperature: float | Omit = omit,
+        text: response_create_params.Text | Omit = omit,
+        tools: Iterable[response_create_params.Tool] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> ResponseCreateResponse:
+    ) -> ResponseObject:
         """
-        List all OpenAI responses.
+        Create a new OpenAI response.
 
         Args:
-          after: The ID of the last response to return.
+          input: Input message(s) to create the response.
 
-          limit: The number of responses to return.
+          model: The underlying LLM used for completions.
 
-          model: The model to filter responses by.
+          include: (Optional) Additional fields to include in the response.
 
-          order: The order to sort responses by when sorted by created_at ('asc' or 'desc').
+          previous_response_id: (Optional) if specified, the new response will be a continuation of the previous
+              response. This can be used to easily fork-off new responses from existing
+              responses.
+
+          text: Text response configuration for OpenAI responses.
 
           extra_headers: Send extra headers
 
@@ -102,28 +113,39 @@ class ResponsesResource(SyncAPIResource):
     def create(
         self,
         *,
-        after: str | Omit = omit,
-        limit: int | Omit = omit,
-        model: str | Omit = omit,
-        order: Literal["asc", "desc"] | Omit = omit,
+        input: Union[str, Iterable[response_create_params.InputUnionMember1]],
+        model: str,
+        stream: Literal[True],
+        include: SequenceNotStr[str] | Omit = omit,
+        instructions: str | Omit = omit,
+        max_infer_iters: int | Omit = omit,
+        previous_response_id: str | Omit = omit,
+        store: bool | Omit = omit,
+        temperature: float | Omit = omit,
+        text: response_create_params.Text | Omit = omit,
+        tools: Iterable[response_create_params.Tool] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> ResponseCreateResponse:
+    ) -> Stream[ResponseObjectStream]:
         """
-        List all OpenAI responses.
+        Create a new OpenAI response.
 
         Args:
-          after: The ID of the last response to return.
+          input: Input message(s) to create the response.
 
-          limit: The number of responses to return.
+          model: The underlying LLM used for completions.
 
-          model: The model to filter responses by.
+          include: (Optional) Additional fields to include in the response.
 
-          order: The order to sort responses by when sorted by created_at ('asc' or 'desc').
+          previous_response_id: (Optional) if specified, the new response will be a continuation of the previous
+              response. This can be used to easily fork-off new responses from existing
+              responses.
+
+          text: Text response configuration for OpenAI responses.
 
           extra_headers: Send extra headers
 
@@ -135,35 +157,100 @@ class ResponsesResource(SyncAPIResource):
         """
         ...
 
+    @overload
     def create(
         self,
         *,
-        after: str | Omit = omit,
-        limit: int | Omit = omit,
-        model: str | Omit = omit,
-        order: Literal["asc", "desc"] | Omit = omit,
+        input: Union[str, Iterable[response_create_params.InputUnionMember1]],
+        model: str,
+        stream: bool,
+        include: SequenceNotStr[str] | Omit = omit,
+        instructions: str | Omit = omit,
+        max_infer_iters: int | Omit = omit,
+        previous_response_id: str | Omit = omit,
+        store: bool | Omit = omit,
+        temperature: float | Omit = omit,
+        text: response_create_params.Text | Omit = omit,
+        tools: Iterable[response_create_params.Tool] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> ResponseCreateResponse | Stream[ResponseObjectStream]:
+    ) -> ResponseObject | Stream[ResponseObjectStream]:
+        """
+        Create a new OpenAI response.
+
+        Args:
+          input: Input message(s) to create the response.
+
+          model: The underlying LLM used for completions.
+
+          include: (Optional) Additional fields to include in the response.
+
+          previous_response_id: (Optional) if specified, the new response will be a continuation of the previous
+              response. This can be used to easily fork-off new responses from existing
+              responses.
+
+          text: Text response configuration for OpenAI responses.
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        ...
+
+    @required_args(["input", "model"], ["input", "model", "stream"])
+    def create(
+        self,
+        *,
+        input: Union[str, Iterable[response_create_params.InputUnionMember1]],
+        model: str,
+        include: SequenceNotStr[str] | Omit = omit,
+        instructions: str | Omit = omit,
+        max_infer_iters: int | Omit = omit,
+        previous_response_id: str | Omit = omit,
+        store: bool | Omit = omit,
+        stream: Literal[False] | Literal[True] | Omit = omit,
+        temperature: float | Omit = omit,
+        text: response_create_params.Text | Omit = omit,
+        tools: Iterable[response_create_params.Tool] | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> ResponseObject | Stream[ResponseObjectStream]:
         return self._post(
             "/v1/responses",
             body=maybe_transform(
                 {
-                    "after": after,
-                    "limit": limit,
+                    "input": input,
                     "model": model,
-                    "order": order,
+                    "include": include,
+                    "instructions": instructions,
+                    "max_infer_iters": max_infer_iters,
+                    "previous_response_id": previous_response_id,
+                    "store": store,
+                    "stream": stream,
+                    "temperature": temperature,
+                    "text": text,
+                    "tools": tools,
                 },
-                response_create_params.ResponseCreateParams,
+                response_create_params.ResponseCreateParamsStreaming
+                if stream
+                else response_create_params.ResponseCreateParamsNonStreaming,
             ),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=ResponseCreateResponse,
+            cast_to=ResponseObject,
             stream=stream or False,
             stream_cls=Stream[ResponseObjectStream],
         )
@@ -318,28 +405,39 @@ class AsyncResponsesResource(AsyncAPIResource):
     async def create(
         self,
         *,
-        after: str | Omit = omit,
-        limit: int | Omit = omit,
-        model: str | Omit = omit,
-        order: Literal["asc", "desc"] | Omit = omit,
+        input: Union[str, Iterable[response_create_params.InputUnionMember1]],
+        model: str,
+        include: SequenceNotStr[str] | Omit = omit,
+        instructions: str | Omit = omit,
+        max_infer_iters: int | Omit = omit,
+        previous_response_id: str | Omit = omit,
+        store: bool | Omit = omit,
+        stream: Literal[False] | Omit = omit,
+        temperature: float | Omit = omit,
+        text: response_create_params.Text | Omit = omit,
+        tools: Iterable[response_create_params.Tool] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> ResponseCreateResponse:
+    ) -> ResponseObject:
         """
-        List all OpenAI responses.
+        Create a new OpenAI response.
 
         Args:
-          after: The ID of the last response to return.
+          input: Input message(s) to create the response.
 
-          limit: The number of responses to return.
+          model: The underlying LLM used for completions.
 
-          model: The model to filter responses by.
+          include: (Optional) Additional fields to include in the response.
 
-          order: The order to sort responses by when sorted by created_at ('asc' or 'desc').
+          previous_response_id: (Optional) if specified, the new response will be a continuation of the previous
+              response. This can be used to easily fork-off new responses from existing
+              responses.
+
+          text: Text response configuration for OpenAI responses.
 
           extra_headers: Send extra headers
 
@@ -355,28 +453,39 @@ class AsyncResponsesResource(AsyncAPIResource):
     async def create(
         self,
         *,
-        after: str | Omit = omit,
-        limit: int | Omit = omit,
-        model: str | Omit = omit,
-        order: Literal["asc", "desc"] | Omit = omit,
+        input: Union[str, Iterable[response_create_params.InputUnionMember1]],
+        model: str,
+        stream: Literal[True],
+        include: SequenceNotStr[str] | Omit = omit,
+        instructions: str | Omit = omit,
+        max_infer_iters: int | Omit = omit,
+        previous_response_id: str | Omit = omit,
+        store: bool | Omit = omit,
+        temperature: float | Omit = omit,
+        text: response_create_params.Text | Omit = omit,
+        tools: Iterable[response_create_params.Tool] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> ResponseCreateResponse:
+    ) -> AsyncStream[ResponseObjectStream]:
         """
-        List all OpenAI responses.
+        Create a new OpenAI response.
 
         Args:
-          after: The ID of the last response to return.
+          input: Input message(s) to create the response.
 
-          limit: The number of responses to return.
+          model: The underlying LLM used for completions.
 
-          model: The model to filter responses by.
+          include: (Optional) Additional fields to include in the response.
 
-          order: The order to sort responses by when sorted by created_at ('asc' or 'desc').
+          previous_response_id: (Optional) if specified, the new response will be a continuation of the previous
+              response. This can be used to easily fork-off new responses from existing
+              responses.
+
+          text: Text response configuration for OpenAI responses.
 
           extra_headers: Send extra headers
 
@@ -388,35 +497,100 @@ class AsyncResponsesResource(AsyncAPIResource):
         """
         ...
 
+    @overload
     async def create(
         self,
         *,
-        after: str | Omit = omit,
-        limit: int | Omit = omit,
-        model: str | Omit = omit,
-        order: Literal["asc", "desc"] | Omit = omit,
+        input: Union[str, Iterable[response_create_params.InputUnionMember1]],
+        model: str,
+        stream: bool,
+        include: SequenceNotStr[str] | Omit = omit,
+        instructions: str | Omit = omit,
+        max_infer_iters: int | Omit = omit,
+        previous_response_id: str | Omit = omit,
+        store: bool | Omit = omit,
+        temperature: float | Omit = omit,
+        text: response_create_params.Text | Omit = omit,
+        tools: Iterable[response_create_params.Tool] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> ResponseCreateResponse | AsyncStream[ResponseObjectStream]:
+    ) -> ResponseObject | AsyncStream[ResponseObjectStream]:
+        """
+        Create a new OpenAI response.
+
+        Args:
+          input: Input message(s) to create the response.
+
+          model: The underlying LLM used for completions.
+
+          include: (Optional) Additional fields to include in the response.
+
+          previous_response_id: (Optional) if specified, the new response will be a continuation of the previous
+              response. This can be used to easily fork-off new responses from existing
+              responses.
+
+          text: Text response configuration for OpenAI responses.
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        ...
+
+    @required_args(["input", "model"], ["input", "model", "stream"])
+    async def create(
+        self,
+        *,
+        input: Union[str, Iterable[response_create_params.InputUnionMember1]],
+        model: str,
+        include: SequenceNotStr[str] | Omit = omit,
+        instructions: str | Omit = omit,
+        max_infer_iters: int | Omit = omit,
+        previous_response_id: str | Omit = omit,
+        store: bool | Omit = omit,
+        stream: Literal[False] | Literal[True] | Omit = omit,
+        temperature: float | Omit = omit,
+        text: response_create_params.Text | Omit = omit,
+        tools: Iterable[response_create_params.Tool] | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> ResponseObject | AsyncStream[ResponseObjectStream]:
         return await self._post(
             "/v1/responses",
             body=await async_maybe_transform(
                 {
-                    "after": after,
-                    "limit": limit,
+                    "input": input,
                     "model": model,
-                    "order": order,
+                    "include": include,
+                    "instructions": instructions,
+                    "max_infer_iters": max_infer_iters,
+                    "previous_response_id": previous_response_id,
+                    "store": store,
+                    "stream": stream,
+                    "temperature": temperature,
+                    "text": text,
+                    "tools": tools,
                 },
-                response_create_params.ResponseCreateParams,
+                response_create_params.ResponseCreateParamsStreaming
+                if stream
+                else response_create_params.ResponseCreateParamsNonStreaming,
             ),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=ResponseCreateResponse,
+            cast_to=ResponseObject,
             stream=stream or False,
             stream_cls=AsyncStream[ResponseObjectStream],
         )
