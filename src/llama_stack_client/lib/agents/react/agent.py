@@ -37,7 +37,7 @@ def get_tool_defs(
                 {
                     "name": tool.identifier,
                     "description": tool.description,
-                    "parameters": tool.parameters,
+                    "input_schema": tool.input_schema,
                 }
                 for tool in client.tools.list(toolgroup_id=toolgroup_id)
             ]
@@ -48,7 +48,7 @@ def get_tool_defs(
             {
                 "name": tool.get_name(),
                 "description": tool.get_description(),
-                "parameters": tool.get_params_definition(),
+                "input_schema": tool.get_input_schema(),
             }
             for tool in client_tools
         ]
