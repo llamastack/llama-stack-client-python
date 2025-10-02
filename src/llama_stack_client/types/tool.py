@@ -5,7 +5,30 @@ from typing_extensions import Literal
 
 from .._models import BaseModel
 
-__all__ = ["Tool"]
+__all__ = ["Tool", "Parameter"]
+
+
+class Parameter(BaseModel):
+    description: str
+    """Human-readable description of what the parameter does"""
+
+    name: str
+    """Name of the parameter"""
+
+    parameter_type: str
+    """Type of the parameter (e.g., string, integer)"""
+
+    required: bool
+    """Whether this parameter is required for tool invocation"""
+
+    default: Union[bool, float, str, List[object], object, None] = None
+    """(Optional) Default value for the parameter if not provided"""
+
+    items: Optional[object] = None
+    """Type of the elements when parameter_type is array"""
+
+    title: Optional[str] = None
+    """(Optional) Title of the parameter"""
 
 
 class Tool(BaseModel):
@@ -13,6 +36,9 @@ class Tool(BaseModel):
     """Human-readable description of what the tool does"""
 
     identifier: str
+
+    parameters: List[Parameter]
+    """List of parameters this tool accepts"""
 
     provider_id: str
 
@@ -22,13 +48,7 @@ class Tool(BaseModel):
     type: Literal["tool"]
     """Type of resource, always 'tool'"""
 
-    input_schema: Optional[Dict[str, Union[bool, float, str, List[object], object, None]]] = None
-    """JSON Schema for the tool's input parameters"""
-
     metadata: Optional[Dict[str, Union[bool, float, str, List[object], object, None]]] = None
     """(Optional) Additional metadata about the tool"""
-
-    output_schema: Optional[Dict[str, Union[bool, float, str, List[object], object, None]]] = None
-    """JSON Schema for the tool's output"""
 
     provider_resource_id: Optional[str] = None

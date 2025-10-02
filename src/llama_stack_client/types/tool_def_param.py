@@ -5,7 +5,30 @@ from __future__ import annotations
 from typing import Dict, Union, Iterable
 from typing_extensions import Required, TypedDict
 
-__all__ = ["ToolDefParam"]
+__all__ = ["ToolDefParam", "Parameter"]
+
+
+class Parameter(TypedDict, total=False):
+    description: Required[str]
+    """Human-readable description of what the parameter does"""
+
+    name: Required[str]
+    """Name of the parameter"""
+
+    parameter_type: Required[str]
+    """Type of the parameter (e.g., string, integer)"""
+
+    required: Required[bool]
+    """Whether this parameter is required for tool invocation"""
+
+    default: Union[bool, float, str, Iterable[object], object, None]
+    """(Optional) Default value for the parameter if not provided"""
+
+    items: object
+    """Type of the elements when parameter_type is array"""
+
+    title: str
+    """(Optional) Title of the parameter"""
 
 
 class ToolDefParam(TypedDict, total=False):
@@ -15,11 +38,8 @@ class ToolDefParam(TypedDict, total=False):
     description: str
     """(Optional) Human-readable description of what the tool does"""
 
-    input_schema: Dict[str, Union[bool, float, str, Iterable[object], object, None]]
-    """(Optional) JSON Schema for tool inputs (MCP inputSchema)"""
-
     metadata: Dict[str, Union[bool, float, str, Iterable[object], object, None]]
     """(Optional) Additional metadata about the tool"""
 
-    output_schema: Dict[str, Union[bool, float, str, Iterable[object], object, None]]
-    """(Optional) JSON Schema for tool outputs (MCP outputSchema)"""
+    parameters: Iterable[Parameter]
+    """(Optional) List of parameters this tool accepts"""
