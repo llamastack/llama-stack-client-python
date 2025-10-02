@@ -1,5 +1,28 @@
 # Changelog
 
+## 0.3.0-alpha.4 (2025-10-02)
+
+Full Changelog: [v0.3.0-alpha.3...v0.3.0-alpha.4](https://github.com/llamastack/llama-stack-client-python/compare/v0.3.0-alpha.3...v0.3.0-alpha.4)
+
+### ⚠ BREAKING CHANGES
+
+* **api:** use input_schema instead of parameters for tools
+
+### Features
+
+* **api:** fixes to URLs ([406c366](https://github.com/llamastack/llama-stack-client-python/commit/406c36699f5618b0d2673ab38c93516aa403778f))
+* **api:** tool api (input_schema, etc.) changes ([064b98b](https://github.com/llamastack/llama-stack-client-python/commit/064b98bb38a87ee2c9deb93344409216a389aecd))
+* **api:** use input_schema instead of parameters for tools ([2d53df4](https://github.com/llamastack/llama-stack-client-python/commit/2d53df4f8b44af56019571e4b2db9ab875fb13d3))
+
+
+### Bug Fixes
+
+* **api:** another fix to capture correct responses.create() params ([a41fdb1](https://github.com/llamastack/llama-stack-client-python/commit/a41fdb1089f180f612e4fee2204217099c1dddd0))
+* **api:** fix the ToolDefParam updates ([4e24a76](https://github.com/llamastack/llama-stack-client-python/commit/4e24a76a0065b5ebea99a5792389ce9aa0fe7483))
+* **manual:** kill arguments_json ([a05eb61](https://github.com/llamastack/llama-stack-client-python/commit/a05eb6194fd7234420e6237cd34b84d2c859f525))
+* **manual:** update lib/ code for the input_schema changes ([67b3d02](https://github.com/llamastack/llama-stack-client-python/commit/67b3d02467b6cb12d606d0626bbc2b52ae767885))
+* **manual:** use tool.name instead of tool.identifier ([8542d1d](https://github.com/llamastack/llama-stack-client-python/commit/8542d1d2aaff782091ac5dc8c8dac59a0d1a5fa6))
+
 ## 0.3.0-alpha.3 (2025-09-30)
 
 Full Changelog: [v0.3.0-alpha.2...v0.3.0-alpha.3](https://github.com/llamastack/llama-stack-client-python/compare/v0.3.0-alpha.2...v0.3.0-alpha.3)
