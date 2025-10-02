@@ -18,8 +18,8 @@ from .._response import (
     async_to_streamed_response_wrapper,
 )
 from .._wrappers import DataWrapper
-from ..types.tool import Tool
 from .._base_client import make_request_options
+from ..types.tool_def import ToolDef
 from ..types.tool_list_response import ToolListResponse
 
 __all__ = ["ToolsResource", "AsyncToolsResource"]
@@ -93,7 +93,7 @@ class ToolsResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> Tool:
+    ) -> ToolDef:
         """
         Get a tool by its name.
 
@@ -113,7 +113,7 @@ class ToolsResource(SyncAPIResource):
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=Tool,
+            cast_to=ToolDef,
         )
 
 
@@ -185,7 +185,7 @@ class AsyncToolsResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> Tool:
+    ) -> ToolDef:
         """
         Get a tool by its name.
 
@@ -205,7 +205,7 @@ class AsyncToolsResource(AsyncAPIResource):
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=Tool,
+            cast_to=ToolDef,
         )
 
 

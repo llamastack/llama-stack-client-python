@@ -42,13 +42,13 @@ Methods:
 Types:
 
 ```python
-from llama_stack_client.types import ListToolsResponse, Tool, ToolListResponse
+from llama_stack_client.types import ToolListResponse
 ```
 
 Methods:
 
 - <code title="get /v1/tools">client.tools.<a href="./src/llama_stack_client/resources/tools.py">list</a>(\*\*<a href="src/llama_stack_client/types/tool_list_params.py">params</a>) -> <a href="./src/llama_stack_client/types/tool_list_response.py">ToolListResponse</a></code>
-- <code title="get /v1/tools/{tool_name}">client.tools.<a href="./src/llama_stack_client/resources/tools.py">get</a>(tool_name) -> <a href="./src/llama_stack_client/types/tool.py">Tool</a></code>
+- <code title="get /v1/tools/{tool_name}">client.tools.<a href="./src/llama_stack_client/resources/tools.py">get</a>(tool_name) -> <a href="./src/llama_stack_client/types/tool_def.py">ToolDef</a></code>
 
 # ToolRuntime
 
