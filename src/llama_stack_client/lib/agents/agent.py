@@ -212,7 +212,7 @@ class Agent:
         for tg in self.agent_config["toolgroups"]:
             toolgroup_id = tg if isinstance(tg, str) else tg.get("name")
             for tool in self.client.tools.list(toolgroup_id=toolgroup_id, extra_headers=self.extra_headers):
-                self.builtin_tools[tool.identifier] = tg.get("args", {}) if isinstance(tg, dict) else {}
+                self.builtin_tools[tool.name] = tg.get("args", {}) if isinstance(tg, dict) else {}
 
     def create_session(self, session_name: str) -> str:
         agentic_system_create_session_response = self.client.alpha.agents.session.create(
@@ -475,7 +475,7 @@ class AsyncAgent:
         self._agent_id = agentic_system_create_response.agent_id
         for tg in self.agent_config["toolgroups"]:
             for tool in await self.client.tools.list(toolgroup_id=tg, extra_headers=self.extra_headers):
-                self.builtin_tools[tool.identifier] = tg.get("args", {}) if isinstance(tg, dict) else {}
+                self.builtin_tools[tool.name] = tg.get("args", {}) if isinstance(tg, dict) else {}
 
     async def create_session(self, session_name: str) -> str:
         await self.initialize()
