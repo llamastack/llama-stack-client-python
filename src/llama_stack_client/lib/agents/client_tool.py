@@ -81,12 +81,7 @@ class ClientTool:
 
         metadata = {}
         try:
-            if tool_call.arguments_json is not None:
-                params = json.loads(tool_call.arguments_json)
-            elif isinstance(tool_call.arguments, str):
-                params = json.loads(tool_call.arguments)
-            else:
-                params = tool_call.arguments
+            params = json.loads(tool_call.arguments)
 
             response = self.run_impl(**params)
             if isinstance(response, dict) and "content" in response:

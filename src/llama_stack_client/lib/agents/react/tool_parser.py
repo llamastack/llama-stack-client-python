@@ -55,8 +55,7 @@ class ReActToolParser(ToolParser):
                     ToolCall(
                         call_id=call_id,
                         tool_name=tool_name,
-                        arguments=params,
-                        arguments_json=json.dumps(params),
+                        arguments=json.dumps(params),
                     )
                 ]
 
