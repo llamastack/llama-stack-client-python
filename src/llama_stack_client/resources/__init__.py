@@ -80,14 +80,6 @@ from .shields import (
     ShieldsResourceWithStreamingResponse,
     AsyncShieldsResourceWithStreamingResponse,
 )
-from .datasets import (
-    DatasetsResource,
-    AsyncDatasetsResource,
-    DatasetsResourceWithRawResponse,
-    AsyncDatasetsResourceWithRawResponse,
-    DatasetsResourceWithStreamingResponse,
-    AsyncDatasetsResourceWithStreamingResponse,
-)
 from .providers import (
     ProvidersResource,
     AsyncProvidersResource,
@@ -119,14 +111,6 @@ from .vector_io import (
     AsyncVectorIoResourceWithRawResponse,
     VectorIoResourceWithStreamingResponse,
     AsyncVectorIoResourceWithStreamingResponse,
-)
-from .benchmarks import (
-    BenchmarksResource,
-    AsyncBenchmarksResource,
-    BenchmarksResourceWithRawResponse,
-    AsyncBenchmarksResourceWithRawResponse,
-    BenchmarksResourceWithStreamingResponse,
-    AsyncBenchmarksResourceWithStreamingResponse,
 )
 from .embeddings import (
     EmbeddingsResource,
@@ -226,12 +210,6 @@ __all__ = [
     "AsyncResponsesResourceWithRawResponse",
     "ResponsesResourceWithStreamingResponse",
     "AsyncResponsesResourceWithStreamingResponse",
-    "DatasetsResource",
-    "AsyncDatasetsResource",
-    "DatasetsResourceWithRawResponse",
-    "AsyncDatasetsResourceWithRawResponse",
-    "DatasetsResourceWithStreamingResponse",
-    "AsyncDatasetsResourceWithStreamingResponse",
     "InspectResource",
     "AsyncInspectResource",
     "InspectResourceWithRawResponse",
@@ -334,12 +312,6 @@ __all__ = [
     "AsyncScoringFunctionsResourceWithRawResponse",
     "ScoringFunctionsResourceWithStreamingResponse",
     "AsyncScoringFunctionsResourceWithStreamingResponse",
-    "BenchmarksResource",
-    "AsyncBenchmarksResource",
-    "BenchmarksResourceWithRawResponse",
-    "AsyncBenchmarksResourceWithRawResponse",
-    "BenchmarksResourceWithStreamingResponse",
-    "AsyncBenchmarksResourceWithStreamingResponse",
     "FilesResource",
     "AsyncFilesResource",
     "FilesResourceWithRawResponse",
