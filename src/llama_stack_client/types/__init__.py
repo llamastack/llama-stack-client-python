@@ -3,7 +3,6 @@
 from __future__ import annotations
 
 from .file import File as File
-from .tool import Tool as Tool
 from .model import Model as Model
 from .shared import (
     Message as Message,
@@ -43,7 +42,6 @@ from .scoring_fn_params import ScoringFnParams as ScoringFnParams
 from .file_create_params import FileCreateParams as FileCreateParams
 from .tool_list_response import ToolListResponse as ToolListResponse
 from .list_files_response import ListFilesResponse as ListFilesResponse
-from .list_tools_response import ListToolsResponse as ListToolsResponse
 from .model_list_response import ModelListResponse as ModelListResponse
 from .route_list_response import RouteListResponse as RouteListResponse
 from .run_shield_response import RunShieldResponse as RunShieldResponse
