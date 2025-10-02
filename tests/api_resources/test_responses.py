@@ -12,6 +12,7 @@ from llama_stack_client import LlamaStackClient, AsyncLlamaStackClient
 from llama_stack_client.types import (
     ResponseObject,
     ResponseListResponse,
+    ResponseCreateResponse,
     ResponseDeleteResponse,
 )
 from llama_stack_client.pagination import SyncOpenAICursorPage, AsyncOpenAICursorPage
@@ -24,133 +25,73 @@ class TestResponses:
 
     @parametrize
     def test_method_create_overload_1(self, client: LlamaStackClient) -> None:
-        response = client.responses.create(
-            input="string",
-            model="model",
-        )
-        assert_matches_type(ResponseObject, response, path=["response"])
+        response = client.responses.create()
+        assert_matches_type(ResponseCreateResponse, response, path=["response"])
 
     @parametrize
     def test_method_create_with_all_params_overload_1(self, client: LlamaStackClient) -> None:
         response = client.responses.create(
-            input="string",
+            after="after",
+            limit=0,
             model="model",
-            include=["string"],
-            instructions="instructions",
-            max_infer_iters=0,
-            previous_response_id="previous_response_id",
-            store=True,
-            stream=False,
-            temperature=0,
-            text={
-                "format": {
-                    "type": "text",
-                    "description": "description",
-                    "name": "name",
-                    "schema": {"foo": True},
-                    "strict": True,
-                }
-            },
-            tools=[
-                {
-                    "type": "web_search",
-                    "search_context_size": "search_context_size",
-                }
-            ],
+            order="asc",
         )
-        assert_matches_type(ResponseObject, response, path=["response"])
+        assert_matches_type(ResponseCreateResponse, response, path=["response"])
 
     @parametrize
     def test_raw_response_create_overload_1(self, client: LlamaStackClient) -> None:
-        http_response = client.responses.with_raw_response.create(
-            input="string",
-            model="model",
-        )
+        http_response = client.responses.with_raw_response.create()
 
         assert http_response.is_closed is True
         assert http_response.http_request.headers.get("X-Stainless-Lang") == "python"
         response = http_response.parse()
-        assert_matches_type(ResponseObject, response, path=["response"])
+        assert_matches_type(ResponseCreateResponse, response, path=["response"])
 
     @parametrize
     def test_streaming_response_create_overload_1(self, client: LlamaStackClient) -> None:
-        with client.responses.with_streaming_response.create(
-            input="string",
-            model="model",
-        ) as http_response:
+        with client.responses.with_streaming_response.create() as http_response:
             assert not http_response.is_closed
             assert http_response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             response = http_response.parse()
-            assert_matches_type(ResponseObject, response, path=["response"])
+            assert_matches_type(ResponseCreateResponse, response, path=["response"])
 
         assert cast(Any, http_response.is_closed) is True
 
     @parametrize
     def test_method_create_overload_2(self, client: LlamaStackClient) -> None:
-        response_stream = client.responses.create(
-            input="string",
-            model="model",
-            stream=True,
-        )
-        response_stream.response.close()
+        response = client.responses.create()
+        assert_matches_type(ResponseCreateResponse, response, path=["response"])
 
     @parametrize
     def test_method_create_with_all_params_overload_2(self, client: LlamaStackClient) -> None:
-        response_stream = client.responses.create(
-            input="string",
+        response = client.responses.create(
+            after="after",
+            limit=0,
             model="model",
-            stream=True,
-            include=["string"],
-            instructions="instructions",
-            max_infer_iters=0,
-            previous_response_id="previous_response_id",
-            store=True,
-            temperature=0,
-            text={
-                "format": {
-                    "type": "text",
-                    "description": "description",
-                    "name": "name",
-                    "schema": {"foo": True},
-                    "strict": True,
-                }
-            },
-            tools=[
-                {
-                    "type": "web_search",
-                    "search_context_size": "search_context_size",
-                }
-            ],
+            order="asc",
         )
-        response_stream.response.close()
+        assert_matches_type(ResponseCreateResponse, response, path=["response"])
 
     @parametrize
     def test_raw_response_create_overload_2(self, client: LlamaStackClient) -> None:
-        response = client.responses.with_raw_response.create(
-            input="string",
-            model="model",
-            stream=True,
-        )
+        http_response = client.responses.with_raw_response.create()
 
-        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-        stream = response.parse()
-        stream.close()
+        assert http_response.is_closed is True
+        assert http_response.http_request.headers.get("X-Stainless-Lang") == "python"
+        response = http_response.parse()
+        assert_matches_type(ResponseCreateResponse, response, path=["response"])
 
     @parametrize
     def test_streaming_response_create_overload_2(self, client: LlamaStackClient) -> None:
-        with client.responses.with_streaming_response.create(
-            input="string",
-            model="model",
-            stream=True,
-        ) as response:
-            assert not response.is_closed
-            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        with client.responses.with_streaming_response.create() as http_response:
+            assert not http_response.is_closed
+            assert http_response.http_request.headers.get("X-Stainless-Lang") == "python"
 
-            stream = response.parse()
-            stream.close()
+            response = http_response.parse()
+            assert_matches_type(ResponseCreateResponse, response, path=["response"])
 
-        assert cast(Any, response.is_closed) is True
+        assert cast(Any, http_response.is_closed) is True
 
     @parametrize
     def test_method_retrieve(self, client: LlamaStackClient) -> None:
@@ -271,133 +212,73 @@ class TestAsyncResponses:
 
     @parametrize
     async def test_method_create_overload_1(self, async_client: AsyncLlamaStackClient) -> None:
-        response = await async_client.responses.create(
-            input="string",
-            model="model",
-        )
-        assert_matches_type(ResponseObject, response, path=["response"])
+        response = await async_client.responses.create()
+        assert_matches_type(ResponseCreateResponse, response, path=["response"])
 
     @parametrize
     async def test_method_create_with_all_params_overload_1(self, async_client: AsyncLlamaStackClient) -> None:
         response = await async_client.responses.create(
-            input="string",
+            after="after",
+            limit=0,
             model="model",
-            include=["string"],
-            instructions="instructions",
-            max_infer_iters=0,
-            previous_response_id="previous_response_id",
-            store=True,
-            stream=False,
-            temperature=0,
-            text={
-                "format": {
-                    "type": "text",
-                    "description": "description",
-                    "name": "name",
-                    "schema": {"foo": True},
-                    "strict": True,
-                }
-            },
-            tools=[
-                {
-                    "type": "web_search",
-                    "search_context_size": "search_context_size",
-                }
-            ],
+            order="asc",
         )
-        assert_matches_type(ResponseObject, response, path=["response"])
+        assert_matches_type(ResponseCreateResponse, response, path=["response"])
 
     @parametrize
     async def test_raw_response_create_overload_1(self, async_client: AsyncLlamaStackClient) -> None:
-        http_response = await async_client.responses.with_raw_response.create(
-            input="string",
-            model="model",
-        )
+        http_response = await async_client.responses.with_raw_response.create()
 
         assert http_response.is_closed is True
         assert http_response.http_request.headers.get("X-Stainless-Lang") == "python"
         response = await http_response.parse()
-        assert_matches_type(ResponseObject, response, path=["response"])
+        assert_matches_type(ResponseCreateResponse, response, path=["response"])
 
     @parametrize
     async def test_streaming_response_create_overload_1(self, async_client: AsyncLlamaStackClient) -> None:
-        async with async_client.responses.with_streaming_response.create(
-            input="string",
-            model="model",
-        ) as http_response:
+        async with async_client.responses.with_streaming_response.create() as http_response:
             assert not http_response.is_closed
             assert http_response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             response = await http_response.parse()
-            assert_matches_type(ResponseObject, response, path=["response"])
+            assert_matches_type(ResponseCreateResponse, response, path=["response"])
 
         assert cast(Any, http_response.is_closed) is True
 
     @parametrize
     async def test_method_create_overload_2(self, async_client: AsyncLlamaStackClient) -> None:
-        response_stream = await async_client.responses.create(
-            input="string",
-            model="model",
-            stream=True,
-        )
-        await response_stream.response.aclose()
+        response = await async_client.responses.create()
+        assert_matches_type(ResponseCreateResponse, response, path=["response"])
 
     @parametrize
     async def test_method_create_with_all_params_overload_2(self, async_client: AsyncLlamaStackClient) -> None:
-        response_stream = await async_client.responses.create(
-            input="string",
+        response = await async_client.responses.create(
+            after="after",
+            limit=0,
             model="model",
-            stream=True,
-            include=["string"],
-            instructions="instructions",
-            max_infer_iters=0,
-            previous_response_id="previous_response_id",
-            store=True,
-            temperature=0,
-            text={
-                "format": {
-                    "type": "text",
-                    "description": "description",
-                    "name": "name",
-                    "schema": {"foo": True},
-                    "strict": True,
-                }
-            },
-            tools=[
-                {
-                    "type": "web_search",
-                    "search_context_size": "search_context_size",
-                }
-            ],
+            order="asc",
         )
-        await response_stream.response.aclose()
+        assert_matches_type(ResponseCreateResponse, response, path=["response"])
 
     @parametrize
     async def test_raw_response_create_overload_2(self, async_client: AsyncLlamaStackClient) -> None:
-        response = await async_client.responses.with_raw_response.create(
-            input="string",
-            model="model",
-            stream=True,
-        )
+        http_response = await async_client.responses.with_raw_response.create()
 
-        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-        stream = await response.parse()
-        await stream.close()
+        assert http_response.is_closed is True
+        assert http_response.http_request.headers.get("X-Stainless-Lang") == "python"
+        response = await http_response.parse()
+        assert_matches_type(ResponseCreateResponse, response, path=["response"])
 
     @parametrize
     async def test_streaming_response_create_overload_2(self, async_client: AsyncLlamaStackClient) -> None:
-        async with async_client.responses.with_streaming_response.create(
-            input="string",
-            model="model",
-            stream=True,
-        ) as response:
-            assert not response.is_closed
-            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        async with async_client.responses.with_streaming_response.create() as http_response:
+            assert not http_response.is_closed
+            assert http_response.http_request.headers.get("X-Stainless-Lang") == "python"
 
-            stream = await response.parse()
-            await stream.close()
+            response = await http_response.parse()
+            assert_matches_type(ResponseCreateResponse, response, path=["response"])
 
-        assert cast(Any, response.is_closed) is True
+        assert cast(Any, http_response.is_closed) is True
 
     @parametrize
     async def test_method_retrieve(self, async_client: AsyncLlamaStackClient) -> None:
