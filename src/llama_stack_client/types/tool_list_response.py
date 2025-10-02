@@ -3,8 +3,8 @@
 from typing import List
 from typing_extensions import TypeAlias
 
-from .tool import Tool
+from .tool_def import ToolDef
 
 __all__ = ["ToolListResponse"]
 
-ToolListResponse: TypeAlias = List[Tool]
+ToolListResponse: TypeAlias = List[ToolDef]
