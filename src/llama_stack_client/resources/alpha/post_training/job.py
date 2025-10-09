@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from typing import List, Type, cast
+from typing import Type, cast
 
 import httpx
 
@@ -19,7 +19,7 @@ from ...._response import (
 from ...._wrappers import DataWrapper
 from ...._base_client import make_request_options
 from ....types.alpha.post_training import job_cancel_params, job_status_params, job_artifacts_params
-from ....types.alpha.list_post_training_jobs_response import Data
+from ....types.alpha.post_training.job_list_response import JobListResponse
 from ....types.alpha.post_training.job_status_response import JobStatusResponse
 from ....types.alpha.post_training.job_artifacts_response import JobArtifactsResponse
 
@@ -55,7 +55,7 @@ class JobResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> List[Data]:
+    ) -> JobListResponse:
         """Get all training jobs."""
         return self._get(
             "/v1alpha/post-training/jobs",
@@ -64,9 +64,9 @@ class JobResource(SyncAPIResource):
                 extra_query=extra_query,
                 extra_body=extra_body,
                 timeout=timeout,
-                post_parser=DataWrapper[List[Data]]._unwrapper,
+                post_parser=DataWrapper[JobListResponse]._unwrapper,
             ),
-            cast_to=cast(Type[List[Data]], DataWrapper[Data]),
+            cast_to=cast(Type[JobListResponse], DataWrapper[JobListResponse]),
         )
 
     def artifacts(
@@ -208,7 +208,7 @@ class AsyncJobResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> List[Data]:
+    ) -> JobListResponse:
         """Get all training jobs."""
         return await self._get(
             "/v1alpha/post-training/jobs",
@@ -217,9 +217,9 @@ class AsyncJobResource(AsyncAPIResource):
                 extra_query=extra_query,
                 extra_body=extra_body,
                 timeout=timeout,
-                post_parser=DataWrapper[List[Data]]._unwrapper,
+                post_parser=DataWrapper[JobListResponse]._unwrapper,
             ),
-            cast_to=cast(Type[List[Data]], DataWrapper[Data]),
+            cast_to=cast(Type[JobListResponse], DataWrapper[JobListResponse]),
         )
 
     async def artifacts(
