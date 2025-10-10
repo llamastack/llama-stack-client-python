@@ -1,5 +1,18 @@
 # Changelog
 
+## 0.3.0-alpha.5 (2025-10-10)
+
+Full Changelog: [v0.3.0-alpha.4...v0.3.0-alpha.5](https://github.com/llamastack/llama-stack-client-python/compare/v0.3.0-alpha.4...v0.3.0-alpha.5)
+
+### Features
+
+* **api:** several updates including Conversations, Responses changes, etc. ([3680c9f](https://github.com/llamastack/llama-stack-client-python/commit/3680c9f61146d2a42243a89c4ab28e2161f7ce29))
+
+
+### Chores
+
+* **internal:** codegen related update ([b8bfc9c](https://github.com/llamastack/llama-stack-client-python/commit/b8bfc9c69e378c89cc806b659bf3d42e4b4e2ec5))
+
 ## 0.3.0-alpha.4 (2025-10-02)
 
 Full Changelog: [v0.3.0-alpha.3...v0.3.0-alpha.4](https://github.com/llamastack/llama-stack-client-python/compare/v0.3.0-alpha.3...v0.3.0-alpha.4)
