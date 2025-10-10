@@ -35,6 +35,7 @@ class TestResponses:
         response = client.responses.create(
             input="string",
             model="model",
+            conversation="conversation",
             include=["string"],
             instructions="instructions",
             max_infer_iters=0,
@@ -101,6 +102,7 @@ class TestResponses:
             input="string",
             model="model",
             stream=True,
+            conversation="conversation",
             include=["string"],
             instructions="instructions",
             max_infer_iters=0,
@@ -282,6 +284,7 @@ class TestAsyncResponses:
         response = await async_client.responses.create(
             input="string",
             model="model",
+            conversation="conversation",
             include=["string"],
             instructions="instructions",
             max_infer_iters=0,
@@ -348,6 +351,7 @@ class TestAsyncResponses:
             input="string",
             model="model",
             stream=True,
+            conversation="conversation",
             include=["string"],
             instructions="instructions",
             max_infer_iters=0,

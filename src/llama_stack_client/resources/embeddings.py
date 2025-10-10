@@ -58,9 +58,10 @@ class EmbeddingsResource(SyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> CreateEmbeddingsResponse:
-        """
-        Generate OpenAI-compatible embeddings for the given input using the specified
-        model.
+        """Create embeddings.
+
+        Generate OpenAI-compatible embeddings for the given input
+        using the specified model.
 
         Args:
           input: Input text to embed, encoded as a string or array of strings. To embed multiple
@@ -140,9 +141,10 @@ class AsyncEmbeddingsResource(AsyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> CreateEmbeddingsResponse:
-        """
-        Generate OpenAI-compatible embeddings for the given input using the specified
-        model.
+        """Create embeddings.
+
+        Generate OpenAI-compatible embeddings for the given input
+        using the specified model.
 
         Args:
           input: Input text to embed, encoded as a string or array of strings. To embed multiple

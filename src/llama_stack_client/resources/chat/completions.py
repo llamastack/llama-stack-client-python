@@ -83,9 +83,10 @@ class CompletionsResource(SyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> CompletionCreateResponse:
-        """
-        Generate an OpenAI-compatible chat completion for the given messages using the
-        specified model.
+        """Create chat completions.
+
+        Generate an OpenAI-compatible chat completion for the
+        given messages using the specified model.
 
         Args:
           messages: List of messages in the conversation.
@@ -179,9 +180,10 @@ class CompletionsResource(SyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> Stream[ChatCompletionChunk]:
-        """
-        Generate an OpenAI-compatible chat completion for the given messages using the
-        specified model.
+        """Create chat completions.
+
+        Generate an OpenAI-compatible chat completion for the
+        given messages using the specified model.
 
         Args:
           messages: List of messages in the conversation.
@@ -275,9 +277,10 @@ class CompletionsResource(SyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> CompletionCreateResponse | Stream[ChatCompletionChunk]:
-        """
-        Generate an OpenAI-compatible chat completion for the given messages using the
-        specified model.
+        """Create chat completions.
+
+        Generate an OpenAI-compatible chat completion for the
+        given messages using the specified model.
 
         Args:
           messages: List of messages in the conversation.
@@ -424,7 +427,8 @@ class CompletionsResource(SyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> CompletionRetrieveResponse:
-        """
+        """Get chat completion.
+
         Describe a chat completion by its ID.
 
         Args:
@@ -461,7 +465,7 @@ class CompletionsResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> SyncOpenAICursorPage[CompletionListResponse]:
         """
-        List all chat completions.
+        List chat completions.
 
         Args:
           after: The ID of the last chat completion to return.
@@ -556,9 +560,10 @@ class AsyncCompletionsResource(AsyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> CompletionCreateResponse:
-        """
-        Generate an OpenAI-compatible chat completion for the given messages using the
-        specified model.
+        """Create chat completions.
+
+        Generate an OpenAI-compatible chat completion for the
+        given messages using the specified model.
 
         Args:
           messages: List of messages in the conversation.
@@ -652,9 +657,10 @@ class AsyncCompletionsResource(AsyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> AsyncStream[ChatCompletionChunk]:
-        """
-        Generate an OpenAI-compatible chat completion for the given messages using the
-        specified model.
+        """Create chat completions.
+
+        Generate an OpenAI-compatible chat completion for the
+        given messages using the specified model.
 
         Args:
           messages: List of messages in the conversation.
@@ -748,9 +754,10 @@ class AsyncCompletionsResource(AsyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> CompletionCreateResponse | AsyncStream[ChatCompletionChunk]:
-        """
-        Generate an OpenAI-compatible chat completion for the given messages using the
-        specified model.
+        """Create chat completions.
+
+        Generate an OpenAI-compatible chat completion for the
+        given messages using the specified model.
 
         Args:
           messages: List of messages in the conversation.
@@ -897,7 +904,8 @@ class AsyncCompletionsResource(AsyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> CompletionRetrieveResponse:
-        """
+        """Get chat completion.
+
         Describe a chat completion by its ID.
 
         Args:
@@ -934,7 +942,7 @@ class AsyncCompletionsResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> AsyncPaginator[CompletionListResponse, AsyncOpenAICursorPage[CompletionListResponse]]:
         """
-        List all chat completions.
+        List chat completions.
 
         Args:
           after: The ID of the last chat completion to return.

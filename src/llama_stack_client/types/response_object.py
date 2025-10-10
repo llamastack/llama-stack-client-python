@@ -32,6 +32,17 @@ __all__ = [
     "Text",
     "TextFormat",
     "Error",
+    "Tool",
+    "ToolOpenAIResponseInputToolWebSearch",
+    "ToolOpenAIResponseInputToolFileSearch",
+    "ToolOpenAIResponseInputToolFileSearchRankingOptions",
+    "ToolOpenAIResponseInputToolFunction",
+    "ToolOpenAIResponseToolMcp",
+    "ToolOpenAIResponseToolMcpAllowedTools",
+    "ToolOpenAIResponseToolMcpAllowedToolsAllowedToolsFilter",
+    "Usage",
+    "UsageInputTokensDetails",
+    "UsageOutputTokensDetails",
 ]
 
 
@@ -326,6 +337,112 @@ class Error(BaseModel):
     """Human-readable error message describing the failure"""
 
 
+class ToolOpenAIResponseInputToolWebSearch(BaseModel):
+    type: Literal["web_search", "web_search_preview", "web_search_preview_2025_03_11"]
+    """Web search tool type variant to use"""
+
+    search_context_size: Optional[str] = None
+    """(Optional) Size of search context, must be "low", "medium", or "high" """
+
+
+class ToolOpenAIResponseInputToolFileSearchRankingOptions(BaseModel):
+    ranker: Optional[str] = None
+    """(Optional) Name of the ranking algorithm to use"""
+
+    score_threshold: Optional[float] = None
+    """(Optional) Minimum relevance score threshold for results"""
+
+
+class ToolOpenAIResponseInputToolFileSearch(BaseModel):
+    type: Literal["file_search"]
+    """Tool type identifier, always "file_search" """
+
+    vector_store_ids: List[str]
+    """List of vector store identifiers to search within"""
+
+    filters: Optional[Dict[str, Union[bool, float, str, List[object], object, None]]] = None
+    """(Optional) Additional filters to apply to the search"""
+
+    max_num_results: Optional[int] = None
+    """(Optional) Maximum number of search results to return (1-50)"""
+
+    ranking_options: Optional[ToolOpenAIResponseInputToolFileSearchRankingOptions] = None
+    """(Optional) Options for ranking and scoring search results"""
+
+
+class ToolOpenAIResponseInputToolFunction(BaseModel):
+    name: str
+    """Name of the function that can be called"""
+
+    type: Literal["function"]
+    """Tool type identifier, always "function" """
+
+    description: Optional[str] = None
+    """(Optional) Description of what the function does"""
+
+    parameters: Optional[Dict[str, Union[bool, float, str, List[object], object, None]]] = None
+    """(Optional) JSON schema defining the function's parameters"""
+
+    strict: Optional[bool] = None
+    """(Optional) Whether to enforce strict parameter validation"""
+
+
+class ToolOpenAIResponseToolMcpAllowedToolsAllowedToolsFilter(BaseModel):
+    tool_names: Optional[List[str]] = None
+    """(Optional) List of specific tool names that are allowed"""
+
+
+ToolOpenAIResponseToolMcpAllowedTools: TypeAlias = Union[
+    List[str], ToolOpenAIResponseToolMcpAllowedToolsAllowedToolsFilter
+]
+
+
+class ToolOpenAIResponseToolMcp(BaseModel):
+    server_label: str
+    """Label to identify this MCP server"""
+
+    type: Literal["mcp"]
+    """Tool type identifier, always "mcp" """
+
+    allowed_tools: Optional[ToolOpenAIResponseToolMcpAllowedTools] = None
+    """(Optional) Restriction on which tools can be used from this server"""
+
+
+Tool: TypeAlias = Union[
+    ToolOpenAIResponseInputToolWebSearch,
+    ToolOpenAIResponseInputToolFileSearch,
+    ToolOpenAIResponseInputToolFunction,
+    ToolOpenAIResponseToolMcp,
+]
+
+
+class UsageInputTokensDetails(BaseModel):
+    cached_tokens: Optional[int] = None
+    """Number of tokens retrieved from cache"""
+
+
+class UsageOutputTokensDetails(BaseModel):
+    reasoning_tokens: Optional[int] = None
+    """Number of tokens used for reasoning (o1/o3 models)"""
+
+
+class Usage(BaseModel):
+    input_tokens: int
+    """Number of tokens in the input"""
+
+    output_tokens: int
+    """Number of tokens in the output"""
+
+    total_tokens: int
+    """Total tokens used (input + output)"""
+
+    input_tokens_details: Optional[UsageInputTokensDetails] = None
+    """Detailed breakdown of input token usage"""
+
+    output_tokens_details: Optional[UsageOutputTokensDetails] = None
+    """Detailed breakdown of output token usage"""
+
+
 class ResponseObject(BaseModel):
     @property
     def output_text(self) -> str:
@@ -370,8 +487,14 @@ class ResponseObject(BaseModel):
     temperature: Optional[float] = None
     """(Optional) Sampling temperature used for generation"""
 
+    tools: Optional[List[Tool]] = None
+    """(Optional) An array of tools the model may call while generating a response."""
+
     top_p: Optional[float] = None
     """(Optional) Nucleus sampling parameter used for generation"""
 
     truncation: Optional[str] = None
     """(Optional) Truncation strategy applied to the response"""
+
+    usage: Optional[Usage] = None
+    """(Optional) Token usage information for the response"""

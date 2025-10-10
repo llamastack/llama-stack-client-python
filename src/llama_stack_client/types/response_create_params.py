@@ -51,6 +51,13 @@ class ResponseCreateParamsBase(TypedDict, total=False):
     model: Required[str]
     """The underlying LLM used for completions."""
 
+    conversation: str
+    """(Optional) The ID of a conversation to add the response to.
+
+    Must begin with 'conv\\__'. Input and output messages will be automatically added
+    to the conversation.
+    """
+
     include: SequenceNotStr[str]
     """(Optional) Additional fields to include in the response."""
 

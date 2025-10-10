@@ -69,7 +69,8 @@ class ModelsResource(SyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> Model:
-        """
+        """Get model.
+
         Get a model by its identifier.
 
         Args:
@@ -129,7 +130,8 @@ class ModelsResource(SyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> Model:
-        """
+        """Register model.
+
         Register a model.
 
         Args:
@@ -180,7 +182,8 @@ class ModelsResource(SyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> None:
-        """
+        """Unregister model.
+
         Unregister a model.
 
         Args:
@@ -239,7 +242,8 @@ class AsyncModelsResource(AsyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> Model:
-        """
+        """Get model.
+
         Get a model by its identifier.
 
         Args:
@@ -299,7 +303,8 @@ class AsyncModelsResource(AsyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> Model:
-        """
+        """Register model.
+
         Register a model.
 
         Args:
@@ -350,7 +355,8 @@ class AsyncModelsResource(AsyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> None:
-        """
+        """Unregister model.
+
         Unregister a model.
 
         Args:

@@ -16,6 +16,9 @@ __all__ = [
     "ChoiceLogprobsContentTopLogprob",
     "ChoiceLogprobsRefusal",
     "ChoiceLogprobsRefusalTopLogprob",
+    "Usage",
+    "UsageCompletionTokensDetails",
+    "UsagePromptTokensDetails",
 ]
 
 
@@ -113,6 +116,33 @@ class Choice(BaseModel):
     """(Optional) The log probabilities for the tokens in the message"""
 
 
+class UsageCompletionTokensDetails(BaseModel):
+    reasoning_tokens: Optional[int] = None
+    """Number of tokens used for reasoning (o1/o3 models)"""
+
+
+class UsagePromptTokensDetails(BaseModel):
+    cached_tokens: Optional[int] = None
+    """Number of tokens retrieved from cache"""
+
+
+class Usage(BaseModel):
+    completion_tokens: int
+    """Number of tokens in the completion"""
+
+    prompt_tokens: int
+    """Number of tokens in the prompt"""
+
+    total_tokens: int
+    """Total tokens used (prompt + completion)"""
+
+    completion_tokens_details: Optional[UsageCompletionTokensDetails] = None
+    """Token details for output tokens in OpenAI chat completion usage."""
+
+    prompt_tokens_details: Optional[UsagePromptTokensDetails] = None
+    """Token details for prompt tokens in OpenAI chat completion usage."""
+
+
 class ChatCompletionChunk(BaseModel):
     id: str
     """The ID of the chat completion"""
@@ -128,3 +158,6 @@ class ChatCompletionChunk(BaseModel):
 
     object: Literal["chat.completion.chunk"]
     """The object type, which will be "chat.completion.chunk" """
+
+    usage: Optional[Usage] = None
+    """Token usage information (typically included in final chunk with stream_options)"""

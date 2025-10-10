@@ -76,9 +76,10 @@ class CompletionsResource(SyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> CompletionCreateResponse:
-        """
-        Generate an OpenAI-compatible completion for the given prompt using the
-        specified model.
+        """Create completion.
+
+        Generate an OpenAI-compatible completion for the given prompt
+        using the specified model.
 
         Args:
           model: The identifier of the model to use. The model must be registered with Llama
@@ -159,9 +160,10 @@ class CompletionsResource(SyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> Stream[CompletionCreateResponse]:
-        """
-        Generate an OpenAI-compatible completion for the given prompt using the
-        specified model.
+        """Create completion.
+
+        Generate an OpenAI-compatible completion for the given prompt
+        using the specified model.
 
         Args:
           model: The identifier of the model to use. The model must be registered with Llama
@@ -242,9 +244,10 @@ class CompletionsResource(SyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> CompletionCreateResponse | Stream[CompletionCreateResponse]:
-        """
-        Generate an OpenAI-compatible completion for the given prompt using the
-        specified model.
+        """Create completion.
+
+        Generate an OpenAI-compatible completion for the given prompt
+        using the specified model.
 
         Args:
           model: The identifier of the model to use. The model must be registered with Llama
@@ -414,9 +417,10 @@ class AsyncCompletionsResource(AsyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> CompletionCreateResponse:
-        """
-        Generate an OpenAI-compatible completion for the given prompt using the
-        specified model.
+        """Create completion.
+
+        Generate an OpenAI-compatible completion for the given prompt
+        using the specified model.
 
         Args:
           model: The identifier of the model to use. The model must be registered with Llama
@@ -497,9 +501,10 @@ class AsyncCompletionsResource(AsyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> AsyncStream[CompletionCreateResponse]:
-        """
-        Generate an OpenAI-compatible completion for the given prompt using the
-        specified model.
+        """Create completion.
+
+        Generate an OpenAI-compatible completion for the given prompt
+        using the specified model.
 
         Args:
           model: The identifier of the model to use. The model must be registered with Llama
@@ -580,9 +585,10 @@ class AsyncCompletionsResource(AsyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> CompletionCreateResponse | AsyncStream[CompletionCreateResponse]:
-        """
-        Generate an OpenAI-compatible completion for the given prompt using the
-        specified model.
+        """Create completion.
+
+        Generate an OpenAI-compatible completion for the given prompt
+        using the specified model.
 
         Args:
           model: The identifier of the model to use. The model must be registered with Llama

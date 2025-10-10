@@ -176,6 +176,14 @@ from .tool_runtime import (
     ToolRuntimeResourceWithStreamingResponse,
     AsyncToolRuntimeResourceWithStreamingResponse,
 )
+from .conversations import (
+    ConversationsResource,
+    AsyncConversationsResource,
+    ConversationsResourceWithRawResponse,
+    AsyncConversationsResourceWithRawResponse,
+    ConversationsResourceWithStreamingResponse,
+    AsyncConversationsResourceWithStreamingResponse,
+)
 from .vector_stores import (
     VectorStoresResource,
     AsyncVectorStoresResource,
@@ -226,6 +234,12 @@ __all__ = [
     "AsyncResponsesResourceWithRawResponse",
     "ResponsesResourceWithStreamingResponse",
     "AsyncResponsesResourceWithStreamingResponse",
+    "ConversationsResource",
+    "AsyncConversationsResource",
+    "ConversationsResourceWithRawResponse",
+    "AsyncConversationsResourceWithRawResponse",
+    "ConversationsResourceWithStreamingResponse",
+    "AsyncConversationsResourceWithStreamingResponse",
     "DatasetsResource",
     "AsyncDatasetsResource",
     "DatasetsResourceWithRawResponse",
