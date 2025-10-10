@@ -67,6 +67,7 @@ class ResponsesResource(SyncAPIResource):
         *,
         input: Union[str, Iterable[response_create_params.InputUnionMember1]],
         model: str,
+        conversation: str | Omit = omit,
         include: SequenceNotStr[str] | Omit = omit,
         instructions: str | Omit = omit,
         max_infer_iters: int | Omit = omit,
@@ -84,12 +85,16 @@ class ResponsesResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> ResponseObject:
         """
-        Create a new OpenAI response.
+        Create a model response.
 
         Args:
           input: Input message(s) to create the response.
 
           model: The underlying LLM used for completions.
+
+          conversation: (Optional) The ID of a conversation to add the response to. Must begin with
+              'conv\\__'. Input and output messages will be automatically added to the
+              conversation.
 
           include: (Optional) Additional fields to include in the response.
 
@@ -116,6 +121,7 @@ class ResponsesResource(SyncAPIResource):
         input: Union[str, Iterable[response_create_params.InputUnionMember1]],
         model: str,
         stream: Literal[True],
+        conversation: str | Omit = omit,
         include: SequenceNotStr[str] | Omit = omit,
         instructions: str | Omit = omit,
         max_infer_iters: int | Omit = omit,
@@ -132,12 +138,16 @@ class ResponsesResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> Stream[ResponseObjectStream]:
         """
-        Create a new OpenAI response.
+        Create a model response.
 
         Args:
           input: Input message(s) to create the response.
 
           model: The underlying LLM used for completions.
+
+          conversation: (Optional) The ID of a conversation to add the response to. Must begin with
+              'conv\\__'. Input and output messages will be automatically added to the
+              conversation.
 
           include: (Optional) Additional fields to include in the response.
 
@@ -164,6 +174,7 @@ class ResponsesResource(SyncAPIResource):
         input: Union[str, Iterable[response_create_params.InputUnionMember1]],
         model: str,
         stream: bool,
+        conversation: str | Omit = omit,
         include: SequenceNotStr[str] | Omit = omit,
         instructions: str | Omit = omit,
         max_infer_iters: int | Omit = omit,
@@ -180,12 +191,16 @@ class ResponsesResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> ResponseObject | Stream[ResponseObjectStream]:
         """
-        Create a new OpenAI response.
+        Create a model response.
 
         Args:
           input: Input message(s) to create the response.
 
           model: The underlying LLM used for completions.
+
+          conversation: (Optional) The ID of a conversation to add the response to. Must begin with
+              'conv\\__'. Input and output messages will be automatically added to the
+              conversation.
 
           include: (Optional) Additional fields to include in the response.
 
@@ -211,6 +226,7 @@ class ResponsesResource(SyncAPIResource):
         *,
         input: Union[str, Iterable[response_create_params.InputUnionMember1]],
         model: str,
+        conversation: str | Omit = omit,
         include: SequenceNotStr[str] | Omit = omit,
         instructions: str | Omit = omit,
         max_infer_iters: int | Omit = omit,
@@ -233,6 +249,7 @@ class ResponsesResource(SyncAPIResource):
                 {
                     "input": input,
                     "model": model,
+                    "conversation": conversation,
                     "include": include,
                     "instructions": instructions,
                     "max_infer_iters": max_infer_iters,
@@ -267,7 +284,7 @@ class ResponsesResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> ResponseObject:
         """
-        Retrieve an OpenAI response by its ID.
+        Get a model response.
 
         Args:
           extra_headers: Send extra headers
@@ -303,7 +320,7 @@ class ResponsesResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> SyncOpenAICursorPage[ResponseListResponse]:
         """
-        List all OpenAI responses.
+        List all responses.
 
         Args:
           after: The ID of the last response to return.
@@ -355,7 +372,7 @@ class ResponsesResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> ResponseDeleteResponse:
         """
-        Delete an OpenAI response by its ID.
+        Delete a response.
 
         Args:
           extra_headers: Send extra headers
@@ -407,6 +424,7 @@ class AsyncResponsesResource(AsyncAPIResource):
         *,
         input: Union[str, Iterable[response_create_params.InputUnionMember1]],
         model: str,
+        conversation: str | Omit = omit,
         include: SequenceNotStr[str] | Omit = omit,
         instructions: str | Omit = omit,
         max_infer_iters: int | Omit = omit,
@@ -424,12 +442,16 @@ class AsyncResponsesResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> ResponseObject:
         """
-        Create a new OpenAI response.
+        Create a model response.
 
         Args:
           input: Input message(s) to create the response.
 
           model: The underlying LLM used for completions.
+
+          conversation: (Optional) The ID of a conversation to add the response to. Must begin with
+              'conv\\__'. Input and output messages will be automatically added to the
+              conversation.
 
           include: (Optional) Additional fields to include in the response.
 
@@ -456,6 +478,7 @@ class AsyncResponsesResource(AsyncAPIResource):
         input: Union[str, Iterable[response_create_params.InputUnionMember1]],
         model: str,
         stream: Literal[True],
+        conversation: str | Omit = omit,
         include: SequenceNotStr[str] | Omit = omit,
         instructions: str | Omit = omit,
         max_infer_iters: int | Omit = omit,
@@ -472,12 +495,16 @@ class AsyncResponsesResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> AsyncStream[ResponseObjectStream]:
         """
-        Create a new OpenAI response.
+        Create a model response.
 
         Args:
           input: Input message(s) to create the response.
 
           model: The underlying LLM used for completions.
+
+          conversation: (Optional) The ID of a conversation to add the response to. Must begin with
+              'conv\\__'. Input and output messages will be automatically added to the
+              conversation.
 
           include: (Optional) Additional fields to include in the response.
 
@@ -504,6 +531,7 @@ class AsyncResponsesResource(AsyncAPIResource):
         input: Union[str, Iterable[response_create_params.InputUnionMember1]],
         model: str,
         stream: bool,
+        conversation: str | Omit = omit,
         include: SequenceNotStr[str] | Omit = omit,
         instructions: str | Omit = omit,
         max_infer_iters: int | Omit = omit,
@@ -520,12 +548,16 @@ class AsyncResponsesResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> ResponseObject | AsyncStream[ResponseObjectStream]:
         """
-        Create a new OpenAI response.
+        Create a model response.
 
         Args:
           input: Input message(s) to create the response.
 
           model: The underlying LLM used for completions.
+
+          conversation: (Optional) The ID of a conversation to add the response to. Must begin with
+              'conv\\__'. Input and output messages will be automatically added to the
+              conversation.
 
           include: (Optional) Additional fields to include in the response.
 
@@ -551,6 +583,7 @@ class AsyncResponsesResource(AsyncAPIResource):
         *,
         input: Union[str, Iterable[response_create_params.InputUnionMember1]],
         model: str,
+        conversation: str | Omit = omit,
         include: SequenceNotStr[str] | Omit = omit,
         instructions: str | Omit = omit,
         max_infer_iters: int | Omit = omit,
@@ -573,6 +606,7 @@ class AsyncResponsesResource(AsyncAPIResource):
                 {
                     "input": input,
                     "model": model,
+                    "conversation": conversation,
                     "include": include,
                     "instructions": instructions,
                     "max_infer_iters": max_infer_iters,
@@ -607,7 +641,7 @@ class AsyncResponsesResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> ResponseObject:
         """
-        Retrieve an OpenAI response by its ID.
+        Get a model response.
 
         Args:
           extra_headers: Send extra headers
@@ -643,7 +677,7 @@ class AsyncResponsesResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> AsyncPaginator[ResponseListResponse, AsyncOpenAICursorPage[ResponseListResponse]]:
         """
-        List all OpenAI responses.
+        List all responses.
 
         Args:
           after: The ID of the last response to return.
@@ -695,7 +729,7 @@ class AsyncResponsesResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> ResponseDeleteResponse:
         """
-        Delete an OpenAI response by its ID.
+        Delete a response.
 
         Args:
           extra_headers: Send extra headers

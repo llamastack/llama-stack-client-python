@@ -55,8 +55,10 @@ class ModerationsResource(SyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> CreateResponse:
-        """
-        Classifies if text and/or image inputs are potentially harmful.
+        """Create moderation.
+
+        Classifies if text and/or image inputs are potentially
+        harmful.
 
         Args:
           input: Input (or inputs) to classify. Can be a single string, an array of strings, or
@@ -120,8 +122,10 @@ class AsyncModerationsResource(AsyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> CreateResponse:
-        """
-        Classifies if text and/or image inputs are potentially harmful.
+        """Create moderation.
+
+        Classifies if text and/or image inputs are potentially
+        harmful.
 
         Args:
           input: Input (or inputs) to classify. Can be a single string, an array of strings, or

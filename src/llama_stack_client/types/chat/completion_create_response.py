@@ -34,6 +34,9 @@ __all__ = [
     "OpenAIChatCompletionChoiceLogprobsContentTopLogprob",
     "OpenAIChatCompletionChoiceLogprobsRefusal",
     "OpenAIChatCompletionChoiceLogprobsRefusalTopLogprob",
+    "OpenAIChatCompletionUsage",
+    "OpenAIChatCompletionUsageCompletionTokensDetails",
+    "OpenAIChatCompletionUsagePromptTokensDetails",
 ]
 
 
@@ -283,6 +286,33 @@ class OpenAIChatCompletionChoice(BaseModel):
     """(Optional) The log probabilities for the tokens in the message"""
 
 
+class OpenAIChatCompletionUsageCompletionTokensDetails(BaseModel):
+    reasoning_tokens: Optional[int] = None
+    """Number of tokens used for reasoning (o1/o3 models)"""
+
+
+class OpenAIChatCompletionUsagePromptTokensDetails(BaseModel):
+    cached_tokens: Optional[int] = None
+    """Number of tokens retrieved from cache"""
+
+
+class OpenAIChatCompletionUsage(BaseModel):
+    completion_tokens: int
+    """Number of tokens in the completion"""
+
+    prompt_tokens: int
+    """Number of tokens in the prompt"""
+
+    total_tokens: int
+    """Total tokens used (prompt + completion)"""
+
+    completion_tokens_details: Optional[OpenAIChatCompletionUsageCompletionTokensDetails] = None
+    """Token details for output tokens in OpenAI chat completion usage."""
+
+    prompt_tokens_details: Optional[OpenAIChatCompletionUsagePromptTokensDetails] = None
+    """Token details for prompt tokens in OpenAI chat completion usage."""
+
+
 class OpenAIChatCompletion(BaseModel):
     id: str
     """The ID of the chat completion"""
@@ -298,6 +328,9 @@ class OpenAIChatCompletion(BaseModel):
 
     object: Literal["chat.completion"]
     """The object type, which will be "chat.completion" """
+
+    usage: Optional[OpenAIChatCompletionUsage] = None
+    """Token usage information for the completion"""
 
 
 CompletionCreateResponse: TypeAlias = Union[OpenAIChatCompletion, ChatCompletionChunk]

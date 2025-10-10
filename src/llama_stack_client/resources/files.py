@@ -59,10 +59,11 @@ class FilesResource(SyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> File:
-        """Upload a file that can be used across various endpoints.
+        """Upload file.
 
-        The file upload should
-        be a multipart form request with:
+        Upload a file that can be used across various endpoints.
+
+        The file upload should be a multipart form request with:
 
         - file: The File object (not file name) to be uploaded.
         - purpose: The intended purpose of the uploaded file.
@@ -118,7 +119,8 @@ class FilesResource(SyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> File:
-        """
+        """Retrieve file.
+
         Returns information about a specific file.
 
         Args:
@@ -154,7 +156,8 @@ class FilesResource(SyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> SyncOpenAICursorPage[File]:
-        """
+        """List files.
+
         Returns a list of files that belong to the user's organization.
 
         Args:
@@ -212,7 +215,7 @@ class FilesResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> DeleteFileResponse:
         """
-        Delete a file.
+        Delete file.
 
         Args:
           extra_headers: Send extra headers
@@ -244,7 +247,8 @@ class FilesResource(SyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> object:
-        """
+        """Retrieve file content.
+
         Returns the contents of the specified file.
 
         Args:
@@ -300,10 +304,11 @@ class AsyncFilesResource(AsyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> File:
-        """Upload a file that can be used across various endpoints.
+        """Upload file.
 
-        The file upload should
-        be a multipart form request with:
+        Upload a file that can be used across various endpoints.
+
+        The file upload should be a multipart form request with:
 
         - file: The File object (not file name) to be uploaded.
         - purpose: The intended purpose of the uploaded file.
@@ -359,7 +364,8 @@ class AsyncFilesResource(AsyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> File:
-        """
+        """Retrieve file.
+
         Returns information about a specific file.
 
         Args:
@@ -395,7 +401,8 @@ class AsyncFilesResource(AsyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> AsyncPaginator[File, AsyncOpenAICursorPage[File]]:
-        """
+        """List files.
+
         Returns a list of files that belong to the user's organization.
 
         Args:
@@ -453,7 +460,7 @@ class AsyncFilesResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> DeleteFileResponse:
         """
-        Delete a file.
+        Delete file.
 
         Args:
           extra_headers: Send extra headers
@@ -485,7 +492,8 @@ class AsyncFilesResource(AsyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> object:
-        """
+        """Retrieve file content.
+
         Returns the contents of the specified file.
 
         Args:

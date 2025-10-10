@@ -50,6 +50,9 @@ __all__ = [
     "InputMessageOpenAIToolMessageParamContentUnionMember1",
     "InputMessageOpenAIDeveloperMessageParam",
     "InputMessageOpenAIDeveloperMessageParamContentUnionMember1",
+    "Usage",
+    "UsageCompletionTokensDetails",
+    "UsagePromptTokensDetails",
 ]
 
 
@@ -473,6 +476,33 @@ InputMessage: TypeAlias = Annotated[
 ]
 
 
+class UsageCompletionTokensDetails(BaseModel):
+    reasoning_tokens: Optional[int] = None
+    """Number of tokens used for reasoning (o1/o3 models)"""
+
+
+class UsagePromptTokensDetails(BaseModel):
+    cached_tokens: Optional[int] = None
+    """Number of tokens retrieved from cache"""
+
+
+class Usage(BaseModel):
+    completion_tokens: int
+    """Number of tokens in the completion"""
+
+    prompt_tokens: int
+    """Number of tokens in the prompt"""
+
+    total_tokens: int
+    """Total tokens used (prompt + completion)"""
+
+    completion_tokens_details: Optional[UsageCompletionTokensDetails] = None
+    """Token details for output tokens in OpenAI chat completion usage."""
+
+    prompt_tokens_details: Optional[UsagePromptTokensDetails] = None
+    """Token details for prompt tokens in OpenAI chat completion usage."""
+
+
 class CompletionListResponse(BaseModel):
     id: str
     """The ID of the chat completion"""
@@ -490,3 +520,6 @@ class CompletionListResponse(BaseModel):
 
     object: Literal["chat.completion"]
     """The object type, which will be "chat.completion" """
+
+    usage: Optional[Usage] = None
+    """Token usage information for the completion"""
