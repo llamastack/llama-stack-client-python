@@ -10,6 +10,7 @@ from .response_object import ResponseObject
 __all__ = [
     "ResponseObjectStream",
     "OpenAIResponseObjectStreamResponseCreated",
+    "OpenAIResponseObjectStreamResponseInProgress",
     "OpenAIResponseObjectStreamResponseOutputItemAdded",
     "OpenAIResponseObjectStreamResponseOutputItemAddedItem",
     "OpenAIResponseObjectStreamResponseOutputItemAddedItemOpenAIResponseMessage",
@@ -68,21 +69,46 @@ __all__ = [
     "OpenAIResponseObjectStreamResponseContentPartAdded",
     "OpenAIResponseObjectStreamResponseContentPartAddedPart",
     "OpenAIResponseObjectStreamResponseContentPartAddedPartOpenAIResponseContentPartOutputText",
+    "OpenAIResponseObjectStreamResponseContentPartAddedPartOpenAIResponseContentPartOutputTextAnnotation",
+    "OpenAIResponseObjectStreamResponseContentPartAddedPartOpenAIResponseContentPartOutputTextAnnotationOpenAIResponseAnnotationFileCitation",
+    "OpenAIResponseObjectStreamResponseContentPartAddedPartOpenAIResponseContentPartOutputTextAnnotationOpenAIResponseAnnotationCitation",
+    "OpenAIResponseObjectStreamResponseContentPartAddedPartOpenAIResponseContentPartOutputTextAnnotationOpenAIResponseAnnotationContainerFileCitation",
+    "OpenAIResponseObjectStreamResponseContentPartAddedPartOpenAIResponseContentPartOutputTextAnnotationOpenAIResponseAnnotationFilePath",
     "OpenAIResponseObjectStreamResponseContentPartAddedPartOpenAIResponseContentPartRefusal",
+    "OpenAIResponseObjectStreamResponseContentPartAddedPartOpenAIResponseContentPartReasoningText",
     "OpenAIResponseObjectStreamResponseContentPartDone",
     "OpenAIResponseObjectStreamResponseContentPartDonePart",
     "OpenAIResponseObjectStreamResponseContentPartDonePartOpenAIResponseContentPartOutputText",
+    "OpenAIResponseObjectStreamResponseContentPartDonePartOpenAIResponseContentPartOutputTextAnnotation",
+    "OpenAIResponseObjectStreamResponseContentPartDonePartOpenAIResponseContentPartOutputTextAnnotationOpenAIResponseAnnotationFileCitation",
+    "OpenAIResponseObjectStreamResponseContentPartDonePartOpenAIResponseContentPartOutputTextAnnotationOpenAIResponseAnnotationCitation",
+    "OpenAIResponseObjectStreamResponseContentPartDonePartOpenAIResponseContentPartOutputTextAnnotationOpenAIResponseAnnotationContainerFileCitation",
+    "OpenAIResponseObjectStreamResponseContentPartDonePartOpenAIResponseContentPartOutputTextAnnotationOpenAIResponseAnnotationFilePath",
     "OpenAIResponseObjectStreamResponseContentPartDonePartOpenAIResponseContentPartRefusal",
+    "OpenAIResponseObjectStreamResponseContentPartDonePartOpenAIResponseContentPartReasoningText",
+    "OpenAIResponseObjectStreamResponseIncomplete",
+    "OpenAIResponseObjectStreamResponseFailed",
     "OpenAIResponseObjectStreamResponseCompleted",
 ]
 
 
 class OpenAIResponseObjectStreamResponseCreated(BaseModel):
     response: ResponseObject
-    """The newly created response object"""
+    """The response object that was created"""
 
     type: Literal["response.created"]
     """Event type identifier, always "response.created" """
+
+
+class OpenAIResponseObjectStreamResponseInProgress(BaseModel):
+    response: ResponseObject
+    """Current response state while in progress"""
+
+    sequence_number: int
+    """Sequential number for ordering streaming events"""
+
+    type: Literal["response.in_progress"]
+    """Event type identifier, always "response.in_progress" """
 
 
 class OpenAIResponseObjectStreamResponseOutputItemAddedItemOpenAIResponseMessageContentUnionMember1OpenAIResponseInputMessageContentText(
@@ -849,30 +875,129 @@ class OpenAIResponseObjectStreamResponseMcpCallCompleted(BaseModel):
     """Event type identifier, always "response.mcp_call.completed" """
 
 
+class OpenAIResponseObjectStreamResponseContentPartAddedPartOpenAIResponseContentPartOutputTextAnnotationOpenAIResponseAnnotationFileCitation(
+    BaseModel
+):
+    file_id: str
+    """Unique identifier of the referenced file"""
+
+    filename: str
+    """Name of the referenced file"""
+
+    index: int
+    """Position index of the citation within the content"""
+
+    type: Literal["file_citation"]
+    """Annotation type identifier, always "file_citation" """
+
+
+class OpenAIResponseObjectStreamResponseContentPartAddedPartOpenAIResponseContentPartOutputTextAnnotationOpenAIResponseAnnotationCitation(
+    BaseModel
+):
+    end_index: int
+    """End position of the citation span in the content"""
+
+    start_index: int
+    """Start position of the citation span in the content"""
+
+    title: str
+    """Title of the referenced web resource"""
+
+    type: Literal["url_citation"]
+    """Annotation type identifier, always "url_citation" """
+
+    url: str
+    """URL of the referenced web resource"""
+
+
+class OpenAIResponseObjectStreamResponseContentPartAddedPartOpenAIResponseContentPartOutputTextAnnotationOpenAIResponseAnnotationContainerFileCitation(
+    BaseModel
+):
+    container_id: str
+
+    end_index: int
+
+    file_id: str
+
+    filename: str
+
+    start_index: int
+
+    type: Literal["container_file_citation"]
+
+
+class OpenAIResponseObjectStreamResponseContentPartAddedPartOpenAIResponseContentPartOutputTextAnnotationOpenAIResponseAnnotationFilePath(
+    BaseModel
+):
+    file_id: str
+
+    index: int
+
+    type: Literal["file_path"]
+
+
+OpenAIResponseObjectStreamResponseContentPartAddedPartOpenAIResponseContentPartOutputTextAnnotation: TypeAlias = Annotated[
+    Union[
+        OpenAIResponseObjectStreamResponseContentPartAddedPartOpenAIResponseContentPartOutputTextAnnotationOpenAIResponseAnnotationFileCitation,
+        OpenAIResponseObjectStreamResponseContentPartAddedPartOpenAIResponseContentPartOutputTextAnnotationOpenAIResponseAnnotationCitation,
+        OpenAIResponseObjectStreamResponseContentPartAddedPartOpenAIResponseContentPartOutputTextAnnotationOpenAIResponseAnnotationContainerFileCitation,
+        OpenAIResponseObjectStreamResponseContentPartAddedPartOpenAIResponseContentPartOutputTextAnnotationOpenAIResponseAnnotationFilePath,
+    ],
+    PropertyInfo(discriminator="type"),
+]
+
+
 class OpenAIResponseObjectStreamResponseContentPartAddedPartOpenAIResponseContentPartOutputText(BaseModel):
+    annotations: List[
+        OpenAIResponseObjectStreamResponseContentPartAddedPartOpenAIResponseContentPartOutputTextAnnotation
+    ]
+    """Structured annotations associated with the text"""
+
     text: str
+    """Text emitted for this content part"""
 
     type: Literal["output_text"]
+    """Content part type identifier, always "output_text" """
+
+    logprobs: Optional[List[Dict[str, Union[bool, float, str, List[object], object, None]]]] = None
+    """(Optional) Token log probability details"""
 
 
 class OpenAIResponseObjectStreamResponseContentPartAddedPartOpenAIResponseContentPartRefusal(BaseModel):
     refusal: str
+    """Refusal text supplied by the model"""
 
     type: Literal["refusal"]
+    """Content part type identifier, always "refusal" """
+
+
+class OpenAIResponseObjectStreamResponseContentPartAddedPartOpenAIResponseContentPartReasoningText(BaseModel):
+    text: str
+    """Reasoning text supplied by the model"""
+
+    type: Literal["reasoning_text"]
+    """Content part type identifier, always "reasoning_text" """
 
 
 OpenAIResponseObjectStreamResponseContentPartAddedPart: TypeAlias = Annotated[
     Union[
         OpenAIResponseObjectStreamResponseContentPartAddedPartOpenAIResponseContentPartOutputText,
         OpenAIResponseObjectStreamResponseContentPartAddedPartOpenAIResponseContentPartRefusal,
+        OpenAIResponseObjectStreamResponseContentPartAddedPartOpenAIResponseContentPartReasoningText,
     ],
     PropertyInfo(discriminator="type"),
 ]
 
 
 class OpenAIResponseObjectStreamResponseContentPartAdded(BaseModel):
+    content_index: int
+    """Index position of the part within the content array"""
+
     item_id: str
     """Unique identifier of the output item containing this content part"""
+
+    output_index: int
+    """Index position of the output item in the response"""
 
     part: OpenAIResponseObjectStreamResponseContentPartAddedPart
     """The content part that was added"""
@@ -887,30 +1012,129 @@ class OpenAIResponseObjectStreamResponseContentPartAdded(BaseModel):
     """Event type identifier, always "response.content_part.added" """
 
 
+class OpenAIResponseObjectStreamResponseContentPartDonePartOpenAIResponseContentPartOutputTextAnnotationOpenAIResponseAnnotationFileCitation(
+    BaseModel
+):
+    file_id: str
+    """Unique identifier of the referenced file"""
+
+    filename: str
+    """Name of the referenced file"""
+
+    index: int
+    """Position index of the citation within the content"""
+
+    type: Literal["file_citation"]
+    """Annotation type identifier, always "file_citation" """
+
+
+class OpenAIResponseObjectStreamResponseContentPartDonePartOpenAIResponseContentPartOutputTextAnnotationOpenAIResponseAnnotationCitation(
+    BaseModel
+):
+    end_index: int
+    """End position of the citation span in the content"""
+
+    start_index: int
+    """Start position of the citation span in the content"""
+
+    title: str
+    """Title of the referenced web resource"""
+
+    type: Literal["url_citation"]
+    """Annotation type identifier, always "url_citation" """
+
+    url: str
+    """URL of the referenced web resource"""
+
+
+class OpenAIResponseObjectStreamResponseContentPartDonePartOpenAIResponseContentPartOutputTextAnnotationOpenAIResponseAnnotationContainerFileCitation(
+    BaseModel
+):
+    container_id: str
+
+    end_index: int
+
+    file_id: str
+
+    filename: str
+
+    start_index: int
+
+    type: Literal["container_file_citation"]
+
+
+class OpenAIResponseObjectStreamResponseContentPartDonePartOpenAIResponseContentPartOutputTextAnnotationOpenAIResponseAnnotationFilePath(
+    BaseModel
+):
+    file_id: str
+
+    index: int
+
+    type: Literal["file_path"]
+
+
+OpenAIResponseObjectStreamResponseContentPartDonePartOpenAIResponseContentPartOutputTextAnnotation: TypeAlias = Annotated[
+    Union[
+        OpenAIResponseObjectStreamResponseContentPartDonePartOpenAIResponseContentPartOutputTextAnnotationOpenAIResponseAnnotationFileCitation,
+        OpenAIResponseObjectStreamResponseContentPartDonePartOpenAIResponseContentPartOutputTextAnnotationOpenAIResponseAnnotationCitation,
+        OpenAIResponseObjectStreamResponseContentPartDonePartOpenAIResponseContentPartOutputTextAnnotationOpenAIResponseAnnotationContainerFileCitation,
+        OpenAIResponseObjectStreamResponseContentPartDonePartOpenAIResponseContentPartOutputTextAnnotationOpenAIResponseAnnotationFilePath,
+    ],
+    PropertyInfo(discriminator="type"),
+]
+
+
 class OpenAIResponseObjectStreamResponseContentPartDonePartOpenAIResponseContentPartOutputText(BaseModel):
+    annotations: List[
+        OpenAIResponseObjectStreamResponseContentPartDonePartOpenAIResponseContentPartOutputTextAnnotation
+    ]
+    """Structured annotations associated with the text"""
+
     text: str
+    """Text emitted for this content part"""
 
     type: Literal["output_text"]
+    """Content part type identifier, always "output_text" """
+
+    logprobs: Optional[List[Dict[str, Union[bool, float, str, List[object], object, None]]]] = None
+    """(Optional) Token log probability details"""
 
 
 class OpenAIResponseObjectStreamResponseContentPartDonePartOpenAIResponseContentPartRefusal(BaseModel):
     refusal: str
+    """Refusal text supplied by the model"""
 
     type: Literal["refusal"]
+    """Content part type identifier, always "refusal" """
+
+
+class OpenAIResponseObjectStreamResponseContentPartDonePartOpenAIResponseContentPartReasoningText(BaseModel):
+    text: str
+    """Reasoning text supplied by the model"""
+
+    type: Literal["reasoning_text"]
+    """Content part type identifier, always "reasoning_text" """
 
 
 OpenAIResponseObjectStreamResponseContentPartDonePart: TypeAlias = Annotated[
     Union[
         OpenAIResponseObjectStreamResponseContentPartDonePartOpenAIResponseContentPartOutputText,
         OpenAIResponseObjectStreamResponseContentPartDonePartOpenAIResponseContentPartRefusal,
+        OpenAIResponseObjectStreamResponseContentPartDonePartOpenAIResponseContentPartReasoningText,
     ],
     PropertyInfo(discriminator="type"),
 ]
 
 
 class OpenAIResponseObjectStreamResponseContentPartDone(BaseModel):
+    content_index: int
+    """Index position of the part within the content array"""
+
     item_id: str
     """Unique identifier of the output item containing this content part"""
+
+    output_index: int
+    """Index position of the output item in the response"""
 
     part: OpenAIResponseObjectStreamResponseContentPartDonePart
     """The completed content part"""
@@ -925,9 +1149,31 @@ class OpenAIResponseObjectStreamResponseContentPartDone(BaseModel):
     """Event type identifier, always "response.content_part.done" """
 
 
+class OpenAIResponseObjectStreamResponseIncomplete(BaseModel):
+    response: ResponseObject
+    """Response object describing the incomplete state"""
+
+    sequence_number: int
+    """Sequential number for ordering streaming events"""
+
+    type: Literal["response.incomplete"]
+    """Event type identifier, always "response.incomplete" """
+
+
+class OpenAIResponseObjectStreamResponseFailed(BaseModel):
+    response: ResponseObject
+    """Response object describing the failure"""
+
+    sequence_number: int
+    """Sequential number for ordering streaming events"""
+
+    type: Literal["response.failed"]
+    """Event type identifier, always "response.failed" """
+
+
 class OpenAIResponseObjectStreamResponseCompleted(BaseModel):
     response: ResponseObject
-    """The completed response object"""
+    """Completed response object"""
 
     type: Literal["response.completed"]
     """Event type identifier, always "response.completed" """
@@ -936,6 +1182,7 @@ class OpenAIResponseObjectStreamResponseCompleted(BaseModel):
 ResponseObjectStream: TypeAlias = Annotated[
     Union[
         OpenAIResponseObjectStreamResponseCreated,
+        OpenAIResponseObjectStreamResponseInProgress,
         OpenAIResponseObjectStreamResponseOutputItemAdded,
         OpenAIResponseObjectStreamResponseOutputItemDone,
         OpenAIResponseObjectStreamResponseOutputTextDelta,
@@ -955,6 +1202,8 @@ ResponseObjectStream: TypeAlias = Annotated[
         OpenAIResponseObjectStreamResponseMcpCallCompleted,
         OpenAIResponseObjectStreamResponseContentPartAdded,
         OpenAIResponseObjectStreamResponseContentPartDone,
+        OpenAIResponseObjectStreamResponseIncomplete,
+        OpenAIResponseObjectStreamResponseFailed,
         OpenAIResponseObjectStreamResponseCompleted,
     ],
     PropertyInfo(discriminator="type"),

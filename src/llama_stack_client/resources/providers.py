@@ -54,7 +54,8 @@ class ProvidersResource(SyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> ProviderInfo:
-        """
+        """Get provider.
+
         Get detailed information about a specific provider.
 
         Args:
@@ -86,7 +87,7 @@ class ProvidersResource(SyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> ProviderListResponse:
-        """List all available providers."""
+        """List providers. List all available providers."""
         return self._get(
             "/v1/providers",
             options=make_request_options(
@@ -131,7 +132,8 @@ class AsyncProvidersResource(AsyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> ProviderInfo:
-        """
+        """Get provider.
+
         Get detailed information about a specific provider.
 
         Args:
@@ -163,7 +165,7 @@ class AsyncProvidersResource(AsyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> ProviderListResponse:
-        """List all available providers."""
+        """List providers. List all available providers."""
         return await self._get(
             "/v1/providers",
             options=make_request_options(

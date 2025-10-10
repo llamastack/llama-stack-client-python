@@ -57,7 +57,8 @@ class SafetyResource(SyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> RunShieldResponse:
-        """
+        """Run shield.
+
         Run a shield.
 
         Args:
@@ -125,7 +126,8 @@ class AsyncSafetyResource(AsyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> RunShieldResponse:
-        """
+        """Run shield.
+
         Run a shield.
 
         Args:

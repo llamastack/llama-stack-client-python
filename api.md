@@ -102,6 +102,39 @@ Methods:
 
 - <code title="get /v1/responses/{response_id}/input_items">client.responses.input_items.<a href="./src/llama_stack_client/resources/responses/input_items.py">list</a>(response_id, \*\*<a href="src/llama_stack_client/types/responses/input_item_list_params.py">params</a>) -> <a href="./src/llama_stack_client/types/responses/input_item_list_response.py">InputItemListResponse</a></code>
 
+# Conversations
+
+Types:
+
+```python
+from llama_stack_client.types import ConversationObject, ConversationDeleteResponse
+```
+
+Methods:
+
+- <code title="post /v1/conversations">client.conversations.<a href="./src/llama_stack_client/resources/conversations/conversations.py">create</a>(\*\*<a href="src/llama_stack_client/types/conversation_create_params.py">params</a>) -> <a href="./src/llama_stack_client/types/conversation_object.py">ConversationObject</a></code>
+- <code title="get /v1/conversations/{conversation_id}">client.conversations.<a href="./src/llama_stack_client/resources/conversations/conversations.py">retrieve</a>(conversation_id) -> <a href="./src/llama_stack_client/types/conversation_object.py">ConversationObject</a></code>
+- <code title="post /v1/conversations/{conversation_id}">client.conversations.<a href="./src/llama_stack_client/resources/conversations/conversations.py">update</a>(conversation_id, \*\*<a href="src/llama_stack_client/types/conversation_update_params.py">params</a>) -> <a href="./src/llama_stack_client/types/conversation_object.py">ConversationObject</a></code>
+- <code title="delete /v1/conversations/{conversation_id}">client.conversations.<a href="./src/llama_stack_client/resources/conversations/conversations.py">delete</a>(conversation_id) -> <a href="./src/llama_stack_client/types/conversation_delete_response.py">ConversationDeleteResponse</a></code>
+
+## Items
+
+Types:
+
+```python
+from llama_stack_client.types.conversations import (
+    ItemCreateResponse,
+    ItemListResponse,
+    ItemGetResponse,
+)
+```
+
+Methods:
+
+- <code title="post /v1/conversations/{conversation_id}/items">client.conversations.items.<a href="./src/llama_stack_client/resources/conversations/items.py">create</a>(conversation_id, \*\*<a href="src/llama_stack_client/types/conversations/item_create_params.py">params</a>) -> <a href="./src/llama_stack_client/types/conversations/item_create_response.py">ItemCreateResponse</a></code>
+- <code title="get /v1/conversations/{conversation_id}/items">client.conversations.items.<a href="./src/llama_stack_client/resources/conversations/items.py">list</a>(conversation_id, \*\*<a href="src/llama_stack_client/types/conversations/item_list_params.py">params</a>) -> <a href="./src/llama_stack_client/types/conversations/item_list_response.py">ItemListResponse</a></code>
+- <code title="get /v1/conversations/{conversation_id}/items/{item_id}">client.conversations.items.<a href="./src/llama_stack_client/resources/conversations/items.py">get</a>(item_id, \*, conversation_id) -> <a href="./src/llama_stack_client/types/conversations/item_get_response.py">ItemGetResponse</a></code>
+
 # Datasets
 
 Types:

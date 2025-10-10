@@ -55,6 +55,7 @@ if TYPE_CHECKING:
         completions,
         moderations,
         tool_runtime,
+        conversations,
         vector_stores,
         scoring_functions,
         synthetic_data_generation,
@@ -86,6 +87,7 @@ if TYPE_CHECKING:
         AsyncSyntheticDataGenerationResource,
     )
     from .resources.tool_runtime.tool_runtime import ToolRuntimeResource, AsyncToolRuntimeResource
+    from .resources.conversations.conversations import ConversationsResource, AsyncConversationsResource
     from .resources.vector_stores.vector_stores import VectorStoresResource, AsyncVectorStoresResource
 
 __all__ = [
@@ -180,6 +182,12 @@ class LlamaStackClient(SyncAPIClient):
         from .resources.responses import ResponsesResource
 
         return ResponsesResource(self)
+
+    @cached_property
+    def conversations(self) -> ConversationsResource:
+        from .resources.conversations import ConversationsResource
+
+        return ConversationsResource(self)
 
     @cached_property
     def datasets(self) -> DatasetsResource:
@@ -504,6 +512,12 @@ class AsyncLlamaStackClient(AsyncAPIClient):
         return AsyncResponsesResource(self)
 
     @cached_property
+    def conversations(self) -> AsyncConversationsResource:
+        from .resources.conversations import AsyncConversationsResource
+
+        return AsyncConversationsResource(self)
+
+    @cached_property
     def datasets(self) -> AsyncDatasetsResource:
         from .resources.datasets import AsyncDatasetsResource
 
@@ -775,6 +789,12 @@ class LlamaStackClientWithRawResponse:
         return ResponsesResourceWithRawResponse(self._client.responses)
 
     @cached_property
+    def conversations(self) -> conversations.ConversationsResourceWithRawResponse:
+        from .resources.conversations import ConversationsResourceWithRawResponse
+
+        return ConversationsResourceWithRawResponse(self._client.conversations)
+
+    @cached_property
     def datasets(self) -> datasets.DatasetsResourceWithRawResponse:
         from .resources.datasets import DatasetsResourceWithRawResponse
 
@@ -930,6 +950,12 @@ class AsyncLlamaStackClientWithRawResponse:
         from .resources.responses import AsyncResponsesResourceWithRawResponse
 
         return AsyncResponsesResourceWithRawResponse(self._client.responses)
+
+    @cached_property
+    def conversations(self) -> conversations.AsyncConversationsResourceWithRawResponse:
+        from .resources.conversations import AsyncConversationsResourceWithRawResponse
+
+        return AsyncConversationsResourceWithRawResponse(self._client.conversations)
 
     @cached_property
     def datasets(self) -> datasets.AsyncDatasetsResourceWithRawResponse:
@@ -1091,6 +1117,12 @@ class LlamaStackClientWithStreamedResponse:
         return ResponsesResourceWithStreamingResponse(self._client.responses)
 
     @cached_property
+    def conversations(self) -> conversations.ConversationsResourceWithStreamingResponse:
+        from .resources.conversations import ConversationsResourceWithStreamingResponse
+
+        return ConversationsResourceWithStreamingResponse(self._client.conversations)
+
+    @cached_property
     def datasets(self) -> datasets.DatasetsResourceWithStreamingResponse:
         from .resources.datasets import DatasetsResourceWithStreamingResponse
 
@@ -1248,6 +1280,12 @@ class AsyncLlamaStackClientWithStreamedResponse:
         from .resources.responses import AsyncResponsesResourceWithStreamingResponse
 
         return AsyncResponsesResourceWithStreamingResponse(self._client.responses)
+
+    @cached_property
+    def conversations(self) -> conversations.AsyncConversationsResourceWithStreamingResponse:
+        from .resources.conversations import AsyncConversationsResourceWithStreamingResponse
+
+        return AsyncConversationsResourceWithStreamingResponse(self._client.conversations)
 
     @cached_property
     def datasets(self) -> datasets.AsyncDatasetsResourceWithStreamingResponse:

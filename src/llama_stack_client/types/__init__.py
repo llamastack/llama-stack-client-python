@@ -43,6 +43,7 @@ from .tool_list_params import ToolListParams as ToolListParams
 from .scoring_fn_params import ScoringFnParams as ScoringFnParams
 from .file_create_params import FileCreateParams as FileCreateParams
 from .tool_list_response import ToolListResponse as ToolListResponse
+from .conversation_object import ConversationObject as ConversationObject
 from .list_files_response import ListFilesResponse as ListFilesResponse
 from .model_list_response import ModelListResponse as ModelListResponse
 from .route_list_response import RouteListResponse as RouteListResponse
@@ -94,6 +95,8 @@ from .list_tool_groups_response import ListToolGroupsResponse as ListToolGroupsR
 from .toolgroup_register_params import ToolgroupRegisterParams as ToolgroupRegisterParams
 from .vector_db_register_params import VectorDBRegisterParams as VectorDBRegisterParams
 from .completion_create_response import CompletionCreateResponse as CompletionCreateResponse
+from .conversation_create_params import ConversationCreateParams as ConversationCreateParams
+from .conversation_update_params import ConversationUpdateParams as ConversationUpdateParams
 from .create_embeddings_response import CreateEmbeddingsResponse as CreateEmbeddingsResponse
 from .scoring_score_batch_params import ScoringScoreBatchParams as ScoringScoreBatchParams
 from .vector_store_create_params import VectorStoreCreateParams as VectorStoreCreateParams
@@ -103,6 +106,7 @@ from .list_vector_stores_response import ListVectorStoresResponse as ListVectorS
 from .telemetry_get_span_response import TelemetryGetSpanResponse as TelemetryGetSpanResponse
 from .vector_db_register_response import VectorDBRegisterResponse as VectorDBRegisterResponse
 from .vector_db_retrieve_response import VectorDBRetrieveResponse as VectorDBRetrieveResponse
+from .conversation_delete_response import ConversationDeleteResponse as ConversationDeleteResponse
 from .scoring_score_batch_response import ScoringScoreBatchResponse as ScoringScoreBatchResponse
 from .telemetry_query_spans_params import TelemetryQuerySpansParams as TelemetryQuerySpansParams
 from .vector_store_delete_response import VectorStoreDeleteResponse as VectorStoreDeleteResponse

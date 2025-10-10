@@ -60,7 +60,7 @@ class InputItemsResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> InputItemListResponse:
         """
-        List input items for a given OpenAI response.
+        List input items.
 
         Args:
           after: An item ID to list items after, used for pagination.
@@ -143,7 +143,7 @@ class AsyncInputItemsResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> InputItemListResponse:
         """
-        List input items for a given OpenAI response.
+        List input items.
 
         Args:
           after: An item ID to list items after, used for pagination.
