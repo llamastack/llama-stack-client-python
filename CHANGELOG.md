@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.3.0-alpha.6 (2025-10-11)
+
+Full Changelog: [v0.3.0-alpha.5...v0.3.0-alpha.6](https://github.com/llamastack/llama-stack-client-python/compare/v0.3.0-alpha.5...v0.3.0-alpha.6)
+
+### Chores
+
+* **internal:** detect missing future annotations with ruff ([e497f03](https://github.com/llamastack/llama-stack-client-python/commit/e497f0391aad3e75dceee288e299e0f74bd7f294))
+
 ## 0.3.0-alpha.5 (2025-10-10)
 
 Full Changelog: [v0.3.0-alpha.4...v0.3.0-alpha.5](https://github.com/llamastack/llama-stack-client-python/compare/v0.3.0-alpha.4...v0.3.0-alpha.5)
