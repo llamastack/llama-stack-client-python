@@ -83,27 +83,35 @@ class AgentResponseFailed(AgentStreamEvent):
 
 
 def iter_agent_events(events: Iterable[ResponseObjectStream]) -> Iterable[AgentStreamEvent]:
+    current_response_id: Optional[str] = None
+
     for event in events:
+        response_id = getattr(event, "response_id", None)
+        if response_id is None and hasattr(event, "response"):
+            response_id = getattr(event.response, "id", None)
+        if response_id is not None:
+            current_response_id = response_id
+
         if isinstance(event, OpenAIResponseObjectStreamResponseInProgress):
             yield AgentResponseStarted(type="response_started", response_id=event.response.id)
         elif isinstance(event, OpenAIResponseObjectStreamResponseOutputTextDelta):
             yield AgentTextDelta(
                 type="text_delta",
                 text=event.delta,
-                response_id=event.response_id,
+                response_id=current_response_id or "",
                 output_index=event.output_index,
             )
         elif isinstance(event, OpenAIResponseObjectStreamResponseOutputTextDone):
             yield AgentTextCompleted(
                 type="text_completed",
                 text=event.text,
-                response_id=event.response_id,
+                response_id=current_response_id or "",
                 output_index=event.output_index,
             )
         elif isinstance(event, OpenAIResponseObjectStreamResponseFunctionCallArgumentsDelta):
             yield AgentToolCallDelta(
                 type="tool_call_delta",
-                response_id=event.response_id,
+                response_id=current_response_id or "",
                 output_index=event.output_index,
                 call_id=event.item_id,
                 arguments_delta=event.delta,
@@ -111,7 +119,7 @@ def iter_agent_events(events: Iterable[ResponseObjectStream]) -> Iterable[AgentS
         elif isinstance(event, OpenAIResponseObjectStreamResponseFunctionCallArgumentsDone):
             yield AgentToolCallCompleted(
                 type="tool_call_completed",
-                response_id=event.response_id,
+                response_id=current_response_id or "",
                 output_index=event.output_index,
                 call_id=event.item_id,
                 arguments_json=event.arguments,
@@ -124,7 +132,7 @@ def iter_agent_events(events: Iterable[ResponseObjectStream]) -> Iterable[AgentS
             ):
                 yield AgentToolCallIssued(
                     type="tool_call_issued",
-                    response_id=event.response_id,
+                    response_id=current_response_id or event.response_id,
                     output_index=event.output_index,
                     call_id=item.call_id,
                     name=item.name,
@@ -136,7 +144,7 @@ def iter_agent_events(events: Iterable[ResponseObjectStream]) -> Iterable[AgentS
             ):
                 yield AgentToolCallIssued(
                     type="tool_call_issued",
-                    response_id=event.response_id,
+                    response_id=current_response_id or event.response_id,
                     output_index=event.output_index,
                     call_id=item.id,
                     name=item.type,
@@ -148,7 +156,7 @@ def iter_agent_events(events: Iterable[ResponseObjectStream]) -> Iterable[AgentS
             ):
                 yield AgentToolCallIssued(
                     type="tool_call_issued",
-                    response_id=event.response_id,
+                    response_id=current_response_id or event.response_id,
                     output_index=event.output_index,
                     call_id=item.id,
                     name=item.name,
@@ -160,7 +168,7 @@ def iter_agent_events(events: Iterable[ResponseObjectStream]) -> Iterable[AgentS
             ):
                 yield AgentToolCallIssued(
                     type="tool_call_issued",
-                    response_id=event.response_id,
+                    response_id=current_response_id or event.response_id,
                     output_index=event.output_index,
                     call_id=item.id,
                     name=item.type,
@@ -170,7 +178,7 @@ def iter_agent_events(events: Iterable[ResponseObjectStream]) -> Iterable[AgentS
                 yield AgentTextCompleted(
                     type="text_completed",
                     text=str(item.content),
-                    response_id=event.response_id,
+                    response_id=current_response_id or event.response_id,
                     output_index=event.output_index,
                 )
             elif isinstance(
@@ -180,7 +188,7 @@ def iter_agent_events(events: Iterable[ResponseObjectStream]) -> Iterable[AgentS
                 yield AgentTextCompleted(
                     type="text_completed",
                     text=item.text,
-                    response_id=event.response_id,
+                    response_id=current_response_id or event.response_id,
                     output_index=event.output_index,
                 )
         elif isinstance(event, OpenAIResponseObjectStreamResponseCompleted):

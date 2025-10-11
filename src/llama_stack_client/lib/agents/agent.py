@@ -3,13 +3,15 @@
 #
 # This source code is licensed under the terms described in the LICENSE file in
 # the root directory of this source tree.
+import json
 import logging
 from dataclasses import dataclass
 from typing import Any, AsyncIterator, Callable, Dict, Iterator, List, Optional, Tuple, Union, TypedDict
 
 from llama_stack_client import LlamaStackClient
 from llama_stack_client.types import AgentConfig, ResponseObject
-from llama_stack_client.types.responses import response_create_params
+from llama_stack_client.types import response_create_params
+from llama_stack_client.types.alpha.tool_response import ToolResponse
 from llama_stack_client.types.shared.tool_call import ToolCall
 from llama_stack_client.types.shared.agent_config import ToolConfig, Toolgroup
 from llama_stack_client.types.shared_params.document import Document
@@ -24,6 +26,8 @@ from .stream_events import (
     AgentResponseCompleted,
     AgentResponseFailed,
     AgentStreamEvent,
+    AgentToolCallCompleted,
+    AgentToolCallDelta,
     AgentToolCallIssued,
     iter_agent_events,
 )
@@ -240,18 +244,73 @@ class Agent:
         self.sessions.append(conversation.id)
         return conversation.id
 
+    @staticmethod
+    def _coerce_tool_content(content: Any) -> str:
+        if isinstance(content, str):
+            return content
+        if content is None:
+            return ""
+        if isinstance(content, (dict, list)):
+            try:
+                return json.dumps(content)
+            except TypeError:
+                return str(content)
+        return str(content)
+
+    @staticmethod
+    def _parse_tool_arguments(arguments: Any) -> Dict[str, Any]:
+        if isinstance(arguments, dict):
+            return arguments
+        if not arguments:
+            return {}
+        if isinstance(arguments, str):
+            try:
+                parsed = json.loads(arguments)
+            except json.JSONDecodeError:
+                logger.warning("Failed to decode tool arguments JSON", exc_info=True)
+                return {}
+            if isinstance(parsed, dict):
+                return parsed
+            logger.warning("Tool arguments JSON did not decode into a dict: %s", type(parsed))
+            return {}
+        logger.warning("Unsupported tool arguments type: %s", type(arguments))
+        return {}
+
+    @staticmethod
+    def _normalize_tool_response(tool_response: Any) -> ToolResponsePayload:
+        if isinstance(tool_response, ToolResponse):
+            payload: ToolResponsePayload = {
+                "call_id": tool_response.call_id,
+                "tool_name": str(tool_response.tool_name),
+                "content": Agent._coerce_tool_content(tool_response.content),
+            }
+            return payload
+
+        if isinstance(tool_response, dict):
+            call_id = tool_response.get("call_id")
+            tool_name = tool_response.get("tool_name")
+            if call_id is None or tool_name is None:
+                raise KeyError("Tool response missing required keys 'call_id' or 'tool_name'")
+            payload: ToolResponsePayload = {
+                "call_id": str(call_id),
+                "tool_name": str(tool_name),
+                "content": Agent._coerce_tool_content(tool_response.get("content")),
+            }
+            return payload
+
+        raise TypeError(f"Unsupported tool response type: {type(tool_response)!r}")
+
     def _run_tool_calls(self, tool_calls: List[ToolCall]) -> List[ToolResponsePayload]:
-        responses = []
+        responses: List[ToolResponsePayload] = []
         for tool_call in tool_calls:
-            responses.append(self._run_single_tool(tool_call))
+            raw_result = self._run_single_tool(tool_call)
+            responses.append(self._normalize_tool_response(raw_result))
         return responses
 
-    def _run_single_tool(self, tool_call: ToolCall) -> ToolResponsePayload:
+    def _run_single_tool(self, tool_call: ToolCall) -> Any:
         # custom client tools
         if tool_call.tool_name in self.client_tools:
             tool = self.client_tools[tool_call.tool_name]
-            # NOTE: tool.run() expects a list of messages, we only pass in last message here
-            # but we could pass in the entire message history
             result_message = tool.run(
                 [
                     CompletionMessage(
@@ -266,26 +325,27 @@ class Agent:
 
         # builtin tools executed by tool_runtime
         if tool_call.tool_name in self.builtin_tools:
+            tool_args = self._parse_tool_arguments(tool_call.arguments)
             tool_result = self.client.tool_runtime.invoke_tool(
                 tool_name=tool_call.tool_name,
                 kwargs={
-                    **tool_call.arguments,
+                    **tool_args,
                     **self.builtin_tools[tool_call.tool_name],
                 },
                 extra_headers=self.extra_headers,
             )
-            return ToolResponsePayload(
-                call_id=tool_call.call_id,
-                tool_name=tool_call.tool_name,
-                content=tool_result.content,
-            )
+            return {
+                "call_id": tool_call.call_id,
+                "tool_name": tool_call.tool_name,
+                "content": self._coerce_tool_content(tool_result.content),
+            }
 
         # cannot find tools
-        return ToolResponsePayload(
-            call_id=tool_call.call_id,
-            tool_name=tool_call.tool_name,
-            content=f"Unknown tool `{tool_call.tool_name}` was called.",
-        )
+        return {
+            "call_id": tool_call.call_id,
+            "tool_name": tool_call.tool_name,
+            "content": f"Unknown tool `{tool_call.tool_name}` was called.",
+        }
 
     def create_turn(
         self,
@@ -330,10 +390,12 @@ class Agent:
     ) -> Iterator[AgentStreamChunk]:
         _ = toolgroups
         _ = documents
+        self.initialize()
         conversation_id = session_id or self._conversation_id
         if not conversation_id:
             conversation_id = self.create_session(session_name="default")
 
+        request_headers = extra_headers or self.extra_headers
         stream = self.client.responses.create(
             model=self._model,
             instructions=self._instructions,
@@ -341,53 +403,83 @@ class Agent:
             input=messages,
             stream=True,
             previous_response_id=self._last_response_id,
-            extra_headers=extra_headers or self.extra_headers,
+            extra_headers=request_headers,
         )
 
         last_response: Optional[ResponseObject] = None
-        pending_tools: Dict[str, ToolCall] = {}
+        pending_tools: Dict[str, Dict[str, Any]] = {}
 
-        for event in iter_agent_events(stream):
-            if isinstance(event, AgentResponseCompleted):
-                last_response = self.client.responses.retrieve(
-                    event.response_id,
-                    extra_headers=extra_headers or self.extra_headers,
-                )
-                self._last_response_id = event.response_id
-                yield AgentStreamChunk(event=event, response=last_response)
-                continue
-
-            if isinstance(event, AgentResponseFailed):
-                raise RuntimeError(event.error_message)
-
-            if isinstance(event, AgentToolCallIssued):
-                tool_call = ToolCall(
-                    call_id=event.call_id,
-                    tool_name=event.name,
-                    arguments=event.arguments_json,
-                )
-                pending_tools[event.call_id] = tool_call
-                yield AgentStreamChunk(event=event, response=None)
-                tool_responses = self._run_tool_calls([tool_call])
-                followup_messages: List[response_create_params.InputUnionMember1] = [
-                    response_create_params.InputUnionMember1OpenAIResponseInputFunctionToolCallOutput(
-                        type="function_call_output",
-                        call_id=tool_responses[0]["call_id"],
-                        output=tool_responses[0]["content"],
+        while True:
+            restart_stream = False
+            for event in iter_agent_events(stream):
+                if isinstance(event, AgentResponseCompleted):
+                    last_response = self.client.responses.retrieve(
+                        event.response_id,
+                        extra_headers=request_headers,
                     )
-                ]
-                stream = self.client.responses.create(
-                    model=self._model,
-                    instructions=self._instructions,
-                    conversation=conversation_id,
-                    input=followup_messages,
-                    stream=True,
-                    previous_response_id=event.response_id,
-                    extra_headers=extra_headers or self.extra_headers,
-                )
-                continue
+                    self._last_response_id = event.response_id
+                    yield AgentStreamChunk(event=event, response=last_response)
+                    continue
 
-            yield AgentStreamChunk(event=event, response=None)
+                if isinstance(event, AgentResponseFailed):
+                    raise RuntimeError(event.error_message)
+
+                if isinstance(event, AgentToolCallIssued):
+                    tool_call = ToolCall(
+                        call_id=event.call_id,
+                        tool_name=event.name,
+                        arguments=event.arguments_json,
+                    )
+                    pending_tools[event.call_id] = {
+                        "tool_call": tool_call,
+                        "response_id": event.response_id,
+                        "arguments": event.arguments_json or "",
+                    }
+                    yield AgentStreamChunk(event=event, response=None)
+                    continue
+
+                if isinstance(event, AgentToolCallDelta):
+                    builder = pending_tools.get(event.call_id)
+                    if builder and event.arguments_delta:
+                        builder["arguments"] = builder.get("arguments", "") + event.arguments_delta
+                        builder["tool_call"].arguments = builder["arguments"]
+                    yield AgentStreamChunk(event=event, response=None)
+                    continue
+
+                if isinstance(event, AgentToolCallCompleted):
+                    builder = pending_tools.get(event.call_id)
+                    if builder:
+                        arguments = event.arguments_json or builder.get("arguments") or ""
+                        builder["tool_call"].arguments = arguments
+                        tool_responses = self._run_tool_calls([builder["tool_call"]])
+                        followup_messages: List[response_create_params.InputUnionMember1] = [
+                            response_create_params.InputUnionMember1OpenAIResponseInputFunctionToolCallOutput(
+                                type="function_call_output",
+                                call_id=payload["call_id"],
+                                output=payload["content"],
+                            )
+                            for payload in tool_responses
+                        ]
+                        stream = self.client.responses.create(
+                            model=self._model,
+                            instructions=self._instructions,
+                            conversation=conversation_id,
+                            input=followup_messages,
+                            stream=True,
+                            previous_response_id=event.response_id,
+                            extra_headers=request_headers,
+                        )
+                        pending_tools.pop(event.call_id, None)
+                        restart_stream = True
+                    yield AgentStreamChunk(event=event, response=None)
+                    if restart_stream:
+                        break
+                    continue
+
+                yield AgentStreamChunk(event=event, response=None)
+
+            if not restart_stream:
+                break
 
 
 class AsyncAgent:
@@ -521,12 +613,13 @@ class AsyncAgent:
             return last_chunk.response
 
     async def _run_tool_calls(self, tool_calls: List[ToolCall]) -> List[ToolResponsePayload]:
-        responses = []
+        responses: List[ToolResponsePayload] = []
         for tool_call in tool_calls:
-            responses.append(await self._run_single_tool(tool_call))
+            raw_result = await self._run_single_tool(tool_call)
+            responses.append(Agent._normalize_tool_response(raw_result))
         return responses
 
-    async def _run_single_tool(self, tool_call: ToolCall) -> ToolResponsePayload:
+    async def _run_single_tool(self, tool_call: ToolCall) -> Any:
         # custom client tools
         if tool_call.tool_name in self.client_tools:
             tool = self.client_tools[tool_call.tool_name]
@@ -544,26 +637,27 @@ class AsyncAgent:
 
         # builtin tools executed by tool_runtime
         if tool_call.tool_name in self.builtin_tools:
+            tool_args = Agent._parse_tool_arguments(tool_call.arguments)
             tool_result = await self.client.tool_runtime.invoke_tool(
                 tool_name=tool_call.tool_name,
                 kwargs={
-                    **tool_call.arguments,
+                    **tool_args,
                     **self.builtin_tools[tool_call.tool_name],
                 },
                 extra_headers=self.extra_headers,
             )
-            return ToolResponsePayload(
-                call_id=tool_call.call_id,
-                tool_name=tool_call.tool_name,
-                content=tool_result.content,
-            )
+            return {
+                "call_id": tool_call.call_id,
+                "tool_name": tool_call.tool_name,
+                "content": Agent._coerce_tool_content(tool_result.content),
+            }
 
         # cannot find tools
-        return ToolResponsePayload(
-            call_id=tool_call.call_id,
-            tool_name=tool_call.tool_name,
-            content=f"Unknown tool `{tool_call.tool_name}` was called.",
-        )
+        return {
+            "call_id": tool_call.call_id,
+            "tool_name": tool_call.tool_name,
+            "content": f"Unknown tool `{tool_call.tool_name}` was called.",
+        }
 
     async def _create_turn_streaming(
         self,
@@ -574,10 +668,12 @@ class AsyncAgent:
     ) -> AsyncIterator[AgentStreamChunk]:
         _ = toolgroups
         _ = documents
+        await self.initialize()
         conversation_id = session_id or self._conversation_id
         if not conversation_id:
             conversation_id = await self.create_session(session_name="default")
 
+        request_headers = self.extra_headers
         stream = await self.client.responses.create(
             model=self._model,
             instructions=self._instructions,
@@ -585,50 +681,79 @@ class AsyncAgent:
             input=messages,
             stream=True,
             previous_response_id=self._last_response_id,
-            extra_headers=self.extra_headers,
+            extra_headers=request_headers,
         )
 
         last_response: Optional[ResponseObject] = None
-        pending_tools: Dict[str, ToolCall] = {}
+        pending_tools: Dict[str, Dict[str, Any]] = {}
 
-        async for event in iter_agent_events(stream):
-            if isinstance(event, AgentResponseCompleted):
-                last_response = await self.client.responses.retrieve(
-                    event.response_id,
-                    extra_headers=self.extra_headers,
-                )
-                self._last_response_id = event.response_id
-                yield AgentStreamChunk(event=event, response=last_response)
-                continue
-
-            if isinstance(event, AgentResponseFailed):
-                raise RuntimeError(event.error_message)
-
-            if isinstance(event, AgentToolCallIssued):
-                tool_call = ToolCall(
-                    call_id=event.call_id,
-                    tool_name=event.name,
-                    arguments=event.arguments_json,
-                )
-                pending_tools[event.call_id] = tool_call
-                yield AgentStreamChunk(event=event, response=None)
-                tool_responses = await self._run_tool_calls([tool_call])
-                followup_messages: List[response_create_params.InputUnionMember1] = [
-                    response_create_params.InputUnionMember1OpenAIResponseInputFunctionToolCallOutput(
-                        type="function_call_output",
-                        call_id=tool_responses[0]["call_id"],
-                        output=tool_responses[0]["content"],
+        while True:
+            restart_stream = False
+            async for event in iter_agent_events(stream):
+                if isinstance(event, AgentResponseCompleted):
+                    last_response = await self.client.responses.retrieve(
+                        event.response_id,
+                        extra_headers=request_headers,
                     )
-                ]
-                stream = await self.client.responses.create(
-                    model=self._model,
-                    instructions=self._instructions,
-                    conversation=conversation_id,
-                    input=followup_messages,
-                    stream=True,
-                    previous_response_id=event.response_id,
-                    extra_headers=self.extra_headers,
-                )
-                continue
+                    self._last_response_id = event.response_id
+                    yield AgentStreamChunk(event=event, response=last_response)
+                    continue
 
-            yield AgentStreamChunk(event=event, response=None)
+                if isinstance(event, AgentResponseFailed):
+                    raise RuntimeError(event.error_message)
+
+                if isinstance(event, AgentToolCallIssued):
+                    tool_call = ToolCall(
+                        call_id=event.call_id,
+                        tool_name=event.name,
+                        arguments=event.arguments_json,
+                    )
+                    pending_tools[event.call_id] = {
+                        "tool_call": tool_call,
+                        "arguments": event.arguments_json or "",
+                    }
+                    yield AgentStreamChunk(event=event, response=None)
+                    continue
+
+                if isinstance(event, AgentToolCallDelta):
+                    builder = pending_tools.get(event.call_id)
+                    if builder and event.arguments_delta:
+                        builder["arguments"] = builder.get("arguments", "") + event.arguments_delta
+                        builder["tool_call"].arguments = builder["arguments"]
+                    yield AgentStreamChunk(event=event, response=None)
+                    continue
+
+                if isinstance(event, AgentToolCallCompleted):
+                    builder = pending_tools.get(event.call_id)
+                    if builder:
+                        arguments = event.arguments_json or builder.get("arguments") or ""
+                        builder["tool_call"].arguments = arguments
+                        tool_responses = await self._run_tool_calls([builder["tool_call"]])
+                        followup_messages: List[response_create_params.InputUnionMember1] = [
+                            response_create_params.InputUnionMember1OpenAIResponseInputFunctionToolCallOutput(
+                                type="function_call_output",
+                                call_id=payload["call_id"],
+                                output=payload["content"],
+                            )
+                            for payload in tool_responses
+                        ]
+                        stream = await self.client.responses.create(
+                            model=self._model,
+                            instructions=self._instructions,
+                            conversation=conversation_id,
+                            input=followup_messages,
+                            stream=True,
+                            previous_response_id=event.response_id,
+                            extra_headers=request_headers,
+                        )
+                        pending_tools.pop(event.call_id, None)
+                        restart_stream = True
+                    yield AgentStreamChunk(event=event, response=None)
+                    if restart_stream:
+                        break
+                    continue
+
+                yield AgentStreamChunk(event=event, response=None)
+
+            if not restart_stream:
+                break
