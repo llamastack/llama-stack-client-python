@@ -14,7 +14,6 @@ pytestmark = pytest.mark.skipif(
 )
 
 
-@pytest.mark.allow_network
 def test_agent_create_turn_non_streaming(client) -> None:
     agent = Agent(
         client=client,
@@ -37,7 +36,6 @@ def test_agent_create_turn_non_streaming(client) -> None:
     assert agent._last_response_id == response.id
 
 
-@pytest.mark.allow_network
 def test_agent_create_turn_streaming(client) -> None:
     agent = Agent(
         client=client,

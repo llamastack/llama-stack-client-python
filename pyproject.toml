@@ -125,9 +125,6 @@ asyncio_default_fixture_loop_scope = "session"
 filterwarnings = [
   "error"
 ]
-markers = [
-  "allow_network: marks tests that make live network calls",
-]
 
 [tool.mypy]
 pretty = true
