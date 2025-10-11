@@ -4,29 +4,46 @@
 # This source code is licensed under the terms described in the LICENSE file in
 # the root directory of this source tree.
 import logging
-from typing import Any, AsyncIterator, Callable, Iterator, List, Optional, Tuple, Union
+from dataclasses import dataclass
+from typing import Any, AsyncIterator, Callable, Dict, Iterator, List, Optional, Tuple, Union, TypedDict
 
 from llama_stack_client import LlamaStackClient
-from llama_stack_client.types import ToolResponseMessage, UserMessage
-from llama_stack_client.types.alpha import ToolResponseParam
-from llama_stack_client.types.alpha.agent_create_params import AgentConfig
-from llama_stack_client.types.alpha.agents.agent_turn_response_stream_chunk import (
-    AgentTurnResponseStreamChunk,
-)
-from llama_stack_client.types.alpha.agents.turn import CompletionMessage, Turn
-from llama_stack_client.types.alpha.agents.turn_create_params import Document, Toolgroup
+from llama_stack_client.types import AgentConfig, ResponseObject
+from llama_stack_client.types.responses import response_create_params
 from llama_stack_client.types.shared.tool_call import ToolCall
-from llama_stack_client.types.shared_params.agent_config import ToolConfig
-from llama_stack_client.types.shared_params.response_format import ResponseFormat
-from llama_stack_client.types.shared_params.sampling_params import SamplingParams
+from llama_stack_client.types.shared.agent_config import ToolConfig, Toolgroup
+from llama_stack_client.types.shared_params.document import Document
+from llama_stack_client.types.shared.completion_message import CompletionMessage
+from llama_stack_client.types.shared.response_format import ResponseFormat
+from llama_stack_client.types.shared.sampling_params import SamplingParams
 
 from ..._types import Headers
 from .client_tool import ClientTool, client_tool
 from .tool_parser import ToolParser
+from .stream_events import (
+    AgentResponseCompleted,
+    AgentResponseFailed,
+    AgentStreamEvent,
+    AgentToolCallIssued,
+    iter_agent_events,
+)
 
 DEFAULT_MAX_ITER = 10
 
+
+class ToolResponsePayload(TypedDict):
+    call_id: str
+    tool_name: str
+    content: Any
+
+
 logger = logging.getLogger(__name__)
+
+
+@dataclass
+class AgentStreamChunk:
+    event: AgentStreamEvent
+    response: Optional[ResponseObject]
 
 
 class AgentUtils:
@@ -42,31 +59,30 @@ class AgentUtils:
         return [tool for tool in tools if isinstance(tool, ClientTool)]
 
     @staticmethod
-    def get_tool_calls(chunk: AgentTurnResponseStreamChunk, tool_parser: Optional[ToolParser] = None) -> List[ToolCall]:
-        if chunk.event.payload.event_type not in {
-            "turn_complete",
-            "turn_awaiting_input",
-        }:
+    def get_tool_calls(chunk: AgentStreamChunk, tool_parser: Optional[ToolParser] = None) -> List[ToolCall]:
+        if not isinstance(chunk.event, AgentToolCallIssued):
             return []
 
-        message = chunk.event.payload.turn.output_message
-        if message.stop_reason == "out_of_tokens":
-            return []
+        tool_call = ToolCall(
+            call_id=chunk.event.call_id,
+            tool_name=chunk.event.name,
+            arguments=chunk.event.arguments_json,
+        )
 
         if tool_parser:
-            return tool_parser.get_tool_calls(message)
+            completion = CompletionMessage(
+                role="assistant",
+                content="",
+                tool_calls=[tool_call],
+                stop_reason="end_of_turn",
+            )
+            return tool_parser.get_tool_calls(completion)
 
-        return message.tool_calls
+        return [tool_call]
 
     @staticmethod
-    def get_turn_id(chunk: AgentTurnResponseStreamChunk) -> Optional[str]:
-        if chunk.event.payload.event_type not in [
-            "turn_complete",
-            "turn_awaiting_input",
-        ]:
-            return None
-
-        return chunk.event.payload.turn.turn_id
+    def get_turn_id(chunk: AgentStreamChunk) -> Optional[str]:
+        return chunk.response.turn.turn_id if chunk.response else None
 
     @staticmethod
     def get_agent_config(
@@ -197,40 +213,40 @@ class Agent:
 
         self.agent_config = agent_config
         self.client_tools = {t.get_name(): t for t in client_tools}
-        self.sessions = []
+        self.sessions: List[str] = []
         self.tool_parser = tool_parser
         self.builtin_tools = {}
         self.extra_headers = extra_headers
-        self.initialize()
+        self._conversation_id: Optional[str] = None
+        self._last_response_id: Optional[str] = None
+        self._model = self.agent_config.model
+        self._instructions = self.agent_config.instructions
 
     def initialize(self) -> None:
-        agentic_system_create_response = self.client.alpha.agents.create(
-            agent_config=self.agent_config,
-            extra_headers=self.extra_headers,
-        )
-        self.agent_id = agentic_system_create_response.agent_id
-        for tg in self.agent_config["toolgroups"]:
-            toolgroup_id = tg if isinstance(tg, str) else tg.get("name")
-            for tool in self.client.tools.list(toolgroup_id=toolgroup_id, extra_headers=self.extra_headers):
-                self.builtin_tools[tool.name] = tg.get("args", {}) if isinstance(tg, dict) else {}
+        # Ensure builtin tools cache is ready
+        if not self.builtin_tools and self.agent_config.toolgroups:
+            for tg in self.agent_config.toolgroups:
+                toolgroup_id = tg if isinstance(tg, str) else tg.name
+                args = {} if isinstance(tg, str) else tg.args
+                for tool in self.client.tools.list(toolgroup_id=toolgroup_id, extra_headers=self.extra_headers):
+                    self.builtin_tools[tool.name] = args
 
     def create_session(self, session_name: str) -> str:
-        agentic_system_create_session_response = self.client.alpha.agents.session.create(
-            agent_id=self.agent_id,
-            session_name=session_name,
+        conversation = self.client.conversations.create(
             extra_headers=self.extra_headers,
+            metadata={"name": session_name},
         )
-        self.session_id = agentic_system_create_session_response.session_id
-        self.sessions.append(self.session_id)
-        return self.session_id
+        self._conversation_id = conversation.id
+        self.sessions.append(conversation.id)
+        return conversation.id
 
-    def _run_tool_calls(self, tool_calls: List[ToolCall]) -> List[ToolResponseParam]:
+    def _run_tool_calls(self, tool_calls: List[ToolCall]) -> List[ToolResponsePayload]:
         responses = []
         for tool_call in tool_calls:
             responses.append(self._run_single_tool(tool_call))
         return responses
 
-    def _run_single_tool(self, tool_call: ToolCall) -> ToolResponseParam:
+    def _run_single_tool(self, tool_call: ToolCall) -> ToolResponsePayload:
         # custom client tools
         if tool_call.tool_name in self.client_tools:
             tool = self.client_tools[tool_call.tool_name]
@@ -240,7 +256,7 @@ class Agent:
                 [
                     CompletionMessage(
                         role="assistant",
-                        content=tool_call.tool_name,
+                        content=tool_call.arguments,
                         tool_calls=[tool_call],
                         stop_reason="end_of_turn",
                     )
@@ -258,14 +274,14 @@ class Agent:
                 },
                 extra_headers=self.extra_headers,
             )
-            return ToolResponseParam(
+            return ToolResponsePayload(
                 call_id=tool_call.call_id,
                 tool_name=tool_call.tool_name,
                 content=tool_result.content,
             )
 
         # cannot find tools
-        return ToolResponseParam(
+        return ToolResponsePayload(
             call_id=tool_call.call_id,
             tool_name=tool_call.tool_name,
             content=f"Unknown tool `{tool_call.tool_name}` was called.",
@@ -273,107 +289,105 @@ class Agent:
 
     def create_turn(
         self,
-        messages: List[Union[UserMessage, ToolResponseMessage]],
+        messages: List[response_create_params.InputUnionMember1],
         session_id: Optional[str] = None,
         toolgroups: Optional[List[Toolgroup]] = None,
         documents: Optional[List[Document]] = None,
         stream: bool = True,
         # TODO: deprecate this
         extra_headers: Headers | None = None,
-    ) -> Iterator[AgentTurnResponseStreamChunk] | Turn:
+    ) -> Iterator[AgentStreamChunk] | ResponseObject:
         if stream:
             return self._create_turn_streaming(
                 messages, session_id, toolgroups, documents, extra_headers=extra_headers or self.extra_headers
             )
         else:
-            chunks = [
-                x
-                for x in self._create_turn_streaming(
-                    messages,
-                    session_id,
-                    toolgroups,
-                    documents,
-                    extra_headers=extra_headers or self.extra_headers,
-                )
-            ]
-            if not chunks:
+            _ = toolgroups
+            _ = documents
+            last_chunk: Optional[AgentStreamChunk] = None
+            for chunk in self._create_turn_streaming(
+                messages,
+                session_id,
+                toolgroups,
+                documents,
+                extra_headers=extra_headers or self.extra_headers,
+            ):
+                last_chunk = chunk
+
+            if not last_chunk or not last_chunk.response:
                 raise Exception("Turn did not complete")
 
-            last_chunk = chunks[-1]
-            if hasattr(last_chunk, "error"):
-                if "message" in last_chunk.error:
-                    error_msg = last_chunk.error["message"]
-                else:
-                    error_msg = str(last_chunk.error)
-                raise RuntimeError(f"Turn did not complete. Error: {error_msg}")
-            try:
-                return last_chunk.event.payload.turn
-            except AttributeError:
-                raise RuntimeError(f"Turn did not complete. Output: {last_chunk}") from None
+            return last_chunk.response
 
     def _create_turn_streaming(
         self,
-        messages: List[Union[UserMessage, ToolResponseMessage]],
+        messages: List[response_create_params.InputUnionMember1],
         session_id: Optional[str] = None,
         toolgroups: Optional[List[Toolgroup]] = None,
         documents: Optional[List[Document]] = None,
         # TODO: deprecate this
         extra_headers: Headers | None = None,
-    ) -> Iterator[AgentTurnResponseStreamChunk]:
-        n_iter = 0
+    ) -> Iterator[AgentStreamChunk]:
+        _ = toolgroups
+        _ = documents
+        conversation_id = session_id or self._conversation_id
+        if not conversation_id:
+            conversation_id = self.create_session(session_name="default")
 
-        # 1. create an agent turn
-        turn_response = self.client.alpha.agents.turn.create(
-            agent_id=self.agent_id,
-            # use specified session_id or last session created
-            session_id=session_id or self.session_id[-1],
-            messages=messages,
+        stream = self.client.responses.create(
+            model=self._model,
+            instructions=self._instructions,
+            conversation=conversation_id,
+            input=messages,
             stream=True,
-            documents=documents,
-            toolgroups=toolgroups,
+            previous_response_id=self._last_response_id,
             extra_headers=extra_headers or self.extra_headers,
         )
 
-        # 2. process turn and resume if there's a tool call
-        is_turn_complete = False
-        while not is_turn_complete:
-            is_turn_complete = True
-            for chunk in turn_response:
-                if hasattr(chunk, "error"):
-                    yield chunk
-                    return
-                tool_calls = AgentUtils.get_tool_calls(chunk, self.tool_parser)
-                if not tool_calls:
-                    yield chunk
-                else:
-                    is_turn_complete = False
-                    # End of turn is reached, do not resume even if there's a tool call
-                    # We only check for this if tool_parser is not set, because otherwise
-                    # tool call will be parsed on client side, and server will always return "end_of_turn"
-                    if not self.tool_parser and chunk.event.payload.turn.output_message.stop_reason in {"end_of_turn"}:
-                        yield chunk
-                        break
+        last_response: Optional[ResponseObject] = None
+        pending_tools: Dict[str, ToolCall] = {}
 
-                    turn_id = AgentUtils.get_turn_id(chunk)
-                    if n_iter == 0:
-                        yield chunk
+        for event in iter_agent_events(stream):
+            if isinstance(event, AgentResponseCompleted):
+                last_response = self.client.responses.retrieve(
+                    event.response_id,
+                    extra_headers=extra_headers or self.extra_headers,
+                )
+                self._last_response_id = event.response_id
+                yield AgentStreamChunk(event=event, response=last_response)
+                continue
 
-                    # run the tools
-                    tool_responses = self._run_tool_calls(tool_calls)
+            if isinstance(event, AgentResponseFailed):
+                raise RuntimeError(event.error_message)
 
-                    # pass it to next iteration
-                    turn_response = self.client.alpha.agents.turn.resume(
-                        agent_id=self.agent_id,
-                        session_id=session_id or self.session_id[-1],
-                        turn_id=turn_id,
-                        tool_responses=tool_responses,
-                        stream=True,
-                        extra_headers=extra_headers or self.extra_headers,
+            if isinstance(event, AgentToolCallIssued):
+                tool_call = ToolCall(
+                    call_id=event.call_id,
+                    tool_name=event.name,
+                    arguments=event.arguments_json,
+                )
+                pending_tools[event.call_id] = tool_call
+                yield AgentStreamChunk(event=event, response=None)
+                tool_responses = self._run_tool_calls([tool_call])
+                followup_messages: List[response_create_params.InputUnionMember1] = [
+                    response_create_params.InputUnionMember1OpenAIResponseInputFunctionToolCallOutput(
+                        type="function_call_output",
+                        call_id=tool_responses[0]["call_id"],
+                        output=tool_responses[0]["content"],
                     )
-                    n_iter += 1
+                ]
+                stream = self.client.responses.create(
+                    model=self._model,
+                    instructions=self._instructions,
+                    conversation=conversation_id,
+                    input=followup_messages,
+                    stream=True,
+                    previous_response_id=event.response_id,
+                    extra_headers=extra_headers or self.extra_headers,
+                )
+                continue
 
-            if self.tool_parser and n_iter > self.agent_config.get("max_infer_iters", DEFAULT_MAX_ITER):
-                raise Exception("Max inference iterations reached")
+            yield AgentStreamChunk(event=event, response=None)
 
 
 class AsyncAgent:
@@ -454,63 +468,65 @@ class AsyncAgent:
         self.tool_parser = tool_parser
         self.builtin_tools = {}
         self.extra_headers = extra_headers
-        self._agent_id = None
+        self._conversation_id: Optional[str] = None
+        self._last_response_id: Optional[str] = None
 
         if isinstance(client, LlamaStackClient):
             raise ValueError("AsyncAgent must be initialized with an AsyncLlamaStackClient")
 
+        self._model = self.agent_config.model
+        self._instructions = self.agent_config.instructions
+
     @property
     def agent_id(self) -> str:
-        if not self._agent_id:
-            raise RuntimeError("Agent ID not initialized. Call initialize() first.")
-        return self._agent_id
+        raise RuntimeError("Agent ID is deprecated in the responses-backed agent")
 
     async def initialize(self) -> None:
-        if self._agent_id:
-            return
-
-        agentic_system_create_response = await self.client.alpha.agents.create(
-            agent_config=self.agent_config,
-        )
-        self._agent_id = agentic_system_create_response.agent_id
-        for tg in self.agent_config["toolgroups"]:
-            for tool in await self.client.tools.list(toolgroup_id=tg, extra_headers=self.extra_headers):
-                self.builtin_tools[tool.name] = tg.get("args", {}) if isinstance(tg, dict) else {}
+        if not self.builtin_tools and self.agent_config.toolgroups:
+            for tg in self.agent_config.toolgroups:
+                toolgroup_id = tg if isinstance(tg, str) else tg.name
+                args = {} if isinstance(tg, str) else tg.args
+                tools = await self.client.tools.list(toolgroup_id=toolgroup_id, extra_headers=self.extra_headers)
+                for tool in tools:
+                    self.builtin_tools[tool.name] = args
 
     async def create_session(self, session_name: str) -> str:
         await self.initialize()
-        agentic_system_create_session_response = await self.client.alpha.agents.session.create(
-            agent_id=self.agent_id,
-            session_name=session_name,
+        conversation = await self.client.conversations.create(  # type: ignore[union-attr]
             extra_headers=self.extra_headers,
+            metadata={"name": session_name},
         )
-        self.session_id = agentic_system_create_session_response.session_id
-        self.sessions.append(self.session_id)
-        return self.session_id
+        self._conversation_id = conversation.id
+        self.sessions.append(conversation.id)
+        return conversation.id
 
     async def create_turn(
         self,
-        messages: List[Union[UserMessage, ToolResponseMessage]],
+        messages: List[response_create_params.InputUnionMember1],
         session_id: Optional[str] = None,
         toolgroups: Optional[List[Toolgroup]] = None,
         documents: Optional[List[Document]] = None,
         stream: bool = True,
-    ) -> AsyncIterator[AgentTurnResponseStreamChunk] | Turn:
+    ) -> AsyncIterator[AgentStreamChunk] | ResponseObject:
         if stream:
             return self._create_turn_streaming(messages, session_id, toolgroups, documents)
         else:
-            chunks = [x async for x in self._create_turn_streaming(messages, session_id, toolgroups, documents)]
-            if not chunks:
+            _ = toolgroups
+            _ = documents
+            last_chunk: Optional[AgentStreamChunk] = None
+            async for chunk in self._create_turn_streaming(messages, session_id, toolgroups, documents):
+                last_chunk = chunk
+            if not last_chunk or not last_chunk.response:
                 raise Exception("Turn did not complete")
-            return chunks[-1].event.payload.turn
+            return last_chunk.response
 
-    async def _run_tool_calls(self, tool_calls: List[ToolCall]) -> List[ToolResponseParam]:
+    async def _run_tool_calls(self, tool_calls: List[ToolCall]) -> List[ToolResponsePayload]:
         responses = []
         for tool_call in tool_calls:
             responses.append(await self._run_single_tool(tool_call))
         return responses
 
-    async def _run_single_tool(self, tool_call: ToolCall) -> ToolResponseParam:
+    async def _run_single_tool(self, tool_call: ToolCall) -> ToolResponsePayload:
         # custom client tools
         if tool_call.tool_name in self.client_tools:
             tool = self.client_tools[tool_call.tool_name]
@@ -518,7 +534,7 @@ class AsyncAgent:
                 [
                     CompletionMessage(
                         role="assistant",
-                        content=tool_call.tool_name,
+                        content=tool_call.arguments,
                         tool_calls=[tool_call],
                         stop_reason="end_of_turn",
                     )
@@ -536,14 +552,14 @@ class AsyncAgent:
                 },
                 extra_headers=self.extra_headers,
             )
-            return ToolResponseParam(
+            return ToolResponsePayload(
                 call_id=tool_call.call_id,
                 tool_name=tool_call.tool_name,
                 content=tool_result.content,
             )
 
         # cannot find tools
-        return ToolResponseParam(
+        return ToolResponsePayload(
             call_id=tool_call.call_id,
             tool_name=tool_call.tool_name,
             content=f"Unknown tool `{tool_call.tool_name}` was called.",
@@ -551,61 +567,68 @@ class AsyncAgent:
 
     async def _create_turn_streaming(
         self,
-        messages: List[Union[UserMessage, ToolResponseMessage]],
+        messages: List[response_create_params.InputUnionMember1],
         session_id: Optional[str] = None,
         toolgroups: Optional[List[Toolgroup]] = None,
         documents: Optional[List[Document]] = None,
-    ) -> AsyncIterator[AgentTurnResponseStreamChunk]:
-        n_iter = 0
+    ) -> AsyncIterator[AgentStreamChunk]:
+        _ = toolgroups
+        _ = documents
+        conversation_id = session_id or self._conversation_id
+        if not conversation_id:
+            conversation_id = await self.create_session(session_name="default")
 
-        # 1. create an agent turn
-        turn_response = await self.client.alpha.agents.turn.create(
-            agent_id=self.agent_id,
-            # use specified session_id or last session created
-            session_id=session_id or self.session_id[-1],
-            messages=messages,
+        stream = await self.client.responses.create(
+            model=self._model,
+            instructions=self._instructions,
+            conversation=conversation_id,
+            input=messages,
             stream=True,
-            documents=documents,
-            toolgroups=toolgroups,
+            previous_response_id=self._last_response_id,
             extra_headers=self.extra_headers,
         )
 
-        # 2. process turn and resume if there's a tool call
-        is_turn_complete = False
-        while not is_turn_complete:
-            is_turn_complete = True
-            async for chunk in turn_response:
-                if hasattr(chunk, "error"):
-                    yield chunk
-                    return
+        last_response: Optional[ResponseObject] = None
+        pending_tools: Dict[str, ToolCall] = {}
 
-                tool_calls = AgentUtils.get_tool_calls(chunk, self.tool_parser)
-                if not tool_calls:
-                    yield chunk
-                else:
-                    is_turn_complete = False
-                    # End of turn is reached, do not resume even if there's a tool call
-                    if not self.tool_parser and chunk.event.payload.turn.output_message.stop_reason in {"end_of_turn"}:
-                        yield chunk
-                        break
+        async for event in iter_agent_events(stream):
+            if isinstance(event, AgentResponseCompleted):
+                last_response = await self.client.responses.retrieve(
+                    event.response_id,
+                    extra_headers=self.extra_headers,
+                )
+                self._last_response_id = event.response_id
+                yield AgentStreamChunk(event=event, response=last_response)
+                continue
 
-                    turn_id = AgentUtils.get_turn_id(chunk)
-                    if n_iter == 0:
-                        yield chunk
+            if isinstance(event, AgentResponseFailed):
+                raise RuntimeError(event.error_message)
 
-                    # run the tools
-                    tool_responses = await self._run_tool_calls(tool_calls)
-
-                    # pass it to next iteration
-                    turn_response = await self.client.alpha.agents.turn.resume(
-                        agent_id=self.agent_id,
-                        session_id=session_id or self.session_id[-1],
-                        turn_id=turn_id,
-                        tool_responses=tool_responses,
-                        stream=True,
-                        extra_headers=self.extra_headers,
+            if isinstance(event, AgentToolCallIssued):
+                tool_call = ToolCall(
+                    call_id=event.call_id,
+                    tool_name=event.name,
+                    arguments=event.arguments_json,
+                )
+                pending_tools[event.call_id] = tool_call
+                yield AgentStreamChunk(event=event, response=None)
+                tool_responses = await self._run_tool_calls([tool_call])
+                followup_messages: List[response_create_params.InputUnionMember1] = [
+                    response_create_params.InputUnionMember1OpenAIResponseInputFunctionToolCallOutput(
+                        type="function_call_output",
+                        call_id=tool_responses[0]["call_id"],
+                        output=tool_responses[0]["content"],
                     )
-                    n_iter += 1
+                ]
+                stream = await self.client.responses.create(
+                    model=self._model,
+                    instructions=self._instructions,
+                    conversation=conversation_id,
+                    input=followup_messages,
+                    stream=True,
+                    previous_response_id=event.response_id,
+                    extra_headers=self.extra_headers,
+                )
+                continue
 
-            if self.tool_parser and n_iter > self.agent_config.get("max_infer_iters", DEFAULT_MAX_ITER):
-                raise Exception("Max inference iterations reached")
+            yield AgentStreamChunk(event=event, response=None)
