@@ -4,27 +4,25 @@
 # This source code is licensed under the terms described in the LICENSE file in
 # the root directory of this source tree.
 import logging
-from typing import Any, Callable, List, Optional, Tuple, Union
+from typing import Any, Callable, Dict, List, Optional, Tuple, Union
 
 from llama_stack_client import LlamaStackClient
-from llama_stack_client.types.agent_create_params import AgentConfig
 from llama_stack_client.types.agents.turn_create_params import Toolgroup
-from llama_stack_client.types.shared_params.agent_config import ToolConfig
-from llama_stack_client.types.shared_params.response_format import ResponseFormat
-from llama_stack_client.types.shared_params.sampling_params import SamplingParams
 
 from ...._types import Headers
 from ..agent import Agent, AgentUtils
 from ..client_tool import ClientTool
 from ..tool_parser import ToolParser
 from .prompts import DEFAULT_REACT_AGENT_SYSTEM_PROMPT_TEMPLATE
-from .tool_parser import ReActOutput, ReActToolParser
+from .tool_parser import ReActToolParser
 
 logger = logging.getLogger(__name__)
 
 
 def get_tool_defs(
-    client: LlamaStackClient, builtin_toolgroups: Tuple[Toolgroup] = (), client_tools: Tuple[ClientTool] = ()
+    client: LlamaStackClient,
+    builtin_toolgroups: Tuple[Union[str, Dict[str, Any], Toolgroup], ...] = (),
+    client_tools: Tuple[ClientTool, ...] = (),
 ):
     tool_defs = []
     for x in builtin_toolgroups:
@@ -57,7 +55,9 @@ def get_tool_defs(
 
 
 def get_default_react_instructions(
-    client: LlamaStackClient, builtin_toolgroups: Tuple[str] = (), client_tools: Tuple[ClientTool] = ()
+    client: LlamaStackClient,
+    builtin_toolgroups: Tuple[Union[str, Dict[str, Any], Toolgroup], ...] = (),
+    client_tools: Tuple[ClientTool, ...] = (),
 ):
     tool_defs = get_tool_defs(client, builtin_toolgroups, client_tools)
     tool_names = ", ".join([x["name"] for x in tool_defs])
@@ -68,161 +68,38 @@ def get_default_react_instructions(
     return instruction
 
 
-def get_agent_config_DEPRECATED(
-    client: LlamaStackClient,
-    model: str,
-    builtin_toolgroups: Tuple[str] = (),
-    client_tools: Tuple[ClientTool] = (),
-    json_response_format: bool = False,
-    custom_agent_config: Optional[AgentConfig] = None,
-) -> AgentConfig:
-    if custom_agent_config is None:
-        instruction = get_default_react_instructions(client, builtin_toolgroups, client_tools)
-
-        # user default toolgroups
-        agent_config = AgentConfig(
-            model=model,
-            instructions=instruction,
-            toolgroups=builtin_toolgroups,
-            client_tools=[client_tool.get_tool_definition() for client_tool in client_tools],
-            tool_config={
-                "tool_choice": "auto",
-                "system_message_behavior": "replace",
-            },
-            input_shields=[],
-            output_shields=[],
-            enable_session_persistence=False,
-        )
-    else:
-        agent_config = custom_agent_config
-
-    if json_response_format:
-        agent_config["response_format"] = {
-            "type": "json_schema",
-            "json_schema": ReActOutput.model_json_schema(),
-        }
-
-    return agent_config
-
-
 class ReActAgent(Agent):
-    """ReAct agent.
-
-    Simple wrapper around Agent to add prepare prompts for creating a ReAct agent from a list of tools.
-    """
-
     def __init__(
         self,
         client: LlamaStackClient,
+        *,
         model: str,
-        tool_parser: ToolParser = ReActToolParser(),
-        instructions: Optional[str] = None,
         tools: Optional[List[Union[Toolgroup, ClientTool, Callable[..., Any]]]] = None,
-        tool_config: Optional[ToolConfig] = None,
-        sampling_params: Optional[SamplingParams] = None,
-        max_infer_iters: Optional[int] = None,
-        input_shields: Optional[List[str]] = None,
-        output_shields: Optional[List[str]] = None,
-        response_format: Optional[ResponseFormat] = None,
-        enable_session_persistence: Optional[bool] = None,
-        json_response_format: bool = False,
-        builtin_toolgroups: Tuple[str] = (),  # DEPRECATED
-        client_tools: Tuple[ClientTool] = (),  # DEPRECATED
-        custom_agent_config: Optional[AgentConfig] = None,  # DEPRECATED
+        tool_parser: Optional[ToolParser] = None,
+        instructions: Optional[str] = None,
         extra_headers: Headers | None = None,
+        json_response_format: bool = False,
     ):
-        """Construct an Agent with the given parameters.
+        if json_response_format:
+            logger.warning("`json_response_format` is deprecated and will be removed in a future release.")
 
-        :param client: The LlamaStackClient instance.
-        :param custom_agent_config: The AgentConfig instance.
-            ::deprecated: use other parameters instead
-        :param client_tools: A tuple of ClientTool instances.
-            ::deprecated: use tools instead
-        :param builtin_toolgroups: A tuple of Toolgroup instances.
-            ::deprecated: use tools instead
-        :param tool_parser: Custom logic that parses tool calls from a message.
-        :param model: The model to use for the agent.
-        :param instructions: The instructions for the agent.
-        :param tools: A list of tools for the agent. Values can be one of the following:
-            - dict representing a toolgroup/tool with arguments: e.g. {"name": "builtin::rag/knowledge_search", "args": {"vector_db_ids": [123]}}
-            - a python function with a docstring. See @client_tool for more details.
-            - str representing a tool within a toolgroup: e.g. "builtin::rag/knowledge_search"
-            - str representing a toolgroup_id: e.g. "builtin::rag", "builtin::code_interpreter", where all tools in the toolgroup will be added to the agent
-            - an instance of ClientTool: A client tool object.
-        :param tool_config: The tool configuration for the agent.
-        :param sampling_params: The sampling parameters for the agent.
-        :param max_infer_iters: The maximum number of inference iterations.
-        :param input_shields: The input shields for the agent.
-        :param output_shields: The output shields for the agent.
-        :param response_format: The response format for the agent.
-        :param enable_session_persistence: Whether to enable session persistence.
-        :param json_response_format: Whether to use the json response format with default ReAct output schema.
-            ::deprecated: use response_format instead
-        :param extra_headers: Extra headers to add to all requests sent by the agent.
-        """
-        use_deprecated_params = False
-        if custom_agent_config is not None:
-            logger.warning("`custom_agent_config` is deprecated. Use inlined parameters instead.")
-            use_deprecated_params = True
-        if client_tools != ():
-            logger.warning("`client_tools` is deprecated. Use `tools` instead.")
-            use_deprecated_params = True
-        if builtin_toolgroups != ():
-            logger.warning("`builtin_toolgroups` is deprecated. Use `tools` instead.")
-            use_deprecated_params = True
+        if tool_parser is None:
+            tool_parser = ReActToolParser()
 
-        if use_deprecated_params:
-            agent_config = get_agent_config_DEPRECATED(
-                client=client,
-                model=model,
-                builtin_toolgroups=builtin_toolgroups,
-                client_tools=client_tools,
-                json_response_format=json_response_format,
-            )
-            super().__init__(
-                client=client,
-                agent_config=agent_config,
-                client_tools=client_tools,
-                tool_parser=tool_parser,
-                extra_headers=extra_headers,
+        tool_list = tools or []
+        client_tool_instances = AgentUtils.get_client_tools(tool_list)
+        builtin_toolgroups = [x for x in tool_list if isinstance(x, (str, dict, Toolgroup))]
+
+        if instructions is None:
+            instructions = get_default_react_instructions(
+                client, tuple(builtin_toolgroups), tuple(client_tool_instances)
             )
 
-        else:
-            if not tool_config:
-                tool_config = {
-                    "tool_choice": "auto",
-                    "system_message_behavior": "replace",
-                }
-
-            if json_response_format:
-                if instructions is not None:
-                    logger.warning(
-                        "Using a custom instructions, but json_response_format is set. Please make sure instructions are"
-                        "compatible with the default ReAct output format."
-                    )
-                response_format = {
-                    "type": "json_schema",
-                    "json_schema": ReActOutput.model_json_schema(),
-                }
-
-            # build REACT instructions
-            client_tools = AgentUtils.get_client_tools(tools)
-            builtin_toolgroups = [x for x in tools if isinstance(x, str) or isinstance(x, dict)]
-            if not instructions:
-                instructions = get_default_react_instructions(client, builtin_toolgroups, client_tools)
-
-            super().__init__(
-                client=client,
-                model=model,
-                tool_parser=tool_parser,
-                instructions=instructions,
-                tools=tools,
-                tool_config=tool_config,
-                sampling_params=sampling_params,
-                max_infer_iters=max_infer_iters,
-                input_shields=input_shields,
-                output_shields=output_shields,
-                response_format=response_format,
-                enable_session_persistence=enable_session_persistence,
-                extra_headers=extra_headers,
-            )
+        super().__init__(
+            client=client,
+            model=model,
+            instructions=instructions,
+            tools=tool_list,
+            tool_parser=tool_parser,
+            extra_headers=extra_headers,
+        )

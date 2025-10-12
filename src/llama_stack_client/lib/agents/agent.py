@@ -9,15 +9,13 @@ from dataclasses import dataclass
 from typing import Any, AsyncIterator, Callable, Dict, Iterator, List, Optional, Tuple, Union, TypedDict
 
 from llama_stack_client import LlamaStackClient
-from llama_stack_client.types import AgentConfig, ResponseObject
+from llama_stack_client.types import ResponseObject
 from llama_stack_client.types import response_create_params
 from llama_stack_client.types.alpha.tool_response import ToolResponse
 from llama_stack_client.types.shared.tool_call import ToolCall
-from llama_stack_client.types.shared.agent_config import ToolConfig, Toolgroup
+from llama_stack_client.types.shared.agent_config import Toolgroup
 from llama_stack_client.types.shared_params.document import Document
 from llama_stack_client.types.shared.completion_message import CompletionMessage
-from llama_stack_client.types.shared.response_format import ResponseFormat
-from llama_stack_client.types.shared.sampling_params import SamplingParams
 
 from ..._types import Headers
 from .client_tool import ClientTool, client_tool
@@ -31,8 +29,6 @@ from .stream_events import (
     AgentToolCallIssued,
     iter_agent_events,
 )
-
-DEFAULT_MAX_ITER = 10
 
 
 class ToolResponsePayload(TypedDict):
@@ -89,147 +85,60 @@ class AgentUtils:
         return chunk.response.turn.turn_id if chunk.response else None
 
     @staticmethod
-    def get_agent_config(
-        model: Optional[str] = None,
-        instructions: Optional[str] = None,
-        tools: Optional[List[Union[Toolgroup, ClientTool, Callable[..., Any]]]] = None,
-        tool_config: Optional[ToolConfig] = None,
-        sampling_params: Optional[SamplingParams] = None,
-        max_infer_iters: Optional[int] = None,
-        input_shields: Optional[List[str]] = None,
-        output_shields: Optional[List[str]] = None,
-        response_format: Optional[ResponseFormat] = None,
-        enable_session_persistence: Optional[bool] = None,
-        name: str | None = None,
-    ) -> AgentConfig:
-        # Create a minimal valid AgentConfig with required fields
-        if model is None or instructions is None:
-            raise ValueError("Both 'model' and 'instructions' are required when agent_config is not provided")
+    def normalize_tools(
+        tools: Optional[List[Union[Toolgroup, ClientTool, Callable[..., Any]]]],
+    ) -> Tuple[List[Union[Toolgroup, str, Dict[str, Any]]], List[ClientTool]]:
+        if not tools:
+            return [], []
 
-        agent_config = {
-            "model": model,
-            "instructions": instructions,
-            "toolgroups": [],
-            "client_tools": [],
-        }
+        normalized: List[Union[Toolgroup, ClientTool, Callable[..., Any], str, Dict[str, Any]]] = [
+            client_tool(tool) if (callable(tool) and not isinstance(tool, ClientTool)) else tool for tool in tools
+        ]
+        client_tool_instances = [tool for tool in normalized if isinstance(tool, ClientTool)]
 
-        # Add optional parameters if provided
-        if enable_session_persistence is not None:
-            agent_config["enable_session_persistence"] = enable_session_persistence
-        if max_infer_iters is not None:
-            agent_config["max_infer_iters"] = max_infer_iters
-        if input_shields is not None:
-            agent_config["input_shields"] = input_shields
-        if output_shields is not None:
-            agent_config["output_shields"] = output_shields
-        if response_format is not None:
-            agent_config["response_format"] = response_format
-        if sampling_params is not None:
-            agent_config["sampling_params"] = sampling_params
-        if tool_config is not None:
-            agent_config["tool_config"] = tool_config
-        if name is not None:
-            agent_config["name"] = name
-        if tools is not None:
-            toolgroups: List[Toolgroup] = []
-            for tool in tools:
-                if isinstance(tool, str) or isinstance(tool, dict):
-                    toolgroups.append(tool)
+        toolgroups: List[Union[Toolgroup, str, Dict[str, Any]]] = []
+        for tool in normalized:
+            if isinstance(tool, ClientTool):
+                continue
+            if isinstance(tool, (str, dict, Toolgroup)):
+                toolgroups.append(tool)
+                continue
+            raise TypeError(f"Unsupported tool type: {type(tool)!r}")
 
-            agent_config["toolgroups"] = toolgroups
-            agent_config["client_tools"] = [tool.get_tool_definition() for tool in AgentUtils.get_client_tools(tools)]
-
-        agent_config = AgentConfig(**agent_config)
-        return agent_config
+        return toolgroups, client_tool_instances
 
 
 class Agent:
     def __init__(
         self,
         client: LlamaStackClient,
-        # begin deprecated
-        agent_config: Optional[AgentConfig] = None,
-        client_tools: Tuple[ClientTool, ...] = (),
-        # end deprecated
-        tool_parser: Optional[ToolParser] = None,
-        model: Optional[str] = None,
-        instructions: Optional[str] = None,
+        *,
+        model: str,
+        instructions: str,
         tools: Optional[List[Union[Toolgroup, ClientTool, Callable[..., Any]]]] = None,
-        tool_config: Optional[ToolConfig] = None,
-        sampling_params: Optional[SamplingParams] = None,
-        max_infer_iters: Optional[int] = None,
-        input_shields: Optional[List[str]] = None,
-        output_shields: Optional[List[str]] = None,
-        response_format: Optional[ResponseFormat] = None,
-        enable_session_persistence: Optional[bool] = None,
+        tool_parser: Optional[ToolParser] = None,
         extra_headers: Headers | None = None,
-        name: str | None = None,
     ):
-        """Construct an Agent with the given parameters.
-
-        :param client: The LlamaStackClient instance.
-        :param agent_config: The AgentConfig instance.
-            ::deprecated: use other parameters instead
-        :param client_tools: A tuple of ClientTool instances.
-            ::deprecated: use tools instead
-        :param tool_parser: Custom logic that parses tool calls from a message.
-        :param model: The model to use for the agent.
-        :param instructions: The instructions for the agent.
-        :param tools: A list of tools for the agent. Values can be one of the following:
-            - dict representing a toolgroup/tool with arguments: e.g. {"name": "builtin::rag/knowledge_search", "args": {"vector_db_ids": [123]}}
-            - a python function with a docstring. See @client_tool for more details.
-            - str representing a tool within a toolgroup: e.g. "builtin::rag/knowledge_search"
-            - str representing a toolgroup_id: e.g. "builtin::rag", "builtin::code_interpreter", where all tools in the toolgroup will be added to the agent
-            - an instance of ClientTool: A client tool object.
-        :param tool_config: The tool configuration for the agent.
-        :param sampling_params: The sampling parameters for the agent.
-        :param max_infer_iters: The maximum number of inference iterations.
-        :param input_shields: The input shields for the agent.
-        :param output_shields: The output shields for the agent.
-        :param response_format: The response format for the agent.
-        :param enable_session_persistence: Whether to enable session persistence.
-        :param extra_headers: Extra headers to add to all requests sent by the agent.
-        :param name: Optional name for the agent, used in telemetry and identification.
-        """
+        """Construct an Agent backed by the responses + conversations APIs."""
         self.client = client
-
-        if agent_config is not None:
-            logger.warning("`agent_config` is deprecated. Use inlined parameters instead.")
-        if client_tools != ():
-            logger.warning("`client_tools` is deprecated. Use `tools` instead.")
-
-        # Construct agent_config from parameters if not provided
-        if agent_config is None:
-            agent_config = AgentUtils.get_agent_config(
-                model=model,
-                instructions=instructions,
-                tools=tools,
-                tool_config=tool_config,
-                sampling_params=sampling_params,
-                max_infer_iters=max_infer_iters,
-                input_shields=input_shields,
-                output_shields=output_shields,
-                response_format=response_format,
-                enable_session_persistence=enable_session_persistence,
-                name=name,
-            )
-            client_tools = AgentUtils.get_client_tools(tools)
-
-        self.agent_config = agent_config
-        self.client_tools = {t.get_name(): t for t in client_tools}
-        self.sessions: List[str] = []
         self.tool_parser = tool_parser
-        self.builtin_tools = {}
         self.extra_headers = extra_headers
-        self._conversation_id: Optional[str] = None
+        self._model = model
+        self._instructions = instructions
+
+        toolgroups, client_tools = AgentUtils.normalize_tools(tools)
+        self._toolgroups: List[Union[Toolgroup, str, Dict[str, Any]]] = toolgroups
+        self.client_tools = {tool.get_name(): tool for tool in client_tools}
+
+        self.sessions: List[str] = []
+        self.builtin_tools: Dict[str, Dict[str, Any]] = {}
         self._last_response_id: Optional[str] = None
-        self._model = self.agent_config.model
-        self._instructions = self.agent_config.instructions
+        self._session_last_response_id: Dict[str, Optional[str]] = {}
 
     def initialize(self) -> None:
         # Ensure builtin tools cache is ready
-        if not self.builtin_tools and self.agent_config.toolgroups:
-            for tg in self.agent_config.toolgroups:
+        if not self.builtin_tools and self._toolgroups:
+            for tg in self._toolgroups:
                 toolgroup_id = tg if isinstance(tg, str) else tg.name
                 args = {} if isinstance(tg, str) else tg.args
                 for tool in self.client.tools.list(toolgroup_id=toolgroup_id, extra_headers=self.extra_headers):
@@ -240,8 +149,8 @@ class Agent:
             extra_headers=self.extra_headers,
             metadata={"name": session_name},
         )
-        self._conversation_id = conversation.id
         self.sessions.append(conversation.id)
+        self._session_last_response_id[conversation.id] = None
         return conversation.id
 
     @staticmethod
@@ -350,7 +259,7 @@ class Agent:
     def create_turn(
         self,
         messages: List[response_create_params.InputUnionMember1],
-        session_id: Optional[str] = None,
+        session_id: str,
         toolgroups: Optional[List[Toolgroup]] = None,
         documents: Optional[List[Document]] = None,
         stream: bool = True,
@@ -382,7 +291,7 @@ class Agent:
     def _create_turn_streaming(
         self,
         messages: List[response_create_params.InputUnionMember1],
-        session_id: Optional[str] = None,
+        session_id: str,
         toolgroups: Optional[List[Toolgroup]] = None,
         documents: Optional[List[Document]] = None,
         # TODO: deprecate this
@@ -391,9 +300,8 @@ class Agent:
         _ = toolgroups
         _ = documents
         self.initialize()
-        conversation_id = session_id or self._conversation_id
-        if not conversation_id:
-            conversation_id = self.create_session(session_name="default")
+        conversation_id = session_id
+        self._session_last_response_id.setdefault(conversation_id, None)
 
         request_headers = extra_headers or self.extra_headers
         stream = self.client.responses.create(
@@ -402,7 +310,7 @@ class Agent:
             conversation=conversation_id,
             input=messages,
             stream=True,
-            previous_response_id=self._last_response_id,
+            previous_response_id=self._session_last_response_id.get(conversation_id),
             extra_headers=request_headers,
         )
 
@@ -418,6 +326,7 @@ class Agent:
                         extra_headers=request_headers,
                     )
                     self._last_response_id = event.response_id
+                    self._session_last_response_id[conversation_id] = event.response_id
                     yield AgentStreamChunk(event=event, response=last_response)
                     continue
 
@@ -466,15 +375,15 @@ class Agent:
                             conversation=conversation_id,
                             input=followup_messages,
                             stream=True,
-                            previous_response_id=event.response_id,
+                            previous_response_id=builder.get("response_id", event.response_id),
                             extra_headers=request_headers,
                         )
                         pending_tools.pop(event.call_id, None)
                         restart_stream = True
-                    yield AgentStreamChunk(event=event, response=None)
-                    if restart_stream:
-                        break
-                    continue
+                        yield AgentStreamChunk(event=event, response=None)
+                        if restart_stream:
+                            break
+                        continue
 
                 yield AgentStreamChunk(event=event, response=None)
 
@@ -486,96 +395,36 @@ class AsyncAgent:
     def __init__(
         self,
         client: LlamaStackClient,
-        # begin deprecated
-        agent_config: Optional[AgentConfig] = None,
-        client_tools: Tuple[ClientTool, ...] = (),
-        # end deprecated
-        tool_parser: Optional[ToolParser] = None,
-        model: Optional[str] = None,
-        instructions: Optional[str] = None,
+        *,
+        model: str,
+        instructions: str,
         tools: Optional[List[Union[Toolgroup, ClientTool, Callable[..., Any]]]] = None,
-        tool_config: Optional[ToolConfig] = None,
-        sampling_params: Optional[SamplingParams] = None,
-        max_infer_iters: Optional[int] = None,
-        input_shields: Optional[List[str]] = None,
-        output_shields: Optional[List[str]] = None,
-        response_format: Optional[ResponseFormat] = None,
-        enable_session_persistence: Optional[bool] = None,
+        tool_parser: Optional[ToolParser] = None,
         extra_headers: Headers | None = None,
-        name: str | None = None,
     ):
-        """Construct an Agent with the given parameters.
-
-        :param client: The LlamaStackClient instance.
-        :param agent_config: The AgentConfig instance.
-            ::deprecated: use other parameters instead
-        :param client_tools: A tuple of ClientTool instances.
-            ::deprecated: use tools instead
-        :param tool_parser: Custom logic that parses tool calls from a message.
-        :param model: The model to use for the agent.
-        :param instructions: The instructions for the agent.
-        :param tools: A list of tools for the agent. Values can be one of the following:
-            - dict representing a toolgroup/tool with arguments: e.g. {"name": "builtin::rag/knowledge_search", "args": {"vector_db_ids": [123]}}
-            - a python function with a docstring. See @client_tool for more details.
-            - str representing a tool within a toolgroup: e.g. "builtin::rag/knowledge_search"
-            - str representing a toolgroup_id: e.g. "builtin::rag", "builtin::code_interpreter", where all tools in the toolgroup will be added to the agent
-            - an instance of ClientTool: A client tool object.
-        :param tool_config: The tool configuration for the agent.
-        :param sampling_params: The sampling parameters for the agent.
-        :param max_infer_iters: The maximum number of inference iterations.
-        :param input_shields: The input shields for the agent.
-        :param output_shields: The output shields for the agent.
-        :param response_format: The response format for the agent.
-        :param enable_session_persistence: Whether to enable session persistence.
-        :param extra_headers: Extra headers to add to all requests sent by the agent.
-        :param name: Optional name for the agent, used in telemetry and identification.
-        """
+        """Construct an async Agent backed by the responses + conversations APIs."""
         self.client = client
-
-        if agent_config is not None:
-            logger.warning("`agent_config` is deprecated. Use inlined parameters instead.")
-        if client_tools != ():
-            logger.warning("`client_tools` is deprecated. Use `tools` instead.")
-
-        # Construct agent_config from parameters if not provided
-        if agent_config is None:
-            agent_config = AgentUtils.get_agent_config(
-                model=model,
-                instructions=instructions,
-                tools=tools,
-                tool_config=tool_config,
-                sampling_params=sampling_params,
-                max_infer_iters=max_infer_iters,
-                input_shields=input_shields,
-                output_shields=output_shields,
-                response_format=response_format,
-                enable_session_persistence=enable_session_persistence,
-                name=name,
-            )
-            client_tools = AgentUtils.get_client_tools(tools)
-
-        self.agent_config = agent_config
-        self.client_tools = {t.get_name(): t for t in client_tools}
-        self.sessions = []
-        self.tool_parser = tool_parser
-        self.builtin_tools = {}
-        self.extra_headers = extra_headers
-        self._conversation_id: Optional[str] = None
-        self._last_response_id: Optional[str] = None
 
         if isinstance(client, LlamaStackClient):
             raise ValueError("AsyncAgent must be initialized with an AsyncLlamaStackClient")
 
-        self._model = self.agent_config.model
-        self._instructions = self.agent_config.instructions
+        self.tool_parser = tool_parser
+        self.extra_headers = extra_headers
+        self._model = model
+        self._instructions = instructions
 
-    @property
-    def agent_id(self) -> str:
-        raise RuntimeError("Agent ID is deprecated in the responses-backed agent")
+        toolgroups, client_tools = AgentUtils.normalize_tools(tools)
+        self._toolgroups: List[Union[Toolgroup, str, Dict[str, Any]]] = toolgroups
+        self.client_tools = {tool.get_name(): tool for tool in client_tools}
+
+        self.sessions: List[str] = []
+        self.builtin_tools: Dict[str, Dict[str, Any]] = {}
+        self._last_response_id: Optional[str] = None
+        self._session_last_response_id: Dict[str, Optional[str]] = {}
 
     async def initialize(self) -> None:
-        if not self.builtin_tools and self.agent_config.toolgroups:
-            for tg in self.agent_config.toolgroups:
+        if not self.builtin_tools and self._toolgroups:
+            for tg in self._toolgroups:
                 toolgroup_id = tg if isinstance(tg, str) else tg.name
                 args = {} if isinstance(tg, str) else tg.args
                 tools = await self.client.tools.list(toolgroup_id=toolgroup_id, extra_headers=self.extra_headers)
@@ -588,14 +437,14 @@ class AsyncAgent:
             extra_headers=self.extra_headers,
             metadata={"name": session_name},
         )
-        self._conversation_id = conversation.id
         self.sessions.append(conversation.id)
+        self._session_last_response_id[conversation.id] = None
         return conversation.id
 
     async def create_turn(
         self,
         messages: List[response_create_params.InputUnionMember1],
-        session_id: Optional[str] = None,
+        session_id: str,
         toolgroups: Optional[List[Toolgroup]] = None,
         documents: Optional[List[Document]] = None,
         stream: bool = True,
@@ -662,16 +511,15 @@ class AsyncAgent:
     async def _create_turn_streaming(
         self,
         messages: List[response_create_params.InputUnionMember1],
-        session_id: Optional[str] = None,
+        session_id: str,
         toolgroups: Optional[List[Toolgroup]] = None,
         documents: Optional[List[Document]] = None,
     ) -> AsyncIterator[AgentStreamChunk]:
         _ = toolgroups
         _ = documents
         await self.initialize()
-        conversation_id = session_id or self._conversation_id
-        if not conversation_id:
-            conversation_id = await self.create_session(session_name="default")
+        conversation_id = session_id
+        self._session_last_response_id.setdefault(conversation_id, None)
 
         request_headers = self.extra_headers
         stream = await self.client.responses.create(
@@ -680,7 +528,7 @@ class AsyncAgent:
             conversation=conversation_id,
             input=messages,
             stream=True,
-            previous_response_id=self._last_response_id,
+            previous_response_id=self._session_last_response_id.get(conversation_id),
             extra_headers=request_headers,
         )
 
@@ -696,6 +544,7 @@ class AsyncAgent:
                         extra_headers=request_headers,
                     )
                     self._last_response_id = event.response_id
+                    self._session_last_response_id[conversation_id] = event.response_id
                     yield AgentStreamChunk(event=event, response=last_response)
                     continue
 
@@ -710,6 +559,7 @@ class AsyncAgent:
                     )
                     pending_tools[event.call_id] = {
                         "tool_call": tool_call,
+                        "response_id": event.response_id,
                         "arguments": event.arguments_json or "",
                     }
                     yield AgentStreamChunk(event=event, response=None)
@@ -743,15 +593,15 @@ class AsyncAgent:
                             conversation=conversation_id,
                             input=followup_messages,
                             stream=True,
-                            previous_response_id=event.response_id,
+                            previous_response_id=builder.get("response_id", event.response_id),
                             extra_headers=request_headers,
                         )
                         pending_tools.pop(event.call_id, None)
                         restart_stream = True
-                    yield AgentStreamChunk(event=event, response=None)
-                    if restart_stream:
-                        break
-                    continue
+                        yield AgentStreamChunk(event=event, response=None)
+                        if restart_stream:
+                            break
+                        continue
 
                 yield AgentStreamChunk(event=event, response=None)
 
