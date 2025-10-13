@@ -54,9 +54,9 @@ class TurnStarted:
     involve multiple inference steps and tool executions.
     """
 
-    event_type: Literal["turn_started"] = "turn_started"
     turn_id: str
     session_id: str
+    event_type: Literal["turn_started"] = "turn_started"
 
 
 @dataclass
@@ -67,12 +67,12 @@ class TurnCompleted:
     response without any pending client-side tool calls.
     """
 
-    event_type: Literal["turn_completed"] = "turn_completed"
     turn_id: str
     session_id: str
     final_text: str
     response_ids: List[str]  # All response IDs involved in this turn
     num_steps: int
+    event_type: Literal["turn_completed"] = "turn_completed"
 
 
 @dataclass
@@ -82,10 +82,10 @@ class TurnFailed:
     This indicates an unrecoverable error during turn processing.
     """
 
-    event_type: Literal["turn_failed"] = "turn_failed"
     turn_id: str
     session_id: str
     error_message: str
+    event_type: Literal["turn_failed"] = "turn_failed"
 
 
 # ============= Step-Level Events =============
@@ -100,10 +100,10 @@ class StepStarted:
     - tool_execution: Tool execution (server-side or client-side)
     """
 
-    event_type: Literal["step_started"] = "step_started"
     step_id: str
     step_type: Literal["inference", "tool_execution"]
     turn_id: str
+    event_type: Literal["step_started"] = "step_started"
     metadata: Optional[Dict[str, Any]] = None  # e.g., {"server_side": True/False, "tool_type": "file_search"}
 
 
@@ -117,8 +117,8 @@ class TextDelta:
     Emitted as the model generates text token by token.
     """
 
-    delta_type: Literal["text"] = "text"
     text: str
+    delta_type: Literal["text"] = "text"
 
 
 @dataclass
@@ -131,11 +131,11 @@ class ToolCallIssuedDelta:
     - Other types: Server-side tools executed within the response
     """
 
-    delta_type: Literal["tool_call_issued"] = "tool_call_issued"
     call_id: str
     tool_type: Literal["function", "file_search", "web_search", "mcp_call", "mcp_list_tools", "memory_retrieval"]
     tool_name: str
     arguments: str  # JSON string
+    delta_type: Literal["tool_call_issued"] = "tool_call_issued"
 
 
 @dataclass
@@ -146,9 +146,9 @@ class ToolCallDelta:
     are accumulated over multiple deltas to form the complete JSON.
     """
 
-    delta_type: Literal["tool_call_delta"] = "tool_call_delta"
     call_id: str
     arguments_delta: str
+    delta_type: Literal["tool_call_delta"] = "tool_call_delta"
 
 
 @dataclass
@@ -162,11 +162,11 @@ class ToolCallCompletedDelta:
     they trigger a separate tool_execution step.
     """
 
-    delta_type: Literal["tool_call_completed"] = "tool_call_completed"
     call_id: str
     tool_type: Literal["file_search", "web_search", "mcp_call", "mcp_list_tools", "memory_retrieval"]
     tool_name: str
     result: Any  # Tool execution result from server
+    delta_type: Literal["tool_call_completed"] = "tool_call_completed"
 
 
 # Union of all delta types
@@ -181,11 +181,11 @@ class StepProgress:
     including text deltas and tool call information.
     """
 
-    event_type: Literal["step_progress"] = "step_progress"
     step_id: str
     step_type: Literal["inference", "tool_execution"]
     turn_id: str
     delta: StepDelta
+    event_type: Literal["step_progress"] = "step_progress"
 
 
 # ============= Step Result Types =============
@@ -204,13 +204,8 @@ class InferenceStepResult:
     step_id: str
     response_id: str
     text_content: str
-
-    # Client-side function calls that need execution
-    function_calls: List[ToolCall]
-
-    # Server-side tool calls that were executed (for reference/logging)
-    server_tool_executions: List[Dict[str, Any]]  # {"tool_type": "file_search", "call_id": "...", "result": ...}
-
+    function_calls: List[ToolCall]  # Client-side function calls that need execution
+    server_tool_executions: List[Dict[str, Any]]  # Server-side tool calls (for reference/logging)
     stop_reason: str
 
 
@@ -239,11 +234,11 @@ class StepCompleted:
     all accumulated data and final state.
     """
 
-    event_type: Literal["step_completed"] = "step_completed"
     step_id: str
     step_type: Literal["inference", "tool_execution"]
     turn_id: str
     result: StepResult
+    event_type: Literal["step_completed"] = "step_completed"
 
 
 # ============= Unified Event Type =============
