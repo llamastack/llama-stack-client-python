@@ -4,142 +4,125 @@
 # This source code is licensed under the terms described in the LICENSE file in
 # the root directory of this source tree.
 
-from typing import Any, Iterator, Optional
+"""Event logger for agent interactions.
 
-from termcolor import cprint
+This module provides a simple logger that converts agent stream events
+into human-readable printable strings for console output.
+"""
 
-from llama_stack_client.types import InterleavedContent
+from typing import Iterator
 
+from .turn_events import (
+    AgentStreamChunk,
+    TurnStarted,
+    TurnCompleted,
+    TurnFailed,
+    StepStarted,
+    StepProgress,
+    StepCompleted,
+    TextDelta,
+    ToolCallIssuedDelta,
+    ToolCallDelta,
+    ToolCallCompletedDelta,
+)
 
-def interleaved_content_as_str(content: InterleavedContent, sep: str = " ") -> str:
-    def _process(c: Any) -> str:
-        if isinstance(c, str):
-            return c
-        elif hasattr(c, "type"):
-            if c.type == "text":
-                return c.text
-            elif c.type == "image":
-                return "<image>"
-            else:
-                raise ValueError(f"Unexpected type {c}")
-        else:
-            raise ValueError(f"Unsupported content type: {type(c)}")
-
-    if isinstance(content, list):
-        return sep.join(_process(c) for c in content)
-    else:
-        return _process(content)
+__all__ = ["AgentEventLogger", "EventLogger"]
 
 
-class TurnStreamPrintableEvent:
-    def __init__(
-        self,
-        role: Optional[str] = None,
-        content: str = "",
-        end: Optional[str] = "\n",
-        color: str = "white",
-    ) -> None:
-        self.role = role
-        self.content = content
-        self.color = color
-        self.end = "\n" if end is None else end
+class AgentEventLogger:
+    """Logger for agent events with turn/step semantics.
 
-    def __str__(self) -> str:
-        if self.role is not None:
-            return f"{self.role}> {self.content}"
-        else:
-            return f"{self.content}"
+    This logger converts high-level agent events into printable strings
+    that can be displayed to users. It handles:
+    - Turn lifecycle events
+    - Step boundaries (inference, tool execution)
+    - Streaming content (text, tool calls)
+    - Server-side and client-side tool execution
 
-    def print(self, flush: bool = True) -> None:
-        cprint(f"{str(self)}", color=self.color, end=self.end, flush=flush)
+    Usage:
+        logger = AgentEventLogger()
+        for chunk in agent.create_turn(...):
+            for printable in logger.log([chunk]):
+                print(printable, end="", flush=True)
+    """
 
+    def log(self, event_generator: Iterator[AgentStreamChunk]) -> Iterator[str]:
+        """Generate printable strings from agent stream chunks.
 
-class TurnStreamEventPrinter:
-    def yield_printable_events(self, chunk: Any) -> Iterator[TurnStreamPrintableEvent]:
-        for printable_event in self._yield_printable_events(chunk):
-            yield printable_event
+        Args:
+            event_generator: Iterator of AgentStreamChunk objects
 
-    def _yield_printable_events(self, chunk: Any) -> Iterator[TurnStreamPrintableEvent]:
-        if hasattr(chunk, "error"):
-            yield TurnStreamPrintableEvent(role=None, content=chunk.error["message"], color="red")
-            return
-
-        event = chunk.event
-        event_type = event.payload.event_type
-
-        if event_type in {"turn_start", "turn_complete", "turn_awaiting_input"}:
-            # Currently not logging any turn realted info
-            yield TurnStreamPrintableEvent(role=None, content="", end="", color="grey")
-            return
-
-        step_type = event.payload.step_type
-        # handle safety
-        if step_type == "shield_call" and event_type == "step_complete":
-            violation = event.payload.step_details.violation
-            if not violation:
-                yield TurnStreamPrintableEvent(role=step_type, content="No Violation", color="magenta")
-            else:
-                yield TurnStreamPrintableEvent(
-                    role=step_type,
-                    content=f"{violation.metadata} {violation.user_message}",
-                    color="red",
-                )
-
-        # handle inference
-        if step_type == "inference":
-            if event_type == "step_start":
-                yield TurnStreamPrintableEvent(role=step_type, content="", end="", color="yellow")
-            elif event_type == "step_progress":
-                if event.payload.delta.type == "tool_call":
-                    if isinstance(event.payload.delta.tool_call, str):
-                        yield TurnStreamPrintableEvent(
-                            role=None,
-                            content=event.payload.delta.tool_call,
-                            end="",
-                            color="cyan",
-                        )
-                elif event.payload.delta.type == "text":
-                    yield TurnStreamPrintableEvent(
-                        role=None,
-                        content=event.payload.delta.text,
-                        end="",
-                        color="yellow",
-                    )
-            else:
-                # step complete
-                yield TurnStreamPrintableEvent(role=None, content="")
-
-        # handle tool_execution
-        if step_type == "tool_execution" and event_type == "step_complete":
-            # Only print tool calls and responses at the step_complete event
-            details = event.payload.step_details
-            for t in details.tool_calls:
-                yield TurnStreamPrintableEvent(
-                    role=step_type,
-                    content=f"Tool:{t.tool_name} Args:{t.arguments}",
-                    color="green",
-                )
-
-            for r in details.tool_responses:
-                if r.tool_name == "query_from_memory":
-                    inserted_context = interleaved_content_as_str(r.content)
-                    content = f"fetched {len(inserted_context)} bytes from memory"
-
-                    yield TurnStreamPrintableEvent(
-                        role=step_type,
-                        content=content,
-                        color="cyan",
-                    )
-                else:
-                    yield TurnStreamPrintableEvent(
-                        role=step_type,
-                        content=f"Tool:{r.tool_name} Response:{r.content}",
-                        color="green",
-                    )
-
-
-class EventLogger:
-    def log(self, event_generator: Iterator[Any]) -> Iterator[TurnStreamPrintableEvent]:
-        printer = TurnStreamEventPrinter()
+        Yields:
+            Printable string fragments
+        """
         for chunk in event_generator:
-            yield from printer.yield_printable_events(chunk)
+            event = chunk.event
+
+            if isinstance(event, TurnStarted):
+                # Optionally log turn start (commented out to reduce noise)
+                # yield f"[Turn {event.turn_id}]\n"
+                pass
+
+            elif isinstance(event, StepStarted):
+                if event.step_type == "inference":
+                    # Indicate model is thinking (no newline)
+                    yield "🤔 "
+                elif event.step_type == "tool_execution":
+                    # Indicate tools are executing
+                    yield "\n🔧 Executing tools...\n"
+
+            elif isinstance(event, StepProgress):
+                if event.step_type == "inference":
+                    if isinstance(event.delta, TextDelta):
+                        # Stream text as it comes
+                        yield event.delta.text
+
+                    elif isinstance(event.delta, ToolCallIssuedDelta):
+                        # Log both client and server-side tool calls
+                        if event.delta.tool_type == "function":
+                            # Client-side function call
+                            yield f"\n📞 Calling {event.delta.tool_name}({event.delta.arguments})"
+                        else:
+                            # Server-side tool (file_search, web_search, etc.)
+                            yield f"\n🔍 Using {event.delta.tool_name}"
+
+                    elif isinstance(event.delta, ToolCallDelta):
+                        # Optionally stream tool arguments (can be noisy, so commented out)
+                        # yield event.delta.arguments_delta
+                        pass
+
+                    elif isinstance(event.delta, ToolCallCompletedDelta):
+                        # Log server-side tool completion
+                        yield f"\n✅ {event.delta.tool_name} completed"
+
+            elif isinstance(event, StepCompleted):
+                if event.step_type == "inference":
+                    result = event.result
+                    # Server-side tools already logged during progress
+                    if not result.function_calls:
+                        # End of inference with no function calls
+                        yield "\n"
+
+                elif event.step_type == "tool_execution":
+                    # Log client-side tool execution results
+                    result = event.result
+                    for resp in result.tool_responses:
+                        tool_name = resp.get("tool_name", "unknown")
+                        content = resp.get("content", "")
+                        # Truncate long responses for readability
+                        if isinstance(content, str) and len(content) > 100:
+                            content = content[:100] + "..."
+                        yield f"  → {tool_name}: {content}\n"
+
+            elif isinstance(event, TurnCompleted):
+                # Optionally log turn completion (commented out to reduce noise)
+                # yield f"\n[Completed in {event.num_steps} steps]\n"
+                pass
+
+            elif isinstance(event, TurnFailed):
+                # Always log failures
+                yield f"\n❌ Turn failed: {event.error_message}\n"
+
+
+# Alias for backwards compatibility
+EventLogger = AgentEventLogger
