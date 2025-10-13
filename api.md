@@ -234,26 +234,6 @@ Methods:
 - <code title="post /v1/vector-io/insert">client.vector_io.<a href="./src/llama_stack_client/resources/vector_io.py">insert</a>(\*\*<a href="src/llama_stack_client/types/vector_io_insert_params.py">params</a>) -> None</code>
 - <code title="post /v1/vector-io/query">client.vector_io.<a href="./src/llama_stack_client/resources/vector_io.py">query</a>(\*\*<a href="src/llama_stack_client/types/vector_io_query_params.py">params</a>) -> <a href="./src/llama_stack_client/types/query_chunks_response.py">QueryChunksResponse</a></code>
 
-# VectorDBs
-
-Types:
-
-```python
-from llama_stack_client.types import (
-    ListVectorDBsResponse,
-    VectorDBRetrieveResponse,
-    VectorDBListResponse,
-    VectorDBRegisterResponse,
-)
-```
-
-Methods:
-
-- <code title="get /v1/vector-dbs/{vector_db_id}">client.vector_dbs.<a href="./src/llama_stack_client/resources/vector_dbs.py">retrieve</a>(vector_db_id) -> <a href="./src/llama_stack_client/types/vector_db_retrieve_response.py">VectorDBRetrieveResponse</a></code>
-- <code title="get /v1/vector-dbs">client.vector_dbs.<a href="./src/llama_stack_client/resources/vector_dbs.py">list</a>() -> <a href="./src/llama_stack_client/types/vector_db_list_response.py">VectorDBListResponse</a></code>
-- <code title="post /v1/vector-dbs">client.vector_dbs.<a href="./src/llama_stack_client/resources/vector_dbs.py">register</a>(\*\*<a href="src/llama_stack_client/types/vector_db_register_params.py">params</a>) -> <a href="./src/llama_stack_client/types/vector_db_register_response.py">VectorDBRegisterResponse</a></code>
-- <code title="delete /v1/vector-dbs/{vector_db_id}">client.vector_dbs.<a href="./src/llama_stack_client/resources/vector_dbs.py">unregister</a>(vector_db_id) -> None</code>
-
 # VectorStores
 
 Types:

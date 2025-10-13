@@ -19,7 +19,6 @@ from .._response import (
 )
 from .._base_client import make_request_options
 from ..types.run_shield_response import RunShieldResponse
-from ..types.shared_params.message import Message
 
 __all__ = ["SafetyResource", "AsyncSafetyResource"]
 
@@ -47,7 +46,7 @@ class SafetyResource(SyncAPIResource):
     def run_shield(
         self,
         *,
-        messages: Iterable[Message],
+        messages: Iterable[safety_run_shield_params.Message],
         params: Dict[str, Union[bool, float, str, Iterable[object], object, None]],
         shield_id: str,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -116,7 +115,7 @@ class AsyncSafetyResource(AsyncAPIResource):
     async def run_shield(
         self,
         *,
-        messages: Iterable[Message],
+        messages: Iterable[safety_run_shield_params.Message],
         params: Dict[str, Union[bool, float, str, Iterable[object], object, None]],
         shield_id: str,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
