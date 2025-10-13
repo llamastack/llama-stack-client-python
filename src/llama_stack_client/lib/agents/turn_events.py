@@ -96,15 +96,15 @@ class StepStarted:
     """Emitted when a distinct work phase begins.
 
     Steps represent distinct phases of work within a turn:
-    - inference: Model thinking/generation (may include server-side tools)
-    - tool_execution: Client-side tool execution between responses
+    - inference: Model thinking/generation (deciding what to do)
+    - tool_execution: Tool execution (server-side or client-side)
     """
 
     event_type: Literal["step_started"] = "step_started"
     step_id: str
     step_type: Literal["inference", "tool_execution"]
     turn_id: str
-    metadata: Optional[Dict[str, Any]] = None
+    metadata: Optional[Dict[str, Any]] = None  # e.g., {"server_side": True/False, "tool_type": "file_search"}
 
 
 # ============= Progress Delta Types =============

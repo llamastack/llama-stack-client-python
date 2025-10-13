@@ -300,7 +300,14 @@ class Agent:
             tool_step_id = f"{turn_id}_step_{synthesizer.step_counter}"
             synthesizer.step_counter += 1
 
-            yield AgentStreamChunk(event=StepStarted(step_id=tool_step_id, step_type="tool_execution", turn_id=turn_id))
+            yield AgentStreamChunk(
+                event=StepStarted(
+                    step_id=tool_step_id,
+                    step_type="tool_execution",
+                    turn_id=turn_id,
+                    metadata={"server_side": False},
+                )
+            )
 
             tool_responses = self._run_tool_calls(function_calls_to_execute)
 
@@ -514,7 +521,14 @@ class AsyncAgent:
             tool_step_id = f"{turn_id}_step_{synthesizer.step_counter}"
             synthesizer.step_counter += 1
 
-            yield AgentStreamChunk(event=StepStarted(step_id=tool_step_id, step_type="tool_execution", turn_id=turn_id))
+            yield AgentStreamChunk(
+                event=StepStarted(
+                    step_id=tool_step_id,
+                    step_type="tool_execution",
+                    turn_id=turn_id,
+                    metadata={"server_side": False},
+                )
+            )
 
             tool_responses = await self._run_tool_calls(function_calls_to_execute)
 

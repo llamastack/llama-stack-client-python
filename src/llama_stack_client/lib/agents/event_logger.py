@@ -23,7 +23,6 @@ from .turn_events import (
     TextDelta,
     ToolCallIssuedDelta,
     ToolCallDelta,
-    ToolCallCompletedDelta,
 )
 
 __all__ = ["AgentEventLogger", "EventLogger"]
@@ -69,7 +68,12 @@ class AgentEventLogger:
                     yield "🤔 "
                 elif event.step_type == "tool_execution":
                     # Indicate tools are executing
-                    yield "\n🔧 Executing tools...\n"
+                    server_side = event.metadata and event.metadata.get("server_side", False)
+                    if server_side:
+                        tool_type = event.metadata.get("tool_type", "tool")
+                        yield f"\n🔧 Executing {tool_type} (server-side)...\n"
+                    else:
+                        yield "\n🔧 Executing function tools (client-side)...\n"
 
             elif isinstance(event, StepProgress):
                 if event.step_type == "inference":
@@ -78,22 +82,24 @@ class AgentEventLogger:
                         yield event.delta.text
 
                     elif isinstance(event.delta, ToolCallIssuedDelta):
-                        # Log both client and server-side tool calls
+                        # Log client-side function calls (server-side handled as separate tool_execution steps)
                         if event.delta.tool_type == "function":
                             # Client-side function call
-                            yield f"\n📞 Calling {event.delta.tool_name}({event.delta.arguments})"
-                        else:
-                            # Server-side tool (file_search, web_search, etc.)
-                            yield f"\n🔍 Using {event.delta.tool_name}"
+                            yield f"\n📞 Function call: {event.delta.tool_name}({event.delta.arguments})"
 
                     elif isinstance(event.delta, ToolCallDelta):
                         # Optionally stream tool arguments (can be noisy, so commented out)
                         # yield event.delta.arguments_delta
                         pass
 
-                    elif isinstance(event.delta, ToolCallCompletedDelta):
-                        # Log server-side tool completion
-                        yield f"\n✅ {event.delta.tool_name} completed"
+                elif event.step_type == "tool_execution":
+                    # Handle tool execution progress (for server-side tools)
+                    if isinstance(event.delta, ToolCallIssuedDelta):
+                        # Don't log again, already logged at StepStarted
+                        pass
+                    elif isinstance(event.delta, ToolCallDelta):
+                        # Optionally log argument streaming
+                        pass
 
             elif isinstance(event, StepCompleted):
                 if event.step_type == "inference":
