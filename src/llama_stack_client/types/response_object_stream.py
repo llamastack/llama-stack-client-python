@@ -86,6 +86,25 @@ __all__ = [
     "OpenAIResponseObjectStreamResponseContentPartDonePartOpenAIResponseContentPartOutputTextAnnotationOpenAIResponseAnnotationFilePath",
     "OpenAIResponseObjectStreamResponseContentPartDonePartOpenAIResponseContentPartRefusal",
     "OpenAIResponseObjectStreamResponseContentPartDonePartOpenAIResponseContentPartReasoningText",
+    "OpenAIResponseObjectStreamResponseReasoningTextDelta",
+    "OpenAIResponseObjectStreamResponseReasoningTextDone",
+    "OpenAIResponseObjectStreamResponseReasoningSummaryPartAdded",
+    "OpenAIResponseObjectStreamResponseReasoningSummaryPartAddedPart",
+    "OpenAIResponseObjectStreamResponseReasoningSummaryPartDone",
+    "OpenAIResponseObjectStreamResponseReasoningSummaryPartDonePart",
+    "OpenAIResponseObjectStreamResponseReasoningSummaryTextDelta",
+    "OpenAIResponseObjectStreamResponseReasoningSummaryTextDone",
+    "OpenAIResponseObjectStreamResponseRefusalDelta",
+    "OpenAIResponseObjectStreamResponseRefusalDone",
+    "OpenAIResponseObjectStreamResponseOutputTextAnnotationAdded",
+    "OpenAIResponseObjectStreamResponseOutputTextAnnotationAddedAnnotation",
+    "OpenAIResponseObjectStreamResponseOutputTextAnnotationAddedAnnotationOpenAIResponseAnnotationFileCitation",
+    "OpenAIResponseObjectStreamResponseOutputTextAnnotationAddedAnnotationOpenAIResponseAnnotationCitation",
+    "OpenAIResponseObjectStreamResponseOutputTextAnnotationAddedAnnotationOpenAIResponseAnnotationContainerFileCitation",
+    "OpenAIResponseObjectStreamResponseOutputTextAnnotationAddedAnnotationOpenAIResponseAnnotationFilePath",
+    "OpenAIResponseObjectStreamResponseFileSearchCallInProgress",
+    "OpenAIResponseObjectStreamResponseFileSearchCallSearching",
+    "OpenAIResponseObjectStreamResponseFileSearchCallCompleted",
     "OpenAIResponseObjectStreamResponseIncomplete",
     "OpenAIResponseObjectStreamResponseFailed",
     "OpenAIResponseObjectStreamResponseCompleted",
@@ -1149,6 +1168,315 @@ class OpenAIResponseObjectStreamResponseContentPartDone(BaseModel):
     """Event type identifier, always "response.content_part.done" """
 
 
+class OpenAIResponseObjectStreamResponseReasoningTextDelta(BaseModel):
+    content_index: int
+    """Index position of the reasoning content part"""
+
+    delta: str
+    """Incremental reasoning text being added"""
+
+    item_id: str
+    """Unique identifier of the output item being updated"""
+
+    output_index: int
+    """Index position of the item in the output list"""
+
+    sequence_number: int
+    """Sequential number for ordering streaming events"""
+
+    type: Literal["response.reasoning_text.delta"]
+    """Event type identifier, always "response.reasoning_text.delta" """
+
+
+class OpenAIResponseObjectStreamResponseReasoningTextDone(BaseModel):
+    content_index: int
+    """Index position of the reasoning content part"""
+
+    item_id: str
+    """Unique identifier of the completed output item"""
+
+    output_index: int
+    """Index position of the item in the output list"""
+
+    sequence_number: int
+    """Sequential number for ordering streaming events"""
+
+    text: str
+    """Final complete reasoning text"""
+
+    type: Literal["response.reasoning_text.done"]
+    """Event type identifier, always "response.reasoning_text.done" """
+
+
+class OpenAIResponseObjectStreamResponseReasoningSummaryPartAddedPart(BaseModel):
+    text: str
+    """Summary text"""
+
+    type: Literal["summary_text"]
+    """Content part type identifier, always "summary_text" """
+
+
+class OpenAIResponseObjectStreamResponseReasoningSummaryPartAdded(BaseModel):
+    item_id: str
+    """Unique identifier of the output item"""
+
+    output_index: int
+    """Index position of the output item"""
+
+    part: OpenAIResponseObjectStreamResponseReasoningSummaryPartAddedPart
+    """The summary part that was added"""
+
+    sequence_number: int
+    """Sequential number for ordering streaming events"""
+
+    summary_index: int
+    """Index of the summary part within the reasoning summary"""
+
+    type: Literal["response.reasoning_summary_part.added"]
+    """Event type identifier, always "response.reasoning_summary_part.added" """
+
+
+class OpenAIResponseObjectStreamResponseReasoningSummaryPartDonePart(BaseModel):
+    text: str
+    """Summary text"""
+
+    type: Literal["summary_text"]
+    """Content part type identifier, always "summary_text" """
+
+
+class OpenAIResponseObjectStreamResponseReasoningSummaryPartDone(BaseModel):
+    item_id: str
+    """Unique identifier of the output item"""
+
+    output_index: int
+    """Index position of the output item"""
+
+    part: OpenAIResponseObjectStreamResponseReasoningSummaryPartDonePart
+    """The completed summary part"""
+
+    sequence_number: int
+    """Sequential number for ordering streaming events"""
+
+    summary_index: int
+    """Index of the summary part within the reasoning summary"""
+
+    type: Literal["response.reasoning_summary_part.done"]
+    """Event type identifier, always "response.reasoning_summary_part.done" """
+
+
+class OpenAIResponseObjectStreamResponseReasoningSummaryTextDelta(BaseModel):
+    delta: str
+    """Incremental summary text being added"""
+
+    item_id: str
+    """Unique identifier of the output item"""
+
+    output_index: int
+    """Index position of the output item"""
+
+    sequence_number: int
+    """Sequential number for ordering streaming events"""
+
+    summary_index: int
+    """Index of the summary part within the reasoning summary"""
+
+    type: Literal["response.reasoning_summary_text.delta"]
+    """Event type identifier, always "response.reasoning_summary_text.delta" """
+
+
+class OpenAIResponseObjectStreamResponseReasoningSummaryTextDone(BaseModel):
+    item_id: str
+    """Unique identifier of the output item"""
+
+    output_index: int
+    """Index position of the output item"""
+
+    sequence_number: int
+    """Sequential number for ordering streaming events"""
+
+    summary_index: int
+    """Index of the summary part within the reasoning summary"""
+
+    text: str
+    """Final complete summary text"""
+
+    type: Literal["response.reasoning_summary_text.done"]
+    """Event type identifier, always "response.reasoning_summary_text.done" """
+
+
+class OpenAIResponseObjectStreamResponseRefusalDelta(BaseModel):
+    content_index: int
+    """Index position of the content part"""
+
+    delta: str
+    """Incremental refusal text being added"""
+
+    item_id: str
+    """Unique identifier of the output item"""
+
+    output_index: int
+    """Index position of the item in the output list"""
+
+    sequence_number: int
+    """Sequential number for ordering streaming events"""
+
+    type: Literal["response.refusal.delta"]
+    """Event type identifier, always "response.refusal.delta" """
+
+
+class OpenAIResponseObjectStreamResponseRefusalDone(BaseModel):
+    content_index: int
+    """Index position of the content part"""
+
+    item_id: str
+    """Unique identifier of the output item"""
+
+    output_index: int
+    """Index position of the item in the output list"""
+
+    refusal: str
+    """Final complete refusal text"""
+
+    sequence_number: int
+    """Sequential number for ordering streaming events"""
+
+    type: Literal["response.refusal.done"]
+    """Event type identifier, always "response.refusal.done" """
+
+
+class OpenAIResponseObjectStreamResponseOutputTextAnnotationAddedAnnotationOpenAIResponseAnnotationFileCitation(
+    BaseModel
+):
+    file_id: str
+    """Unique identifier of the referenced file"""
+
+    filename: str
+    """Name of the referenced file"""
+
+    index: int
+    """Position index of the citation within the content"""
+
+    type: Literal["file_citation"]
+    """Annotation type identifier, always "file_citation" """
+
+
+class OpenAIResponseObjectStreamResponseOutputTextAnnotationAddedAnnotationOpenAIResponseAnnotationCitation(BaseModel):
+    end_index: int
+    """End position of the citation span in the content"""
+
+    start_index: int
+    """Start position of the citation span in the content"""
+
+    title: str
+    """Title of the referenced web resource"""
+
+    type: Literal["url_citation"]
+    """Annotation type identifier, always "url_citation" """
+
+    url: str
+    """URL of the referenced web resource"""
+
+
+class OpenAIResponseObjectStreamResponseOutputTextAnnotationAddedAnnotationOpenAIResponseAnnotationContainerFileCitation(
+    BaseModel
+):
+    container_id: str
+
+    end_index: int
+
+    file_id: str
+
+    filename: str
+
+    start_index: int
+
+    type: Literal["container_file_citation"]
+
+
+class OpenAIResponseObjectStreamResponseOutputTextAnnotationAddedAnnotationOpenAIResponseAnnotationFilePath(BaseModel):
+    file_id: str
+
+    index: int
+
+    type: Literal["file_path"]
+
+
+OpenAIResponseObjectStreamResponseOutputTextAnnotationAddedAnnotation: TypeAlias = Annotated[
+    Union[
+        OpenAIResponseObjectStreamResponseOutputTextAnnotationAddedAnnotationOpenAIResponseAnnotationFileCitation,
+        OpenAIResponseObjectStreamResponseOutputTextAnnotationAddedAnnotationOpenAIResponseAnnotationCitation,
+        OpenAIResponseObjectStreamResponseOutputTextAnnotationAddedAnnotationOpenAIResponseAnnotationContainerFileCitation,
+        OpenAIResponseObjectStreamResponseOutputTextAnnotationAddedAnnotationOpenAIResponseAnnotationFilePath,
+    ],
+    PropertyInfo(discriminator="type"),
+]
+
+
+class OpenAIResponseObjectStreamResponseOutputTextAnnotationAdded(BaseModel):
+    annotation: OpenAIResponseObjectStreamResponseOutputTextAnnotationAddedAnnotation
+    """The annotation object being added"""
+
+    annotation_index: int
+    """Index of the annotation within the content part"""
+
+    content_index: int
+    """Index position of the content part within the output item"""
+
+    item_id: str
+    """Unique identifier of the item to which the annotation is being added"""
+
+    output_index: int
+    """Index position of the output item in the response's output array"""
+
+    sequence_number: int
+    """Sequential number for ordering streaming events"""
+
+    type: Literal["response.output_text.annotation.added"]
+    """Event type identifier, always "response.output_text.annotation.added" """
+
+
+class OpenAIResponseObjectStreamResponseFileSearchCallInProgress(BaseModel):
+    item_id: str
+    """Unique identifier of the file search call"""
+
+    output_index: int
+    """Index position of the item in the output list"""
+
+    sequence_number: int
+    """Sequential number for ordering streaming events"""
+
+    type: Literal["response.file_search_call.in_progress"]
+    """Event type identifier, always "response.file_search_call.in_progress" """
+
+
+class OpenAIResponseObjectStreamResponseFileSearchCallSearching(BaseModel):
+    item_id: str
+    """Unique identifier of the file search call"""
+
+    output_index: int
+    """Index position of the item in the output list"""
+
+    sequence_number: int
+    """Sequential number for ordering streaming events"""
+
+    type: Literal["response.file_search_call.searching"]
+    """Event type identifier, always "response.file_search_call.searching" """
+
+
+class OpenAIResponseObjectStreamResponseFileSearchCallCompleted(BaseModel):
+    item_id: str
+    """Unique identifier of the completed file search call"""
+
+    output_index: int
+    """Index position of the item in the output list"""
+
+    sequence_number: int
+    """Sequential number for ordering streaming events"""
+
+    type: Literal["response.file_search_call.completed"]
+    """Event type identifier, always "response.file_search_call.completed" """
+
+
 class OpenAIResponseObjectStreamResponseIncomplete(BaseModel):
     response: ResponseObject
     """Response object describing the incomplete state"""
@@ -1202,6 +1530,18 @@ ResponseObjectStream: TypeAlias = Annotated[
         OpenAIResponseObjectStreamResponseMcpCallCompleted,
         OpenAIResponseObjectStreamResponseContentPartAdded,
         OpenAIResponseObjectStreamResponseContentPartDone,
+        OpenAIResponseObjectStreamResponseReasoningTextDelta,
+        OpenAIResponseObjectStreamResponseReasoningTextDone,
+        OpenAIResponseObjectStreamResponseReasoningSummaryPartAdded,
+        OpenAIResponseObjectStreamResponseReasoningSummaryPartDone,
+        OpenAIResponseObjectStreamResponseReasoningSummaryTextDelta,
+        OpenAIResponseObjectStreamResponseReasoningSummaryTextDone,
+        OpenAIResponseObjectStreamResponseRefusalDelta,
+        OpenAIResponseObjectStreamResponseRefusalDone,
+        OpenAIResponseObjectStreamResponseOutputTextAnnotationAdded,
+        OpenAIResponseObjectStreamResponseFileSearchCallInProgress,
+        OpenAIResponseObjectStreamResponseFileSearchCallSearching,
+        OpenAIResponseObjectStreamResponseFileSearchCallCompleted,
         OpenAIResponseObjectStreamResponseIncomplete,
         OpenAIResponseObjectStreamResponseFailed,
         OpenAIResponseObjectStreamResponseCompleted,

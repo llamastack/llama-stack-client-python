@@ -144,14 +144,6 @@ from .toolgroups import (
     ToolgroupsResourceWithStreamingResponse,
     AsyncToolgroupsResourceWithStreamingResponse,
 )
-from .vector_dbs import (
-    VectorDBsResource,
-    AsyncVectorDBsResource,
-    VectorDBsResourceWithRawResponse,
-    AsyncVectorDBsResourceWithRawResponse,
-    VectorDBsResourceWithStreamingResponse,
-    AsyncVectorDBsResourceWithStreamingResponse,
-)
 from .completions import (
     CompletionsResource,
     AsyncCompletionsResource,
@@ -276,12 +268,6 @@ __all__ = [
     "AsyncVectorIoResourceWithRawResponse",
     "VectorIoResourceWithStreamingResponse",
     "AsyncVectorIoResourceWithStreamingResponse",
-    "VectorDBsResource",
-    "AsyncVectorDBsResource",
-    "VectorDBsResourceWithRawResponse",
-    "AsyncVectorDBsResourceWithRawResponse",
-    "VectorDBsResourceWithStreamingResponse",
-    "AsyncVectorDBsResourceWithStreamingResponse",
     "VectorStoresResource",
     "AsyncVectorStoresResource",
     "VectorStoresResourceWithRawResponse",

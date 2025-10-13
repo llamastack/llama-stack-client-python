@@ -59,15 +59,17 @@ class FileBatchesResource(SyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> VectorStoreFileBatches:
-        """
-        Create a vector store file batch.
+        """Create a vector store file batch.
+
+        Generate an OpenAI-compatible vector store
+        file batch for the given vector store.
 
         Args:
-          file_ids: A list of File IDs that the vector store should use.
+          file_ids: A list of File IDs that the vector store should use
 
-          attributes: (Optional) Key-value attributes to store with the files.
+          attributes: (Optional) Key-value attributes to store with the files
 
-          chunking_strategy: (Optional) The chunking strategy used to chunk the file(s). Defaults to auto.
+          chunking_strategy: (Optional) The chunking strategy used to chunk the file(s). Defaults to auto
 
           extra_headers: Send extra headers
 
@@ -271,15 +273,17 @@ class AsyncFileBatchesResource(AsyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> VectorStoreFileBatches:
-        """
-        Create a vector store file batch.
+        """Create a vector store file batch.
+
+        Generate an OpenAI-compatible vector store
+        file batch for the given vector store.
 
         Args:
-          file_ids: A list of File IDs that the vector store should use.
+          file_ids: A list of File IDs that the vector store should use
 
-          attributes: (Optional) Key-value attributes to store with the files.
+          attributes: (Optional) Key-value attributes to store with the files
 
-          chunking_strategy: (Optional) The chunking strategy used to chunk the file(s). Defaults to auto.
+          chunking_strategy: (Optional) The chunking strategy used to chunk the file(s). Defaults to auto
 
           extra_headers: Send extra headers
 
