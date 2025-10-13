@@ -18,13 +18,13 @@ __all__ = [
 
 class FileBatchCreateParams(TypedDict, total=False):
     file_ids: Required[SequenceNotStr[str]]
-    """A list of File IDs that the vector store should use."""
+    """A list of File IDs that the vector store should use"""
 
     attributes: Dict[str, Union[bool, float, str, Iterable[object], object, None]]
-    """(Optional) Key-value attributes to store with the files."""
+    """(Optional) Key-value attributes to store with the files"""
 
     chunking_strategy: ChunkingStrategy
-    """(Optional) The chunking strategy used to chunk the file(s). Defaults to auto."""
+    """(Optional) The chunking strategy used to chunk the file(s). Defaults to auto"""
 
 
 class ChunkingStrategyVectorStoreChunkingStrategyAuto(TypedDict, total=False):

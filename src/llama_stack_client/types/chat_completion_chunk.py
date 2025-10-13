@@ -48,6 +48,11 @@ class ChoiceDelta(BaseModel):
     content: Optional[str] = None
     """(Optional) The content of the delta"""
 
+    reasoning_content: Optional[str] = None
+    """
+    (Optional) The reasoning content from the model (non-standard, for o1/o3 models)
+    """
+
     refusal: Optional[str] = None
     """(Optional) The refusal of the delta"""
 

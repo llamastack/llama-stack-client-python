@@ -51,7 +51,6 @@ if TYPE_CHECKING:
         benchmarks,
         embeddings,
         toolgroups,
-        vector_dbs,
         completions,
         moderations,
         tool_runtime,
@@ -75,7 +74,6 @@ if TYPE_CHECKING:
     from .resources.benchmarks import BenchmarksResource, AsyncBenchmarksResource
     from .resources.embeddings import EmbeddingsResource, AsyncEmbeddingsResource
     from .resources.toolgroups import ToolgroupsResource, AsyncToolgroupsResource
-    from .resources.vector_dbs import VectorDBsResource, AsyncVectorDBsResource
     from .resources.alpha.alpha import AlphaResource, AsyncAlphaResource
     from .resources.completions import CompletionsResource, AsyncCompletionsResource
     from .resources.moderations import ModerationsResource, AsyncModerationsResource
@@ -224,12 +222,6 @@ class LlamaStackClient(SyncAPIClient):
         from .resources.vector_io import VectorIoResource
 
         return VectorIoResource(self)
-
-    @cached_property
-    def vector_dbs(self) -> VectorDBsResource:
-        from .resources.vector_dbs import VectorDBsResource
-
-        return VectorDBsResource(self)
 
     @cached_property
     def vector_stores(self) -> VectorStoresResource:
@@ -554,12 +546,6 @@ class AsyncLlamaStackClient(AsyncAPIClient):
         return AsyncVectorIoResource(self)
 
     @cached_property
-    def vector_dbs(self) -> AsyncVectorDBsResource:
-        from .resources.vector_dbs import AsyncVectorDBsResource
-
-        return AsyncVectorDBsResource(self)
-
-    @cached_property
     def vector_stores(self) -> AsyncVectorStoresResource:
         from .resources.vector_stores import AsyncVectorStoresResource
 
@@ -831,12 +817,6 @@ class LlamaStackClientWithRawResponse:
         return VectorIoResourceWithRawResponse(self._client.vector_io)
 
     @cached_property
-    def vector_dbs(self) -> vector_dbs.VectorDBsResourceWithRawResponse:
-        from .resources.vector_dbs import VectorDBsResourceWithRawResponse
-
-        return VectorDBsResourceWithRawResponse(self._client.vector_dbs)
-
-    @cached_property
     def vector_stores(self) -> vector_stores.VectorStoresResourceWithRawResponse:
         from .resources.vector_stores import VectorStoresResourceWithRawResponse
 
@@ -992,12 +972,6 @@ class AsyncLlamaStackClientWithRawResponse:
         from .resources.vector_io import AsyncVectorIoResourceWithRawResponse
 
         return AsyncVectorIoResourceWithRawResponse(self._client.vector_io)
-
-    @cached_property
-    def vector_dbs(self) -> vector_dbs.AsyncVectorDBsResourceWithRawResponse:
-        from .resources.vector_dbs import AsyncVectorDBsResourceWithRawResponse
-
-        return AsyncVectorDBsResourceWithRawResponse(self._client.vector_dbs)
 
     @cached_property
     def vector_stores(self) -> vector_stores.AsyncVectorStoresResourceWithRawResponse:
@@ -1159,12 +1133,6 @@ class LlamaStackClientWithStreamedResponse:
         return VectorIoResourceWithStreamingResponse(self._client.vector_io)
 
     @cached_property
-    def vector_dbs(self) -> vector_dbs.VectorDBsResourceWithStreamingResponse:
-        from .resources.vector_dbs import VectorDBsResourceWithStreamingResponse
-
-        return VectorDBsResourceWithStreamingResponse(self._client.vector_dbs)
-
-    @cached_property
     def vector_stores(self) -> vector_stores.VectorStoresResourceWithStreamingResponse:
         from .resources.vector_stores import VectorStoresResourceWithStreamingResponse
 
@@ -1322,12 +1290,6 @@ class AsyncLlamaStackClientWithStreamedResponse:
         from .resources.vector_io import AsyncVectorIoResourceWithStreamingResponse
 
         return AsyncVectorIoResourceWithStreamingResponse(self._client.vector_io)
-
-    @cached_property
-    def vector_dbs(self) -> vector_dbs.AsyncVectorDBsResourceWithStreamingResponse:
-        from .resources.vector_dbs import AsyncVectorDBsResourceWithStreamingResponse
-
-        return AsyncVectorDBsResourceWithStreamingResponse(self._client.vector_dbs)
 
     @cached_property
     def vector_stores(self) -> vector_stores.AsyncVectorStoresResourceWithStreamingResponse:

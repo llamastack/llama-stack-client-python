@@ -79,13 +79,10 @@ class VectorStoresResource(SyncAPIResource):
         self,
         *,
         chunking_strategy: Dict[str, Union[bool, float, str, Iterable[object], object, None]] | Omit = omit,
-        embedding_dimension: int | Omit = omit,
-        embedding_model: str | Omit = omit,
         expires_after: Dict[str, Union[bool, float, str, Iterable[object], object, None]] | Omit = omit,
         file_ids: SequenceNotStr[str] | Omit = omit,
         metadata: Dict[str, Union[bool, float, str, Iterable[object], object, None]] | Omit = omit,
         name: str | Omit = omit,
-        provider_id: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -93,27 +90,21 @@ class VectorStoresResource(SyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> VectorStore:
-        """
-        Creates a vector store.
+        """Creates a vector store.
+
+        Generate an OpenAI-compatible vector store with the
+        given parameters.
 
         Args:
-          chunking_strategy: The chunking strategy used to chunk the file(s). If not set, will use the `auto`
-              strategy.
+          chunking_strategy: (Optional) Strategy for splitting files into chunks
 
-          embedding_dimension: The dimension of the embedding vectors (default: 384).
+          expires_after: (Optional) Expiration policy for the vector store
 
-          embedding_model: The embedding model to use for this vector store.
+          file_ids: List of file IDs to include in the vector store
 
-          expires_after: The expiration policy for a vector store.
+          metadata: Set of key-value pairs that can be attached to the vector store
 
-          file_ids: A list of File IDs that the vector store should use. Useful for tools like
-              `file_search` that can access files.
-
-          metadata: Set of 16 key-value pairs that can be attached to an object.
-
-          name: A name for the vector store.
-
-          provider_id: The ID of the provider to use for this vector store.
+          name: (Optional) A name for the vector store
 
           extra_headers: Send extra headers
 
@@ -128,13 +119,10 @@ class VectorStoresResource(SyncAPIResource):
             body=maybe_transform(
                 {
                     "chunking_strategy": chunking_strategy,
-                    "embedding_dimension": embedding_dimension,
-                    "embedding_model": embedding_model,
                     "expires_after": expires_after,
                     "file_ids": file_ids,
                     "metadata": metadata,
                     "name": name,
-                    "provider_id": provider_id,
                 },
                 vector_store_create_params.VectorStoreCreateParams,
             ),
@@ -417,13 +405,10 @@ class AsyncVectorStoresResource(AsyncAPIResource):
         self,
         *,
         chunking_strategy: Dict[str, Union[bool, float, str, Iterable[object], object, None]] | Omit = omit,
-        embedding_dimension: int | Omit = omit,
-        embedding_model: str | Omit = omit,
         expires_after: Dict[str, Union[bool, float, str, Iterable[object], object, None]] | Omit = omit,
         file_ids: SequenceNotStr[str] | Omit = omit,
         metadata: Dict[str, Union[bool, float, str, Iterable[object], object, None]] | Omit = omit,
         name: str | Omit = omit,
-        provider_id: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -431,27 +416,21 @@ class AsyncVectorStoresResource(AsyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> VectorStore:
-        """
-        Creates a vector store.
+        """Creates a vector store.
+
+        Generate an OpenAI-compatible vector store with the
+        given parameters.
 
         Args:
-          chunking_strategy: The chunking strategy used to chunk the file(s). If not set, will use the `auto`
-              strategy.
+          chunking_strategy: (Optional) Strategy for splitting files into chunks
 
-          embedding_dimension: The dimension of the embedding vectors (default: 384).
+          expires_after: (Optional) Expiration policy for the vector store
 
-          embedding_model: The embedding model to use for this vector store.
+          file_ids: List of file IDs to include in the vector store
 
-          expires_after: The expiration policy for a vector store.
+          metadata: Set of key-value pairs that can be attached to the vector store
 
-          file_ids: A list of File IDs that the vector store should use. Useful for tools like
-              `file_search` that can access files.
-
-          metadata: Set of 16 key-value pairs that can be attached to an object.
-
-          name: A name for the vector store.
-
-          provider_id: The ID of the provider to use for this vector store.
+          name: (Optional) A name for the vector store
 
           extra_headers: Send extra headers
 
@@ -466,13 +445,10 @@ class AsyncVectorStoresResource(AsyncAPIResource):
             body=await async_maybe_transform(
                 {
                     "chunking_strategy": chunking_strategy,
-                    "embedding_dimension": embedding_dimension,
-                    "embedding_model": embedding_model,
                     "expires_after": expires_after,
                     "file_ids": file_ids,
                     "metadata": metadata,
                     "name": name,
-                    "provider_id": provider_id,
                 },
                 vector_store_create_params.VectorStoreCreateParams,
             ),

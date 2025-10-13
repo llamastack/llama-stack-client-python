@@ -30,8 +30,6 @@ class CompletionCreateParamsBase(TypedDict, total=False):
     frequency_penalty: float
     """(Optional) The penalty for repeated tokens."""
 
-    guided_choice: SequenceNotStr[str]
-
     logit_bias: Dict[str, float]
     """(Optional) The logit bias to use."""
 
@@ -46,8 +44,6 @@ class CompletionCreateParamsBase(TypedDict, total=False):
 
     presence_penalty: float
     """(Optional) The penalty for repeated tokens."""
-
-    prompt_logprobs: int
 
     seed: int
     """(Optional) The seed to use."""
