@@ -1,7 +1,7 @@
 """Streaming event primitives for the responses-backed Agent API."""
 
 from dataclasses import dataclass
-from typing import Iterable, Optional
+from typing import Dict, Iterable, Optional
 
 from llama_stack_client.types.response_object_stream import (
     OpenAIResponseObjectStreamResponseCompleted,
@@ -84,6 +84,8 @@ class AgentResponseFailed(AgentStreamEvent):
 
 def iter_agent_events(events: Iterable[ResponseObjectStream]) -> Iterable[AgentStreamEvent]:
     current_response_id: Optional[str] = None
+    # Mapping from item_id (streaming ID like fc_UUID) to call_id (real ID like call_XXX)
+    item_id_to_call_id: Dict[str, str] = {}
 
     for event in events:
         response_id = getattr(event, "response_id", None)
@@ -109,19 +111,23 @@ def iter_agent_events(events: Iterable[ResponseObjectStream]) -> Iterable[AgentS
                 output_index=event.output_index,
             )
         elif isinstance(event, OpenAIResponseObjectStreamResponseFunctionCallArgumentsDelta):
+            # Use the real call_id from our mapping, fallback to item_id if not found
+            real_call_id = item_id_to_call_id.get(event.item_id, event.item_id)
             yield AgentToolCallDelta(
                 type="tool_call_delta",
                 response_id=current_response_id or "",
                 output_index=event.output_index,
-                call_id=event.item_id,
+                call_id=real_call_id,
                 arguments_delta=event.delta,
             )
         elif isinstance(event, OpenAIResponseObjectStreamResponseFunctionCallArgumentsDone):
+            # Use the real call_id from our mapping, fallback to item_id if not found
+            real_call_id = item_id_to_call_id.get(event.item_id, event.item_id)
             yield AgentToolCallCompleted(
                 type="tool_call_completed",
                 response_id=current_response_id or "",
                 output_index=event.output_index,
-                call_id=event.item_id,
+                call_id=real_call_id,
                 arguments_json=event.arguments,
             )
         elif isinstance(event, OpenAIResponseObjectStreamResponseOutputItemAdded):
@@ -130,6 +136,8 @@ def iter_agent_events(events: Iterable[ResponseObjectStream]) -> Iterable[AgentS
                 item,
                 OpenAIResponseObjectStreamResponseOutputItemAddedItemOpenAIResponseOutputMessageFunctionToolCall,
             ):
+                # Store mapping from item.id (streaming ID) to item.call_id (real call_id)
+                item_id_to_call_id[item.id] = item.call_id
                 yield AgentToolCallIssued(
                     type="tool_call_issued",
                     response_id=current_response_id or event.response_id,

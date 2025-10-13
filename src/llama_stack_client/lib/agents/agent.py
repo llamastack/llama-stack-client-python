@@ -17,7 +17,7 @@ from llama_stack_client.types.shared.agent_config import Toolgroup
 from llama_stack_client.types.shared_params.document import Document
 from llama_stack_client.types.shared.completion_message import CompletionMessage
 
-from ..._types import Headers
+from ..._types import Headers, omit
 from .client_tool import ClientTool, client_tool
 from .tool_parser import ToolParser
 from .stream_events import (
@@ -108,7 +108,7 @@ class Agent:
         *,
         model: str,
         instructions: str,
-        tools: Optional[List[Union[Toolgroup, ClientTool, Callable[..., Any]]]] = None,
+        tools: Optional[List[Union[Dict[str, Any], ClientTool, Callable[..., Any]]]] = None,
         tool_parser: Optional[ToolParser] = None,
         extra_headers: Headers | None = None,
     ):
@@ -119,23 +119,13 @@ class Agent:
         self._model = model
         self._instructions = instructions
 
-        toolgroups, client_tools = AgentUtils.normalize_tools(tools)
-        self._toolgroups: List[Union[Toolgroup, str, Dict[str, Any]]] = toolgroups
+        # Convert all tools to API format and separate client-side functions
+        self._tools, client_tools = AgentUtils.normalize_tools(tools)
         self.client_tools = {tool.get_name(): tool for tool in client_tools}
 
         self.sessions: List[str] = []
-        self.builtin_tools: Dict[str, Dict[str, Any]] = {}
         self._last_response_id: Optional[str] = None
         self._session_last_response_id: Dict[str, str] = {}
-
-    def initialize(self) -> None:
-        # Ensure builtin tools cache is ready
-        if not self.builtin_tools and self._toolgroups:
-            for tg in self._toolgroups:
-                toolgroup_id = tg if isinstance(tg, str) else tg.name
-                args = {} if isinstance(tg, str) else tg.args
-                for tool in self.client.tools.list(toolgroup_id=toolgroup_id, extra_headers=self.extra_headers):
-                    self.builtin_tools[tool.name] = args
 
     def create_session(self, session_name: str) -> str:
         conversation = self.client.conversations.create(
@@ -153,7 +143,7 @@ class Agent:
         return responses
 
     def _run_single_tool(self, tool_call: ToolCall) -> Any:
-        # custom client tools
+        # Execute client-side tools
         if tool_call.tool_name in self.client_tools:
             tool = self.client_tools[tool_call.tool_name]
             result_message = tool.run(
@@ -168,24 +158,8 @@ class Agent:
             )
             return result_message
 
-        # builtin tools executed by tool_runtime
-        if tool_call.tool_name in self.builtin_tools:
-            tool_args = ToolUtils.parse_tool_arguments(tool_call.arguments)
-            tool_result = self.client.tool_runtime.invoke_tool(
-                tool_name=tool_call.tool_name,
-                kwargs={
-                    **tool_args,
-                    **self.builtin_tools[tool_call.tool_name],
-                },
-                extra_headers=self.extra_headers,
-            )
-            return {
-                "call_id": tool_call.call_id,
-                "tool_name": tool_call.tool_name,
-                "content": ToolUtils.coerce_tool_content(tool_result.content),
-            }
-
-        # cannot find tools
+        # Server-side tools should never reach here (they execute within response stream)
+        # If we get here, it's an error
         return {
             "call_id": tool_call.call_id,
             "tool_name": tool_call.tool_name,
@@ -233,9 +207,9 @@ class Agent:
         # TODO: deprecate this
         extra_headers: Headers | None = None,
     ) -> Iterator[AgentStreamChunk]:
+        # toolgroups and documents are legacy parameters - ignored
         _ = toolgroups
         _ = documents
-        self.initialize()
 
         # Generate turn_id
         turn_id = f"turn_{uuid4().hex[:12]}"
@@ -253,6 +227,7 @@ class Agent:
                 instructions=self._instructions,
                 conversation=session_id,
                 input=messages,
+                tools=self._tools if self._tools else omit,
                 stream=True,
                 extra_headers=request_headers,
             )
@@ -338,7 +313,7 @@ class AsyncAgent:
         *,
         model: str,
         instructions: str,
-        tools: Optional[List[Union[Toolgroup, ClientTool, Callable[..., Any]]]] = None,
+        tools: Optional[List[Union[Dict[str, Any], ClientTool, Callable[..., Any]]]] = None,
         tool_parser: Optional[ToolParser] = None,
         extra_headers: Headers | None = None,
     ):
@@ -353,26 +328,15 @@ class AsyncAgent:
         self._model = model
         self._instructions = instructions
 
-        toolgroups, client_tools = AgentUtils.normalize_tools(tools)
-        self._toolgroups: List[Union[Toolgroup, str, Dict[str, Any]]] = toolgroups
+        # Convert all tools to API format and separate client-side functions
+        self._tools, client_tools = AgentUtils.normalize_tools(tools)
         self.client_tools = {tool.get_name(): tool for tool in client_tools}
 
         self.sessions: List[str] = []
-        self.builtin_tools: Dict[str, Dict[str, Any]] = {}
         self._last_response_id: Optional[str] = None
         self._session_last_response_id: Dict[str, str] = {}
 
-    async def initialize(self) -> None:
-        if not self.builtin_tools and self._toolgroups:
-            for tg in self._toolgroups:
-                toolgroup_id = tg if isinstance(tg, str) else tg.name
-                args = {} if isinstance(tg, str) else tg.args
-                tools = await self.client.tools.list(toolgroup_id=toolgroup_id, extra_headers=self.extra_headers)
-                for tool in tools:
-                    self.builtin_tools[tool.name] = args
-
     async def create_session(self, session_name: str) -> str:
-        await self.initialize()
         conversation = await self.client.conversations.create(  # type: ignore[union-attr]
             extra_headers=self.extra_headers,
             metadata={"name": session_name},
@@ -408,7 +372,7 @@ class AsyncAgent:
         return responses
 
     async def _run_single_tool(self, tool_call: ToolCall) -> Any:
-        # custom client tools
+        # Execute client-side tools
         if tool_call.tool_name in self.client_tools:
             tool = self.client_tools[tool_call.tool_name]
             result_message = await tool.async_run(
@@ -423,24 +387,8 @@ class AsyncAgent:
             )
             return result_message
 
-        # builtin tools executed by tool_runtime
-        if tool_call.tool_name in self.builtin_tools:
-            tool_args = ToolUtils.parse_tool_arguments(tool_call.arguments)
-            tool_result = await self.client.tool_runtime.invoke_tool(
-                tool_name=tool_call.tool_name,
-                kwargs={
-                    **tool_args,
-                    **self.builtin_tools[tool_call.tool_name],
-                },
-                extra_headers=self.extra_headers,
-            )
-            return {
-                "call_id": tool_call.call_id,
-                "tool_name": tool_call.tool_name,
-                "content": ToolUtils.coerce_tool_content(tool_result.content),
-            }
-
-        # cannot find tools
+        # Server-side tools should never reach here (they execute within response stream)
+        # If we get here, it's an error
         return {
             "call_id": tool_call.call_id,
             "tool_name": tool_call.tool_name,
@@ -474,6 +422,7 @@ class AsyncAgent:
                 instructions=self._instructions,
                 conversation=session_id,
                 input=messages,
+                tools=self._tools if self._tools else omit,
                 stream=True,
                 extra_headers=request_headers,
             )
@@ -555,7 +504,7 @@ class AsyncAgent:
 class AgentUtils:
     @staticmethod
     def get_client_tools(
-        tools: Optional[List[Union[Toolgroup, ClientTool, Callable[..., Any]]]],
+        tools: Optional[List[Union[Dict[str, Any], ClientTool, Callable[..., Any]]]],
     ) -> List[ClientTool]:
         if not tools:
             return []
@@ -592,23 +541,40 @@ class AgentUtils:
 
     @staticmethod
     def normalize_tools(
-        tools: Optional[List[Union[Toolgroup, ClientTool, Callable[..., Any]]]],
-    ) -> Tuple[List[Union[Toolgroup, str, Dict[str, Any]]], List[ClientTool]]:
+        tools: Optional[List[Union[Dict[str, Any], ClientTool, Callable[..., Any]]]],
+    ) -> Tuple[List[Dict[str, Any]], List[ClientTool]]:
+        """Convert all tools to API format dicts.
+
+        Returns:
+            - List of tool dicts for responses.create(tools=...)
+            - List of ClientTool instances for client-side execution
+        """
         if not tools:
             return [], []
 
-        normalized: List[Union[Toolgroup, ClientTool, Callable[..., Any], str, Dict[str, Any]]] = [
-            client_tool(tool) if (callable(tool) and not isinstance(tool, ClientTool)) else tool for tool in tools
-        ]
-        client_tool_instances = [tool for tool in normalized if isinstance(tool, ClientTool)]
+        tool_dicts: List[Dict[str, Any]] = []
+        client_tool_instances: List[ClientTool] = []
 
-        toolgroups: List[Union[Toolgroup, str, Dict[str, Any]]] = []
-        for tool in normalized:
+        for tool in tools:
+            # Convert callable to ClientTool
+            if callable(tool) and not isinstance(tool, ClientTool):
+                tool = client_tool(tool)
+
             if isinstance(tool, ClientTool):
-                continue
-            if isinstance(tool, (str, dict, Toolgroup)):
-                toolgroups.append(tool)
-                continue
-            raise TypeError(f"Unsupported tool type: {type(tool)!r}")
+                # Convert ClientTool to function tool dict
+                tool_def = tool.get_tool_definition()
+                tool_dict = {
+                    "type": "function",
+                    "name": tool_def["name"],
+                    "description": tool_def.get("description", ""),
+                    "parameters": tool_def.get("input_schema", {}),
+                }
+                tool_dicts.append(tool_dict)
+                client_tool_instances.append(tool)
+            elif isinstance(tool, dict):
+                # Server-side tool dict (file_search, web_search, etc.)
+                tool_dicts.append(tool)
+            else:
+                raise TypeError(f"Unsupported tool type: {type(tool)!r}")
 
-        return toolgroups, client_tool_instances
+        return tool_dicts, client_tool_instances

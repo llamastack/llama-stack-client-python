@@ -93,6 +93,12 @@ class TurnEventSynthesizer:
         # For client-side tools, these are accumulated and returned in inference step result
         self.tool_calls_building: Dict[str, Dict[str, Any]] = {}  # call_id -> {tool_call, is_server_side, ...}
 
+        # Current server-side tool execution (for handling call_id mismatches)
+        self.current_server_tool: Optional[Dict[str, Any]] = None
+
+        # Current client-side tool (for handling call_id mismatches)
+        self.current_client_tool: Optional[Dict[str, Any]] = None
+
         # Client-side function calls (accumulated for agent.py to execute)
         self.function_calls: List[ToolCall] = []
 
@@ -186,6 +192,9 @@ class TurnEventSynthesizer:
                 self.current_step_type = "tool_execution"
                 self.text_parts = []  # Reset for next inference step
 
+                # Remember the current server tool for handling call_id mismatches
+                self.current_server_tool = self.tool_calls_building[event.call_id]
+
                 yield StepStarted(
                     step_id=self.current_step_id,
                     step_type="tool_execution",
@@ -209,6 +218,9 @@ class TurnEventSynthesizer:
                 # CLIENT-SIDE FUNCTION: Just accumulate, agent.py will handle execution
                 self.function_calls.append(tool_call)
 
+                # Remember current client tool for handling call_id mismatches
+                self.current_client_tool = self.tool_calls_building[event.call_id]
+
                 # Emit as progress within current inference step
                 yield StepProgress(
                     step_id=self.current_step_id or "",
@@ -224,10 +236,34 @@ class TurnEventSynthesizer:
 
         elif isinstance(event, AgentToolCallDelta):
             # Update arguments
+            builder = None
             if event.call_id in self.tool_calls_building:
                 builder = self.tool_calls_building[event.call_id]
+            elif self.current_server_tool and self.current_step_type == "tool_execution":
+                # Handle call_id mismatch for server-side tool
+                builder = self.current_server_tool
+                self.tool_calls_building[event.call_id] = builder
+            elif self.current_client_tool and self.current_step_type == "inference":
+                # Handle call_id mismatch for client-side tool
+                builder = self.current_client_tool
+                self.tool_calls_building[event.call_id] = builder
+
+            if builder:
                 builder["arguments"] += event.arguments_delta or ""
-                builder["tool_call"].arguments = builder["arguments"]
+                # Update the ToolCall object (Pydantic models are immutable, so replace it)
+                builder["tool_call"] = ToolCall(
+                    call_id=builder["tool_call"].call_id,
+                    tool_name=builder["tool_call"].tool_name,
+                    arguments=builder["arguments"],
+                )
+
+                # If client-side, also update the function_calls list
+                if not builder["is_server_side"]:
+                    for i, func_call in enumerate(self.function_calls):
+                        # Match by tool_name since call_id might have changed
+                        if func_call.tool_name == builder["tool_call"].tool_name:
+                            self.function_calls[i] = builder["tool_call"]
+                            break
 
                 # Emit delta
                 step_type = "tool_execution" if builder["is_server_side"] else "inference"
@@ -240,10 +276,27 @@ class TurnEventSynthesizer:
 
         elif isinstance(event, AgentToolCallCompleted):
             # Update final arguments
+            builder = None
             if event.call_id in self.tool_calls_building:
                 builder = self.tool_calls_building[event.call_id]
+            elif self.current_server_tool and self.current_step_type == "tool_execution":
+                # Handle call_id mismatch for server-side tool
+                builder = self.current_server_tool
+                self.tool_calls_building[event.call_id] = builder
+            elif self.current_client_tool and self.current_step_type == "inference":
+                # Handle call_id mismatch for client-side tool
+                builder = self.current_client_tool
+                self.tool_calls_building[event.call_id] = builder
+
+            if builder:
                 builder["arguments"] = event.arguments_json or ""
-                builder["tool_call"].arguments = event.arguments_json or ""
+                # Update the ToolCall object (Pydantic models are immutable, so replace it)
+                # Keep the original call_id - the server stores tool calls with the original call_id
+                builder["tool_call"] = ToolCall(
+                    call_id=builder["tool_call"].call_id,  # Keep the original call_id
+                    tool_name=builder["tool_call"].tool_name,
+                    arguments=event.arguments_json or "{}",
+                )
 
                 if builder["is_server_side"]:
                     # SERVER-SIDE TOOL: Complete tool_execution step and start new inference step
@@ -261,6 +314,9 @@ class TurnEventSynthesizer:
                         ),
                     )
 
+                    # Clear current server tool
+                    self.current_server_tool = None
+
                     # Start new inference step for model to process results
                     self.current_step_id = f"{self.turn_id}_step_{self.step_counter}"
                     self.step_counter += 1
@@ -269,12 +325,19 @@ class TurnEventSynthesizer:
                     yield StepStarted(step_id=self.current_step_id, step_type="inference", turn_id=self.turn_id)
 
                 else:
-                    # CLIENT-SIDE FUNCTION: Just update the accumulated function call
-                    # Update the function_calls list with final arguments
-                    for func_call in self.function_calls:
-                        if func_call.call_id == event.call_id:
-                            func_call.arguments = event.arguments_json or ""
+                    # CLIENT-SIDE FUNCTION: Update the accumulated function call
+                    # Use the updated ToolCall from builder
+                    # Note: We search by the tool_call in builder, which has the original call_id,
+                    # because event.call_id might be different due to call_id mismatches
+                    old_call_id = builder["tool_call"].call_id
+                    for i, func_call in enumerate(self.function_calls):
+                        # Match by tool_name since call_id might have changed
+                        if func_call.tool_name == builder["tool_call"].tool_name:
+                            self.function_calls[i] = builder["tool_call"]
                             break
+
+                    # Clear current client tool
+                    self.current_client_tool = None
 
         elif isinstance(event, AgentResponseCompleted):
             # Response completes - finish current step
@@ -313,6 +376,7 @@ class TurnEventSynthesizer:
         # Known server-side tools that execute within the response
         server_side_tools = {
             "file_search",
+            "knowledge_search",  # file_search appears as knowledge_search in OpenAI-compatible mode
             "web_search",
             "query_from_memory",
             "mcp_call",
@@ -320,6 +384,9 @@ class TurnEventSynthesizer:
         }
 
         if tool_name in server_side_tools:
+            # Return a normalized type name
+            if tool_name == "knowledge_search":
+                return "file_search"  # Normalize to file_search for consistency
             return tool_name
 
         # Default to function for client-side tools
