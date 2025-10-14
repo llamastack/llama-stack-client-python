@@ -4,644 +4,440 @@
 # This source code is licensed under the terms described in the LICENSE file in
 # the root directory of this source tree.
 
-"""Event synthesizer that translates response stream events to turn/step events.
+"""Translate Responses API stream events into structured turn events.
 
-This module provides the TurnEventSynthesizer class which maintains state
-and translates low-level response stream events into high-level turn and
-step events that provide semantic meaning to agent interactions.
-
-Key architectural principle:
-- inference steps = model thinking/deciding what to do
-- tool_execution steps = ANY tool executing (server-side OR client-side)
-
-Server-side tools (file_search, web_search, mcp_call):
-- Execute within the response stream
-- We synthesize tool_execution step boundaries from stream events
-- Results automatically fed back to model
-
-Client-side tools (function):
-- Require breaking the response stream
-- Agent.py emits tool_execution steps when executing them
-- Results manually fed back via new response
+TurnEventSynthesizer keeps just enough state to expose turns and steps for
+agents. It consumes the raw Responses API stream and emits the higher-level
+events defined in ``turn_events.py`` without introducing an intermediate
+low-level event layer.
 """
 
-from dataclasses import dataclass
-from typing import Iterator, Optional, Dict, List, Any, Iterable
+from __future__ import annotations
 
-from llama_stack_client.types.shared.tool_call import ToolCall
-from llama_stack_client.types import ResponseObject
+import json
+from dataclasses import dataclass
+from typing import Any, Dict, Iterable, Iterator, List, Optional
 
 from logging import getLogger
 
-logger = getLogger(__name__)
-
-# ============= Internal Low-Level Stream Events =============
-# These are private internal events used during translation from
-# raw ResponseObjectStream to high-level turn/step events.
-# NOT part of the public API.
-
-
-@dataclass
-class _AgentStreamEvent:
-    """Base class for internal low-level stream events."""
-
-    type: str
-
-
-@dataclass
-class _AgentResponseStarted(_AgentStreamEvent):
-    response_id: str
-
-
-@dataclass
-class _AgentTextDelta(_AgentStreamEvent):
-    text: str
-    response_id: str
-    output_index: int
-
-
-@dataclass
-class _AgentTextCompleted(_AgentStreamEvent):
-    text: str
-    response_id: str
-    output_index: int
-
-
-@dataclass
-class _AgentToolCallIssued(_AgentStreamEvent):
-    response_id: str
-    output_index: int
-    call_id: str
-    name: str
-    arguments_json: str
-
-
-@dataclass
-class _AgentToolCallDelta(_AgentStreamEvent):
-    response_id: str
-    output_index: int
-    call_id: str
-    arguments_delta: Optional[str]
-
-
-@dataclass
-class _AgentToolCallCompleted(_AgentStreamEvent):
-    response_id: str
-    output_index: int
-    call_id: str
-    arguments_json: str
-
-
-@dataclass
-class _AgentResponseCompleted(_AgentStreamEvent):
-    response_id: str
-
-
-@dataclass
-class _AgentResponseFailed(_AgentStreamEvent):
-    response_id: str
-    error_message: str
-
-
-from typing import Any
-
-# Note: We use duck typing on event.type instead of isinstance checks
-# to support both OpenAI SDK and LlamaStack SDK events
+from llama_stack_client.types import ResponseObject
+from llama_stack_client.types.shared.tool_call import ToolCall
 
 from .turn_events import (
     AgentEvent,
-    TurnStarted,
+    InferenceStepResult,
+    StepCompleted,
+    StepProgress,
+    StepStarted,
+    TextDelta,
+    ToolCallDelta,
+    ToolCallIssuedDelta,
+    ToolExecutionStepResult,
     TurnCompleted,
     TurnFailed,
-    StepStarted,
-    StepProgress,
-    StepCompleted,
-    TextDelta,
-    ToolCallIssuedDelta,
-    ToolCallDelta,
-    InferenceStepResult,
-    ToolExecutionStepResult,
+    TurnStarted,
 )
 
-__all__ = ["TurnEventSynthesizer"]
+logger = getLogger(__name__)
+
+
+@dataclass
+class _ToolCallState:
+    call_id: str
+    tool_name: str
+    tool_type: str
+    server_side: bool
+    arguments: str = ""
+
+    def update(self, *, delta: Optional[str] = None, final: Optional[str] = None) -> None:
+        if final is not None:
+            self.arguments = final or "{}"
+        elif delta:
+            self.arguments += delta
+
+    def as_tool_call(self) -> ToolCall:
+        payload = self.arguments or "{}"
+        return ToolCall(call_id=self.call_id, tool_name=self.tool_name, arguments=payload)
 
 
 class TurnEventSynthesizer:
-    """Translates low-level response events to high-level turn/step events.
-
-    This class maintains state across the event stream to provide semantic
-    meaning and structure. It tracks:
-    - Turn lifecycle (started, completed)
-    - Step boundaries (inference, tool_execution)
-    - Content accumulation (text, tool calls)
-    - Tool classification (client-side vs server-side)
-    """
+    """Produce turn/step events directly from Responses API streaming events."""
 
     def __init__(self, session_id: str, turn_id: str):
-        """Initialize synthesizer for a new turn.
-
-        Args:
-            session_id: The conversation session ID
-            turn_id: Unique identifier for this turn
-        """
         self.session_id = session_id
         self.turn_id = turn_id
 
-        # Step tracking
         self.step_counter = 0
         self.current_step_id: Optional[str] = None
         self.current_step_type: Optional[str] = None
 
-        # Inference step accumulation
         self.current_response_id: Optional[str] = None
         self.text_parts: List[str] = []
+        self._function_call_ids: List[str] = []
+        self._tool_calls: Dict[str, _ToolCallState] = {}
 
-        # Tool call tracking (both server and client-side)
-        # For server-side tools, these are used within tool_execution steps
-        # For client-side tools, these are accumulated and returned in inference step result
-        self.tool_calls_building: Dict[str, Dict[str, Any]] = {}  # call_id -> {tool_call, is_server_side, ...}
-
-        # Current server-side tool execution (for handling call_id mismatches)
-        self.current_server_tool: Optional[Dict[str, Any]] = None
-
-        # Current client-side tool (for handling call_id mismatches)
-        self.current_client_tool: Optional[Dict[str, Any]] = None
-
-        # Client-side function calls (accumulated for agent.py to execute)
-        self.function_calls: List[ToolCall] = []
-
-        # Turn-level accumulation
-        self.all_response_ids: List[str] = []
         self.turn_started = False
+        self.all_response_ids: List[str] = []
         self.last_response: Optional[ResponseObject] = None
 
-    def process_low_level_event(self, event: _AgentStreamEvent) -> Iterator[AgentEvent]:
-        """Map low-level events to high-level turn/step events.
+    # ------------------------------------------------------------------ helpers
 
-        This is the core translation logic. It processes each low-level
-        event from the response stream and emits corresponding high-level
-        events that provide semantic meaning.
+    def _next_step_id(self) -> str:
+        step_id = f"{self.turn_id}_step_{self.step_counter}"
+        self.step_counter += 1
+        return step_id
 
-        Args:
-            event: Low-level event from response stream
-
-        Yields:
-            High-level turn/step events
-        """
-        # Emit TurnStarted on first event
+    def _maybe_emit_turn_started(self) -> Iterator[AgentEvent]:
         if not self.turn_started:
             self.turn_started = True
             yield TurnStarted(turn_id=self.turn_id, session_id=self.session_id)
 
-        if isinstance(event, _AgentResponseStarted):
-            # Start new inference step
-            self.current_step_id = f"{self.turn_id}_step_{self.step_counter}"
-            self.step_counter += 1
-            self.current_step_type = "inference"
-            self.current_response_id = event.response_id
-            self.all_response_ids.append(event.response_id)
-            self.text_parts = []
-            self.tool_calls_building = {}
-            self.function_calls = []
+    def _start_inference_step(
+        self, *, response_id: Optional[str] = None, reset_tool_state: bool = False
+    ) -> Iterator[AgentEvent]:
+        if response_id:
+            self.current_response_id = response_id
+        if reset_tool_state:
+            self._tool_calls = {}
+        self.text_parts = []
+        self._function_call_ids = []
+        self.current_step_id = self._next_step_id()
+        self.current_step_type = "inference"
+        yield StepStarted(step_id=self.current_step_id, step_type="inference", turn_id=self.turn_id)
 
-            yield StepStarted(
-                step_id=self.current_step_id,
-                step_type="inference",
-                turn_id=self.turn_id,
-            )
+    def _complete_inference_step(self, *, stop_reason: str, response_id: Optional[str] = None) -> Iterator[AgentEvent]:
+        if self.current_step_type != "inference":
+            return
+        step_id = self.current_step_id or self._next_step_id()
+        resolved_response_id = response_id or self.current_response_id or ""
+        self.current_response_id = resolved_response_id
 
-        elif isinstance(event, _AgentTextDelta):
-            # Only emit text if we're in an inference step
-            if self.current_step_type == "inference":
-                self.text_parts.append(event.text)
-                yield StepProgress(
-                    step_id=self.current_step_id or "",
-                    step_type="inference",
-                    turn_id=self.turn_id,
-                    delta=TextDelta(text=event.text),
-                )
+        function_calls: List[ToolCall] = []
+        for call_id in self._function_call_ids:
+            state = self._tool_calls.get(call_id)
+            if state is None:
+                continue
+            function_calls.append(state.as_tool_call())
 
-        elif isinstance(event, _AgentTextCompleted):
-            # Text completion - just ensure we have the complete text
-            pass
+        yield StepCompleted(
+            step_id=step_id,
+            step_type="inference",
+            turn_id=self.turn_id,
+            result=InferenceStepResult(
+                step_id=step_id,
+                response_id=resolved_response_id,
+                text_content="".join(self.text_parts),
+                function_calls=function_calls,
+                server_tool_executions=[],
+                stop_reason=stop_reason,
+            ),
+        )
 
-        elif isinstance(event, _AgentToolCallIssued):
-            # Determine if server-side or client-side
-            tool_type = self._classify_tool_type(event.name)
-            is_server_side = tool_type != "function"
+        for call_id in list(self._function_call_ids):
+            # Drop client-side call state once we hand it back to the agent.
+            self._tool_calls.pop(call_id, None)
+        self._function_call_ids = []
+        self.text_parts = []
+        self.current_step_id = None
+        self.current_step_type = None
 
-            # Create tool call object
-            tool_call = ToolCall(
-                call_id=event.call_id,
-                tool_name=event.name,
-                arguments=event.arguments_json or "",
-            )
+    def _start_tool_execution_step(self, call_state: _ToolCallState) -> Iterator[AgentEvent]:
+        self.current_step_id = self._next_step_id()
+        self.current_step_type = "tool_execution"
+        yield StepStarted(
+            step_id=self.current_step_id,
+            step_type="tool_execution",
+            turn_id=self.turn_id,
+            metadata={"server_side": True, "tool_type": call_state.tool_type, "tool_name": call_state.tool_name},
+        )
+        yield StepProgress(
+            step_id=self.current_step_id,
+            step_type="tool_execution",
+            turn_id=self.turn_id,
+            delta=ToolCallIssuedDelta(
+                call_id=call_state.call_id,
+                tool_type=call_state.tool_type,  # type: ignore[arg-type]
+                tool_name=call_state.tool_name,
+                arguments=call_state.arguments or "{}",
+            ),
+        )
 
-            # Track this tool call
-            self.tool_calls_building[event.call_id] = {
-                "tool_call": tool_call,
-                "tool_type": tool_type,
-                "is_server_side": is_server_side,
-                "arguments": event.arguments_json or "",
-            }
+    def _complete_tool_execution_step(self, call_state: _ToolCallState) -> Iterator[AgentEvent]:
+        if self.current_step_type != "tool_execution":
+            return
+        step_id = self.current_step_id or self._next_step_id()
+        yield StepCompleted(
+            step_id=step_id,
+            step_type="tool_execution",
+            turn_id=self.turn_id,
+            result=ToolExecutionStepResult(
+                step_id=step_id,
+                tool_calls=[call_state.as_tool_call()],
+                tool_responses=[],
+            ),
+        )
+        self._tool_calls.pop(call_state.call_id, None)
+        self.current_step_id = None
+        self.current_step_type = None
 
-            if is_server_side:
-                # SERVER-SIDE TOOL: Complete current inference step and start tool_execution step
-                # First complete the inference step
-                if self.current_step_type == "inference":
-                    yield StepCompleted(
-                        step_id=self.current_step_id or "",
-                        step_type="inference",
-                        turn_id=self.turn_id,
-                        result=InferenceStepResult(
-                            step_id=self.current_step_id or "",
-                            response_id=self.current_response_id or "",
-                            text_content="".join(self.text_parts),
-                            function_calls=[],  # No client-side function calls yet
-                            server_tool_executions=[],  # Will be populated in tool_execution step
-                            stop_reason="server_tool_call",
-                        ),
-                    )
+    @staticmethod
+    def _coerce_arguments(payload: Any) -> Optional[str]:
+        if payload is None:
+            return None
+        if isinstance(payload, str):
+            return payload
+        try:
+            return json.dumps(payload)
+        except Exception:  # pragma: no cover - defensive
+            return str(payload)
 
-                # Start tool_execution step for server-side tool
-                self.current_step_id = f"{self.turn_id}_step_{self.step_counter}"
-                self.step_counter += 1
-                self.current_step_type = "tool_execution"
-                self.text_parts = []  # Reset for next inference step
-
-                # Remember the current server tool for handling call_id mismatches
-                self.current_server_tool = self.tool_calls_building[event.call_id]
-
-                yield StepStarted(
-                    step_id=self.current_step_id,
-                    step_type="tool_execution",
-                    turn_id=self.turn_id,
-                    metadata={
-                        "server_side": True,
-                        "tool_type": tool_type,
-                        "tool_name": event.name,
-                    },
-                )
-
-                # Emit the tool call issued as progress
-                yield StepProgress(
-                    step_id=self.current_step_id,
-                    step_type="tool_execution",
-                    turn_id=self.turn_id,
-                    delta=ToolCallIssuedDelta(
-                        call_id=event.call_id,
-                        tool_type=tool_type,  # type: ignore
-                        tool_name=event.name,
-                        arguments=event.arguments_json or "{}",
-                    ),
-                )
-            else:
-                # CLIENT-SIDE FUNCTION: Just accumulate, agent.py will handle execution
-                self.function_calls.append(tool_call)
-
-                # Remember current client tool for handling call_id mismatches
-                self.current_client_tool = self.tool_calls_building[event.call_id]
-
-                # Emit as progress within current inference step
-                yield StepProgress(
-                    step_id=self.current_step_id or "",
-                    step_type="inference",
-                    turn_id=self.turn_id,
-                    delta=ToolCallIssuedDelta(
-                        call_id=event.call_id,
-                        tool_type="function",
-                        tool_name=event.name,
-                        arguments=event.arguments_json or "{}",
-                    ),
-                )
-
-        elif isinstance(event, _AgentToolCallDelta):
-            # Update arguments
-            builder = None
-            if event.call_id in self.tool_calls_building:
-                builder = self.tool_calls_building[event.call_id]
-            elif self.current_server_tool and self.current_step_type == "tool_execution":
-                # Handle call_id mismatch for server-side tool
-                builder = self.current_server_tool
-                self.tool_calls_building[event.call_id] = builder
-            elif self.current_client_tool and self.current_step_type == "inference":
-                # Handle call_id mismatch for client-side tool
-                builder = self.current_client_tool
-                self.tool_calls_building[event.call_id] = builder
-
-            if builder:
-                builder["arguments"] += event.arguments_delta or ""
-                # Update the ToolCall object (Pydantic models are immutable, so replace it)
-                builder["tool_call"] = ToolCall(
-                    call_id=builder["tool_call"].call_id,
-                    tool_name=builder["tool_call"].tool_name,
-                    arguments=builder["arguments"],
-                )
-
-                # If client-side, also update the function_calls list
-                if not builder["is_server_side"]:
-                    for i, func_call in enumerate(self.function_calls):
-                        # Match by tool_name since call_id might have changed
-                        if func_call.tool_name == builder["tool_call"].tool_name:
-                            self.function_calls[i] = builder["tool_call"]
-                            break
-
-                # Emit delta
-                step_type = "tool_execution" if builder["is_server_side"] else "inference"
-                yield StepProgress(
-                    step_id=self.current_step_id or "",
-                    step_type=step_type,  # type: ignore
-                    turn_id=self.turn_id,
-                    delta=ToolCallDelta(
-                        call_id=event.call_id,
-                        arguments_delta=event.arguments_delta or "",
-                    ),
-                )
-
-        elif isinstance(event, _AgentToolCallCompleted):
-            # Update final arguments
-            builder = None
-            if event.call_id in self.tool_calls_building:
-                builder = self.tool_calls_building[event.call_id]
-            elif self.current_server_tool and self.current_step_type == "tool_execution":
-                # Handle call_id mismatch for server-side tool
-                builder = self.current_server_tool
-                self.tool_calls_building[event.call_id] = builder
-            elif self.current_client_tool and self.current_step_type == "inference":
-                # Handle call_id mismatch for client-side tool
-                builder = self.current_client_tool
-                self.tool_calls_building[event.call_id] = builder
-
-            if builder:
-                builder["arguments"] = event.arguments_json or ""
-                # Update the ToolCall object (Pydantic models are immutable, so replace it)
-                # Keep the original call_id - the server stores tool calls with the original call_id
-                builder["tool_call"] = ToolCall(
-                    call_id=builder["tool_call"].call_id,  # Keep the original call_id
-                    tool_name=builder["tool_call"].tool_name,
-                    arguments=event.arguments_json or "{}",
-                )
-
-                if builder["is_server_side"]:
-                    # SERVER-SIDE TOOL: Complete tool_execution step and start new inference step
-                    tool_call = builder["tool_call"]
-
-                    # Complete the tool_execution step
-                    yield StepCompleted(
-                        step_id=self.current_step_id or "",
-                        step_type="tool_execution",
-                        turn_id=self.turn_id,
-                        result=ToolExecutionStepResult(
-                            step_id=self.current_step_id or "",
-                            tool_calls=[tool_call],
-                            tool_responses=[],  # Will be enriched from ResponseObject later if needed
-                        ),
-                    )
-
-                    # Clear current server tool
-                    self.current_server_tool = None
-
-                    # Start new inference step for model to process results
-                    self.current_step_id = f"{self.turn_id}_step_{self.step_counter}"
-                    self.step_counter += 1
-                    self.current_step_type = "inference"
-
-                    yield StepStarted(
-                        step_id=self.current_step_id,
-                        step_type="inference",
-                        turn_id=self.turn_id,
-                    )
-
-                else:
-                    # CLIENT-SIDE FUNCTION: Update the accumulated function call
-                    # Use the updated ToolCall from builder
-                    # Note: We search by the tool_call in builder, which has the original call_id,
-                    # because event.call_id might be different due to call_id mismatches
-                    old_call_id = builder["tool_call"].call_id
-                    for i, func_call in enumerate(self.function_calls):
-                        # Match by tool_name since call_id might have changed
-                        if func_call.tool_name == builder["tool_call"].tool_name:
-                            self.function_calls[i] = builder["tool_call"]
-                            break
-
-                    # Clear current client tool
-                    self.current_client_tool = None
-
-        elif isinstance(event, _AgentResponseCompleted):
-            # Response completes - finish current step
-            if self.current_step_type == "inference":
-                yield StepCompleted(
-                    step_id=self.current_step_id or "",
-                    step_type="inference",
-                    turn_id=self.turn_id,
-                    result=InferenceStepResult(
-                        step_id=self.current_step_id or "",
-                        response_id=event.response_id,
-                        text_content="".join(self.text_parts),
-                        function_calls=self.function_calls.copy(),
-                        server_tool_executions=[],  # Server tools already handled as separate steps
-                        stop_reason="tool_calls" if self.function_calls else "end_of_turn",
-                    ),
-                )
-            elif self.current_step_type == "tool_execution":
-                # This shouldn't normally happen, but if it does, complete the tool execution step
-                pass
-
-        elif isinstance(event, _AgentResponseFailed):
-            # Emit TurnFailed for response failures
-            yield TurnFailed(
-                turn_id=self.turn_id,
-                session_id=self.session_id,
-                error_message=event.error_message,
-            )
+    def _register_tool_call(
+        self,
+        *,
+        call_id: Optional[str],
+        tool_name: str,
+        tool_type: str,
+        arguments: Optional[str],
+    ) -> _ToolCallState:
+        resolved_call_id = call_id or f"{tool_name}_{len(self._tool_calls)}"
+        state = _ToolCallState(
+            call_id=resolved_call_id,
+            tool_name=tool_name,
+            tool_type=tool_type,
+            server_side=tool_type != "function",
+        )
+        if arguments:
+            state.update(final=arguments)
+        self._tool_calls[resolved_call_id] = state
+        return state
 
     def _classify_tool_type(self, tool_name: str) -> str:
-        """Determine if tool is client-side or server-side.
-
-        Args:
-            tool_name: Name of the tool
-
-        Returns:
-            Tool type string: "function" for client-side, or specific
-            server-side type (e.g., "file_search", "web_search")
-        """
-        # Known server-side tools that execute within the response
         server_side_tools = {
             "file_search",
-            "knowledge_search",  # file_search appears as knowledge_search in OpenAI-compatible mode
+            "file_search_call",
+            "knowledge_search",
             "web_search",
+            "web_search_call",
             "query_from_memory",
             "mcp_call",
             "mcp_list_tools",
+            "memory_retrieval",
         }
 
         if tool_name in server_side_tools:
-            # Return a normalized type name
-            if tool_name == "knowledge_search":
-                return "file_search"  # Normalize to file_search for consistency
+            if tool_name in {"file_search_call", "knowledge_search"}:
+                return "file_search"
+            if tool_name == "web_search_call":
+                return "web_search"
             return tool_name
 
-        # Default to function for client-side tools
         return "function"
 
+    # ------------------------------------------------------------------ handlers
+
     def process_raw_stream(self, events: Iterable[Any]) -> Iterator[AgentEvent]:
-        """Process raw response stream events and emit high-level turn/step events.
-
-        This method uses duck typing to work with both OpenAI SDK and LlamaStack SDK events.
-        It checks the event.type field instead of using isinstance checks.
-
-        Args:
-            events: Raw event stream from responses.create() (OpenAI or LlamaStack client)
-
-        Yields:
-            High-level turn/step events
-        """
         current_response_id: Optional[str] = None
 
         for event in events:
-            # Extract response_id
+            yield from self._maybe_emit_turn_started()
+
             response_id = getattr(event, "response_id", None)
             if response_id is None and hasattr(event, "response"):
-                response_id = getattr(event.response, "id", None)
+                response = getattr(event, "response")
+                response_id = getattr(response, "id", None)
             if response_id is not None:
                 current_response_id = response_id
 
-            # Translate raw event to _AgentStreamEvent and process it
-            # Use duck typing on event.type to support both OpenAI and LlamaStack SDKs
             event_type = getattr(event, "type", None)
-            if "delta" not in event_type:
-                from rich.pretty import pprint
-
-                pprint(event)
+            if not event_type:
+                logger.debug("Unhandled stream event with no type: %r", event)
+                continue
 
             if event_type == "response.in_progress":
-                low_level_event = _AgentResponseStarted(type="response_started", response_id=event.response.id)
-                yield from self.process_low_level_event(low_level_event)
+                response = getattr(event, "response", None)
+                response_id = getattr(response, "id", current_response_id)
+                if response_id is None:
+                    continue
+                if not self.all_response_ids or self.all_response_ids[-1] != response_id:
+                    self.all_response_ids.append(response_id)
+                yield from self._start_inference_step(response_id=response_id, reset_tool_state=True)
 
             elif event_type == "response.output_text.delta":
-                low_level_event = _AgentTextDelta(
-                    type="text_delta",
-                    text=event.delta,
-                    response_id=current_response_id or "",
-                    output_index=event.output_index,
+                if self.current_step_type != "inference":
+                    continue
+                text = getattr(event, "delta", "") or ""
+                if not text:
+                    continue
+                self.text_parts.append(text)
+                yield StepProgress(
+                    step_id=self.current_step_id or "",
+                    step_type="inference",
+                    turn_id=self.turn_id,
+                    delta=TextDelta(text=text),
                 )
-                yield from self.process_low_level_event(low_level_event)
 
             elif event_type == "response.output_text.done":
-                low_level_event = _AgentTextCompleted(
-                    type="text_completed",
-                    text=event.text,
-                    response_id=current_response_id or "",
-                    output_index=event.output_index,
-                )
-                yield from self.process_low_level_event(low_level_event)
-
-            elif event_type == "response.output_item.done":
-                item = event.item
-                if item.type in ("function_call", "web_search_call"):
-                    low_level_event = _AgentToolCallCompleted(
-                        type="tool_call_completed",
-                        response_id=current_response_id or "",
-                        output_index=event.output_index,
-                        call_id=item.call_id,
-                        arguments_json=item.arguments,
-                    )
-                    yield from self.process_low_level_event(low_level_event)
-                elif item.type == "file_search_call":
-                    low_level_event = _AgentToolCallCompleted(
-                        type="tool_call_completed",
-                        response_id=current_response_id or "",
-                        output_index=event.output_index,
-                        call_id=item.id,
-                        arguments_json="{}",
-                    )
-                    yield from self.process_low_level_event(low_level_event)
-                else:
-                    logger.warning(f"Unhandled item type: {item.type}")
+                # Text completions are tracked via the final StepCompleted event.
+                continue
 
             elif event_type == "response.output_item.added":
-                item = event.item
-                item_type = getattr(item, "type", None)
+                yield from self._handle_output_item_added(getattr(event, "item", None))
 
-                if item_type == "function_call":
-                    low_level_event = _AgentToolCallIssued(
-                        type="tool_call_issued",
-                        response_id=current_response_id or event.response_id,
-                        output_index=event.output_index,
-                        call_id=item.call_id,
-                        name=item.name,
-                        arguments_json=item.arguments,
-                    )
-                    yield from self.process_low_level_event(low_level_event)
+            elif event_type == "response.output_item.delta":
+                yield from self._handle_output_item_delta(getattr(event, "delta", None))
 
-                elif item_type == "web_search":
-                    low_level_event = _AgentToolCallIssued(
-                        type="tool_call_issued",
-                        response_id=current_response_id or event.response_id,
-                        output_index=event.output_index,
-                        call_id=item.id,
-                        name=item.type,
-                        arguments_json="{}",
-                    )
-                    yield from self.process_low_level_event(low_level_event)
-
-                elif item_type == "mcp_call":
-                    low_level_event = _AgentToolCallIssued(
-                        type="tool_call_issued",
-                        response_id=current_response_id or event.response_id,
-                        output_index=event.output_index,
-                        call_id=item.id,
-                        name=item.name,
-                        arguments_json=item.arguments,
-                    )
-                    yield from self.process_low_level_event(low_level_event)
-
-                elif item_type == "mcp_list_tools":
-                    low_level_event = _AgentToolCallIssued(
-                        type="tool_call_issued",
-                        response_id=current_response_id or event.response_id,
-                        output_index=event.output_index,
-                        call_id=item.id,
-                        name=item.type,
-                        arguments_json="{}",
-                    )
-                    yield from self.process_low_level_event(low_level_event)
-
-                elif item_type == "message":
-                    # Text message output
-                    low_level_event = _AgentTextCompleted(
-                        type="text_completed",
-                        text=str(item.content) if hasattr(item, "content") else item.text,
-                        response_id=current_response_id or event.response_id,
-                        output_index=event.output_index,
-                    )
-                    yield from self.process_low_level_event(low_level_event)
+            elif event_type == "response.output_item.done":
+                yield from self._handle_output_item_done(getattr(event, "item", None))
 
             elif event_type == "response.completed":
-                # Capture the response object for later use
-                self.last_response = event.response
-                low_level_event = _AgentResponseCompleted(type="response_completed", response_id=event.response.id)
-                yield from self.process_low_level_event(low_level_event)
+                response = getattr(event, "response", None)
+                if response is not None:
+                    self.last_response = response
+                stop_reason = "tool_calls" if self._function_call_ids else "end_of_turn"
+                yield from self._complete_inference_step(stop_reason=stop_reason, response_id=current_response_id)
 
             elif event_type == "response.failed":
-                low_level_event = _AgentResponseFailed(
-                    type="response_failed",
-                    response_id=event.response.id,
-                    error_message=event.response.error.message
-                    if hasattr(event.response, "error") and event.response.error
-                    else "Unknown error",
+                response = getattr(event, "response", None)
+                error_obj = getattr(response, "error", None)
+                error_message = getattr(error_obj, "message", None) if error_obj else None
+                yield TurnFailed(
+                    turn_id=self.turn_id,
+                    session_id=self.session_id,
+                    error_message=error_message or "Unknown error",
                 )
-                yield from self.process_low_level_event(low_level_event)
+
+            else:  # pragma: no cover - depends on streaming responses
+                # Allow unknown streaming events to pass silently; they are often ancillary metadata.
+                continue
+
+    def _handle_output_item_added(self, item: Any) -> Iterator[AgentEvent]:
+        if item is None:
+            return
+        item_type = getattr(item, "type", None)
+        if item_type is None:
+            return
+
+        if item_type == "message":
+            # Messages mirror text deltas, nothing extra to emit.
+            return
+
+        if item_type in {
+            "function_call",
+            "web_search",
+            "web_search_call",
+            "mcp_call",
+            "mcp_list_tools",
+            "file_search_call",
+        }:
+            call_id = getattr(item, "call_id", None) or getattr(item, "id", None)
+            tool_name = getattr(item, "name", None) or getattr(item, "type", "")
+            arguments = self._coerce_arguments(getattr(item, "arguments", None))
+            tool_type = self._classify_tool_type(tool_name if item_type == "function_call" else item_type)
+
+            state = self._register_tool_call(
+                call_id=call_id,
+                tool_name=tool_name,
+                tool_type=tool_type,
+                arguments=arguments,
+            )
+
+            if state.server_side:
+                yield from self._complete_inference_step(
+                    stop_reason="server_tool_call", response_id=self.current_response_id
+                )
+                yield from self._start_tool_execution_step(state)
+            else:
+                if state.call_id not in self._function_call_ids:
+                    self._function_call_ids.append(state.call_id)
+                yield StepProgress(
+                    step_id=self.current_step_id or "",
+                    step_type="inference",
+                    turn_id=self.turn_id,
+                    delta=ToolCallIssuedDelta(
+                        call_id=state.call_id,
+                        tool_type="function",
+                        tool_name=state.tool_name,
+                        arguments=state.arguments or "{}",
+                    ),
+                )
+
+    def _handle_output_item_delta(self, delta: Any) -> Iterator[AgentEvent]:
+        if delta is None:
+            return
+        delta_type = getattr(delta, "type", None)
+        if delta_type not in {
+            "function_call",
+            "web_search",
+            "web_search_call",
+            "mcp_call",
+            "mcp_list_tools",
+            "file_search_call",
+        }:
+            return
+
+        call_id = getattr(delta, "call_id", None) or getattr(delta, "id", None)
+        if call_id is None:
+            return
+
+        arguments_delta = getattr(delta, "arguments_delta", None)
+        if arguments_delta is None:
+            arguments_delta = getattr(delta, "arguments", None)
+        if arguments_delta is None and isinstance(delta, dict):
+            arguments_delta = delta.get("arguments_delta") or delta.get("arguments")
+        if arguments_delta is None:
+            return
+
+        state = self._tool_calls.get(call_id)
+        if state is None:
+            return
+
+        state.update(delta=arguments_delta)
+        step_type = "tool_execution" if state.server_side else "inference"
+        yield StepProgress(
+            step_id=self.current_step_id or "",
+            step_type=step_type,  # type: ignore[arg-type]
+            turn_id=self.turn_id,
+            delta=ToolCallDelta(call_id=state.call_id, arguments_delta=arguments_delta),
+        )
+
+    def _handle_output_item_done(self, item: Any) -> Iterator[AgentEvent]:
+        if item is None:
+            return
+
+        item_type = getattr(item, "type", None)
+        if item_type not in {
+            "function_call",
+            "web_search",
+            "web_search_call",
+            "mcp_call",
+            "mcp_list_tools",
+            "file_search_call",
+        }:
+            return
+
+        call_id = getattr(item, "call_id", None) or getattr(item, "id", None)
+        if call_id is None:
+            return
+
+        state = self._tool_calls.get(call_id)
+        if state is None:
+            return
+
+        arguments = self._coerce_arguments(getattr(item, "arguments", None))
+        if arguments:
+            state.update(final=arguments)
+
+        if state.server_side:
+            yield from self._complete_tool_execution_step(state)
+            # Start a fresh inference step so the model can continue reasoning.
+            yield from self._start_inference_step()
+        else:
+            if call_id not in self._function_call_ids:
+                self._function_call_ids.append(call_id)
+
+    # ------------------------------------------------------------------ turn end
 
     def finish_turn(self) -> Iterator[AgentEvent]:
-        """Emit TurnCompleted event.
-
-        This should be called when the turn is complete (no more function
-        calls to execute).
-
-        Yields:
-            TurnCompleted event
-        """
         if not self.last_response:
             raise RuntimeError("Cannot finish turn without a response")
 

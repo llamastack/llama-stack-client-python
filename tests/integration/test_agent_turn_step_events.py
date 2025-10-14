@@ -184,9 +184,6 @@ def test_server_side_file_search_tool(agent_with_file_search):
 
     events = []
     for chunk in agent.create_turn(messages=messages, session_id=session_id, stream=True):
-        from rich.pretty import pprint
-
-        pprint(chunk.event)
         events.append(chunk.event)
 
     # Verify Turn started and completed

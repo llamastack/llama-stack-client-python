@@ -34,7 +34,9 @@ from .tool_parser import ToolParser
 from .turn_events import (
     AgentStreamChunk,
     StepCompleted,
+    StepProgress,
     StepStarted,
+    ToolCallIssuedDelta,
     TurnFailed,
     ToolExecutionStepResult,
 )
@@ -526,13 +528,17 @@ class AgentUtils:
 
     @staticmethod
     def get_tool_calls(chunk: AgentStreamChunk, tool_parser: Optional[ToolParser] = None) -> List[ToolCall]:
-        if not isinstance(chunk.event, AgentToolCallIssued):
+        if not isinstance(chunk.event, StepProgress):
+            return []
+
+        delta = chunk.event.delta
+        if not isinstance(delta, ToolCallIssuedDelta) or delta.tool_type != "function":
             return []
 
         tool_call = ToolCall(
-            call_id=chunk.event.call_id,
-            tool_name=chunk.event.name,
-            arguments=chunk.event.arguments_json,
+            call_id=delta.call_id,
+            tool_name=delta.tool_name,
+            arguments=delta.arguments,
         )
 
         if tool_parser:

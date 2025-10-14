@@ -1,107 +1,109 @@
+from __future__ import annotations
+
 from types import SimpleNamespace
-from typing import Any, Dict, List, Iterable, Optional
+from typing import Any, Dict, Iterable, Iterator, List, Optional
 
 import pytest
 
 from llama_stack_client.lib.agents.agent import Agent
 from llama_stack_client.lib.agents.client_tool import client_tool
-from llama_stack_client.lib.agents.stream_events import (
-    AgentStreamEvent,
-    AgentToolCallDelta,
-    AgentToolCallIssued,
-    AgentResponseStarted,
-    AgentResponseCompleted,
-    AgentToolCallCompleted,
+from llama_stack_client.lib.agents.turn_events import (
+    AgentStreamChunk,
+    StepCompleted,
+    StepProgress,
+    StepStarted,
+    ToolExecutionStepResult,
+    TurnCompleted,
+    TurnStarted,
 )
 
 
-@client_tool
-def echo_tool(text: str) -> str:
-    """Echo text back to the caller.
+def _event(event_type: str, **payload: Any) -> SimpleNamespace:
+    return SimpleNamespace(type=event_type, **payload)
 
-    :param text: phrase to echo
-    """
-    return text
+
+def _in_progress(response_id: str) -> SimpleNamespace:
+    return _event("response.in_progress", response=SimpleNamespace(id=response_id))
+
+
+def _completed(response_id: str, text: str) -> SimpleNamespace:
+    response = FakeResponse(response_id, text)
+    return _event("response.completed", response=response)
 
 
 class FakeResponse:
-    def __init__(self, response_id: str, turn_id: str) -> None:
+    def __init__(self, response_id: str, text: str) -> None:
         self.id = response_id
-        self.turn = SimpleNamespace(turn_id=turn_id)
+        self.output_text = text
+        self.turn = SimpleNamespace(turn_id=f"turn_{response_id}")
 
 
 class FakeResponsesAPI:
-    def __init__(
-        self,
-        event_registry: Dict[object, Iterable[AgentStreamEvent]],
-        responses: Dict[str, FakeResponse],
-        event_script: Optional[List[List[AgentStreamEvent]]] = None,
-    ) -> None:
-        self._event_registry = event_registry
-        self._responses = responses
-        self.create_calls: List[Dict[str, object]] = []
-        self._event_script = list(event_script or [])
+    def __init__(self, event_script: Iterable[Iterable[SimpleNamespace]]) -> None:
+        self._event_script: List[List[SimpleNamespace]] = [list(events) for events in event_script]
+        self.create_calls: List[Dict[str, Any]] = []
 
-    def create(self, *, previous_response_id: Optional[str] = None, **kwargs: object) -> object:
-        stream = object()
-        record: Dict[str, object] = {"previous_response_id": previous_response_id}
-        record.update(kwargs)
-        self.create_calls.append(record)
+    def create(self, **kwargs: Any) -> Iterator[SimpleNamespace]:
+        self.create_calls.append(kwargs)
+        if not self._event_script:
+            raise AssertionError("No scripted events left for responses.create")
+        return iter(self._event_script.pop(0))
 
-        if self._event_script:
-            self._event_registry[stream] = self._event_script.pop(0)
-        elif previous_response_id is None:
-            self._event_registry[stream] = [
-                AgentResponseStarted(type="response_started", response_id="resp_0"),
-                AgentToolCallIssued(
-                    type="tool_call_issued",
-                    response_id="resp_0",
-                    output_index=0,
-                    call_id="call_1",
-                    name="echo_tool",
-                    arguments_json='{"text": "hi"}',
-                ),
-                AgentToolCallCompleted(
-                    type="tool_call_completed",
-                    response_id="resp_0",
-                    output_index=0,
-                    call_id="call_1",
-                    arguments_json='{"text": "hi"}',
-                ),
-            ]
-        else:
-            self._event_registry[stream] = [
-                AgentResponseCompleted(type="response_completed", response_id="resp_1"),
-            ]
-        return stream
 
-    def retrieve(self, response_id: str, **_: object) -> FakeResponse:
-        return self._responses[response_id]
+class FakeConversationsAPI:
+    def __init__(self) -> None:
+        self._counter = 0
 
-def test_agent_tracks_multiple_sessions(monkeypatch: pytest.MonkeyPatch) -> None:
-    event_registry: Dict[object, Iterable[AgentStreamEvent]] = {}
-    responses = {
-        "resp_a1": FakeResponse("resp_a1", "turn_a1"),
-        "resp_a2": FakeResponse("resp_a2", "turn_a2"),
-        "resp_b1": FakeResponse("resp_b1", "turn_b1"),
-    }
-    scripted_events = [
-        [AgentResponseCompleted(type="response_completed", response_id="resp_a1")],
-        [AgentResponseCompleted(type="response_completed", response_id="resp_b1")],
-        [AgentResponseCompleted(type="response_completed", response_id="resp_a2")],
+    def create(self, **_: Any) -> SimpleNamespace:
+        self._counter += 1
+        return SimpleNamespace(id=f"conv_{self._counter}")
+
+
+class FakeClient:
+    def __init__(self, event_script: Iterable[Iterable[SimpleNamespace]]) -> None:
+        self.responses = FakeResponsesAPI(event_script)
+        self.conversations = FakeConversationsAPI()
+
+
+def make_completion_events(response_id: str, text: str) -> List[SimpleNamespace]:
+    return [
+        _in_progress(response_id),
+        _event("response.output_text.delta", delta=text, output_index=0),
+        _completed(response_id, text),
     ]
-    client = FakeClient(event_registry, responses, event_script=scripted_events)  # type: ignore[arg-type]
 
-    def fake_iter_agent_events(stream: object) -> Iterable[AgentStreamEvent]:
-        return event_registry[stream]
 
-    monkeypatch.setattr("llama_stack_client.lib.agents.agent.iter_agent_events", fake_iter_agent_events)
+def make_function_tool_events(response_id: str, call_id: str, tool_name: str, arguments: str) -> List[SimpleNamespace]:
+    tool_item = SimpleNamespace(type="function_call", call_id=call_id, name=tool_name, arguments=arguments)
+    return [
+        _in_progress(response_id),
+        _event("response.output_item.added", item=tool_item),
+        _event("response.output_item.done", item=tool_item),
+        _completed(response_id, ""),
+    ]
 
-    agent = Agent(
-        client=client,  # type: ignore[arg-type]
-        model="test-model",
-        instructions="test",
-    )
+
+def make_server_tool_events(response_id: str, call_id: str, arguments: str, final_text: str) -> List[SimpleNamespace]:
+    tool_item = SimpleNamespace(type="file_search_call", id=call_id, arguments=arguments)
+    completion = FakeResponse(response_id, final_text)
+    return [
+        _in_progress(response_id),
+        _event("response.output_item.added", item=tool_item),
+        _event("response.output_item.done", item=tool_item),
+        _event("response.output_text.delta", delta=final_text, output_index=0),
+        _completed(response_id, final_text),
+    ]
+
+
+def test_agent_tracks_multiple_sessions() -> None:
+    event_script = [
+        make_completion_events("resp_a1", "session A turn 1"),
+        make_completion_events("resp_b1", "session B turn 1"),
+        make_completion_events("resp_a2", "session A turn 2"),
+    ]
+
+    client = FakeClient(event_script)
+    agent = Agent(client=client, model="test-model", instructions="test")
 
     session_a = agent.create_session("A")
     session_b = agent.create_session("B")
@@ -118,186 +120,87 @@ def test_agent_tracks_multiple_sessions(monkeypatch: pytest.MonkeyPatch) -> None
 
     calls = client.responses.create_calls
     assert calls[0]["conversation"] == session_a
-    assert calls[0]["previous_response_id"] is None
     assert calls[1]["conversation"] == session_b
-    assert calls[1]["previous_response_id"] is None
     assert calls[2]["conversation"] == session_a
-    assert calls[2]["previous_response_id"] == "resp_a1"
+
     assert agent._session_last_response_id[session_a] == "resp_a2"
     assert agent._session_last_response_id[session_b] == "resp_b1"
+    assert agent._last_response_id == "resp_a2"
 
 
-def test_agent_streams_server_and_client_tools(monkeypatch: pytest.MonkeyPatch) -> None:
-    event_registry: Dict[object, Iterable[AgentStreamEvent]] = {}
-    responses = {
-        "resp_final": FakeResponse("resp_final", "turn_final"),
-    }
+def test_agent_handles_client_tool_and_finishes_turn() -> None:
+    tool_invocations: List[str] = []
+
+    @client_tool
+    def echo_tool(text: str) -> str:
+        """Echo text back to the caller.
+
+        :param text: value to echo
+        """
+        tool_invocations.append(text)
+        return text
+
     event_script = [
-        [
-            AgentResponseStarted(type="response_started", response_id="resp_0"),
-            AgentToolCallIssued(
-                type="tool_call_issued",
-                response_id="resp_0",
-                output_index=0,
-                call_id="server_call",
-                name="server_tool",
-                arguments_json="",
-            ),
-            AgentToolCallDelta(
-                type="tool_call_delta",
-                response_id="resp_0",
-                output_index=0,
-                call_id="server_call",
-                arguments_delta='{"value": ',
-            ),
-            AgentToolCallDelta(
-                type="tool_call_delta",
-                response_id="resp_0",
-                output_index=0,
-                call_id="server_call",
-                arguments_delta='1}',
-            ),
-            AgentToolCallCompleted(
-                type="tool_call_completed",
-                response_id="resp_0",
-                output_index=0,
-                call_id="server_call",
-                arguments_json='{"value": 1}',
-            ),
-        ],
-        [
-            AgentToolCallIssued(
-                type="tool_call_issued",
-                response_id="resp_1",
-                output_index=0,
-                call_id="client_call",
-                name="echo_tool",
-                arguments_json='{"text": "pong"}',
-            ),
-            AgentToolCallCompleted(
-                type="tool_call_completed",
-                response_id="resp_1",
-                output_index=0,
-                call_id="client_call",
-                arguments_json='{"text": "pong"}',
-            ),
-        ],
-        [
-            AgentResponseCompleted(type="response_completed", response_id="resp_final"),
-        ],
+        make_function_tool_events("resp_intermediate", "call_1", "echo_tool", '{"text": "pong"}'),
+        make_completion_events("resp_final", "all done"),
     ]
-    client = FakeClient(event_registry, responses, event_script=event_script)  # type: ignore[arg-type]
 
-    def fake_iter_agent_events(stream: object) -> Iterable[AgentStreamEvent]:
-        return event_registry[stream]
-
-    monkeypatch.setattr("llama_stack_client.lib.agents.agent.iter_agent_events", fake_iter_agent_events)
-
-    server_calls: List[Dict[str, Any]] = []
-
-    def fake_invoke_tool(*, tool_name: str, kwargs: Dict[str, Any], extra_headers: object | None = None) -> SimpleNamespace:
-        _ = extra_headers
-        server_calls.append({"tool_name": tool_name, "kwargs": kwargs})
-        return SimpleNamespace(content={"result": "ok"})
-
-    client.tool_runtime.invoke_tool = fake_invoke_tool  # type: ignore[assignment]
-
-    agent = Agent(
-        client=client,  # type: ignore[arg-type]
-        model="test-model",
-        instructions="use tools",
-        tools=[echo_tool],
-    )
-    agent.builtin_tools["server_tool"] = {}
+    client = FakeClient(event_script)
+    agent = Agent(client=client, model="test-model", instructions="use tools", tools=[echo_tool])
 
     session_id = agent.create_session("default")
-    messages = [
-        {
-            "type": "message",
-            "role": "user",
-            "content": [{"type": "input_text", "text": "run tools"}],
-        }
-    ]
+    message = {
+        "type": "message",
+        "role": "user",
+        "content": [{"type": "input_text", "text": "run the tool"}],
+    }
 
-    chunks = list(agent.create_turn(messages, session_id=session_id, stream=True))
+    response = agent.create_turn([message], session_id=session_id, stream=False)
 
-    assert any(isinstance(chunk.event, AgentResponseCompleted) for chunk in chunks)
-    assert server_calls == [{"tool_name": "server_tool", "kwargs": {"value": 1}}]
-    assert any(call["previous_response_id"] == "resp_0" for call in client.responses.create_calls if call.get("conversation"))
-
-class FakeConversationsAPI:
-    def __init__(self) -> None:
-        self._counter = 0
-
-    def create(self, **_: object) -> SimpleNamespace:
-        self._counter += 1
-        return SimpleNamespace(id=f"conv_{self._counter}")
-
-
-class FakeToolsAPI:
-    def list(self, **_: object) -> List[SimpleNamespace]:
-        return []
-
-
-class FakeToolRuntimeAPI:
-    def invoke_tool(self, **_: object) -> None:  # pragma: no cover - not exercised here
-        raise AssertionError("Should not reach builtin tool execution in this test")
-
-
-class FakeClient:
-    def __init__(
-        self,
-        event_registry: Dict[object, Iterable[AgentStreamEvent]],
-        responses: Dict[str, FakeResponse],
-        event_script: Optional[List[List[AgentStreamEvent]]] = None,
-    ) -> None:
-        self.responses = FakeResponsesAPI(event_registry, responses, event_script=event_script)
-        self.conversations = FakeConversationsAPI()
-        self.tools = FakeToolsAPI()
-        self.tool_runtime = FakeToolRuntimeAPI()
-
-
-@pytest.fixture
-def event_registry() -> Dict[object, Iterable[AgentStreamEvent]]:
-    return {}
-
-
-@pytest.fixture
-def fake_response() -> FakeResponse:
-    return FakeResponse("resp_1", "turn_123")
-
-
-def test_agent_handles_client_tool_and_finishes_turn(monkeypatch: pytest.MonkeyPatch, event_registry: Dict[object, Iterable[AgentStreamEvent]], fake_response: FakeResponse) -> None:
-    client = FakeClient(event_registry, {fake_response.id: fake_response})
-
-    def fake_iter_agent_events(stream: object) -> Iterable[AgentStreamEvent]:
-        try:
-            events = event_registry[stream]
-        except KeyError as exc:  # pragma: no cover - makes debugging simpler if misused
-            raise AssertionError("unknown stream") from exc
-        for event in events:
-            yield event
-
-    monkeypatch.setattr("llama_stack_client.lib.agents.agent.iter_agent_events", fake_iter_agent_events)
-
-    agent = Agent(
-        client=client,  # type: ignore[arg-type]
-        model="test-model",
-        instructions="use the echo_tool",
-        tools=[echo_tool],
-    )
-
-    session_id = agent.create_session("default")
-    messages = [
-        {
-            "type": "message",
-            "role": "user",
-            "content": [{"type": "input_text", "text": "hi"}],
-        }
-    ]
-
-    response = agent.create_turn(messages, session_id=session_id, stream=False)
-
-    assert response is fake_response
+    assert response.id == "resp_final"
+    assert response.output_text == "all done"
+    assert tool_invocations == ["pong"]
     assert len(client.responses.create_calls) == 2
-    assert agent._last_response_id == fake_response.id
+
+
+def test_agent_streams_server_tool_events() -> None:
+    event_script = [
+        make_server_tool_events("resp_server", "server_call", '{"query": "docs"}', "tool finished"),
+    ]
+
+    client = FakeClient(event_script)
+    agent = Agent(client=client, model="test-model", instructions="use server tool")
+
+    session_id = agent.create_session("default")
+    message = {
+        "type": "message",
+        "role": "user",
+        "content": [{"type": "input_text", "text": "find info"}],
+    }
+
+    chunks = list(agent.create_turn([message], session_id=session_id, stream=True))
+
+    events = [chunk.event for chunk in chunks]
+    assert isinstance(events[0], TurnStarted)
+    assert isinstance(events[1], StepStarted)
+    assert events[1].step_type == "inference"
+
+    # Look for the tool execution step in the stream
+    tool_step_started = next(event for event in events if isinstance(event, StepStarted) and event.step_type == "tool_execution")
+    assert tool_step_started.metadata == {"server_side": True, "tool_type": "file_search", "tool_name": "file_search_call"}
+
+    tool_step_completed = next(
+        event for event in events if isinstance(event, StepCompleted) and event.step_type == "tool_execution"
+    )
+    assert isinstance(tool_step_completed.result, ToolExecutionStepResult)
+    assert tool_step_completed.result.tool_calls[0].call_id == "server_call"
+
+    text_progress = [
+        event.delta.text
+        for event in events
+        if isinstance(event, StepProgress) and hasattr(event.delta, "text")
+    ]
+    assert text_progress == ["tool finished"]
+
+    assert isinstance(events[-1], TurnCompleted)
+    assert chunks[-1].response and chunks[-1].response.output_text == "tool finished"
