@@ -5,10 +5,21 @@
 # the root directory of this source tree.
 import json
 import logging
-from typing import Any, AsyncIterator, Callable, Dict, Iterator, List, Optional, Tuple, Union, TypedDict
+from typing import (
+    Any,
+    AsyncIterator,
+    Callable,
+    Dict,
+    Iterator,
+    List,
+    Optional,
+    Tuple,
+    Union,
+    TypedDict,
+)
 from uuid import uuid4
 
-from llama_stack_client import LlamaStackClient, AsyncLlamaStackClient
+from llama_stack_client import LlamaStackClient
 from llama_stack_client.types import ResponseObject
 from llama_stack_client.types import response_create_params
 from llama_stack_client.types.alpha.tool_response import ToolResponse
@@ -17,13 +28,9 @@ from llama_stack_client.types.shared.agent_config import Toolgroup
 from llama_stack_client.types.shared_params.document import Document
 from llama_stack_client.types.shared.completion_message import CompletionMessage
 
-from ..._types import Headers, omit
+from ..._types import Headers
 from .client_tool import ClientTool, client_tool
 from .tool_parser import ToolParser
-from .stream_events import (
-    AgentResponseFailed,
-    iter_agent_events,
-)
 from .turn_events import (
     AgentStreamChunk,
     StepCompleted,
@@ -104,7 +111,7 @@ class ToolUtils:
 class Agent:
     def __init__(
         self,
-        client: LlamaStackClient,
+        client: Any,  # Accept any OpenAI-compatible client (OpenAI SDK or LlamaStackClient)
         *,
         model: str,
         instructions: str,
@@ -112,7 +119,12 @@ class Agent:
         tool_parser: Optional[ToolParser] = None,
         extra_headers: Headers | None = None,
     ):
-        """Construct an Agent backed by the responses + conversations APIs."""
+        """Construct an Agent backed by the responses + conversations APIs.
+
+        Args:
+            client: An OpenAI-compatible client (e.g., openai.OpenAI() or LlamaStackClient).
+                    The client must support the responses and conversations APIs.
+        """
         self.client = client
         self.tool_parser = tool_parser
         self.extra_headers = extra_headers
@@ -178,7 +190,11 @@ class Agent:
     ) -> Iterator[AgentStreamChunk] | ResponseObject:
         if stream:
             return self._create_turn_streaming(
-                messages, session_id, toolgroups, documents, extra_headers=extra_headers or self.extra_headers
+                messages,
+                session_id,
+                toolgroups,
+                documents,
+                extra_headers=extra_headers or self.extra_headers,
             )
         else:
             _ = toolgroups
@@ -227,7 +243,7 @@ class Agent:
                 instructions=self._instructions,
                 conversation=session_id,
                 input=messages,
-                tools=self._tools if self._tools else omit,
+                tools=self._tools,
                 stream=True,
                 extra_headers=request_headers,
             )
@@ -235,37 +251,28 @@ class Agent:
             # Process events
             function_calls_to_execute: List[ToolCall] = []  # Only client-side!
 
-            for low_level_event in iter_agent_events(raw_stream):
+            for high_level_event in synthesizer.process_raw_stream(raw_stream):
                 # Handle failures
-                if isinstance(low_level_event, AgentResponseFailed):
-                    yield AgentStreamChunk(
-                        event=TurnFailed(
-                            turn_id=turn_id, session_id=session_id, error_message=low_level_event.error_message
-                        )
-                    )
+                if isinstance(high_level_event, TurnFailed):
+                    yield AgentStreamChunk(event=high_level_event)
                     return
 
-                # Feed to synthesizer
-                for high_level_event in synthesizer.process_low_level_event(low_level_event):
-                    # Track function calls that need client execution
-                    if isinstance(high_level_event, StepCompleted):
-                        if high_level_event.step_type == "inference":
-                            result = high_level_event.result
-                            if result.function_calls:  # Only client-side function calls
-                                function_calls_to_execute = result.function_calls
+                # Track function calls that need client execution
+                if isinstance(high_level_event, StepCompleted):
+                    if high_level_event.step_type == "inference":
+                        result = high_level_event.result
+                        if result.function_calls:  # Only client-side function calls
+                            function_calls_to_execute = result.function_calls
 
-                    yield AgentStreamChunk(event=high_level_event)
-
-            # Enrich server-side tool executions with results from ResponseObject
-            response = self.client.responses.retrieve(
-                synthesizer.current_response_id or "", extra_headers=request_headers
-            )
-            synthesizer.enrich_with_response(response)
+                yield AgentStreamChunk(event=high_level_event)
 
             # If no client-side function calls, turn is done
             if not function_calls_to_execute:
                 # Emit TurnCompleted
-                for event in synthesizer.finish_turn(response):
+                response = synthesizer.last_response
+                if not response:
+                    raise RuntimeError("No response available")
+                for event in synthesizer.finish_turn():
                     yield AgentStreamChunk(event=event, response=response)
                 self._last_response_id = response.id
                 self._session_last_response_id[session_id] = response.id
@@ -292,7 +299,9 @@ class Agent:
                     step_type="tool_execution",
                     turn_id=turn_id,
                     result=ToolExecutionStepResult(
-                        step_id=tool_step_id, tool_calls=function_calls_to_execute, tool_responses=tool_responses
+                        step_id=tool_step_id,
+                        tool_calls=function_calls_to_execute,
+                        tool_responses=tool_responses,
                     ),
                 )
             )
@@ -300,7 +309,9 @@ class Agent:
             # Continue loop with tool outputs as input
             messages = [
                 response_create_params.InputUnionMember1OpenAIResponseInputFunctionToolCallOutput(
-                    type="function_call_output", call_id=payload["call_id"], output=payload["content"]
+                    type="function_call_output",
+                    call_id=payload["call_id"],
+                    output=payload["content"],
                 )
                 for payload in tool_responses
             ]
@@ -309,7 +320,7 @@ class Agent:
 class AsyncAgent:
     def __init__(
         self,
-        client: AsyncLlamaStackClient,
+        client: Any,  # Accept any async OpenAI-compatible client
         *,
         model: str,
         instructions: str,
@@ -317,11 +328,16 @@ class AsyncAgent:
         tool_parser: Optional[ToolParser] = None,
         extra_headers: Headers | None = None,
     ):
-        """Construct an async Agent backed by the responses + conversations APIs."""
+        """Construct an async Agent backed by the responses + conversations APIs.
+
+        Args:
+            client: An async OpenAI-compatible client (e.g., openai.AsyncOpenAI() or AsyncLlamaStackClient).
+                    The client must support the responses and conversations APIs.
+        """
         self.client = client
 
         if isinstance(client, LlamaStackClient):
-            raise ValueError("AsyncAgent must be initialized with an AsyncLlamaStackClient")
+            raise ValueError("AsyncAgent must be initialized with an async client, not a sync LlamaStackClient")
 
         self.tool_parser = tool_parser
         self.extra_headers = extra_headers
@@ -422,7 +438,7 @@ class AsyncAgent:
                 instructions=self._instructions,
                 conversation=session_id,
                 input=messages,
-                tools=self._tools if self._tools else omit,
+                tools=self._tools,
                 stream=True,
                 extra_headers=request_headers,
             )
@@ -430,37 +446,28 @@ class AsyncAgent:
             # Process events
             function_calls_to_execute: List[ToolCall] = []  # Only client-side!
 
-            async for low_level_event in iter_agent_events(raw_stream):
+            for high_level_event in synthesizer.process_raw_stream(raw_stream):
                 # Handle failures
-                if isinstance(low_level_event, AgentResponseFailed):
-                    yield AgentStreamChunk(
-                        event=TurnFailed(
-                            turn_id=turn_id, session_id=session_id, error_message=low_level_event.error_message
-                        )
-                    )
+                if isinstance(high_level_event, TurnFailed):
+                    yield AgentStreamChunk(event=high_level_event)
                     return
 
-                # Feed to synthesizer
-                for high_level_event in synthesizer.process_low_level_event(low_level_event):
-                    # Track function calls that need client execution
-                    if isinstance(high_level_event, StepCompleted):
-                        if high_level_event.step_type == "inference":
-                            result = high_level_event.result
-                            if result.function_calls:  # Only client-side function calls
-                                function_calls_to_execute = result.function_calls
+                # Track function calls that need client execution
+                if isinstance(high_level_event, StepCompleted):
+                    if high_level_event.step_type == "inference":
+                        result = high_level_event.result
+                        if result.function_calls:  # Only client-side function calls
+                            function_calls_to_execute = result.function_calls
 
-                    yield AgentStreamChunk(event=high_level_event)
-
-            # Enrich server-side tool executions with results from ResponseObject
-            response = await self.client.responses.retrieve(
-                synthesizer.current_response_id or "", extra_headers=request_headers
-            )
-            synthesizer.enrich_with_response(response)
+                yield AgentStreamChunk(event=high_level_event)
 
             # If no client-side function calls, turn is done
             if not function_calls_to_execute:
                 # Emit TurnCompleted
-                for event in synthesizer.finish_turn(response):
+                response = synthesizer.last_response
+                if not response:
+                    raise RuntimeError("No response available")
+                for event in synthesizer.finish_turn():
                     yield AgentStreamChunk(event=event, response=response)
                 self._last_response_id = response.id
                 self._session_last_response_id[session_id] = response.id
@@ -487,7 +494,9 @@ class AsyncAgent:
                     step_type="tool_execution",
                     turn_id=turn_id,
                     result=ToolExecutionStepResult(
-                        step_id=tool_step_id, tool_calls=function_calls_to_execute, tool_responses=tool_responses
+                        step_id=tool_step_id,
+                        tool_calls=function_calls_to_execute,
+                        tool_responses=tool_responses,
                     ),
                 )
             )
@@ -495,7 +504,9 @@ class AsyncAgent:
             # Continue loop with tool outputs as input
             messages = [
                 response_create_params.InputUnionMember1OpenAIResponseInputFunctionToolCallOutput(
-                    type="function_call_output", call_id=payload["call_id"], output=payload["content"]
+                    type="function_call_output",
+                    call_id=payload["call_id"],
+                    output=payload["content"],
                 )
                 for payload in tool_responses
             ]

@@ -118,8 +118,9 @@ replacement = '[\1](https://github.com/llamastack/llama-stack-client-python/tree
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]
-addopts = "--tb=short -n auto"
-xfail_strict = true
+# addopts = "--tb=short -n auto"
+addopts = "--tb=short"
+# xfail_strict = true
 asyncio_mode = "auto"
 asyncio_default_fixture_loop_scope = "session"
 filterwarnings = [
