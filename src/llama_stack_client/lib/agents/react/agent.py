@@ -4,10 +4,8 @@
 # This source code is licensed under the terms described in the LICENSE file in
 # the root directory of this source tree.
 import logging
+from collections.abc import Mapping
 from typing import Any, Callable, Dict, List, Optional, Tuple, Union
-
-from llama_stack_client import LlamaStackClient
-from llama_stack_client.types.agents.turn_create_params import Toolgroup
 
 from ...._types import Headers
 from ..agent import Agent, AgentUtils
@@ -19,49 +17,41 @@ from .tool_parser import ReActToolParser
 logger = logging.getLogger(__name__)
 
 
-def get_tool_defs(
-    client: LlamaStackClient,
-    builtin_toolgroups: Tuple[Union[str, Dict[str, Any], Toolgroup], ...] = (),
-    client_tools: Tuple[ClientTool, ...] = (),
-):
-    tool_defs = []
-    for x in builtin_toolgroups:
-        if isinstance(x, str):
-            toolgroup_id = x
-        else:
-            toolgroup_id = x["name"]
-        tool_defs.extend(
-            [
-                {
-                    "name": tool.identifier,
-                    "description": tool.description,
-                    "input_schema": tool.input_schema,
-                }
-                for tool in client.tools.list(toolgroup_id=toolgroup_id)
-            ]
-        )
+def _tool_definition_from_mapping(tool: Mapping[str, Any]) -> Dict[str, Any]:
+    name = tool.get("name") or tool.get("identifier") or tool.get("tool_name") or tool.get("type") or "tool"
+    description = tool.get("description") or tool.get("summary") or ""
+    parameters = tool.get("parameters") or tool.get("input_schema") or {}
+    return {
+        "name": str(name),
+        "description": str(description),
+        "input_schema": parameters,
+    }
 
+
+def _collect_tool_definitions(
+    server_tools: Tuple[Mapping[str, Any], ...],
+    client_tools: Tuple[ClientTool, ...],
+) -> List[Dict[str, Any]]:
+    tool_defs = [_tool_definition_from_mapping(tool) for tool in server_tools]
     tool_defs.extend(
-        [
-            {
-                "name": tool.get_name(),
-                "description": tool.get_description(),
-                "input_schema": tool.get_input_schema(),
-            }
-            for tool in client_tools
-        ]
+        {
+            "name": tool.get_name(),
+            "description": tool.get_description(),
+            "input_schema": tool.get_input_schema(),
+        }
+        for tool in client_tools
     )
     return tool_defs
 
 
-def get_default_react_instructions(
-    client: LlamaStackClient,
-    builtin_toolgroups: Tuple[Union[str, Dict[str, Any], Toolgroup], ...] = (),
-    client_tools: Tuple[ClientTool, ...] = (),
-):
-    tool_defs = get_tool_defs(client, builtin_toolgroups, client_tools)
-    tool_names = ", ".join([x["name"] for x in tool_defs])
-    tool_descriptions = "\n".join([f"- {x['name']}: {x}" for x in tool_defs])
+def get_default_react_instructions(tool_defs: List[Dict[str, Any]]) -> str:
+    tool_names = ", ".join([definition["name"] for definition in tool_defs])
+    tool_descriptions = "\n".join(
+        [
+            f"- {definition['name']}: {definition['description'] or definition['input_schema']}"
+            for definition in tool_defs
+        ]
+    )
     instruction = DEFAULT_REACT_AGENT_SYSTEM_PROMPT_TEMPLATE.replace("<<tool_names>>", tool_names).replace(
         "<<tool_descriptions>>", tool_descriptions
     )
@@ -71,10 +61,10 @@ def get_default_react_instructions(
 class ReActAgent(Agent):
     def __init__(
         self,
-        client: LlamaStackClient,
+        client: Any,
         *,
         model: str,
-        tools: Optional[List[Union[Toolgroup, ClientTool, Callable[..., Any]]]] = None,
+        tools: Optional[List[Union[Dict[str, Any], ClientTool, Callable[..., Any]]]] = None,
         tool_parser: Optional[ToolParser] = None,
         instructions: Optional[str] = None,
         extra_headers: Headers | None = None,
@@ -88,12 +78,11 @@ class ReActAgent(Agent):
 
         tool_list = tools or []
         client_tool_instances = AgentUtils.get_client_tools(tool_list)
-        builtin_toolgroups = [x for x in tool_list if isinstance(x, (str, dict, Toolgroup))]
+        server_tool_defs = tuple(tool for tool in tool_list if isinstance(tool, Mapping))
 
         if instructions is None:
-            instructions = get_default_react_instructions(
-                client, tuple(builtin_toolgroups), tuple(client_tool_instances)
-            )
+            tool_definitions = _collect_tool_definitions(tuple(server_tool_defs), tuple(client_tool_instances))
+            instructions = get_default_react_instructions(tool_definitions)
 
         super().__init__(
             client=client,

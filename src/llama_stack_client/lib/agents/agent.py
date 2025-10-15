@@ -19,15 +19,6 @@ from typing import (
 )
 from uuid import uuid4
 
-from llama_stack_client import LlamaStackClient
-from llama_stack_client.types import ResponseObject
-from llama_stack_client.types import response_create_params
-from llama_stack_client.types.alpha.tool_response import ToolResponse
-from llama_stack_client.types.shared.tool_call import ToolCall
-from llama_stack_client.types.shared.agent_config import Toolgroup
-from llama_stack_client.types.shared_params.document import Document
-from llama_stack_client.types.shared.completion_message import CompletionMessage
-
 from ..._types import Headers
 from .client_tool import ClientTool, client_tool
 from .tool_parser import ToolParser
@@ -41,6 +32,7 @@ from .turn_events import (
     ToolExecutionStepResult,
 )
 from .event_synthesizer import TurnEventSynthesizer
+from .types import CompletionMessage, ToolCall, ToolResponse
 
 
 class ToolResponsePayload(TypedDict):
@@ -113,7 +105,7 @@ class ToolUtils:
 class Agent:
     def __init__(
         self,
-        client: Any,  # Accept any OpenAI-compatible client (OpenAI SDK or LlamaStackClient)
+        client: Any,  # Accept any OpenAI-compatible client
         *,
         model: str,
         instructions: str,
@@ -124,7 +116,7 @@ class Agent:
         """Construct an Agent backed by the responses + conversations APIs.
 
         Args:
-            client: An OpenAI-compatible client (e.g., openai.OpenAI() or LlamaStackClient).
+            client: An OpenAI-compatible client (e.g., openai.OpenAI()).
                     The client must support the responses and conversations APIs.
         """
         self.client = client
@@ -138,8 +130,6 @@ class Agent:
         self.client_tools = {tool.get_name(): tool for tool in client_tools}
 
         self.sessions: List[str] = []
-        self._last_response_id: Optional[str] = None
-        self._session_last_response_id: Dict[str, str] = {}
 
     def create_session(self, session_name: str) -> str:
         conversation = self.client.conversations.create(
@@ -182,32 +172,18 @@ class Agent:
 
     def create_turn(
         self,
-        messages: List[response_create_params.InputUnionMember1],
+        messages: List[Dict[str, Any]],
         session_id: str,
-        toolgroups: Optional[List[Toolgroup]] = None,
-        documents: Optional[List[Document]] = None,
         stream: bool = True,
         # TODO: deprecate this
         extra_headers: Headers | None = None,
-    ) -> Iterator[AgentStreamChunk] | ResponseObject:
+    ) -> Iterator[AgentStreamChunk] | Any:
         if stream:
-            return self._create_turn_streaming(
-                messages,
-                session_id,
-                toolgroups,
-                documents,
-                extra_headers=extra_headers or self.extra_headers,
-            )
+            return self._create_turn_streaming(messages, session_id, extra_headers=extra_headers or self.extra_headers)
         else:
-            _ = toolgroups
-            _ = documents
             last_chunk: Optional[AgentStreamChunk] = None
             for chunk in self._create_turn_streaming(
-                messages,
-                session_id,
-                toolgroups,
-                documents,
-                extra_headers=extra_headers or self.extra_headers,
+                messages, session_id, extra_headers=extra_headers or self.extra_headers
             ):
                 last_chunk = chunk
 
@@ -218,17 +194,11 @@ class Agent:
 
     def _create_turn_streaming(
         self,
-        messages: List[response_create_params.InputUnionMember1],
+        messages: List[Dict[str, Any]],
         session_id: str,
-        toolgroups: Optional[List[Toolgroup]] = None,
-        documents: Optional[List[Document]] = None,
         # TODO: deprecate this
         extra_headers: Headers | None = None,
     ) -> Iterator[AgentStreamChunk]:
-        # toolgroups and documents are legacy parameters - ignored
-        _ = toolgroups
-        _ = documents
-
         # Generate turn_id
         turn_id = f"turn_{uuid4().hex[:12]}"
 
@@ -276,8 +246,6 @@ class Agent:
                     raise RuntimeError("No response available")
                 for event in synthesizer.finish_turn():
                     yield AgentStreamChunk(event=event, response=response)
-                self._last_response_id = response.id
-                self._session_last_response_id[session_id] = response.id
                 break
 
             # Execute client-side tools (emit tool execution step events)
@@ -310,11 +278,11 @@ class Agent:
 
             # Continue loop with tool outputs as input
             messages = [
-                response_create_params.InputUnionMember1OpenAIResponseInputFunctionToolCallOutput(
-                    type="function_call_output",
-                    call_id=payload["call_id"],
-                    output=payload["content"],
-                )
+                {
+                    "type": "function_call_output",
+                    "call_id": payload["call_id"],
+                    "output": payload["content"],
+                }
                 for payload in tool_responses
             ]
 
@@ -338,9 +306,6 @@ class AsyncAgent:
         """
         self.client = client
 
-        if isinstance(client, LlamaStackClient):
-            raise ValueError("AsyncAgent must be initialized with an async client, not a sync LlamaStackClient")
-
         self.tool_parser = tool_parser
         self.extra_headers = extra_headers
         self._model = model
@@ -351,8 +316,6 @@ class AsyncAgent:
         self.client_tools = {tool.get_name(): tool for tool in client_tools}
 
         self.sessions: List[str] = []
-        self._last_response_id: Optional[str] = None
-        self._session_last_response_id: Dict[str, str] = {}
 
     async def create_session(self, session_name: str) -> str:
         conversation = await self.client.conversations.create(  # type: ignore[union-attr]
@@ -364,19 +327,15 @@ class AsyncAgent:
 
     async def create_turn(
         self,
-        messages: List[response_create_params.InputUnionMember1],
+        messages: List[Dict[str, Any]],
         session_id: str,
-        toolgroups: Optional[List[Toolgroup]] = None,
-        documents: Optional[List[Document]] = None,
         stream: bool = True,
-    ) -> AsyncIterator[AgentStreamChunk] | ResponseObject:
+    ) -> AsyncIterator[AgentStreamChunk] | Any:
         if stream:
-            return self._create_turn_streaming(messages, session_id, toolgroups, documents)
+            return self._create_turn_streaming(messages, session_id)
         else:
-            _ = toolgroups
-            _ = documents
             last_chunk: Optional[AgentStreamChunk] = None
-            async for chunk in self._create_turn_streaming(messages, session_id, toolgroups, documents):
+            async for chunk in self._create_turn_streaming(messages, session_id):
                 last_chunk = chunk
             if not last_chunk or not last_chunk.response:
                 raise Exception("Turn did not complete")
@@ -415,13 +374,9 @@ class AsyncAgent:
 
     async def _create_turn_streaming(
         self,
-        messages: List[response_create_params.InputUnionMember1],
+        messages: List[Dict[str, Any]],
         session_id: str,
-        toolgroups: Optional[List[Toolgroup]] = None,
-        documents: Optional[List[Document]] = None,
     ) -> AsyncIterator[AgentStreamChunk]:
-        _ = toolgroups
-        _ = documents
         await self.initialize()
 
         # Generate turn_id
@@ -471,8 +426,6 @@ class AsyncAgent:
                     raise RuntimeError("No response available")
                 for event in synthesizer.finish_turn():
                     yield AgentStreamChunk(event=event, response=response)
-                self._last_response_id = response.id
-                self._session_last_response_id[session_id] = response.id
                 break
 
             # Execute client-side tools (emit tool execution step events)
@@ -505,11 +458,11 @@ class AsyncAgent:
 
             # Continue loop with tool outputs as input
             messages = [
-                response_create_params.InputUnionMember1OpenAIResponseInputFunctionToolCallOutput(
-                    type="function_call_output",
-                    call_id=payload["call_id"],
-                    output=payload["content"],
-                )
+                {
+                    "type": "function_call_output",
+                    "call_id": payload["call_id"],
+                    "output": payload["content"],
+                }
                 for payload in tool_responses
             ]
 
@@ -580,17 +533,11 @@ class AgentUtils:
             if isinstance(tool, ClientTool):
                 # Convert ClientTool to function tool dict
                 tool_def = tool.get_tool_definition()
-                tool_dict = {
-                    "type": "function",
-                    "name": tool_def["name"],
-                    "description": tool_def.get("description", ""),
-                    "parameters": tool_def.get("input_schema", {}),
-                }
-                tool_dicts.append(tool_dict)
+                tool_dicts.append(tool_def)
                 client_tool_instances.append(tool)
             elif isinstance(tool, dict):
                 # Server-side tool dict (file_search, web_search, etc.)
-                tool_dicts.append(tool)
+                tool_dicts.append(tool)  # type: ignore[arg-type]
             else:
                 raise TypeError(f"Unsupported tool type: {type(tool)!r}")
 

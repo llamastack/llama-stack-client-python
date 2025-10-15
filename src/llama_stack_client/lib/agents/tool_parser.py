@@ -7,8 +7,7 @@
 from abc import abstractmethod
 from typing import List
 
-from llama_stack_client.types.alpha.agents.turn import CompletionMessage
-from llama_stack_client.types.shared.tool_call import ToolCall
+from .types import CompletionMessage, ToolCall
 
 
 class ToolParser:

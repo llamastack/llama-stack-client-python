@@ -21,9 +21,7 @@ from typing import (
 
 from typing_extensions import TypedDict
 
-from llama_stack_client.types import CompletionMessage, Message
-from llama_stack_client.types.alpha import ToolResponse
-from llama_stack_client.types.tool_def_param import ToolDefParam
+from .types import CompletionMessage, Message, ToolDefinition, ToolResponse
 
 
 class JSONSchema(TypedDict, total=False):
@@ -61,13 +59,13 @@ class ClientTool:
     def get_instruction_string(self) -> str:
         return f"Use the function '{self.get_name()}' to: {self.get_description()}"
 
-    def get_tool_definition(self) -> ToolDefParam:
-        return ToolDefParam(
-            name=self.get_name(),
-            description=self.get_description(),
-            input_schema=self.get_input_schema(),
-            metadata={},
-        )
+    def get_tool_definition(self) -> ToolDefinition:
+        return {
+            "type": "function",
+            "name": self.get_name(),
+            "description": self.get_description(),
+            "parameters": self.get_input_schema(),
+        }
 
     def run(
         self,
@@ -82,7 +80,6 @@ class ClientTool:
         metadata = {}
         try:
             params = json.loads(tool_call.arguments)
-
             response = self.run_impl(**params)
             if isinstance(response, dict) and "content" in response:
                 content = json.dumps(response["content"], ensure_ascii=False)
@@ -108,7 +105,8 @@ class ClientTool:
         tool_call = last_message.tool_calls[0]
         metadata = {}
         try:
-            response = await self.async_run_impl(**tool_call.arguments)
+            params = json.loads(tool_call.arguments)
+            response = await self.async_run_impl(**params)
             if isinstance(response, dict) and "content" in response:
                 content = json.dumps(response["content"], ensure_ascii=False)
                 metadata = response.get("metadata", {})

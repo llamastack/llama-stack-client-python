@@ -20,8 +20,7 @@ from typing import Any, Dict, Iterable, Iterator, List, Optional
 
 from logging import getLogger
 
-from llama_stack_client.types import ResponseObject
-from llama_stack_client.types.shared.tool_call import ToolCall
+from .types import ToolCall
 
 from .turn_events import (
     AgentEvent,
@@ -78,7 +77,7 @@ class TurnEventSynthesizer:
 
         self.turn_started = False
         self.all_response_ids: List[str] = []
-        self.last_response: Optional[ResponseObject] = None
+        self.last_response: Optional[Any] = None
 
     # ------------------------------------------------------------------ helpers
 

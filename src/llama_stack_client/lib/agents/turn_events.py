@@ -20,8 +20,7 @@ Key concepts:
 from dataclasses import dataclass
 from typing import Union, List, Optional, Dict, Any, Literal
 
-from llama_stack_client.types.shared.tool_call import ToolCall
-from llama_stack_client.types import ResponseObject
+from .types import ToolCall
 
 __all__ = [
     "TurnStarted",
@@ -261,7 +260,7 @@ class AgentStreamChunk:
 
     This is the top-level container for streaming events. Each chunk
     contains a high-level event (turn or step) and optionally the
-    final ResponseObject when the turn completes.
+    final response payload when the turn completes.
 
     Usage:
         for chunk in agent.create_turn(messages, session_id, stream=True):
@@ -273,4 +272,4 @@ class AgentStreamChunk:
     """
 
     event: AgentEvent
-    response: Optional[ResponseObject] = None  # Only set on TurnCompleted
+    response: Optional[Any] = None  # Only set on TurnCompleted
