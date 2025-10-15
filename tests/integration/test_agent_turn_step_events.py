@@ -73,7 +73,7 @@ def agent_with_file_search(openai_client):
         name=f"test-vs-{uuid4().hex[:8]}",
         extra_body={
             "provider_id": "faiss",
-            "embedding_model": "sentence-transformers/all-MiniLM-L6-v2",
+            "embedding_model": "nomic-ai/nomic-embed-text-v1.5",
         },
     )
     vector_store_file = openai_client.vector_stores.files.create(
