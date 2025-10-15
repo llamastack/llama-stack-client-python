@@ -4,17 +4,61 @@
 Usage:
     python interactive_agent_cli.py [--model MODEL] [--base-url URL]
 """
+
 import argparse
 import io
+import json
+import os
 import sys
 import time
+from pathlib import Path
+from typing import Optional
 from uuid import uuid4
 
-from llama_stack_client import LlamaStackClient, AgentEventLogger
-from llama_stack_client.lib.agents.agent import Agent
+from openai import OpenAI
+from llama_stack_client import Agent, AgentEventLogger
 
 
-def setup_knowledge_base(client):
+CACHE_DIR = Path(os.path.expanduser("~/.cache/interactive-agent-cli"))
+CACHE_DIR.mkdir(parents=True, exist_ok=True)
+CACHE_FILE = CACHE_DIR / "vector_store.json"
+
+
+def load_cached_vector_store() -> Optional[str]:
+    try:
+        with CACHE_FILE.open("r", encoding="utf-8") as fh:
+            payload = json.load(fh)
+        return payload.get("vector_store_id")
+    except FileNotFoundError:
+        return None
+    except Exception as exc:  # pragma: no cover - defensive
+        print(f"⚠️  Failed to load cached vector store info: {exc}", file=sys.stderr)
+        return None
+
+
+def save_cached_vector_store(vector_store_id: str) -> None:
+    try:
+        with CACHE_FILE.open("w", encoding="utf-8") as fh:
+            json.dump({"vector_store_id": vector_store_id}, fh)
+    except Exception as exc:  # pragma: no cover - defensive
+        print(f"⚠️  Failed to cache vector store id: {exc}", file=sys.stderr)
+
+
+def ensure_vector_store(client: OpenAI) -> str:
+    cached_id = load_cached_vector_store()
+    if cached_id:
+        # Verify the vector store still exists on the server
+        existing = client.vector_stores.list().data
+        if any(store.id == cached_id for store in existing):
+            print(f"📚 Reusing cached knowledge base (vector store {cached_id})")
+            return cached_id
+        else:
+            print("⚠️  Cached vector store not found on server; creating a new one.")
+
+    return setup_knowledge_base(client)
+
+
+def setup_knowledge_base(client: OpenAI) -> str:
     """Create a vector store with interesting test knowledge."""
     print("📚 Setting up knowledge base...")
 
@@ -64,7 +108,7 @@ def setup_knowledge_base(client):
         name=f"phoenix-kb-{uuid4().hex[:8]}",
         extra_body={
             "provider_id": "faiss",
-            "embedding_model": "sentence-transformers/all-MiniLM-L6-v2",
+            "embedding_model": "nomic-ai/nomic-embed-text-v1.5",
         },
     )
 
@@ -92,6 +136,7 @@ def setup_knowledge_base(client):
     print(" ✓")
     print(f"  Vector store ID: {vector_store.id}")
     print()
+    save_cached_vector_store(vector_store.id)
     return vector_store.id
 
 
@@ -209,7 +254,7 @@ def main():
 Examples:
   %(prog)s
   %(prog)s --model openai/gpt-4o
-  %(prog)s --base-url http://localhost:8321
+  %(prog)s --base-url http://localhost:8321/v1
         """,
     )
     parser.add_argument(
@@ -219,8 +264,8 @@ Examples:
     )
     parser.add_argument(
         "--base-url",
-        default="http://localhost:8321",
-        help="Llama Stack server URL (default: http://localhost:8321)",
+        default="http://localhost:8321/v1",
+        help="Llama Stack server URL (default: http://localhost:8321/v1)",
     )
 
     args = parser.parse_args()
@@ -234,7 +279,14 @@ Examples:
     # Create client
     print("🔌 Connecting to server...")
     try:
-        client = LlamaStackClient(base_url=args.base_url)
+        client = OpenAI(base_url=args.base_url)
+        models = client.models.list()
+        identifiers = [model.identifier for model in models]
+        if args.model not in identifiers:
+            print(f"  ✗ Model {args.model} not found", file=sys.stderr)
+            print(f"  Available models: {', '.join(identifiers)}", file=sys.stderr)
+            sys.exit(1)
+
         print("  ✓ Connected")
         print()
     except Exception as e:
@@ -244,7 +296,8 @@ Examples:
 
     # Setup knowledge base
     try:
-        vector_store_id = setup_knowledge_base(client)
+        print("🔍 Setting up knowledge base...")
+        vector_store_id = ensure_vector_store(client)
     except Exception as e:
         print(f"❌ Failed to setup knowledge base: {e}", file=sys.stderr)
         sys.exit(1)

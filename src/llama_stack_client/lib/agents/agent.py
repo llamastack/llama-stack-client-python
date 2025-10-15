@@ -35,10 +35,11 @@ from .event_synthesizer import TurnEventSynthesizer
 from .types import CompletionMessage, ToolCall, ToolResponse
 
 
-class ToolResponsePayload(TypedDict):
+class ToolResponsePayload(TypedDict, total=False):
     call_id: str
     tool_name: str
     content: Any
+    metadata: Dict[str, Any]
 
 
 logger = logging.getLogger(__name__)
@@ -84,6 +85,7 @@ class ToolUtils:
                 "call_id": tool_response.call_id,
                 "tool_name": str(tool_response.tool_name),
                 "content": ToolUtils.coerce_tool_content(tool_response.content),
+                "metadata": dict(tool_response.metadata),
             }
             return payload
 
@@ -96,6 +98,7 @@ class ToolUtils:
                 "call_id": str(call_id),
                 "tool_name": str(tool_name),
                 "content": ToolUtils.coerce_tool_content(tool_response.get("content")),
+                "metadata": dict(tool_response.get("metadata") or {}),
             }
             return payload
 
