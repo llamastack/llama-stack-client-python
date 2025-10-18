@@ -7,7 +7,7 @@ anyio==4.8.0
     # via
     #   httpx
     #   llama-stack-client
-black==25.1.0
+black==25.9.0
 certifi==2024.12.14
     # via
     #   httpcore
@@ -15,9 +15,9 @@ certifi==2024.12.14
     #   requests
 cfgv==3.4.0
     # via pre-commit
-charset-normalizer==3.4.3
+charset-normalizer==3.4.4
     # via requests
-click==8.2.1
+click==8.3.0
     # via
     #   black
     #   llama-stack-client
@@ -33,7 +33,7 @@ distro==1.9.0
     # via llama-stack-client
 execnet==2.1.1
     # via pytest-xdist
-filelock==3.19.1
+filelock==3.20.0
     # via virtualenv
 fire==0.7.1
     # via llama-stack-client
@@ -45,7 +45,7 @@ httpx==0.28.1
     # via
     #   llama-stack-client
     #   respx
-identify==2.6.14
+identify==2.6.15
     # via pre-commit
 idna==3.10
     # via
@@ -68,17 +68,17 @@ nodeenv==1.9.1
     # via
     #   pre-commit
     #   pyright
-numpy==2.3.3
+numpy==2.3.4
     # via pandas
 packaging==24.2
     # via
     #   black
     #   pytest
-pandas==2.3.2
+pandas==2.3.3
     # via llama-stack-client
 pathspec==0.12.1
     # via black
-platformdirs==4.4.0
+platformdirs==4.5.0
     # via
     #   black
     #   virtualenv
@@ -108,9 +108,11 @@ python-dateutil==2.9.0.post0
     # via
     #   pandas
     #   time-machine
+pytokens==0.2.0
+    # via black
 pytz==2024.2
     # via pandas
-pyyaml==6.0.2
+pyyaml==6.0.3
     # via
     #   pre-commit
     #   pyaml
@@ -148,9 +150,9 @@ tzdata==2025.2
     # via pandas
 urllib3==2.5.0
     # via requests
-virtualenv==20.34.0
+virtualenv==20.35.3
     # via pre-commit
-wcwidth==0.2.13
+wcwidth==0.2.14
     # via prompt-toolkit
 zipp==3.21.0
     # via importlib-metadata
