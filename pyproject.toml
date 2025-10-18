@@ -1,6 +1,6 @@
 [project]
 name = "llama_stack_client"
-version = "0.3.0-alpha.6"
+version = "0.3.0-alpha.7"
 description = "The official Python library for the llama-stack-client API"
 dynamic = ["readme"]
 license = "MIT"
@@ -41,7 +41,7 @@ Homepage = "https://github.com/llamastack/llama-stack-client-python"
 Repository = "https://github.com/llamastack/llama-stack-client-python"
 
 [project.optional-dependencies]
-aiohttp = ["aiohttp", "httpx_aiohttp>=0.1.8"]
+aiohttp = ["aiohttp", "httpx_aiohttp>=0.1.9"]
 
 [tool.uv]
 managed = true

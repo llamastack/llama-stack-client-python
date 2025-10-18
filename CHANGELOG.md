@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.3.0-alpha.7 (2025-10-18)
+
+Full Changelog: [v0.3.0-alpha.6...v0.3.0-alpha.7](https://github.com/llamastack/llama-stack-client-python/compare/v0.3.0-alpha.6...v0.3.0-alpha.7)
+
+### Chores
+
+* bump `httpx-aiohttp` version to 0.1.9 ([71da4bf](https://github.com/llamastack/llama-stack-client-python/commit/71da4bf1312bb612e348d39f283ab3b665fdb650))
+
 ## 0.3.0-alpha.6 (2025-10-13)
 
 Full Changelog: [v0.3.0-alpha.5...v0.3.0-alpha.6](https://github.com/llamastack/llama-stack-client-python/compare/v0.3.0-alpha.5...v0.3.0-alpha.6)
