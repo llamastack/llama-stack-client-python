@@ -41,7 +41,7 @@ Homepage = "https://github.com/llamastack/llama-stack-client-python"
 Repository = "https://github.com/llamastack/llama-stack-client-python"
 
 [project.optional-dependencies]
-aiohttp = ["aiohttp", "httpx_aiohttp>=0.1.8"]
+aiohttp = ["aiohttp", "httpx_aiohttp>=0.1.9"]
 
 [tool.uv]
 managed = true
