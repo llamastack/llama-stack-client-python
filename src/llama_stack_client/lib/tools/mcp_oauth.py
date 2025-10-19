@@ -1,4 +1,3 @@
-import asyncio
 import base64
 import hashlib
 import logging
@@ -10,7 +9,6 @@ import urllib.parse
 import uuid
 from http.server import BaseHTTPRequestHandler, HTTPServer
 
-import fire
 import requests
 
 logging.basicConfig(level=logging.INFO)
@@ -265,33 +263,3 @@ class CallbackServer(HTTPServer):
 def get_oauth_token_for_mcp_server(url: str) -> str | None:
     helper = McpOAuthHelper(url)
     return helper.initiate_auth_flow()
-
-
-async def run_main(url: str):
-    from mcp import ClientSession
-    from mcp.client.sse import sse_client
-
-    token = get_oauth_token_for_mcp_server(url)
-    if not token:
-        return
-
-    headers = {
-        "Authorization": f"Bearer {token}",
-    }
-
-    async with sse_client(url, headers=headers) as streams:
-        async with ClientSession(*streams) as session:
-            await session.initialize()
-            result = await session.list_tools()
-
-            logger.info(f"Tools: {len(result.tools)}, showing first 5:")
-            for t in result.tools[:5]:
-                logger.info(f"{t.name}: {t.description}")
-
-
-def main(url: str):
-    asyncio.run(run_main(url))
-
-
-if __name__ == "__main__":
-    fire.Fire(main)
