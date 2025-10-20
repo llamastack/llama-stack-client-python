@@ -1,3 +1,9 @@
+# Copyright (c) Meta Platforms, Inc. and affiliates.
+# All rights reserved.
+#
+# This source code is licensed under the terms described in the LICENSE file in
+# the root directory of this source tree.
+
 """
 Copied from https://github.com/pydantic/pydantic/blob/v1.10.22/tests/test_datetime_parse.py
 with modifications so it works without pydantic v1 imports.
