@@ -473,4 +473,8 @@ print(llama_stack_client.__version__)
 
 ## Requirements
 
-Python 3.10 or higher.
+Python 3.12 or higher.
+
+## License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
