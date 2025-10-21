@@ -20,7 +20,7 @@ class VectorIoQueryParams(TypedDict, total=False):
     query: Required[InterleavedContent]
     """The query to search for."""
 
-    vector_store_id: Required[str]
+    vector_db_id: Required[str]
     """The identifier of the vector database to query."""
 
     params: Dict[str, Union[bool, float, str, Iterable[object], object, None]]
