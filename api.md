@@ -431,31 +431,6 @@ Methods:
 - <code title="delete /v1/files/{file_id}">client.files.<a href="./src/llama_stack_client/resources/files.py">delete</a>(file_id) -> <a href="./src/llama_stack_client/types/delete_file_response.py">DeleteFileResponse</a></code>
 - <code title="get /v1/files/{file_id}/content">client.files.<a href="./src/llama_stack_client/resources/files.py">content</a>(file_id) -> object</code>
 
-# Beta
-
-## Datasets
-
-Types:
-
-```python
-from llama_stack_client.types.beta import (
-    ListDatasetsResponse,
-    DatasetRetrieveResponse,
-    DatasetListResponse,
-    DatasetIterrowsResponse,
-    DatasetRegisterResponse,
-)
-```
-
-Methods:
-
-- <code title="get /v1beta/datasets/{dataset_id}">client.beta.datasets.<a href="./src/llama_stack_client/resources/beta/datasets.py">retrieve</a>(dataset_id) -> <a href="./src/llama_stack_client/types/beta/dataset_retrieve_response.py">DatasetRetrieveResponse</a></code>
-- <code title="get /v1beta/datasets">client.beta.datasets.<a href="./src/llama_stack_client/resources/beta/datasets.py">list</a>() -> <a href="./src/llama_stack_client/types/beta/dataset_list_response.py">DatasetListResponse</a></code>
-- <code title="post /v1beta/datasetio/append-rows/{dataset_id}">client.beta.datasets.<a href="./src/llama_stack_client/resources/beta/datasets.py">appendrows</a>(dataset_id, \*\*<a href="src/llama_stack_client/types/beta/dataset_appendrows_params.py">params</a>) -> None</code>
-- <code title="get /v1beta/datasetio/iterrows/{dataset_id}">client.beta.datasets.<a href="./src/llama_stack_client/resources/beta/datasets.py">iterrows</a>(dataset_id, \*\*<a href="src/llama_stack_client/types/beta/dataset_iterrows_params.py">params</a>) -> <a href="./src/llama_stack_client/types/beta/dataset_iterrows_response.py">DatasetIterrowsResponse</a></code>
-- <code title="post /v1beta/datasets">client.beta.datasets.<a href="./src/llama_stack_client/resources/beta/datasets.py">register</a>(\*\*<a href="src/llama_stack_client/types/beta/dataset_register_params.py">params</a>) -> <a href="./src/llama_stack_client/types/beta/dataset_register_response.py">DatasetRegisterResponse</a></code>
-- <code title="delete /v1beta/datasets/{dataset_id}">client.beta.datasets.<a href="./src/llama_stack_client/resources/beta/datasets.py">unregister</a>(dataset_id) -> None</code>
-
 # Alpha
 
 ## Inference
@@ -601,3 +576,28 @@ Methods:
 - <code title="post /v1alpha/agents/{agent_id}/session/{session_id}/turn">client.alpha.agents.turn.<a href="./src/llama_stack_client/resources/alpha/agents/turn.py">create</a>(session_id, \*, agent_id, \*\*<a href="src/llama_stack_client/types/alpha/agents/turn_create_params.py">params</a>) -> <a href="./src/llama_stack_client/types/alpha/agents/turn.py">Turn</a></code>
 - <code title="get /v1alpha/agents/{agent_id}/session/{session_id}/turn/{turn_id}">client.alpha.agents.turn.<a href="./src/llama_stack_client/resources/alpha/agents/turn.py">retrieve</a>(turn_id, \*, agent_id, session_id) -> <a href="./src/llama_stack_client/types/alpha/agents/turn.py">Turn</a></code>
 - <code title="post /v1alpha/agents/{agent_id}/session/{session_id}/turn/{turn_id}/resume">client.alpha.agents.turn.<a href="./src/llama_stack_client/resources/alpha/agents/turn.py">resume</a>(turn_id, \*, agent_id, session_id, \*\*<a href="src/llama_stack_client/types/alpha/agents/turn_resume_params.py">params</a>) -> <a href="./src/llama_stack_client/types/alpha/agents/turn.py">Turn</a></code>
+
+# Beta
+
+## Datasets
+
+Types:
+
+```python
+from llama_stack_client.types.beta import (
+    ListDatasetsResponse,
+    DatasetRetrieveResponse,
+    DatasetListResponse,
+    DatasetIterrowsResponse,
+    DatasetRegisterResponse,
+)
+```
+
+Methods:
+
+- <code title="get /v1beta/datasets/{dataset_id}">client.beta.datasets.<a href="./src/llama_stack_client/resources/beta/datasets.py">retrieve</a>(dataset_id) -> <a href="./src/llama_stack_client/types/beta/dataset_retrieve_response.py">DatasetRetrieveResponse</a></code>
+- <code title="get /v1beta/datasets">client.beta.datasets.<a href="./src/llama_stack_client/resources/beta/datasets.py">list</a>() -> <a href="./src/llama_stack_client/types/beta/dataset_list_response.py">DatasetListResponse</a></code>
+- <code title="post /v1beta/datasetio/append-rows/{dataset_id}">client.beta.datasets.<a href="./src/llama_stack_client/resources/beta/datasets.py">appendrows</a>(dataset_id, \*\*<a href="src/llama_stack_client/types/beta/dataset_appendrows_params.py">params</a>) -> None</code>
+- <code title="get /v1beta/datasetio/iterrows/{dataset_id}">client.beta.datasets.<a href="./src/llama_stack_client/resources/beta/datasets.py">iterrows</a>(dataset_id, \*\*<a href="src/llama_stack_client/types/beta/dataset_iterrows_params.py">params</a>) -> <a href="./src/llama_stack_client/types/beta/dataset_iterrows_response.py">DatasetIterrowsResponse</a></code>
+- <code title="post /v1beta/datasets">client.beta.datasets.<a href="./src/llama_stack_client/resources/beta/datasets.py">register</a>(\*\*<a href="src/llama_stack_client/types/beta/dataset_register_params.py">params</a>) -> <a href="./src/llama_stack_client/types/beta/dataset_register_response.py">DatasetRegisterResponse</a></code>
+- <code title="delete /v1beta/datasets/{dataset_id}">client.beta.datasets.<a href="./src/llama_stack_client/resources/beta/datasets.py">unregister</a>(dataset_id) -> None</code>
