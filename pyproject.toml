@@ -1,6 +1,6 @@
 [project]
 name = "llama_stack_client"
-version = "0.3.0-alpha.6"
+version = "0.3.0rc6"
 description = "The official Python library for the llama-stack-client API"
 dynamic = ["readme"]
 license = "MIT"
