@@ -23,5 +23,5 @@ class RagToolInsertParams(TypedDict, total=False):
     documents: Required[Iterable[Document]]
     """List of documents to index in the RAG system"""
 
-    vector_store_id: Required[str]
+    vector_db_id: Required[str]
     """ID of the vector database to store the document embeddings"""

@@ -294,16 +294,16 @@ class LlamaStackClient(SyncAPIClient):
         return FilesResource(self)
 
     @cached_property
-    def beta(self) -> BetaResource:
-        from .resources.beta import BetaResource
-
-        return BetaResource(self)
-
-    @cached_property
     def alpha(self) -> AlphaResource:
         from .resources.alpha import AlphaResource
 
         return AlphaResource(self)
+
+    @cached_property
+    def beta(self) -> BetaResource:
+        from .resources.beta import BetaResource
+
+        return BetaResource(self)
 
     @cached_property
     def with_raw_response(self) -> LlamaStackClientWithRawResponse:
@@ -610,16 +610,16 @@ class AsyncLlamaStackClient(AsyncAPIClient):
         return AsyncFilesResource(self)
 
     @cached_property
-    def beta(self) -> AsyncBetaResource:
-        from .resources.beta import AsyncBetaResource
-
-        return AsyncBetaResource(self)
-
-    @cached_property
     def alpha(self) -> AsyncAlphaResource:
         from .resources.alpha import AsyncAlphaResource
 
         return AsyncAlphaResource(self)
+
+    @cached_property
+    def beta(self) -> AsyncBetaResource:
+        from .resources.beta import AsyncBetaResource
+
+        return AsyncBetaResource(self)
 
     @cached_property
     def with_raw_response(self) -> AsyncLlamaStackClientWithRawResponse:
@@ -875,16 +875,16 @@ class LlamaStackClientWithRawResponse:
         return FilesResourceWithRawResponse(self._client.files)
 
     @cached_property
-    def beta(self) -> beta.BetaResourceWithRawResponse:
-        from .resources.beta import BetaResourceWithRawResponse
-
-        return BetaResourceWithRawResponse(self._client.beta)
-
-    @cached_property
     def alpha(self) -> alpha.AlphaResourceWithRawResponse:
         from .resources.alpha import AlphaResourceWithRawResponse
 
         return AlphaResourceWithRawResponse(self._client.alpha)
+
+    @cached_property
+    def beta(self) -> beta.BetaResourceWithRawResponse:
+        from .resources.beta import BetaResourceWithRawResponse
+
+        return BetaResourceWithRawResponse(self._client.beta)
 
 
 class AsyncLlamaStackClientWithRawResponse:
@@ -1028,16 +1028,16 @@ class AsyncLlamaStackClientWithRawResponse:
         return AsyncFilesResourceWithRawResponse(self._client.files)
 
     @cached_property
-    def beta(self) -> beta.AsyncBetaResourceWithRawResponse:
-        from .resources.beta import AsyncBetaResourceWithRawResponse
-
-        return AsyncBetaResourceWithRawResponse(self._client.beta)
-
-    @cached_property
     def alpha(self) -> alpha.AsyncAlphaResourceWithRawResponse:
         from .resources.alpha import AsyncAlphaResourceWithRawResponse
 
         return AsyncAlphaResourceWithRawResponse(self._client.alpha)
+
+    @cached_property
+    def beta(self) -> beta.AsyncBetaResourceWithRawResponse:
+        from .resources.beta import AsyncBetaResourceWithRawResponse
+
+        return AsyncBetaResourceWithRawResponse(self._client.beta)
 
 
 class LlamaStackClientWithStreamedResponse:
@@ -1181,16 +1181,16 @@ class LlamaStackClientWithStreamedResponse:
         return FilesResourceWithStreamingResponse(self._client.files)
 
     @cached_property
-    def beta(self) -> beta.BetaResourceWithStreamingResponse:
-        from .resources.beta import BetaResourceWithStreamingResponse
-
-        return BetaResourceWithStreamingResponse(self._client.beta)
-
-    @cached_property
     def alpha(self) -> alpha.AlphaResourceWithStreamingResponse:
         from .resources.alpha import AlphaResourceWithStreamingResponse
 
         return AlphaResourceWithStreamingResponse(self._client.alpha)
+
+    @cached_property
+    def beta(self) -> beta.BetaResourceWithStreamingResponse:
+        from .resources.beta import BetaResourceWithStreamingResponse
+
+        return BetaResourceWithStreamingResponse(self._client.beta)
 
 
 class AsyncLlamaStackClientWithStreamedResponse:
@@ -1334,16 +1334,16 @@ class AsyncLlamaStackClientWithStreamedResponse:
         return AsyncFilesResourceWithStreamingResponse(self._client.files)
 
     @cached_property
-    def beta(self) -> beta.AsyncBetaResourceWithStreamingResponse:
-        from .resources.beta import AsyncBetaResourceWithStreamingResponse
-
-        return AsyncBetaResourceWithStreamingResponse(self._client.beta)
-
-    @cached_property
     def alpha(self) -> alpha.AsyncAlphaResourceWithStreamingResponse:
         from .resources.alpha import AsyncAlphaResourceWithStreamingResponse
 
         return AsyncAlphaResourceWithStreamingResponse(self._client.alpha)
+
+    @cached_property
+    def beta(self) -> beta.AsyncBetaResourceWithStreamingResponse:
+        from .resources.beta import AsyncBetaResourceWithStreamingResponse
+
+        return AsyncBetaResourceWithStreamingResponse(self._client.beta)
 
 
 Client = LlamaStackClient

@@ -57,7 +57,7 @@ class RagToolResource(SyncAPIResource):
         *,
         chunk_size_in_tokens: int,
         documents: Iterable[Document],
-        vector_store_id: str,
+        vector_db_id: str,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -73,7 +73,7 @@ class RagToolResource(SyncAPIResource):
 
           documents: List of documents to index in the RAG system
 
-          vector_store_id: ID of the vector database to store the document embeddings
+          vector_db_id: ID of the vector database to store the document embeddings
 
           extra_headers: Send extra headers
 
@@ -90,7 +90,7 @@ class RagToolResource(SyncAPIResource):
                 {
                     "chunk_size_in_tokens": chunk_size_in_tokens,
                     "documents": documents,
-                    "vector_store_id": vector_store_id,
+                    "vector_db_id": vector_db_id,
                 },
                 rag_tool_insert_params.RagToolInsertParams,
             ),
@@ -104,7 +104,7 @@ class RagToolResource(SyncAPIResource):
         self,
         *,
         content: InterleavedContent,
-        vector_store_ids: SequenceNotStr[str],
+        vector_db_ids: SequenceNotStr[str],
         query_config: QueryConfig | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -119,7 +119,7 @@ class RagToolResource(SyncAPIResource):
         Args:
           content: The query content to search for in the indexed documents
 
-          vector_store_ids: List of vector database IDs to search within
+          vector_db_ids: List of vector database IDs to search within
 
           query_config: (Optional) Configuration parameters for the query operation
 
@@ -136,7 +136,7 @@ class RagToolResource(SyncAPIResource):
             body=maybe_transform(
                 {
                     "content": content,
-                    "vector_store_ids": vector_store_ids,
+                    "vector_db_ids": vector_db_ids,
                     "query_config": query_config,
                 },
                 rag_tool_query_params.RagToolQueryParams,
@@ -173,7 +173,7 @@ class AsyncRagToolResource(AsyncAPIResource):
         *,
         chunk_size_in_tokens: int,
         documents: Iterable[Document],
-        vector_store_id: str,
+        vector_db_id: str,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -189,7 +189,7 @@ class AsyncRagToolResource(AsyncAPIResource):
 
           documents: List of documents to index in the RAG system
 
-          vector_store_id: ID of the vector database to store the document embeddings
+          vector_db_id: ID of the vector database to store the document embeddings
 
           extra_headers: Send extra headers
 
@@ -206,7 +206,7 @@ class AsyncRagToolResource(AsyncAPIResource):
                 {
                     "chunk_size_in_tokens": chunk_size_in_tokens,
                     "documents": documents,
-                    "vector_store_id": vector_store_id,
+                    "vector_db_id": vector_db_id,
                 },
                 rag_tool_insert_params.RagToolInsertParams,
             ),
@@ -220,7 +220,7 @@ class AsyncRagToolResource(AsyncAPIResource):
         self,
         *,
         content: InterleavedContent,
-        vector_store_ids: SequenceNotStr[str],
+        vector_db_ids: SequenceNotStr[str],
         query_config: QueryConfig | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -235,7 +235,7 @@ class AsyncRagToolResource(AsyncAPIResource):
         Args:
           content: The query content to search for in the indexed documents
 
-          vector_store_ids: List of vector database IDs to search within
+          vector_db_ids: List of vector database IDs to search within
 
           query_config: (Optional) Configuration parameters for the query operation
 
@@ -252,7 +252,7 @@ class AsyncRagToolResource(AsyncAPIResource):
             body=await async_maybe_transform(
                 {
                     "content": content,
-                    "vector_store_ids": vector_store_ids,
+                    "vector_db_ids": vector_db_ids,
                     "query_config": query_config,
                 },
                 rag_tool_query_params.RagToolQueryParams,

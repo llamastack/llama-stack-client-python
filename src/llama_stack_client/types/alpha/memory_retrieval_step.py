@@ -29,7 +29,7 @@ class MemoryRetrievalStep(BaseModel):
     turn_id: str
     """The ID of the turn."""
 
-    vector_store_ids: str
+    vector_db_ids: str
     """The IDs of the vector databases to retrieve context from."""
 
     completed_at: Optional[datetime] = None
