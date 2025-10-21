@@ -16,11 +16,13 @@ __all__ = [
     "OutputOpenAIResponseMessageContentUnionMember1OpenAIResponseInputMessageContentText",
     "OutputOpenAIResponseMessageContentUnionMember1OpenAIResponseInputMessageContentImage",
     "OutputOpenAIResponseMessageContentUnionMember2",
-    "OutputOpenAIResponseMessageContentUnionMember2Annotation",
-    "OutputOpenAIResponseMessageContentUnionMember2AnnotationOpenAIResponseAnnotationFileCitation",
-    "OutputOpenAIResponseMessageContentUnionMember2AnnotationOpenAIResponseAnnotationCitation",
-    "OutputOpenAIResponseMessageContentUnionMember2AnnotationOpenAIResponseAnnotationContainerFileCitation",
-    "OutputOpenAIResponseMessageContentUnionMember2AnnotationOpenAIResponseAnnotationFilePath",
+    "OutputOpenAIResponseMessageContentUnionMember2OpenAIResponseOutputMessageContentOutputText",
+    "OutputOpenAIResponseMessageContentUnionMember2OpenAIResponseOutputMessageContentOutputTextAnnotation",
+    "OutputOpenAIResponseMessageContentUnionMember2OpenAIResponseOutputMessageContentOutputTextAnnotationOpenAIResponseAnnotationFileCitation",
+    "OutputOpenAIResponseMessageContentUnionMember2OpenAIResponseOutputMessageContentOutputTextAnnotationOpenAIResponseAnnotationCitation",
+    "OutputOpenAIResponseMessageContentUnionMember2OpenAIResponseOutputMessageContentOutputTextAnnotationOpenAIResponseAnnotationContainerFileCitation",
+    "OutputOpenAIResponseMessageContentUnionMember2OpenAIResponseOutputMessageContentOutputTextAnnotationOpenAIResponseAnnotationFilePath",
+    "OutputOpenAIResponseMessageContentUnionMember2OpenAIResponseContentPartRefusal",
     "OutputOpenAIResponseOutputMessageWebSearchToolCall",
     "OutputOpenAIResponseOutputMessageFileSearchToolCall",
     "OutputOpenAIResponseOutputMessageFileSearchToolCallResult",
@@ -74,7 +76,9 @@ OutputOpenAIResponseMessageContentUnionMember1: TypeAlias = Annotated[
 ]
 
 
-class OutputOpenAIResponseMessageContentUnionMember2AnnotationOpenAIResponseAnnotationFileCitation(BaseModel):
+class OutputOpenAIResponseMessageContentUnionMember2OpenAIResponseOutputMessageContentOutputTextAnnotationOpenAIResponseAnnotationFileCitation(
+    BaseModel
+):
     file_id: str
     """Unique identifier of the referenced file"""
 
@@ -88,7 +92,9 @@ class OutputOpenAIResponseMessageContentUnionMember2AnnotationOpenAIResponseAnno
     """Annotation type identifier, always "file_citation" """
 
 
-class OutputOpenAIResponseMessageContentUnionMember2AnnotationOpenAIResponseAnnotationCitation(BaseModel):
+class OutputOpenAIResponseMessageContentUnionMember2OpenAIResponseOutputMessageContentOutputTextAnnotationOpenAIResponseAnnotationCitation(
+    BaseModel
+):
     end_index: int
     """End position of the citation span in the content"""
 
@@ -105,7 +111,9 @@ class OutputOpenAIResponseMessageContentUnionMember2AnnotationOpenAIResponseAnno
     """URL of the referenced web resource"""
 
 
-class OutputOpenAIResponseMessageContentUnionMember2AnnotationOpenAIResponseAnnotationContainerFileCitation(BaseModel):
+class OutputOpenAIResponseMessageContentUnionMember2OpenAIResponseOutputMessageContentOutputTextAnnotationOpenAIResponseAnnotationContainerFileCitation(
+    BaseModel
+):
     container_id: str
 
     end_index: int
@@ -119,7 +127,9 @@ class OutputOpenAIResponseMessageContentUnionMember2AnnotationOpenAIResponseAnno
     type: Literal["container_file_citation"]
 
 
-class OutputOpenAIResponseMessageContentUnionMember2AnnotationOpenAIResponseAnnotationFilePath(BaseModel):
+class OutputOpenAIResponseMessageContentUnionMember2OpenAIResponseOutputMessageContentOutputTextAnnotationOpenAIResponseAnnotationFilePath(
+    BaseModel
+):
     file_id: str
 
     index: int
@@ -127,23 +137,42 @@ class OutputOpenAIResponseMessageContentUnionMember2AnnotationOpenAIResponseAnno
     type: Literal["file_path"]
 
 
-OutputOpenAIResponseMessageContentUnionMember2Annotation: TypeAlias = Annotated[
+OutputOpenAIResponseMessageContentUnionMember2OpenAIResponseOutputMessageContentOutputTextAnnotation: TypeAlias = Annotated[
     Union[
-        OutputOpenAIResponseMessageContentUnionMember2AnnotationOpenAIResponseAnnotationFileCitation,
-        OutputOpenAIResponseMessageContentUnionMember2AnnotationOpenAIResponseAnnotationCitation,
-        OutputOpenAIResponseMessageContentUnionMember2AnnotationOpenAIResponseAnnotationContainerFileCitation,
-        OutputOpenAIResponseMessageContentUnionMember2AnnotationOpenAIResponseAnnotationFilePath,
+        OutputOpenAIResponseMessageContentUnionMember2OpenAIResponseOutputMessageContentOutputTextAnnotationOpenAIResponseAnnotationFileCitation,
+        OutputOpenAIResponseMessageContentUnionMember2OpenAIResponseOutputMessageContentOutputTextAnnotationOpenAIResponseAnnotationCitation,
+        OutputOpenAIResponseMessageContentUnionMember2OpenAIResponseOutputMessageContentOutputTextAnnotationOpenAIResponseAnnotationContainerFileCitation,
+        OutputOpenAIResponseMessageContentUnionMember2OpenAIResponseOutputMessageContentOutputTextAnnotationOpenAIResponseAnnotationFilePath,
     ],
     PropertyInfo(discriminator="type"),
 ]
 
 
-class OutputOpenAIResponseMessageContentUnionMember2(BaseModel):
-    annotations: List[OutputOpenAIResponseMessageContentUnionMember2Annotation]
+class OutputOpenAIResponseMessageContentUnionMember2OpenAIResponseOutputMessageContentOutputText(BaseModel):
+    annotations: List[
+        OutputOpenAIResponseMessageContentUnionMember2OpenAIResponseOutputMessageContentOutputTextAnnotation
+    ]
 
     text: str
 
     type: Literal["output_text"]
+
+
+class OutputOpenAIResponseMessageContentUnionMember2OpenAIResponseContentPartRefusal(BaseModel):
+    refusal: str
+    """Refusal text supplied by the model"""
+
+    type: Literal["refusal"]
+    """Content part type identifier, always "refusal" """
+
+
+OutputOpenAIResponseMessageContentUnionMember2: TypeAlias = Annotated[
+    Union[
+        OutputOpenAIResponseMessageContentUnionMember2OpenAIResponseOutputMessageContentOutputText,
+        OutputOpenAIResponseMessageContentUnionMember2OpenAIResponseContentPartRefusal,
+    ],
+    PropertyInfo(discriminator="type"),
+]
 
 
 class OutputOpenAIResponseMessage(BaseModel):
@@ -470,6 +499,9 @@ class ResponseObject(BaseModel):
 
     error: Optional[Error] = None
     """(Optional) Error details if the response generation failed"""
+
+    instructions: Optional[str] = None
+    """(Optional) System message inserted into the model's context"""
 
     previous_response_id: Optional[str] = None
     """(Optional) ID of the previous response in a conversation"""

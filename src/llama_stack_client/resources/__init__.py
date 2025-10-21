@@ -1,5 +1,13 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
+from .beta import (
+    BetaResource,
+    AsyncBetaResource,
+    BetaResourceWithRawResponse,
+    AsyncBetaResourceWithRawResponse,
+    BetaResourceWithStreamingResponse,
+    AsyncBetaResourceWithStreamingResponse,
+)
 from .chat import (
     ChatResource,
     AsyncChatResource,
@@ -80,14 +88,6 @@ from .shields import (
     ShieldsResourceWithStreamingResponse,
     AsyncShieldsResourceWithStreamingResponse,
 )
-from .datasets import (
-    DatasetsResource,
-    AsyncDatasetsResource,
-    DatasetsResourceWithRawResponse,
-    AsyncDatasetsResourceWithRawResponse,
-    DatasetsResourceWithStreamingResponse,
-    AsyncDatasetsResourceWithStreamingResponse,
-)
 from .providers import (
     ProvidersResource,
     AsyncProvidersResource,
@@ -103,14 +103,6 @@ from .responses import (
     AsyncResponsesResourceWithRawResponse,
     ResponsesResourceWithStreamingResponse,
     AsyncResponsesResourceWithStreamingResponse,
-)
-from .telemetry import (
-    TelemetryResource,
-    AsyncTelemetryResource,
-    TelemetryResourceWithRawResponse,
-    AsyncTelemetryResourceWithRawResponse,
-    TelemetryResourceWithStreamingResponse,
-    AsyncTelemetryResourceWithStreamingResponse,
 )
 from .vector_io import (
     VectorIoResource,
@@ -232,12 +224,6 @@ __all__ = [
     "AsyncConversationsResourceWithRawResponse",
     "ConversationsResourceWithStreamingResponse",
     "AsyncConversationsResourceWithStreamingResponse",
-    "DatasetsResource",
-    "AsyncDatasetsResource",
-    "DatasetsResourceWithRawResponse",
-    "AsyncDatasetsResourceWithRawResponse",
-    "DatasetsResourceWithStreamingResponse",
-    "AsyncDatasetsResourceWithStreamingResponse",
     "InspectResource",
     "AsyncInspectResource",
     "InspectResourceWithRawResponse",
@@ -316,12 +302,6 @@ __all__ = [
     "AsyncSyntheticDataGenerationResourceWithRawResponse",
     "SyntheticDataGenerationResourceWithStreamingResponse",
     "AsyncSyntheticDataGenerationResourceWithStreamingResponse",
-    "TelemetryResource",
-    "AsyncTelemetryResource",
-    "TelemetryResourceWithRawResponse",
-    "AsyncTelemetryResourceWithRawResponse",
-    "TelemetryResourceWithStreamingResponse",
-    "AsyncTelemetryResourceWithStreamingResponse",
     "ScoringResource",
     "AsyncScoringResource",
     "ScoringResourceWithRawResponse",
@@ -346,6 +326,12 @@ __all__ = [
     "AsyncFilesResourceWithRawResponse",
     "FilesResourceWithStreamingResponse",
     "AsyncFilesResourceWithStreamingResponse",
+    "BetaResource",
+    "AsyncBetaResource",
+    "BetaResourceWithRawResponse",
+    "AsyncBetaResourceWithRawResponse",
+    "BetaResourceWithStreamingResponse",
+    "AsyncBetaResourceWithStreamingResponse",
     "AlphaResource",
     "AsyncAlphaResource",
     "AlphaResourceWithRawResponse",

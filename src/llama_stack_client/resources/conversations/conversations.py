@@ -68,7 +68,8 @@ class ConversationsResource(SyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> ConversationObject:
-        """
+        """Create a conversation.
+
         Create a conversation.
 
         Args:
@@ -110,7 +111,8 @@ class ConversationsResource(SyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> ConversationObject:
-        """
+        """Retrieve a conversation.
+
         Get a conversation with the given ID.
 
         Args:
@@ -144,7 +146,8 @@ class ConversationsResource(SyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> ConversationObject:
-        """
+        """Update a conversation.
+
         Update a conversation's metadata with the given ID.
 
         Args:
@@ -180,7 +183,8 @@ class ConversationsResource(SyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> ConversationDeleteResponse:
-        """
+        """Delete a conversation.
+
         Delete a conversation with the given ID.
 
         Args:
@@ -239,7 +243,8 @@ class AsyncConversationsResource(AsyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> ConversationObject:
-        """
+        """Create a conversation.
+
         Create a conversation.
 
         Args:
@@ -281,7 +286,8 @@ class AsyncConversationsResource(AsyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> ConversationObject:
-        """
+        """Retrieve a conversation.
+
         Get a conversation with the given ID.
 
         Args:
@@ -315,7 +321,8 @@ class AsyncConversationsResource(AsyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> ConversationObject:
-        """
+        """Update a conversation.
+
         Update a conversation's metadata with the given ID.
 
         Args:
@@ -353,7 +360,8 @@ class AsyncConversationsResource(AsyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> ConversationDeleteResponse:
-        """
+        """Delete a conversation.
+
         Delete a conversation with the given ID.
 
         Args:

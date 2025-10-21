@@ -17,16 +17,21 @@ __all__ = [
     "InputUnionMember1OpenAIResponseInputFunctionToolCallOutput",
     "InputUnionMember1OpenAIResponseMcpApprovalRequest",
     "InputUnionMember1OpenAIResponseMcpApprovalResponse",
+    "InputUnionMember1OpenAIResponseOutputMessageMcpCall",
+    "InputUnionMember1OpenAIResponseOutputMessageMcpListTools",
+    "InputUnionMember1OpenAIResponseOutputMessageMcpListToolsTool",
     "InputUnionMember1OpenAIResponseMessage",
     "InputUnionMember1OpenAIResponseMessageContentUnionMember1",
     "InputUnionMember1OpenAIResponseMessageContentUnionMember1OpenAIResponseInputMessageContentText",
     "InputUnionMember1OpenAIResponseMessageContentUnionMember1OpenAIResponseInputMessageContentImage",
     "InputUnionMember1OpenAIResponseMessageContentUnionMember2",
-    "InputUnionMember1OpenAIResponseMessageContentUnionMember2Annotation",
-    "InputUnionMember1OpenAIResponseMessageContentUnionMember2AnnotationOpenAIResponseAnnotationFileCitation",
-    "InputUnionMember1OpenAIResponseMessageContentUnionMember2AnnotationOpenAIResponseAnnotationCitation",
-    "InputUnionMember1OpenAIResponseMessageContentUnionMember2AnnotationOpenAIResponseAnnotationContainerFileCitation",
-    "InputUnionMember1OpenAIResponseMessageContentUnionMember2AnnotationOpenAIResponseAnnotationFilePath",
+    "InputUnionMember1OpenAIResponseMessageContentUnionMember2OpenAIResponseOutputMessageContentOutputText",
+    "InputUnionMember1OpenAIResponseMessageContentUnionMember2OpenAIResponseOutputMessageContentOutputTextAnnotation",
+    "InputUnionMember1OpenAIResponseMessageContentUnionMember2OpenAIResponseOutputMessageContentOutputTextAnnotationOpenAIResponseAnnotationFileCitation",
+    "InputUnionMember1OpenAIResponseMessageContentUnionMember2OpenAIResponseOutputMessageContentOutputTextAnnotationOpenAIResponseAnnotationCitation",
+    "InputUnionMember1OpenAIResponseMessageContentUnionMember2OpenAIResponseOutputMessageContentOutputTextAnnotationOpenAIResponseAnnotationContainerFileCitation",
+    "InputUnionMember1OpenAIResponseMessageContentUnionMember2OpenAIResponseOutputMessageContentOutputTextAnnotationOpenAIResponseAnnotationFilePath",
+    "InputUnionMember1OpenAIResponseMessageContentUnionMember2OpenAIResponseContentPartRefusal",
     "Text",
     "TextFormat",
     "Tool",
@@ -183,6 +188,54 @@ class InputUnionMember1OpenAIResponseMcpApprovalResponse(TypedDict, total=False)
     reason: str
 
 
+class InputUnionMember1OpenAIResponseOutputMessageMcpCall(TypedDict, total=False):
+    id: Required[str]
+    """Unique identifier for this MCP call"""
+
+    arguments: Required[str]
+    """JSON string containing the MCP call arguments"""
+
+    name: Required[str]
+    """Name of the MCP method being called"""
+
+    server_label: Required[str]
+    """Label identifying the MCP server handling the call"""
+
+    type: Required[Literal["mcp_call"]]
+    """Tool call type identifier, always "mcp_call" """
+
+    error: str
+    """(Optional) Error message if the MCP call failed"""
+
+    output: str
+    """(Optional) Output result from the successful MCP call"""
+
+
+class InputUnionMember1OpenAIResponseOutputMessageMcpListToolsTool(TypedDict, total=False):
+    input_schema: Required[Dict[str, Union[bool, float, str, Iterable[object], object, None]]]
+    """JSON schema defining the tool's input parameters"""
+
+    name: Required[str]
+    """Name of the tool"""
+
+    description: str
+    """(Optional) Description of what the tool does"""
+
+
+class InputUnionMember1OpenAIResponseOutputMessageMcpListTools(TypedDict, total=False):
+    id: Required[str]
+    """Unique identifier for this MCP list tools operation"""
+
+    server_label: Required[str]
+    """Label identifying the MCP server providing the tools"""
+
+    tools: Required[Iterable[InputUnionMember1OpenAIResponseOutputMessageMcpListToolsTool]]
+    """List of available tools provided by the MCP server"""
+
+    type: Required[Literal["mcp_list_tools"]]
+    """Tool call type identifier, always "mcp_list_tools" """
+
+
 class InputUnionMember1OpenAIResponseMessageContentUnionMember1OpenAIResponseInputMessageContentText(
     TypedDict, total=False
 ):
@@ -212,7 +265,7 @@ InputUnionMember1OpenAIResponseMessageContentUnionMember1: TypeAlias = Union[
 ]
 
 
-class InputUnionMember1OpenAIResponseMessageContentUnionMember2AnnotationOpenAIResponseAnnotationFileCitation(
+class InputUnionMember1OpenAIResponseMessageContentUnionMember2OpenAIResponseOutputMessageContentOutputTextAnnotationOpenAIResponseAnnotationFileCitation(
     TypedDict, total=False
 ):
     file_id: Required[str]
@@ -228,7 +281,7 @@ class InputUnionMember1OpenAIResponseMessageContentUnionMember2AnnotationOpenAIR
     """Annotation type identifier, always "file_citation" """
 
 
-class InputUnionMember1OpenAIResponseMessageContentUnionMember2AnnotationOpenAIResponseAnnotationCitation(
+class InputUnionMember1OpenAIResponseMessageContentUnionMember2OpenAIResponseOutputMessageContentOutputTextAnnotationOpenAIResponseAnnotationCitation(
     TypedDict, total=False
 ):
     end_index: Required[int]
@@ -247,7 +300,7 @@ class InputUnionMember1OpenAIResponseMessageContentUnionMember2AnnotationOpenAIR
     """URL of the referenced web resource"""
 
 
-class InputUnionMember1OpenAIResponseMessageContentUnionMember2AnnotationOpenAIResponseAnnotationContainerFileCitation(
+class InputUnionMember1OpenAIResponseMessageContentUnionMember2OpenAIResponseOutputMessageContentOutputTextAnnotationOpenAIResponseAnnotationContainerFileCitation(
     TypedDict, total=False
 ):
     container_id: Required[str]
@@ -263,7 +316,7 @@ class InputUnionMember1OpenAIResponseMessageContentUnionMember2AnnotationOpenAIR
     type: Required[Literal["container_file_citation"]]
 
 
-class InputUnionMember1OpenAIResponseMessageContentUnionMember2AnnotationOpenAIResponseAnnotationFilePath(
+class InputUnionMember1OpenAIResponseMessageContentUnionMember2OpenAIResponseOutputMessageContentOutputTextAnnotationOpenAIResponseAnnotationFilePath(
     TypedDict, total=False
 ):
     file_id: Required[str]
@@ -273,20 +326,40 @@ class InputUnionMember1OpenAIResponseMessageContentUnionMember2AnnotationOpenAIR
     type: Required[Literal["file_path"]]
 
 
-InputUnionMember1OpenAIResponseMessageContentUnionMember2Annotation: TypeAlias = Union[
-    InputUnionMember1OpenAIResponseMessageContentUnionMember2AnnotationOpenAIResponseAnnotationFileCitation,
-    InputUnionMember1OpenAIResponseMessageContentUnionMember2AnnotationOpenAIResponseAnnotationCitation,
-    InputUnionMember1OpenAIResponseMessageContentUnionMember2AnnotationOpenAIResponseAnnotationContainerFileCitation,
-    InputUnionMember1OpenAIResponseMessageContentUnionMember2AnnotationOpenAIResponseAnnotationFilePath,
+InputUnionMember1OpenAIResponseMessageContentUnionMember2OpenAIResponseOutputMessageContentOutputTextAnnotation: TypeAlias = Union[
+    InputUnionMember1OpenAIResponseMessageContentUnionMember2OpenAIResponseOutputMessageContentOutputTextAnnotationOpenAIResponseAnnotationFileCitation,
+    InputUnionMember1OpenAIResponseMessageContentUnionMember2OpenAIResponseOutputMessageContentOutputTextAnnotationOpenAIResponseAnnotationCitation,
+    InputUnionMember1OpenAIResponseMessageContentUnionMember2OpenAIResponseOutputMessageContentOutputTextAnnotationOpenAIResponseAnnotationContainerFileCitation,
+    InputUnionMember1OpenAIResponseMessageContentUnionMember2OpenAIResponseOutputMessageContentOutputTextAnnotationOpenAIResponseAnnotationFilePath,
 ]
 
 
-class InputUnionMember1OpenAIResponseMessageContentUnionMember2(TypedDict, total=False):
-    annotations: Required[Iterable[InputUnionMember1OpenAIResponseMessageContentUnionMember2Annotation]]
+class InputUnionMember1OpenAIResponseMessageContentUnionMember2OpenAIResponseOutputMessageContentOutputText(
+    TypedDict, total=False
+):
+    annotations: Required[
+        Iterable[
+            InputUnionMember1OpenAIResponseMessageContentUnionMember2OpenAIResponseOutputMessageContentOutputTextAnnotation
+        ]
+    ]
 
     text: Required[str]
 
     type: Required[Literal["output_text"]]
+
+
+class InputUnionMember1OpenAIResponseMessageContentUnionMember2OpenAIResponseContentPartRefusal(TypedDict, total=False):
+    refusal: Required[str]
+    """Refusal text supplied by the model"""
+
+    type: Required[Literal["refusal"]]
+    """Content part type identifier, always "refusal" """
+
+
+InputUnionMember1OpenAIResponseMessageContentUnionMember2: TypeAlias = Union[
+    InputUnionMember1OpenAIResponseMessageContentUnionMember2OpenAIResponseOutputMessageContentOutputText,
+    InputUnionMember1OpenAIResponseMessageContentUnionMember2OpenAIResponseContentPartRefusal,
+]
 
 
 class InputUnionMember1OpenAIResponseMessage(TypedDict, total=False):
@@ -314,6 +387,8 @@ InputUnionMember1: TypeAlias = Union[
     InputUnionMember1OpenAIResponseInputFunctionToolCallOutput,
     InputUnionMember1OpenAIResponseMcpApprovalRequest,
     InputUnionMember1OpenAIResponseMcpApprovalResponse,
+    InputUnionMember1OpenAIResponseOutputMessageMcpCall,
+    InputUnionMember1OpenAIResponseOutputMessageMcpListTools,
     InputUnionMember1OpenAIResponseMessage,
 ]
 

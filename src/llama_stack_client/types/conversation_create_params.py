@@ -15,15 +15,20 @@ __all__ = [
     "ItemOpenAIResponseMessageContentUnionMember1OpenAIResponseInputMessageContentText",
     "ItemOpenAIResponseMessageContentUnionMember1OpenAIResponseInputMessageContentImage",
     "ItemOpenAIResponseMessageContentUnionMember2",
-    "ItemOpenAIResponseMessageContentUnionMember2Annotation",
-    "ItemOpenAIResponseMessageContentUnionMember2AnnotationOpenAIResponseAnnotationFileCitation",
-    "ItemOpenAIResponseMessageContentUnionMember2AnnotationOpenAIResponseAnnotationCitation",
-    "ItemOpenAIResponseMessageContentUnionMember2AnnotationOpenAIResponseAnnotationContainerFileCitation",
-    "ItemOpenAIResponseMessageContentUnionMember2AnnotationOpenAIResponseAnnotationFilePath",
-    "ItemOpenAIResponseOutputMessageFunctionToolCall",
+    "ItemOpenAIResponseMessageContentUnionMember2OpenAIResponseOutputMessageContentOutputText",
+    "ItemOpenAIResponseMessageContentUnionMember2OpenAIResponseOutputMessageContentOutputTextAnnotation",
+    "ItemOpenAIResponseMessageContentUnionMember2OpenAIResponseOutputMessageContentOutputTextAnnotationOpenAIResponseAnnotationFileCitation",
+    "ItemOpenAIResponseMessageContentUnionMember2OpenAIResponseOutputMessageContentOutputTextAnnotationOpenAIResponseAnnotationCitation",
+    "ItemOpenAIResponseMessageContentUnionMember2OpenAIResponseOutputMessageContentOutputTextAnnotationOpenAIResponseAnnotationContainerFileCitation",
+    "ItemOpenAIResponseMessageContentUnionMember2OpenAIResponseOutputMessageContentOutputTextAnnotationOpenAIResponseAnnotationFilePath",
+    "ItemOpenAIResponseMessageContentUnionMember2OpenAIResponseContentPartRefusal",
+    "ItemOpenAIResponseOutputMessageWebSearchToolCall",
     "ItemOpenAIResponseOutputMessageFileSearchToolCall",
     "ItemOpenAIResponseOutputMessageFileSearchToolCallResult",
-    "ItemOpenAIResponseOutputMessageWebSearchToolCall",
+    "ItemOpenAIResponseOutputMessageFunctionToolCall",
+    "ItemOpenAIResponseInputFunctionToolCallOutput",
+    "ItemOpenAIResponseMcpApprovalRequest",
+    "ItemOpenAIResponseMcpApprovalResponse",
     "ItemOpenAIResponseOutputMessageMcpCall",
     "ItemOpenAIResponseOutputMessageMcpListTools",
     "ItemOpenAIResponseOutputMessageMcpListToolsTool",
@@ -63,7 +68,7 @@ ItemOpenAIResponseMessageContentUnionMember1: TypeAlias = Union[
 ]
 
 
-class ItemOpenAIResponseMessageContentUnionMember2AnnotationOpenAIResponseAnnotationFileCitation(
+class ItemOpenAIResponseMessageContentUnionMember2OpenAIResponseOutputMessageContentOutputTextAnnotationOpenAIResponseAnnotationFileCitation(
     TypedDict, total=False
 ):
     file_id: Required[str]
@@ -79,7 +84,9 @@ class ItemOpenAIResponseMessageContentUnionMember2AnnotationOpenAIResponseAnnota
     """Annotation type identifier, always "file_citation" """
 
 
-class ItemOpenAIResponseMessageContentUnionMember2AnnotationOpenAIResponseAnnotationCitation(TypedDict, total=False):
+class ItemOpenAIResponseMessageContentUnionMember2OpenAIResponseOutputMessageContentOutputTextAnnotationOpenAIResponseAnnotationCitation(
+    TypedDict, total=False
+):
     end_index: Required[int]
     """End position of the citation span in the content"""
 
@@ -96,7 +103,7 @@ class ItemOpenAIResponseMessageContentUnionMember2AnnotationOpenAIResponseAnnota
     """URL of the referenced web resource"""
 
 
-class ItemOpenAIResponseMessageContentUnionMember2AnnotationOpenAIResponseAnnotationContainerFileCitation(
+class ItemOpenAIResponseMessageContentUnionMember2OpenAIResponseOutputMessageContentOutputTextAnnotationOpenAIResponseAnnotationContainerFileCitation(
     TypedDict, total=False
 ):
     container_id: Required[str]
@@ -112,7 +119,9 @@ class ItemOpenAIResponseMessageContentUnionMember2AnnotationOpenAIResponseAnnota
     type: Required[Literal["container_file_citation"]]
 
 
-class ItemOpenAIResponseMessageContentUnionMember2AnnotationOpenAIResponseAnnotationFilePath(TypedDict, total=False):
+class ItemOpenAIResponseMessageContentUnionMember2OpenAIResponseOutputMessageContentOutputTextAnnotationOpenAIResponseAnnotationFilePath(
+    TypedDict, total=False
+):
     file_id: Required[str]
 
     index: Required[int]
@@ -120,20 +129,36 @@ class ItemOpenAIResponseMessageContentUnionMember2AnnotationOpenAIResponseAnnota
     type: Required[Literal["file_path"]]
 
 
-ItemOpenAIResponseMessageContentUnionMember2Annotation: TypeAlias = Union[
-    ItemOpenAIResponseMessageContentUnionMember2AnnotationOpenAIResponseAnnotationFileCitation,
-    ItemOpenAIResponseMessageContentUnionMember2AnnotationOpenAIResponseAnnotationCitation,
-    ItemOpenAIResponseMessageContentUnionMember2AnnotationOpenAIResponseAnnotationContainerFileCitation,
-    ItemOpenAIResponseMessageContentUnionMember2AnnotationOpenAIResponseAnnotationFilePath,
+ItemOpenAIResponseMessageContentUnionMember2OpenAIResponseOutputMessageContentOutputTextAnnotation: TypeAlias = Union[
+    ItemOpenAIResponseMessageContentUnionMember2OpenAIResponseOutputMessageContentOutputTextAnnotationOpenAIResponseAnnotationFileCitation,
+    ItemOpenAIResponseMessageContentUnionMember2OpenAIResponseOutputMessageContentOutputTextAnnotationOpenAIResponseAnnotationCitation,
+    ItemOpenAIResponseMessageContentUnionMember2OpenAIResponseOutputMessageContentOutputTextAnnotationOpenAIResponseAnnotationContainerFileCitation,
+    ItemOpenAIResponseMessageContentUnionMember2OpenAIResponseOutputMessageContentOutputTextAnnotationOpenAIResponseAnnotationFilePath,
 ]
 
 
-class ItemOpenAIResponseMessageContentUnionMember2(TypedDict, total=False):
-    annotations: Required[Iterable[ItemOpenAIResponseMessageContentUnionMember2Annotation]]
+class ItemOpenAIResponseMessageContentUnionMember2OpenAIResponseOutputMessageContentOutputText(TypedDict, total=False):
+    annotations: Required[
+        Iterable[ItemOpenAIResponseMessageContentUnionMember2OpenAIResponseOutputMessageContentOutputTextAnnotation]
+    ]
 
     text: Required[str]
 
     type: Required[Literal["output_text"]]
+
+
+class ItemOpenAIResponseMessageContentUnionMember2OpenAIResponseContentPartRefusal(TypedDict, total=False):
+    refusal: Required[str]
+    """Refusal text supplied by the model"""
+
+    type: Required[Literal["refusal"]]
+    """Content part type identifier, always "refusal" """
+
+
+ItemOpenAIResponseMessageContentUnionMember2: TypeAlias = Union[
+    ItemOpenAIResponseMessageContentUnionMember2OpenAIResponseOutputMessageContentOutputText,
+    ItemOpenAIResponseMessageContentUnionMember2OpenAIResponseContentPartRefusal,
+]
 
 
 class ItemOpenAIResponseMessage(TypedDict, total=False):
@@ -154,24 +179,15 @@ class ItemOpenAIResponseMessage(TypedDict, total=False):
     status: str
 
 
-class ItemOpenAIResponseOutputMessageFunctionToolCall(TypedDict, total=False):
-    arguments: Required[str]
-    """JSON string containing the function arguments"""
+class ItemOpenAIResponseOutputMessageWebSearchToolCall(TypedDict, total=False):
+    id: Required[str]
+    """Unique identifier for this tool call"""
 
-    call_id: Required[str]
-    """Unique identifier for the function call"""
+    status: Required[str]
+    """Current status of the web search operation"""
 
-    name: Required[str]
-    """Name of the function being called"""
-
-    type: Required[Literal["function_call"]]
-    """Tool call type identifier, always "function_call" """
-
-    id: str
-    """(Optional) Additional identifier for the tool call"""
-
-    status: str
-    """(Optional) Current status of the function call execution"""
+    type: Required[Literal["web_search_call"]]
+    """Tool call type identifier, always "web_search_call" """
 
 
 class ItemOpenAIResponseOutputMessageFileSearchToolCallResult(TypedDict, total=False):
@@ -208,15 +224,60 @@ class ItemOpenAIResponseOutputMessageFileSearchToolCall(TypedDict, total=False):
     """(Optional) Search results returned by the file search operation"""
 
 
-class ItemOpenAIResponseOutputMessageWebSearchToolCall(TypedDict, total=False):
+class ItemOpenAIResponseOutputMessageFunctionToolCall(TypedDict, total=False):
+    arguments: Required[str]
+    """JSON string containing the function arguments"""
+
+    call_id: Required[str]
+    """Unique identifier for the function call"""
+
+    name: Required[str]
+    """Name of the function being called"""
+
+    type: Required[Literal["function_call"]]
+    """Tool call type identifier, always "function_call" """
+
+    id: str
+    """(Optional) Additional identifier for the tool call"""
+
+    status: str
+    """(Optional) Current status of the function call execution"""
+
+
+class ItemOpenAIResponseInputFunctionToolCallOutput(TypedDict, total=False):
+    call_id: Required[str]
+
+    output: Required[str]
+
+    type: Required[Literal["function_call_output"]]
+
+    id: str
+
+    status: str
+
+
+class ItemOpenAIResponseMcpApprovalRequest(TypedDict, total=False):
     id: Required[str]
-    """Unique identifier for this tool call"""
 
-    status: Required[str]
-    """Current status of the web search operation"""
+    arguments: Required[str]
 
-    type: Required[Literal["web_search_call"]]
-    """Tool call type identifier, always "web_search_call" """
+    name: Required[str]
+
+    server_label: Required[str]
+
+    type: Required[Literal["mcp_approval_request"]]
+
+
+class ItemOpenAIResponseMcpApprovalResponse(TypedDict, total=False):
+    approval_request_id: Required[str]
+
+    approve: Required[bool]
+
+    type: Required[Literal["mcp_approval_response"]]
+
+    id: str
+
+    reason: str
 
 
 class ItemOpenAIResponseOutputMessageMcpCall(TypedDict, total=False):
@@ -269,9 +330,12 @@ class ItemOpenAIResponseOutputMessageMcpListTools(TypedDict, total=False):
 
 Item: TypeAlias = Union[
     ItemOpenAIResponseMessage,
-    ItemOpenAIResponseOutputMessageFunctionToolCall,
-    ItemOpenAIResponseOutputMessageFileSearchToolCall,
     ItemOpenAIResponseOutputMessageWebSearchToolCall,
+    ItemOpenAIResponseOutputMessageFileSearchToolCall,
+    ItemOpenAIResponseOutputMessageFunctionToolCall,
+    ItemOpenAIResponseInputFunctionToolCallOutput,
+    ItemOpenAIResponseMcpApprovalRequest,
+    ItemOpenAIResponseMcpApprovalResponse,
     ItemOpenAIResponseOutputMessageMcpCall,
     ItemOpenAIResponseOutputMessageMcpListTools,
 ]

@@ -16,16 +16,21 @@ __all__ = [
     "DataOpenAIResponseInputFunctionToolCallOutput",
     "DataOpenAIResponseMcpApprovalRequest",
     "DataOpenAIResponseMcpApprovalResponse",
+    "DataOpenAIResponseOutputMessageMcpCall",
+    "DataOpenAIResponseOutputMessageMcpListTools",
+    "DataOpenAIResponseOutputMessageMcpListToolsTool",
     "DataOpenAIResponseMessage",
     "DataOpenAIResponseMessageContentUnionMember1",
     "DataOpenAIResponseMessageContentUnionMember1OpenAIResponseInputMessageContentText",
     "DataOpenAIResponseMessageContentUnionMember1OpenAIResponseInputMessageContentImage",
     "DataOpenAIResponseMessageContentUnionMember2",
-    "DataOpenAIResponseMessageContentUnionMember2Annotation",
-    "DataOpenAIResponseMessageContentUnionMember2AnnotationOpenAIResponseAnnotationFileCitation",
-    "DataOpenAIResponseMessageContentUnionMember2AnnotationOpenAIResponseAnnotationCitation",
-    "DataOpenAIResponseMessageContentUnionMember2AnnotationOpenAIResponseAnnotationContainerFileCitation",
-    "DataOpenAIResponseMessageContentUnionMember2AnnotationOpenAIResponseAnnotationFilePath",
+    "DataOpenAIResponseMessageContentUnionMember2OpenAIResponseOutputMessageContentOutputText",
+    "DataOpenAIResponseMessageContentUnionMember2OpenAIResponseOutputMessageContentOutputTextAnnotation",
+    "DataOpenAIResponseMessageContentUnionMember2OpenAIResponseOutputMessageContentOutputTextAnnotationOpenAIResponseAnnotationFileCitation",
+    "DataOpenAIResponseMessageContentUnionMember2OpenAIResponseOutputMessageContentOutputTextAnnotationOpenAIResponseAnnotationCitation",
+    "DataOpenAIResponseMessageContentUnionMember2OpenAIResponseOutputMessageContentOutputTextAnnotationOpenAIResponseAnnotationContainerFileCitation",
+    "DataOpenAIResponseMessageContentUnionMember2OpenAIResponseOutputMessageContentOutputTextAnnotationOpenAIResponseAnnotationFilePath",
+    "DataOpenAIResponseMessageContentUnionMember2OpenAIResponseContentPartRefusal",
 ]
 
 
@@ -130,6 +135,54 @@ class DataOpenAIResponseMcpApprovalResponse(BaseModel):
     reason: Optional[str] = None
 
 
+class DataOpenAIResponseOutputMessageMcpCall(BaseModel):
+    id: str
+    """Unique identifier for this MCP call"""
+
+    arguments: str
+    """JSON string containing the MCP call arguments"""
+
+    name: str
+    """Name of the MCP method being called"""
+
+    server_label: str
+    """Label identifying the MCP server handling the call"""
+
+    type: Literal["mcp_call"]
+    """Tool call type identifier, always "mcp_call" """
+
+    error: Optional[str] = None
+    """(Optional) Error message if the MCP call failed"""
+
+    output: Optional[str] = None
+    """(Optional) Output result from the successful MCP call"""
+
+
+class DataOpenAIResponseOutputMessageMcpListToolsTool(BaseModel):
+    input_schema: Dict[str, Union[bool, float, str, List[object], object, None]]
+    """JSON schema defining the tool's input parameters"""
+
+    name: str
+    """Name of the tool"""
+
+    description: Optional[str] = None
+    """(Optional) Description of what the tool does"""
+
+
+class DataOpenAIResponseOutputMessageMcpListTools(BaseModel):
+    id: str
+    """Unique identifier for this MCP list tools operation"""
+
+    server_label: str
+    """Label identifying the MCP server providing the tools"""
+
+    tools: List[DataOpenAIResponseOutputMessageMcpListToolsTool]
+    """List of available tools provided by the MCP server"""
+
+    type: Literal["mcp_list_tools"]
+    """Tool call type identifier, always "mcp_list_tools" """
+
+
 class DataOpenAIResponseMessageContentUnionMember1OpenAIResponseInputMessageContentText(BaseModel):
     text: str
     """The text content of the input message"""
@@ -158,7 +211,9 @@ DataOpenAIResponseMessageContentUnionMember1: TypeAlias = Annotated[
 ]
 
 
-class DataOpenAIResponseMessageContentUnionMember2AnnotationOpenAIResponseAnnotationFileCitation(BaseModel):
+class DataOpenAIResponseMessageContentUnionMember2OpenAIResponseOutputMessageContentOutputTextAnnotationOpenAIResponseAnnotationFileCitation(
+    BaseModel
+):
     file_id: str
     """Unique identifier of the referenced file"""
 
@@ -172,7 +227,9 @@ class DataOpenAIResponseMessageContentUnionMember2AnnotationOpenAIResponseAnnota
     """Annotation type identifier, always "file_citation" """
 
 
-class DataOpenAIResponseMessageContentUnionMember2AnnotationOpenAIResponseAnnotationCitation(BaseModel):
+class DataOpenAIResponseMessageContentUnionMember2OpenAIResponseOutputMessageContentOutputTextAnnotationOpenAIResponseAnnotationCitation(
+    BaseModel
+):
     end_index: int
     """End position of the citation span in the content"""
 
@@ -189,7 +246,9 @@ class DataOpenAIResponseMessageContentUnionMember2AnnotationOpenAIResponseAnnota
     """URL of the referenced web resource"""
 
 
-class DataOpenAIResponseMessageContentUnionMember2AnnotationOpenAIResponseAnnotationContainerFileCitation(BaseModel):
+class DataOpenAIResponseMessageContentUnionMember2OpenAIResponseOutputMessageContentOutputTextAnnotationOpenAIResponseAnnotationContainerFileCitation(
+    BaseModel
+):
     container_id: str
 
     end_index: int
@@ -203,7 +262,9 @@ class DataOpenAIResponseMessageContentUnionMember2AnnotationOpenAIResponseAnnota
     type: Literal["container_file_citation"]
 
 
-class DataOpenAIResponseMessageContentUnionMember2AnnotationOpenAIResponseAnnotationFilePath(BaseModel):
+class DataOpenAIResponseMessageContentUnionMember2OpenAIResponseOutputMessageContentOutputTextAnnotationOpenAIResponseAnnotationFilePath(
+    BaseModel
+):
     file_id: str
 
     index: int
@@ -211,23 +272,42 @@ class DataOpenAIResponseMessageContentUnionMember2AnnotationOpenAIResponseAnnota
     type: Literal["file_path"]
 
 
-DataOpenAIResponseMessageContentUnionMember2Annotation: TypeAlias = Annotated[
+DataOpenAIResponseMessageContentUnionMember2OpenAIResponseOutputMessageContentOutputTextAnnotation: TypeAlias = Annotated[
     Union[
-        DataOpenAIResponseMessageContentUnionMember2AnnotationOpenAIResponseAnnotationFileCitation,
-        DataOpenAIResponseMessageContentUnionMember2AnnotationOpenAIResponseAnnotationCitation,
-        DataOpenAIResponseMessageContentUnionMember2AnnotationOpenAIResponseAnnotationContainerFileCitation,
-        DataOpenAIResponseMessageContentUnionMember2AnnotationOpenAIResponseAnnotationFilePath,
+        DataOpenAIResponseMessageContentUnionMember2OpenAIResponseOutputMessageContentOutputTextAnnotationOpenAIResponseAnnotationFileCitation,
+        DataOpenAIResponseMessageContentUnionMember2OpenAIResponseOutputMessageContentOutputTextAnnotationOpenAIResponseAnnotationCitation,
+        DataOpenAIResponseMessageContentUnionMember2OpenAIResponseOutputMessageContentOutputTextAnnotationOpenAIResponseAnnotationContainerFileCitation,
+        DataOpenAIResponseMessageContentUnionMember2OpenAIResponseOutputMessageContentOutputTextAnnotationOpenAIResponseAnnotationFilePath,
     ],
     PropertyInfo(discriminator="type"),
 ]
 
 
-class DataOpenAIResponseMessageContentUnionMember2(BaseModel):
-    annotations: List[DataOpenAIResponseMessageContentUnionMember2Annotation]
+class DataOpenAIResponseMessageContentUnionMember2OpenAIResponseOutputMessageContentOutputText(BaseModel):
+    annotations: List[
+        DataOpenAIResponseMessageContentUnionMember2OpenAIResponseOutputMessageContentOutputTextAnnotation
+    ]
 
     text: str
 
     type: Literal["output_text"]
+
+
+class DataOpenAIResponseMessageContentUnionMember2OpenAIResponseContentPartRefusal(BaseModel):
+    refusal: str
+    """Refusal text supplied by the model"""
+
+    type: Literal["refusal"]
+    """Content part type identifier, always "refusal" """
+
+
+DataOpenAIResponseMessageContentUnionMember2: TypeAlias = Annotated[
+    Union[
+        DataOpenAIResponseMessageContentUnionMember2OpenAIResponseOutputMessageContentOutputText,
+        DataOpenAIResponseMessageContentUnionMember2OpenAIResponseContentPartRefusal,
+    ],
+    PropertyInfo(discriminator="type"),
+]
 
 
 class DataOpenAIResponseMessage(BaseModel):
@@ -251,6 +331,8 @@ Data: TypeAlias = Union[
     DataOpenAIResponseInputFunctionToolCallOutput,
     DataOpenAIResponseMcpApprovalRequest,
     DataOpenAIResponseMcpApprovalResponse,
+    DataOpenAIResponseOutputMessageMcpCall,
+    DataOpenAIResponseOutputMessageMcpListTools,
     DataOpenAIResponseMessage,
 ]
 

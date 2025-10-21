@@ -3,8 +3,8 @@
 from typing import Dict, List, Union, Optional
 from typing_extensions import Literal, Annotated, TypeAlias
 
-from .._utils import PropertyInfo
-from .._models import BaseModel
+from ..._utils import PropertyInfo
+from ..._models import BaseModel
 
 __all__ = ["DatasetRegisterResponse", "Source", "SourceUriDataSource", "SourceRowsDataSource"]
 

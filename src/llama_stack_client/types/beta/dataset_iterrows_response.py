@@ -2,7 +2,7 @@
 
 from typing import Dict, List, Union, Optional
 
-from .._models import BaseModel
+from ..._models import BaseModel
 
 __all__ = ["DatasetIterrowsResponse"]
 
