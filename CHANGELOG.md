@@ -1,5 +1,26 @@
 # Changelog
 
+## 0.3.1-alpha.1 (2025-10-22)
+
+Full Changelog: [v0.3.0-alpha.6...v0.3.1-alpha.1](https://github.com/llamastack/llama-stack-client-python/compare/v0.3.0-alpha.6...v0.3.1-alpha.1)
+
+### Features
+
+* **api:** manual updates ([5b288dc](https://github.com/llamastack/llama-stack-client-python/commit/5b288dc7f1f1bf1ade741b2e7789077046e00a0e))
+* **api:** manual updates ([a7d787f](https://github.com/llamastack/llama-stack-client-python/commit/a7d787fd746e66208fd2855d1ed310cd8005d5ee))
+* **api:** move datasets to beta, vector_db -&gt; vector_store ([88ed3fb](https://github.com/llamastack/llama-stack-client-python/commit/88ed3fb387aa6a752fd04b3fd82c727dd95384a0))
+* **api:** sync ([44e5dec](https://github.com/llamastack/llama-stack-client-python/commit/44e5decf4c417d7d55fd5a7ce33c1daac7ee0922))
+
+
+### Chores
+
+* bump `httpx-aiohttp` version to 0.1.9 ([794344a](https://github.com/llamastack/llama-stack-client-python/commit/794344a0baf1d85554988aba346cbd47cd2d6c2d))
+
+
+### Build System
+
+* Bump version to 0.3.0 ([fb7fa38](https://github.com/llamastack/llama-stack-client-python/commit/fb7fa389f583767bf33e6836dec2e50b842a8567))
+
 ## 0.3.0-alpha.6 (2025-10-13)
 
 Full Changelog: [v0.3.0-alpha.5...v0.3.0-alpha.6](https://github.com/llamastack/llama-stack-client-python/compare/v0.3.0-alpha.5...v0.3.0-alpha.6)
