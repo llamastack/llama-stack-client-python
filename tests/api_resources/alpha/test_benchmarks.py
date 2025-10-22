@@ -15,7 +15,7 @@ import pytest
 
 from tests.utils import assert_matches_type
 from llama_stack_client import LlamaStackClient, AsyncLlamaStackClient
-from llama_stack_client.types import Benchmark, BenchmarkListResponse
+from llama_stack_client.types.alpha import Benchmark, BenchmarkListResponse
 
 base_url = os.environ.get("TEST_API_BASE_URL", "http://127.0.0.1:4010")
 
@@ -25,14 +25,14 @@ class TestBenchmarks:
 
     @parametrize
     def test_method_retrieve(self, client: LlamaStackClient) -> None:
-        benchmark = client.benchmarks.retrieve(
+        benchmark = client.alpha.benchmarks.retrieve(
             "benchmark_id",
         )
         assert_matches_type(Benchmark, benchmark, path=["response"])
 
     @parametrize
     def test_raw_response_retrieve(self, client: LlamaStackClient) -> None:
-        response = client.benchmarks.with_raw_response.retrieve(
+        response = client.alpha.benchmarks.with_raw_response.retrieve(
             "benchmark_id",
         )
 
@@ -43,7 +43,7 @@ class TestBenchmarks:
 
     @parametrize
     def test_streaming_response_retrieve(self, client: LlamaStackClient) -> None:
-        with client.benchmarks.with_streaming_response.retrieve(
+        with client.alpha.benchmarks.with_streaming_response.retrieve(
             "benchmark_id",
         ) as response:
             assert not response.is_closed
@@ -57,18 +57,18 @@ class TestBenchmarks:
     @parametrize
     def test_path_params_retrieve(self, client: LlamaStackClient) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `benchmark_id` but received ''"):
-            client.benchmarks.with_raw_response.retrieve(
+            client.alpha.benchmarks.with_raw_response.retrieve(
                 "",
             )
 
     @parametrize
     def test_method_list(self, client: LlamaStackClient) -> None:
-        benchmark = client.benchmarks.list()
+        benchmark = client.alpha.benchmarks.list()
         assert_matches_type(BenchmarkListResponse, benchmark, path=["response"])
 
     @parametrize
     def test_raw_response_list(self, client: LlamaStackClient) -> None:
-        response = client.benchmarks.with_raw_response.list()
+        response = client.alpha.benchmarks.with_raw_response.list()
 
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -77,7 +77,7 @@ class TestBenchmarks:
 
     @parametrize
     def test_streaming_response_list(self, client: LlamaStackClient) -> None:
-        with client.benchmarks.with_streaming_response.list() as response:
+        with client.alpha.benchmarks.with_streaming_response.list() as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
@@ -88,7 +88,7 @@ class TestBenchmarks:
 
     @parametrize
     def test_method_register(self, client: LlamaStackClient) -> None:
-        benchmark = client.benchmarks.register(
+        benchmark = client.alpha.benchmarks.register(
             benchmark_id="benchmark_id",
             dataset_id="dataset_id",
             scoring_functions=["string"],
@@ -97,7 +97,7 @@ class TestBenchmarks:
 
     @parametrize
     def test_method_register_with_all_params(self, client: LlamaStackClient) -> None:
-        benchmark = client.benchmarks.register(
+        benchmark = client.alpha.benchmarks.register(
             benchmark_id="benchmark_id",
             dataset_id="dataset_id",
             scoring_functions=["string"],
@@ -109,7 +109,7 @@ class TestBenchmarks:
 
     @parametrize
     def test_raw_response_register(self, client: LlamaStackClient) -> None:
-        response = client.benchmarks.with_raw_response.register(
+        response = client.alpha.benchmarks.with_raw_response.register(
             benchmark_id="benchmark_id",
             dataset_id="dataset_id",
             scoring_functions=["string"],
@@ -122,7 +122,7 @@ class TestBenchmarks:
 
     @parametrize
     def test_streaming_response_register(self, client: LlamaStackClient) -> None:
-        with client.benchmarks.with_streaming_response.register(
+        with client.alpha.benchmarks.with_streaming_response.register(
             benchmark_id="benchmark_id",
             dataset_id="dataset_id",
             scoring_functions=["string"],
@@ -143,14 +143,14 @@ class TestAsyncBenchmarks:
 
     @parametrize
     async def test_method_retrieve(self, async_client: AsyncLlamaStackClient) -> None:
-        benchmark = await async_client.benchmarks.retrieve(
+        benchmark = await async_client.alpha.benchmarks.retrieve(
             "benchmark_id",
         )
         assert_matches_type(Benchmark, benchmark, path=["response"])
 
     @parametrize
     async def test_raw_response_retrieve(self, async_client: AsyncLlamaStackClient) -> None:
-        response = await async_client.benchmarks.with_raw_response.retrieve(
+        response = await async_client.alpha.benchmarks.with_raw_response.retrieve(
             "benchmark_id",
         )
 
@@ -161,7 +161,7 @@ class TestAsyncBenchmarks:
 
     @parametrize
     async def test_streaming_response_retrieve(self, async_client: AsyncLlamaStackClient) -> None:
-        async with async_client.benchmarks.with_streaming_response.retrieve(
+        async with async_client.alpha.benchmarks.with_streaming_response.retrieve(
             "benchmark_id",
         ) as response:
             assert not response.is_closed
@@ -175,18 +175,18 @@ class TestAsyncBenchmarks:
     @parametrize
     async def test_path_params_retrieve(self, async_client: AsyncLlamaStackClient) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `benchmark_id` but received ''"):
-            await async_client.benchmarks.with_raw_response.retrieve(
+            await async_client.alpha.benchmarks.with_raw_response.retrieve(
                 "",
             )
 
     @parametrize
     async def test_method_list(self, async_client: AsyncLlamaStackClient) -> None:
-        benchmark = await async_client.benchmarks.list()
+        benchmark = await async_client.alpha.benchmarks.list()
         assert_matches_type(BenchmarkListResponse, benchmark, path=["response"])
 
     @parametrize
     async def test_raw_response_list(self, async_client: AsyncLlamaStackClient) -> None:
-        response = await async_client.benchmarks.with_raw_response.list()
+        response = await async_client.alpha.benchmarks.with_raw_response.list()
 
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -195,7 +195,7 @@ class TestAsyncBenchmarks:
 
     @parametrize
     async def test_streaming_response_list(self, async_client: AsyncLlamaStackClient) -> None:
-        async with async_client.benchmarks.with_streaming_response.list() as response:
+        async with async_client.alpha.benchmarks.with_streaming_response.list() as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
@@ -206,7 +206,7 @@ class TestAsyncBenchmarks:
 
     @parametrize
     async def test_method_register(self, async_client: AsyncLlamaStackClient) -> None:
-        benchmark = await async_client.benchmarks.register(
+        benchmark = await async_client.alpha.benchmarks.register(
             benchmark_id="benchmark_id",
             dataset_id="dataset_id",
             scoring_functions=["string"],
@@ -215,7 +215,7 @@ class TestAsyncBenchmarks:
 
     @parametrize
     async def test_method_register_with_all_params(self, async_client: AsyncLlamaStackClient) -> None:
-        benchmark = await async_client.benchmarks.register(
+        benchmark = await async_client.alpha.benchmarks.register(
             benchmark_id="benchmark_id",
             dataset_id="dataset_id",
             scoring_functions=["string"],
@@ -227,7 +227,7 @@ class TestAsyncBenchmarks:
 
     @parametrize
     async def test_raw_response_register(self, async_client: AsyncLlamaStackClient) -> None:
-        response = await async_client.benchmarks.with_raw_response.register(
+        response = await async_client.alpha.benchmarks.with_raw_response.register(
             benchmark_id="benchmark_id",
             dataset_id="dataset_id",
             scoring_functions=["string"],
@@ -240,7 +240,7 @@ class TestAsyncBenchmarks:
 
     @parametrize
     async def test_streaming_response_register(self, async_client: AsyncLlamaStackClient) -> None:
-        async with async_client.benchmarks.with_streaming_response.register(
+        async with async_client.alpha.benchmarks.with_streaming_response.register(
             benchmark_id="benchmark_id",
             dataset_id="dataset_id",
             scoring_functions=["string"],
