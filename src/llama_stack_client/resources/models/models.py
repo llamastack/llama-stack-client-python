@@ -126,7 +126,7 @@ class ModelsResource(SyncAPIResource):
         *,
         model_id: str,
         metadata: Dict[str, Union[bool, float, str, Iterable[object], object, None]] | Omit = omit,
-        model_type: Literal["llm", "embedding"] | Omit = omit,
+        model_type: Literal["llm", "embedding", "rerank"] | Omit = omit,
         provider_id: str | Omit = omit,
         provider_model_id: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -299,7 +299,7 @@ class AsyncModelsResource(AsyncAPIResource):
         *,
         model_id: str,
         metadata: Dict[str, Union[bool, float, str, Iterable[object], object, None]] | Omit = omit,
-        model_type: Literal["llm", "embedding"] | Omit = omit,
+        model_type: Literal["llm", "embedding", "rerank"] | Omit = omit,
         provider_id: str | Omit = omit,
         provider_model_id: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.

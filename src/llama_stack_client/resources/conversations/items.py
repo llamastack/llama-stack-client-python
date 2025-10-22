@@ -8,12 +8,12 @@
 
 from __future__ import annotations
 
-from typing import Any, List, Union, Iterable, cast
+from typing import Any, List, Iterable, cast
 from typing_extensions import Literal
 
 import httpx
 
-from ..._types import Body, Query, Headers, NotGiven, not_given
+from ..._types import Body, Omit, Query, Headers, NotGiven, omit, not_given
 from ..._utils import maybe_transform, async_maybe_transform
 from ..._compat import cached_property
 from ..._resource import SyncAPIResource, AsyncAPIResource
@@ -23,7 +23,8 @@ from ..._response import (
     async_to_raw_response_wrapper,
     async_to_streamed_response_wrapper,
 )
-from ..._base_client import make_request_options
+from ...pagination import SyncOpenAICursorPage, AsyncOpenAICursorPage
+from ..._base_client import AsyncPaginator, make_request_options
 from ...types.conversations import item_list_params, item_create_params
 from ...types.conversations.item_get_response import ItemGetResponse
 from ...types.conversations.item_list_response import ItemListResponse
@@ -94,29 +95,28 @@ class ItemsResource(SyncAPIResource):
         self,
         conversation_id: str,
         *,
-        after: Union[str, object],
-        include: Union[
-            List[
-                Literal[
-                    "code_interpreter_call.outputs",
-                    "computer_call_output.output.image_url",
-                    "file_search_call.results",
-                    "message.input_image.image_url",
-                    "message.output_text.logprobs",
-                    "reasoning.encrypted_content",
-                ]
-            ],
-            object,
-        ],
-        limit: Union[int, object],
-        order: Union[Literal["asc", "desc"], object],
+        after: str | Omit = omit,
+        include: List[
+            Literal[
+                "web_search_call.action.sources",
+                "code_interpreter_call.outputs",
+                "computer_call_output.output.image_url",
+                "file_search_call.results",
+                "message.input_image.image_url",
+                "message.output_text.logprobs",
+                "reasoning.encrypted_content",
+            ]
+        ]
+        | Omit = omit,
+        limit: int | Omit = omit,
+        order: Literal["asc", "desc"] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> ItemListResponse:
+    ) -> SyncOpenAICursorPage[ItemListResponse]:
         """List items.
 
         List items in the conversation.
@@ -140,8 +140,9 @@ class ItemsResource(SyncAPIResource):
         """
         if not conversation_id:
             raise ValueError(f"Expected a non-empty value for `conversation_id` but received {conversation_id!r}")
-        return self._get(
+        return self._get_api_list(
             f"/v1/conversations/{conversation_id}/items",
+            page=SyncOpenAICursorPage[ItemListResponse],
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
@@ -157,7 +158,7 @@ class ItemsResource(SyncAPIResource):
                     item_list_params.ItemListParams,
                 ),
             ),
-            cast_to=ItemListResponse,
+            model=cast(Any, ItemListResponse),  # Union types cannot be passed in as arguments in the type system
         )
 
     def get(
@@ -259,33 +260,32 @@ class AsyncItemsResource(AsyncAPIResource):
             cast_to=ItemCreateResponse,
         )
 
-    async def list(
+    def list(
         self,
         conversation_id: str,
         *,
-        after: Union[str, object],
-        include: Union[
-            List[
-                Literal[
-                    "code_interpreter_call.outputs",
-                    "computer_call_output.output.image_url",
-                    "file_search_call.results",
-                    "message.input_image.image_url",
-                    "message.output_text.logprobs",
-                    "reasoning.encrypted_content",
-                ]
-            ],
-            object,
-        ],
-        limit: Union[int, object],
-        order: Union[Literal["asc", "desc"], object],
+        after: str | Omit = omit,
+        include: List[
+            Literal[
+                "web_search_call.action.sources",
+                "code_interpreter_call.outputs",
+                "computer_call_output.output.image_url",
+                "file_search_call.results",
+                "message.input_image.image_url",
+                "message.output_text.logprobs",
+                "reasoning.encrypted_content",
+            ]
+        ]
+        | Omit = omit,
+        limit: int | Omit = omit,
+        order: Literal["asc", "desc"] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> ItemListResponse:
+    ) -> AsyncPaginator[ItemListResponse, AsyncOpenAICursorPage[ItemListResponse]]:
         """List items.
 
         List items in the conversation.
@@ -309,14 +309,15 @@ class AsyncItemsResource(AsyncAPIResource):
         """
         if not conversation_id:
             raise ValueError(f"Expected a non-empty value for `conversation_id` but received {conversation_id!r}")
-        return await self._get(
+        return self._get_api_list(
             f"/v1/conversations/{conversation_id}/items",
+            page=AsyncOpenAICursorPage[ItemListResponse],
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
                 extra_body=extra_body,
                 timeout=timeout,
-                query=await async_maybe_transform(
+                query=maybe_transform(
                     {
                         "after": after,
                         "include": include,
@@ -326,7 +327,7 @@ class AsyncItemsResource(AsyncAPIResource):
                     item_list_params.ItemListParams,
                 ),
             ),
-            cast_to=ItemListResponse,
+            model=cast(Any, ItemListResponse),  # Union types cannot be passed in as arguments in the type system
         )
 
     async def get(

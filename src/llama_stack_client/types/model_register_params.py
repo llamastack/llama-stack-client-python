@@ -21,7 +21,7 @@ class ModelRegisterParams(TypedDict, total=False):
     metadata: Dict[str, Union[bool, float, str, Iterable[object], object, None]]
     """Any additional metadata for this model."""
 
-    model_type: Literal["llm", "embedding"]
+    model_type: Literal["llm", "embedding", "rerank"]
     """The type of model to register."""
 
     provider_id: str
