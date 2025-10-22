@@ -32,6 +32,14 @@ from .inference import (
     InferenceResourceWithStreamingResponse,
     AsyncInferenceResourceWithStreamingResponse,
 )
+from .benchmarks import (
+    BenchmarksResource,
+    AsyncBenchmarksResource,
+    BenchmarksResourceWithRawResponse,
+    AsyncBenchmarksResourceWithRawResponse,
+    BenchmarksResourceWithStreamingResponse,
+    AsyncBenchmarksResourceWithStreamingResponse,
+)
 from .post_training import (
     PostTrainingResource,
     AsyncPostTrainingResource,
@@ -54,6 +62,12 @@ __all__ = [
     "AsyncPostTrainingResourceWithRawResponse",
     "PostTrainingResourceWithStreamingResponse",
     "AsyncPostTrainingResourceWithStreamingResponse",
+    "BenchmarksResource",
+    "AsyncBenchmarksResource",
+    "BenchmarksResourceWithRawResponse",
+    "AsyncBenchmarksResourceWithRawResponse",
+    "BenchmarksResourceWithStreamingResponse",
+    "AsyncBenchmarksResourceWithStreamingResponse",
     "EvalResource",
     "AsyncEvalResource",
     "EvalResourceWithRawResponse",

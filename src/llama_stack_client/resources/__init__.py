@@ -112,14 +112,6 @@ from .vector_io import (
     VectorIoResourceWithStreamingResponse,
     AsyncVectorIoResourceWithStreamingResponse,
 )
-from .benchmarks import (
-    BenchmarksResource,
-    AsyncBenchmarksResource,
-    BenchmarksResourceWithRawResponse,
-    AsyncBenchmarksResourceWithRawResponse,
-    BenchmarksResourceWithStreamingResponse,
-    AsyncBenchmarksResourceWithStreamingResponse,
-)
 from .embeddings import (
     EmbeddingsResource,
     AsyncEmbeddingsResource,
@@ -314,12 +306,6 @@ __all__ = [
     "AsyncScoringFunctionsResourceWithRawResponse",
     "ScoringFunctionsResourceWithStreamingResponse",
     "AsyncScoringFunctionsResourceWithStreamingResponse",
-    "BenchmarksResource",
-    "AsyncBenchmarksResource",
-    "BenchmarksResourceWithRawResponse",
-    "AsyncBenchmarksResourceWithRawResponse",
-    "BenchmarksResourceWithStreamingResponse",
-    "AsyncBenchmarksResourceWithStreamingResponse",
     "FilesResource",
     "AsyncFilesResource",
     "FilesResourceWithRawResponse",

@@ -401,20 +401,6 @@ Methods:
 - <code title="get /v1/scoring-functions">client.scoring_functions.<a href="./src/llama_stack_client/resources/scoring_functions.py">list</a>() -> <a href="./src/llama_stack_client/types/scoring_function_list_response.py">ScoringFunctionListResponse</a></code>
 - <code title="post /v1/scoring-functions">client.scoring_functions.<a href="./src/llama_stack_client/resources/scoring_functions.py">register</a>(\*\*<a href="src/llama_stack_client/types/scoring_function_register_params.py">params</a>) -> None</code>
 
-# Benchmarks
-
-Types:
-
-```python
-from llama_stack_client.types import Benchmark, ListBenchmarksResponse, BenchmarkListResponse
-```
-
-Methods:
-
-- <code title="get /v1alpha/eval/benchmarks/{benchmark_id}">client.benchmarks.<a href="./src/llama_stack_client/resources/benchmarks.py">retrieve</a>(benchmark_id) -> <a href="./src/llama_stack_client/types/benchmark.py">Benchmark</a></code>
-- <code title="get /v1alpha/eval/benchmarks">client.benchmarks.<a href="./src/llama_stack_client/resources/benchmarks.py">list</a>() -> <a href="./src/llama_stack_client/types/benchmark_list_response.py">BenchmarkListResponse</a></code>
-- <code title="post /v1alpha/eval/benchmarks">client.benchmarks.<a href="./src/llama_stack_client/resources/benchmarks.py">register</a>(\*\*<a href="src/llama_stack_client/types/benchmark_register_params.py">params</a>) -> None</code>
-
 # Files
 
 Types:
@@ -480,6 +466,20 @@ Methods:
 - <code title="get /v1alpha/post-training/job/artifacts">client.alpha.post_training.job.<a href="./src/llama_stack_client/resources/alpha/post_training/job.py">artifacts</a>(\*\*<a href="src/llama_stack_client/types/alpha/post_training/job_artifacts_params.py">params</a>) -> <a href="./src/llama_stack_client/types/alpha/post_training/job_artifacts_response.py">JobArtifactsResponse</a></code>
 - <code title="post /v1alpha/post-training/job/cancel">client.alpha.post_training.job.<a href="./src/llama_stack_client/resources/alpha/post_training/job.py">cancel</a>(\*\*<a href="src/llama_stack_client/types/alpha/post_training/job_cancel_params.py">params</a>) -> None</code>
 - <code title="get /v1alpha/post-training/job/status">client.alpha.post_training.job.<a href="./src/llama_stack_client/resources/alpha/post_training/job.py">status</a>(\*\*<a href="src/llama_stack_client/types/alpha/post_training/job_status_params.py">params</a>) -> <a href="./src/llama_stack_client/types/alpha/post_training/job_status_response.py">JobStatusResponse</a></code>
+
+## Benchmarks
+
+Types:
+
+```python
+from llama_stack_client.types.alpha import Benchmark, ListBenchmarksResponse, BenchmarkListResponse
+```
+
+Methods:
+
+- <code title="get /v1alpha/eval/benchmarks/{benchmark_id}">client.alpha.benchmarks.<a href="./src/llama_stack_client/resources/alpha/benchmarks.py">retrieve</a>(benchmark_id) -> <a href="./src/llama_stack_client/types/alpha/benchmark.py">Benchmark</a></code>
+- <code title="get /v1alpha/eval/benchmarks">client.alpha.benchmarks.<a href="./src/llama_stack_client/resources/alpha/benchmarks.py">list</a>() -> <a href="./src/llama_stack_client/types/alpha/benchmark_list_response.py">BenchmarkListResponse</a></code>
+- <code title="post /v1alpha/eval/benchmarks">client.alpha.benchmarks.<a href="./src/llama_stack_client/resources/alpha/benchmarks.py">register</a>(\*\*<a href="src/llama_stack_client/types/alpha/benchmark_register_params.py">params</a>) -> None</code>
 
 ## Eval
 

@@ -25,7 +25,6 @@ from .shared import (
 )
 from .shield import Shield as Shield
 from .tool_def import ToolDef as ToolDef
-from .benchmark import Benchmark as Benchmark
 from .route_info import RouteInfo as RouteInfo
 from .scoring_fn import ScoringFn as ScoringFn
 from .tool_group import ToolGroup as ToolGroup
@@ -64,19 +63,16 @@ from .scoring_score_response import ScoringScoreResponse as ScoringScoreResponse
 from .shield_register_params import ShieldRegisterParams as ShieldRegisterParams
 from .tool_invocation_result import ToolInvocationResult as ToolInvocationResult
 from .vector_io_query_params import VectorIoQueryParams as VectorIoQueryParams
-from .benchmark_list_response import BenchmarkListResponse as BenchmarkListResponse
 from .embedding_create_params import EmbeddingCreateParams as EmbeddingCreateParams
 from .list_providers_response import ListProvidersResponse as ListProvidersResponse
 from .scoring_fn_params_param import ScoringFnParamsParam as ScoringFnParamsParam
 from .toolgroup_list_response import ToolgroupListResponse as ToolgroupListResponse
 from .vector_io_insert_params import VectorIoInsertParams as VectorIoInsertParams
 from .completion_create_params import CompletionCreateParams as CompletionCreateParams
-from .list_benchmarks_response import ListBenchmarksResponse as ListBenchmarksResponse
 from .moderation_create_params import ModerationCreateParams as ModerationCreateParams
 from .response_delete_response import ResponseDeleteResponse as ResponseDeleteResponse
 from .safety_run_shield_params import SafetyRunShieldParams as SafetyRunShieldParams
 from .vector_store_list_params import VectorStoreListParams as VectorStoreListParams
-from .benchmark_register_params import BenchmarkRegisterParams as BenchmarkRegisterParams
 from .list_tool_groups_response import ListToolGroupsResponse as ListToolGroupsResponse
 from .toolgroup_register_params import ToolgroupRegisterParams as ToolgroupRegisterParams
 from .completion_create_response import CompletionCreateResponse as CompletionCreateResponse
