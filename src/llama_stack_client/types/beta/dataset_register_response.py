@@ -9,19 +9,13 @@
 from typing import Dict, List, Union, Optional
 from typing_extensions import Literal, Annotated, TypeAlias
 
-from .._utils import PropertyInfo
-from .._models import BaseModel
+from ..._utils import PropertyInfo
+from ..._models import BaseModel
 
-__all__ = [
-    "DatasetListResponse",
-    "DatasetListResponseItem",
-    "DatasetListResponseItemSource",
-    "DatasetListResponseItemSourceUriDataSource",
-    "DatasetListResponseItemSourceRowsDataSource",
-]
+__all__ = ["DatasetRegisterResponse", "Source", "SourceUriDataSource", "SourceRowsDataSource"]
 
 
-class DatasetListResponseItemSourceUriDataSource(BaseModel):
+class SourceUriDataSource(BaseModel):
     type: Literal["uri"]
 
     uri: str
@@ -32,7 +26,7 @@ class DatasetListResponseItemSourceUriDataSource(BaseModel):
     """
 
 
-class DatasetListResponseItemSourceRowsDataSource(BaseModel):
+class SourceRowsDataSource(BaseModel):
     rows: List[Dict[str, Union[bool, float, str, List[object], object, None]]]
     """The dataset is stored in rows.
 
@@ -43,13 +37,10 @@ class DatasetListResponseItemSourceRowsDataSource(BaseModel):
     type: Literal["rows"]
 
 
-DatasetListResponseItemSource: TypeAlias = Annotated[
-    Union[DatasetListResponseItemSourceUriDataSource, DatasetListResponseItemSourceRowsDataSource],
-    PropertyInfo(discriminator="type"),
-]
+Source: TypeAlias = Annotated[Union[SourceUriDataSource, SourceRowsDataSource], PropertyInfo(discriminator="type")]
 
 
-class DatasetListResponseItem(BaseModel):
+class DatasetRegisterResponse(BaseModel):
     identifier: str
 
     metadata: Dict[str, Union[bool, float, str, List[object], object, None]]
@@ -60,13 +51,10 @@ class DatasetListResponseItem(BaseModel):
     purpose: Literal["post-training/messages", "eval/question-answer", "eval/messages-answer"]
     """Purpose of the dataset indicating its intended use"""
 
-    source: DatasetListResponseItemSource
+    source: Source
     """Data source configuration for the dataset"""
 
     type: Literal["dataset"]
     """Type of resource, always 'dataset' for datasets"""
 
     provider_resource_id: Optional[str] = None
-
-
-DatasetListResponse: TypeAlias = List[DatasetListResponseItem]

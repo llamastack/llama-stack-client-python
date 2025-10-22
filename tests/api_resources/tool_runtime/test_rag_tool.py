@@ -34,7 +34,7 @@ class TestRagTool:
                     "metadata": {"foo": True},
                 }
             ],
-            vector_db_id="vector_db_id",
+            vector_store_id="vector_store_id",
         )
         assert rag_tool is None
 
@@ -49,7 +49,7 @@ class TestRagTool:
                     "metadata": {"foo": True},
                 }
             ],
-            vector_db_id="vector_db_id",
+            vector_store_id="vector_store_id",
         )
 
         assert response.is_closed is True
@@ -68,7 +68,7 @@ class TestRagTool:
                     "metadata": {"foo": True},
                 }
             ],
-            vector_db_id="vector_db_id",
+            vector_store_id="vector_store_id",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -82,7 +82,7 @@ class TestRagTool:
     def test_method_query(self, client: LlamaStackClient) -> None:
         rag_tool = client.tool_runtime.rag_tool.query(
             content="string",
-            vector_db_ids=["string"],
+            vector_store_ids=["string"],
         )
         assert_matches_type(QueryResult, rag_tool, path=["response"])
 
@@ -90,7 +90,7 @@ class TestRagTool:
     def test_method_query_with_all_params(self, client: LlamaStackClient) -> None:
         rag_tool = client.tool_runtime.rag_tool.query(
             content="string",
-            vector_db_ids=["string"],
+            vector_store_ids=["string"],
             query_config={
                 "chunk_template": "chunk_template",
                 "max_chunks": 0,
@@ -112,7 +112,7 @@ class TestRagTool:
     def test_raw_response_query(self, client: LlamaStackClient) -> None:
         response = client.tool_runtime.rag_tool.with_raw_response.query(
             content="string",
-            vector_db_ids=["string"],
+            vector_store_ids=["string"],
         )
 
         assert response.is_closed is True
@@ -124,7 +124,7 @@ class TestRagTool:
     def test_streaming_response_query(self, client: LlamaStackClient) -> None:
         with client.tool_runtime.rag_tool.with_streaming_response.query(
             content="string",
-            vector_db_ids=["string"],
+            vector_store_ids=["string"],
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -151,7 +151,7 @@ class TestAsyncRagTool:
                     "metadata": {"foo": True},
                 }
             ],
-            vector_db_id="vector_db_id",
+            vector_store_id="vector_store_id",
         )
         assert rag_tool is None
 
@@ -166,7 +166,7 @@ class TestAsyncRagTool:
                     "metadata": {"foo": True},
                 }
             ],
-            vector_db_id="vector_db_id",
+            vector_store_id="vector_store_id",
         )
 
         assert response.is_closed is True
@@ -185,7 +185,7 @@ class TestAsyncRagTool:
                     "metadata": {"foo": True},
                 }
             ],
-            vector_db_id="vector_db_id",
+            vector_store_id="vector_store_id",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -199,7 +199,7 @@ class TestAsyncRagTool:
     async def test_method_query(self, async_client: AsyncLlamaStackClient) -> None:
         rag_tool = await async_client.tool_runtime.rag_tool.query(
             content="string",
-            vector_db_ids=["string"],
+            vector_store_ids=["string"],
         )
         assert_matches_type(QueryResult, rag_tool, path=["response"])
 
@@ -207,7 +207,7 @@ class TestAsyncRagTool:
     async def test_method_query_with_all_params(self, async_client: AsyncLlamaStackClient) -> None:
         rag_tool = await async_client.tool_runtime.rag_tool.query(
             content="string",
-            vector_db_ids=["string"],
+            vector_store_ids=["string"],
             query_config={
                 "chunk_template": "chunk_template",
                 "max_chunks": 0,
@@ -229,7 +229,7 @@ class TestAsyncRagTool:
     async def test_raw_response_query(self, async_client: AsyncLlamaStackClient) -> None:
         response = await async_client.tool_runtime.rag_tool.with_raw_response.query(
             content="string",
-            vector_db_ids=["string"],
+            vector_store_ids=["string"],
         )
 
         assert response.is_closed is True
@@ -241,7 +241,7 @@ class TestAsyncRagTool:
     async def test_streaming_response_query(self, async_client: AsyncLlamaStackClient) -> None:
         async with async_client.tool_runtime.rag_tool.with_streaming_response.query(
             content="string",
-            vector_db_ids=["string"],
+            vector_store_ids=["string"],
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"

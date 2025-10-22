@@ -64,7 +64,8 @@ class ItemsResource(SyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> ItemCreateResponse:
-        """
+        """Create items.
+
         Create items in the conversation.
 
         Args:
@@ -116,7 +117,8 @@ class ItemsResource(SyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> ItemListResponse:
-        """
+        """List items.
+
         List items in the conversation.
 
         Args:
@@ -170,7 +172,8 @@ class ItemsResource(SyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> ItemGetResponse:
-        """
+        """Retrieve an item.
+
         Retrieve a conversation item.
 
         Args:
@@ -230,7 +233,8 @@ class AsyncItemsResource(AsyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> ItemCreateResponse:
-        """
+        """Create items.
+
         Create items in the conversation.
 
         Args:
@@ -282,7 +286,8 @@ class AsyncItemsResource(AsyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> ItemListResponse:
-        """
+        """List items.
+
         List items in the conversation.
 
         Args:
@@ -336,7 +341,8 @@ class AsyncItemsResource(AsyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> ItemGetResponse:
-        """
+        """Retrieve an item.
+
         Retrieve a conversation item.
 
         Args:

@@ -6,12 +6,12 @@
 
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-from .._models import BaseModel
-from .telemetry_query_spans_response import TelemetryQuerySpansResponse
+from ..._models import BaseModel
+from .dataset_list_response import DatasetListResponse
 
-__all__ = ["QuerySpansResponse"]
+__all__ = ["ListDatasetsResponse"]
 
 
-class QuerySpansResponse(BaseModel):
-    data: TelemetryQuerySpansResponse
-    """List of spans matching the query criteria"""
+class ListDatasetsResponse(BaseModel):
+    data: DatasetListResponse
+    """List of datasets"""

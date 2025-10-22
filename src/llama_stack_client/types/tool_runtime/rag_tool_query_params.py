@@ -21,7 +21,7 @@ class RagToolQueryParams(TypedDict, total=False):
     content: Required[InterleavedContent]
     """The query content to search for in the indexed documents"""
 
-    vector_db_ids: Required[SequenceNotStr[str]]
+    vector_store_ids: Required[SequenceNotStr[str]]
     """List of vector database IDs to search within"""
 
     query_config: QueryConfig

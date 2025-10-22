@@ -9,10 +9,10 @@
 from typing import Dict, List, Union, Optional
 from typing_extensions import Literal, Annotated, TypeAlias
 
-from .._utils import PropertyInfo
-from .._models import BaseModel
+from ..._utils import PropertyInfo
+from ..._models import BaseModel
 
-__all__ = ["DatasetRegisterResponse", "Source", "SourceUriDataSource", "SourceRowsDataSource"]
+__all__ = ["DatasetRetrieveResponse", "Source", "SourceUriDataSource", "SourceRowsDataSource"]
 
 
 class SourceUriDataSource(BaseModel):
@@ -40,7 +40,7 @@ class SourceRowsDataSource(BaseModel):
 Source: TypeAlias = Annotated[Union[SourceUriDataSource, SourceRowsDataSource], PropertyInfo(discriminator="type")]
 
 
-class DatasetRegisterResponse(BaseModel):
+class DatasetRetrieveResponse(BaseModel):
     identifier: str
 
     metadata: Dict[str, Union[bool, float, str, List[object], object, None]]
