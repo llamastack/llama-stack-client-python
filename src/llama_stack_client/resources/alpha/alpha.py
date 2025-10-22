@@ -25,6 +25,14 @@ from .inference import (
     InferenceResourceWithStreamingResponse,
     AsyncInferenceResourceWithStreamingResponse,
 )
+from .benchmarks import (
+    BenchmarksResource,
+    AsyncBenchmarksResource,
+    BenchmarksResourceWithRawResponse,
+    AsyncBenchmarksResourceWithRawResponse,
+    BenchmarksResourceWithStreamingResponse,
+    AsyncBenchmarksResourceWithStreamingResponse,
+)
 from ..._resource import SyncAPIResource, AsyncAPIResource
 from .agents.agents import (
     AgentsResource,
@@ -54,6 +62,10 @@ class AlphaResource(SyncAPIResource):
     @cached_property
     def post_training(self) -> PostTrainingResource:
         return PostTrainingResource(self._client)
+
+    @cached_property
+    def benchmarks(self) -> BenchmarksResource:
+        return BenchmarksResource(self._client)
 
     @cached_property
     def eval(self) -> EvalResource:
@@ -91,6 +103,10 @@ class AsyncAlphaResource(AsyncAPIResource):
     @cached_property
     def post_training(self) -> AsyncPostTrainingResource:
         return AsyncPostTrainingResource(self._client)
+
+    @cached_property
+    def benchmarks(self) -> AsyncBenchmarksResource:
+        return AsyncBenchmarksResource(self._client)
 
     @cached_property
     def eval(self) -> AsyncEvalResource:
@@ -133,6 +149,10 @@ class AlphaResourceWithRawResponse:
         return PostTrainingResourceWithRawResponse(self._alpha.post_training)
 
     @cached_property
+    def benchmarks(self) -> BenchmarksResourceWithRawResponse:
+        return BenchmarksResourceWithRawResponse(self._alpha.benchmarks)
+
+    @cached_property
     def eval(self) -> EvalResourceWithRawResponse:
         return EvalResourceWithRawResponse(self._alpha.eval)
 
@@ -152,6 +172,10 @@ class AsyncAlphaResourceWithRawResponse:
     @cached_property
     def post_training(self) -> AsyncPostTrainingResourceWithRawResponse:
         return AsyncPostTrainingResourceWithRawResponse(self._alpha.post_training)
+
+    @cached_property
+    def benchmarks(self) -> AsyncBenchmarksResourceWithRawResponse:
+        return AsyncBenchmarksResourceWithRawResponse(self._alpha.benchmarks)
 
     @cached_property
     def eval(self) -> AsyncEvalResourceWithRawResponse:
@@ -175,6 +199,10 @@ class AlphaResourceWithStreamingResponse:
         return PostTrainingResourceWithStreamingResponse(self._alpha.post_training)
 
     @cached_property
+    def benchmarks(self) -> BenchmarksResourceWithStreamingResponse:
+        return BenchmarksResourceWithStreamingResponse(self._alpha.benchmarks)
+
+    @cached_property
     def eval(self) -> EvalResourceWithStreamingResponse:
         return EvalResourceWithStreamingResponse(self._alpha.eval)
 
@@ -194,6 +222,10 @@ class AsyncAlphaResourceWithStreamingResponse:
     @cached_property
     def post_training(self) -> AsyncPostTrainingResourceWithStreamingResponse:
         return AsyncPostTrainingResourceWithStreamingResponse(self._alpha.post_training)
+
+    @cached_property
+    def benchmarks(self) -> AsyncBenchmarksResourceWithStreamingResponse:
+        return AsyncBenchmarksResourceWithStreamingResponse(self._alpha.benchmarks)
 
     @cached_property
     def eval(self) -> AsyncEvalResourceWithStreamingResponse:

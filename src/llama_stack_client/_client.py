@@ -53,7 +53,6 @@ if TYPE_CHECKING:
         providers,
         responses,
         vector_io,
-        benchmarks,
         embeddings,
         toolgroups,
         completions,
@@ -75,7 +74,6 @@ if TYPE_CHECKING:
     from .resources.chat.chat import ChatResource, AsyncChatResource
     from .resources.providers import ProvidersResource, AsyncProvidersResource
     from .resources.vector_io import VectorIoResource, AsyncVectorIoResource
-    from .resources.benchmarks import BenchmarksResource, AsyncBenchmarksResource
     from .resources.embeddings import EmbeddingsResource, AsyncEmbeddingsResource
     from .resources.toolgroups import ToolgroupsResource, AsyncToolgroupsResource
     from .resources.alpha.alpha import AlphaResource, AsyncAlphaResource
@@ -280,12 +278,6 @@ class LlamaStackClient(SyncAPIClient):
         from .resources.scoring_functions import ScoringFunctionsResource
 
         return ScoringFunctionsResource(self)
-
-    @cached_property
-    def benchmarks(self) -> BenchmarksResource:
-        from .resources.benchmarks import BenchmarksResource
-
-        return BenchmarksResource(self)
 
     @cached_property
     def files(self) -> FilesResource:
@@ -598,12 +590,6 @@ class AsyncLlamaStackClient(AsyncAPIClient):
         return AsyncScoringFunctionsResource(self)
 
     @cached_property
-    def benchmarks(self) -> AsyncBenchmarksResource:
-        from .resources.benchmarks import AsyncBenchmarksResource
-
-        return AsyncBenchmarksResource(self)
-
-    @cached_property
     def files(self) -> AsyncFilesResource:
         from .resources.files import AsyncFilesResource
 
@@ -863,12 +849,6 @@ class LlamaStackClientWithRawResponse:
         return ScoringFunctionsResourceWithRawResponse(self._client.scoring_functions)
 
     @cached_property
-    def benchmarks(self) -> benchmarks.BenchmarksResourceWithRawResponse:
-        from .resources.benchmarks import BenchmarksResourceWithRawResponse
-
-        return BenchmarksResourceWithRawResponse(self._client.benchmarks)
-
-    @cached_property
     def files(self) -> files.FilesResourceWithRawResponse:
         from .resources.files import FilesResourceWithRawResponse
 
@@ -1014,12 +994,6 @@ class AsyncLlamaStackClientWithRawResponse:
         from .resources.scoring_functions import AsyncScoringFunctionsResourceWithRawResponse
 
         return AsyncScoringFunctionsResourceWithRawResponse(self._client.scoring_functions)
-
-    @cached_property
-    def benchmarks(self) -> benchmarks.AsyncBenchmarksResourceWithRawResponse:
-        from .resources.benchmarks import AsyncBenchmarksResourceWithRawResponse
-
-        return AsyncBenchmarksResourceWithRawResponse(self._client.benchmarks)
 
     @cached_property
     def files(self) -> files.AsyncFilesResourceWithRawResponse:
@@ -1169,12 +1143,6 @@ class LlamaStackClientWithStreamedResponse:
         return ScoringFunctionsResourceWithStreamingResponse(self._client.scoring_functions)
 
     @cached_property
-    def benchmarks(self) -> benchmarks.BenchmarksResourceWithStreamingResponse:
-        from .resources.benchmarks import BenchmarksResourceWithStreamingResponse
-
-        return BenchmarksResourceWithStreamingResponse(self._client.benchmarks)
-
-    @cached_property
     def files(self) -> files.FilesResourceWithStreamingResponse:
         from .resources.files import FilesResourceWithStreamingResponse
 
@@ -1320,12 +1288,6 @@ class AsyncLlamaStackClientWithStreamedResponse:
         from .resources.scoring_functions import AsyncScoringFunctionsResourceWithStreamingResponse
 
         return AsyncScoringFunctionsResourceWithStreamingResponse(self._client.scoring_functions)
-
-    @cached_property
-    def benchmarks(self) -> benchmarks.AsyncBenchmarksResourceWithStreamingResponse:
-        from .resources.benchmarks import AsyncBenchmarksResourceWithStreamingResponse
-
-        return AsyncBenchmarksResourceWithStreamingResponse(self._client.benchmarks)
 
     @cached_property
     def files(self) -> files.AsyncFilesResourceWithStreamingResponse:
