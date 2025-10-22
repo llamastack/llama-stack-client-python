@@ -27,7 +27,7 @@ class VectorIoInsertParams(TypedDict, total=False):
     later.
     """
 
-    vector_db_id: Required[str]
+    vector_store_id: Required[str]
     """The identifier of the vector database to insert the chunks into."""
 
     ttl_seconds: int

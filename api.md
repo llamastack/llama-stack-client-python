@@ -135,29 +135,6 @@ Methods:
 - <code title="get /v1/conversations/{conversation_id}/items">client.conversations.items.<a href="./src/llama_stack_client/resources/conversations/items.py">list</a>(conversation_id, \*\*<a href="src/llama_stack_client/types/conversations/item_list_params.py">params</a>) -> <a href="./src/llama_stack_client/types/conversations/item_list_response.py">ItemListResponse</a></code>
 - <code title="get /v1/conversations/{conversation_id}/items/{item_id}">client.conversations.items.<a href="./src/llama_stack_client/resources/conversations/items.py">get</a>(item_id, \*, conversation_id) -> <a href="./src/llama_stack_client/types/conversations/item_get_response.py">ItemGetResponse</a></code>
 
-# Datasets
-
-Types:
-
-```python
-from llama_stack_client.types import (
-    ListDatasetsResponse,
-    DatasetRetrieveResponse,
-    DatasetListResponse,
-    DatasetIterrowsResponse,
-    DatasetRegisterResponse,
-)
-```
-
-Methods:
-
-- <code title="get /v1beta/datasets/{dataset_id}">client.datasets.<a href="./src/llama_stack_client/resources/datasets.py">retrieve</a>(dataset_id) -> <a href="./src/llama_stack_client/types/dataset_retrieve_response.py">DatasetRetrieveResponse</a></code>
-- <code title="get /v1beta/datasets">client.datasets.<a href="./src/llama_stack_client/resources/datasets.py">list</a>() -> <a href="./src/llama_stack_client/types/dataset_list_response.py">DatasetListResponse</a></code>
-- <code title="post /v1beta/datasetio/append-rows/{dataset_id}">client.datasets.<a href="./src/llama_stack_client/resources/datasets.py">appendrows</a>(dataset_id, \*\*<a href="src/llama_stack_client/types/dataset_appendrows_params.py">params</a>) -> None</code>
-- <code title="get /v1beta/datasetio/iterrows/{dataset_id}">client.datasets.<a href="./src/llama_stack_client/resources/datasets.py">iterrows</a>(dataset_id, \*\*<a href="src/llama_stack_client/types/dataset_iterrows_params.py">params</a>) -> <a href="./src/llama_stack_client/types/dataset_iterrows_response.py">DatasetIterrowsResponse</a></code>
-- <code title="post /v1beta/datasets">client.datasets.<a href="./src/llama_stack_client/resources/datasets.py">register</a>(\*\*<a href="src/llama_stack_client/types/dataset_register_params.py">params</a>) -> <a href="./src/llama_stack_client/types/dataset_register_response.py">DatasetRegisterResponse</a></code>
-- <code title="delete /v1beta/datasets/{dataset_id}">client.datasets.<a href="./src/llama_stack_client/resources/datasets.py">unregister</a>(dataset_id) -> None</code>
-
 # Inspect
 
 Types:
@@ -392,35 +369,6 @@ Methods:
 
 - <code title="post /v1/synthetic-data-generation/generate">client.synthetic_data_generation.<a href="./src/llama_stack_client/resources/synthetic_data_generation.py">generate</a>(\*\*<a href="src/llama_stack_client/types/synthetic_data_generation_generate_params.py">params</a>) -> <a href="./src/llama_stack_client/types/synthetic_data_generation_response.py">SyntheticDataGenerationResponse</a></code>
 
-# Telemetry
-
-Types:
-
-```python
-from llama_stack_client.types import (
-    Event,
-    QueryCondition,
-    QuerySpansResponse,
-    SpanWithStatus,
-    Trace,
-    TelemetryGetSpanResponse,
-    TelemetryGetSpanTreeResponse,
-    TelemetryQueryMetricsResponse,
-    TelemetryQuerySpansResponse,
-    TelemetryQueryTracesResponse,
-)
-```
-
-Methods:
-
-- <code title="get /v1alpha/telemetry/traces/{trace_id}/spans/{span_id}">client.telemetry.<a href="./src/llama_stack_client/resources/telemetry.py">get_span</a>(span_id, \*, trace_id) -> <a href="./src/llama_stack_client/types/telemetry_get_span_response.py">TelemetryGetSpanResponse</a></code>
-- <code title="post /v1alpha/telemetry/spans/{span_id}/tree">client.telemetry.<a href="./src/llama_stack_client/resources/telemetry.py">get_span_tree</a>(span_id, \*\*<a href="src/llama_stack_client/types/telemetry_get_span_tree_params.py">params</a>) -> <a href="./src/llama_stack_client/types/telemetry_get_span_tree_response.py">TelemetryGetSpanTreeResponse</a></code>
-- <code title="get /v1alpha/telemetry/traces/{trace_id}">client.telemetry.<a href="./src/llama_stack_client/resources/telemetry.py">get_trace</a>(trace_id) -> <a href="./src/llama_stack_client/types/trace.py">Trace</a></code>
-- <code title="post /v1alpha/telemetry/metrics/{metric_name}">client.telemetry.<a href="./src/llama_stack_client/resources/telemetry.py">query_metrics</a>(metric_name, \*\*<a href="src/llama_stack_client/types/telemetry_query_metrics_params.py">params</a>) -> <a href="./src/llama_stack_client/types/telemetry_query_metrics_response.py">TelemetryQueryMetricsResponse</a></code>
-- <code title="post /v1alpha/telemetry/spans">client.telemetry.<a href="./src/llama_stack_client/resources/telemetry.py">query_spans</a>(\*\*<a href="src/llama_stack_client/types/telemetry_query_spans_params.py">params</a>) -> <a href="./src/llama_stack_client/types/telemetry_query_spans_response.py">TelemetryQuerySpansResponse</a></code>
-- <code title="post /v1alpha/telemetry/traces">client.telemetry.<a href="./src/llama_stack_client/resources/telemetry.py">query_traces</a>(\*\*<a href="src/llama_stack_client/types/telemetry_query_traces_params.py">params</a>) -> <a href="./src/llama_stack_client/types/telemetry_query_traces_response.py">TelemetryQueryTracesResponse</a></code>
-- <code title="post /v1alpha/telemetry/spans/export">client.telemetry.<a href="./src/llama_stack_client/resources/telemetry.py">save_spans_to_dataset</a>(\*\*<a href="src/llama_stack_client/types/telemetry_save_spans_to_dataset_params.py">params</a>) -> None</code>
-
 # Scoring
 
 Types:
@@ -482,6 +430,31 @@ Methods:
 - <code title="get /v1/files">client.files.<a href="./src/llama_stack_client/resources/files.py">list</a>(\*\*<a href="src/llama_stack_client/types/file_list_params.py">params</a>) -> <a href="./src/llama_stack_client/types/file.py">SyncOpenAICursorPage[File]</a></code>
 - <code title="delete /v1/files/{file_id}">client.files.<a href="./src/llama_stack_client/resources/files.py">delete</a>(file_id) -> <a href="./src/llama_stack_client/types/delete_file_response.py">DeleteFileResponse</a></code>
 - <code title="get /v1/files/{file_id}/content">client.files.<a href="./src/llama_stack_client/resources/files.py">content</a>(file_id) -> object</code>
+
+# Beta
+
+## Datasets
+
+Types:
+
+```python
+from llama_stack_client.types.beta import (
+    ListDatasetsResponse,
+    DatasetRetrieveResponse,
+    DatasetListResponse,
+    DatasetIterrowsResponse,
+    DatasetRegisterResponse,
+)
+```
+
+Methods:
+
+- <code title="get /v1beta/datasets/{dataset_id}">client.beta.datasets.<a href="./src/llama_stack_client/resources/beta/datasets.py">retrieve</a>(dataset_id) -> <a href="./src/llama_stack_client/types/beta/dataset_retrieve_response.py">DatasetRetrieveResponse</a></code>
+- <code title="get /v1beta/datasets">client.beta.datasets.<a href="./src/llama_stack_client/resources/beta/datasets.py">list</a>() -> <a href="./src/llama_stack_client/types/beta/dataset_list_response.py">DatasetListResponse</a></code>
+- <code title="post /v1beta/datasetio/append-rows/{dataset_id}">client.beta.datasets.<a href="./src/llama_stack_client/resources/beta/datasets.py">appendrows</a>(dataset_id, \*\*<a href="src/llama_stack_client/types/beta/dataset_appendrows_params.py">params</a>) -> None</code>
+- <code title="get /v1beta/datasetio/iterrows/{dataset_id}">client.beta.datasets.<a href="./src/llama_stack_client/resources/beta/datasets.py">iterrows</a>(dataset_id, \*\*<a href="src/llama_stack_client/types/beta/dataset_iterrows_params.py">params</a>) -> <a href="./src/llama_stack_client/types/beta/dataset_iterrows_response.py">DatasetIterrowsResponse</a></code>
+- <code title="post /v1beta/datasets">client.beta.datasets.<a href="./src/llama_stack_client/resources/beta/datasets.py">register</a>(\*\*<a href="src/llama_stack_client/types/beta/dataset_register_params.py">params</a>) -> <a href="./src/llama_stack_client/types/beta/dataset_register_response.py">DatasetRegisterResponse</a></code>
+- <code title="delete /v1beta/datasets/{dataset_id}">client.beta.datasets.<a href="./src/llama_stack_client/resources/beta/datasets.py">unregister</a>(dataset_id) -> None</code>
 
 # Alpha
 

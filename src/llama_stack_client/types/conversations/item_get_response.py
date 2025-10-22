@@ -19,15 +19,20 @@ __all__ = [
     "OpenAIResponseMessageContentUnionMember1OpenAIResponseInputMessageContentText",
     "OpenAIResponseMessageContentUnionMember1OpenAIResponseInputMessageContentImage",
     "OpenAIResponseMessageContentUnionMember2",
-    "OpenAIResponseMessageContentUnionMember2Annotation",
-    "OpenAIResponseMessageContentUnionMember2AnnotationOpenAIResponseAnnotationFileCitation",
-    "OpenAIResponseMessageContentUnionMember2AnnotationOpenAIResponseAnnotationCitation",
-    "OpenAIResponseMessageContentUnionMember2AnnotationOpenAIResponseAnnotationContainerFileCitation",
-    "OpenAIResponseMessageContentUnionMember2AnnotationOpenAIResponseAnnotationFilePath",
-    "OpenAIResponseOutputMessageFunctionToolCall",
+    "OpenAIResponseMessageContentUnionMember2OpenAIResponseOutputMessageContentOutputText",
+    "OpenAIResponseMessageContentUnionMember2OpenAIResponseOutputMessageContentOutputTextAnnotation",
+    "OpenAIResponseMessageContentUnionMember2OpenAIResponseOutputMessageContentOutputTextAnnotationOpenAIResponseAnnotationFileCitation",
+    "OpenAIResponseMessageContentUnionMember2OpenAIResponseOutputMessageContentOutputTextAnnotationOpenAIResponseAnnotationCitation",
+    "OpenAIResponseMessageContentUnionMember2OpenAIResponseOutputMessageContentOutputTextAnnotationOpenAIResponseAnnotationContainerFileCitation",
+    "OpenAIResponseMessageContentUnionMember2OpenAIResponseOutputMessageContentOutputTextAnnotationOpenAIResponseAnnotationFilePath",
+    "OpenAIResponseMessageContentUnionMember2OpenAIResponseContentPartRefusal",
+    "OpenAIResponseOutputMessageWebSearchToolCall",
     "OpenAIResponseOutputMessageFileSearchToolCall",
     "OpenAIResponseOutputMessageFileSearchToolCallResult",
-    "OpenAIResponseOutputMessageWebSearchToolCall",
+    "OpenAIResponseOutputMessageFunctionToolCall",
+    "OpenAIResponseInputFunctionToolCallOutput",
+    "OpenAIResponseMcpApprovalRequest",
+    "OpenAIResponseMcpApprovalResponse",
     "OpenAIResponseOutputMessageMcpCall",
     "OpenAIResponseOutputMessageMcpListTools",
     "OpenAIResponseOutputMessageMcpListToolsTool",
@@ -62,7 +67,9 @@ OpenAIResponseMessageContentUnionMember1: TypeAlias = Annotated[
 ]
 
 
-class OpenAIResponseMessageContentUnionMember2AnnotationOpenAIResponseAnnotationFileCitation(BaseModel):
+class OpenAIResponseMessageContentUnionMember2OpenAIResponseOutputMessageContentOutputTextAnnotationOpenAIResponseAnnotationFileCitation(
+    BaseModel
+):
     file_id: str
     """Unique identifier of the referenced file"""
 
@@ -76,7 +83,9 @@ class OpenAIResponseMessageContentUnionMember2AnnotationOpenAIResponseAnnotation
     """Annotation type identifier, always "file_citation" """
 
 
-class OpenAIResponseMessageContentUnionMember2AnnotationOpenAIResponseAnnotationCitation(BaseModel):
+class OpenAIResponseMessageContentUnionMember2OpenAIResponseOutputMessageContentOutputTextAnnotationOpenAIResponseAnnotationCitation(
+    BaseModel
+):
     end_index: int
     """End position of the citation span in the content"""
 
@@ -93,7 +102,9 @@ class OpenAIResponseMessageContentUnionMember2AnnotationOpenAIResponseAnnotation
     """URL of the referenced web resource"""
 
 
-class OpenAIResponseMessageContentUnionMember2AnnotationOpenAIResponseAnnotationContainerFileCitation(BaseModel):
+class OpenAIResponseMessageContentUnionMember2OpenAIResponseOutputMessageContentOutputTextAnnotationOpenAIResponseAnnotationContainerFileCitation(
+    BaseModel
+):
     container_id: str
 
     end_index: int
@@ -107,7 +118,9 @@ class OpenAIResponseMessageContentUnionMember2AnnotationOpenAIResponseAnnotation
     type: Literal["container_file_citation"]
 
 
-class OpenAIResponseMessageContentUnionMember2AnnotationOpenAIResponseAnnotationFilePath(BaseModel):
+class OpenAIResponseMessageContentUnionMember2OpenAIResponseOutputMessageContentOutputTextAnnotationOpenAIResponseAnnotationFilePath(
+    BaseModel
+):
     file_id: str
 
     index: int
@@ -115,23 +128,40 @@ class OpenAIResponseMessageContentUnionMember2AnnotationOpenAIResponseAnnotation
     type: Literal["file_path"]
 
 
-OpenAIResponseMessageContentUnionMember2Annotation: TypeAlias = Annotated[
+OpenAIResponseMessageContentUnionMember2OpenAIResponseOutputMessageContentOutputTextAnnotation: TypeAlias = Annotated[
     Union[
-        OpenAIResponseMessageContentUnionMember2AnnotationOpenAIResponseAnnotationFileCitation,
-        OpenAIResponseMessageContentUnionMember2AnnotationOpenAIResponseAnnotationCitation,
-        OpenAIResponseMessageContentUnionMember2AnnotationOpenAIResponseAnnotationContainerFileCitation,
-        OpenAIResponseMessageContentUnionMember2AnnotationOpenAIResponseAnnotationFilePath,
+        OpenAIResponseMessageContentUnionMember2OpenAIResponseOutputMessageContentOutputTextAnnotationOpenAIResponseAnnotationFileCitation,
+        OpenAIResponseMessageContentUnionMember2OpenAIResponseOutputMessageContentOutputTextAnnotationOpenAIResponseAnnotationCitation,
+        OpenAIResponseMessageContentUnionMember2OpenAIResponseOutputMessageContentOutputTextAnnotationOpenAIResponseAnnotationContainerFileCitation,
+        OpenAIResponseMessageContentUnionMember2OpenAIResponseOutputMessageContentOutputTextAnnotationOpenAIResponseAnnotationFilePath,
     ],
     PropertyInfo(discriminator="type"),
 ]
 
 
-class OpenAIResponseMessageContentUnionMember2(BaseModel):
-    annotations: List[OpenAIResponseMessageContentUnionMember2Annotation]
+class OpenAIResponseMessageContentUnionMember2OpenAIResponseOutputMessageContentOutputText(BaseModel):
+    annotations: List[OpenAIResponseMessageContentUnionMember2OpenAIResponseOutputMessageContentOutputTextAnnotation]
 
     text: str
 
     type: Literal["output_text"]
+
+
+class OpenAIResponseMessageContentUnionMember2OpenAIResponseContentPartRefusal(BaseModel):
+    refusal: str
+    """Refusal text supplied by the model"""
+
+    type: Literal["refusal"]
+    """Content part type identifier, always "refusal" """
+
+
+OpenAIResponseMessageContentUnionMember2: TypeAlias = Annotated[
+    Union[
+        OpenAIResponseMessageContentUnionMember2OpenAIResponseOutputMessageContentOutputText,
+        OpenAIResponseMessageContentUnionMember2OpenAIResponseContentPartRefusal,
+    ],
+    PropertyInfo(discriminator="type"),
+]
 
 
 class OpenAIResponseMessage(BaseModel):
@@ -146,24 +176,15 @@ class OpenAIResponseMessage(BaseModel):
     status: Optional[str] = None
 
 
-class OpenAIResponseOutputMessageFunctionToolCall(BaseModel):
-    arguments: str
-    """JSON string containing the function arguments"""
+class OpenAIResponseOutputMessageWebSearchToolCall(BaseModel):
+    id: str
+    """Unique identifier for this tool call"""
 
-    call_id: str
-    """Unique identifier for the function call"""
+    status: str
+    """Current status of the web search operation"""
 
-    name: str
-    """Name of the function being called"""
-
-    type: Literal["function_call"]
-    """Tool call type identifier, always "function_call" """
-
-    id: Optional[str] = None
-    """(Optional) Additional identifier for the tool call"""
-
-    status: Optional[str] = None
-    """(Optional) Current status of the function call execution"""
+    type: Literal["web_search_call"]
+    """Tool call type identifier, always "web_search_call" """
 
 
 class OpenAIResponseOutputMessageFileSearchToolCallResult(BaseModel):
@@ -200,15 +221,60 @@ class OpenAIResponseOutputMessageFileSearchToolCall(BaseModel):
     """(Optional) Search results returned by the file search operation"""
 
 
-class OpenAIResponseOutputMessageWebSearchToolCall(BaseModel):
+class OpenAIResponseOutputMessageFunctionToolCall(BaseModel):
+    arguments: str
+    """JSON string containing the function arguments"""
+
+    call_id: str
+    """Unique identifier for the function call"""
+
+    name: str
+    """Name of the function being called"""
+
+    type: Literal["function_call"]
+    """Tool call type identifier, always "function_call" """
+
+    id: Optional[str] = None
+    """(Optional) Additional identifier for the tool call"""
+
+    status: Optional[str] = None
+    """(Optional) Current status of the function call execution"""
+
+
+class OpenAIResponseInputFunctionToolCallOutput(BaseModel):
+    call_id: str
+
+    output: str
+
+    type: Literal["function_call_output"]
+
+    id: Optional[str] = None
+
+    status: Optional[str] = None
+
+
+class OpenAIResponseMcpApprovalRequest(BaseModel):
     id: str
-    """Unique identifier for this tool call"""
 
-    status: str
-    """Current status of the web search operation"""
+    arguments: str
 
-    type: Literal["web_search_call"]
-    """Tool call type identifier, always "web_search_call" """
+    name: str
+
+    server_label: str
+
+    type: Literal["mcp_approval_request"]
+
+
+class OpenAIResponseMcpApprovalResponse(BaseModel):
+    approval_request_id: str
+
+    approve: bool
+
+    type: Literal["mcp_approval_response"]
+
+    id: Optional[str] = None
+
+    reason: Optional[str] = None
 
 
 class OpenAIResponseOutputMessageMcpCall(BaseModel):
@@ -262,9 +328,12 @@ class OpenAIResponseOutputMessageMcpListTools(BaseModel):
 ItemGetResponse: TypeAlias = Annotated[
     Union[
         OpenAIResponseMessage,
-        OpenAIResponseOutputMessageFunctionToolCall,
-        OpenAIResponseOutputMessageFileSearchToolCall,
         OpenAIResponseOutputMessageWebSearchToolCall,
+        OpenAIResponseOutputMessageFileSearchToolCall,
+        OpenAIResponseOutputMessageFunctionToolCall,
+        OpenAIResponseInputFunctionToolCallOutput,
+        OpenAIResponseMcpApprovalRequest,
+        OpenAIResponseMcpApprovalResponse,
         OpenAIResponseOutputMessageMcpCall,
         OpenAIResponseOutputMessageMcpListTools,
     ],

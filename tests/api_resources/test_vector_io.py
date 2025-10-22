@@ -32,7 +32,7 @@ class TestVectorIo:
                     "metadata": {"foo": True},
                 }
             ],
-            vector_db_id="vector_db_id",
+            vector_store_id="vector_store_id",
         )
         assert vector_io is None
 
@@ -60,7 +60,7 @@ class TestVectorIo:
                     "stored_chunk_id": "stored_chunk_id",
                 }
             ],
-            vector_db_id="vector_db_id",
+            vector_store_id="vector_store_id",
             ttl_seconds=0,
         )
         assert vector_io is None
@@ -74,7 +74,7 @@ class TestVectorIo:
                     "metadata": {"foo": True},
                 }
             ],
-            vector_db_id="vector_db_id",
+            vector_store_id="vector_store_id",
         )
 
         assert response.is_closed is True
@@ -91,7 +91,7 @@ class TestVectorIo:
                     "metadata": {"foo": True},
                 }
             ],
-            vector_db_id="vector_db_id",
+            vector_store_id="vector_store_id",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -105,7 +105,7 @@ class TestVectorIo:
     def test_method_query(self, client: LlamaStackClient) -> None:
         vector_io = client.vector_io.query(
             query="string",
-            vector_db_id="vector_db_id",
+            vector_store_id="vector_store_id",
         )
         assert_matches_type(QueryChunksResponse, vector_io, path=["response"])
 
@@ -113,7 +113,7 @@ class TestVectorIo:
     def test_method_query_with_all_params(self, client: LlamaStackClient) -> None:
         vector_io = client.vector_io.query(
             query="string",
-            vector_db_id="vector_db_id",
+            vector_store_id="vector_store_id",
             params={"foo": True},
         )
         assert_matches_type(QueryChunksResponse, vector_io, path=["response"])
@@ -122,7 +122,7 @@ class TestVectorIo:
     def test_raw_response_query(self, client: LlamaStackClient) -> None:
         response = client.vector_io.with_raw_response.query(
             query="string",
-            vector_db_id="vector_db_id",
+            vector_store_id="vector_store_id",
         )
 
         assert response.is_closed is True
@@ -134,7 +134,7 @@ class TestVectorIo:
     def test_streaming_response_query(self, client: LlamaStackClient) -> None:
         with client.vector_io.with_streaming_response.query(
             query="string",
-            vector_db_id="vector_db_id",
+            vector_store_id="vector_store_id",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -159,7 +159,7 @@ class TestAsyncVectorIo:
                     "metadata": {"foo": True},
                 }
             ],
-            vector_db_id="vector_db_id",
+            vector_store_id="vector_store_id",
         )
         assert vector_io is None
 
@@ -187,7 +187,7 @@ class TestAsyncVectorIo:
                     "stored_chunk_id": "stored_chunk_id",
                 }
             ],
-            vector_db_id="vector_db_id",
+            vector_store_id="vector_store_id",
             ttl_seconds=0,
         )
         assert vector_io is None
@@ -201,7 +201,7 @@ class TestAsyncVectorIo:
                     "metadata": {"foo": True},
                 }
             ],
-            vector_db_id="vector_db_id",
+            vector_store_id="vector_store_id",
         )
 
         assert response.is_closed is True
@@ -218,7 +218,7 @@ class TestAsyncVectorIo:
                     "metadata": {"foo": True},
                 }
             ],
-            vector_db_id="vector_db_id",
+            vector_store_id="vector_store_id",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -232,7 +232,7 @@ class TestAsyncVectorIo:
     async def test_method_query(self, async_client: AsyncLlamaStackClient) -> None:
         vector_io = await async_client.vector_io.query(
             query="string",
-            vector_db_id="vector_db_id",
+            vector_store_id="vector_store_id",
         )
         assert_matches_type(QueryChunksResponse, vector_io, path=["response"])
 
@@ -240,7 +240,7 @@ class TestAsyncVectorIo:
     async def test_method_query_with_all_params(self, async_client: AsyncLlamaStackClient) -> None:
         vector_io = await async_client.vector_io.query(
             query="string",
-            vector_db_id="vector_db_id",
+            vector_store_id="vector_store_id",
             params={"foo": True},
         )
         assert_matches_type(QueryChunksResponse, vector_io, path=["response"])
@@ -249,7 +249,7 @@ class TestAsyncVectorIo:
     async def test_raw_response_query(self, async_client: AsyncLlamaStackClient) -> None:
         response = await async_client.vector_io.with_raw_response.query(
             query="string",
-            vector_db_id="vector_db_id",
+            vector_store_id="vector_store_id",
         )
 
         assert response.is_closed is True
@@ -261,7 +261,7 @@ class TestAsyncVectorIo:
     async def test_streaming_response_query(self, async_client: AsyncLlamaStackClient) -> None:
         async with async_client.vector_io.with_streaming_response.query(
             query="string",
-            vector_db_id="vector_db_id",
+            vector_store_id="vector_store_id",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"

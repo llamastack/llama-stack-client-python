@@ -13,23 +13,23 @@ from typing_extensions import Literal
 
 import httpx
 
-from ..types import dataset_iterrows_params, dataset_register_params, dataset_appendrows_params
-from .._types import Body, Omit, Query, Headers, NoneType, NotGiven, omit, not_given
-from .._utils import maybe_transform, async_maybe_transform
-from .._compat import cached_property
-from .._resource import SyncAPIResource, AsyncAPIResource
-from .._response import (
+from ..._types import Body, Omit, Query, Headers, NoneType, NotGiven, omit, not_given
+from ..._utils import maybe_transform, async_maybe_transform
+from ..._compat import cached_property
+from ..._resource import SyncAPIResource, AsyncAPIResource
+from ..._response import (
     to_raw_response_wrapper,
     to_streamed_response_wrapper,
     async_to_raw_response_wrapper,
     async_to_streamed_response_wrapper,
 )
-from .._wrappers import DataWrapper
-from .._base_client import make_request_options
-from ..types.dataset_list_response import DatasetListResponse
-from ..types.dataset_iterrows_response import DatasetIterrowsResponse
-from ..types.dataset_register_response import DatasetRegisterResponse
-from ..types.dataset_retrieve_response import DatasetRetrieveResponse
+from ..._wrappers import DataWrapper
+from ...types.beta import dataset_iterrows_params, dataset_register_params, dataset_appendrows_params
+from ..._base_client import make_request_options
+from ...types.beta.dataset_list_response import DatasetListResponse
+from ...types.beta.dataset_iterrows_response import DatasetIterrowsResponse
+from ...types.beta.dataset_register_response import DatasetRegisterResponse
+from ...types.beta.dataset_retrieve_response import DatasetRetrieveResponse
 
 __all__ = ["DatasetsResource", "AsyncDatasetsResource"]
 
