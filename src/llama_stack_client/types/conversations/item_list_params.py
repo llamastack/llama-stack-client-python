@@ -2,35 +2,31 @@
 
 from __future__ import annotations
 
-from typing import List, Union
-from typing_extensions import Literal, Required, TypedDict
+from typing import List
+from typing_extensions import Literal, TypedDict
 
 __all__ = ["ItemListParams"]
 
 
 class ItemListParams(TypedDict, total=False):
-    after: Required[Union[str, object]]
+    after: str
     """An item ID to list items after, used in pagination."""
 
-    include: Required[
-        Union[
-            List[
-                Literal[
-                    "code_interpreter_call.outputs",
-                    "computer_call_output.output.image_url",
-                    "file_search_call.results",
-                    "message.input_image.image_url",
-                    "message.output_text.logprobs",
-                    "reasoning.encrypted_content",
-                ]
-            ],
-            object,
+    include: List[
+        Literal[
+            "web_search_call.action.sources",
+            "code_interpreter_call.outputs",
+            "computer_call_output.output.image_url",
+            "file_search_call.results",
+            "message.input_image.image_url",
+            "message.output_text.logprobs",
+            "reasoning.encrypted_content",
         ]
     ]
     """Specify additional output data to include in the response."""
 
-    limit: Required[Union[int, object]]
+    limit: int
     """A limit on the number of objects to be returned (1-100, default 20)."""
 
-    order: Required[Union[Literal["asc", "desc"], object]]
+    order: Literal["asc", "desc"]
     """The order to return items in (asc or desc, default desc)."""

@@ -9,6 +9,7 @@ import pytest
 
 from tests.utils import assert_matches_type
 from llama_stack_client import LlamaStackClient, AsyncLlamaStackClient
+from llama_stack_client.pagination import SyncOpenAICursorPage, AsyncOpenAICursorPage
 from llama_stack_client.types.conversations import (
     ItemGetResponse,
     ItemListResponse,
@@ -91,42 +92,41 @@ class TestItems:
     def test_method_list(self, client: LlamaStackClient) -> None:
         item = client.conversations.items.list(
             conversation_id="conversation_id",
-            after="string",
-            include=["code_interpreter_call.outputs"],
+        )
+        assert_matches_type(SyncOpenAICursorPage[ItemListResponse], item, path=["response"])
+
+    @parametrize
+    def test_method_list_with_all_params(self, client: LlamaStackClient) -> None:
+        item = client.conversations.items.list(
+            conversation_id="conversation_id",
+            after="after",
+            include=["web_search_call.action.sources"],
             limit=0,
             order="asc",
         )
-        assert_matches_type(ItemListResponse, item, path=["response"])
+        assert_matches_type(SyncOpenAICursorPage[ItemListResponse], item, path=["response"])
 
     @parametrize
     def test_raw_response_list(self, client: LlamaStackClient) -> None:
         response = client.conversations.items.with_raw_response.list(
             conversation_id="conversation_id",
-            after="string",
-            include=["code_interpreter_call.outputs"],
-            limit=0,
-            order="asc",
         )
 
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         item = response.parse()
-        assert_matches_type(ItemListResponse, item, path=["response"])
+        assert_matches_type(SyncOpenAICursorPage[ItemListResponse], item, path=["response"])
 
     @parametrize
     def test_streaming_response_list(self, client: LlamaStackClient) -> None:
         with client.conversations.items.with_streaming_response.list(
             conversation_id="conversation_id",
-            after="string",
-            include=["code_interpreter_call.outputs"],
-            limit=0,
-            order="asc",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             item = response.parse()
-            assert_matches_type(ItemListResponse, item, path=["response"])
+            assert_matches_type(SyncOpenAICursorPage[ItemListResponse], item, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -135,10 +135,6 @@ class TestItems:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `conversation_id` but received ''"):
             client.conversations.items.with_raw_response.list(
                 conversation_id="",
-                after="string",
-                include=["code_interpreter_call.outputs"],
-                limit=0,
-                order="asc",
             )
 
     @parametrize
@@ -265,42 +261,41 @@ class TestAsyncItems:
     async def test_method_list(self, async_client: AsyncLlamaStackClient) -> None:
         item = await async_client.conversations.items.list(
             conversation_id="conversation_id",
-            after="string",
-            include=["code_interpreter_call.outputs"],
+        )
+        assert_matches_type(AsyncOpenAICursorPage[ItemListResponse], item, path=["response"])
+
+    @parametrize
+    async def test_method_list_with_all_params(self, async_client: AsyncLlamaStackClient) -> None:
+        item = await async_client.conversations.items.list(
+            conversation_id="conversation_id",
+            after="after",
+            include=["web_search_call.action.sources"],
             limit=0,
             order="asc",
         )
-        assert_matches_type(ItemListResponse, item, path=["response"])
+        assert_matches_type(AsyncOpenAICursorPage[ItemListResponse], item, path=["response"])
 
     @parametrize
     async def test_raw_response_list(self, async_client: AsyncLlamaStackClient) -> None:
         response = await async_client.conversations.items.with_raw_response.list(
             conversation_id="conversation_id",
-            after="string",
-            include=["code_interpreter_call.outputs"],
-            limit=0,
-            order="asc",
         )
 
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         item = await response.parse()
-        assert_matches_type(ItemListResponse, item, path=["response"])
+        assert_matches_type(AsyncOpenAICursorPage[ItemListResponse], item, path=["response"])
 
     @parametrize
     async def test_streaming_response_list(self, async_client: AsyncLlamaStackClient) -> None:
         async with async_client.conversations.items.with_streaming_response.list(
             conversation_id="conversation_id",
-            after="string",
-            include=["code_interpreter_call.outputs"],
-            limit=0,
-            order="asc",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             item = await response.parse()
-            assert_matches_type(ItemListResponse, item, path=["response"])
+            assert_matches_type(AsyncOpenAICursorPage[ItemListResponse], item, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -309,10 +304,6 @@ class TestAsyncItems:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `conversation_id` but received ''"):
             await async_client.conversations.items.with_raw_response.list(
                 conversation_id="",
-                after="string",
-                include=["code_interpreter_call.outputs"],
-                limit=0,
-                order="asc",
             )
 
     @parametrize
