@@ -23,7 +23,7 @@ class Model(BaseModel):
     metadata: Dict[str, Union[bool, float, str, List[object], object, None]]
     """Any additional metadata for this model"""
 
-    api_model_type: Literal["llm", "embedding"] = FieldInfo(alias="model_type")
+    api_model_type: Literal["llm", "embedding", "rerank"] = FieldInfo(alias="model_type")
     """The type of model (LLM or embedding model)"""
 
     provider_id: str
