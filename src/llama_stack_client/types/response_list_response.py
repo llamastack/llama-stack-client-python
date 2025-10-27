@@ -17,16 +17,6 @@ from .._models import BaseModel
 __all__ = [
     "ResponseListResponse",
     "Input",
-    "InputOpenAIResponseOutputMessageWebSearchToolCall",
-    "InputOpenAIResponseOutputMessageFileSearchToolCall",
-    "InputOpenAIResponseOutputMessageFileSearchToolCallResult",
-    "InputOpenAIResponseOutputMessageFunctionToolCall",
-    "InputOpenAIResponseInputFunctionToolCallOutput",
-    "InputOpenAIResponseMcpApprovalRequest",
-    "InputOpenAIResponseMcpApprovalResponse",
-    "InputOpenAIResponseOutputMessageMcpCall",
-    "InputOpenAIResponseOutputMessageMcpListTools",
-    "InputOpenAIResponseOutputMessageMcpListToolsTool",
     "InputOpenAIResponseMessage",
     "InputOpenAIResponseMessageContentUnionMember1",
     "InputOpenAIResponseMessageContentUnionMember1OpenAIResponseInputMessageContentText",
@@ -39,6 +29,16 @@ __all__ = [
     "InputOpenAIResponseMessageContentUnionMember2OpenAIResponseOutputMessageContentOutputTextAnnotationOpenAIResponseAnnotationContainerFileCitation",
     "InputOpenAIResponseMessageContentUnionMember2OpenAIResponseOutputMessageContentOutputTextAnnotationOpenAIResponseAnnotationFilePath",
     "InputOpenAIResponseMessageContentUnionMember2OpenAIResponseContentPartRefusal",
+    "InputOpenAIResponseOutputMessageWebSearchToolCall",
+    "InputOpenAIResponseOutputMessageFileSearchToolCall",
+    "InputOpenAIResponseOutputMessageFileSearchToolCallResult",
+    "InputOpenAIResponseOutputMessageFunctionToolCall",
+    "InputOpenAIResponseOutputMessageMcpCall",
+    "InputOpenAIResponseOutputMessageMcpListTools",
+    "InputOpenAIResponseOutputMessageMcpListToolsTool",
+    "InputOpenAIResponseMcpApprovalRequest",
+    "InputOpenAIResponseInputFunctionToolCallOutput",
+    "InputOpenAIResponseMcpApprovalResponse",
     "Output",
     "OutputOpenAIResponseMessage",
     "OutputOpenAIResponseMessageContentUnionMember1",
@@ -75,155 +75,6 @@ __all__ = [
     "UsageInputTokensDetails",
     "UsageOutputTokensDetails",
 ]
-
-
-class InputOpenAIResponseOutputMessageWebSearchToolCall(BaseModel):
-    id: str
-    """Unique identifier for this tool call"""
-
-    status: str
-    """Current status of the web search operation"""
-
-    type: Literal["web_search_call"]
-    """Tool call type identifier, always "web_search_call" """
-
-
-class InputOpenAIResponseOutputMessageFileSearchToolCallResult(BaseModel):
-    attributes: Dict[str, Union[bool, float, str, List[object], object, None]]
-    """(Optional) Key-value attributes associated with the file"""
-
-    file_id: str
-    """Unique identifier of the file containing the result"""
-
-    filename: str
-    """Name of the file containing the result"""
-
-    score: float
-    """Relevance score for this search result (between 0 and 1)"""
-
-    text: str
-    """Text content of the search result"""
-
-
-class InputOpenAIResponseOutputMessageFileSearchToolCall(BaseModel):
-    id: str
-    """Unique identifier for this tool call"""
-
-    queries: List[str]
-    """List of search queries executed"""
-
-    status: str
-    """Current status of the file search operation"""
-
-    type: Literal["file_search_call"]
-    """Tool call type identifier, always "file_search_call" """
-
-    results: Optional[List[InputOpenAIResponseOutputMessageFileSearchToolCallResult]] = None
-    """(Optional) Search results returned by the file search operation"""
-
-
-class InputOpenAIResponseOutputMessageFunctionToolCall(BaseModel):
-    arguments: str
-    """JSON string containing the function arguments"""
-
-    call_id: str
-    """Unique identifier for the function call"""
-
-    name: str
-    """Name of the function being called"""
-
-    type: Literal["function_call"]
-    """Tool call type identifier, always "function_call" """
-
-    id: Optional[str] = None
-    """(Optional) Additional identifier for the tool call"""
-
-    status: Optional[str] = None
-    """(Optional) Current status of the function call execution"""
-
-
-class InputOpenAIResponseInputFunctionToolCallOutput(BaseModel):
-    call_id: str
-
-    output: str
-
-    type: Literal["function_call_output"]
-
-    id: Optional[str] = None
-
-    status: Optional[str] = None
-
-
-class InputOpenAIResponseMcpApprovalRequest(BaseModel):
-    id: str
-
-    arguments: str
-
-    name: str
-
-    server_label: str
-
-    type: Literal["mcp_approval_request"]
-
-
-class InputOpenAIResponseMcpApprovalResponse(BaseModel):
-    approval_request_id: str
-
-    approve: bool
-
-    type: Literal["mcp_approval_response"]
-
-    id: Optional[str] = None
-
-    reason: Optional[str] = None
-
-
-class InputOpenAIResponseOutputMessageMcpCall(BaseModel):
-    id: str
-    """Unique identifier for this MCP call"""
-
-    arguments: str
-    """JSON string containing the MCP call arguments"""
-
-    name: str
-    """Name of the MCP method being called"""
-
-    server_label: str
-    """Label identifying the MCP server handling the call"""
-
-    type: Literal["mcp_call"]
-    """Tool call type identifier, always "mcp_call" """
-
-    error: Optional[str] = None
-    """(Optional) Error message if the MCP call failed"""
-
-    output: Optional[str] = None
-    """(Optional) Output result from the successful MCP call"""
-
-
-class InputOpenAIResponseOutputMessageMcpListToolsTool(BaseModel):
-    input_schema: Dict[str, Union[bool, float, str, List[object], object, None]]
-    """JSON schema defining the tool's input parameters"""
-
-    name: str
-    """Name of the tool"""
-
-    description: Optional[str] = None
-    """(Optional) Description of what the tool does"""
-
-
-class InputOpenAIResponseOutputMessageMcpListTools(BaseModel):
-    id: str
-    """Unique identifier for this MCP list tools operation"""
-
-    server_label: str
-    """Label identifying the MCP server providing the tools"""
-
-    tools: List[InputOpenAIResponseOutputMessageMcpListToolsTool]
-    """List of available tools provided by the MCP server"""
-
-    type: Literal["mcp_list_tools"]
-    """Tool call type identifier, always "mcp_list_tools" """
 
 
 class InputOpenAIResponseMessageContentUnionMember1OpenAIResponseInputMessageContentText(BaseModel):
@@ -367,15 +218,165 @@ class InputOpenAIResponseMessage(BaseModel):
     status: Optional[str] = None
 
 
+class InputOpenAIResponseOutputMessageWebSearchToolCall(BaseModel):
+    id: str
+    """Unique identifier for this tool call"""
+
+    status: str
+    """Current status of the web search operation"""
+
+    type: Literal["web_search_call"]
+    """Tool call type identifier, always "web_search_call" """
+
+
+class InputOpenAIResponseOutputMessageFileSearchToolCallResult(BaseModel):
+    attributes: Dict[str, Union[bool, float, str, List[object], object, None]]
+    """(Optional) Key-value attributes associated with the file"""
+
+    file_id: str
+    """Unique identifier of the file containing the result"""
+
+    filename: str
+    """Name of the file containing the result"""
+
+    score: float
+    """Relevance score for this search result (between 0 and 1)"""
+
+    text: str
+    """Text content of the search result"""
+
+
+class InputOpenAIResponseOutputMessageFileSearchToolCall(BaseModel):
+    id: str
+    """Unique identifier for this tool call"""
+
+    queries: List[str]
+    """List of search queries executed"""
+
+    status: str
+    """Current status of the file search operation"""
+
+    type: Literal["file_search_call"]
+    """Tool call type identifier, always "file_search_call" """
+
+    results: Optional[List[InputOpenAIResponseOutputMessageFileSearchToolCallResult]] = None
+    """(Optional) Search results returned by the file search operation"""
+
+
+class InputOpenAIResponseOutputMessageFunctionToolCall(BaseModel):
+    arguments: str
+    """JSON string containing the function arguments"""
+
+    call_id: str
+    """Unique identifier for the function call"""
+
+    name: str
+    """Name of the function being called"""
+
+    type: Literal["function_call"]
+    """Tool call type identifier, always "function_call" """
+
+    id: Optional[str] = None
+    """(Optional) Additional identifier for the tool call"""
+
+    status: Optional[str] = None
+    """(Optional) Current status of the function call execution"""
+
+
+class InputOpenAIResponseOutputMessageMcpCall(BaseModel):
+    id: str
+    """Unique identifier for this MCP call"""
+
+    arguments: str
+    """JSON string containing the MCP call arguments"""
+
+    name: str
+    """Name of the MCP method being called"""
+
+    server_label: str
+    """Label identifying the MCP server handling the call"""
+
+    type: Literal["mcp_call"]
+    """Tool call type identifier, always "mcp_call" """
+
+    error: Optional[str] = None
+    """(Optional) Error message if the MCP call failed"""
+
+    output: Optional[str] = None
+    """(Optional) Output result from the successful MCP call"""
+
+
+class InputOpenAIResponseOutputMessageMcpListToolsTool(BaseModel):
+    input_schema: Dict[str, Union[bool, float, str, List[object], object, None]]
+    """JSON schema defining the tool's input parameters"""
+
+    name: str
+    """Name of the tool"""
+
+    description: Optional[str] = None
+    """(Optional) Description of what the tool does"""
+
+
+class InputOpenAIResponseOutputMessageMcpListTools(BaseModel):
+    id: str
+    """Unique identifier for this MCP list tools operation"""
+
+    server_label: str
+    """Label identifying the MCP server providing the tools"""
+
+    tools: List[InputOpenAIResponseOutputMessageMcpListToolsTool]
+    """List of available tools provided by the MCP server"""
+
+    type: Literal["mcp_list_tools"]
+    """Tool call type identifier, always "mcp_list_tools" """
+
+
+class InputOpenAIResponseMcpApprovalRequest(BaseModel):
+    id: str
+
+    arguments: str
+
+    name: str
+
+    server_label: str
+
+    type: Literal["mcp_approval_request"]
+
+
+class InputOpenAIResponseInputFunctionToolCallOutput(BaseModel):
+    call_id: str
+
+    output: str
+
+    type: Literal["function_call_output"]
+
+    id: Optional[str] = None
+
+    status: Optional[str] = None
+
+
+class InputOpenAIResponseMcpApprovalResponse(BaseModel):
+    approval_request_id: str
+
+    approve: bool
+
+    type: Literal["mcp_approval_response"]
+
+    id: Optional[str] = None
+
+    reason: Optional[str] = None
+
+
 Input: TypeAlias = Union[
+    InputOpenAIResponseMessage,
     InputOpenAIResponseOutputMessageWebSearchToolCall,
     InputOpenAIResponseOutputMessageFileSearchToolCall,
     InputOpenAIResponseOutputMessageFunctionToolCall,
-    InputOpenAIResponseInputFunctionToolCallOutput,
-    InputOpenAIResponseMcpApprovalRequest,
-    InputOpenAIResponseMcpApprovalResponse,
     InputOpenAIResponseOutputMessageMcpCall,
     InputOpenAIResponseOutputMessageMcpListTools,
+    InputOpenAIResponseMcpApprovalRequest,
+    InputOpenAIResponseInputFunctionToolCallOutput,
+    InputOpenAIResponseMcpApprovalResponse,
     InputOpenAIResponseMessage,
 ]
 

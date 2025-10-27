@@ -16,16 +16,6 @@ from .._types import SequenceNotStr
 __all__ = [
     "ResponseCreateParamsBase",
     "InputUnionMember1",
-    "InputUnionMember1OpenAIResponseOutputMessageWebSearchToolCall",
-    "InputUnionMember1OpenAIResponseOutputMessageFileSearchToolCall",
-    "InputUnionMember1OpenAIResponseOutputMessageFileSearchToolCallResult",
-    "InputUnionMember1OpenAIResponseOutputMessageFunctionToolCall",
-    "InputUnionMember1OpenAIResponseInputFunctionToolCallOutput",
-    "InputUnionMember1OpenAIResponseMcpApprovalRequest",
-    "InputUnionMember1OpenAIResponseMcpApprovalResponse",
-    "InputUnionMember1OpenAIResponseOutputMessageMcpCall",
-    "InputUnionMember1OpenAIResponseOutputMessageMcpListTools",
-    "InputUnionMember1OpenAIResponseOutputMessageMcpListToolsTool",
     "InputUnionMember1OpenAIResponseMessage",
     "InputUnionMember1OpenAIResponseMessageContentUnionMember1",
     "InputUnionMember1OpenAIResponseMessageContentUnionMember1OpenAIResponseInputMessageContentText",
@@ -38,6 +28,16 @@ __all__ = [
     "InputUnionMember1OpenAIResponseMessageContentUnionMember2OpenAIResponseOutputMessageContentOutputTextAnnotationOpenAIResponseAnnotationContainerFileCitation",
     "InputUnionMember1OpenAIResponseMessageContentUnionMember2OpenAIResponseOutputMessageContentOutputTextAnnotationOpenAIResponseAnnotationFilePath",
     "InputUnionMember1OpenAIResponseMessageContentUnionMember2OpenAIResponseContentPartRefusal",
+    "InputUnionMember1OpenAIResponseOutputMessageWebSearchToolCall",
+    "InputUnionMember1OpenAIResponseOutputMessageFileSearchToolCall",
+    "InputUnionMember1OpenAIResponseOutputMessageFileSearchToolCallResult",
+    "InputUnionMember1OpenAIResponseOutputMessageFunctionToolCall",
+    "InputUnionMember1OpenAIResponseOutputMessageMcpCall",
+    "InputUnionMember1OpenAIResponseOutputMessageMcpListTools",
+    "InputUnionMember1OpenAIResponseOutputMessageMcpListToolsTool",
+    "InputUnionMember1OpenAIResponseMcpApprovalRequest",
+    "InputUnionMember1OpenAIResponseInputFunctionToolCallOutput",
+    "InputUnionMember1OpenAIResponseMcpApprovalResponse",
     "Text",
     "TextFormat",
     "Tool",
@@ -91,155 +91,6 @@ class ResponseCreateParamsBase(TypedDict, total=False):
     """Text response configuration for OpenAI responses."""
 
     tools: Iterable[Tool]
-
-
-class InputUnionMember1OpenAIResponseOutputMessageWebSearchToolCall(TypedDict, total=False):
-    id: Required[str]
-    """Unique identifier for this tool call"""
-
-    status: Required[str]
-    """Current status of the web search operation"""
-
-    type: Required[Literal["web_search_call"]]
-    """Tool call type identifier, always "web_search_call" """
-
-
-class InputUnionMember1OpenAIResponseOutputMessageFileSearchToolCallResult(TypedDict, total=False):
-    attributes: Required[Dict[str, Union[bool, float, str, Iterable[object], object, None]]]
-    """(Optional) Key-value attributes associated with the file"""
-
-    file_id: Required[str]
-    """Unique identifier of the file containing the result"""
-
-    filename: Required[str]
-    """Name of the file containing the result"""
-
-    score: Required[float]
-    """Relevance score for this search result (between 0 and 1)"""
-
-    text: Required[str]
-    """Text content of the search result"""
-
-
-class InputUnionMember1OpenAIResponseOutputMessageFileSearchToolCall(TypedDict, total=False):
-    id: Required[str]
-    """Unique identifier for this tool call"""
-
-    queries: Required[SequenceNotStr[str]]
-    """List of search queries executed"""
-
-    status: Required[str]
-    """Current status of the file search operation"""
-
-    type: Required[Literal["file_search_call"]]
-    """Tool call type identifier, always "file_search_call" """
-
-    results: Iterable[InputUnionMember1OpenAIResponseOutputMessageFileSearchToolCallResult]
-    """(Optional) Search results returned by the file search operation"""
-
-
-class InputUnionMember1OpenAIResponseOutputMessageFunctionToolCall(TypedDict, total=False):
-    arguments: Required[str]
-    """JSON string containing the function arguments"""
-
-    call_id: Required[str]
-    """Unique identifier for the function call"""
-
-    name: Required[str]
-    """Name of the function being called"""
-
-    type: Required[Literal["function_call"]]
-    """Tool call type identifier, always "function_call" """
-
-    id: str
-    """(Optional) Additional identifier for the tool call"""
-
-    status: str
-    """(Optional) Current status of the function call execution"""
-
-
-class InputUnionMember1OpenAIResponseInputFunctionToolCallOutput(TypedDict, total=False):
-    call_id: Required[str]
-
-    output: Required[str]
-
-    type: Required[Literal["function_call_output"]]
-
-    id: str
-
-    status: str
-
-
-class InputUnionMember1OpenAIResponseMcpApprovalRequest(TypedDict, total=False):
-    id: Required[str]
-
-    arguments: Required[str]
-
-    name: Required[str]
-
-    server_label: Required[str]
-
-    type: Required[Literal["mcp_approval_request"]]
-
-
-class InputUnionMember1OpenAIResponseMcpApprovalResponse(TypedDict, total=False):
-    approval_request_id: Required[str]
-
-    approve: Required[bool]
-
-    type: Required[Literal["mcp_approval_response"]]
-
-    id: str
-
-    reason: str
-
-
-class InputUnionMember1OpenAIResponseOutputMessageMcpCall(TypedDict, total=False):
-    id: Required[str]
-    """Unique identifier for this MCP call"""
-
-    arguments: Required[str]
-    """JSON string containing the MCP call arguments"""
-
-    name: Required[str]
-    """Name of the MCP method being called"""
-
-    server_label: Required[str]
-    """Label identifying the MCP server handling the call"""
-
-    type: Required[Literal["mcp_call"]]
-    """Tool call type identifier, always "mcp_call" """
-
-    error: str
-    """(Optional) Error message if the MCP call failed"""
-
-    output: str
-    """(Optional) Output result from the successful MCP call"""
-
-
-class InputUnionMember1OpenAIResponseOutputMessageMcpListToolsTool(TypedDict, total=False):
-    input_schema: Required[Dict[str, Union[bool, float, str, Iterable[object], object, None]]]
-    """JSON schema defining the tool's input parameters"""
-
-    name: Required[str]
-    """Name of the tool"""
-
-    description: str
-    """(Optional) Description of what the tool does"""
-
-
-class InputUnionMember1OpenAIResponseOutputMessageMcpListTools(TypedDict, total=False):
-    id: Required[str]
-    """Unique identifier for this MCP list tools operation"""
-
-    server_label: Required[str]
-    """Label identifying the MCP server providing the tools"""
-
-    tools: Required[Iterable[InputUnionMember1OpenAIResponseOutputMessageMcpListToolsTool]]
-    """List of available tools provided by the MCP server"""
-
-    type: Required[Literal["mcp_list_tools"]]
-    """Tool call type identifier, always "mcp_list_tools" """
 
 
 class InputUnionMember1OpenAIResponseMessageContentUnionMember1OpenAIResponseInputMessageContentText(
@@ -386,15 +237,165 @@ class InputUnionMember1OpenAIResponseMessage(TypedDict, total=False):
     status: str
 
 
+class InputUnionMember1OpenAIResponseOutputMessageWebSearchToolCall(TypedDict, total=False):
+    id: Required[str]
+    """Unique identifier for this tool call"""
+
+    status: Required[str]
+    """Current status of the web search operation"""
+
+    type: Required[Literal["web_search_call"]]
+    """Tool call type identifier, always "web_search_call" """
+
+
+class InputUnionMember1OpenAIResponseOutputMessageFileSearchToolCallResult(TypedDict, total=False):
+    attributes: Required[Dict[str, Union[bool, float, str, Iterable[object], object, None]]]
+    """(Optional) Key-value attributes associated with the file"""
+
+    file_id: Required[str]
+    """Unique identifier of the file containing the result"""
+
+    filename: Required[str]
+    """Name of the file containing the result"""
+
+    score: Required[float]
+    """Relevance score for this search result (between 0 and 1)"""
+
+    text: Required[str]
+    """Text content of the search result"""
+
+
+class InputUnionMember1OpenAIResponseOutputMessageFileSearchToolCall(TypedDict, total=False):
+    id: Required[str]
+    """Unique identifier for this tool call"""
+
+    queries: Required[SequenceNotStr[str]]
+    """List of search queries executed"""
+
+    status: Required[str]
+    """Current status of the file search operation"""
+
+    type: Required[Literal["file_search_call"]]
+    """Tool call type identifier, always "file_search_call" """
+
+    results: Iterable[InputUnionMember1OpenAIResponseOutputMessageFileSearchToolCallResult]
+    """(Optional) Search results returned by the file search operation"""
+
+
+class InputUnionMember1OpenAIResponseOutputMessageFunctionToolCall(TypedDict, total=False):
+    arguments: Required[str]
+    """JSON string containing the function arguments"""
+
+    call_id: Required[str]
+    """Unique identifier for the function call"""
+
+    name: Required[str]
+    """Name of the function being called"""
+
+    type: Required[Literal["function_call"]]
+    """Tool call type identifier, always "function_call" """
+
+    id: str
+    """(Optional) Additional identifier for the tool call"""
+
+    status: str
+    """(Optional) Current status of the function call execution"""
+
+
+class InputUnionMember1OpenAIResponseOutputMessageMcpCall(TypedDict, total=False):
+    id: Required[str]
+    """Unique identifier for this MCP call"""
+
+    arguments: Required[str]
+    """JSON string containing the MCP call arguments"""
+
+    name: Required[str]
+    """Name of the MCP method being called"""
+
+    server_label: Required[str]
+    """Label identifying the MCP server handling the call"""
+
+    type: Required[Literal["mcp_call"]]
+    """Tool call type identifier, always "mcp_call" """
+
+    error: str
+    """(Optional) Error message if the MCP call failed"""
+
+    output: str
+    """(Optional) Output result from the successful MCP call"""
+
+
+class InputUnionMember1OpenAIResponseOutputMessageMcpListToolsTool(TypedDict, total=False):
+    input_schema: Required[Dict[str, Union[bool, float, str, Iterable[object], object, None]]]
+    """JSON schema defining the tool's input parameters"""
+
+    name: Required[str]
+    """Name of the tool"""
+
+    description: str
+    """(Optional) Description of what the tool does"""
+
+
+class InputUnionMember1OpenAIResponseOutputMessageMcpListTools(TypedDict, total=False):
+    id: Required[str]
+    """Unique identifier for this MCP list tools operation"""
+
+    server_label: Required[str]
+    """Label identifying the MCP server providing the tools"""
+
+    tools: Required[Iterable[InputUnionMember1OpenAIResponseOutputMessageMcpListToolsTool]]
+    """List of available tools provided by the MCP server"""
+
+    type: Required[Literal["mcp_list_tools"]]
+    """Tool call type identifier, always "mcp_list_tools" """
+
+
+class InputUnionMember1OpenAIResponseMcpApprovalRequest(TypedDict, total=False):
+    id: Required[str]
+
+    arguments: Required[str]
+
+    name: Required[str]
+
+    server_label: Required[str]
+
+    type: Required[Literal["mcp_approval_request"]]
+
+
+class InputUnionMember1OpenAIResponseInputFunctionToolCallOutput(TypedDict, total=False):
+    call_id: Required[str]
+
+    output: Required[str]
+
+    type: Required[Literal["function_call_output"]]
+
+    id: str
+
+    status: str
+
+
+class InputUnionMember1OpenAIResponseMcpApprovalResponse(TypedDict, total=False):
+    approval_request_id: Required[str]
+
+    approve: Required[bool]
+
+    type: Required[Literal["mcp_approval_response"]]
+
+    id: str
+
+    reason: str
+
+
 InputUnionMember1: TypeAlias = Union[
+    InputUnionMember1OpenAIResponseMessage,
     InputUnionMember1OpenAIResponseOutputMessageWebSearchToolCall,
     InputUnionMember1OpenAIResponseOutputMessageFileSearchToolCall,
     InputUnionMember1OpenAIResponseOutputMessageFunctionToolCall,
-    InputUnionMember1OpenAIResponseInputFunctionToolCallOutput,
-    InputUnionMember1OpenAIResponseMcpApprovalRequest,
-    InputUnionMember1OpenAIResponseMcpApprovalResponse,
     InputUnionMember1OpenAIResponseOutputMessageMcpCall,
     InputUnionMember1OpenAIResponseOutputMessageMcpListTools,
+    InputUnionMember1OpenAIResponseMcpApprovalRequest,
+    InputUnionMember1OpenAIResponseInputFunctionToolCallOutput,
+    InputUnionMember1OpenAIResponseMcpApprovalResponse,
     InputUnionMember1OpenAIResponseMessage,
 ]
 
