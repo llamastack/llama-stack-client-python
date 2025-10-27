@@ -18,5 +18,5 @@ class ModerationCreateParams(TypedDict, total=False):
     objects similar to other models.
     """
 
-    model: Required[str]
-    """The content moderation model you would like to use."""
+    model: str
+    """(Optional) The content moderation model you would like to use."""

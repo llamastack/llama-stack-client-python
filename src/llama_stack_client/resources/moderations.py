@@ -7,7 +7,7 @@ from typing import Union
 import httpx
 
 from ..types import moderation_create_params
-from .._types import Body, Query, Headers, NotGiven, SequenceNotStr, not_given
+from .._types import Body, Omit, Query, Headers, NotGiven, SequenceNotStr, omit, not_given
 from .._utils import maybe_transform, async_maybe_transform
 from .._compat import cached_property
 from .._resource import SyncAPIResource, AsyncAPIResource
@@ -47,7 +47,7 @@ class ModerationsResource(SyncAPIResource):
         self,
         *,
         input: Union[str, SequenceNotStr[str]],
-        model: str,
+        model: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -64,7 +64,7 @@ class ModerationsResource(SyncAPIResource):
           input: Input (or inputs) to classify. Can be a single string, an array of strings, or
               an array of multi-modal input objects similar to other models.
 
-          model: The content moderation model you would like to use.
+          model: (Optional) The content moderation model you would like to use.
 
           extra_headers: Send extra headers
 
@@ -114,7 +114,7 @@ class AsyncModerationsResource(AsyncAPIResource):
         self,
         *,
         input: Union[str, SequenceNotStr[str]],
-        model: str,
+        model: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -131,7 +131,7 @@ class AsyncModerationsResource(AsyncAPIResource):
           input: Input (or inputs) to classify. Can be a single string, an array of strings, or
               an array of multi-modal input objects similar to other models.
 
-          model: The content moderation model you would like to use.
+          model: (Optional) The content moderation model you would like to use.
 
           extra_headers: Send extra headers
 

@@ -48,7 +48,7 @@ class VectorIoResource(SyncAPIResource):
         self,
         *,
         chunks: Iterable[vector_io_insert_params.Chunk],
-        vector_db_id: str,
+        vector_store_id: str,
         ttl_seconds: int | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -68,7 +68,7 @@ class VectorIoResource(SyncAPIResource):
               configure how Llama Stack formats the chunk during generation. If `embedding` is
               not provided, it will be computed later.
 
-          vector_db_id: The identifier of the vector database to insert the chunks into.
+          vector_store_id: The identifier of the vector database to insert the chunks into.
 
           ttl_seconds: The time to live of the chunks.
 
@@ -86,7 +86,7 @@ class VectorIoResource(SyncAPIResource):
             body=maybe_transform(
                 {
                     "chunks": chunks,
-                    "vector_db_id": vector_db_id,
+                    "vector_store_id": vector_store_id,
                     "ttl_seconds": ttl_seconds,
                 },
                 vector_io_insert_params.VectorIoInsertParams,
@@ -101,7 +101,7 @@ class VectorIoResource(SyncAPIResource):
         self,
         *,
         query: InterleavedContent,
-        vector_db_id: str,
+        vector_store_id: str,
         params: Dict[str, Union[bool, float, str, Iterable[object], object, None]] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -116,7 +116,7 @@ class VectorIoResource(SyncAPIResource):
         Args:
           query: The query to search for.
 
-          vector_db_id: The identifier of the vector database to query.
+          vector_store_id: The identifier of the vector database to query.
 
           params: The parameters of the query.
 
@@ -133,7 +133,7 @@ class VectorIoResource(SyncAPIResource):
             body=maybe_transform(
                 {
                     "query": query,
-                    "vector_db_id": vector_db_id,
+                    "vector_store_id": vector_store_id,
                     "params": params,
                 },
                 vector_io_query_params.VectorIoQueryParams,
@@ -169,7 +169,7 @@ class AsyncVectorIoResource(AsyncAPIResource):
         self,
         *,
         chunks: Iterable[vector_io_insert_params.Chunk],
-        vector_db_id: str,
+        vector_store_id: str,
         ttl_seconds: int | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -189,7 +189,7 @@ class AsyncVectorIoResource(AsyncAPIResource):
               configure how Llama Stack formats the chunk during generation. If `embedding` is
               not provided, it will be computed later.
 
-          vector_db_id: The identifier of the vector database to insert the chunks into.
+          vector_store_id: The identifier of the vector database to insert the chunks into.
 
           ttl_seconds: The time to live of the chunks.
 
@@ -207,7 +207,7 @@ class AsyncVectorIoResource(AsyncAPIResource):
             body=await async_maybe_transform(
                 {
                     "chunks": chunks,
-                    "vector_db_id": vector_db_id,
+                    "vector_store_id": vector_store_id,
                     "ttl_seconds": ttl_seconds,
                 },
                 vector_io_insert_params.VectorIoInsertParams,
@@ -222,7 +222,7 @@ class AsyncVectorIoResource(AsyncAPIResource):
         self,
         *,
         query: InterleavedContent,
-        vector_db_id: str,
+        vector_store_id: str,
         params: Dict[str, Union[bool, float, str, Iterable[object], object, None]] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -237,7 +237,7 @@ class AsyncVectorIoResource(AsyncAPIResource):
         Args:
           query: The query to search for.
 
-          vector_db_id: The identifier of the vector database to query.
+          vector_store_id: The identifier of the vector database to query.
 
           params: The parameters of the query.
 
@@ -254,7 +254,7 @@ class AsyncVectorIoResource(AsyncAPIResource):
             body=await async_maybe_transform(
                 {
                     "query": query,
-                    "vector_db_id": vector_db_id,
+                    "vector_store_id": vector_store_id,
                     "params": params,
                 },
                 vector_io_query_params.VectorIoQueryParams,
