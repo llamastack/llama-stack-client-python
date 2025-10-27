@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.3.1-alpha.2 (2025-10-27)
+
+Full Changelog: [v0.3.1-alpha.1...v0.3.1-alpha.2](https://github.com/llamastack/llama-stack-client-python/compare/v0.3.1-alpha.1...v0.3.1-alpha.2)
+
+### Features
+
+* **api:** vector_db_id -&gt; vector_store_id ([de833a3](https://github.com/llamastack/llama-stack-client-python/commit/de833a31e151209117ad1930a552a8717ad1cec3))
+
 ## 0.3.1-alpha.1 (2025-10-22)
 
 Full Changelog: [v0.3.0-alpha.6...v0.3.1-alpha.1](https://github.com/llamastack/llama-stack-client-python/compare/v0.3.0-alpha.6...v0.3.1-alpha.1)
