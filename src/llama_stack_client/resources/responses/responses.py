@@ -72,7 +72,6 @@ class ResponsesResource(SyncAPIResource):
         instructions: str | Omit = omit,
         max_infer_iters: int | Omit = omit,
         previous_response_id: str | Omit = omit,
-        prompt: response_create_params.Prompt | Omit = omit,
         store: bool | Omit = omit,
         stream: Literal[False] | Omit = omit,
         temperature: float | Omit = omit,
@@ -103,8 +102,6 @@ class ResponsesResource(SyncAPIResource):
               response. This can be used to easily fork-off new responses from existing
               responses.
 
-          prompt: (Optional) Prompt object with ID, version, and variables.
-
           text: Text response configuration for OpenAI responses.
 
           extra_headers: Send extra headers
@@ -129,7 +126,6 @@ class ResponsesResource(SyncAPIResource):
         instructions: str | Omit = omit,
         max_infer_iters: int | Omit = omit,
         previous_response_id: str | Omit = omit,
-        prompt: response_create_params.Prompt | Omit = omit,
         store: bool | Omit = omit,
         temperature: float | Omit = omit,
         text: response_create_params.Text | Omit = omit,
@@ -159,8 +155,6 @@ class ResponsesResource(SyncAPIResource):
               response. This can be used to easily fork-off new responses from existing
               responses.
 
-          prompt: (Optional) Prompt object with ID, version, and variables.
-
           text: Text response configuration for OpenAI responses.
 
           extra_headers: Send extra headers
@@ -185,7 +179,6 @@ class ResponsesResource(SyncAPIResource):
         instructions: str | Omit = omit,
         max_infer_iters: int | Omit = omit,
         previous_response_id: str | Omit = omit,
-        prompt: response_create_params.Prompt | Omit = omit,
         store: bool | Omit = omit,
         temperature: float | Omit = omit,
         text: response_create_params.Text | Omit = omit,
@@ -215,8 +208,6 @@ class ResponsesResource(SyncAPIResource):
               response. This can be used to easily fork-off new responses from existing
               responses.
 
-          prompt: (Optional) Prompt object with ID, version, and variables.
-
           text: Text response configuration for OpenAI responses.
 
           extra_headers: Send extra headers
@@ -240,7 +231,6 @@ class ResponsesResource(SyncAPIResource):
         instructions: str | Omit = omit,
         max_infer_iters: int | Omit = omit,
         previous_response_id: str | Omit = omit,
-        prompt: response_create_params.Prompt | Omit = omit,
         store: bool | Omit = omit,
         stream: Literal[False] | Literal[True] | Omit = omit,
         temperature: float | Omit = omit,
@@ -264,7 +254,6 @@ class ResponsesResource(SyncAPIResource):
                     "instructions": instructions,
                     "max_infer_iters": max_infer_iters,
                     "previous_response_id": previous_response_id,
-                    "prompt": prompt,
                     "store": store,
                     "stream": stream,
                     "temperature": temperature,
@@ -440,7 +429,6 @@ class AsyncResponsesResource(AsyncAPIResource):
         instructions: str | Omit = omit,
         max_infer_iters: int | Omit = omit,
         previous_response_id: str | Omit = omit,
-        prompt: response_create_params.Prompt | Omit = omit,
         store: bool | Omit = omit,
         stream: Literal[False] | Omit = omit,
         temperature: float | Omit = omit,
@@ -471,8 +459,6 @@ class AsyncResponsesResource(AsyncAPIResource):
               response. This can be used to easily fork-off new responses from existing
               responses.
 
-          prompt: (Optional) Prompt object with ID, version, and variables.
-
           text: Text response configuration for OpenAI responses.
 
           extra_headers: Send extra headers
@@ -497,7 +483,6 @@ class AsyncResponsesResource(AsyncAPIResource):
         instructions: str | Omit = omit,
         max_infer_iters: int | Omit = omit,
         previous_response_id: str | Omit = omit,
-        prompt: response_create_params.Prompt | Omit = omit,
         store: bool | Omit = omit,
         temperature: float | Omit = omit,
         text: response_create_params.Text | Omit = omit,
@@ -527,8 +512,6 @@ class AsyncResponsesResource(AsyncAPIResource):
               response. This can be used to easily fork-off new responses from existing
               responses.
 
-          prompt: (Optional) Prompt object with ID, version, and variables.
-
           text: Text response configuration for OpenAI responses.
 
           extra_headers: Send extra headers
@@ -553,7 +536,6 @@ class AsyncResponsesResource(AsyncAPIResource):
         instructions: str | Omit = omit,
         max_infer_iters: int | Omit = omit,
         previous_response_id: str | Omit = omit,
-        prompt: response_create_params.Prompt | Omit = omit,
         store: bool | Omit = omit,
         temperature: float | Omit = omit,
         text: response_create_params.Text | Omit = omit,
@@ -583,8 +565,6 @@ class AsyncResponsesResource(AsyncAPIResource):
               response. This can be used to easily fork-off new responses from existing
               responses.
 
-          prompt: (Optional) Prompt object with ID, version, and variables.
-
           text: Text response configuration for OpenAI responses.
 
           extra_headers: Send extra headers
@@ -608,7 +588,6 @@ class AsyncResponsesResource(AsyncAPIResource):
         instructions: str | Omit = omit,
         max_infer_iters: int | Omit = omit,
         previous_response_id: str | Omit = omit,
-        prompt: response_create_params.Prompt | Omit = omit,
         store: bool | Omit = omit,
         stream: Literal[False] | Literal[True] | Omit = omit,
         temperature: float | Omit = omit,
@@ -632,7 +611,6 @@ class AsyncResponsesResource(AsyncAPIResource):
                     "instructions": instructions,
                     "max_infer_iters": max_infer_iters,
                     "previous_response_id": previous_response_id,
-                    "prompt": prompt,
                     "store": store,
                     "stream": stream,
                     "temperature": temperature,
