@@ -9,13 +9,10 @@
 from __future__ import annotations
 
 from typing import Type, cast
-from typing_extensions import Literal
 
 import httpx
 
-from ..types import route_list_params
-from .._types import Body, Omit, Query, Headers, NotGiven, omit, not_given
-from .._utils import maybe_transform, async_maybe_transform
+from .._types import Body, Query, Headers, NotGiven, not_given
 from .._compat import cached_property
 from .._resource import SyncAPIResource, AsyncAPIResource
 from .._response import (
@@ -54,7 +51,6 @@ class RoutesResource(SyncAPIResource):
     def list(
         self,
         *,
-        api_filter: Literal["v1", "v1alpha", "v1beta", "deprecated"] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -66,20 +62,6 @@ class RoutesResource(SyncAPIResource):
 
         List all available API routes with their methods and implementing
         providers.
-
-        Args:
-          api_filter: Optional filter to control which routes are returned. Can be an API level ('v1',
-              'v1alpha', 'v1beta') to show non-deprecated routes at that level, or
-              'deprecated' to show deprecated routes across all levels. If not specified,
-              returns only non-deprecated v1 routes.
-
-          extra_headers: Send extra headers
-
-          extra_query: Add additional query parameters to the request
-
-          extra_body: Add additional JSON properties to the request
-
-          timeout: Override the client-level default timeout for this request, in seconds
         """
         return self._get(
             "/v1/inspect/routes",
@@ -88,7 +70,6 @@ class RoutesResource(SyncAPIResource):
                 extra_query=extra_query,
                 extra_body=extra_body,
                 timeout=timeout,
-                query=maybe_transform({"api_filter": api_filter}, route_list_params.RouteListParams),
                 post_parser=DataWrapper[RouteListResponse]._unwrapper,
             ),
             cast_to=cast(Type[RouteListResponse], DataWrapper[RouteListResponse]),
@@ -118,7 +99,6 @@ class AsyncRoutesResource(AsyncAPIResource):
     async def list(
         self,
         *,
-        api_filter: Literal["v1", "v1alpha", "v1beta", "deprecated"] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -130,20 +110,6 @@ class AsyncRoutesResource(AsyncAPIResource):
 
         List all available API routes with their methods and implementing
         providers.
-
-        Args:
-          api_filter: Optional filter to control which routes are returned. Can be an API level ('v1',
-              'v1alpha', 'v1beta') to show non-deprecated routes at that level, or
-              'deprecated' to show deprecated routes across all levels. If not specified,
-              returns only non-deprecated v1 routes.
-
-          extra_headers: Send extra headers
-
-          extra_query: Add additional query parameters to the request
-
-          extra_body: Add additional JSON properties to the request
-
-          timeout: Override the client-level default timeout for this request, in seconds
         """
         return await self._get(
             "/v1/inspect/routes",
@@ -152,7 +118,6 @@ class AsyncRoutesResource(AsyncAPIResource):
                 extra_query=extra_query,
                 extra_body=extra_body,
                 timeout=timeout,
-                query=await async_maybe_transform({"api_filter": api_filter}, route_list_params.RouteListParams),
                 post_parser=DataWrapper[RouteListResponse]._unwrapper,
             ),
             cast_to=cast(Type[RouteListResponse], DataWrapper[RouteListResponse]),
