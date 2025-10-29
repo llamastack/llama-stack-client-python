@@ -9,9 +9,12 @@
 from .message import Message as Message
 from .document import Document as Document
 from .tool_call import ToolCall as ToolCall
+from .agent_config import AgentConfig as AgentConfig
 from .query_config import QueryConfig as QueryConfig
 from .user_message import UserMessage as UserMessage
 from .system_message import SystemMessage as SystemMessage
+from .response_format import ResponseFormat as ResponseFormat
+from .sampling_params import SamplingParams as SamplingParams
 from .completion_message import CompletionMessage as CompletionMessage
 from .interleaved_content import InterleavedContent as InterleavedContent
 from .tool_response_message import ToolResponseMessage as ToolResponseMessage
