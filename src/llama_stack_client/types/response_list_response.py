@@ -21,7 +21,6 @@ __all__ = [
     "InputOpenAIResponseMessageContentUnionMember1",
     "InputOpenAIResponseMessageContentUnionMember1OpenAIResponseInputMessageContentText",
     "InputOpenAIResponseMessageContentUnionMember1OpenAIResponseInputMessageContentImage",
-    "InputOpenAIResponseMessageContentUnionMember1OpenAIResponseInputMessageContentFile",
     "InputOpenAIResponseMessageContentUnionMember2",
     "InputOpenAIResponseMessageContentUnionMember2OpenAIResponseOutputMessageContentOutputText",
     "InputOpenAIResponseMessageContentUnionMember2OpenAIResponseOutputMessageContentOutputTextAnnotation",
@@ -45,7 +44,6 @@ __all__ = [
     "OutputOpenAIResponseMessageContentUnionMember1",
     "OutputOpenAIResponseMessageContentUnionMember1OpenAIResponseInputMessageContentText",
     "OutputOpenAIResponseMessageContentUnionMember1OpenAIResponseInputMessageContentImage",
-    "OutputOpenAIResponseMessageContentUnionMember1OpenAIResponseInputMessageContentFile",
     "OutputOpenAIResponseMessageContentUnionMember2",
     "OutputOpenAIResponseMessageContentUnionMember2OpenAIResponseOutputMessageContentOutputText",
     "OutputOpenAIResponseMessageContentUnionMember2OpenAIResponseOutputMessageContentOutputTextAnnotation",
@@ -65,11 +63,6 @@ __all__ = [
     "Text",
     "TextFormat",
     "Error",
-    "Prompt",
-    "PromptVariables",
-    "PromptVariablesOpenAIResponseInputMessageContentText",
-    "PromptVariablesOpenAIResponseInputMessageContentImage",
-    "PromptVariablesOpenAIResponseInputMessageContentFile",
     "Tool",
     "ToolOpenAIResponseInputToolWebSearch",
     "ToolOpenAIResponseInputToolFileSearch",
@@ -99,35 +92,14 @@ class InputOpenAIResponseMessageContentUnionMember1OpenAIResponseInputMessageCon
     type: Literal["input_image"]
     """Content type identifier, always "input_image" """
 
-    file_id: Optional[str] = None
-    """(Optional) The ID of the file to be sent to the model."""
-
     image_url: Optional[str] = None
     """(Optional) URL of the image content"""
-
-
-class InputOpenAIResponseMessageContentUnionMember1OpenAIResponseInputMessageContentFile(BaseModel):
-    type: Literal["input_file"]
-    """The type of the input item. Always `input_file`."""
-
-    file_data: Optional[str] = None
-    """The data of the file to be sent to the model."""
-
-    file_id: Optional[str] = None
-    """(Optional) The ID of the file to be sent to the model."""
-
-    file_url: Optional[str] = None
-    """The URL of the file to be sent to the model."""
-
-    filename: Optional[str] = None
-    """The name of the file to be sent to the model."""
 
 
 InputOpenAIResponseMessageContentUnionMember1: TypeAlias = Annotated[
     Union[
         InputOpenAIResponseMessageContentUnionMember1OpenAIResponseInputMessageContentText,
         InputOpenAIResponseMessageContentUnionMember1OpenAIResponseInputMessageContentImage,
-        InputOpenAIResponseMessageContentUnionMember1OpenAIResponseInputMessageContentFile,
     ],
     PropertyInfo(discriminator="type"),
 ]
@@ -424,35 +396,14 @@ class OutputOpenAIResponseMessageContentUnionMember1OpenAIResponseInputMessageCo
     type: Literal["input_image"]
     """Content type identifier, always "input_image" """
 
-    file_id: Optional[str] = None
-    """(Optional) The ID of the file to be sent to the model."""
-
     image_url: Optional[str] = None
     """(Optional) URL of the image content"""
-
-
-class OutputOpenAIResponseMessageContentUnionMember1OpenAIResponseInputMessageContentFile(BaseModel):
-    type: Literal["input_file"]
-    """The type of the input item. Always `input_file`."""
-
-    file_data: Optional[str] = None
-    """The data of the file to be sent to the model."""
-
-    file_id: Optional[str] = None
-    """(Optional) The ID of the file to be sent to the model."""
-
-    file_url: Optional[str] = None
-    """The URL of the file to be sent to the model."""
-
-    filename: Optional[str] = None
-    """The name of the file to be sent to the model."""
 
 
 OutputOpenAIResponseMessageContentUnionMember1: TypeAlias = Annotated[
     Union[
         OutputOpenAIResponseMessageContentUnionMember1OpenAIResponseInputMessageContentText,
         OutputOpenAIResponseMessageContentUnionMember1OpenAIResponseInputMessageContentImage,
-        OutputOpenAIResponseMessageContentUnionMember1OpenAIResponseInputMessageContentFile,
     ],
     PropertyInfo(discriminator="type"),
 ]
@@ -748,70 +699,6 @@ class Error(BaseModel):
     """Human-readable error message describing the failure"""
 
 
-class PromptVariablesOpenAIResponseInputMessageContentText(BaseModel):
-    text: str
-    """The text content of the input message"""
-
-    type: Literal["input_text"]
-    """Content type identifier, always "input_text" """
-
-
-class PromptVariablesOpenAIResponseInputMessageContentImage(BaseModel):
-    detail: Literal["low", "high", "auto"]
-    """Level of detail for image processing, can be "low", "high", or "auto" """
-
-    type: Literal["input_image"]
-    """Content type identifier, always "input_image" """
-
-    file_id: Optional[str] = None
-    """(Optional) The ID of the file to be sent to the model."""
-
-    image_url: Optional[str] = None
-    """(Optional) URL of the image content"""
-
-
-class PromptVariablesOpenAIResponseInputMessageContentFile(BaseModel):
-    type: Literal["input_file"]
-    """The type of the input item. Always `input_file`."""
-
-    file_data: Optional[str] = None
-    """The data of the file to be sent to the model."""
-
-    file_id: Optional[str] = None
-    """(Optional) The ID of the file to be sent to the model."""
-
-    file_url: Optional[str] = None
-    """The URL of the file to be sent to the model."""
-
-    filename: Optional[str] = None
-    """The name of the file to be sent to the model."""
-
-
-PromptVariables: TypeAlias = Annotated[
-    Union[
-        PromptVariablesOpenAIResponseInputMessageContentText,
-        PromptVariablesOpenAIResponseInputMessageContentImage,
-        PromptVariablesOpenAIResponseInputMessageContentFile,
-    ],
-    PropertyInfo(discriminator="type"),
-]
-
-
-class Prompt(BaseModel):
-    id: str
-    """Unique identifier of the prompt template"""
-
-    variables: Optional[Dict[str, PromptVariables]] = None
-    """
-    Dictionary of variable names to OpenAIResponseInputMessageContent structure for
-    template substitution. The substitution values can either be strings, or other
-    Response input types like images or files.
-    """
-
-    version: Optional[str] = None
-    """Version number of the prompt to use (defaults to latest if not specified)"""
-
-
 class ToolOpenAIResponseInputToolWebSearch(BaseModel):
     type: Literal["web_search", "web_search_preview", "web_search_preview_2025_03_11"]
     """Web search tool type variant to use"""
@@ -954,9 +841,6 @@ class ResponseListResponse(BaseModel):
 
     previous_response_id: Optional[str] = None
     """(Optional) ID of the previous response in a conversation"""
-
-    prompt: Optional[Prompt] = None
-    """(Optional) Reference to a prompt template and its variables."""
 
     temperature: Optional[float] = None
     """(Optional) Sampling temperature used for generation"""

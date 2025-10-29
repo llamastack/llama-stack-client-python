@@ -316,7 +316,7 @@ from llama_stack_client.types import ListRoutesResponse, RouteListResponse
 
 Methods:
 
-- <code title="get /v1/inspect/routes">client.routes.<a href="./src/llama_stack_client/resources/routes.py">list</a>(\*\*<a href="src/llama_stack_client/types/route_list_params.py">params</a>) -> <a href="./src/llama_stack_client/types/route_list_response.py">RouteListResponse</a></code>
+- <code title="get /v1/inspect/routes">client.routes.<a href="./src/llama_stack_client/resources/routes.py">list</a>() -> <a href="./src/llama_stack_client/types/route_list_response.py">RouteListResponse</a></code>
 
 # Moderations
 
