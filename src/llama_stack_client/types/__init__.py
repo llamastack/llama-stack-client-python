@@ -9,11 +9,14 @@ from .shared import (
     Document as Document,
     ToolCall as ToolCall,
     ParamType as ParamType,
+    AgentConfig as AgentConfig,
     QueryConfig as QueryConfig,
     QueryResult as QueryResult,
     UserMessage as UserMessage,
     ScoringResult as ScoringResult,
     SystemMessage as SystemMessage,
+    ResponseFormat as ResponseFormat,
+    SamplingParams as SamplingParams,
     SafetyViolation as SafetyViolation,
     CompletionMessage as CompletionMessage,
     InterleavedContent as InterleavedContent,
@@ -29,6 +32,7 @@ from .health_info import HealthInfo as HealthInfo
 from .vector_store import VectorStore as VectorStore
 from .version_info import VersionInfo as VersionInfo
 from .provider_info import ProviderInfo as ProviderInfo
+from .tool_def_param import ToolDefParam as ToolDefParam
 from .create_response import CreateResponse as CreateResponse
 from .response_object import ResponseObject as ResponseObject
 from .file_list_params import FileListParams as FileListParams
