@@ -23,6 +23,13 @@ class TestRoutes:
         assert_matches_type(RouteListResponse, route, path=["response"])
 
     @parametrize
+    def test_method_list_with_all_params(self, client: LlamaStackClient) -> None:
+        route = client.routes.list(
+            api_filter="v1",
+        )
+        assert_matches_type(RouteListResponse, route, path=["response"])
+
+    @parametrize
     def test_raw_response_list(self, client: LlamaStackClient) -> None:
         response = client.routes.with_raw_response.list()
 
@@ -51,6 +58,13 @@ class TestAsyncRoutes:
     @parametrize
     async def test_method_list(self, async_client: AsyncLlamaStackClient) -> None:
         route = await async_client.routes.list()
+        assert_matches_type(RouteListResponse, route, path=["response"])
+
+    @parametrize
+    async def test_method_list_with_all_params(self, async_client: AsyncLlamaStackClient) -> None:
+        route = await async_client.routes.list(
+            api_filter="v1",
+        )
         assert_matches_type(RouteListResponse, route, path=["response"])
 
     @parametrize

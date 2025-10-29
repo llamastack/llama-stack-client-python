@@ -14,6 +14,7 @@ __all__ = [
     "InputUnionMember1OpenAIResponseMessageContentUnionMember1",
     "InputUnionMember1OpenAIResponseMessageContentUnionMember1OpenAIResponseInputMessageContentText",
     "InputUnionMember1OpenAIResponseMessageContentUnionMember1OpenAIResponseInputMessageContentImage",
+    "InputUnionMember1OpenAIResponseMessageContentUnionMember1OpenAIResponseInputMessageContentFile",
     "InputUnionMember1OpenAIResponseMessageContentUnionMember2",
     "InputUnionMember1OpenAIResponseMessageContentUnionMember2OpenAIResponseOutputMessageContentOutputText",
     "InputUnionMember1OpenAIResponseMessageContentUnionMember2OpenAIResponseOutputMessageContentOutputTextAnnotation",
@@ -32,6 +33,11 @@ __all__ = [
     "InputUnionMember1OpenAIResponseMcpApprovalRequest",
     "InputUnionMember1OpenAIResponseInputFunctionToolCallOutput",
     "InputUnionMember1OpenAIResponseMcpApprovalResponse",
+    "Prompt",
+    "PromptVariables",
+    "PromptVariablesOpenAIResponseInputMessageContentText",
+    "PromptVariablesOpenAIResponseInputMessageContentImage",
+    "PromptVariablesOpenAIResponseInputMessageContentFile",
     "Text",
     "TextFormat",
     "Tool",
@@ -77,6 +83,9 @@ class ResponseCreateParamsBase(TypedDict, total=False):
     responses.
     """
 
+    prompt: Prompt
+    """(Optional) Prompt object with ID, version, and variables."""
+
     store: bool
 
     temperature: float
@@ -106,13 +115,36 @@ class InputUnionMember1OpenAIResponseMessageContentUnionMember1OpenAIResponseInp
     type: Required[Literal["input_image"]]
     """Content type identifier, always "input_image" """
 
+    file_id: str
+    """(Optional) The ID of the file to be sent to the model."""
+
     image_url: str
     """(Optional) URL of the image content"""
+
+
+class InputUnionMember1OpenAIResponseMessageContentUnionMember1OpenAIResponseInputMessageContentFile(
+    TypedDict, total=False
+):
+    type: Required[Literal["input_file"]]
+    """The type of the input item. Always `input_file`."""
+
+    file_data: str
+    """The data of the file to be sent to the model."""
+
+    file_id: str
+    """(Optional) The ID of the file to be sent to the model."""
+
+    file_url: str
+    """The URL of the file to be sent to the model."""
+
+    filename: str
+    """The name of the file to be sent to the model."""
 
 
 InputUnionMember1OpenAIResponseMessageContentUnionMember1: TypeAlias = Union[
     InputUnionMember1OpenAIResponseMessageContentUnionMember1OpenAIResponseInputMessageContentText,
     InputUnionMember1OpenAIResponseMessageContentUnionMember1OpenAIResponseInputMessageContentImage,
+    InputUnionMember1OpenAIResponseMessageContentUnionMember1OpenAIResponseInputMessageContentFile,
 ]
 
 
@@ -392,6 +424,67 @@ InputUnionMember1: TypeAlias = Union[
     InputUnionMember1OpenAIResponseMcpApprovalResponse,
     InputUnionMember1OpenAIResponseMessage,
 ]
+
+
+class PromptVariablesOpenAIResponseInputMessageContentText(TypedDict, total=False):
+    text: Required[str]
+    """The text content of the input message"""
+
+    type: Required[Literal["input_text"]]
+    """Content type identifier, always "input_text" """
+
+
+class PromptVariablesOpenAIResponseInputMessageContentImage(TypedDict, total=False):
+    detail: Required[Literal["low", "high", "auto"]]
+    """Level of detail for image processing, can be "low", "high", or "auto" """
+
+    type: Required[Literal["input_image"]]
+    """Content type identifier, always "input_image" """
+
+    file_id: str
+    """(Optional) The ID of the file to be sent to the model."""
+
+    image_url: str
+    """(Optional) URL of the image content"""
+
+
+class PromptVariablesOpenAIResponseInputMessageContentFile(TypedDict, total=False):
+    type: Required[Literal["input_file"]]
+    """The type of the input item. Always `input_file`."""
+
+    file_data: str
+    """The data of the file to be sent to the model."""
+
+    file_id: str
+    """(Optional) The ID of the file to be sent to the model."""
+
+    file_url: str
+    """The URL of the file to be sent to the model."""
+
+    filename: str
+    """The name of the file to be sent to the model."""
+
+
+PromptVariables: TypeAlias = Union[
+    PromptVariablesOpenAIResponseInputMessageContentText,
+    PromptVariablesOpenAIResponseInputMessageContentImage,
+    PromptVariablesOpenAIResponseInputMessageContentFile,
+]
+
+
+class Prompt(TypedDict, total=False):
+    id: Required[str]
+    """Unique identifier of the prompt template"""
+
+    variables: Dict[str, PromptVariables]
+    """
+    Dictionary of variable names to OpenAIResponseInputMessageContent structure for
+    template substitution. The substitution values can either be strings, or other
+    Response input types like images or files.
+    """
+
+    version: str
+    """Version number of the prompt to use (defaults to latest if not specified)"""
 
 
 class TextFormat(TypedDict, total=False):
