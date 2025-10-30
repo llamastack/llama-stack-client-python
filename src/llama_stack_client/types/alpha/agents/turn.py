@@ -5,6 +5,7 @@
 # the root directory of this source tree.
 
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
+
 from typing import List, Union, Optional
 from datetime import datetime
 from typing_extensions import Literal, Annotated, TypeAlias
