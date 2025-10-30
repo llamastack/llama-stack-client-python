@@ -102,6 +102,29 @@ Methods:
 
 - <code title="get /v1/responses/{response_id}/input_items">client.responses.input_items.<a href="./src/llama_stack_client/resources/responses/input_items.py">list</a>(response_id, \*\*<a href="src/llama_stack_client/types/responses/input_item_list_params.py">params</a>) -> <a href="./src/llama_stack_client/types/responses/input_item_list_response.py">InputItemListResponse</a></code>
 
+# Prompts
+
+Types:
+
+```python
+from llama_stack_client.types import ListPromptsResponse, Prompt, PromptListResponse
+```
+
+Methods:
+
+- <code title="post /v1/prompts">client.prompts.<a href="./src/llama_stack_client/resources/prompts/prompts.py">create</a>(\*\*<a href="src/llama_stack_client/types/prompt_create_params.py">params</a>) -> <a href="./src/llama_stack_client/types/prompt.py">Prompt</a></code>
+- <code title="get /v1/prompts/{prompt_id}">client.prompts.<a href="./src/llama_stack_client/resources/prompts/prompts.py">retrieve</a>(prompt_id, \*\*<a href="src/llama_stack_client/types/prompt_retrieve_params.py">params</a>) -> <a href="./src/llama_stack_client/types/prompt.py">Prompt</a></code>
+- <code title="post /v1/prompts/{prompt_id}">client.prompts.<a href="./src/llama_stack_client/resources/prompts/prompts.py">update</a>(prompt_id, \*\*<a href="src/llama_stack_client/types/prompt_update_params.py">params</a>) -> <a href="./src/llama_stack_client/types/prompt.py">Prompt</a></code>
+- <code title="get /v1/prompts">client.prompts.<a href="./src/llama_stack_client/resources/prompts/prompts.py">list</a>() -> <a href="./src/llama_stack_client/types/prompt_list_response.py">PromptListResponse</a></code>
+- <code title="delete /v1/prompts/{prompt_id}">client.prompts.<a href="./src/llama_stack_client/resources/prompts/prompts.py">delete</a>(prompt_id) -> None</code>
+- <code title="post /v1/prompts/{prompt_id}/set-default-version">client.prompts.<a href="./src/llama_stack_client/resources/prompts/prompts.py">set_default_version</a>(prompt_id, \*\*<a href="src/llama_stack_client/types/prompt_set_default_version_params.py">params</a>) -> <a href="./src/llama_stack_client/types/prompt.py">Prompt</a></code>
+
+## Versions
+
+Methods:
+
+- <code title="get /v1/prompts/{prompt_id}/versions">client.prompts.versions.<a href="./src/llama_stack_client/resources/prompts/versions.py">list</a>(prompt_id) -> <a href="./src/llama_stack_client/types/prompt_list_response.py">PromptListResponse</a></code>
+
 # Conversations
 
 Types:
