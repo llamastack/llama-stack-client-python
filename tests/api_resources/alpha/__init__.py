@@ -5,4 +5,3 @@
 # the root directory of this source tree.
 
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
-
