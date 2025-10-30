@@ -46,6 +46,16 @@ class TestResponses:
             instructions="instructions",
             max_infer_iters=0,
             previous_response_id="previous_response_id",
+            prompt={
+                "id": "id",
+                "variables": {
+                    "foo": {
+                        "text": "text",
+                        "type": "input_text",
+                    }
+                },
+                "version": "version",
+            },
             store=True,
             stream=False,
             temperature=0,
@@ -113,6 +123,16 @@ class TestResponses:
             instructions="instructions",
             max_infer_iters=0,
             previous_response_id="previous_response_id",
+            prompt={
+                "id": "id",
+                "variables": {
+                    "foo": {
+                        "text": "text",
+                        "type": "input_text",
+                    }
+                },
+                "version": "version",
+            },
             store=True,
             temperature=0,
             text={
@@ -295,6 +315,16 @@ class TestAsyncResponses:
             instructions="instructions",
             max_infer_iters=0,
             previous_response_id="previous_response_id",
+            prompt={
+                "id": "id",
+                "variables": {
+                    "foo": {
+                        "text": "text",
+                        "type": "input_text",
+                    }
+                },
+                "version": "version",
+            },
             store=True,
             stream=False,
             temperature=0,
@@ -362,6 +392,16 @@ class TestAsyncResponses:
             instructions="instructions",
             max_infer_iters=0,
             previous_response_id="previous_response_id",
+            prompt={
+                "id": "id",
+                "variables": {
+                    "foo": {
+                        "text": "text",
+                        "type": "input_text",
+                    }
+                },
+                "version": "version",
+            },
             store=True,
             temperature=0,
             text={
