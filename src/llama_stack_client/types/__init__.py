@@ -4,6 +4,7 @@ from __future__ import annotations
 
 from .file import File as File
 from .model import Model as Model
+from .prompt import Prompt as Prompt
 from .shared import (
     Message as Message,
     Document as Document,
@@ -48,13 +49,18 @@ from .run_shield_response import RunShieldResponse as RunShieldResponse
 from .delete_file_response import DeleteFileResponse as DeleteFileResponse
 from .list_models_response import ListModelsResponse as ListModelsResponse
 from .list_routes_response import ListRoutesResponse as ListRoutesResponse
+from .prompt_create_params import PromptCreateParams as PromptCreateParams
+from .prompt_list_response import PromptListResponse as PromptListResponse
+from .prompt_update_params import PromptUpdateParams as PromptUpdateParams
 from .response_list_params import ResponseListParams as ResponseListParams
 from .scoring_score_params import ScoringScoreParams as ScoringScoreParams
 from .shield_list_response import ShieldListResponse as ShieldListResponse
 from .chat_completion_chunk import ChatCompletionChunk as ChatCompletionChunk
+from .list_prompts_response import ListPromptsResponse as ListPromptsResponse
 from .list_shields_response import ListShieldsResponse as ListShieldsResponse
 from .model_register_params import ModelRegisterParams as ModelRegisterParams
 from .query_chunks_response import QueryChunksResponse as QueryChunksResponse
+from .prompt_retrieve_params import PromptRetrieveParams as PromptRetrieveParams
 from .provider_list_response import ProviderListResponse as ProviderListResponse
 from .response_create_params import ResponseCreateParams as ResponseCreateParams
 from .response_list_response import ResponseListResponse as ResponseListResponse
@@ -94,6 +100,7 @@ from .list_scoring_functions_response import ListScoringFunctionsResponse as Lis
 from .tool_runtime_invoke_tool_params import ToolRuntimeInvokeToolParams as ToolRuntimeInvokeToolParams
 from .scoring_function_register_params import ScoringFunctionRegisterParams as ScoringFunctionRegisterParams
 from .tool_runtime_list_tools_response import ToolRuntimeListToolsResponse as ToolRuntimeListToolsResponse
+from .prompt_set_default_version_params import PromptSetDefaultVersionParams as PromptSetDefaultVersionParams
 from .synthetic_data_generation_response import SyntheticDataGenerationResponse as SyntheticDataGenerationResponse
 from .synthetic_data_generation_generate_params import (
     SyntheticDataGenerationGenerateParams as SyntheticDataGenerationGenerateParams,

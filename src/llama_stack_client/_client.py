@@ -41,6 +41,7 @@ if TYPE_CHECKING:
         routes,
         safety,
         inspect,
+        prompts,
         scoring,
         shields,
         providers,
@@ -73,6 +74,7 @@ if TYPE_CHECKING:
     from .resources.completions import CompletionsResource, AsyncCompletionsResource
     from .resources.moderations import ModerationsResource, AsyncModerationsResource
     from .resources.models.models import ModelsResource, AsyncModelsResource
+    from .resources.prompts.prompts import PromptsResource, AsyncPromptsResource
     from .resources.scoring_functions import ScoringFunctionsResource, AsyncScoringFunctionsResource
     from .resources.responses.responses import ResponsesResource, AsyncResponsesResource
     from .resources.synthetic_data_generation import (
@@ -169,6 +171,12 @@ class LlamaStackClient(SyncAPIClient):
         from .resources.responses import ResponsesResource
 
         return ResponsesResource(self)
+
+    @cached_property
+    def prompts(self) -> PromptsResource:
+        from .resources.prompts import PromptsResource
+
+        return PromptsResource(self)
 
     @cached_property
     def conversations(self) -> ConversationsResource:
@@ -475,6 +483,12 @@ class AsyncLlamaStackClient(AsyncAPIClient):
         return AsyncResponsesResource(self)
 
     @cached_property
+    def prompts(self) -> AsyncPromptsResource:
+        from .resources.prompts import AsyncPromptsResource
+
+        return AsyncPromptsResource(self)
+
+    @cached_property
     def conversations(self) -> AsyncConversationsResource:
         from .resources.conversations import AsyncConversationsResource
 
@@ -734,6 +748,12 @@ class LlamaStackClientWithRawResponse:
         return ResponsesResourceWithRawResponse(self._client.responses)
 
     @cached_property
+    def prompts(self) -> prompts.PromptsResourceWithRawResponse:
+        from .resources.prompts import PromptsResourceWithRawResponse
+
+        return PromptsResourceWithRawResponse(self._client.prompts)
+
+    @cached_property
     def conversations(self) -> conversations.ConversationsResourceWithRawResponse:
         from .resources.conversations import ConversationsResourceWithRawResponse
 
@@ -877,6 +897,12 @@ class AsyncLlamaStackClientWithRawResponse:
         from .resources.responses import AsyncResponsesResourceWithRawResponse
 
         return AsyncResponsesResourceWithRawResponse(self._client.responses)
+
+    @cached_property
+    def prompts(self) -> prompts.AsyncPromptsResourceWithRawResponse:
+        from .resources.prompts import AsyncPromptsResourceWithRawResponse
+
+        return AsyncPromptsResourceWithRawResponse(self._client.prompts)
 
     @cached_property
     def conversations(self) -> conversations.AsyncConversationsResourceWithRawResponse:
@@ -1026,6 +1052,12 @@ class LlamaStackClientWithStreamedResponse:
         return ResponsesResourceWithStreamingResponse(self._client.responses)
 
     @cached_property
+    def prompts(self) -> prompts.PromptsResourceWithStreamingResponse:
+        from .resources.prompts import PromptsResourceWithStreamingResponse
+
+        return PromptsResourceWithStreamingResponse(self._client.prompts)
+
+    @cached_property
     def conversations(self) -> conversations.ConversationsResourceWithStreamingResponse:
         from .resources.conversations import ConversationsResourceWithStreamingResponse
 
@@ -1171,6 +1203,12 @@ class AsyncLlamaStackClientWithStreamedResponse:
         from .resources.responses import AsyncResponsesResourceWithStreamingResponse
 
         return AsyncResponsesResourceWithStreamingResponse(self._client.responses)
+
+    @cached_property
+    def prompts(self) -> prompts.AsyncPromptsResourceWithStreamingResponse:
+        from .resources.prompts import AsyncPromptsResourceWithStreamingResponse
+
+        return AsyncPromptsResourceWithStreamingResponse(self._client.prompts)
 
     @cached_property
     def conversations(self) -> conversations.AsyncConversationsResourceWithStreamingResponse:
