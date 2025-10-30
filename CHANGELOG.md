@@ -1,5 +1,32 @@
 # Changelog
 
+## 0.4.0-alpha.1 (2025-10-30)
+
+Full Changelog: [v0.3.1-alpha.2...v0.4.0-alpha.1](https://github.com/llamastack/llama-stack-client-python/compare/v0.3.1-alpha.2...v0.4.0-alpha.1)
+
+### ⚠ BREAKING CHANGES
+
+* **api:** /v1/inspect only lists v1 apis by default
+* **api:** /v1/inspect only lists v1 apis by default
+
+### Features
+
+* **api:** Adding prompts API to stainless config ([114198b](https://github.com/llamastack/llama-stack-client-python/commit/114198bef4244ec27f7e163beb2e554da0dbd213))
+* **api:** manual updates??! ([d8ab6cb](https://github.com/llamastack/llama-stack-client-python/commit/d8ab6cb77267af53f3f2e9ff3ebaab9364a754c7))
+
+
+### Bug Fixes
+
+* clean pre-commit ([799b908](https://github.com/llamastack/llama-stack-client-python/commit/799b9084266c390604829dd1eef483bf3b941134))
+* **client:** close streams without requiring full consumption ([d861708](https://github.com/llamastack/llama-stack-client-python/commit/d8617084062acbb81c26b6c22ea613e397aa969b))
+* **headers:** add a newline ([55a8efc](https://github.com/llamastack/llama-stack-client-python/commit/55a8efc0a60f44c8c93e18b2b60215f051405be4))
+
+
+### Chores
+
+* **api:** /v1/inspect only lists v1 apis by default ([209de45](https://github.com/llamastack/llama-stack-client-python/commit/209de45599de19183a1cd14bc3567e34d2374184))
+* **api:** /v1/inspect only lists v1 apis by default ([b36e2ab](https://github.com/llamastack/llama-stack-client-python/commit/b36e2ab8661e4913838c2cb4501156b290876da0))
+
 ## 0.3.1-alpha.2 (2025-10-27)
 
 Full Changelog: [v0.3.1-alpha.1...v0.3.1-alpha.2](https://github.com/llamastack/llama-stack-client-python/compare/v0.3.1-alpha.1...v0.3.1-alpha.2)
