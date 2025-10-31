@@ -1,5 +1,14 @@
 # Changelog
 
+## 0.4.0-alpha.2 (2025-10-31)
+
+Full Changelog: [v0.4.0-alpha.1...v0.4.0-alpha.2](https://github.com/llamastack/llama-stack-client-python/compare/v0.4.0-alpha.1...v0.4.0-alpha.2)
+
+### Chores
+
+* bump version to 0.3.2.dev0 ([#292](https://github.com/llamastack/llama-stack-client-python/issues/292)) ([fb91556](https://github.com/llamastack/llama-stack-client-python/commit/fb915569d1b07bbbc1202e3142447807f6d42436))
+* **internal/tests:** avoid race condition with implicit client cleanup ([4af8f35](https://github.com/llamastack/llama-stack-client-python/commit/4af8f35cffaf2b3d00a38a8fc5f8ca5a0b266786))
+
 ## 0.4.0-alpha.1 (2025-10-30)
 
 Full Changelog: [v0.3.1-alpha.2...v0.4.0-alpha.1](https://github.com/llamastack/llama-stack-client-python/compare/v0.3.1-alpha.2...v0.4.0-alpha.1)
