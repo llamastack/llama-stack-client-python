@@ -23,6 +23,7 @@ __all__ = [
     "OpenAIResponseObjectStreamResponseOutputItemAddedItemOpenAIResponseMessageContentUnionMember1",
     "OpenAIResponseObjectStreamResponseOutputItemAddedItemOpenAIResponseMessageContentUnionMember1OpenAIResponseInputMessageContentText",
     "OpenAIResponseObjectStreamResponseOutputItemAddedItemOpenAIResponseMessageContentUnionMember1OpenAIResponseInputMessageContentImage",
+    "OpenAIResponseObjectStreamResponseOutputItemAddedItemOpenAIResponseMessageContentUnionMember1OpenAIResponseInputMessageContentFile",
     "OpenAIResponseObjectStreamResponseOutputItemAddedItemOpenAIResponseMessageContentUnionMember2",
     "OpenAIResponseObjectStreamResponseOutputItemAddedItemOpenAIResponseMessageContentUnionMember2OpenAIResponseOutputMessageContentOutputText",
     "OpenAIResponseObjectStreamResponseOutputItemAddedItemOpenAIResponseMessageContentUnionMember2OpenAIResponseOutputMessageContentOutputTextAnnotation",
@@ -45,6 +46,7 @@ __all__ = [
     "OpenAIResponseObjectStreamResponseOutputItemDoneItemOpenAIResponseMessageContentUnionMember1",
     "OpenAIResponseObjectStreamResponseOutputItemDoneItemOpenAIResponseMessageContentUnionMember1OpenAIResponseInputMessageContentText",
     "OpenAIResponseObjectStreamResponseOutputItemDoneItemOpenAIResponseMessageContentUnionMember1OpenAIResponseInputMessageContentImage",
+    "OpenAIResponseObjectStreamResponseOutputItemDoneItemOpenAIResponseMessageContentUnionMember1OpenAIResponseInputMessageContentFile",
     "OpenAIResponseObjectStreamResponseOutputItemDoneItemOpenAIResponseMessageContentUnionMember2",
     "OpenAIResponseObjectStreamResponseOutputItemDoneItemOpenAIResponseMessageContentUnionMember2OpenAIResponseOutputMessageContentOutputText",
     "OpenAIResponseObjectStreamResponseOutputItemDoneItemOpenAIResponseMessageContentUnionMember2OpenAIResponseOutputMessageContentOutputTextAnnotation",
@@ -159,14 +161,37 @@ class OpenAIResponseObjectStreamResponseOutputItemAddedItemOpenAIResponseMessage
     type: Literal["input_image"]
     """Content type identifier, always "input_image" """
 
+    file_id: Optional[str] = None
+    """(Optional) The ID of the file to be sent to the model."""
+
     image_url: Optional[str] = None
     """(Optional) URL of the image content"""
+
+
+class OpenAIResponseObjectStreamResponseOutputItemAddedItemOpenAIResponseMessageContentUnionMember1OpenAIResponseInputMessageContentFile(
+    BaseModel
+):
+    type: Literal["input_file"]
+    """The type of the input item. Always `input_file`."""
+
+    file_data: Optional[str] = None
+    """The data of the file to be sent to the model."""
+
+    file_id: Optional[str] = None
+    """(Optional) The ID of the file to be sent to the model."""
+
+    file_url: Optional[str] = None
+    """The URL of the file to be sent to the model."""
+
+    filename: Optional[str] = None
+    """The name of the file to be sent to the model."""
 
 
 OpenAIResponseObjectStreamResponseOutputItemAddedItemOpenAIResponseMessageContentUnionMember1: TypeAlias = Annotated[
     Union[
         OpenAIResponseObjectStreamResponseOutputItemAddedItemOpenAIResponseMessageContentUnionMember1OpenAIResponseInputMessageContentText,
         OpenAIResponseObjectStreamResponseOutputItemAddedItemOpenAIResponseMessageContentUnionMember1OpenAIResponseInputMessageContentImage,
+        OpenAIResponseObjectStreamResponseOutputItemAddedItemOpenAIResponseMessageContentUnionMember1OpenAIResponseInputMessageContentFile,
     ],
     PropertyInfo(discriminator="type"),
 ]
@@ -470,14 +495,37 @@ class OpenAIResponseObjectStreamResponseOutputItemDoneItemOpenAIResponseMessageC
     type: Literal["input_image"]
     """Content type identifier, always "input_image" """
 
+    file_id: Optional[str] = None
+    """(Optional) The ID of the file to be sent to the model."""
+
     image_url: Optional[str] = None
     """(Optional) URL of the image content"""
+
+
+class OpenAIResponseObjectStreamResponseOutputItemDoneItemOpenAIResponseMessageContentUnionMember1OpenAIResponseInputMessageContentFile(
+    BaseModel
+):
+    type: Literal["input_file"]
+    """The type of the input item. Always `input_file`."""
+
+    file_data: Optional[str] = None
+    """The data of the file to be sent to the model."""
+
+    file_id: Optional[str] = None
+    """(Optional) The ID of the file to be sent to the model."""
+
+    file_url: Optional[str] = None
+    """The URL of the file to be sent to the model."""
+
+    filename: Optional[str] = None
+    """The name of the file to be sent to the model."""
 
 
 OpenAIResponseObjectStreamResponseOutputItemDoneItemOpenAIResponseMessageContentUnionMember1: TypeAlias = Annotated[
     Union[
         OpenAIResponseObjectStreamResponseOutputItemDoneItemOpenAIResponseMessageContentUnionMember1OpenAIResponseInputMessageContentText,
         OpenAIResponseObjectStreamResponseOutputItemDoneItemOpenAIResponseMessageContentUnionMember1OpenAIResponseInputMessageContentImage,
+        OpenAIResponseObjectStreamResponseOutputItemDoneItemOpenAIResponseMessageContentUnionMember1OpenAIResponseInputMessageContentFile,
     ],
     PropertyInfo(discriminator="type"),
 ]

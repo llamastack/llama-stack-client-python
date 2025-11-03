@@ -15,7 +15,7 @@ import pytest
 
 from tests.utils import assert_matches_type
 from llama_stack_client import LlamaStackClient, AsyncLlamaStackClient
-from llama_stack_client.types import ModelListResponse
+from llama_stack_client.types.models import OpenAIListResponse
 
 base_url = os.environ.get("TEST_API_BASE_URL", "http://127.0.0.1:4010")
 
@@ -26,7 +26,7 @@ class TestOpenAI:
     @parametrize
     def test_method_list(self, client: LlamaStackClient) -> None:
         openai = client.models.openai.list()
-        assert_matches_type(ModelListResponse, openai, path=["response"])
+        assert_matches_type(OpenAIListResponse, openai, path=["response"])
 
     @parametrize
     def test_raw_response_list(self, client: LlamaStackClient) -> None:
@@ -35,7 +35,7 @@ class TestOpenAI:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         openai = response.parse()
-        assert_matches_type(ModelListResponse, openai, path=["response"])
+        assert_matches_type(OpenAIListResponse, openai, path=["response"])
 
     @parametrize
     def test_streaming_response_list(self, client: LlamaStackClient) -> None:
@@ -44,7 +44,7 @@ class TestOpenAI:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             openai = response.parse()
-            assert_matches_type(ModelListResponse, openai, path=["response"])
+            assert_matches_type(OpenAIListResponse, openai, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -57,7 +57,7 @@ class TestAsyncOpenAI:
     @parametrize
     async def test_method_list(self, async_client: AsyncLlamaStackClient) -> None:
         openai = await async_client.models.openai.list()
-        assert_matches_type(ModelListResponse, openai, path=["response"])
+        assert_matches_type(OpenAIListResponse, openai, path=["response"])
 
     @parametrize
     async def test_raw_response_list(self, async_client: AsyncLlamaStackClient) -> None:
@@ -66,7 +66,7 @@ class TestAsyncOpenAI:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         openai = await response.parse()
-        assert_matches_type(ModelListResponse, openai, path=["response"])
+        assert_matches_type(OpenAIListResponse, openai, path=["response"])
 
     @parametrize
     async def test_streaming_response_list(self, async_client: AsyncLlamaStackClient) -> None:
@@ -75,6 +75,6 @@ class TestAsyncOpenAI:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             openai = await response.parse()
-            assert_matches_type(ModelListResponse, openai, path=["response"])
+            assert_matches_type(OpenAIListResponse, openai, path=["response"])
 
         assert cast(Any, response.is_closed) is True

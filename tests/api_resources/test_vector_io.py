@@ -28,6 +28,7 @@ class TestVectorIo:
         vector_io = client.vector_io.insert(
             chunks=[
                 {
+                    "chunk_id": "chunk_id",
                     "content": "string",
                     "metadata": {"foo": True},
                 }
@@ -41,6 +42,7 @@ class TestVectorIo:
         vector_io = client.vector_io.insert(
             chunks=[
                 {
+                    "chunk_id": "chunk_id",
                     "content": "string",
                     "metadata": {"foo": True},
                     "chunk_metadata": {
@@ -57,7 +59,6 @@ class TestVectorIo:
                         "updated_timestamp": 0,
                     },
                     "embedding": [0],
-                    "stored_chunk_id": "stored_chunk_id",
                 }
             ],
             vector_store_id="vector_store_id",
@@ -70,6 +71,7 @@ class TestVectorIo:
         response = client.vector_io.with_raw_response.insert(
             chunks=[
                 {
+                    "chunk_id": "chunk_id",
                     "content": "string",
                     "metadata": {"foo": True},
                 }
@@ -87,6 +89,7 @@ class TestVectorIo:
         with client.vector_io.with_streaming_response.insert(
             chunks=[
                 {
+                    "chunk_id": "chunk_id",
                     "content": "string",
                     "metadata": {"foo": True},
                 }
@@ -155,6 +158,7 @@ class TestAsyncVectorIo:
         vector_io = await async_client.vector_io.insert(
             chunks=[
                 {
+                    "chunk_id": "chunk_id",
                     "content": "string",
                     "metadata": {"foo": True},
                 }
@@ -168,6 +172,7 @@ class TestAsyncVectorIo:
         vector_io = await async_client.vector_io.insert(
             chunks=[
                 {
+                    "chunk_id": "chunk_id",
                     "content": "string",
                     "metadata": {"foo": True},
                     "chunk_metadata": {
@@ -184,7 +189,6 @@ class TestAsyncVectorIo:
                         "updated_timestamp": 0,
                     },
                     "embedding": [0],
-                    "stored_chunk_id": "stored_chunk_id",
                 }
             ],
             vector_store_id="vector_store_id",
@@ -197,6 +201,7 @@ class TestAsyncVectorIo:
         response = await async_client.vector_io.with_raw_response.insert(
             chunks=[
                 {
+                    "chunk_id": "chunk_id",
                     "content": "string",
                     "metadata": {"foo": True},
                 }
@@ -214,6 +219,7 @@ class TestAsyncVectorIo:
         async with async_client.vector_io.with_streaming_response.insert(
             chunks=[
                 {
+                    "chunk_id": "chunk_id",
                     "content": "string",
                     "metadata": {"foo": True},
                 }
