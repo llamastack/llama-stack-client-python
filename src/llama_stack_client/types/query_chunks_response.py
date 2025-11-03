@@ -47,6 +47,9 @@ class ChunkChunkMetadata(BaseModel):
 
 
 class Chunk(BaseModel):
+    chunk_id: str
+    """Unique identifier for the chunk. Must be provided explicitly."""
+
     content: InterleavedContent
     """
     The content of the chunk, which can be interleaved text, images, or other types.
@@ -66,12 +69,6 @@ class Chunk(BaseModel):
 
     embedding: Optional[List[float]] = None
     """Optional embedding for the chunk. If not provided, it will be computed later."""
-
-    stored_chunk_id: Optional[str] = None
-    """The chunk ID that is stored in the vector database.
-
-    Used for backend functionality.
-    """
 
 
 class QueryChunksResponse(BaseModel):

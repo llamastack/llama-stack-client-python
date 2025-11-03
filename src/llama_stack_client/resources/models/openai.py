@@ -17,7 +17,7 @@ from ..._response import (
 )
 from ..._wrappers import DataWrapper
 from ..._base_client import make_request_options
-from ...types.model_list_response import ModelListResponse
+from ...types.models.openai_list_response import OpenAIListResponse
 
 __all__ = ["OpenAIResource", "AsyncOpenAIResource"]
 
@@ -51,7 +51,7 @@ class OpenAIResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> ModelListResponse:
+    ) -> OpenAIListResponse:
         """List all models."""
         return self._get(
             "/v1/models",
@@ -60,9 +60,9 @@ class OpenAIResource(SyncAPIResource):
                 extra_query=extra_query,
                 extra_body=extra_body,
                 timeout=timeout,
-                post_parser=DataWrapper[ModelListResponse]._unwrapper,
+                post_parser=DataWrapper[OpenAIListResponse]._unwrapper,
             ),
-            cast_to=cast(Type[ModelListResponse], DataWrapper[ModelListResponse]),
+            cast_to=cast(Type[OpenAIListResponse], DataWrapper[OpenAIListResponse]),
         )
 
 
@@ -95,7 +95,7 @@ class AsyncOpenAIResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> ModelListResponse:
+    ) -> OpenAIListResponse:
         """List all models."""
         return await self._get(
             "/v1/models",
@@ -104,9 +104,9 @@ class AsyncOpenAIResource(AsyncAPIResource):
                 extra_query=extra_query,
                 extra_body=extra_body,
                 timeout=timeout,
-                post_parser=DataWrapper[ModelListResponse]._unwrapper,
+                post_parser=DataWrapper[OpenAIListResponse]._unwrapper,
             ),
-            cast_to=cast(Type[ModelListResponse], DataWrapper[ModelListResponse]),
+            cast_to=cast(Type[OpenAIListResponse], DataWrapper[OpenAIListResponse]),
         )
 
 

@@ -14,6 +14,7 @@ __all__ = [
     "ItemOpenAIResponseMessageContentUnionMember1",
     "ItemOpenAIResponseMessageContentUnionMember1OpenAIResponseInputMessageContentText",
     "ItemOpenAIResponseMessageContentUnionMember1OpenAIResponseInputMessageContentImage",
+    "ItemOpenAIResponseMessageContentUnionMember1OpenAIResponseInputMessageContentFile",
     "ItemOpenAIResponseMessageContentUnionMember2",
     "ItemOpenAIResponseMessageContentUnionMember2OpenAIResponseOutputMessageContentOutputText",
     "ItemOpenAIResponseMessageContentUnionMember2OpenAIResponseOutputMessageContentOutputTextAnnotation",
@@ -58,13 +59,34 @@ class ItemOpenAIResponseMessageContentUnionMember1OpenAIResponseInputMessageCont
     type: Required[Literal["input_image"]]
     """Content type identifier, always "input_image" """
 
+    file_id: str
+    """(Optional) The ID of the file to be sent to the model."""
+
     image_url: str
     """(Optional) URL of the image content"""
+
+
+class ItemOpenAIResponseMessageContentUnionMember1OpenAIResponseInputMessageContentFile(TypedDict, total=False):
+    type: Required[Literal["input_file"]]
+    """The type of the input item. Always `input_file`."""
+
+    file_data: str
+    """The data of the file to be sent to the model."""
+
+    file_id: str
+    """(Optional) The ID of the file to be sent to the model."""
+
+    file_url: str
+    """The URL of the file to be sent to the model."""
+
+    filename: str
+    """The name of the file to be sent to the model."""
 
 
 ItemOpenAIResponseMessageContentUnionMember1: TypeAlias = Union[
     ItemOpenAIResponseMessageContentUnionMember1OpenAIResponseInputMessageContentText,
     ItemOpenAIResponseMessageContentUnionMember1OpenAIResponseInputMessageContentImage,
+    ItemOpenAIResponseMessageContentUnionMember1OpenAIResponseInputMessageContentFile,
 ]
 
 

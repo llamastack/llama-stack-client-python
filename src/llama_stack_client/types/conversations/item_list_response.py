@@ -12,6 +12,7 @@ __all__ = [
     "OpenAIResponseMessageContentUnionMember1",
     "OpenAIResponseMessageContentUnionMember1OpenAIResponseInputMessageContentText",
     "OpenAIResponseMessageContentUnionMember1OpenAIResponseInputMessageContentImage",
+    "OpenAIResponseMessageContentUnionMember1OpenAIResponseInputMessageContentFile",
     "OpenAIResponseMessageContentUnionMember2",
     "OpenAIResponseMessageContentUnionMember2OpenAIResponseOutputMessageContentOutputText",
     "OpenAIResponseMessageContentUnionMember2OpenAIResponseOutputMessageContentOutputTextAnnotation",
@@ -48,14 +49,35 @@ class OpenAIResponseMessageContentUnionMember1OpenAIResponseInputMessageContentI
     type: Literal["input_image"]
     """Content type identifier, always "input_image" """
 
+    file_id: Optional[str] = None
+    """(Optional) The ID of the file to be sent to the model."""
+
     image_url: Optional[str] = None
     """(Optional) URL of the image content"""
+
+
+class OpenAIResponseMessageContentUnionMember1OpenAIResponseInputMessageContentFile(BaseModel):
+    type: Literal["input_file"]
+    """The type of the input item. Always `input_file`."""
+
+    file_data: Optional[str] = None
+    """The data of the file to be sent to the model."""
+
+    file_id: Optional[str] = None
+    """(Optional) The ID of the file to be sent to the model."""
+
+    file_url: Optional[str] = None
+    """The URL of the file to be sent to the model."""
+
+    filename: Optional[str] = None
+    """The name of the file to be sent to the model."""
 
 
 OpenAIResponseMessageContentUnionMember1: TypeAlias = Annotated[
     Union[
         OpenAIResponseMessageContentUnionMember1OpenAIResponseInputMessageContentText,
         OpenAIResponseMessageContentUnionMember1OpenAIResponseInputMessageContentImage,
+        OpenAIResponseMessageContentUnionMember1OpenAIResponseInputMessageContentFile,
     ],
     PropertyInfo(discriminator="type"),
 ]

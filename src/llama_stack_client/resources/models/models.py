@@ -102,9 +102,9 @@ class ModelsResource(SyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> ModelListResponse:
-        """List all models."""
+        """List models using the OpenAI API."""
         return self._get(
-            "/v1/models",
+            "/v1/openai/v1/models",
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
@@ -275,9 +275,9 @@ class AsyncModelsResource(AsyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> ModelListResponse:
-        """List all models."""
+        """List models using the OpenAI API."""
         return await self._get(
-            "/v1/models",
+            "/v1/openai/v1/models",
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
