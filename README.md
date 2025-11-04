@@ -31,16 +31,12 @@ The full API of this library can be found in [api.md](api.md). You may find basi
 ```python
 from llama_stack_client import LlamaStackClient
 
-client = LlamaStackClient(
-    base_url=f"http://{host}:{port}",
-)
+client = LlamaStackClient()
 
-response = client.chat.completions.create(
-    messages=[{"role": "user", "content": "hello world, write me a 2 sentence poem about the moon"}],
-    model="meta-llama/Llama-3.2-3B-Instruct",
-    stream=False,
+response = client.models.register(
+    model_id="model_id",
 )
-print(response)
+print(response.identifier)
 ```
 
 While you can provide an `api_key` keyword argument, we recommend using [python-dotenv](https://pypi.org/project/python-dotenv/) to add `LLAMA_STACK_CLIENT_API_KEY="My API Key"` to your `.env` file so that your API Key is not stored in source control.
@@ -97,17 +93,48 @@ client = AsyncLlamaStackClient(
 
 
 async def main() -> None:
-    session = await client.agents.sessions.create(
-        agent_id="agent_id",
-        session_name="session_name",
+    response = await client.models.register(
+        model_id="model_id",
     )
-    print(session.session_id)
+    print(response.identifier)
 
 
 asyncio.run(main())
 ```
 
 Functionality between the synchronous and asynchronous clients is otherwise identical.
+
+### With aiohttp
+
+By default, the async client uses `httpx` for HTTP requests. However, for improved concurrency performance you may also use `aiohttp` as the HTTP backend.
+
+You can enable this by installing `aiohttp`:
+
+```sh
+# install from PyPI
+pip install --pre llama_stack_client[aiohttp]
+```
+
+Then you can enable it by instantiating the client with `http_client=DefaultAioHttpClient()`:
+
+```python
+import asyncio
+from llama_stack_client import DefaultAioHttpClient
+from llama_stack_client import AsyncLlamaStackClient
+
+
+async def main() -> None:
+    async with AsyncLlamaStackClient(
+        http_client=DefaultAioHttpClient(),
+    ) as client:
+        response = await client.models.register(
+            model_id="model_id",
+        )
+        print(response.identifier)
+
+
+asyncio.run(main())
+```
 
 ## Streaming responses
 

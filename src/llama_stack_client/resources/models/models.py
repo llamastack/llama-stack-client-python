@@ -33,9 +33,10 @@ from ..._response import (
     async_to_streamed_response_wrapper,
 )
 from ..._wrappers import DataWrapper
-from ...types.model import Model
 from ..._base_client import make_request_options
 from ...types.model_list_response import ModelListResponse
+from ...types.model_register_response import ModelRegisterResponse
+from ...types.model_retrieve_response import ModelRetrieveResponse
 
 __all__ = ["ModelsResource", "AsyncModelsResource"]
 
@@ -74,7 +75,7 @@ class ModelsResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> Model:
+    ) -> ModelRetrieveResponse:
         """Get model.
 
         Get a model by its identifier.
@@ -95,7 +96,7 @@ class ModelsResource(SyncAPIResource):
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=Model,
+            cast_to=ModelRetrieveResponse,
         )
 
     def list(
@@ -110,7 +111,7 @@ class ModelsResource(SyncAPIResource):
     ) -> ModelListResponse:
         """List models using the OpenAI API."""
         return self._get(
-            "/v1/openai/v1/models",
+            "/v1/models",
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
@@ -135,7 +136,7 @@ class ModelsResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> Model:
+    ) -> ModelRegisterResponse:
         """Register model.
 
         Register a model.
@@ -174,7 +175,7 @@ class ModelsResource(SyncAPIResource):
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=Model,
+            cast_to=ModelRegisterResponse,
         )
 
     def unregister(
@@ -247,7 +248,7 @@ class AsyncModelsResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> Model:
+    ) -> ModelRetrieveResponse:
         """Get model.
 
         Get a model by its identifier.
@@ -268,7 +269,7 @@ class AsyncModelsResource(AsyncAPIResource):
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=Model,
+            cast_to=ModelRetrieveResponse,
         )
 
     async def list(
@@ -283,7 +284,7 @@ class AsyncModelsResource(AsyncAPIResource):
     ) -> ModelListResponse:
         """List models using the OpenAI API."""
         return await self._get(
-            "/v1/openai/v1/models",
+            "/v1/models",
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
@@ -308,7 +309,7 @@ class AsyncModelsResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> Model:
+    ) -> ModelRegisterResponse:
         """Register model.
 
         Register a model.
@@ -347,7 +348,7 @@ class AsyncModelsResource(AsyncAPIResource):
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=Model,
+            cast_to=ModelRegisterResponse,
         )
 
     async def unregister(

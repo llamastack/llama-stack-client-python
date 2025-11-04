@@ -23,7 +23,7 @@ from ..._response import (
 )
 from ..._wrappers import DataWrapper
 from ..._base_client import make_request_options
-from ...types.models.openai_list_response import OpenAIListResponse
+from ...types.model_list_response import ModelListResponse
 
 __all__ = ["OpenAIResource", "AsyncOpenAIResource"]
 
@@ -57,8 +57,8 @@ class OpenAIResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> OpenAIListResponse:
-        """List all models."""
+    ) -> ModelListResponse:
+        """List models using the OpenAI API."""
         return self._get(
             "/v1/models",
             options=make_request_options(
@@ -66,9 +66,9 @@ class OpenAIResource(SyncAPIResource):
                 extra_query=extra_query,
                 extra_body=extra_body,
                 timeout=timeout,
-                post_parser=DataWrapper[OpenAIListResponse]._unwrapper,
+                post_parser=DataWrapper[ModelListResponse]._unwrapper,
             ),
-            cast_to=cast(Type[OpenAIListResponse], DataWrapper[OpenAIListResponse]),
+            cast_to=cast(Type[ModelListResponse], DataWrapper[ModelListResponse]),
         )
 
 
@@ -101,8 +101,8 @@ class AsyncOpenAIResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> OpenAIListResponse:
-        """List all models."""
+    ) -> ModelListResponse:
+        """List models using the OpenAI API."""
         return await self._get(
             "/v1/models",
             options=make_request_options(
@@ -110,9 +110,9 @@ class AsyncOpenAIResource(AsyncAPIResource):
                 extra_query=extra_query,
                 extra_body=extra_body,
                 timeout=timeout,
-                post_parser=DataWrapper[OpenAIListResponse]._unwrapper,
+                post_parser=DataWrapper[ModelListResponse]._unwrapper,
             ),
-            cast_to=cast(Type[OpenAIListResponse], DataWrapper[OpenAIListResponse]),
+            cast_to=cast(Type[ModelListResponse], DataWrapper[ModelListResponse]),
         )
 
 
