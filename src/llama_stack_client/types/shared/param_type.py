@@ -17,7 +17,6 @@ __all__ = [
     "UnionType",
     "ChatCompletionInputType",
     "CompletionInputType",
-    "AgentTurnInputType",
 ]
 
 
@@ -66,11 +65,6 @@ class CompletionInputType(BaseModel):
     """Discriminator type. Always "completion_input" """
 
 
-class AgentTurnInputType(BaseModel):
-    type: Literal["agent_turn_input"]
-    """Discriminator type. Always "agent_turn_input" """
-
-
 ParamType: TypeAlias = Annotated[
     Union[
         StringType,
@@ -82,7 +76,6 @@ ParamType: TypeAlias = Annotated[
         UnionType,
         ChatCompletionInputType,
         CompletionInputType,
-        AgentTurnInputType,
     ],
     PropertyInfo(discriminator="type"),
 ]

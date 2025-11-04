@@ -16,14 +16,6 @@ from .alpha import (
     AlphaResourceWithStreamingResponse,
     AsyncAlphaResourceWithStreamingResponse,
 )
-from .agents import (
-    AgentsResource,
-    AsyncAgentsResource,
-    AgentsResourceWithRawResponse,
-    AsyncAgentsResourceWithRawResponse,
-    AgentsResourceWithStreamingResponse,
-    AsyncAgentsResourceWithStreamingResponse,
-)
 from .inference import (
     InferenceResource,
     AsyncInferenceResource,
@@ -74,12 +66,6 @@ __all__ = [
     "AsyncEvalResourceWithRawResponse",
     "EvalResourceWithStreamingResponse",
     "AsyncEvalResourceWithStreamingResponse",
-    "AgentsResource",
-    "AsyncAgentsResource",
-    "AgentsResourceWithRawResponse",
-    "AsyncAgentsResourceWithRawResponse",
-    "AgentsResourceWithStreamingResponse",
-    "AsyncAgentsResourceWithStreamingResponse",
     "AlphaResource",
     "AsyncAlphaResource",
     "AlphaResourceWithRawResponse",
