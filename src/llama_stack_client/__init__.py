@@ -48,14 +48,12 @@ from .lib.agents.agent import Agent
 from .lib.agents.event_logger import EventLogger as AgentEventLogger
 from .lib.inference.event_logger import EventLogger as InferenceEventLogger
 from .types.shared_params.document import Document as RAGDocument
-from .types.alpha.agents.turn_create_params import Document
 
 __all__ = [
     "types",
     "Agent",
     "AgentEventLogger",
     "InferenceEventLogger",
-    "Document",
     "RAGDocument",
     "__version__",
     "__title__",
