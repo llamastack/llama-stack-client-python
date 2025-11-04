@@ -34,14 +34,6 @@ from .benchmarks import (
     AsyncBenchmarksResourceWithStreamingResponse,
 )
 from ..._resource import SyncAPIResource, AsyncAPIResource
-from .agents.agents import (
-    AgentsResource,
-    AsyncAgentsResource,
-    AgentsResourceWithRawResponse,
-    AsyncAgentsResourceWithRawResponse,
-    AgentsResourceWithStreamingResponse,
-    AsyncAgentsResourceWithStreamingResponse,
-)
 from .post_training.post_training import (
     PostTrainingResource,
     AsyncPostTrainingResource,
@@ -70,10 +62,6 @@ class AlphaResource(SyncAPIResource):
     @cached_property
     def eval(self) -> EvalResource:
         return EvalResource(self._client)
-
-    @cached_property
-    def agents(self) -> AgentsResource:
-        return AgentsResource(self._client)
 
     @cached_property
     def with_raw_response(self) -> AlphaResourceWithRawResponse:
@@ -111,10 +99,6 @@ class AsyncAlphaResource(AsyncAPIResource):
     @cached_property
     def eval(self) -> AsyncEvalResource:
         return AsyncEvalResource(self._client)
-
-    @cached_property
-    def agents(self) -> AsyncAgentsResource:
-        return AsyncAgentsResource(self._client)
 
     @cached_property
     def with_raw_response(self) -> AsyncAlphaResourceWithRawResponse:
@@ -156,10 +140,6 @@ class AlphaResourceWithRawResponse:
     def eval(self) -> EvalResourceWithRawResponse:
         return EvalResourceWithRawResponse(self._alpha.eval)
 
-    @cached_property
-    def agents(self) -> AgentsResourceWithRawResponse:
-        return AgentsResourceWithRawResponse(self._alpha.agents)
-
 
 class AsyncAlphaResourceWithRawResponse:
     def __init__(self, alpha: AsyncAlphaResource) -> None:
@@ -180,10 +160,6 @@ class AsyncAlphaResourceWithRawResponse:
     @cached_property
     def eval(self) -> AsyncEvalResourceWithRawResponse:
         return AsyncEvalResourceWithRawResponse(self._alpha.eval)
-
-    @cached_property
-    def agents(self) -> AsyncAgentsResourceWithRawResponse:
-        return AsyncAgentsResourceWithRawResponse(self._alpha.agents)
 
 
 class AlphaResourceWithStreamingResponse:
@@ -206,10 +182,6 @@ class AlphaResourceWithStreamingResponse:
     def eval(self) -> EvalResourceWithStreamingResponse:
         return EvalResourceWithStreamingResponse(self._alpha.eval)
 
-    @cached_property
-    def agents(self) -> AgentsResourceWithStreamingResponse:
-        return AgentsResourceWithStreamingResponse(self._alpha.agents)
-
 
 class AsyncAlphaResourceWithStreamingResponse:
     def __init__(self, alpha: AsyncAlphaResource) -> None:
@@ -230,7 +202,3 @@ class AsyncAlphaResourceWithStreamingResponse:
     @cached_property
     def eval(self) -> AsyncEvalResourceWithStreamingResponse:
         return AsyncEvalResourceWithStreamingResponse(self._alpha.eval)
-
-    @cached_property
-    def agents(self) -> AsyncAgentsResourceWithStreamingResponse:
-        return AsyncAgentsResourceWithStreamingResponse(self._alpha.agents)

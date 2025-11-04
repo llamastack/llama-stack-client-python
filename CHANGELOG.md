@@ -1,5 +1,18 @@
 # Changelog
 
+## 0.4.0-alpha.4 (2025-11-04)
+
+Full Changelog: [v0.4.0-alpha.3...v0.4.0-alpha.4](https://github.com/llamastack/llama-stack-client-python/compare/v0.4.0-alpha.3...v0.4.0-alpha.4)
+
+### Features
+
+* **api:** remove agents types ([ae9e51b](https://github.com/llamastack/llama-stack-client-python/commit/ae9e51bbf79cff7ddc3e1c2e0edeec77891e2374))
+
+
+### Chores
+
+* **internal:** grammar fix (it's -&gt; its) ([2c3291c](https://github.com/llamastack/llama-stack-client-python/commit/2c3291c59b92baa4666483c93eaf98e80de169ea))
+
 ## 0.4.0-alpha.3 (2025-11-04)
 
 Full Changelog: [v0.4.0-alpha.2...v0.4.0-alpha.3](https://github.com/llamastack/llama-stack-client-python/compare/v0.4.0-alpha.2...v0.4.0-alpha.3)
