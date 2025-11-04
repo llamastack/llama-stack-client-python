@@ -1,5 +1,18 @@
 # Changelog
 
+## 0.4.0-alpha.3 (2025-11-04)
+
+Full Changelog: [v0.4.0-alpha.2...v0.4.0-alpha.3](https://github.com/llamastack/llama-stack-client-python/compare/v0.4.0-alpha.2...v0.4.0-alpha.3)
+
+### Features
+
+* **api:** remove openai/v1 endpoints ([e391af5](https://github.com/llamastack/llama-stack-client-python/commit/e391af5b47f10ca2c3fa7d36cacae1900af711b4))
+
+
+### Bug Fixes
+
+* update post_training CLI import path to use alpha subdirectory ([#293](https://github.com/llamastack/llama-stack-client-python/issues/293)) ([65cbe68](https://github.com/llamastack/llama-stack-client-python/commit/65cbe680ebeb30bf7e7cfebd1238f57bef792f5d))
+
 ## 0.4.0-alpha.2 (2025-11-03)
 
 Full Changelog: [v0.4.0-alpha.1...v0.4.0-alpha.2](https://github.com/llamastack/llama-stack-client-python/compare/v0.4.0-alpha.1...v0.4.0-alpha.2)
