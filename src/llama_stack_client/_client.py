@@ -62,7 +62,6 @@ if TYPE_CHECKING:
         conversations,
         vector_stores,
         scoring_functions,
-        synthetic_data_generation,
     )
     from .resources.files import FilesResource, AsyncFilesResource
     from .resources.tools import ToolsResource, AsyncToolsResource
@@ -84,10 +83,6 @@ if TYPE_CHECKING:
     from .resources.prompts.prompts import PromptsResource, AsyncPromptsResource
     from .resources.scoring_functions import ScoringFunctionsResource, AsyncScoringFunctionsResource
     from .resources.responses.responses import ResponsesResource, AsyncResponsesResource
-    from .resources.synthetic_data_generation import (
-        SyntheticDataGenerationResource,
-        AsyncSyntheticDataGenerationResource,
-    )
     from .resources.tool_runtime.tool_runtime import ToolRuntimeResource, AsyncToolRuntimeResource
     from .resources.conversations.conversations import ConversationsResource, AsyncConversationsResource
     from .resources.vector_stores.vector_stores import VectorStoresResource, AsyncVectorStoresResource
@@ -268,12 +263,6 @@ class LlamaStackClient(SyncAPIClient):
         from .resources.shields import ShieldsResource
 
         return ShieldsResource(self)
-
-    @cached_property
-    def synthetic_data_generation(self) -> SyntheticDataGenerationResource:
-        from .resources.synthetic_data_generation import SyntheticDataGenerationResource
-
-        return SyntheticDataGenerationResource(self)
 
     @cached_property
     def scoring(self) -> ScoringResource:
@@ -586,12 +575,6 @@ class AsyncLlamaStackClient(AsyncAPIClient):
         return AsyncShieldsResource(self)
 
     @cached_property
-    def synthetic_data_generation(self) -> AsyncSyntheticDataGenerationResource:
-        from .resources.synthetic_data_generation import AsyncSyntheticDataGenerationResource
-
-        return AsyncSyntheticDataGenerationResource(self)
-
-    @cached_property
     def scoring(self) -> AsyncScoringResource:
         from .resources.scoring import AsyncScoringResource
 
@@ -851,12 +834,6 @@ class LlamaStackClientWithRawResponse:
         return ShieldsResourceWithRawResponse(self._client.shields)
 
     @cached_property
-    def synthetic_data_generation(self) -> synthetic_data_generation.SyntheticDataGenerationResourceWithRawResponse:
-        from .resources.synthetic_data_generation import SyntheticDataGenerationResourceWithRawResponse
-
-        return SyntheticDataGenerationResourceWithRawResponse(self._client.synthetic_data_generation)
-
-    @cached_property
     def scoring(self) -> scoring.ScoringResourceWithRawResponse:
         from .resources.scoring import ScoringResourceWithRawResponse
 
@@ -1000,14 +977,6 @@ class AsyncLlamaStackClientWithRawResponse:
         from .resources.shields import AsyncShieldsResourceWithRawResponse
 
         return AsyncShieldsResourceWithRawResponse(self._client.shields)
-
-    @cached_property
-    def synthetic_data_generation(
-        self,
-    ) -> synthetic_data_generation.AsyncSyntheticDataGenerationResourceWithRawResponse:
-        from .resources.synthetic_data_generation import AsyncSyntheticDataGenerationResourceWithRawResponse
-
-        return AsyncSyntheticDataGenerationResourceWithRawResponse(self._client.synthetic_data_generation)
 
     @cached_property
     def scoring(self) -> scoring.AsyncScoringResourceWithRawResponse:
@@ -1155,14 +1124,6 @@ class LlamaStackClientWithStreamedResponse:
         return ShieldsResourceWithStreamingResponse(self._client.shields)
 
     @cached_property
-    def synthetic_data_generation(
-        self,
-    ) -> synthetic_data_generation.SyntheticDataGenerationResourceWithStreamingResponse:
-        from .resources.synthetic_data_generation import SyntheticDataGenerationResourceWithStreamingResponse
-
-        return SyntheticDataGenerationResourceWithStreamingResponse(self._client.synthetic_data_generation)
-
-    @cached_property
     def scoring(self) -> scoring.ScoringResourceWithStreamingResponse:
         from .resources.scoring import ScoringResourceWithStreamingResponse
 
@@ -1306,14 +1267,6 @@ class AsyncLlamaStackClientWithStreamedResponse:
         from .resources.shields import AsyncShieldsResourceWithStreamingResponse
 
         return AsyncShieldsResourceWithStreamingResponse(self._client.shields)
-
-    @cached_property
-    def synthetic_data_generation(
-        self,
-    ) -> synthetic_data_generation.AsyncSyntheticDataGenerationResourceWithStreamingResponse:
-        from .resources.synthetic_data_generation import AsyncSyntheticDataGenerationResourceWithStreamingResponse
-
-        return AsyncSyntheticDataGenerationResourceWithStreamingResponse(self._client.synthetic_data_generation)
 
     @cached_property
     def scoring(self) -> scoring.AsyncScoringResourceWithStreamingResponse:
