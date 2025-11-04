@@ -1,9 +1,8 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
+import builtins
 from typing import Dict, List, Union, Optional
 from typing_extensions import Literal
-
-from pydantic import Field as FieldInfo
 
 from .._models import BaseModel
 
@@ -11,20 +10,12 @@ __all__ = ["Model"]
 
 
 class Model(BaseModel):
-    identifier: str
-    """Unique identifier for this resource in llama stack"""
+    id: str
 
-    metadata: Dict[str, Union[bool, float, str, List[object], object, None]]
-    """Any additional metadata for this model"""
+    created: int
 
-    api_model_type: Literal["llm", "embedding", "rerank"] = FieldInfo(alias="model_type")
-    """The type of model (LLM or embedding model)"""
+    object: Literal["model"]
 
-    provider_id: str
-    """ID of the provider that owns this resource"""
+    owned_by: str
 
-    type: Literal["model"]
-    """The resource type, always 'model' for model resources"""
-
-    provider_resource_id: Optional[str] = None
-    """Unique identifier for this resource in the provider"""
+    custom_metadata: Optional[Dict[str, Union[bool, float, str, List[builtins.object], builtins.object, None]]] = None

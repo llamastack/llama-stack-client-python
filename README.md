@@ -29,10 +29,10 @@ from llama_stack_client import LlamaStackClient
 
 client = LlamaStackClient()
 
-model = client.models.register(
+response = client.models.register(
     model_id="model_id",
 )
-print(model.identifier)
+print(response.identifier)
 ```
 
 While you can provide an `api_key` keyword argument,
@@ -52,10 +52,10 @@ client = AsyncLlamaStackClient()
 
 
 async def main() -> None:
-    model = await client.models.register(
+    response = await client.models.register(
         model_id="model_id",
     )
-    print(model.identifier)
+    print(response.identifier)
 
 
 asyncio.run(main())
@@ -86,10 +86,10 @@ async def main() -> None:
     async with AsyncLlamaStackClient(
         http_client=DefaultAioHttpClient(),
     ) as client:
-        model = await client.models.register(
+        response = await client.models.register(
             model_id="model_id",
         )
-        print(model.identifier)
+        print(response.identifier)
 
 
 asyncio.run(main())

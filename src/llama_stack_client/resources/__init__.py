@@ -184,14 +184,6 @@ from .scoring_functions import (
     ScoringFunctionsResourceWithStreamingResponse,
     AsyncScoringFunctionsResourceWithStreamingResponse,
 )
-from .synthetic_data_generation import (
-    SyntheticDataGenerationResource,
-    AsyncSyntheticDataGenerationResource,
-    SyntheticDataGenerationResourceWithRawResponse,
-    AsyncSyntheticDataGenerationResourceWithRawResponse,
-    SyntheticDataGenerationResourceWithStreamingResponse,
-    AsyncSyntheticDataGenerationResourceWithStreamingResponse,
-)
 
 __all__ = [
     "ToolgroupsResource",
@@ -302,12 +294,6 @@ __all__ = [
     "AsyncShieldsResourceWithRawResponse",
     "ShieldsResourceWithStreamingResponse",
     "AsyncShieldsResourceWithStreamingResponse",
-    "SyntheticDataGenerationResource",
-    "AsyncSyntheticDataGenerationResource",
-    "SyntheticDataGenerationResourceWithRawResponse",
-    "AsyncSyntheticDataGenerationResourceWithRawResponse",
-    "SyntheticDataGenerationResourceWithStreamingResponse",
-    "AsyncSyntheticDataGenerationResourceWithStreamingResponse",
     "ScoringResource",
     "AsyncScoringResource",
     "ScoringResourceWithRawResponse",

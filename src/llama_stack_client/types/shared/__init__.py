@@ -1,6 +1,5 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-from .message import Message as Message
 from .document import Document as Document
 from .tool_call import ToolCall as ToolCall
 from .param_type import ParamType as ParamType

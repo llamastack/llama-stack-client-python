@@ -7,7 +7,6 @@ from llama_stack_client.types import (
     Document,
     InterleavedContent,
     InterleavedContentItem,
-    Message,
     ParamType,
     QueryConfig,
     QueryResult,
@@ -300,27 +299,27 @@ Methods:
 Types:
 
 ```python
-from llama_stack_client.types import ListModelsResponse, Model, ModelListResponse
+from llama_stack_client.types import (
+    ListModelsResponse,
+    Model,
+    ModelRetrieveResponse,
+    ModelListResponse,
+    ModelRegisterResponse,
+)
 ```
 
 Methods:
 
-- <code title="get /v1/models/{model_id}">client.models.<a href="./src/llama_stack_client/resources/models/models.py">retrieve</a>(model_id) -> <a href="./src/llama_stack_client/types/model.py">Model</a></code>
-- <code title="get /v1/openai/v1/models">client.models.<a href="./src/llama_stack_client/resources/models/models.py">list</a>() -> <a href="./src/llama_stack_client/types/model_list_response.py">ModelListResponse</a></code>
-- <code title="post /v1/models">client.models.<a href="./src/llama_stack_client/resources/models/models.py">register</a>(\*\*<a href="src/llama_stack_client/types/model_register_params.py">params</a>) -> <a href="./src/llama_stack_client/types/model.py">Model</a></code>
+- <code title="get /v1/models/{model_id}">client.models.<a href="./src/llama_stack_client/resources/models/models.py">retrieve</a>(model_id) -> <a href="./src/llama_stack_client/types/model_retrieve_response.py">ModelRetrieveResponse</a></code>
+- <code title="get /v1/models">client.models.<a href="./src/llama_stack_client/resources/models/models.py">list</a>() -> <a href="./src/llama_stack_client/types/model_list_response.py">ModelListResponse</a></code>
+- <code title="post /v1/models">client.models.<a href="./src/llama_stack_client/resources/models/models.py">register</a>(\*\*<a href="src/llama_stack_client/types/model_register_params.py">params</a>) -> <a href="./src/llama_stack_client/types/model_register_response.py">ModelRegisterResponse</a></code>
 - <code title="delete /v1/models/{model_id}">client.models.<a href="./src/llama_stack_client/resources/models/models.py">unregister</a>(model_id) -> None</code>
 
 ## OpenAI
 
-Types:
-
-```python
-from llama_stack_client.types.models import OpenAIListResponse
-```
-
 Methods:
 
-- <code title="get /v1/models">client.models.openai.<a href="./src/llama_stack_client/resources/models/openai.py">list</a>() -> <a href="./src/llama_stack_client/types/models/openai_list_response.py">OpenAIListResponse</a></code>
+- <code title="get /v1/models">client.models.openai.<a href="./src/llama_stack_client/resources/models/openai.py">list</a>() -> <a href="./src/llama_stack_client/types/model_list_response.py">ModelListResponse</a></code>
 
 # Providers
 
@@ -385,18 +384,6 @@ Methods:
 - <code title="get /v1/shields">client.shields.<a href="./src/llama_stack_client/resources/shields.py">list</a>() -> <a href="./src/llama_stack_client/types/shield_list_response.py">ShieldListResponse</a></code>
 - <code title="delete /v1/shields/{identifier}">client.shields.<a href="./src/llama_stack_client/resources/shields.py">delete</a>(identifier) -> None</code>
 - <code title="post /v1/shields">client.shields.<a href="./src/llama_stack_client/resources/shields.py">register</a>(\*\*<a href="src/llama_stack_client/types/shield_register_params.py">params</a>) -> <a href="./src/llama_stack_client/types/shield.py">Shield</a></code>
-
-# SyntheticDataGeneration
-
-Types:
-
-```python
-from llama_stack_client.types import SyntheticDataGenerationResponse
-```
-
-Methods:
-
-- <code title="post /v1/synthetic-data-generation/generate">client.synthetic_data_generation.<a href="./src/llama_stack_client/resources/synthetic_data_generation.py">generate</a>(\*\*<a href="src/llama_stack_client/types/synthetic_data_generation_generate_params.py">params</a>) -> <a href="./src/llama_stack_client/types/synthetic_data_generation_response.py">SyntheticDataGenerationResponse</a></code>
 
 # Scoring
 

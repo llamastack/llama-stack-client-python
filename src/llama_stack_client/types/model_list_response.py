@@ -1,24 +1,10 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-import builtins
-from typing import Dict, List, Union, Optional
-from typing_extensions import Literal, TypeAlias
+from typing import List
+from typing_extensions import TypeAlias
 
-from .._models import BaseModel
+from .model import Model
 
-__all__ = ["ModelListResponse", "ModelListResponseItem"]
+__all__ = ["ModelListResponse"]
 
-
-class ModelListResponseItem(BaseModel):
-    id: str
-
-    created: int
-
-    object: Literal["model"]
-
-    owned_by: str
-
-    custom_metadata: Optional[Dict[str, Union[bool, float, str, List[builtins.object], builtins.object, None]]] = None
-
-
-ModelListResponse: TypeAlias = List[ModelListResponseItem]
+ModelListResponse: TypeAlias = List[Model]

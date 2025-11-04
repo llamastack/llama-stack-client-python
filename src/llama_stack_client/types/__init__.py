@@ -6,7 +6,6 @@ from .file import File as File
 from .model import Model as Model
 from .prompt import Prompt as Prompt
 from .shared import (
-    Message as Message,
     Document as Document,
     ToolCall as ToolCall,
     ParamType as ParamType,
@@ -72,6 +71,8 @@ from .tool_invocation_result import ToolInvocationResult as ToolInvocationResult
 from .vector_io_query_params import VectorIoQueryParams as VectorIoQueryParams
 from .embedding_create_params import EmbeddingCreateParams as EmbeddingCreateParams
 from .list_providers_response import ListProvidersResponse as ListProvidersResponse
+from .model_register_response import ModelRegisterResponse as ModelRegisterResponse
+from .model_retrieve_response import ModelRetrieveResponse as ModelRetrieveResponse
 from .scoring_fn_params_param import ScoringFnParamsParam as ScoringFnParamsParam
 from .toolgroup_list_response import ToolgroupListResponse as ToolgroupListResponse
 from .vector_io_insert_params import VectorIoInsertParams as VectorIoInsertParams
@@ -102,7 +103,3 @@ from .tool_runtime_invoke_tool_params import ToolRuntimeInvokeToolParams as Tool
 from .scoring_function_register_params import ScoringFunctionRegisterParams as ScoringFunctionRegisterParams
 from .tool_runtime_list_tools_response import ToolRuntimeListToolsResponse as ToolRuntimeListToolsResponse
 from .prompt_set_default_version_params import PromptSetDefaultVersionParams as PromptSetDefaultVersionParams
-from .synthetic_data_generation_response import SyntheticDataGenerationResponse as SyntheticDataGenerationResponse
-from .synthetic_data_generation_generate_params import (
-    SyntheticDataGenerationGenerateParams as SyntheticDataGenerationGenerateParams,
-)
