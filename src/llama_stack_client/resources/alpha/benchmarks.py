@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import typing_extensions
 from typing import Dict, Type, Union, Iterable, cast
 
 import httpx
@@ -101,6 +102,7 @@ class BenchmarksResource(SyncAPIResource):
             cast_to=cast(Type[BenchmarkListResponse], DataWrapper[BenchmarkListResponse]),
         )
 
+    @typing_extensions.deprecated("deprecated")
     def register(
         self,
         *,
@@ -238,6 +240,7 @@ class AsyncBenchmarksResource(AsyncAPIResource):
             cast_to=cast(Type[BenchmarkListResponse], DataWrapper[BenchmarkListResponse]),
         )
 
+    @typing_extensions.deprecated("deprecated")
     async def register(
         self,
         *,
@@ -309,8 +312,10 @@ class BenchmarksResourceWithRawResponse:
         self.list = to_raw_response_wrapper(
             benchmarks.list,
         )
-        self.register = to_raw_response_wrapper(
-            benchmarks.register,
+        self.register = (  # pyright: ignore[reportDeprecated]
+            to_raw_response_wrapper(
+                benchmarks.register,  # pyright: ignore[reportDeprecated],
+            )
         )
 
 
@@ -324,8 +329,10 @@ class AsyncBenchmarksResourceWithRawResponse:
         self.list = async_to_raw_response_wrapper(
             benchmarks.list,
         )
-        self.register = async_to_raw_response_wrapper(
-            benchmarks.register,
+        self.register = (  # pyright: ignore[reportDeprecated]
+            async_to_raw_response_wrapper(
+                benchmarks.register,  # pyright: ignore[reportDeprecated],
+            )
         )
 
 
@@ -339,8 +346,10 @@ class BenchmarksResourceWithStreamingResponse:
         self.list = to_streamed_response_wrapper(
             benchmarks.list,
         )
-        self.register = to_streamed_response_wrapper(
-            benchmarks.register,
+        self.register = (  # pyright: ignore[reportDeprecated]
+            to_streamed_response_wrapper(
+                benchmarks.register,  # pyright: ignore[reportDeprecated],
+            )
         )
 
 
@@ -354,6 +363,8 @@ class AsyncBenchmarksResourceWithStreamingResponse:
         self.list = async_to_streamed_response_wrapper(
             benchmarks.list,
         )
-        self.register = async_to_streamed_response_wrapper(
-            benchmarks.register,
+        self.register = (  # pyright: ignore[reportDeprecated]
+            async_to_streamed_response_wrapper(
+                benchmarks.register,  # pyright: ignore[reportDeprecated],
+            )
         )

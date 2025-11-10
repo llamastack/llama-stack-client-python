@@ -9,14 +9,6 @@ import httpx
 from ...types import tool_runtime_list_tools_params, tool_runtime_invoke_tool_params
 from ..._types import Body, Omit, Query, Headers, NotGiven, omit, not_given
 from ..._utils import maybe_transform, async_maybe_transform
-from .rag_tool import (
-    RagToolResource,
-    AsyncRagToolResource,
-    RagToolResourceWithRawResponse,
-    AsyncRagToolResourceWithRawResponse,
-    RagToolResourceWithStreamingResponse,
-    AsyncRagToolResourceWithStreamingResponse,
-)
 from ..._compat import cached_property
 from ..._resource import SyncAPIResource, AsyncAPIResource
 from ..._response import (
@@ -34,10 +26,6 @@ __all__ = ["ToolRuntimeResource", "AsyncToolRuntimeResource"]
 
 
 class ToolRuntimeResource(SyncAPIResource):
-    @cached_property
-    def rag_tool(self) -> RagToolResource:
-        return RagToolResource(self._client)
-
     @cached_property
     def with_raw_response(self) -> ToolRuntimeResourceWithRawResponse:
         """
@@ -149,10 +137,6 @@ class ToolRuntimeResource(SyncAPIResource):
 
 
 class AsyncToolRuntimeResource(AsyncAPIResource):
-    @cached_property
-    def rag_tool(self) -> AsyncRagToolResource:
-        return AsyncRagToolResource(self._client)
-
     @cached_property
     def with_raw_response(self) -> AsyncToolRuntimeResourceWithRawResponse:
         """
@@ -274,10 +258,6 @@ class ToolRuntimeResourceWithRawResponse:
             tool_runtime.list_tools,
         )
 
-    @cached_property
-    def rag_tool(self) -> RagToolResourceWithRawResponse:
-        return RagToolResourceWithRawResponse(self._tool_runtime.rag_tool)
-
 
 class AsyncToolRuntimeResourceWithRawResponse:
     def __init__(self, tool_runtime: AsyncToolRuntimeResource) -> None:
@@ -289,10 +269,6 @@ class AsyncToolRuntimeResourceWithRawResponse:
         self.list_tools = async_to_raw_response_wrapper(
             tool_runtime.list_tools,
         )
-
-    @cached_property
-    def rag_tool(self) -> AsyncRagToolResourceWithRawResponse:
-        return AsyncRagToolResourceWithRawResponse(self._tool_runtime.rag_tool)
 
 
 class ToolRuntimeResourceWithStreamingResponse:
@@ -306,10 +282,6 @@ class ToolRuntimeResourceWithStreamingResponse:
             tool_runtime.list_tools,
         )
 
-    @cached_property
-    def rag_tool(self) -> RagToolResourceWithStreamingResponse:
-        return RagToolResourceWithStreamingResponse(self._tool_runtime.rag_tool)
-
 
 class AsyncToolRuntimeResourceWithStreamingResponse:
     def __init__(self, tool_runtime: AsyncToolRuntimeResource) -> None:
@@ -321,7 +293,3 @@ class AsyncToolRuntimeResourceWithStreamingResponse:
         self.list_tools = async_to_streamed_response_wrapper(
             tool_runtime.list_tools,
         )
-
-    @cached_property
-    def rag_tool(self) -> AsyncRagToolResourceWithStreamingResponse:
-        return AsyncRagToolResourceWithStreamingResponse(self._tool_runtime.rag_tool)

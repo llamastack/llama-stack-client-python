@@ -29,10 +29,15 @@ from llama_stack_client import LlamaStackClient
 
 client = LlamaStackClient()
 
-response = client.models.register(
-    model_id="model_id",
+completion = client.chat.completions.create(
+    messages=[
+        {
+            "content": "string",
+            "role": "user",
+        }
+    ],
+    model="model",
 )
-print(response.identifier)
 ```
 
 While you can provide an `api_key` keyword argument,
@@ -52,10 +57,15 @@ client = AsyncLlamaStackClient()
 
 
 async def main() -> None:
-    response = await client.models.register(
-        model_id="model_id",
+    completion = await client.chat.completions.create(
+        messages=[
+            {
+                "content": "string",
+                "role": "user",
+            }
+        ],
+        model="model",
     )
-    print(response.identifier)
 
 
 asyncio.run(main())
@@ -86,10 +96,15 @@ async def main() -> None:
     async with AsyncLlamaStackClient(
         http_client=DefaultAioHttpClient(),
     ) as client:
-        response = await client.models.register(
-            model_id="model_id",
+        completion = await client.chat.completions.create(
+            messages=[
+                {
+                    "content": "string",
+                    "role": "user",
+                }
+            ],
+            model="model",
         )
-        print(response.identifier)
 
 
 asyncio.run(main())
@@ -157,11 +172,10 @@ from llama_stack_client import LlamaStackClient
 
 client = LlamaStackClient()
 
-client.toolgroups.register(
-    provider_id="provider_id",
-    toolgroup_id="toolgroup_id",
+tool_defs = client.tool_runtime.list_tools(
     mcp_endpoint={"uri": "uri"},
 )
+print(tool_defs.mcp_endpoint)
 ```
 
 ## File uploads

@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import typing_extensions
 from typing import Dict, Type, Union, Iterable, cast
 from typing_extensions import Literal
 
@@ -200,6 +201,7 @@ class DatasetsResource(SyncAPIResource):
             cast_to=DatasetIterrowsResponse,
         )
 
+    @typing_extensions.deprecated("deprecated")
     def register(
         self,
         *,
@@ -269,6 +271,7 @@ class DatasetsResource(SyncAPIResource):
             cast_to=DatasetRegisterResponse,
         )
 
+    @typing_extensions.deprecated("deprecated")
     def unregister(
         self,
         dataset_id: str,
@@ -476,6 +479,7 @@ class AsyncDatasetsResource(AsyncAPIResource):
             cast_to=DatasetIterrowsResponse,
         )
 
+    @typing_extensions.deprecated("deprecated")
     async def register(
         self,
         *,
@@ -545,6 +549,7 @@ class AsyncDatasetsResource(AsyncAPIResource):
             cast_to=DatasetRegisterResponse,
         )
 
+    @typing_extensions.deprecated("deprecated")
     async def unregister(
         self,
         dataset_id: str,
@@ -596,11 +601,15 @@ class DatasetsResourceWithRawResponse:
         self.iterrows = to_raw_response_wrapper(
             datasets.iterrows,
         )
-        self.register = to_raw_response_wrapper(
-            datasets.register,
+        self.register = (  # pyright: ignore[reportDeprecated]
+            to_raw_response_wrapper(
+                datasets.register,  # pyright: ignore[reportDeprecated],
+            )
         )
-        self.unregister = to_raw_response_wrapper(
-            datasets.unregister,
+        self.unregister = (  # pyright: ignore[reportDeprecated]
+            to_raw_response_wrapper(
+                datasets.unregister,  # pyright: ignore[reportDeprecated],
+            )
         )
 
 
@@ -620,11 +629,15 @@ class AsyncDatasetsResourceWithRawResponse:
         self.iterrows = async_to_raw_response_wrapper(
             datasets.iterrows,
         )
-        self.register = async_to_raw_response_wrapper(
-            datasets.register,
+        self.register = (  # pyright: ignore[reportDeprecated]
+            async_to_raw_response_wrapper(
+                datasets.register,  # pyright: ignore[reportDeprecated],
+            )
         )
-        self.unregister = async_to_raw_response_wrapper(
-            datasets.unregister,
+        self.unregister = (  # pyright: ignore[reportDeprecated]
+            async_to_raw_response_wrapper(
+                datasets.unregister,  # pyright: ignore[reportDeprecated],
+            )
         )
 
 
@@ -644,11 +657,15 @@ class DatasetsResourceWithStreamingResponse:
         self.iterrows = to_streamed_response_wrapper(
             datasets.iterrows,
         )
-        self.register = to_streamed_response_wrapper(
-            datasets.register,
+        self.register = (  # pyright: ignore[reportDeprecated]
+            to_streamed_response_wrapper(
+                datasets.register,  # pyright: ignore[reportDeprecated],
+            )
         )
-        self.unregister = to_streamed_response_wrapper(
-            datasets.unregister,
+        self.unregister = (  # pyright: ignore[reportDeprecated]
+            to_streamed_response_wrapper(
+                datasets.unregister,  # pyright: ignore[reportDeprecated],
+            )
         )
 
 
@@ -668,9 +685,13 @@ class AsyncDatasetsResourceWithStreamingResponse:
         self.iterrows = async_to_streamed_response_wrapper(
             datasets.iterrows,
         )
-        self.register = async_to_streamed_response_wrapper(
-            datasets.register,
+        self.register = (  # pyright: ignore[reportDeprecated]
+            async_to_streamed_response_wrapper(
+                datasets.register,  # pyright: ignore[reportDeprecated],
+            )
         )
-        self.unregister = async_to_streamed_response_wrapper(
-            datasets.unregister,
+        self.unregister = (  # pyright: ignore[reportDeprecated]
+            async_to_streamed_response_wrapper(
+                datasets.unregister,  # pyright: ignore[reportDeprecated],
+            )
         )

@@ -807,7 +807,7 @@ class Prompt(BaseModel):
 
 
 class ToolOpenAIResponseInputToolWebSearch(BaseModel):
-    type: Literal["web_search", "web_search_preview", "web_search_preview_2025_03_11"]
+    type: Literal["web_search", "web_search_preview", "web_search_preview_2025_03_11", "web_search_2025_08_26"]
     """Web search tool type variant to use"""
 
     search_context_size: Optional[str] = None
@@ -945,6 +945,12 @@ class ResponseListResponse(BaseModel):
 
     instructions: Optional[str] = None
     """(Optional) System message inserted into the model's context"""
+
+    max_tool_calls: Optional[int] = None
+    """
+    (Optional) Max number of total calls to built-in tools that can be processed in
+    a response
+    """
 
     previous_response_id: Optional[str] = None
     """(Optional) ID of the previous response in a conversation"""

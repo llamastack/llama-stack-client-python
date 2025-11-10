@@ -43,7 +43,7 @@ class VectorStoreSearchResponse(BaseModel):
     object: str
     """Object type identifier for the search results page"""
 
-    search_query: str
+    search_query: List[str]
     """The original search query that was executed"""
 
     next_page: Optional[str] = None

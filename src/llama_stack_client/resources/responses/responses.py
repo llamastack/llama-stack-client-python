@@ -71,6 +71,7 @@ class ResponsesResource(SyncAPIResource):
         include: SequenceNotStr[str] | Omit = omit,
         instructions: str | Omit = omit,
         max_infer_iters: int | Omit = omit,
+        max_tool_calls: int | Omit = omit,
         previous_response_id: str | Omit = omit,
         prompt: response_create_params.Prompt | Omit = omit,
         store: bool | Omit = omit,
@@ -98,6 +99,9 @@ class ResponsesResource(SyncAPIResource):
               conversation.
 
           include: (Optional) Additional fields to include in the response.
+
+          max_tool_calls: (Optional) Max number of total calls to built-in tools that can be processed in
+              a response.
 
           previous_response_id: (Optional) if specified, the new response will be a continuation of the previous
               response. This can be used to easily fork-off new responses from existing
@@ -128,6 +132,7 @@ class ResponsesResource(SyncAPIResource):
         include: SequenceNotStr[str] | Omit = omit,
         instructions: str | Omit = omit,
         max_infer_iters: int | Omit = omit,
+        max_tool_calls: int | Omit = omit,
         previous_response_id: str | Omit = omit,
         prompt: response_create_params.Prompt | Omit = omit,
         store: bool | Omit = omit,
@@ -154,6 +159,9 @@ class ResponsesResource(SyncAPIResource):
               conversation.
 
           include: (Optional) Additional fields to include in the response.
+
+          max_tool_calls: (Optional) Max number of total calls to built-in tools that can be processed in
+              a response.
 
           previous_response_id: (Optional) if specified, the new response will be a continuation of the previous
               response. This can be used to easily fork-off new responses from existing
@@ -184,6 +192,7 @@ class ResponsesResource(SyncAPIResource):
         include: SequenceNotStr[str] | Omit = omit,
         instructions: str | Omit = omit,
         max_infer_iters: int | Omit = omit,
+        max_tool_calls: int | Omit = omit,
         previous_response_id: str | Omit = omit,
         prompt: response_create_params.Prompt | Omit = omit,
         store: bool | Omit = omit,
@@ -210,6 +219,9 @@ class ResponsesResource(SyncAPIResource):
               conversation.
 
           include: (Optional) Additional fields to include in the response.
+
+          max_tool_calls: (Optional) Max number of total calls to built-in tools that can be processed in
+              a response.
 
           previous_response_id: (Optional) if specified, the new response will be a continuation of the previous
               response. This can be used to easily fork-off new responses from existing
@@ -239,6 +251,7 @@ class ResponsesResource(SyncAPIResource):
         include: SequenceNotStr[str] | Omit = omit,
         instructions: str | Omit = omit,
         max_infer_iters: int | Omit = omit,
+        max_tool_calls: int | Omit = omit,
         previous_response_id: str | Omit = omit,
         prompt: response_create_params.Prompt | Omit = omit,
         store: bool | Omit = omit,
@@ -263,6 +276,7 @@ class ResponsesResource(SyncAPIResource):
                     "include": include,
                     "instructions": instructions,
                     "max_infer_iters": max_infer_iters,
+                    "max_tool_calls": max_tool_calls,
                     "previous_response_id": previous_response_id,
                     "prompt": prompt,
                     "store": store,
@@ -439,6 +453,7 @@ class AsyncResponsesResource(AsyncAPIResource):
         include: SequenceNotStr[str] | Omit = omit,
         instructions: str | Omit = omit,
         max_infer_iters: int | Omit = omit,
+        max_tool_calls: int | Omit = omit,
         previous_response_id: str | Omit = omit,
         prompt: response_create_params.Prompt | Omit = omit,
         store: bool | Omit = omit,
@@ -466,6 +481,9 @@ class AsyncResponsesResource(AsyncAPIResource):
               conversation.
 
           include: (Optional) Additional fields to include in the response.
+
+          max_tool_calls: (Optional) Max number of total calls to built-in tools that can be processed in
+              a response.
 
           previous_response_id: (Optional) if specified, the new response will be a continuation of the previous
               response. This can be used to easily fork-off new responses from existing
@@ -496,6 +514,7 @@ class AsyncResponsesResource(AsyncAPIResource):
         include: SequenceNotStr[str] | Omit = omit,
         instructions: str | Omit = omit,
         max_infer_iters: int | Omit = omit,
+        max_tool_calls: int | Omit = omit,
         previous_response_id: str | Omit = omit,
         prompt: response_create_params.Prompt | Omit = omit,
         store: bool | Omit = omit,
@@ -522,6 +541,9 @@ class AsyncResponsesResource(AsyncAPIResource):
               conversation.
 
           include: (Optional) Additional fields to include in the response.
+
+          max_tool_calls: (Optional) Max number of total calls to built-in tools that can be processed in
+              a response.
 
           previous_response_id: (Optional) if specified, the new response will be a continuation of the previous
               response. This can be used to easily fork-off new responses from existing
@@ -552,6 +574,7 @@ class AsyncResponsesResource(AsyncAPIResource):
         include: SequenceNotStr[str] | Omit = omit,
         instructions: str | Omit = omit,
         max_infer_iters: int | Omit = omit,
+        max_tool_calls: int | Omit = omit,
         previous_response_id: str | Omit = omit,
         prompt: response_create_params.Prompt | Omit = omit,
         store: bool | Omit = omit,
@@ -578,6 +601,9 @@ class AsyncResponsesResource(AsyncAPIResource):
               conversation.
 
           include: (Optional) Additional fields to include in the response.
+
+          max_tool_calls: (Optional) Max number of total calls to built-in tools that can be processed in
+              a response.
 
           previous_response_id: (Optional) if specified, the new response will be a continuation of the previous
               response. This can be used to easily fork-off new responses from existing
@@ -607,6 +633,7 @@ class AsyncResponsesResource(AsyncAPIResource):
         include: SequenceNotStr[str] | Omit = omit,
         instructions: str | Omit = omit,
         max_infer_iters: int | Omit = omit,
+        max_tool_calls: int | Omit = omit,
         previous_response_id: str | Omit = omit,
         prompt: response_create_params.Prompt | Omit = omit,
         store: bool | Omit = omit,
@@ -631,6 +658,7 @@ class AsyncResponsesResource(AsyncAPIResource):
                     "include": include,
                     "instructions": instructions,
                     "max_infer_iters": max_infer_iters,
+                    "max_tool_calls": max_tool_calls,
                     "previous_response_id": previous_response_id,
                     "prompt": prompt,
                     "store": store,

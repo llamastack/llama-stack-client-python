@@ -30,7 +30,7 @@ class TestVectorStores:
     @parametrize
     def test_method_create_with_all_params(self, client: LlamaStackClient) -> None:
         vector_store = client.vector_stores.create(
-            chunking_strategy={"foo": True},
+            chunking_strategy={"type": "auto"},
             expires_after={"foo": True},
             file_ids=["string"],
             metadata={"foo": True},
@@ -289,7 +289,7 @@ class TestAsyncVectorStores:
     @parametrize
     async def test_method_create_with_all_params(self, async_client: AsyncLlamaStackClient) -> None:
         vector_store = await async_client.vector_stores.create(
-            chunking_strategy={"foo": True},
+            chunking_strategy={"type": "auto"},
             expires_after={"foo": True},
             file_ids=["string"],
             metadata={"foo": True},
