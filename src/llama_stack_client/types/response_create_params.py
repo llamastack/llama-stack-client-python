@@ -82,6 +82,12 @@ class ResponseCreateParamsBase(TypedDict, total=False):
 
     max_infer_iters: int
 
+    max_tool_calls: int
+    """
+    (Optional) Max number of total calls to built-in tools that can be processed in
+    a response.
+    """
+
     previous_response_id: str
     """
     (Optional) if specified, the new response will be a continuation of the previous
@@ -522,7 +528,9 @@ class Text(TypedDict, total=False):
 
 
 class ToolOpenAIResponseInputToolWebSearch(TypedDict, total=False):
-    type: Required[Literal["web_search", "web_search_preview", "web_search_preview_2025_03_11"]]
+    type: Required[
+        Literal["web_search", "web_search_preview", "web_search_preview_2025_03_11", "web_search_2025_08_26"]
+    ]
     """Web search tool type variant to use"""
 
     search_context_size: str

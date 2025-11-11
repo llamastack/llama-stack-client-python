@@ -45,6 +45,7 @@ class TestResponses:
             include=["string"],
             instructions="instructions",
             max_infer_iters=0,
+            max_tool_calls=0,
             previous_response_id="previous_response_id",
             prompt={
                 "id": "id",
@@ -122,6 +123,7 @@ class TestResponses:
             include=["string"],
             instructions="instructions",
             max_infer_iters=0,
+            max_tool_calls=0,
             previous_response_id="previous_response_id",
             prompt={
                 "id": "id",
@@ -314,6 +316,7 @@ class TestAsyncResponses:
             include=["string"],
             instructions="instructions",
             max_infer_iters=0,
+            max_tool_calls=0,
             previous_response_id="previous_response_id",
             prompt={
                 "id": "id",
@@ -391,6 +394,7 @@ class TestAsyncResponses:
             include=["string"],
             instructions="instructions",
             max_infer_iters=0,
+            max_tool_calls=0,
             previous_response_id="previous_response_id",
             prompt={
                 "id": "id",

@@ -84,7 +84,7 @@ class VectorStoresResource(SyncAPIResource):
     def create(
         self,
         *,
-        chunking_strategy: Dict[str, Union[bool, float, str, Iterable[object], object, None]] | Omit = omit,
+        chunking_strategy: vector_store_create_params.ChunkingStrategy | Omit = omit,
         expires_after: Dict[str, Union[bool, float, str, Iterable[object], object, None]] | Omit = omit,
         file_ids: SequenceNotStr[str] | Omit = omit,
         metadata: Dict[str, Union[bool, float, str, Iterable[object], object, None]] | Omit = omit,
@@ -410,7 +410,7 @@ class AsyncVectorStoresResource(AsyncAPIResource):
     async def create(
         self,
         *,
-        chunking_strategy: Dict[str, Union[bool, float, str, Iterable[object], object, None]] | Omit = omit,
+        chunking_strategy: vector_store_create_params.ChunkingStrategy | Omit = omit,
         expires_after: Dict[str, Union[bool, float, str, Iterable[object], object, None]] | Omit = omit,
         file_ids: SequenceNotStr[str] | Omit = omit,
         metadata: Dict[str, Union[bool, float, str, Iterable[object], object, None]] | Omit = omit,
