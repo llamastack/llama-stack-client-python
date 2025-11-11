@@ -7,20 +7,17 @@
 from __future__ import annotations
 
 from types import SimpleNamespace
-from typing import Any, Dict, Iterable, Iterator, List, Optional
-
-import pytest
+from typing import Any, Dict, List, Iterable, Iterator
 
 from llama_stack_client.lib.agents.agent import Agent
 from llama_stack_client.lib.agents.client_tool import client_tool
 from llama_stack_client.lib.agents.turn_events import (
-    AgentStreamChunk,
-    StepCompleted,
-    StepProgress,
     StepStarted,
-    ToolExecutionStepResult,
-    TurnCompleted,
     TurnStarted,
+    StepProgress,
+    StepCompleted,
+    TurnCompleted,
+    ToolExecutionStepResult,
 )
 
 
@@ -192,8 +189,14 @@ def test_agent_streams_server_tool_events() -> None:
     assert events[1].step_type == "inference"
 
     # Look for the tool execution step in the stream
-    tool_step_started = next(event for event in events if isinstance(event, StepStarted) and event.step_type == "tool_execution")
-    assert tool_step_started.metadata == {"server_side": True, "tool_type": "file_search", "tool_name": "file_search_call"}
+    tool_step_started = next(
+        event for event in events if isinstance(event, StepStarted) and event.step_type == "tool_execution"
+    )
+    assert tool_step_started.metadata == {
+        "server_side": True,
+        "tool_type": "file_search",
+        "tool_name": "file_search_call",
+    }
 
     tool_step_completed = next(
         event for event in events if isinstance(event, StepCompleted) and event.step_type == "tool_execution"
@@ -202,9 +205,7 @@ def test_agent_streams_server_tool_events() -> None:
     assert tool_step_completed.result.tool_calls[0].call_id == "server_call"
 
     text_progress = [
-        event.delta.text
-        for event in events
-        if isinstance(event, StepProgress) and hasattr(event.delta, "text")
+        event.delta.text for event in events if isinstance(event, StepProgress) and hasattr(event.delta, "text")
     ]
     assert text_progress == ["tool finished"]
 

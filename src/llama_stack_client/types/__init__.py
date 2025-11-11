@@ -12,10 +12,6 @@ from .file import File as File
 from .model import Model as Model
 from .prompt import Prompt as Prompt
 from .shared import (
-    Document as Document,
-    ParamType as ParamType,
-    QueryConfig as QueryConfig,
-    QueryResult as QueryResult,
     ScoringResult as ScoringResult,
     SystemMessage as SystemMessage,
     SamplingParams as SamplingParams,
@@ -57,7 +53,6 @@ from .shield_list_response import ShieldListResponse as ShieldListResponse
 from .chat_completion_chunk import ChatCompletionChunk as ChatCompletionChunk
 from .list_prompts_response import ListPromptsResponse as ListPromptsResponse
 from .list_shields_response import ListShieldsResponse as ListShieldsResponse
-from .model_register_params import ModelRegisterParams as ModelRegisterParams
 from .query_chunks_response import QueryChunksResponse as QueryChunksResponse
 from .prompt_retrieve_params import PromptRetrieveParams as PromptRetrieveParams
 from .provider_list_response import ProviderListResponse as ProviderListResponse
@@ -65,12 +60,10 @@ from .response_create_params import ResponseCreateParams as ResponseCreateParams
 from .response_list_response import ResponseListResponse as ResponseListResponse
 from .response_object_stream import ResponseObjectStream as ResponseObjectStream
 from .scoring_score_response import ScoringScoreResponse as ScoringScoreResponse
-from .shield_register_params import ShieldRegisterParams as ShieldRegisterParams
 from .tool_invocation_result import ToolInvocationResult as ToolInvocationResult
 from .vector_io_query_params import VectorIoQueryParams as VectorIoQueryParams
 from .embedding_create_params import EmbeddingCreateParams as EmbeddingCreateParams
 from .list_providers_response import ListProvidersResponse as ListProvidersResponse
-from .model_register_response import ModelRegisterResponse as ModelRegisterResponse
 from .model_retrieve_response import ModelRetrieveResponse as ModelRetrieveResponse
 from .scoring_fn_params_param import ScoringFnParamsParam as ScoringFnParamsParam
 from .toolgroup_list_response import ToolgroupListResponse as ToolgroupListResponse
@@ -81,7 +74,6 @@ from .response_delete_response import ResponseDeleteResponse as ResponseDeleteRe
 from .safety_run_shield_params import SafetyRunShieldParams as SafetyRunShieldParams
 from .vector_store_list_params import VectorStoreListParams as VectorStoreListParams
 from .list_tool_groups_response import ListToolGroupsResponse as ListToolGroupsResponse
-from .toolgroup_register_params import ToolgroupRegisterParams as ToolgroupRegisterParams
 from .completion_create_response import CompletionCreateResponse as CompletionCreateResponse
 from .conversation_create_params import ConversationCreateParams as ConversationCreateParams
 from .conversation_update_params import ConversationUpdateParams as ConversationUpdateParams
@@ -99,6 +91,5 @@ from .scoring_function_list_response import ScoringFunctionListResponse as Scori
 from .tool_runtime_list_tools_params import ToolRuntimeListToolsParams as ToolRuntimeListToolsParams
 from .list_scoring_functions_response import ListScoringFunctionsResponse as ListScoringFunctionsResponse
 from .tool_runtime_invoke_tool_params import ToolRuntimeInvokeToolParams as ToolRuntimeInvokeToolParams
-from .scoring_function_register_params import ScoringFunctionRegisterParams as ScoringFunctionRegisterParams
 from .tool_runtime_list_tools_response import ToolRuntimeListToolsResponse as ToolRuntimeListToolsResponse
 from .prompt_set_default_version_params import PromptSetDefaultVersionParams as PromptSetDefaultVersionParams

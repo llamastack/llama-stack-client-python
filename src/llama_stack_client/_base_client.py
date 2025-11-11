@@ -780,9 +780,9 @@ class BaseClient(Generic[_HttpxClientT, _DefaultStreamT]):
 
         # Retry internal errors.
         if response.status_code in (
-            502, # Bad Gateway
-            503, # Service Unavailable
-            504, # Gateway Timeout
+            502,  # Bad Gateway
+            503,  # Service Unavailable
+            504,  # Gateway Timeout
         ):
             log.debug("Retrying due to status code %i", response.status_code)
             return True
