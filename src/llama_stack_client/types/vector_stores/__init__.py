@@ -6,6 +6,7 @@ from .file_list_params import FileListParams as FileListParams
 from .vector_store_file import VectorStoreFile as VectorStoreFile
 from .file_create_params import FileCreateParams as FileCreateParams
 from .file_update_params import FileUpdateParams as FileUpdateParams
+from .file_content_params import FileContentParams as FileContentParams
 from .file_delete_response import FileDeleteResponse as FileDeleteResponse
 from .file_content_response import FileContentResponse as FileContentResponse
 from .file_batch_create_params import FileBatchCreateParams as FileBatchCreateParams
