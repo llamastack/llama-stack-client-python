@@ -1,5 +1,27 @@
 # Changelog
 
+## 0.4.0-alpha.6 (2025-11-12)
+
+Full Changelog: [v0.4.0-alpha.5...v0.4.0-alpha.6](https://github.com/llamastack/llama-stack-client-python/compare/v0.4.0-alpha.5...v0.4.0-alpha.6)
+
+### Features
+
+* add new API filter for all non-deprecated APIs ([59c62f0](https://github.com/llamastack/llama-stack-client-python/commit/59c62f0b8a74b880d5841c073aa01e3d57205cdd))
+* Adding option to return embeddings and metadata from `/vector_stores/*/files/*/content` and UI updates ([696ed27](https://github.com/llamastack/llama-stack-client-python/commit/696ed279d7abb9386dff490693cce8cd3ec8dbe6))
+* Implement the 'max_tool_calls' parameter for the Responses API ([9f57efe](https://github.com/llamastack/llama-stack-client-python/commit/9f57efef4fcbc7fdd4e59d3f3be40192915464d9))
+
+
+### Bug Fixes
+
+* compat with Python 3.14 ([b971369](https://github.com/llamastack/llama-stack-client-python/commit/b971369a0ca187ff7641fe27365ce9abe27bb994))
+* **compat:** update signatures of `model_dump` and `model_dump_json` for Pydantic v1 ([f17bdac](https://github.com/llamastack/llama-stack-client-python/commit/f17bdacb4022ae91eb8463a04592f6f0920bb719))
+* **docs:** correct inconsistent python version requirement ([c4b7aaa](https://github.com/llamastack/llama-stack-client-python/commit/c4b7aaa86cb14ffef0604d7aa85a94a633f820af))
+
+
+### Chores
+
+* **package:** drop Python 3.8 support ([f6b66d4](https://github.com/llamastack/llama-stack-client-python/commit/f6b66d4a5151f667e296397289eb25197aaca517))
+
 ## 0.4.0-alpha.5 (2025-11-04)
 
 Full Changelog: [v0.4.0-alpha.4...v0.4.0-alpha.5](https://github.com/llamastack/llama-stack-client-python/compare/v0.4.0-alpha.4...v0.4.0-alpha.5)
