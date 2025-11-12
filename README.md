@@ -4,7 +4,7 @@
 [![PyPI version](https://img.shields.io/pypi/v/llama_stack_client.svg)](https://pypi.org/project/llama_stack_client/) [![PyPI - Downloads](https://img.shields.io/pypi/dm/llama-stack-client)](https://pypi.org/project/llama-stack-client/)
 [![Discord](https://img.shields.io/discord/1257833999603335178)](https://discord.gg/llama-stack)
 
-The Llama Stack Client Python library provides convenient access to the Llama Stack Client REST API from any Python 3.7+
+The Llama Stack Client Python library provides convenient access to the Llama Stack Client REST API from any Python 3.12+
 application. The library includes type definitions for all request params and response fields,
 and offers both synchronous and asynchronous clients powered by [httpx](https://github.com/encode/httpx).
 
