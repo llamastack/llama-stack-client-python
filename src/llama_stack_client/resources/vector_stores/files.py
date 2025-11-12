@@ -25,7 +25,7 @@ from ..._response import (
 )
 from ...pagination import SyncOpenAICursorPage, AsyncOpenAICursorPage
 from ..._base_client import AsyncPaginator, make_request_options
-from ...types.vector_stores import file_list_params, file_create_params, file_update_params
+from ...types.vector_stores import file_list_params, file_create_params, file_update_params, file_content_params
 from ...types.vector_stores.vector_store_file import VectorStoreFile
 from ...types.vector_stores.file_delete_response import FileDeleteResponse
 from ...types.vector_stores.file_content_response import FileContentResponse
@@ -286,6 +286,8 @@ class FilesResource(SyncAPIResource):
         file_id: str,
         *,
         vector_store_id: str,
+        include_embeddings: bool | Omit = omit,
+        include_metadata: bool | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -297,6 +299,10 @@ class FilesResource(SyncAPIResource):
         Retrieves the contents of a vector store file.
 
         Args:
+          include_embeddings: Whether to include embedding vectors in the response.
+
+          include_metadata: Whether to include chunk metadata in the response.
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -312,7 +318,17 @@ class FilesResource(SyncAPIResource):
         return self._get(
             f"/v1/vector_stores/{vector_store_id}/files/{file_id}/content",
             options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=maybe_transform(
+                    {
+                        "include_embeddings": include_embeddings,
+                        "include_metadata": include_metadata,
+                    },
+                    file_content_params.FileContentParams,
+                ),
             ),
             cast_to=FileContentResponse,
         )
@@ -571,6 +587,8 @@ class AsyncFilesResource(AsyncAPIResource):
         file_id: str,
         *,
         vector_store_id: str,
+        include_embeddings: bool | Omit = omit,
+        include_metadata: bool | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -582,6 +600,10 @@ class AsyncFilesResource(AsyncAPIResource):
         Retrieves the contents of a vector store file.
 
         Args:
+          include_embeddings: Whether to include embedding vectors in the response.
+
+          include_metadata: Whether to include chunk metadata in the response.
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -597,7 +619,17 @@ class AsyncFilesResource(AsyncAPIResource):
         return await self._get(
             f"/v1/vector_stores/{vector_store_id}/files/{file_id}/content",
             options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=await async_maybe_transform(
+                    {
+                        "include_embeddings": include_embeddings,
+                        "include_metadata": include_metadata,
+                    },
+                    file_content_params.FileContentParams,
+                ),
             ),
             cast_to=FileContentResponse,
         )

@@ -288,6 +288,16 @@ class TestFiles:
         assert_matches_type(FileContentResponse, file, path=["response"])
 
     @parametrize
+    def test_method_content_with_all_params(self, client: LlamaStackClient) -> None:
+        file = client.vector_stores.files.content(
+            file_id="file_id",
+            vector_store_id="vector_store_id",
+            include_embeddings=True,
+            include_metadata=True,
+        )
+        assert_matches_type(FileContentResponse, file, path=["response"])
+
+    @parametrize
     def test_raw_response_content(self, client: LlamaStackClient) -> None:
         response = client.vector_stores.files.with_raw_response.content(
             file_id="file_id",
@@ -589,6 +599,16 @@ class TestAsyncFiles:
         file = await async_client.vector_stores.files.content(
             file_id="file_id",
             vector_store_id="vector_store_id",
+        )
+        assert_matches_type(FileContentResponse, file, path=["response"])
+
+    @parametrize
+    async def test_method_content_with_all_params(self, async_client: AsyncLlamaStackClient) -> None:
+        file = await async_client.vector_stores.files.content(
+            file_id="file_id",
+            vector_store_id="vector_store_id",
+            include_embeddings=True,
+            include_metadata=True,
         )
         assert_matches_type(FileContentResponse, file, path=["response"])
 
