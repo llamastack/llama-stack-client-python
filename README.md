@@ -33,15 +33,10 @@ from llama_stack_client import LlamaStackClient
 
 client = LlamaStackClient()
 
-completion = client.chat.completions.create(
-    messages=[
-        {
-            "content": "string",
-            "role": "user",
-        }
-    ],
-    model="model",
+response = client.models.register(
+    model_id="model_id",
 )
+print(response.identifier)
 ```
 
 While you can provide an `api_key` keyword argument, we recommend using [python-dotenv](https://pypi.org/project/python-dotenv/) to add `LLAMA_STACK_CLIENT_API_KEY="My API Key"` to your `.env` file so that your API Key is not stored in source control.
@@ -98,15 +93,10 @@ client = AsyncLlamaStackClient(
 
 
 async def main() -> None:
-    completion = await client.chat.completions.create(
-        messages=[
-            {
-                "content": "string",
-                "role": "user",
-            }
-        ],
-        model="model",
+    response = await client.models.register(
+        model_id="model_id",
     )
+    print(response.identifier)
 
 
 asyncio.run(main())
@@ -137,15 +127,10 @@ async def main() -> None:
     async with AsyncLlamaStackClient(
         http_client=DefaultAioHttpClient(),
     ) as client:
-        completion = await client.chat.completions.create(
-            messages=[
-                {
-                    "content": "string",
-                    "role": "user",
-                }
-            ],
-            model="model",
+        response = await client.models.register(
+            model_id="model_id",
         )
+        print(response.identifier)
 
 
 asyncio.run(main())
@@ -213,10 +198,11 @@ from llama_stack_client import LlamaStackClient
 
 client = LlamaStackClient()
 
-tool_defs = client.tool_runtime.list_tools(
+client.toolgroups.register(
+    provider_id="provider_id",
+    toolgroup_id="toolgroup_id",
     mcp_endpoint={"uri": "uri"},
 )
-print(tool_defs.mcp_endpoint)
 ```
 
 ## File uploads
