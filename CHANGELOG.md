@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.4.0-alpha.7 (2025-11-13)
+
+Full Changelog: [v0.4.0-alpha.6...v0.4.0-alpha.7](https://github.com/llamastack/llama-stack-client-python/compare/v0.4.0-alpha.6...v0.4.0-alpha.7)
+
+### Bug Fixes
+
+* **api:** ensure openapi spec has deprecated routes ([44f2d4e](https://github.com/llamastack/llama-stack-client-python/commit/44f2d4e613a4f7ace0a874c4cd2cf18a28dabed4))
+
 ## 0.4.0-alpha.6 (2025-11-12)
 
 Full Changelog: [v0.4.0-alpha.5...v0.4.0-alpha.6](https://github.com/llamastack/llama-stack-client-python/compare/v0.4.0-alpha.5...v0.4.0-alpha.6)
