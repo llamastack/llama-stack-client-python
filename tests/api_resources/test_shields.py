@@ -17,6 +17,8 @@ from tests.utils import assert_matches_type
 from llama_stack_client import LlamaStackClient, AsyncLlamaStackClient
 from llama_stack_client.types import Shield, ShieldListResponse
 
+# pyright: reportDeprecated=false
+
 base_url = os.environ.get("TEST_API_BASE_URL", "http://127.0.0.1:4010")
 
 
@@ -86,6 +88,96 @@ class TestShields:
 
         assert cast(Any, response.is_closed) is True
 
+    @parametrize
+    def test_method_delete(self, client: LlamaStackClient) -> None:
+        with pytest.warns(DeprecationWarning):
+            shield = client.shields.delete(
+                "identifier",
+            )
+
+        assert shield is None
+
+    @parametrize
+    def test_raw_response_delete(self, client: LlamaStackClient) -> None:
+        with pytest.warns(DeprecationWarning):
+            response = client.shields.with_raw_response.delete(
+                "identifier",
+            )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        shield = response.parse()
+        assert shield is None
+
+    @parametrize
+    def test_streaming_response_delete(self, client: LlamaStackClient) -> None:
+        with pytest.warns(DeprecationWarning):
+            with client.shields.with_streaming_response.delete(
+                "identifier",
+            ) as response:
+                assert not response.is_closed
+                assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+                shield = response.parse()
+                assert shield is None
+
+        assert cast(Any, response.is_closed) is True
+
+    @parametrize
+    def test_path_params_delete(self, client: LlamaStackClient) -> None:
+        with pytest.warns(DeprecationWarning):
+            with pytest.raises(ValueError, match=r"Expected a non-empty value for `identifier` but received ''"):
+                client.shields.with_raw_response.delete(
+                    "",
+                )
+
+    @parametrize
+    def test_method_register(self, client: LlamaStackClient) -> None:
+        with pytest.warns(DeprecationWarning):
+            shield = client.shields.register(
+                shield_id="shield_id",
+            )
+
+        assert_matches_type(Shield, shield, path=["response"])
+
+    @parametrize
+    def test_method_register_with_all_params(self, client: LlamaStackClient) -> None:
+        with pytest.warns(DeprecationWarning):
+            shield = client.shields.register(
+                shield_id="shield_id",
+                params={"foo": True},
+                provider_id="provider_id",
+                provider_shield_id="provider_shield_id",
+            )
+
+        assert_matches_type(Shield, shield, path=["response"])
+
+    @parametrize
+    def test_raw_response_register(self, client: LlamaStackClient) -> None:
+        with pytest.warns(DeprecationWarning):
+            response = client.shields.with_raw_response.register(
+                shield_id="shield_id",
+            )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        shield = response.parse()
+        assert_matches_type(Shield, shield, path=["response"])
+
+    @parametrize
+    def test_streaming_response_register(self, client: LlamaStackClient) -> None:
+        with pytest.warns(DeprecationWarning):
+            with client.shields.with_streaming_response.register(
+                shield_id="shield_id",
+            ) as response:
+                assert not response.is_closed
+                assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+                shield = response.parse()
+                assert_matches_type(Shield, shield, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
 
 class TestAsyncShields:
     parametrize = pytest.mark.parametrize(
@@ -152,5 +244,95 @@ class TestAsyncShields:
 
             shield = await response.parse()
             assert_matches_type(ShieldListResponse, shield, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @parametrize
+    async def test_method_delete(self, async_client: AsyncLlamaStackClient) -> None:
+        with pytest.warns(DeprecationWarning):
+            shield = await async_client.shields.delete(
+                "identifier",
+            )
+
+        assert shield is None
+
+    @parametrize
+    async def test_raw_response_delete(self, async_client: AsyncLlamaStackClient) -> None:
+        with pytest.warns(DeprecationWarning):
+            response = await async_client.shields.with_raw_response.delete(
+                "identifier",
+            )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        shield = await response.parse()
+        assert shield is None
+
+    @parametrize
+    async def test_streaming_response_delete(self, async_client: AsyncLlamaStackClient) -> None:
+        with pytest.warns(DeprecationWarning):
+            async with async_client.shields.with_streaming_response.delete(
+                "identifier",
+            ) as response:
+                assert not response.is_closed
+                assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+                shield = await response.parse()
+                assert shield is None
+
+        assert cast(Any, response.is_closed) is True
+
+    @parametrize
+    async def test_path_params_delete(self, async_client: AsyncLlamaStackClient) -> None:
+        with pytest.warns(DeprecationWarning):
+            with pytest.raises(ValueError, match=r"Expected a non-empty value for `identifier` but received ''"):
+                await async_client.shields.with_raw_response.delete(
+                    "",
+                )
+
+    @parametrize
+    async def test_method_register(self, async_client: AsyncLlamaStackClient) -> None:
+        with pytest.warns(DeprecationWarning):
+            shield = await async_client.shields.register(
+                shield_id="shield_id",
+            )
+
+        assert_matches_type(Shield, shield, path=["response"])
+
+    @parametrize
+    async def test_method_register_with_all_params(self, async_client: AsyncLlamaStackClient) -> None:
+        with pytest.warns(DeprecationWarning):
+            shield = await async_client.shields.register(
+                shield_id="shield_id",
+                params={"foo": True},
+                provider_id="provider_id",
+                provider_shield_id="provider_shield_id",
+            )
+
+        assert_matches_type(Shield, shield, path=["response"])
+
+    @parametrize
+    async def test_raw_response_register(self, async_client: AsyncLlamaStackClient) -> None:
+        with pytest.warns(DeprecationWarning):
+            response = await async_client.shields.with_raw_response.register(
+                shield_id="shield_id",
+            )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        shield = await response.parse()
+        assert_matches_type(Shield, shield, path=["response"])
+
+    @parametrize
+    async def test_streaming_response_register(self, async_client: AsyncLlamaStackClient) -> None:
+        with pytest.warns(DeprecationWarning):
+            async with async_client.shields.with_streaming_response.register(
+                shield_id="shield_id",
+            ) as response:
+                assert not response.is_closed
+                assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+                shield = await response.parse()
+                assert_matches_type(Shield, shield, path=["response"])
 
         assert cast(Any, response.is_closed) is True
