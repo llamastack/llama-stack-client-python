@@ -1,0 +1,156 @@
+name: Integration Tests (Client-side)
+
+run-name: Run integration tests from llama-stack using local client
+
+on:
+  push:
+    branches:
+      - main
+      - 'release-[0-9]+.[0-9]+.x'
+  pull_request:
+    branches:
+      - main
+      - 'release-[0-9]+.[0-9]+.x'
+    types: [opened, synchronize, reopened]
+    paths:
+      - 'src/llama_stack_client/**'
+      - 'uv.lock'
+      - 'pyproject.toml'
+      - '.github/workflows/integration-tests.yml'
+  workflow_dispatch:
+    inputs:
+      test-setup:
+        description: 'Test against a specific setup'
+        type: string
+        default: 'ollama'
+
+concurrency:
+  # Skip concurrency for pushes to main - each commit should be tested independently
+  group: ${{ github.workflow }}-${{ github.ref == 'refs/heads/main' && github.run_id || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  generate-matrix:
+    runs-on: ubuntu-latest
+    outputs:
+      matrix: ${{ steps.set-matrix.outputs.matrix }}
+    steps:
+      - name: Checkout llama-stack repository
+        uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v5.0.0
+        with:
+          repository: llamastack/llama-stack
+          ref: main
+
+      - name: Generate test matrix
+        id: set-matrix
+        run: |
+          # Generate matrix from CI_MATRIX in llama-stack tests/integration/ci_matrix.json
+          MATRIX=$(PYTHONPATH=. python3 scripts/generate_ci_matrix.py \
+            --test-setup "${{ github.event.inputs.test-setup }}")
+          echo "matrix=$MATRIX" >> $GITHUB_OUTPUT
+          echo "Generated matrix: $MATRIX"
+
+  run-replay-mode-tests:
+    needs: generate-matrix
+    runs-on: ubuntu-latest
+    name: ${{ format('Integration Tests ({0}, {1}, {2}, {3})', matrix.client, matrix.config.setup, matrix.python-version, matrix.config.suite) }}
+
+    strategy:
+      fail-fast: false
+      matrix:
+        client: [library, docker, server]
+        python-version: ['3.12']
+        # Test configurations: Generated from CI_MATRIX in llama-stack tests/integration/ci_matrix.json
+        config: ${{ fromJSON(needs.generate-matrix.outputs.matrix).include }}
+
+    steps:
+      - name: Checkout llama-stack-client repository
+        uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v5.0.0
+        with:
+          path: llama-stack-client-python
+
+      - name: Checkout llama-stack repository
+        uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v5.0.0
+        with:
+          repository: llamastack/llama-stack
+          ref: main
+          path: llama-stack
+
+      - name: Install uv
+        if: ${{ matrix.config.allowed_clients == null || contains(matrix.config.allowed_clients, matrix.client) }}
+        uses: astral-sh/setup-uv@6b9c6063abd6010835644d4c2e1bef4cf5cd0fca # v6.0.1
+        with:
+          python-version: ${{ matrix.python-version }}
+          version: 0.7.6
+
+      - name: Install llama-stack dependencies
+        if: ${{ matrix.config.allowed_clients == null || contains(matrix.config.allowed_clients, matrix.client) }}
+        working-directory: llama-stack
+        run: |
+          echo "Installing llama-stack dependencies"
+          uv sync --all-groups
+          uv pip install faiss-cpu
+
+      - name: Install local llama-stack-client
+        if: ${{ matrix.config.allowed_clients == null || contains(matrix.config.allowed_clients, matrix.client) }}
+        working-directory: llama-stack
+        run: |
+          echo "Installing local llama-stack-client from ../llama-stack-client-python"
+          uv pip install -e ../llama-stack-client-python
+
+          echo "Installed llama packages:"
+          uv pip list | grep llama
+
+      - name: Build Llama Stack
+        if: ${{ matrix.config.allowed_clients == null || contains(matrix.config.allowed_clients, matrix.client) }}
+        working-directory: llama-stack
+        run: |
+          echo "Building Llama Stack"
+          LLAMA_STACK_DIR=. \
+            uv run --no-sync llama stack list-deps ci-tests | xargs -L1 uv pip install
+
+      - name: Configure git for commits
+        if: ${{ matrix.config.allowed_clients == null || contains(matrix.config.allowed_clients, matrix.client) }}
+        working-directory: llama-stack
+        run: |
+          git config --local user.email "github-actions[bot]@users.noreply.github.com"
+          git config --local user.name "github-actions[bot]"
+
+      - name: Check Storage and Memory Available Before Tests
+        if: ${{ (matrix.config.allowed_clients == null || contains(matrix.config.allowed_clients, matrix.client)) && always() }}
+        run: |
+          free -h
+          df -h
+
+      - name: Run Integration Tests (Replay Mode)
+        if: ${{ matrix.config.allowed_clients == null || contains(matrix.config.allowed_clients, matrix.client) }}
+        working-directory: llama-stack
+        env:
+          OPENAI_API_KEY: dummy
+        run: |
+          STACK_CONFIG="${{ matrix.config.stack_config || (matrix.client == 'library' && 'ci-tests') || (matrix.client == 'server' && 'server:ci-tests') || 'docker:ci-tests' }}"
+
+          SCRIPT_ARGS="--stack-config $STACK_CONFIG --inference-mode replay"
+
+          # Add optional arguments
+          if [ -n '${{ matrix.config.setup }}' ]; then
+            SCRIPT_ARGS="$SCRIPT_ARGS --setup ${{ matrix.config.setup }}"
+          fi
+          if [ -n '${{ matrix.config.suite }}' ]; then
+            SCRIPT_ARGS="$SCRIPT_ARGS --suite ${{ matrix.config.suite }}"
+          fi
+
+          echo "=== Running command ==="
+          echo "uv run --no-sync ./scripts/integration-tests.sh $SCRIPT_ARGS"
+          echo ""
+
+          uv run --no-sync ./scripts/integration-tests.sh $SCRIPT_ARGS | tee pytest-replay.log
+
+      - name: Upload logs
+        if: ${{ always() }}
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+        with:
+          name: logs-${{ github.run_id }}-${{ github.run_attempt || '1' }}-${{ strategy.job-index || github.job }}-${{ github.action }}
+          path: |
+            llama-stack/*.log
+          retention-days: 1
