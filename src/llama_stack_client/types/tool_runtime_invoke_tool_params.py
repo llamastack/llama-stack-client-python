@@ -14,3 +14,6 @@ class ToolRuntimeInvokeToolParams(TypedDict, total=False):
 
     tool_name: Required[str]
     """The name of the tool to invoke."""
+
+    authorization: str
+    """(Optional) OAuth access token for authenticating with the MCP server."""

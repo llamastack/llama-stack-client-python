@@ -8,6 +8,9 @@ __all__ = ["ToolRuntimeListToolsParams", "McpEndpoint"]
 
 
 class ToolRuntimeListToolsParams(TypedDict, total=False):
+    authorization: str
+    """(Optional) OAuth access token for authenticating with the MCP server."""
+
     mcp_endpoint: McpEndpoint
     """The MCP endpoint to use for the tool group."""
 

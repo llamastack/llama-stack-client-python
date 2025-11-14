@@ -50,6 +50,7 @@ class ToolRuntimeResource(SyncAPIResource):
         *,
         kwargs: Dict[str, Union[bool, float, str, Iterable[object], object, None]],
         tool_name: str,
+        authorization: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -65,6 +66,8 @@ class ToolRuntimeResource(SyncAPIResource):
 
           tool_name: The name of the tool to invoke.
 
+          authorization: (Optional) OAuth access token for authenticating with the MCP server.
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -79,6 +82,7 @@ class ToolRuntimeResource(SyncAPIResource):
                 {
                     "kwargs": kwargs,
                     "tool_name": tool_name,
+                    "authorization": authorization,
                 },
                 tool_runtime_invoke_tool_params.ToolRuntimeInvokeToolParams,
             ),
@@ -91,6 +95,7 @@ class ToolRuntimeResource(SyncAPIResource):
     def list_tools(
         self,
         *,
+        authorization: str | Omit = omit,
         mcp_endpoint: tool_runtime_list_tools_params.McpEndpoint | Omit = omit,
         tool_group_id: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -104,6 +109,8 @@ class ToolRuntimeResource(SyncAPIResource):
         List all tools in the runtime.
 
         Args:
+          authorization: (Optional) OAuth access token for authenticating with the MCP server.
+
           mcp_endpoint: The MCP endpoint to use for the tool group.
 
           tool_group_id: The ID of the tool group to list tools for.
@@ -125,6 +132,7 @@ class ToolRuntimeResource(SyncAPIResource):
                 timeout=timeout,
                 query=maybe_transform(
                     {
+                        "authorization": authorization,
                         "mcp_endpoint": mcp_endpoint,
                         "tool_group_id": tool_group_id,
                     },
@@ -161,6 +169,7 @@ class AsyncToolRuntimeResource(AsyncAPIResource):
         *,
         kwargs: Dict[str, Union[bool, float, str, Iterable[object], object, None]],
         tool_name: str,
+        authorization: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -176,6 +185,8 @@ class AsyncToolRuntimeResource(AsyncAPIResource):
 
           tool_name: The name of the tool to invoke.
 
+          authorization: (Optional) OAuth access token for authenticating with the MCP server.
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -190,6 +201,7 @@ class AsyncToolRuntimeResource(AsyncAPIResource):
                 {
                     "kwargs": kwargs,
                     "tool_name": tool_name,
+                    "authorization": authorization,
                 },
                 tool_runtime_invoke_tool_params.ToolRuntimeInvokeToolParams,
             ),
@@ -202,6 +214,7 @@ class AsyncToolRuntimeResource(AsyncAPIResource):
     async def list_tools(
         self,
         *,
+        authorization: str | Omit = omit,
         mcp_endpoint: tool_runtime_list_tools_params.McpEndpoint | Omit = omit,
         tool_group_id: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -215,6 +228,8 @@ class AsyncToolRuntimeResource(AsyncAPIResource):
         List all tools in the runtime.
 
         Args:
+          authorization: (Optional) OAuth access token for authenticating with the MCP server.
+
           mcp_endpoint: The MCP endpoint to use for the tool group.
 
           tool_group_id: The ID of the tool group to list tools for.
@@ -236,6 +251,7 @@ class AsyncToolRuntimeResource(AsyncAPIResource):
                 timeout=timeout,
                 query=await async_maybe_transform(
                     {
+                        "authorization": authorization,
                         "mcp_endpoint": mcp_endpoint,
                         "tool_group_id": tool_group_id,
                     },
