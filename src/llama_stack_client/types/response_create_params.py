@@ -618,6 +618,9 @@ class ToolOpenAIResponseInputToolMcp(TypedDict, total=False):
     allowed_tools: ToolOpenAIResponseInputToolMcpAllowedTools
     """(Optional) Restriction on which tools can be used from this server"""
 
+    authorization: str
+    """(Optional) OAuth access token for authenticating with the MCP server"""
+
     headers: Dict[str, Union[bool, float, str, Iterable[object], object, None]]
     """(Optional) HTTP headers to include when connecting to the server"""
 
