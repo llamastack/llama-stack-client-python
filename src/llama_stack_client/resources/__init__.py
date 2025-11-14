@@ -70,6 +70,14 @@ from .safety import (
     SafetyResourceWithStreamingResponse,
     AsyncSafetyResourceWithStreamingResponse,
 )
+from .batches import (
+    BatchesResource,
+    AsyncBatchesResource,
+    BatchesResourceWithRawResponse,
+    AsyncBatchesResourceWithRawResponse,
+    BatchesResourceWithStreamingResponse,
+    AsyncBatchesResourceWithStreamingResponse,
+)
 from .inspect import (
     InspectResource,
     AsyncInspectResource,
@@ -318,6 +326,12 @@ __all__ = [
     "AsyncFilesResourceWithRawResponse",
     "FilesResourceWithStreamingResponse",
     "AsyncFilesResourceWithStreamingResponse",
+    "BatchesResource",
+    "AsyncBatchesResource",
+    "BatchesResourceWithRawResponse",
+    "AsyncBatchesResourceWithRawResponse",
+    "BatchesResourceWithStreamingResponse",
+    "AsyncBatchesResourceWithStreamingResponse",
     "AlphaResource",
     "AsyncAlphaResource",
     "AlphaResourceWithRawResponse",

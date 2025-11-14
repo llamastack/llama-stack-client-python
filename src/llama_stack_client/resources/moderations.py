@@ -8,7 +8,7 @@
 
 from __future__ import annotations
 
-from typing import Union
+from typing import Union, Optional
 
 import httpx
 
@@ -53,7 +53,7 @@ class ModerationsResource(SyncAPIResource):
         self,
         *,
         input: Union[str, SequenceNotStr[str]],
-        model: str | Omit = omit,
+        model: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -61,17 +61,12 @@ class ModerationsResource(SyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> CreateResponse:
-        """Create moderation.
+        """
+        Create moderation.
 
-        Classifies if text and/or image inputs are potentially
-        harmful.
+        Classifies if text and/or image inputs are potentially harmful.
 
         Args:
-          input: Input (or inputs) to classify. Can be a single string, an array of strings, or
-              an array of multi-modal input objects similar to other models.
-
-          model: (Optional) The content moderation model you would like to use.
-
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -120,7 +115,7 @@ class AsyncModerationsResource(AsyncAPIResource):
         self,
         *,
         input: Union[str, SequenceNotStr[str]],
-        model: str | Omit = omit,
+        model: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -128,17 +123,12 @@ class AsyncModerationsResource(AsyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> CreateResponse:
-        """Create moderation.
+        """
+        Create moderation.
 
-        Classifies if text and/or image inputs are potentially
-        harmful.
+        Classifies if text and/or image inputs are potentially harmful.
 
         Args:
-          input: Input (or inputs) to classify. Can be a single string, an array of strings, or
-              an array of multi-modal input objects similar to other models.
-
-          model: (Optional) The content moderation model you would like to use.
-
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request

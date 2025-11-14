@@ -50,8 +50,8 @@ from llama_stack_client.types import ToolDef, ToolInvocationResult, ToolRuntimeL
 
 Methods:
 
-- <code title="post /v1/tool-runtime/invoke">client.tool_runtime.<a href="./src/llama_stack_client/resources/tool_runtime/tool_runtime.py">invoke_tool</a>(\*\*<a href="src/llama_stack_client/types/tool_runtime_invoke_tool_params.py">params</a>) -> <a href="./src/llama_stack_client/types/tool_invocation_result.py">ToolInvocationResult</a></code>
-- <code title="get /v1/tool-runtime/list-tools">client.tool_runtime.<a href="./src/llama_stack_client/resources/tool_runtime/tool_runtime.py">list_tools</a>(\*\*<a href="src/llama_stack_client/types/tool_runtime_list_tools_params.py">params</a>) -> <a href="./src/llama_stack_client/types/tool_runtime_list_tools_response.py">ToolRuntimeListToolsResponse</a></code>
+- <code title="post /v1/tool-runtime/invoke">client.tool_runtime.<a href="./src/llama_stack_client/resources/tool_runtime.py">invoke_tool</a>(\*\*<a href="src/llama_stack_client/types/tool_runtime_invoke_tool_params.py">params</a>) -> <a href="./src/llama_stack_client/types/tool_invocation_result.py">ToolInvocationResult</a></code>
+- <code title="get /v1/tool-runtime/list-tools">client.tool_runtime.<a href="./src/llama_stack_client/resources/tool_runtime.py">list_tools</a>(\*\*<a href="src/llama_stack_client/types/tool_runtime_list_tools_params.py">params</a>) -> <a href="./src/llama_stack_client/types/tool_runtime_list_tools_response.py">ToolRuntimeListToolsResponse</a></code>
 
 # Responses
 
@@ -131,6 +131,7 @@ Types:
 from llama_stack_client.types.conversations import (
     ItemCreateResponse,
     ItemListResponse,
+    ItemDeleteResponse,
     ItemGetResponse,
 )
 ```
@@ -139,6 +140,7 @@ Methods:
 
 - <code title="post /v1/conversations/{conversation_id}/items">client.conversations.items.<a href="./src/llama_stack_client/resources/conversations/items.py">create</a>(conversation_id, \*\*<a href="src/llama_stack_client/types/conversations/item_create_params.py">params</a>) -> <a href="./src/llama_stack_client/types/conversations/item_create_response.py">ItemCreateResponse</a></code>
 - <code title="get /v1/conversations/{conversation_id}/items">client.conversations.items.<a href="./src/llama_stack_client/resources/conversations/items.py">list</a>(conversation_id, \*\*<a href="src/llama_stack_client/types/conversations/item_list_params.py">params</a>) -> <a href="./src/llama_stack_client/types/conversations/item_list_response.py">SyncOpenAICursorPage[ItemListResponse]</a></code>
+- <code title="delete /v1/conversations/{conversation_id}/items/{item_id}">client.conversations.items.<a href="./src/llama_stack_client/resources/conversations/items.py">delete</a>(item_id, \*, conversation_id) -> <a href="./src/llama_stack_client/types/conversations/item_delete_response.py">ItemDeleteResponse</a></code>
 - <code title="get /v1/conversations/{conversation_id}/items/{item_id}">client.conversations.items.<a href="./src/llama_stack_client/resources/conversations/items.py">get</a>(item_id, \*, conversation_id) -> <a href="./src/llama_stack_client/types/conversations/item_get_response.py">ItemGetResponse</a></code>
 
 # Inspect
@@ -190,7 +192,7 @@ Methods:
 
 - <code title="post /v1/chat/completions">client.chat.completions.<a href="./src/llama_stack_client/resources/chat/completions.py">create</a>(\*\*<a href="src/llama_stack_client/types/chat/completion_create_params.py">params</a>) -> <a href="./src/llama_stack_client/types/chat/completion_create_response.py">CompletionCreateResponse</a></code>
 - <code title="get /v1/chat/completions/{completion_id}">client.chat.completions.<a href="./src/llama_stack_client/resources/chat/completions.py">retrieve</a>(completion_id) -> <a href="./src/llama_stack_client/types/chat/completion_retrieve_response.py">CompletionRetrieveResponse</a></code>
-- <code title="get /v1/chat/completions">client.chat.completions.<a href="./src/llama_stack_client/resources/chat/completions.py">list</a>(\*\*<a href="src/llama_stack_client/types/chat/completion_list_params.py">params</a>) -> <a href="./src/llama_stack_client/types/chat/completion_list_response.py">SyncOpenAICursorPage[CompletionListResponse]</a></code>
+- <code title="get /v1/chat/completions">client.chat.completions.<a href="./src/llama_stack_client/resources/chat/completions.py">list</a>(\*\*<a href="src/llama_stack_client/types/chat/completion_list_params.py">params</a>) -> <a href="./src/llama_stack_client/types/chat/completion_list_response.py">CompletionListResponse</a></code>
 
 # Completions
 
@@ -400,6 +402,7 @@ Methods:
 - <code title="get /v1/scoring-functions/{scoring_fn_id}">client.scoring_functions.<a href="./src/llama_stack_client/resources/scoring_functions.py">retrieve</a>(scoring_fn_id) -> <a href="./src/llama_stack_client/types/scoring_fn.py">ScoringFn</a></code>
 - <code title="get /v1/scoring-functions">client.scoring_functions.<a href="./src/llama_stack_client/resources/scoring_functions.py">list</a>() -> <a href="./src/llama_stack_client/types/scoring_function_list_response.py">ScoringFunctionListResponse</a></code>
 - <code title="post /v1/scoring-functions">client.scoring_functions.<a href="./src/llama_stack_client/resources/scoring_functions.py">register</a>(\*\*<a href="src/llama_stack_client/types/scoring_function_register_params.py">params</a>) -> None</code>
+- <code title="delete /v1/scoring-functions/{scoring_fn_id}">client.scoring_functions.<a href="./src/llama_stack_client/resources/scoring_functions.py">unregister</a>(scoring_fn_id) -> None</code>
 
 # Files
 
@@ -416,6 +419,26 @@ Methods:
 - <code title="get /v1/files">client.files.<a href="./src/llama_stack_client/resources/files.py">list</a>(\*\*<a href="src/llama_stack_client/types/file_list_params.py">params</a>) -> <a href="./src/llama_stack_client/types/file.py">SyncOpenAICursorPage[File]</a></code>
 - <code title="delete /v1/files/{file_id}">client.files.<a href="./src/llama_stack_client/resources/files.py">delete</a>(file_id) -> <a href="./src/llama_stack_client/types/delete_file_response.py">DeleteFileResponse</a></code>
 - <code title="get /v1/files/{file_id}/content">client.files.<a href="./src/llama_stack_client/resources/files.py">content</a>(file_id) -> object</code>
+
+# Batches
+
+Types:
+
+```python
+from llama_stack_client.types import (
+    BatchCreateResponse,
+    BatchRetrieveResponse,
+    BatchListResponse,
+    BatchCancelResponse,
+)
+```
+
+Methods:
+
+- <code title="post /v1/batches">client.batches.<a href="./src/llama_stack_client/resources/batches.py">create</a>(\*\*<a href="src/llama_stack_client/types/batch_create_params.py">params</a>) -> <a href="./src/llama_stack_client/types/batch_create_response.py">BatchCreateResponse</a></code>
+- <code title="get /v1/batches/{batch_id}">client.batches.<a href="./src/llama_stack_client/resources/batches.py">retrieve</a>(batch_id) -> <a href="./src/llama_stack_client/types/batch_retrieve_response.py">BatchRetrieveResponse</a></code>
+- <code title="get /v1/batches">client.batches.<a href="./src/llama_stack_client/resources/batches.py">list</a>(\*\*<a href="src/llama_stack_client/types/batch_list_params.py">params</a>) -> <a href="./src/llama_stack_client/types/batch_list_response.py">SyncOpenAICursorPage[BatchListResponse]</a></code>
+- <code title="post /v1/batches/{batch_id}/cancel">client.batches.<a href="./src/llama_stack_client/resources/batches.py">cancel</a>(batch_id) -> <a href="./src/llama_stack_client/types/batch_cancel_response.py">BatchCancelResponse</a></code>
 
 # Alpha
 
@@ -480,6 +503,7 @@ Methods:
 - <code title="get /v1alpha/eval/benchmarks/{benchmark_id}">client.alpha.benchmarks.<a href="./src/llama_stack_client/resources/alpha/benchmarks.py">retrieve</a>(benchmark_id) -> <a href="./src/llama_stack_client/types/alpha/benchmark.py">Benchmark</a></code>
 - <code title="get /v1alpha/eval/benchmarks">client.alpha.benchmarks.<a href="./src/llama_stack_client/resources/alpha/benchmarks.py">list</a>() -> <a href="./src/llama_stack_client/types/alpha/benchmark_list_response.py">BenchmarkListResponse</a></code>
 - <code title="post /v1alpha/eval/benchmarks">client.alpha.benchmarks.<a href="./src/llama_stack_client/resources/alpha/benchmarks.py">register</a>(\*\*<a href="src/llama_stack_client/types/alpha/benchmark_register_params.py">params</a>) -> None</code>
+- <code title="delete /v1alpha/eval/benchmarks/{benchmark_id}">client.alpha.benchmarks.<a href="./src/llama_stack_client/resources/alpha/benchmarks.py">unregister</a>(benchmark_id) -> None</code>
 
 ## Eval
 

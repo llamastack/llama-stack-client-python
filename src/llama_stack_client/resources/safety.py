@@ -8,7 +8,7 @@
 
 from __future__ import annotations
 
-from typing import Dict, Union, Iterable
+from typing import Dict, Iterable
 
 import httpx
 
@@ -53,7 +53,7 @@ class SafetyResource(SyncAPIResource):
         self,
         *,
         messages: Iterable[safety_run_shield_params.Message],
-        params: Dict[str, Union[bool, float, str, Iterable[object], object, None]],
+        params: Dict[str, object],
         shield_id: str,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -62,17 +62,12 @@ class SafetyResource(SyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> RunShieldResponse:
-        """Run shield.
+        """
+        Run shield.
 
         Run a shield.
 
         Args:
-          messages: The messages to run the shield on.
-
-          params: The parameters of the shield.
-
-          shield_id: The identifier of the shield to run.
-
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -122,7 +117,7 @@ class AsyncSafetyResource(AsyncAPIResource):
         self,
         *,
         messages: Iterable[safety_run_shield_params.Message],
-        params: Dict[str, Union[bool, float, str, Iterable[object], object, None]],
+        params: Dict[str, object],
         shield_id: str,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -131,17 +126,12 @@ class AsyncSafetyResource(AsyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> RunShieldResponse:
-        """Run shield.
+        """
+        Run shield.
 
         Run a shield.
 
         Args:
-          messages: The messages to run the shield on.
-
-          params: The parameters of the shield.
-
-          shield_id: The identifier of the shield to run.
-
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request

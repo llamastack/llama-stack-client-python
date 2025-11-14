@@ -9,8 +9,7 @@
 from __future__ import annotations
 
 import typing_extensions
-from typing import Dict, Type, Union, Iterable, cast
-from typing_extensions import Literal
+from typing import Dict, Type, Iterable, Optional, cast
 
 import httpx
 
@@ -115,7 +114,7 @@ class DatasetsResource(SyncAPIResource):
         self,
         dataset_id: str,
         *,
-        rows: Iterable[Dict[str, Union[bool, float, str, Iterable[object], object, None]]],
+        rows: Iterable[Dict[str, object]],
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -127,8 +126,6 @@ class DatasetsResource(SyncAPIResource):
         Append rows to a dataset.
 
         Args:
-          rows: The rows to append to the dataset.
-
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -153,8 +150,8 @@ class DatasetsResource(SyncAPIResource):
         self,
         dataset_id: str,
         *,
-        limit: int | Omit = omit,
-        start_index: int | Omit = omit,
+        limit: Optional[int] | Omit = omit,
+        start_index: Optional[int] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -162,7 +159,8 @@ class DatasetsResource(SyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> DatasetIterrowsResponse:
-        """Get a paginated list of rows from a dataset.
+        """
+        Get a paginated list of rows from a dataset.
 
         Uses offset-based pagination where:
 
@@ -175,10 +173,6 @@ class DatasetsResource(SyncAPIResource):
         - has_more: Whether there are more items available after this set.
 
         Args:
-          limit: The number of rows to get.
-
-          start_index: Index into dataset for the first row to get. Get all rows if None.
-
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -211,10 +205,10 @@ class DatasetsResource(SyncAPIResource):
     def register(
         self,
         *,
-        purpose: Literal["post-training/messages", "eval/question-answer", "eval/messages-answer"],
-        source: dataset_register_params.Source,
-        dataset_id: str | Omit = omit,
-        metadata: Dict[str, Union[bool, float, str, Iterable[object], object, None]] | Omit = omit,
+        purpose: object,
+        source: object,
+        dataset_id: object | Omit = omit,
+        metadata: object | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -222,36 +216,10 @@ class DatasetsResource(SyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> DatasetRegisterResponse:
-        """Register a new dataset.
+        """
+        Register a new dataset.
 
         Args:
-          purpose: The purpose of the dataset.
-
-        One of: - "post-training/messages": The dataset
-              contains a messages column with list of messages for post-training. {
-              "messages": [ {"role": "user", "content": "Hello, world!"}, {"role":
-              "assistant", "content": "Hello, world!"}, ] } - "eval/question-answer": The
-              dataset contains a question column and an answer column for evaluation. {
-              "question": "What is the capital of France?", "answer": "Paris" } -
-              "eval/messages-answer": The dataset contains a messages column with list of
-              messages and an answer column for evaluation. { "messages": [ {"role": "user",
-              "content": "Hello, my name is John Doe."}, {"role": "assistant", "content":
-              "Hello, John Doe. How can I help you today?"}, {"role": "user", "content":
-              "What's my name?"}, ], "answer": "John Doe" }
-
-          source: The data source of the dataset. Ensure that the data source schema is compatible
-              with the purpose of the dataset. Examples: - { "type": "uri", "uri":
-              "https://mywebsite.com/mydata.jsonl" } - { "type": "uri", "uri":
-              "lsfs://mydata.jsonl" } - { "type": "uri", "uri":
-              "data:csv;base64,{base64_content}" } - { "type": "uri", "uri":
-              "huggingface://llamastack/simpleqa?split=train" } - { "type": "rows", "rows": [
-              { "messages": [ {"role": "user", "content": "Hello, world!"}, {"role":
-              "assistant", "content": "Hello, world!"}, ] } ] }
-
-          dataset_id: The ID of the dataset. If not provided, an ID will be generated.
-
-          metadata: The metadata for the dataset. - E.g. {"description": "My dataset"}.
-
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -393,7 +361,7 @@ class AsyncDatasetsResource(AsyncAPIResource):
         self,
         dataset_id: str,
         *,
-        rows: Iterable[Dict[str, Union[bool, float, str, Iterable[object], object, None]]],
+        rows: Iterable[Dict[str, object]],
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -405,8 +373,6 @@ class AsyncDatasetsResource(AsyncAPIResource):
         Append rows to a dataset.
 
         Args:
-          rows: The rows to append to the dataset.
-
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -431,8 +397,8 @@ class AsyncDatasetsResource(AsyncAPIResource):
         self,
         dataset_id: str,
         *,
-        limit: int | Omit = omit,
-        start_index: int | Omit = omit,
+        limit: Optional[int] | Omit = omit,
+        start_index: Optional[int] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -440,7 +406,8 @@ class AsyncDatasetsResource(AsyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> DatasetIterrowsResponse:
-        """Get a paginated list of rows from a dataset.
+        """
+        Get a paginated list of rows from a dataset.
 
         Uses offset-based pagination where:
 
@@ -453,10 +420,6 @@ class AsyncDatasetsResource(AsyncAPIResource):
         - has_more: Whether there are more items available after this set.
 
         Args:
-          limit: The number of rows to get.
-
-          start_index: Index into dataset for the first row to get. Get all rows if None.
-
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -489,10 +452,10 @@ class AsyncDatasetsResource(AsyncAPIResource):
     async def register(
         self,
         *,
-        purpose: Literal["post-training/messages", "eval/question-answer", "eval/messages-answer"],
-        source: dataset_register_params.Source,
-        dataset_id: str | Omit = omit,
-        metadata: Dict[str, Union[bool, float, str, Iterable[object], object, None]] | Omit = omit,
+        purpose: object,
+        source: object,
+        dataset_id: object | Omit = omit,
+        metadata: object | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -500,36 +463,10 @@ class AsyncDatasetsResource(AsyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> DatasetRegisterResponse:
-        """Register a new dataset.
+        """
+        Register a new dataset.
 
         Args:
-          purpose: The purpose of the dataset.
-
-        One of: - "post-training/messages": The dataset
-              contains a messages column with list of messages for post-training. {
-              "messages": [ {"role": "user", "content": "Hello, world!"}, {"role":
-              "assistant", "content": "Hello, world!"}, ] } - "eval/question-answer": The
-              dataset contains a question column and an answer column for evaluation. {
-              "question": "What is the capital of France?", "answer": "Paris" } -
-              "eval/messages-answer": The dataset contains a messages column with list of
-              messages and an answer column for evaluation. { "messages": [ {"role": "user",
-              "content": "Hello, my name is John Doe."}, {"role": "assistant", "content":
-              "Hello, John Doe. How can I help you today?"}, {"role": "user", "content":
-              "What's my name?"}, ], "answer": "John Doe" }
-
-          source: The data source of the dataset. Ensure that the data source schema is compatible
-              with the purpose of the dataset. Examples: - { "type": "uri", "uri":
-              "https://mywebsite.com/mydata.jsonl" } - { "type": "uri", "uri":
-              "lsfs://mydata.jsonl" } - { "type": "uri", "uri":
-              "data:csv;base64,{base64_content}" } - { "type": "uri", "uri":
-              "huggingface://llamastack/simpleqa?split=train" } - { "type": "rows", "rows": [
-              { "messages": [ {"role": "user", "content": "Hello, world!"}, {"role":
-              "assistant", "content": "Hello, world!"}, ] } ] }
-
-          dataset_id: The ID of the dataset. If not provided, an ID will be generated.
-
-          metadata: The metadata for the dataset. - E.g. {"description": "My dataset"}.
-
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request

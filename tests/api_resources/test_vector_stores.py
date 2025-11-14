@@ -37,9 +37,9 @@ class TestVectorStores:
     def test_method_create_with_all_params(self, client: LlamaStackClient) -> None:
         vector_store = client.vector_stores.create(
             chunking_strategy={"type": "auto"},
-            expires_after={"foo": True},
+            expires_after={"foo": "bar"},
             file_ids=["string"],
-            metadata={"foo": True},
+            metadata={"foo": "bar"},
             name="name",
         )
         assert_matches_type(VectorStore, vector_store, path=["response"])
@@ -113,8 +113,8 @@ class TestVectorStores:
     def test_method_update_with_all_params(self, client: LlamaStackClient) -> None:
         vector_store = client.vector_stores.update(
             vector_store_id="vector_store_id",
-            expires_after={"foo": True},
-            metadata={"foo": True},
+            expires_after={"foo": "bar"},
+            metadata={"foo": "bar"},
             name="name",
         )
         assert_matches_type(VectorStore, vector_store, path=["response"])
@@ -236,7 +236,7 @@ class TestVectorStores:
         vector_store = client.vector_stores.search(
             vector_store_id="vector_store_id",
             query="string",
-            filters={"foo": True},
+            filters={"foo": "bar"},
             max_num_results=0,
             ranking_options={
                 "ranker": "ranker",
@@ -296,9 +296,9 @@ class TestAsyncVectorStores:
     async def test_method_create_with_all_params(self, async_client: AsyncLlamaStackClient) -> None:
         vector_store = await async_client.vector_stores.create(
             chunking_strategy={"type": "auto"},
-            expires_after={"foo": True},
+            expires_after={"foo": "bar"},
             file_ids=["string"],
-            metadata={"foo": True},
+            metadata={"foo": "bar"},
             name="name",
         )
         assert_matches_type(VectorStore, vector_store, path=["response"])
@@ -372,8 +372,8 @@ class TestAsyncVectorStores:
     async def test_method_update_with_all_params(self, async_client: AsyncLlamaStackClient) -> None:
         vector_store = await async_client.vector_stores.update(
             vector_store_id="vector_store_id",
-            expires_after={"foo": True},
-            metadata={"foo": True},
+            expires_after={"foo": "bar"},
+            metadata={"foo": "bar"},
             name="name",
         )
         assert_matches_type(VectorStore, vector_store, path=["response"])
@@ -495,7 +495,7 @@ class TestAsyncVectorStores:
         vector_store = await async_client.vector_stores.search(
             vector_store_id="vector_store_id",
             query="string",
-            filters={"foo": True},
+            filters={"foo": "bar"},
             max_num_results=0,
             ranking_options={
                 "ranker": "ranker",

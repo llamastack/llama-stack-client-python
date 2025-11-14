@@ -29,7 +29,7 @@ class TestToolRuntime:
     @parametrize
     def test_method_invoke_tool(self, client: LlamaStackClient) -> None:
         tool_runtime = client.tool_runtime.invoke_tool(
-            kwargs={"foo": True},
+            kwargs={"foo": "bar"},
             tool_name="tool_name",
         )
         assert_matches_type(ToolInvocationResult, tool_runtime, path=["response"])
@@ -37,7 +37,7 @@ class TestToolRuntime:
     @parametrize
     def test_method_invoke_tool_with_all_params(self, client: LlamaStackClient) -> None:
         tool_runtime = client.tool_runtime.invoke_tool(
-            kwargs={"foo": True},
+            kwargs={"foo": "bar"},
             tool_name="tool_name",
             authorization="authorization",
         )
@@ -46,7 +46,7 @@ class TestToolRuntime:
     @parametrize
     def test_raw_response_invoke_tool(self, client: LlamaStackClient) -> None:
         response = client.tool_runtime.with_raw_response.invoke_tool(
-            kwargs={"foo": True},
+            kwargs={"foo": "bar"},
             tool_name="tool_name",
         )
 
@@ -58,7 +58,7 @@ class TestToolRuntime:
     @parametrize
     def test_streaming_response_invoke_tool(self, client: LlamaStackClient) -> None:
         with client.tool_runtime.with_streaming_response.invoke_tool(
-            kwargs={"foo": True},
+            kwargs={"foo": "bar"},
             tool_name="tool_name",
         ) as response:
             assert not response.is_closed
@@ -112,7 +112,7 @@ class TestAsyncToolRuntime:
     @parametrize
     async def test_method_invoke_tool(self, async_client: AsyncLlamaStackClient) -> None:
         tool_runtime = await async_client.tool_runtime.invoke_tool(
-            kwargs={"foo": True},
+            kwargs={"foo": "bar"},
             tool_name="tool_name",
         )
         assert_matches_type(ToolInvocationResult, tool_runtime, path=["response"])
@@ -120,7 +120,7 @@ class TestAsyncToolRuntime:
     @parametrize
     async def test_method_invoke_tool_with_all_params(self, async_client: AsyncLlamaStackClient) -> None:
         tool_runtime = await async_client.tool_runtime.invoke_tool(
-            kwargs={"foo": True},
+            kwargs={"foo": "bar"},
             tool_name="tool_name",
             authorization="authorization",
         )
@@ -129,7 +129,7 @@ class TestAsyncToolRuntime:
     @parametrize
     async def test_raw_response_invoke_tool(self, async_client: AsyncLlamaStackClient) -> None:
         response = await async_client.tool_runtime.with_raw_response.invoke_tool(
-            kwargs={"foo": True},
+            kwargs={"foo": "bar"},
             tool_name="tool_name",
         )
 
@@ -141,7 +141,7 @@ class TestAsyncToolRuntime:
     @parametrize
     async def test_streaming_response_invoke_tool(self, async_client: AsyncLlamaStackClient) -> None:
         async with async_client.tool_runtime.with_streaming_response.invoke_tool(
-            kwargs={"foo": True},
+            kwargs={"foo": "bar"},
             tool_name="tool_name",
         ) as response:
             assert not response.is_closed

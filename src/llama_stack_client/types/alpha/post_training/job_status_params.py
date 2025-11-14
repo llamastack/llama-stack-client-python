@@ -15,4 +15,3 @@ __all__ = ["JobStatusParams"]
 
 class JobStatusParams(TypedDict, total=False):
     job_uuid: Required[str]
-    """The UUID of the job to get the status of."""

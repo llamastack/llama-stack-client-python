@@ -41,7 +41,7 @@ class TestFiles:
         file = client.vector_stores.files.create(
             vector_store_id="vector_store_id",
             file_id="file_id",
-            attributes={"foo": True},
+            attributes={"foo": "bar"},
             chunking_strategy={"type": "auto"},
         )
         assert_matches_type(VectorStoreFile, file, path=["response"])
@@ -133,7 +133,7 @@ class TestFiles:
         file = client.vector_stores.files.update(
             file_id="file_id",
             vector_store_id="vector_store_id",
-            attributes={"foo": True},
+            attributes={"foo": "bar"},
         )
         assert_matches_type(VectorStoreFile, file, path=["response"])
 
@@ -142,7 +142,7 @@ class TestFiles:
         response = client.vector_stores.files.with_raw_response.update(
             file_id="file_id",
             vector_store_id="vector_store_id",
-            attributes={"foo": True},
+            attributes={"foo": "bar"},
         )
 
         assert response.is_closed is True
@@ -155,7 +155,7 @@ class TestFiles:
         with client.vector_stores.files.with_streaming_response.update(
             file_id="file_id",
             vector_store_id="vector_store_id",
-            attributes={"foo": True},
+            attributes={"foo": "bar"},
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -171,14 +171,14 @@ class TestFiles:
             client.vector_stores.files.with_raw_response.update(
                 file_id="file_id",
                 vector_store_id="",
-                attributes={"foo": True},
+                attributes={"foo": "bar"},
             )
 
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `file_id` but received ''"):
             client.vector_stores.files.with_raw_response.update(
                 file_id="",
                 vector_store_id="vector_store_id",
-                attributes={"foo": True},
+                attributes={"foo": "bar"},
             )
 
     @parametrize
@@ -356,7 +356,7 @@ class TestAsyncFiles:
         file = await async_client.vector_stores.files.create(
             vector_store_id="vector_store_id",
             file_id="file_id",
-            attributes={"foo": True},
+            attributes={"foo": "bar"},
             chunking_strategy={"type": "auto"},
         )
         assert_matches_type(VectorStoreFile, file, path=["response"])
@@ -448,7 +448,7 @@ class TestAsyncFiles:
         file = await async_client.vector_stores.files.update(
             file_id="file_id",
             vector_store_id="vector_store_id",
-            attributes={"foo": True},
+            attributes={"foo": "bar"},
         )
         assert_matches_type(VectorStoreFile, file, path=["response"])
 
@@ -457,7 +457,7 @@ class TestAsyncFiles:
         response = await async_client.vector_stores.files.with_raw_response.update(
             file_id="file_id",
             vector_store_id="vector_store_id",
-            attributes={"foo": True},
+            attributes={"foo": "bar"},
         )
 
         assert response.is_closed is True
@@ -470,7 +470,7 @@ class TestAsyncFiles:
         async with async_client.vector_stores.files.with_streaming_response.update(
             file_id="file_id",
             vector_store_id="vector_store_id",
-            attributes={"foo": True},
+            attributes={"foo": "bar"},
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -486,14 +486,14 @@ class TestAsyncFiles:
             await async_client.vector_stores.files.with_raw_response.update(
                 file_id="file_id",
                 vector_store_id="",
-                attributes={"foo": True},
+                attributes={"foo": "bar"},
             )
 
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `file_id` but received ''"):
             await async_client.vector_stores.files.with_raw_response.update(
                 file_id="",
                 vector_store_id="vector_store_id",
-                attributes={"foo": True},
+                attributes={"foo": "bar"},
             )
 
     @parametrize

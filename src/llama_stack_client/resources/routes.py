@@ -8,7 +8,7 @@
 
 from __future__ import annotations
 
-from typing import Type, cast
+from typing import Type, Optional, cast
 from typing_extensions import Literal
 
 import httpx
@@ -54,7 +54,7 @@ class RoutesResource(SyncAPIResource):
     def list(
         self,
         *,
-        api_filter: Literal["v1", "v1alpha", "v1beta", "deprecated"] | Omit = omit,
+        api_filter: Optional[Literal["v1", "v1alpha", "v1beta", "deprecated"]] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -62,17 +62,12 @@ class RoutesResource(SyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> RouteListResponse:
-        """List routes.
+        """
+        List routes.
 
-        List all available API routes with their methods and implementing
-        providers.
+        List all available API routes with their methods and implementing providers.
 
         Args:
-          api_filter: Optional filter to control which routes are returned. Can be an API level ('v1',
-              'v1alpha', 'v1beta') to show non-deprecated routes at that level, or
-              'deprecated' to show deprecated routes across all levels. If not specified,
-              returns all non-deprecated routes.
-
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -118,7 +113,7 @@ class AsyncRoutesResource(AsyncAPIResource):
     async def list(
         self,
         *,
-        api_filter: Literal["v1", "v1alpha", "v1beta", "deprecated"] | Omit = omit,
+        api_filter: Optional[Literal["v1", "v1alpha", "v1beta", "deprecated"]] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -126,17 +121,12 @@ class AsyncRoutesResource(AsyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> RouteListResponse:
-        """List routes.
+        """
+        List routes.
 
-        List all available API routes with their methods and implementing
-        providers.
+        List all available API routes with their methods and implementing providers.
 
         Args:
-          api_filter: Optional filter to control which routes are returned. Can be an API level ('v1',
-              'v1alpha', 'v1beta') to show non-deprecated routes at that level, or
-              'deprecated' to show deprecated routes across all levels. If not specified,
-              returns all non-deprecated routes.
-
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request

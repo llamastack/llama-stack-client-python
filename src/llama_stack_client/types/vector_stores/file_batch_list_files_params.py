@@ -8,6 +8,7 @@
 
 from __future__ import annotations
 
+from typing import Optional
 from typing_extensions import Required, TypedDict
 
 __all__ = ["FileBatchListFilesParams"]
@@ -16,29 +17,12 @@ __all__ = ["FileBatchListFilesParams"]
 class FileBatchListFilesParams(TypedDict, total=False):
     vector_store_id: Required[str]
 
-    after: str
-    """A cursor for use in pagination.
+    after: Optional[str]
 
-    `after` is an object ID that defines your place in the list.
-    """
+    before: Optional[str]
 
-    before: str
-    """A cursor for use in pagination.
+    filter: Optional[str]
 
-    `before` is an object ID that defines your place in the list.
-    """
+    limit: Optional[int]
 
-    filter: str
-    """Filter by file status. One of in_progress, completed, failed, cancelled."""
-
-    limit: int
-    """A limit on the number of objects to be returned.
-
-    Limit can range between 1 and 100, and the default is 20.
-    """
-
-    order: str
-    """Sort order by the `created_at` timestamp of the objects.
-
-    `asc` for ascending order and `desc` for descending order.
-    """
+    order: Optional[str]

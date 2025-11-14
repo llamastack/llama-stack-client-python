@@ -27,7 +27,6 @@ from .._response import (
 from .._wrappers import DataWrapper
 from .._base_client import make_request_options
 from ..types.scoring_fn import ScoringFn
-from ..types.scoring_fn_params_param import ScoringFnParamsParam
 from ..types.scoring_function_list_response import ScoringFunctionListResponse
 
 __all__ = ["ScoringFunctionsResource", "AsyncScoringFunctionsResource"]
@@ -113,12 +112,12 @@ class ScoringFunctionsResource(SyncAPIResource):
     def register(
         self,
         *,
-        description: str,
-        return_type: scoring_function_register_params.ReturnType,
-        scoring_fn_id: str,
-        params: ScoringFnParamsParam | Omit = omit,
-        provider_id: str | Omit = omit,
-        provider_scoring_fn_id: str | Omit = omit,
+        description: object,
+        return_type: object,
+        scoring_fn_id: object,
+        params: object | Omit = omit,
+        provider_id: object | Omit = omit,
+        provider_scoring_fn_id: object | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -130,17 +129,6 @@ class ScoringFunctionsResource(SyncAPIResource):
         Register a scoring function.
 
         Args:
-          description: The description of the scoring function.
-
-          scoring_fn_id: The ID of the scoring function to register.
-
-          params: The parameters for the scoring function for benchmark eval, these can be
-              overridden for app eval.
-
-          provider_id: The ID of the provider to use for the scoring function.
-
-          provider_scoring_fn_id: The ID of the provider scoring function to use for the scoring function.
-
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -163,6 +151,41 @@ class ScoringFunctionsResource(SyncAPIResource):
                 },
                 scoring_function_register_params.ScoringFunctionRegisterParams,
             ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=NoneType,
+        )
+
+    @typing_extensions.deprecated("deprecated")
+    def unregister(
+        self,
+        scoring_fn_id: str,
+        *,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> None:
+        """
+        Unregister a scoring function.
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not scoring_fn_id:
+            raise ValueError(f"Expected a non-empty value for `scoring_fn_id` but received {scoring_fn_id!r}")
+        extra_headers = {"Accept": "*/*", **(extra_headers or {})}
+        return self._delete(
+            f"/v1/scoring-functions/{scoring_fn_id}",
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -250,12 +273,12 @@ class AsyncScoringFunctionsResource(AsyncAPIResource):
     async def register(
         self,
         *,
-        description: str,
-        return_type: scoring_function_register_params.ReturnType,
-        scoring_fn_id: str,
-        params: ScoringFnParamsParam | Omit = omit,
-        provider_id: str | Omit = omit,
-        provider_scoring_fn_id: str | Omit = omit,
+        description: object,
+        return_type: object,
+        scoring_fn_id: object,
+        params: object | Omit = omit,
+        provider_id: object | Omit = omit,
+        provider_scoring_fn_id: object | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -267,17 +290,6 @@ class AsyncScoringFunctionsResource(AsyncAPIResource):
         Register a scoring function.
 
         Args:
-          description: The description of the scoring function.
-
-          scoring_fn_id: The ID of the scoring function to register.
-
-          params: The parameters for the scoring function for benchmark eval, these can be
-              overridden for app eval.
-
-          provider_id: The ID of the provider to use for the scoring function.
-
-          provider_scoring_fn_id: The ID of the provider scoring function to use for the scoring function.
-
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -306,6 +318,41 @@ class AsyncScoringFunctionsResource(AsyncAPIResource):
             cast_to=NoneType,
         )
 
+    @typing_extensions.deprecated("deprecated")
+    async def unregister(
+        self,
+        scoring_fn_id: str,
+        *,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> None:
+        """
+        Unregister a scoring function.
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not scoring_fn_id:
+            raise ValueError(f"Expected a non-empty value for `scoring_fn_id` but received {scoring_fn_id!r}")
+        extra_headers = {"Accept": "*/*", **(extra_headers or {})}
+        return await self._delete(
+            f"/v1/scoring-functions/{scoring_fn_id}",
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=NoneType,
+        )
+
 
 class ScoringFunctionsResourceWithRawResponse:
     def __init__(self, scoring_functions: ScoringFunctionsResource) -> None:
@@ -320,6 +367,11 @@ class ScoringFunctionsResourceWithRawResponse:
         self.register = (  # pyright: ignore[reportDeprecated]
             to_raw_response_wrapper(
                 scoring_functions.register,  # pyright: ignore[reportDeprecated],
+            )
+        )
+        self.unregister = (  # pyright: ignore[reportDeprecated]
+            to_raw_response_wrapper(
+                scoring_functions.unregister,  # pyright: ignore[reportDeprecated],
             )
         )
 
@@ -339,6 +391,11 @@ class AsyncScoringFunctionsResourceWithRawResponse:
                 scoring_functions.register,  # pyright: ignore[reportDeprecated],
             )
         )
+        self.unregister = (  # pyright: ignore[reportDeprecated]
+            async_to_raw_response_wrapper(
+                scoring_functions.unregister,  # pyright: ignore[reportDeprecated],
+            )
+        )
 
 
 class ScoringFunctionsResourceWithStreamingResponse:
@@ -356,6 +413,11 @@ class ScoringFunctionsResourceWithStreamingResponse:
                 scoring_functions.register,  # pyright: ignore[reportDeprecated],
             )
         )
+        self.unregister = (  # pyright: ignore[reportDeprecated]
+            to_streamed_response_wrapper(
+                scoring_functions.unregister,  # pyright: ignore[reportDeprecated],
+            )
+        )
 
 
 class AsyncScoringFunctionsResourceWithStreamingResponse:
@@ -371,5 +433,10 @@ class AsyncScoringFunctionsResourceWithStreamingResponse:
         self.register = (  # pyright: ignore[reportDeprecated]
             async_to_streamed_response_wrapper(
                 scoring_functions.register,  # pyright: ignore[reportDeprecated],
+            )
+        )
+        self.unregister = (  # pyright: ignore[reportDeprecated]
+            async_to_streamed_response_wrapper(
+                scoring_functions.unregister,  # pyright: ignore[reportDeprecated],
             )
         )

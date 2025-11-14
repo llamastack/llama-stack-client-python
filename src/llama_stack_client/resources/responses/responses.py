@@ -8,7 +8,7 @@
 
 from __future__ import annotations
 
-from typing import Union, Iterable
+from typing import Union, Iterable, Optional
 from typing_extensions import Literal, overload
 
 import httpx
@@ -71,20 +71,25 @@ class ResponsesResource(SyncAPIResource):
     def create(
         self,
         *,
-        input: Union[str, Iterable[response_create_params.InputUnionMember1]],
+        input: Union[
+            str,
+            Iterable[
+                response_create_params.InputListOpenAIResponseMessageUnionOpenAIResponseInputFunctionToolCallOutput
+            ],
+        ],
         model: str,
-        conversation: str | Omit = omit,
-        include: SequenceNotStr[str] | Omit = omit,
-        instructions: str | Omit = omit,
-        max_infer_iters: int | Omit = omit,
-        max_tool_calls: int | Omit = omit,
-        previous_response_id: str | Omit = omit,
-        prompt: response_create_params.Prompt | Omit = omit,
-        store: bool | Omit = omit,
-        stream: Literal[False] | Omit = omit,
-        temperature: float | Omit = omit,
-        text: response_create_params.Text | Omit = omit,
-        tools: Iterable[response_create_params.Tool] | Omit = omit,
+        conversation: Optional[str] | Omit = omit,
+        include: Optional[SequenceNotStr[str]] | Omit = omit,
+        instructions: Optional[str] | Omit = omit,
+        max_infer_iters: Optional[int] | Omit = omit,
+        max_tool_calls: Optional[int] | Omit = omit,
+        previous_response_id: Optional[str] | Omit = omit,
+        prompt: Optional[response_create_params.Prompt] | Omit = omit,
+        store: Optional[bool] | Omit = omit,
+        stream: Optional[Literal[False]] | Omit = omit,
+        temperature: Optional[float] | Omit = omit,
+        text: Optional[response_create_params.Text] | Omit = omit,
+        tools: Optional[Iterable[response_create_params.Tool]] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -96,24 +101,7 @@ class ResponsesResource(SyncAPIResource):
         Create a model response.
 
         Args:
-          input: Input message(s) to create the response.
-
-          model: The underlying LLM used for completions.
-
-          conversation: (Optional) The ID of a conversation to add the response to. Must begin with
-              'conv\\__'. Input and output messages will be automatically added to the
-              conversation.
-
-          include: (Optional) Additional fields to include in the response.
-
-          max_tool_calls: (Optional) Max number of total calls to built-in tools that can be processed in
-              a response.
-
-          previous_response_id: (Optional) if specified, the new response will be a continuation of the previous
-              response. This can be used to easily fork-off new responses from existing
-              responses.
-
-          prompt: (Optional) Prompt object with ID, version, and variables.
+          prompt: OpenAI compatible Prompt object that is used in OpenAI responses.
 
           text: Text response configuration for OpenAI responses.
 
@@ -131,20 +119,25 @@ class ResponsesResource(SyncAPIResource):
     def create(
         self,
         *,
-        input: Union[str, Iterable[response_create_params.InputUnionMember1]],
+        input: Union[
+            str,
+            Iterable[
+                response_create_params.InputListOpenAIResponseMessageUnionOpenAIResponseInputFunctionToolCallOutput
+            ],
+        ],
         model: str,
         stream: Literal[True],
-        conversation: str | Omit = omit,
-        include: SequenceNotStr[str] | Omit = omit,
-        instructions: str | Omit = omit,
-        max_infer_iters: int | Omit = omit,
-        max_tool_calls: int | Omit = omit,
-        previous_response_id: str | Omit = omit,
-        prompt: response_create_params.Prompt | Omit = omit,
-        store: bool | Omit = omit,
-        temperature: float | Omit = omit,
-        text: response_create_params.Text | Omit = omit,
-        tools: Iterable[response_create_params.Tool] | Omit = omit,
+        conversation: Optional[str] | Omit = omit,
+        include: Optional[SequenceNotStr[str]] | Omit = omit,
+        instructions: Optional[str] | Omit = omit,
+        max_infer_iters: Optional[int] | Omit = omit,
+        max_tool_calls: Optional[int] | Omit = omit,
+        previous_response_id: Optional[str] | Omit = omit,
+        prompt: Optional[response_create_params.Prompt] | Omit = omit,
+        store: Optional[bool] | Omit = omit,
+        temperature: Optional[float] | Omit = omit,
+        text: Optional[response_create_params.Text] | Omit = omit,
+        tools: Optional[Iterable[response_create_params.Tool]] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -156,24 +149,7 @@ class ResponsesResource(SyncAPIResource):
         Create a model response.
 
         Args:
-          input: Input message(s) to create the response.
-
-          model: The underlying LLM used for completions.
-
-          conversation: (Optional) The ID of a conversation to add the response to. Must begin with
-              'conv\\__'. Input and output messages will be automatically added to the
-              conversation.
-
-          include: (Optional) Additional fields to include in the response.
-
-          max_tool_calls: (Optional) Max number of total calls to built-in tools that can be processed in
-              a response.
-
-          previous_response_id: (Optional) if specified, the new response will be a continuation of the previous
-              response. This can be used to easily fork-off new responses from existing
-              responses.
-
-          prompt: (Optional) Prompt object with ID, version, and variables.
+          prompt: OpenAI compatible Prompt object that is used in OpenAI responses.
 
           text: Text response configuration for OpenAI responses.
 
@@ -191,20 +167,25 @@ class ResponsesResource(SyncAPIResource):
     def create(
         self,
         *,
-        input: Union[str, Iterable[response_create_params.InputUnionMember1]],
+        input: Union[
+            str,
+            Iterable[
+                response_create_params.InputListOpenAIResponseMessageUnionOpenAIResponseInputFunctionToolCallOutput
+            ],
+        ],
         model: str,
         stream: bool,
-        conversation: str | Omit = omit,
-        include: SequenceNotStr[str] | Omit = omit,
-        instructions: str | Omit = omit,
-        max_infer_iters: int | Omit = omit,
-        max_tool_calls: int | Omit = omit,
-        previous_response_id: str | Omit = omit,
-        prompt: response_create_params.Prompt | Omit = omit,
-        store: bool | Omit = omit,
-        temperature: float | Omit = omit,
-        text: response_create_params.Text | Omit = omit,
-        tools: Iterable[response_create_params.Tool] | Omit = omit,
+        conversation: Optional[str] | Omit = omit,
+        include: Optional[SequenceNotStr[str]] | Omit = omit,
+        instructions: Optional[str] | Omit = omit,
+        max_infer_iters: Optional[int] | Omit = omit,
+        max_tool_calls: Optional[int] | Omit = omit,
+        previous_response_id: Optional[str] | Omit = omit,
+        prompt: Optional[response_create_params.Prompt] | Omit = omit,
+        store: Optional[bool] | Omit = omit,
+        temperature: Optional[float] | Omit = omit,
+        text: Optional[response_create_params.Text] | Omit = omit,
+        tools: Optional[Iterable[response_create_params.Tool]] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -216,24 +197,7 @@ class ResponsesResource(SyncAPIResource):
         Create a model response.
 
         Args:
-          input: Input message(s) to create the response.
-
-          model: The underlying LLM used for completions.
-
-          conversation: (Optional) The ID of a conversation to add the response to. Must begin with
-              'conv\\__'. Input and output messages will be automatically added to the
-              conversation.
-
-          include: (Optional) Additional fields to include in the response.
-
-          max_tool_calls: (Optional) Max number of total calls to built-in tools that can be processed in
-              a response.
-
-          previous_response_id: (Optional) if specified, the new response will be a continuation of the previous
-              response. This can be used to easily fork-off new responses from existing
-              responses.
-
-          prompt: (Optional) Prompt object with ID, version, and variables.
+          prompt: OpenAI compatible Prompt object that is used in OpenAI responses.
 
           text: Text response configuration for OpenAI responses.
 
@@ -251,20 +215,25 @@ class ResponsesResource(SyncAPIResource):
     def create(
         self,
         *,
-        input: Union[str, Iterable[response_create_params.InputUnionMember1]],
+        input: Union[
+            str,
+            Iterable[
+                response_create_params.InputListOpenAIResponseMessageUnionOpenAIResponseInputFunctionToolCallOutput
+            ],
+        ],
         model: str,
-        conversation: str | Omit = omit,
-        include: SequenceNotStr[str] | Omit = omit,
-        instructions: str | Omit = omit,
-        max_infer_iters: int | Omit = omit,
-        max_tool_calls: int | Omit = omit,
-        previous_response_id: str | Omit = omit,
-        prompt: response_create_params.Prompt | Omit = omit,
-        store: bool | Omit = omit,
-        stream: Literal[False] | Literal[True] | Omit = omit,
-        temperature: float | Omit = omit,
-        text: response_create_params.Text | Omit = omit,
-        tools: Iterable[response_create_params.Tool] | Omit = omit,
+        conversation: Optional[str] | Omit = omit,
+        include: Optional[SequenceNotStr[str]] | Omit = omit,
+        instructions: Optional[str] | Omit = omit,
+        max_infer_iters: Optional[int] | Omit = omit,
+        max_tool_calls: Optional[int] | Omit = omit,
+        previous_response_id: Optional[str] | Omit = omit,
+        prompt: Optional[response_create_params.Prompt] | Omit = omit,
+        store: Optional[bool] | Omit = omit,
+        stream: Optional[Literal[False]] | Literal[True] | Omit = omit,
+        temperature: Optional[float] | Omit = omit,
+        text: Optional[response_create_params.Text] | Omit = omit,
+        tools: Optional[Iterable[response_create_params.Tool]] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -339,10 +308,10 @@ class ResponsesResource(SyncAPIResource):
     def list(
         self,
         *,
-        after: str | Omit = omit,
-        limit: int | Omit = omit,
-        model: str | Omit = omit,
-        order: Literal["asc", "desc"] | Omit = omit,
+        after: Optional[str] | Omit = omit,
+        limit: Optional[int] | Omit = omit,
+        model: Optional[str] | Omit = omit,
+        order: Optional[Literal["asc", "desc"]] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -354,13 +323,7 @@ class ResponsesResource(SyncAPIResource):
         List all responses.
 
         Args:
-          after: The ID of the last response to return.
-
-          limit: The number of responses to return.
-
-          model: The model to filter responses by.
-
-          order: The order to sort responses by when sorted by created_at ('asc' or 'desc').
+          order: Sort order for paginated responses.
 
           extra_headers: Send extra headers
 
@@ -453,20 +416,25 @@ class AsyncResponsesResource(AsyncAPIResource):
     async def create(
         self,
         *,
-        input: Union[str, Iterable[response_create_params.InputUnionMember1]],
+        input: Union[
+            str,
+            Iterable[
+                response_create_params.InputListOpenAIResponseMessageUnionOpenAIResponseInputFunctionToolCallOutput
+            ],
+        ],
         model: str,
-        conversation: str | Omit = omit,
-        include: SequenceNotStr[str] | Omit = omit,
-        instructions: str | Omit = omit,
-        max_infer_iters: int | Omit = omit,
-        max_tool_calls: int | Omit = omit,
-        previous_response_id: str | Omit = omit,
-        prompt: response_create_params.Prompt | Omit = omit,
-        store: bool | Omit = omit,
-        stream: Literal[False] | Omit = omit,
-        temperature: float | Omit = omit,
-        text: response_create_params.Text | Omit = omit,
-        tools: Iterable[response_create_params.Tool] | Omit = omit,
+        conversation: Optional[str] | Omit = omit,
+        include: Optional[SequenceNotStr[str]] | Omit = omit,
+        instructions: Optional[str] | Omit = omit,
+        max_infer_iters: Optional[int] | Omit = omit,
+        max_tool_calls: Optional[int] | Omit = omit,
+        previous_response_id: Optional[str] | Omit = omit,
+        prompt: Optional[response_create_params.Prompt] | Omit = omit,
+        store: Optional[bool] | Omit = omit,
+        stream: Optional[Literal[False]] | Omit = omit,
+        temperature: Optional[float] | Omit = omit,
+        text: Optional[response_create_params.Text] | Omit = omit,
+        tools: Optional[Iterable[response_create_params.Tool]] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -478,24 +446,7 @@ class AsyncResponsesResource(AsyncAPIResource):
         Create a model response.
 
         Args:
-          input: Input message(s) to create the response.
-
-          model: The underlying LLM used for completions.
-
-          conversation: (Optional) The ID of a conversation to add the response to. Must begin with
-              'conv\\__'. Input and output messages will be automatically added to the
-              conversation.
-
-          include: (Optional) Additional fields to include in the response.
-
-          max_tool_calls: (Optional) Max number of total calls to built-in tools that can be processed in
-              a response.
-
-          previous_response_id: (Optional) if specified, the new response will be a continuation of the previous
-              response. This can be used to easily fork-off new responses from existing
-              responses.
-
-          prompt: (Optional) Prompt object with ID, version, and variables.
+          prompt: OpenAI compatible Prompt object that is used in OpenAI responses.
 
           text: Text response configuration for OpenAI responses.
 
@@ -513,20 +464,25 @@ class AsyncResponsesResource(AsyncAPIResource):
     async def create(
         self,
         *,
-        input: Union[str, Iterable[response_create_params.InputUnionMember1]],
+        input: Union[
+            str,
+            Iterable[
+                response_create_params.InputListOpenAIResponseMessageUnionOpenAIResponseInputFunctionToolCallOutput
+            ],
+        ],
         model: str,
         stream: Literal[True],
-        conversation: str | Omit = omit,
-        include: SequenceNotStr[str] | Omit = omit,
-        instructions: str | Omit = omit,
-        max_infer_iters: int | Omit = omit,
-        max_tool_calls: int | Omit = omit,
-        previous_response_id: str | Omit = omit,
-        prompt: response_create_params.Prompt | Omit = omit,
-        store: bool | Omit = omit,
-        temperature: float | Omit = omit,
-        text: response_create_params.Text | Omit = omit,
-        tools: Iterable[response_create_params.Tool] | Omit = omit,
+        conversation: Optional[str] | Omit = omit,
+        include: Optional[SequenceNotStr[str]] | Omit = omit,
+        instructions: Optional[str] | Omit = omit,
+        max_infer_iters: Optional[int] | Omit = omit,
+        max_tool_calls: Optional[int] | Omit = omit,
+        previous_response_id: Optional[str] | Omit = omit,
+        prompt: Optional[response_create_params.Prompt] | Omit = omit,
+        store: Optional[bool] | Omit = omit,
+        temperature: Optional[float] | Omit = omit,
+        text: Optional[response_create_params.Text] | Omit = omit,
+        tools: Optional[Iterable[response_create_params.Tool]] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -538,24 +494,7 @@ class AsyncResponsesResource(AsyncAPIResource):
         Create a model response.
 
         Args:
-          input: Input message(s) to create the response.
-
-          model: The underlying LLM used for completions.
-
-          conversation: (Optional) The ID of a conversation to add the response to. Must begin with
-              'conv\\__'. Input and output messages will be automatically added to the
-              conversation.
-
-          include: (Optional) Additional fields to include in the response.
-
-          max_tool_calls: (Optional) Max number of total calls to built-in tools that can be processed in
-              a response.
-
-          previous_response_id: (Optional) if specified, the new response will be a continuation of the previous
-              response. This can be used to easily fork-off new responses from existing
-              responses.
-
-          prompt: (Optional) Prompt object with ID, version, and variables.
+          prompt: OpenAI compatible Prompt object that is used in OpenAI responses.
 
           text: Text response configuration for OpenAI responses.
 
@@ -573,20 +512,25 @@ class AsyncResponsesResource(AsyncAPIResource):
     async def create(
         self,
         *,
-        input: Union[str, Iterable[response_create_params.InputUnionMember1]],
+        input: Union[
+            str,
+            Iterable[
+                response_create_params.InputListOpenAIResponseMessageUnionOpenAIResponseInputFunctionToolCallOutput
+            ],
+        ],
         model: str,
         stream: bool,
-        conversation: str | Omit = omit,
-        include: SequenceNotStr[str] | Omit = omit,
-        instructions: str | Omit = omit,
-        max_infer_iters: int | Omit = omit,
-        max_tool_calls: int | Omit = omit,
-        previous_response_id: str | Omit = omit,
-        prompt: response_create_params.Prompt | Omit = omit,
-        store: bool | Omit = omit,
-        temperature: float | Omit = omit,
-        text: response_create_params.Text | Omit = omit,
-        tools: Iterable[response_create_params.Tool] | Omit = omit,
+        conversation: Optional[str] | Omit = omit,
+        include: Optional[SequenceNotStr[str]] | Omit = omit,
+        instructions: Optional[str] | Omit = omit,
+        max_infer_iters: Optional[int] | Omit = omit,
+        max_tool_calls: Optional[int] | Omit = omit,
+        previous_response_id: Optional[str] | Omit = omit,
+        prompt: Optional[response_create_params.Prompt] | Omit = omit,
+        store: Optional[bool] | Omit = omit,
+        temperature: Optional[float] | Omit = omit,
+        text: Optional[response_create_params.Text] | Omit = omit,
+        tools: Optional[Iterable[response_create_params.Tool]] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -598,24 +542,7 @@ class AsyncResponsesResource(AsyncAPIResource):
         Create a model response.
 
         Args:
-          input: Input message(s) to create the response.
-
-          model: The underlying LLM used for completions.
-
-          conversation: (Optional) The ID of a conversation to add the response to. Must begin with
-              'conv\\__'. Input and output messages will be automatically added to the
-              conversation.
-
-          include: (Optional) Additional fields to include in the response.
-
-          max_tool_calls: (Optional) Max number of total calls to built-in tools that can be processed in
-              a response.
-
-          previous_response_id: (Optional) if specified, the new response will be a continuation of the previous
-              response. This can be used to easily fork-off new responses from existing
-              responses.
-
-          prompt: (Optional) Prompt object with ID, version, and variables.
+          prompt: OpenAI compatible Prompt object that is used in OpenAI responses.
 
           text: Text response configuration for OpenAI responses.
 
@@ -633,20 +560,25 @@ class AsyncResponsesResource(AsyncAPIResource):
     async def create(
         self,
         *,
-        input: Union[str, Iterable[response_create_params.InputUnionMember1]],
+        input: Union[
+            str,
+            Iterable[
+                response_create_params.InputListOpenAIResponseMessageUnionOpenAIResponseInputFunctionToolCallOutput
+            ],
+        ],
         model: str,
-        conversation: str | Omit = omit,
-        include: SequenceNotStr[str] | Omit = omit,
-        instructions: str | Omit = omit,
-        max_infer_iters: int | Omit = omit,
-        max_tool_calls: int | Omit = omit,
-        previous_response_id: str | Omit = omit,
-        prompt: response_create_params.Prompt | Omit = omit,
-        store: bool | Omit = omit,
-        stream: Literal[False] | Literal[True] | Omit = omit,
-        temperature: float | Omit = omit,
-        text: response_create_params.Text | Omit = omit,
-        tools: Iterable[response_create_params.Tool] | Omit = omit,
+        conversation: Optional[str] | Omit = omit,
+        include: Optional[SequenceNotStr[str]] | Omit = omit,
+        instructions: Optional[str] | Omit = omit,
+        max_infer_iters: Optional[int] | Omit = omit,
+        max_tool_calls: Optional[int] | Omit = omit,
+        previous_response_id: Optional[str] | Omit = omit,
+        prompt: Optional[response_create_params.Prompt] | Omit = omit,
+        store: Optional[bool] | Omit = omit,
+        stream: Optional[Literal[False]] | Literal[True] | Omit = omit,
+        temperature: Optional[float] | Omit = omit,
+        text: Optional[response_create_params.Text] | Omit = omit,
+        tools: Optional[Iterable[response_create_params.Tool]] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -721,10 +653,10 @@ class AsyncResponsesResource(AsyncAPIResource):
     def list(
         self,
         *,
-        after: str | Omit = omit,
-        limit: int | Omit = omit,
-        model: str | Omit = omit,
-        order: Literal["asc", "desc"] | Omit = omit,
+        after: Optional[str] | Omit = omit,
+        limit: Optional[int] | Omit = omit,
+        model: Optional[str] | Omit = omit,
+        order: Optional[Literal["asc", "desc"]] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -736,13 +668,7 @@ class AsyncResponsesResource(AsyncAPIResource):
         List all responses.
 
         Args:
-          after: The ID of the last response to return.
-
-          limit: The number of responses to return.
-
-          model: The model to filter responses by.
-
-          order: The order to sort responses by when sorted by created_at ('asc' or 'desc').
+          order: Sort order for paginated responses.
 
           extra_headers: Send extra headers
 

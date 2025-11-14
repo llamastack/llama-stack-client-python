@@ -8,20 +8,18 @@
 
 from __future__ import annotations
 
+from typing import Optional
 from typing_extensions import Literal, TypedDict
 
 __all__ = ["CompletionListParams"]
 
 
 class CompletionListParams(TypedDict, total=False):
-    after: str
-    """The ID of the last chat completion to return."""
+    after: Optional[str]
 
-    limit: int
-    """The maximum number of chat completions to return."""
+    limit: Optional[int]
 
-    model: str
-    """The model to filter by."""
+    model: Optional[str]
 
-    order: Literal["asc", "desc"]
-    """The order to sort the chat completions by: "asc" or "desc". Defaults to "desc"."""
+    order: Optional[Literal["asc", "desc"]]
+    """Sort order for paginated responses."""

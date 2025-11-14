@@ -28,19 +28,12 @@ class TestPostTraining:
     @parametrize
     def test_method_preference_optimize(self, client: LlamaStackClient) -> None:
         post_training = client.alpha.post_training.preference_optimize(
-            algorithm_config={
-                "beta": 0,
-                "loss_type": "sigmoid",
-            },
+            algorithm_config={"beta": 0},
             finetuned_model="finetuned_model",
-            hyperparam_search_config={"foo": True},
+            hyperparam_search_config={"foo": "bar"},
             job_uuid="job_uuid",
-            logger_config={"foo": True},
-            training_config={
-                "gradient_accumulation_steps": 0,
-                "max_steps_per_epoch": 0,
-                "n_epochs": 0,
-            },
+            logger_config={"foo": "bar"},
+            training_config={"n_epochs": 0},
         )
         assert_matches_type(PostTrainingJob, post_training, path=["response"])
 
@@ -52,12 +45,10 @@ class TestPostTraining:
                 "loss_type": "sigmoid",
             },
             finetuned_model="finetuned_model",
-            hyperparam_search_config={"foo": True},
+            hyperparam_search_config={"foo": "bar"},
             job_uuid="job_uuid",
-            logger_config={"foo": True},
+            logger_config={"foo": "bar"},
             training_config={
-                "gradient_accumulation_steps": 0,
-                "max_steps_per_epoch": 0,
                 "n_epochs": 0,
                 "data_config": {
                     "batch_size": 0,
@@ -75,6 +66,8 @@ class TestPostTraining:
                     "fsdp_cpu_offload": True,
                     "memory_efficient_fsdp_wrap": True,
                 },
+                "gradient_accumulation_steps": 0,
+                "max_steps_per_epoch": 0,
                 "max_validation_steps": 0,
                 "optimizer_config": {
                     "lr": 0,
@@ -89,19 +82,12 @@ class TestPostTraining:
     @parametrize
     def test_raw_response_preference_optimize(self, client: LlamaStackClient) -> None:
         response = client.alpha.post_training.with_raw_response.preference_optimize(
-            algorithm_config={
-                "beta": 0,
-                "loss_type": "sigmoid",
-            },
+            algorithm_config={"beta": 0},
             finetuned_model="finetuned_model",
-            hyperparam_search_config={"foo": True},
+            hyperparam_search_config={"foo": "bar"},
             job_uuid="job_uuid",
-            logger_config={"foo": True},
-            training_config={
-                "gradient_accumulation_steps": 0,
-                "max_steps_per_epoch": 0,
-                "n_epochs": 0,
-            },
+            logger_config={"foo": "bar"},
+            training_config={"n_epochs": 0},
         )
 
         assert response.is_closed is True
@@ -112,19 +98,12 @@ class TestPostTraining:
     @parametrize
     def test_streaming_response_preference_optimize(self, client: LlamaStackClient) -> None:
         with client.alpha.post_training.with_streaming_response.preference_optimize(
-            algorithm_config={
-                "beta": 0,
-                "loss_type": "sigmoid",
-            },
+            algorithm_config={"beta": 0},
             finetuned_model="finetuned_model",
-            hyperparam_search_config={"foo": True},
+            hyperparam_search_config={"foo": "bar"},
             job_uuid="job_uuid",
-            logger_config={"foo": True},
-            training_config={
-                "gradient_accumulation_steps": 0,
-                "max_steps_per_epoch": 0,
-                "n_epochs": 0,
-            },
+            logger_config={"foo": "bar"},
+            training_config={"n_epochs": 0},
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -137,26 +116,20 @@ class TestPostTraining:
     @parametrize
     def test_method_supervised_fine_tune(self, client: LlamaStackClient) -> None:
         post_training = client.alpha.post_training.supervised_fine_tune(
-            hyperparam_search_config={"foo": True},
+            hyperparam_search_config={"foo": "bar"},
             job_uuid="job_uuid",
-            logger_config={"foo": True},
-            training_config={
-                "gradient_accumulation_steps": 0,
-                "max_steps_per_epoch": 0,
-                "n_epochs": 0,
-            },
+            logger_config={"foo": "bar"},
+            training_config={"n_epochs": 0},
         )
         assert_matches_type(PostTrainingJob, post_training, path=["response"])
 
     @parametrize
     def test_method_supervised_fine_tune_with_all_params(self, client: LlamaStackClient) -> None:
         post_training = client.alpha.post_training.supervised_fine_tune(
-            hyperparam_search_config={"foo": True},
+            hyperparam_search_config={"foo": "bar"},
             job_uuid="job_uuid",
-            logger_config={"foo": True},
+            logger_config={"foo": "bar"},
             training_config={
-                "gradient_accumulation_steps": 0,
-                "max_steps_per_epoch": 0,
                 "n_epochs": 0,
                 "data_config": {
                     "batch_size": 0,
@@ -174,6 +147,8 @@ class TestPostTraining:
                     "fsdp_cpu_offload": True,
                     "memory_efficient_fsdp_wrap": True,
                 },
+                "gradient_accumulation_steps": 0,
+                "max_steps_per_epoch": 0,
                 "max_validation_steps": 0,
                 "optimizer_config": {
                     "lr": 0,
@@ -188,8 +163,8 @@ class TestPostTraining:
                 "apply_lora_to_output": True,
                 "lora_attn_modules": ["string"],
                 "rank": 0,
-                "type": "LoRA",
                 "quantize_base": True,
+                "type": "LoRA",
                 "use_dora": True,
             },
             checkpoint_dir="checkpoint_dir",
@@ -200,14 +175,10 @@ class TestPostTraining:
     @parametrize
     def test_raw_response_supervised_fine_tune(self, client: LlamaStackClient) -> None:
         response = client.alpha.post_training.with_raw_response.supervised_fine_tune(
-            hyperparam_search_config={"foo": True},
+            hyperparam_search_config={"foo": "bar"},
             job_uuid="job_uuid",
-            logger_config={"foo": True},
-            training_config={
-                "gradient_accumulation_steps": 0,
-                "max_steps_per_epoch": 0,
-                "n_epochs": 0,
-            },
+            logger_config={"foo": "bar"},
+            training_config={"n_epochs": 0},
         )
 
         assert response.is_closed is True
@@ -218,14 +189,10 @@ class TestPostTraining:
     @parametrize
     def test_streaming_response_supervised_fine_tune(self, client: LlamaStackClient) -> None:
         with client.alpha.post_training.with_streaming_response.supervised_fine_tune(
-            hyperparam_search_config={"foo": True},
+            hyperparam_search_config={"foo": "bar"},
             job_uuid="job_uuid",
-            logger_config={"foo": True},
-            training_config={
-                "gradient_accumulation_steps": 0,
-                "max_steps_per_epoch": 0,
-                "n_epochs": 0,
-            },
+            logger_config={"foo": "bar"},
+            training_config={"n_epochs": 0},
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -244,19 +211,12 @@ class TestAsyncPostTraining:
     @parametrize
     async def test_method_preference_optimize(self, async_client: AsyncLlamaStackClient) -> None:
         post_training = await async_client.alpha.post_training.preference_optimize(
-            algorithm_config={
-                "beta": 0,
-                "loss_type": "sigmoid",
-            },
+            algorithm_config={"beta": 0},
             finetuned_model="finetuned_model",
-            hyperparam_search_config={"foo": True},
+            hyperparam_search_config={"foo": "bar"},
             job_uuid="job_uuid",
-            logger_config={"foo": True},
-            training_config={
-                "gradient_accumulation_steps": 0,
-                "max_steps_per_epoch": 0,
-                "n_epochs": 0,
-            },
+            logger_config={"foo": "bar"},
+            training_config={"n_epochs": 0},
         )
         assert_matches_type(PostTrainingJob, post_training, path=["response"])
 
@@ -268,12 +228,10 @@ class TestAsyncPostTraining:
                 "loss_type": "sigmoid",
             },
             finetuned_model="finetuned_model",
-            hyperparam_search_config={"foo": True},
+            hyperparam_search_config={"foo": "bar"},
             job_uuid="job_uuid",
-            logger_config={"foo": True},
+            logger_config={"foo": "bar"},
             training_config={
-                "gradient_accumulation_steps": 0,
-                "max_steps_per_epoch": 0,
                 "n_epochs": 0,
                 "data_config": {
                     "batch_size": 0,
@@ -291,6 +249,8 @@ class TestAsyncPostTraining:
                     "fsdp_cpu_offload": True,
                     "memory_efficient_fsdp_wrap": True,
                 },
+                "gradient_accumulation_steps": 0,
+                "max_steps_per_epoch": 0,
                 "max_validation_steps": 0,
                 "optimizer_config": {
                     "lr": 0,
@@ -305,19 +265,12 @@ class TestAsyncPostTraining:
     @parametrize
     async def test_raw_response_preference_optimize(self, async_client: AsyncLlamaStackClient) -> None:
         response = await async_client.alpha.post_training.with_raw_response.preference_optimize(
-            algorithm_config={
-                "beta": 0,
-                "loss_type": "sigmoid",
-            },
+            algorithm_config={"beta": 0},
             finetuned_model="finetuned_model",
-            hyperparam_search_config={"foo": True},
+            hyperparam_search_config={"foo": "bar"},
             job_uuid="job_uuid",
-            logger_config={"foo": True},
-            training_config={
-                "gradient_accumulation_steps": 0,
-                "max_steps_per_epoch": 0,
-                "n_epochs": 0,
-            },
+            logger_config={"foo": "bar"},
+            training_config={"n_epochs": 0},
         )
 
         assert response.is_closed is True
@@ -328,19 +281,12 @@ class TestAsyncPostTraining:
     @parametrize
     async def test_streaming_response_preference_optimize(self, async_client: AsyncLlamaStackClient) -> None:
         async with async_client.alpha.post_training.with_streaming_response.preference_optimize(
-            algorithm_config={
-                "beta": 0,
-                "loss_type": "sigmoid",
-            },
+            algorithm_config={"beta": 0},
             finetuned_model="finetuned_model",
-            hyperparam_search_config={"foo": True},
+            hyperparam_search_config={"foo": "bar"},
             job_uuid="job_uuid",
-            logger_config={"foo": True},
-            training_config={
-                "gradient_accumulation_steps": 0,
-                "max_steps_per_epoch": 0,
-                "n_epochs": 0,
-            },
+            logger_config={"foo": "bar"},
+            training_config={"n_epochs": 0},
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -353,26 +299,20 @@ class TestAsyncPostTraining:
     @parametrize
     async def test_method_supervised_fine_tune(self, async_client: AsyncLlamaStackClient) -> None:
         post_training = await async_client.alpha.post_training.supervised_fine_tune(
-            hyperparam_search_config={"foo": True},
+            hyperparam_search_config={"foo": "bar"},
             job_uuid="job_uuid",
-            logger_config={"foo": True},
-            training_config={
-                "gradient_accumulation_steps": 0,
-                "max_steps_per_epoch": 0,
-                "n_epochs": 0,
-            },
+            logger_config={"foo": "bar"},
+            training_config={"n_epochs": 0},
         )
         assert_matches_type(PostTrainingJob, post_training, path=["response"])
 
     @parametrize
     async def test_method_supervised_fine_tune_with_all_params(self, async_client: AsyncLlamaStackClient) -> None:
         post_training = await async_client.alpha.post_training.supervised_fine_tune(
-            hyperparam_search_config={"foo": True},
+            hyperparam_search_config={"foo": "bar"},
             job_uuid="job_uuid",
-            logger_config={"foo": True},
+            logger_config={"foo": "bar"},
             training_config={
-                "gradient_accumulation_steps": 0,
-                "max_steps_per_epoch": 0,
                 "n_epochs": 0,
                 "data_config": {
                     "batch_size": 0,
@@ -390,6 +330,8 @@ class TestAsyncPostTraining:
                     "fsdp_cpu_offload": True,
                     "memory_efficient_fsdp_wrap": True,
                 },
+                "gradient_accumulation_steps": 0,
+                "max_steps_per_epoch": 0,
                 "max_validation_steps": 0,
                 "optimizer_config": {
                     "lr": 0,
@@ -404,8 +346,8 @@ class TestAsyncPostTraining:
                 "apply_lora_to_output": True,
                 "lora_attn_modules": ["string"],
                 "rank": 0,
-                "type": "LoRA",
                 "quantize_base": True,
+                "type": "LoRA",
                 "use_dora": True,
             },
             checkpoint_dir="checkpoint_dir",
@@ -416,14 +358,10 @@ class TestAsyncPostTraining:
     @parametrize
     async def test_raw_response_supervised_fine_tune(self, async_client: AsyncLlamaStackClient) -> None:
         response = await async_client.alpha.post_training.with_raw_response.supervised_fine_tune(
-            hyperparam_search_config={"foo": True},
+            hyperparam_search_config={"foo": "bar"},
             job_uuid="job_uuid",
-            logger_config={"foo": True},
-            training_config={
-                "gradient_accumulation_steps": 0,
-                "max_steps_per_epoch": 0,
-                "n_epochs": 0,
-            },
+            logger_config={"foo": "bar"},
+            training_config={"n_epochs": 0},
         )
 
         assert response.is_closed is True
@@ -434,14 +372,10 @@ class TestAsyncPostTraining:
     @parametrize
     async def test_streaming_response_supervised_fine_tune(self, async_client: AsyncLlamaStackClient) -> None:
         async with async_client.alpha.post_training.with_streaming_response.supervised_fine_tune(
-            hyperparam_search_config={"foo": True},
+            hyperparam_search_config={"foo": "bar"},
             job_uuid="job_uuid",
-            logger_config={"foo": True},
-            training_config={
-                "gradient_accumulation_steps": 0,
-                "max_steps_per_epoch": 0,
-                "n_epochs": 0,
-            },
+            logger_config={"foo": "bar"},
+            training_config={"n_epochs": 0},
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"

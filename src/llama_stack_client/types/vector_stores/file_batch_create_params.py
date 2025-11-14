@@ -8,7 +8,7 @@
 
 from __future__ import annotations
 
-from typing import Dict, Union, Iterable
+from typing import Dict, Union, Optional
 from typing_extensions import Literal, Required, TypeAlias, TypedDict
 
 from ..._types import SequenceNotStr
@@ -24,34 +24,28 @@ __all__ = [
 
 class FileBatchCreateParams(TypedDict, total=False):
     file_ids: Required[SequenceNotStr[str]]
-    """A list of File IDs that the vector store should use"""
 
-    attributes: Dict[str, Union[bool, float, str, Iterable[object], object, None]]
-    """(Optional) Key-value attributes to store with the files"""
+    attributes: Optional[Dict[str, object]]
 
-    chunking_strategy: ChunkingStrategy
-    """(Optional) The chunking strategy used to chunk the file(s). Defaults to auto"""
+    chunking_strategy: Optional[ChunkingStrategy]
+    """Automatic chunking strategy for vector store files."""
 
 
 class ChunkingStrategyVectorStoreChunkingStrategyAuto(TypedDict, total=False):
-    type: Required[Literal["auto"]]
-    """Strategy type, always "auto" for automatic chunking"""
+    type: Literal["auto"]
 
 
 class ChunkingStrategyVectorStoreChunkingStrategyStaticStatic(TypedDict, total=False):
-    chunk_overlap_tokens: Required[int]
-    """Number of tokens to overlap between adjacent chunks"""
+    chunk_overlap_tokens: int
 
-    max_chunk_size_tokens: Required[int]
-    """Maximum number of tokens per chunk, must be between 100 and 4096"""
+    max_chunk_size_tokens: int
 
 
 class ChunkingStrategyVectorStoreChunkingStrategyStatic(TypedDict, total=False):
     static: Required[ChunkingStrategyVectorStoreChunkingStrategyStaticStatic]
-    """Configuration parameters for the static chunking strategy"""
+    """Configuration for static chunking strategy."""
 
-    type: Required[Literal["static"]]
-    """Strategy type, always "static" for static chunking"""
+    type: Literal["static"]
 
 
 ChunkingStrategy: TypeAlias = Union[

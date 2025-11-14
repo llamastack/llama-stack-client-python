@@ -7,22 +7,97 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 from typing import Dict, List, Union, Optional
+from typing_extensions import Literal, Annotated, TypeAlias
 
+from .._utils import PropertyInfo
 from .._models import BaseModel
-from .shared.interleaved_content import InterleavedContent
 
-__all__ = ["ToolInvocationResult"]
+__all__ = [
+    "ToolInvocationResult",
+    "Content",
+    "ContentImageContentItemOutput",
+    "ContentImageContentItemOutputImage",
+    "ContentImageContentItemOutputImageURL",
+    "ContentTextContentItem",
+    "ContentListImageContentItemOutputTextContentItem",
+    "ContentListImageContentItemOutputTextContentItemImageContentItemOutput",
+    "ContentListImageContentItemOutputTextContentItemImageContentItemOutputImage",
+    "ContentListImageContentItemOutputTextContentItemImageContentItemOutputImageURL",
+    "ContentListImageContentItemOutputTextContentItemTextContentItem",
+]
+
+
+class ContentImageContentItemOutputImageURL(BaseModel):
+    uri: str
+
+
+class ContentImageContentItemOutputImage(BaseModel):
+    data: Optional[str] = None
+
+    url: Optional[ContentImageContentItemOutputImageURL] = None
+    """A URL reference to external content."""
+
+
+class ContentImageContentItemOutput(BaseModel):
+    image: ContentImageContentItemOutputImage
+    """A URL or a base64 encoded string"""
+
+    type: Optional[Literal["image"]] = None
+
+
+class ContentTextContentItem(BaseModel):
+    text: str
+
+    type: Optional[Literal["text"]] = None
+
+
+class ContentListImageContentItemOutputTextContentItemImageContentItemOutputImageURL(BaseModel):
+    uri: str
+
+
+class ContentListImageContentItemOutputTextContentItemImageContentItemOutputImage(BaseModel):
+    data: Optional[str] = None
+
+    url: Optional[ContentListImageContentItemOutputTextContentItemImageContentItemOutputImageURL] = None
+    """A URL reference to external content."""
+
+
+class ContentListImageContentItemOutputTextContentItemImageContentItemOutput(BaseModel):
+    image: ContentListImageContentItemOutputTextContentItemImageContentItemOutputImage
+    """A URL or a base64 encoded string"""
+
+    type: Optional[Literal["image"]] = None
+
+
+class ContentListImageContentItemOutputTextContentItemTextContentItem(BaseModel):
+    text: str
+
+    type: Optional[Literal["text"]] = None
+
+
+ContentListImageContentItemOutputTextContentItem: TypeAlias = Annotated[
+    Union[
+        ContentListImageContentItemOutputTextContentItemImageContentItemOutput,
+        ContentListImageContentItemOutputTextContentItemTextContentItem,
+    ],
+    PropertyInfo(discriminator="type"),
+]
+
+Content: TypeAlias = Union[
+    str,
+    ContentImageContentItemOutput,
+    ContentTextContentItem,
+    List[ContentListImageContentItemOutputTextContentItem],
+    None,
+]
 
 
 class ToolInvocationResult(BaseModel):
-    content: Optional[InterleavedContent] = None
-    """(Optional) The output content from the tool execution"""
+    content: Optional[Content] = None
+    """A image content item"""
 
     error_code: Optional[int] = None
-    """(Optional) Numeric error code if the tool execution failed"""
 
     error_message: Optional[str] = None
-    """(Optional) Error message if the tool execution failed"""
 
-    metadata: Optional[Dict[str, Union[bool, float, str, List[object], object, None]]] = None
-    """(Optional) Additional metadata about the tool execution"""
+    metadata: Optional[Dict[str, object]] = None

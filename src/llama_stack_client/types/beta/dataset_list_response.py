@@ -22,25 +22,15 @@ __all__ = [
 
 
 class DatasetListResponseItemSourceUriDataSource(BaseModel):
-    type: Literal["uri"]
-
     uri: str
-    """The dataset can be obtained from a URI.
 
-    E.g. - "https://mywebsite.com/mydata.jsonl" - "lsfs://mydata.jsonl" -
-    "data:csv;base64,{base64_content}"
-    """
+    type: Optional[Literal["uri"]] = None
 
 
 class DatasetListResponseItemSourceRowsDataSource(BaseModel):
-    rows: List[Dict[str, Union[bool, float, str, List[object], object, None]]]
-    """The dataset is stored in rows.
+    rows: List[Dict[str, object]]
 
-    E.g. - [ {"messages": [{"role": "user", "content": "Hello, world!"}, {"role":
-    "assistant", "content": "Hello, world!"}]} ]
-    """
-
-    type: Literal["rows"]
+    type: Optional[Literal["rows"]] = None
 
 
 DatasetListResponseItemSource: TypeAlias = Annotated[
@@ -51,22 +41,24 @@ DatasetListResponseItemSource: TypeAlias = Annotated[
 
 class DatasetListResponseItem(BaseModel):
     identifier: str
-
-    metadata: Dict[str, Union[bool, float, str, List[object], object, None]]
-    """Additional metadata for the dataset"""
+    """Unique identifier for this resource in llama stack"""
 
     provider_id: str
+    """ID of the provider that owns this resource"""
 
     purpose: Literal["post-training/messages", "eval/question-answer", "eval/messages-answer"]
-    """Purpose of the dataset indicating its intended use"""
+    """Purpose of the dataset. Each purpose has a required input data schema."""
 
     source: DatasetListResponseItemSource
-    """Data source configuration for the dataset"""
+    """A dataset that can be obtained from a URI."""
 
-    type: Literal["dataset"]
-    """Type of resource, always 'dataset' for datasets"""
+    metadata: Optional[Dict[str, object]] = None
+    """Any additional metadata for this dataset"""
 
     provider_resource_id: Optional[str] = None
+    """Unique identifier for this resource in the provider"""
+
+    type: Optional[Literal["dataset"]] = None
 
 
 DatasetListResponse: TypeAlias = List[DatasetListResponseItem]

@@ -110,7 +110,6 @@ class TestPrompts:
         prompt = client.prompts.update(
             prompt_id="prompt_id",
             prompt="prompt",
-            set_as_default=True,
             version=0,
         )
         assert_matches_type(Prompt, prompt, path=["response"])
@@ -120,8 +119,8 @@ class TestPrompts:
         prompt = client.prompts.update(
             prompt_id="prompt_id",
             prompt="prompt",
-            set_as_default=True,
             version=0,
+            set_as_default=True,
             variables=["string"],
         )
         assert_matches_type(Prompt, prompt, path=["response"])
@@ -131,7 +130,6 @@ class TestPrompts:
         response = client.prompts.with_raw_response.update(
             prompt_id="prompt_id",
             prompt="prompt",
-            set_as_default=True,
             version=0,
         )
 
@@ -145,7 +143,6 @@ class TestPrompts:
         with client.prompts.with_streaming_response.update(
             prompt_id="prompt_id",
             prompt="prompt",
-            set_as_default=True,
             version=0,
         ) as response:
             assert not response.is_closed
@@ -162,7 +159,6 @@ class TestPrompts:
             client.prompts.with_raw_response.update(
                 prompt_id="",
                 prompt="prompt",
-                set_as_default=True,
                 version=0,
             )
 
@@ -367,7 +363,6 @@ class TestAsyncPrompts:
         prompt = await async_client.prompts.update(
             prompt_id="prompt_id",
             prompt="prompt",
-            set_as_default=True,
             version=0,
         )
         assert_matches_type(Prompt, prompt, path=["response"])
@@ -377,8 +372,8 @@ class TestAsyncPrompts:
         prompt = await async_client.prompts.update(
             prompt_id="prompt_id",
             prompt="prompt",
-            set_as_default=True,
             version=0,
+            set_as_default=True,
             variables=["string"],
         )
         assert_matches_type(Prompt, prompt, path=["response"])
@@ -388,7 +383,6 @@ class TestAsyncPrompts:
         response = await async_client.prompts.with_raw_response.update(
             prompt_id="prompt_id",
             prompt="prompt",
-            set_as_default=True,
             version=0,
         )
 
@@ -402,7 +396,6 @@ class TestAsyncPrompts:
         async with async_client.prompts.with_streaming_response.update(
             prompt_id="prompt_id",
             prompt="prompt",
-            set_as_default=True,
             version=0,
         ) as response:
             assert not response.is_closed
@@ -419,7 +412,6 @@ class TestAsyncPrompts:
             await async_client.prompts.with_raw_response.update(
                 prompt_id="",
                 prompt="prompt",
-                set_as_default=True,
                 version=0,
             )
 

@@ -29,12 +29,10 @@ class TestScoring:
     @parametrize
     def test_method_score(self, client: LlamaStackClient) -> None:
         scoring = client.scoring.score(
-            input_rows=[{"foo": True}],
+            input_rows=[{"foo": "bar"}],
             scoring_functions={
                 "foo": {
-                    "aggregation_functions": ["average"],
                     "judge_model": "judge_model",
-                    "judge_score_regexes": ["string"],
                     "type": "llm_as_judge",
                 }
             },
@@ -44,12 +42,10 @@ class TestScoring:
     @parametrize
     def test_raw_response_score(self, client: LlamaStackClient) -> None:
         response = client.scoring.with_raw_response.score(
-            input_rows=[{"foo": True}],
+            input_rows=[{"foo": "bar"}],
             scoring_functions={
                 "foo": {
-                    "aggregation_functions": ["average"],
                     "judge_model": "judge_model",
-                    "judge_score_regexes": ["string"],
                     "type": "llm_as_judge",
                 }
             },
@@ -63,12 +59,10 @@ class TestScoring:
     @parametrize
     def test_streaming_response_score(self, client: LlamaStackClient) -> None:
         with client.scoring.with_streaming_response.score(
-            input_rows=[{"foo": True}],
+            input_rows=[{"foo": "bar"}],
             scoring_functions={
                 "foo": {
-                    "aggregation_functions": ["average"],
                     "judge_model": "judge_model",
-                    "judge_score_regexes": ["string"],
                     "type": "llm_as_judge",
                 }
             },
@@ -85,12 +79,9 @@ class TestScoring:
     def test_method_score_batch(self, client: LlamaStackClient) -> None:
         scoring = client.scoring.score_batch(
             dataset_id="dataset_id",
-            save_results_dataset=True,
             scoring_functions={
                 "foo": {
-                    "aggregation_functions": ["average"],
                     "judge_model": "judge_model",
-                    "judge_score_regexes": ["string"],
                     "type": "llm_as_judge",
                 }
             },
@@ -98,15 +89,29 @@ class TestScoring:
         assert_matches_type(ScoringScoreBatchResponse, scoring, path=["response"])
 
     @parametrize
+    def test_method_score_batch_with_all_params(self, client: LlamaStackClient) -> None:
+        scoring = client.scoring.score_batch(
+            dataset_id="dataset_id",
+            scoring_functions={
+                "foo": {
+                    "judge_model": "judge_model",
+                    "aggregation_functions": ["average"],
+                    "judge_score_regexes": ["string"],
+                    "prompt_template": "prompt_template",
+                    "type": "llm_as_judge",
+                }
+            },
+            save_results_dataset=True,
+        )
+        assert_matches_type(ScoringScoreBatchResponse, scoring, path=["response"])
+
+    @parametrize
     def test_raw_response_score_batch(self, client: LlamaStackClient) -> None:
         response = client.scoring.with_raw_response.score_batch(
             dataset_id="dataset_id",
-            save_results_dataset=True,
             scoring_functions={
                 "foo": {
-                    "aggregation_functions": ["average"],
                     "judge_model": "judge_model",
-                    "judge_score_regexes": ["string"],
                     "type": "llm_as_judge",
                 }
             },
@@ -121,12 +126,9 @@ class TestScoring:
     def test_streaming_response_score_batch(self, client: LlamaStackClient) -> None:
         with client.scoring.with_streaming_response.score_batch(
             dataset_id="dataset_id",
-            save_results_dataset=True,
             scoring_functions={
                 "foo": {
-                    "aggregation_functions": ["average"],
                     "judge_model": "judge_model",
-                    "judge_score_regexes": ["string"],
                     "type": "llm_as_judge",
                 }
             },
@@ -148,12 +150,10 @@ class TestAsyncScoring:
     @parametrize
     async def test_method_score(self, async_client: AsyncLlamaStackClient) -> None:
         scoring = await async_client.scoring.score(
-            input_rows=[{"foo": True}],
+            input_rows=[{"foo": "bar"}],
             scoring_functions={
                 "foo": {
-                    "aggregation_functions": ["average"],
                     "judge_model": "judge_model",
-                    "judge_score_regexes": ["string"],
                     "type": "llm_as_judge",
                 }
             },
@@ -163,12 +163,10 @@ class TestAsyncScoring:
     @parametrize
     async def test_raw_response_score(self, async_client: AsyncLlamaStackClient) -> None:
         response = await async_client.scoring.with_raw_response.score(
-            input_rows=[{"foo": True}],
+            input_rows=[{"foo": "bar"}],
             scoring_functions={
                 "foo": {
-                    "aggregation_functions": ["average"],
                     "judge_model": "judge_model",
-                    "judge_score_regexes": ["string"],
                     "type": "llm_as_judge",
                 }
             },
@@ -182,12 +180,10 @@ class TestAsyncScoring:
     @parametrize
     async def test_streaming_response_score(self, async_client: AsyncLlamaStackClient) -> None:
         async with async_client.scoring.with_streaming_response.score(
-            input_rows=[{"foo": True}],
+            input_rows=[{"foo": "bar"}],
             scoring_functions={
                 "foo": {
-                    "aggregation_functions": ["average"],
                     "judge_model": "judge_model",
-                    "judge_score_regexes": ["string"],
                     "type": "llm_as_judge",
                 }
             },
@@ -204,12 +200,9 @@ class TestAsyncScoring:
     async def test_method_score_batch(self, async_client: AsyncLlamaStackClient) -> None:
         scoring = await async_client.scoring.score_batch(
             dataset_id="dataset_id",
-            save_results_dataset=True,
             scoring_functions={
                 "foo": {
-                    "aggregation_functions": ["average"],
                     "judge_model": "judge_model",
-                    "judge_score_regexes": ["string"],
                     "type": "llm_as_judge",
                 }
             },
@@ -217,15 +210,29 @@ class TestAsyncScoring:
         assert_matches_type(ScoringScoreBatchResponse, scoring, path=["response"])
 
     @parametrize
+    async def test_method_score_batch_with_all_params(self, async_client: AsyncLlamaStackClient) -> None:
+        scoring = await async_client.scoring.score_batch(
+            dataset_id="dataset_id",
+            scoring_functions={
+                "foo": {
+                    "judge_model": "judge_model",
+                    "aggregation_functions": ["average"],
+                    "judge_score_regexes": ["string"],
+                    "prompt_template": "prompt_template",
+                    "type": "llm_as_judge",
+                }
+            },
+            save_results_dataset=True,
+        )
+        assert_matches_type(ScoringScoreBatchResponse, scoring, path=["response"])
+
+    @parametrize
     async def test_raw_response_score_batch(self, async_client: AsyncLlamaStackClient) -> None:
         response = await async_client.scoring.with_raw_response.score_batch(
             dataset_id="dataset_id",
-            save_results_dataset=True,
             scoring_functions={
                 "foo": {
-                    "aggregation_functions": ["average"],
                     "judge_model": "judge_model",
-                    "judge_score_regexes": ["string"],
                     "type": "llm_as_judge",
                 }
             },
@@ -240,12 +247,9 @@ class TestAsyncScoring:
     async def test_streaming_response_score_batch(self, async_client: AsyncLlamaStackClient) -> None:
         async with async_client.scoring.with_streaming_response.score_batch(
             dataset_id="dataset_id",
-            save_results_dataset=True,
             scoring_functions={
                 "foo": {
-                    "aggregation_functions": ["average"],
                     "judge_model": "judge_model",
-                    "judge_score_regexes": ["string"],
                     "type": "llm_as_judge",
                 }
             },

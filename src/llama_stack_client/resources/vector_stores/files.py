@@ -8,7 +8,7 @@
 
 from __future__ import annotations
 
-from typing import Dict, Union, Iterable
+from typing import Dict, Optional
 from typing_extensions import Literal
 
 import httpx
@@ -58,8 +58,8 @@ class FilesResource(SyncAPIResource):
         vector_store_id: str,
         *,
         file_id: str,
-        attributes: Dict[str, Union[bool, float, str, Iterable[object], object, None]] | Omit = omit,
-        chunking_strategy: file_create_params.ChunkingStrategy | Omit = omit,
+        attributes: Optional[Dict[str, object]] | Omit = omit,
+        chunking_strategy: Optional[file_create_params.ChunkingStrategy] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -71,11 +71,7 @@ class FilesResource(SyncAPIResource):
         Attach a file to a vector store.
 
         Args:
-          file_id: The ID of the file to attach to the vector store.
-
-          attributes: The key-value attributes stored with the file, which can be used for filtering.
-
-          chunking_strategy: The chunking strategy to use for the file.
+          chunking_strategy: Automatic chunking strategy for vector store files.
 
           extra_headers: Send extra headers
 
@@ -144,7 +140,7 @@ class FilesResource(SyncAPIResource):
         file_id: str,
         *,
         vector_store_id: str,
-        attributes: Dict[str, Union[bool, float, str, Iterable[object], object, None]],
+        attributes: Dict[str, object],
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -156,8 +152,6 @@ class FilesResource(SyncAPIResource):
         Updates a vector store file.
 
         Args:
-          attributes: The updated key-value attributes to store with the file.
-
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -183,11 +177,11 @@ class FilesResource(SyncAPIResource):
         self,
         vector_store_id: str,
         *,
-        after: str | Omit = omit,
-        before: str | Omit = omit,
-        filter: Literal["completed", "in_progress", "cancelled", "failed"] | Omit = omit,
-        limit: int | Omit = omit,
-        order: str | Omit = omit,
+        after: Optional[str] | Omit = omit,
+        before: Optional[str] | Omit = omit,
+        filter: Optional[Literal["completed", "in_progress", "cancelled", "failed"]] | Omit = omit,
+        limit: Optional[int] | Omit = omit,
+        order: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -199,20 +193,6 @@ class FilesResource(SyncAPIResource):
         List files in a vector store.
 
         Args:
-          after: (Optional) A cursor for use in pagination. `after` is an object ID that defines
-              your place in the list.
-
-          before: (Optional) A cursor for use in pagination. `before` is an object ID that defines
-              your place in the list.
-
-          filter: (Optional) Filter by file status to only return files with the specified status.
-
-          limit: (Optional) A limit on the number of objects to be returned. Limit can range
-              between 1 and 100, and the default is 20.
-
-          order: (Optional) Sort order by the `created_at` timestamp of the objects. `asc` for
-              ascending order and `desc` for descending order.
-
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -286,8 +266,8 @@ class FilesResource(SyncAPIResource):
         file_id: str,
         *,
         vector_store_id: str,
-        include_embeddings: bool | Omit = omit,
-        include_metadata: bool | Omit = omit,
+        include_embeddings: Optional[bool] | Omit = omit,
+        include_metadata: Optional[bool] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -299,10 +279,6 @@ class FilesResource(SyncAPIResource):
         Retrieves the contents of a vector store file.
 
         Args:
-          include_embeddings: Whether to include embedding vectors in the response.
-
-          include_metadata: Whether to include chunk metadata in the response.
-
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -359,8 +335,8 @@ class AsyncFilesResource(AsyncAPIResource):
         vector_store_id: str,
         *,
         file_id: str,
-        attributes: Dict[str, Union[bool, float, str, Iterable[object], object, None]] | Omit = omit,
-        chunking_strategy: file_create_params.ChunkingStrategy | Omit = omit,
+        attributes: Optional[Dict[str, object]] | Omit = omit,
+        chunking_strategy: Optional[file_create_params.ChunkingStrategy] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -372,11 +348,7 @@ class AsyncFilesResource(AsyncAPIResource):
         Attach a file to a vector store.
 
         Args:
-          file_id: The ID of the file to attach to the vector store.
-
-          attributes: The key-value attributes stored with the file, which can be used for filtering.
-
-          chunking_strategy: The chunking strategy to use for the file.
+          chunking_strategy: Automatic chunking strategy for vector store files.
 
           extra_headers: Send extra headers
 
@@ -445,7 +417,7 @@ class AsyncFilesResource(AsyncAPIResource):
         file_id: str,
         *,
         vector_store_id: str,
-        attributes: Dict[str, Union[bool, float, str, Iterable[object], object, None]],
+        attributes: Dict[str, object],
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -457,8 +429,6 @@ class AsyncFilesResource(AsyncAPIResource):
         Updates a vector store file.
 
         Args:
-          attributes: The updated key-value attributes to store with the file.
-
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -484,11 +454,11 @@ class AsyncFilesResource(AsyncAPIResource):
         self,
         vector_store_id: str,
         *,
-        after: str | Omit = omit,
-        before: str | Omit = omit,
-        filter: Literal["completed", "in_progress", "cancelled", "failed"] | Omit = omit,
-        limit: int | Omit = omit,
-        order: str | Omit = omit,
+        after: Optional[str] | Omit = omit,
+        before: Optional[str] | Omit = omit,
+        filter: Optional[Literal["completed", "in_progress", "cancelled", "failed"]] | Omit = omit,
+        limit: Optional[int] | Omit = omit,
+        order: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -500,20 +470,6 @@ class AsyncFilesResource(AsyncAPIResource):
         List files in a vector store.
 
         Args:
-          after: (Optional) A cursor for use in pagination. `after` is an object ID that defines
-              your place in the list.
-
-          before: (Optional) A cursor for use in pagination. `before` is an object ID that defines
-              your place in the list.
-
-          filter: (Optional) Filter by file status to only return files with the specified status.
-
-          limit: (Optional) A limit on the number of objects to be returned. Limit can range
-              between 1 and 100, and the default is 20.
-
-          order: (Optional) Sort order by the `created_at` timestamp of the objects. `asc` for
-              ascending order and `desc` for descending order.
-
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -587,8 +543,8 @@ class AsyncFilesResource(AsyncAPIResource):
         file_id: str,
         *,
         vector_store_id: str,
-        include_embeddings: bool | Omit = omit,
-        include_metadata: bool | Omit = omit,
+        include_embeddings: Optional[bool] | Omit = omit,
+        include_metadata: Optional[bool] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -600,10 +556,6 @@ class AsyncFilesResource(AsyncAPIResource):
         Retrieves the contents of a vector store file.
 
         Args:
-          include_embeddings: Whether to include embedding vectors in the response.
-
-          include_metadata: Whether to include chunk metadata in the response.
-
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request

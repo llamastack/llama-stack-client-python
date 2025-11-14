@@ -7,79 +7,138 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 from typing import Dict, List, Union, Optional
+from typing_extensions import Literal, Annotated, TypeAlias
 
+from .._utils import PropertyInfo
 from .._models import BaseModel
-from .shared.interleaved_content import InterleavedContent
 
-__all__ = ["QueryChunksResponse", "Chunk", "ChunkChunkMetadata"]
+__all__ = [
+    "QueryChunksResponse",
+    "Chunk",
+    "ChunkContent",
+    "ChunkContentImageContentItemOutput",
+    "ChunkContentImageContentItemOutputImage",
+    "ChunkContentImageContentItemOutputImageURL",
+    "ChunkContentTextContentItem",
+    "ChunkContentListImageContentItemOutputTextContentItem",
+    "ChunkContentListImageContentItemOutputTextContentItemImageContentItemOutput",
+    "ChunkContentListImageContentItemOutputTextContentItemImageContentItemOutputImage",
+    "ChunkContentListImageContentItemOutputTextContentItemImageContentItemOutputImageURL",
+    "ChunkContentListImageContentItemOutputTextContentItemTextContentItem",
+    "ChunkChunkMetadata",
+]
+
+
+class ChunkContentImageContentItemOutputImageURL(BaseModel):
+    uri: str
+
+
+class ChunkContentImageContentItemOutputImage(BaseModel):
+    data: Optional[str] = None
+
+    url: Optional[ChunkContentImageContentItemOutputImageURL] = None
+    """A URL reference to external content."""
+
+
+class ChunkContentImageContentItemOutput(BaseModel):
+    image: ChunkContentImageContentItemOutputImage
+    """A URL or a base64 encoded string"""
+
+    type: Optional[Literal["image"]] = None
+
+
+class ChunkContentTextContentItem(BaseModel):
+    text: str
+
+    type: Optional[Literal["text"]] = None
+
+
+class ChunkContentListImageContentItemOutputTextContentItemImageContentItemOutputImageURL(BaseModel):
+    uri: str
+
+
+class ChunkContentListImageContentItemOutputTextContentItemImageContentItemOutputImage(BaseModel):
+    data: Optional[str] = None
+
+    url: Optional[ChunkContentListImageContentItemOutputTextContentItemImageContentItemOutputImageURL] = None
+    """A URL reference to external content."""
+
+
+class ChunkContentListImageContentItemOutputTextContentItemImageContentItemOutput(BaseModel):
+    image: ChunkContentListImageContentItemOutputTextContentItemImageContentItemOutputImage
+    """A URL or a base64 encoded string"""
+
+    type: Optional[Literal["image"]] = None
+
+
+class ChunkContentListImageContentItemOutputTextContentItemTextContentItem(BaseModel):
+    text: str
+
+    type: Optional[Literal["text"]] = None
+
+
+ChunkContentListImageContentItemOutputTextContentItem: TypeAlias = Annotated[
+    Union[
+        ChunkContentListImageContentItemOutputTextContentItemImageContentItemOutput,
+        ChunkContentListImageContentItemOutputTextContentItemTextContentItem,
+    ],
+    PropertyInfo(discriminator="type"),
+]
+
+ChunkContent: TypeAlias = Union[
+    str,
+    ChunkContentImageContentItemOutput,
+    ChunkContentTextContentItem,
+    List[ChunkContentListImageContentItemOutputTextContentItem],
+]
 
 
 class ChunkChunkMetadata(BaseModel):
     chunk_embedding_dimension: Optional[int] = None
-    """The dimension of the embedding vector for the chunk."""
 
     chunk_embedding_model: Optional[str] = None
-    """The embedding model used to create the chunk's embedding."""
 
     chunk_id: Optional[str] = None
-    """The ID of the chunk.
-
-    If not set, it will be generated based on the document ID and content.
-    """
 
     chunk_tokenizer: Optional[str] = None
-    """The tokenizer used to create the chunk. Default is Tiktoken."""
 
     chunk_window: Optional[str] = None
-    """The window of the chunk, which can be used to group related chunks together."""
 
     content_token_count: Optional[int] = None
-    """The number of tokens in the content of the chunk."""
 
     created_timestamp: Optional[int] = None
-    """An optional timestamp indicating when the chunk was created."""
 
     document_id: Optional[str] = None
-    """The ID of the document this chunk belongs to."""
 
     metadata_token_count: Optional[int] = None
-    """The number of tokens in the metadata of the chunk."""
 
     source: Optional[str] = None
-    """The source of the content, such as a URL, file path, or other identifier."""
 
     updated_timestamp: Optional[int] = None
-    """An optional timestamp indicating when the chunk was last updated."""
 
 
 class Chunk(BaseModel):
     chunk_id: str
-    """Unique identifier for the chunk. Must be provided explicitly."""
 
-    content: InterleavedContent
-    """
-    The content of the chunk, which can be interleaved text, images, or other types.
-    """
-
-    metadata: Dict[str, Union[bool, float, str, List[object], object, None]]
-    """
-    Metadata associated with the chunk that will be used in the model context during
-    inference.
-    """
+    content: ChunkContent
+    """A image content item"""
 
     chunk_metadata: Optional[ChunkChunkMetadata] = None
-    """Metadata for the chunk that will NOT be used in the context during inference.
-
-    The `chunk_metadata` is required backend functionality.
+    """
+    `ChunkMetadata` is backend metadata for a `Chunk` that is used to store
+    additional information about the chunk that will not be used in the context
+    during inference, but is required for backend functionality. The `ChunkMetadata`
+    is set during chunk creation in `MemoryToolRuntimeImpl().insert()`and is not
+    expected to change after. Use `Chunk.metadata` for metadata that will be used in
+    the context during inference.
     """
 
     embedding: Optional[List[float]] = None
-    """Optional embedding for the chunk. If not provided, it will be computed later."""
+
+    metadata: Optional[Dict[str, object]] = None
 
 
 class QueryChunksResponse(BaseModel):
     chunks: List[Chunk]
-    """List of content chunks returned from the query"""
 
     scores: List[float]
-    """Relevance scores corresponding to each returned chunk"""

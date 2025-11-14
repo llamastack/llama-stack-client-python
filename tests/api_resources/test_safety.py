@@ -32,7 +32,7 @@ class TestSafety:
                     "role": "user",
                 }
             ],
-            params={"foo": True},
+            params={"foo": "bar"},
             shield_id="shield_id",
         )
         assert_matches_type(RunShieldResponse, safety, path=["response"])
@@ -46,7 +46,7 @@ class TestSafety:
                     "role": "user",
                 }
             ],
-            params={"foo": True},
+            params={"foo": "bar"},
             shield_id="shield_id",
         )
 
@@ -64,7 +64,7 @@ class TestSafety:
                     "role": "user",
                 }
             ],
-            params={"foo": True},
+            params={"foo": "bar"},
             shield_id="shield_id",
         ) as response:
             assert not response.is_closed
@@ -90,7 +90,7 @@ class TestAsyncSafety:
                     "role": "user",
                 }
             ],
-            params={"foo": True},
+            params={"foo": "bar"},
             shield_id="shield_id",
         )
         assert_matches_type(RunShieldResponse, safety, path=["response"])
@@ -104,7 +104,7 @@ class TestAsyncSafety:
                     "role": "user",
                 }
             ],
-            params={"foo": True},
+            params={"foo": "bar"},
             shield_id="shield_id",
         )
 
@@ -122,7 +122,7 @@ class TestAsyncSafety:
                     "role": "user",
                 }
             ],
-            params={"foo": True},
+            params={"foo": "bar"},
             shield_id="shield_id",
         ) as response:
             assert not response.is_closed
