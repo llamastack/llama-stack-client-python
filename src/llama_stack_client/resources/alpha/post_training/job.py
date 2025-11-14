@@ -90,8 +90,6 @@ class JobResource(SyncAPIResource):
         Get the artifacts of a training job.
 
         Args:
-          job_uuid: The UUID of the job to get the artifacts of.
-
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -127,8 +125,6 @@ class JobResource(SyncAPIResource):
         Cancel a training job.
 
         Args:
-          job_uuid: The UUID of the job to cancel.
-
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -162,8 +158,6 @@ class JobResource(SyncAPIResource):
         Get the status of a training job.
 
         Args:
-          job_uuid: The UUID of the job to get the status of.
-
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -243,8 +237,6 @@ class AsyncJobResource(AsyncAPIResource):
         Get the artifacts of a training job.
 
         Args:
-          job_uuid: The UUID of the job to get the artifacts of.
-
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -280,8 +272,6 @@ class AsyncJobResource(AsyncAPIResource):
         Cancel a training job.
 
         Args:
-          job_uuid: The UUID of the job to cancel.
-
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -315,8 +305,6 @@ class AsyncJobResource(AsyncAPIResource):
         Get the status of a training job.
 
         Args:
-          job_uuid: The UUID of the job to get the status of.
-
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request

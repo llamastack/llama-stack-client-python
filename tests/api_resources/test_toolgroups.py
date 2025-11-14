@@ -104,7 +104,7 @@ class TestToolgroups:
             toolgroup = client.toolgroups.register(
                 provider_id="provider_id",
                 toolgroup_id="toolgroup_id",
-                args={"foo": True},
+                args={"foo": "bar"},
                 mcp_endpoint={"uri": "uri"},
             )
 
@@ -266,7 +266,7 @@ class TestAsyncToolgroups:
             toolgroup = await async_client.toolgroups.register(
                 provider_id="provider_id",
                 toolgroup_id="toolgroup_id",
-                args={"foo": True},
+                args={"foo": "bar"},
                 mcp_endpoint={"uri": "uri"},
             )
 

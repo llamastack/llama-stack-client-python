@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from typing import Type, cast
+from typing import Type, Optional, cast
 
 import httpx
 
@@ -66,7 +66,7 @@ class PromptsResource(SyncAPIResource):
         self,
         *,
         prompt: str,
-        variables: SequenceNotStr[str] | Omit = omit,
+        variables: Optional[SequenceNotStr[str]] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -74,15 +74,12 @@ class PromptsResource(SyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> Prompt:
-        """Create prompt.
+        """
+        Create prompt.
 
         Create a new prompt.
 
         Args:
-          prompt: The prompt text content with variable placeholders.
-
-          variables: List of variable names that can be used in the prompt template.
-
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -110,7 +107,7 @@ class PromptsResource(SyncAPIResource):
         self,
         prompt_id: str,
         *,
-        version: int | Omit = omit,
+        version: Optional[int] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -118,13 +115,12 @@ class PromptsResource(SyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> Prompt:
-        """Get prompt.
+        """
+        Get prompt.
 
         Get a prompt by its identifier and optional version.
 
         Args:
-          version: The version of the prompt to get (defaults to latest).
-
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -152,9 +148,9 @@ class PromptsResource(SyncAPIResource):
         prompt_id: str,
         *,
         prompt: str,
-        set_as_default: bool,
         version: int,
-        variables: SequenceNotStr[str] | Omit = omit,
+        set_as_default: bool | Omit = omit,
+        variables: Optional[SequenceNotStr[str]] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -162,19 +158,12 @@ class PromptsResource(SyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> Prompt:
-        """Update prompt.
+        """
+        Update prompt.
 
         Update an existing prompt (increments version).
 
         Args:
-          prompt: The updated prompt text content.
-
-          set_as_default: Set the new version as the default (default=True).
-
-          version: The current version of the prompt being updated.
-
-          variables: Updated list of variable names that can be used in the prompt template.
-
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -190,8 +179,8 @@ class PromptsResource(SyncAPIResource):
             body=maybe_transform(
                 {
                     "prompt": prompt,
-                    "set_as_default": set_as_default,
                     "version": version,
+                    "set_as_default": set_as_default,
                     "variables": variables,
                 },
                 prompt_update_params.PromptUpdateParams,
@@ -236,7 +225,8 @@ class PromptsResource(SyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> None:
-        """Delete prompt.
+        """
+        Delete prompt.
 
         Delete a prompt.
 
@@ -272,14 +262,12 @@ class PromptsResource(SyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> Prompt:
-        """Set prompt version.
+        """
+        Set prompt version.
 
-        Set which version of a prompt should be the default in
-        get_prompt (latest).
+        Set which version of a prompt should be the default in get_prompt (latest).
 
         Args:
-          version: The version to set as default.
-
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -328,7 +316,7 @@ class AsyncPromptsResource(AsyncAPIResource):
         self,
         *,
         prompt: str,
-        variables: SequenceNotStr[str] | Omit = omit,
+        variables: Optional[SequenceNotStr[str]] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -336,15 +324,12 @@ class AsyncPromptsResource(AsyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> Prompt:
-        """Create prompt.
+        """
+        Create prompt.
 
         Create a new prompt.
 
         Args:
-          prompt: The prompt text content with variable placeholders.
-
-          variables: List of variable names that can be used in the prompt template.
-
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -372,7 +357,7 @@ class AsyncPromptsResource(AsyncAPIResource):
         self,
         prompt_id: str,
         *,
-        version: int | Omit = omit,
+        version: Optional[int] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -380,13 +365,12 @@ class AsyncPromptsResource(AsyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> Prompt:
-        """Get prompt.
+        """
+        Get prompt.
 
         Get a prompt by its identifier and optional version.
 
         Args:
-          version: The version of the prompt to get (defaults to latest).
-
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -414,9 +398,9 @@ class AsyncPromptsResource(AsyncAPIResource):
         prompt_id: str,
         *,
         prompt: str,
-        set_as_default: bool,
         version: int,
-        variables: SequenceNotStr[str] | Omit = omit,
+        set_as_default: bool | Omit = omit,
+        variables: Optional[SequenceNotStr[str]] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -424,19 +408,12 @@ class AsyncPromptsResource(AsyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> Prompt:
-        """Update prompt.
+        """
+        Update prompt.
 
         Update an existing prompt (increments version).
 
         Args:
-          prompt: The updated prompt text content.
-
-          set_as_default: Set the new version as the default (default=True).
-
-          version: The current version of the prompt being updated.
-
-          variables: Updated list of variable names that can be used in the prompt template.
-
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -452,8 +429,8 @@ class AsyncPromptsResource(AsyncAPIResource):
             body=await async_maybe_transform(
                 {
                     "prompt": prompt,
-                    "set_as_default": set_as_default,
                     "version": version,
+                    "set_as_default": set_as_default,
                     "variables": variables,
                 },
                 prompt_update_params.PromptUpdateParams,
@@ -498,7 +475,8 @@ class AsyncPromptsResource(AsyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> None:
-        """Delete prompt.
+        """
+        Delete prompt.
 
         Delete a prompt.
 
@@ -534,14 +512,12 @@ class AsyncPromptsResource(AsyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> Prompt:
-        """Set prompt version.
+        """
+        Set prompt version.
 
-        Set which version of a prompt should be the default in
-        get_prompt (latest).
+        Set which version of a prompt should be the default in get_prompt (latest).
 
         Args:
-          version: The version to set as default.
-
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request

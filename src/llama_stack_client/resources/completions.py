@@ -8,7 +8,7 @@
 
 from __future__ import annotations
 
-from typing import Dict, Union, Iterable
+from typing import Dict, Union, Iterable, Optional
 from typing_extensions import Literal, overload
 
 import httpx
@@ -57,22 +57,22 @@ class CompletionsResource(SyncAPIResource):
         *,
         model: str,
         prompt: Union[str, SequenceNotStr[str], Iterable[int], Iterable[Iterable[int]]],
-        best_of: int | Omit = omit,
-        echo: bool | Omit = omit,
-        frequency_penalty: float | Omit = omit,
-        logit_bias: Dict[str, float] | Omit = omit,
-        logprobs: bool | Omit = omit,
-        max_tokens: int | Omit = omit,
-        n: int | Omit = omit,
-        presence_penalty: float | Omit = omit,
-        seed: int | Omit = omit,
-        stop: Union[str, SequenceNotStr[str]] | Omit = omit,
-        stream: Literal[False] | Omit = omit,
-        stream_options: Dict[str, Union[bool, float, str, Iterable[object], object, None]] | Omit = omit,
-        suffix: str | Omit = omit,
-        temperature: float | Omit = omit,
-        top_p: float | Omit = omit,
-        user: str | Omit = omit,
+        best_of: Optional[int] | Omit = omit,
+        echo: Optional[bool] | Omit = omit,
+        frequency_penalty: Optional[float] | Omit = omit,
+        logit_bias: Optional[Dict[str, float]] | Omit = omit,
+        logprobs: Optional[bool] | Omit = omit,
+        max_tokens: Optional[int] | Omit = omit,
+        n: Optional[int] | Omit = omit,
+        presence_penalty: Optional[float] | Omit = omit,
+        seed: Optional[int] | Omit = omit,
+        stop: Union[str, SequenceNotStr[str], None] | Omit = omit,
+        stream: Optional[Literal[False]] | Omit = omit,
+        stream_options: Optional[Dict[str, object]] | Omit = omit,
+        suffix: Optional[str] | Omit = omit,
+        temperature: Optional[float] | Omit = omit,
+        top_p: Optional[float] | Omit = omit,
+        user: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -80,49 +80,13 @@ class CompletionsResource(SyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> CompletionCreateResponse:
-        """Create completion.
+        """
+        Create completion.
 
-        Generate an OpenAI-compatible completion for the given prompt
-        using the specified model.
+        Generate an OpenAI-compatible completion for the given prompt using the
+        specified model.
 
         Args:
-          model: The identifier of the model to use. The model must be registered with Llama
-              Stack and available via the /models endpoint.
-
-          prompt: The prompt to generate a completion for.
-
-          best_of: (Optional) The number of completions to generate.
-
-          echo: (Optional) Whether to echo the prompt.
-
-          frequency_penalty: (Optional) The penalty for repeated tokens.
-
-          logit_bias: (Optional) The logit bias to use.
-
-          logprobs: (Optional) The log probabilities to use.
-
-          max_tokens: (Optional) The maximum number of tokens to generate.
-
-          n: (Optional) The number of completions to generate.
-
-          presence_penalty: (Optional) The penalty for repeated tokens.
-
-          seed: (Optional) The seed to use.
-
-          stop: (Optional) The stop tokens to use.
-
-          stream: (Optional) Whether to stream the response.
-
-          stream_options: (Optional) The stream options to use.
-
-          suffix: (Optional) The suffix that should be appended to the completion.
-
-          temperature: (Optional) The temperature to use.
-
-          top_p: (Optional) The top p to use.
-
-          user: (Optional) The user to use.
-
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -140,21 +104,21 @@ class CompletionsResource(SyncAPIResource):
         model: str,
         prompt: Union[str, SequenceNotStr[str], Iterable[int], Iterable[Iterable[int]]],
         stream: Literal[True],
-        best_of: int | Omit = omit,
-        echo: bool | Omit = omit,
-        frequency_penalty: float | Omit = omit,
-        logit_bias: Dict[str, float] | Omit = omit,
-        logprobs: bool | Omit = omit,
-        max_tokens: int | Omit = omit,
-        n: int | Omit = omit,
-        presence_penalty: float | Omit = omit,
-        seed: int | Omit = omit,
-        stop: Union[str, SequenceNotStr[str]] | Omit = omit,
-        stream_options: Dict[str, Union[bool, float, str, Iterable[object], object, None]] | Omit = omit,
-        suffix: str | Omit = omit,
-        temperature: float | Omit = omit,
-        top_p: float | Omit = omit,
-        user: str | Omit = omit,
+        best_of: Optional[int] | Omit = omit,
+        echo: Optional[bool] | Omit = omit,
+        frequency_penalty: Optional[float] | Omit = omit,
+        logit_bias: Optional[Dict[str, float]] | Omit = omit,
+        logprobs: Optional[bool] | Omit = omit,
+        max_tokens: Optional[int] | Omit = omit,
+        n: Optional[int] | Omit = omit,
+        presence_penalty: Optional[float] | Omit = omit,
+        seed: Optional[int] | Omit = omit,
+        stop: Union[str, SequenceNotStr[str], None] | Omit = omit,
+        stream_options: Optional[Dict[str, object]] | Omit = omit,
+        suffix: Optional[str] | Omit = omit,
+        temperature: Optional[float] | Omit = omit,
+        top_p: Optional[float] | Omit = omit,
+        user: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -162,49 +126,13 @@ class CompletionsResource(SyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> Stream[CompletionCreateResponse]:
-        """Create completion.
+        """
+        Create completion.
 
-        Generate an OpenAI-compatible completion for the given prompt
-        using the specified model.
+        Generate an OpenAI-compatible completion for the given prompt using the
+        specified model.
 
         Args:
-          model: The identifier of the model to use. The model must be registered with Llama
-              Stack and available via the /models endpoint.
-
-          prompt: The prompt to generate a completion for.
-
-          stream: (Optional) Whether to stream the response.
-
-          best_of: (Optional) The number of completions to generate.
-
-          echo: (Optional) Whether to echo the prompt.
-
-          frequency_penalty: (Optional) The penalty for repeated tokens.
-
-          logit_bias: (Optional) The logit bias to use.
-
-          logprobs: (Optional) The log probabilities to use.
-
-          max_tokens: (Optional) The maximum number of tokens to generate.
-
-          n: (Optional) The number of completions to generate.
-
-          presence_penalty: (Optional) The penalty for repeated tokens.
-
-          seed: (Optional) The seed to use.
-
-          stop: (Optional) The stop tokens to use.
-
-          stream_options: (Optional) The stream options to use.
-
-          suffix: (Optional) The suffix that should be appended to the completion.
-
-          temperature: (Optional) The temperature to use.
-
-          top_p: (Optional) The top p to use.
-
-          user: (Optional) The user to use.
-
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -222,21 +150,21 @@ class CompletionsResource(SyncAPIResource):
         model: str,
         prompt: Union[str, SequenceNotStr[str], Iterable[int], Iterable[Iterable[int]]],
         stream: bool,
-        best_of: int | Omit = omit,
-        echo: bool | Omit = omit,
-        frequency_penalty: float | Omit = omit,
-        logit_bias: Dict[str, float] | Omit = omit,
-        logprobs: bool | Omit = omit,
-        max_tokens: int | Omit = omit,
-        n: int | Omit = omit,
-        presence_penalty: float | Omit = omit,
-        seed: int | Omit = omit,
-        stop: Union[str, SequenceNotStr[str]] | Omit = omit,
-        stream_options: Dict[str, Union[bool, float, str, Iterable[object], object, None]] | Omit = omit,
-        suffix: str | Omit = omit,
-        temperature: float | Omit = omit,
-        top_p: float | Omit = omit,
-        user: str | Omit = omit,
+        best_of: Optional[int] | Omit = omit,
+        echo: Optional[bool] | Omit = omit,
+        frequency_penalty: Optional[float] | Omit = omit,
+        logit_bias: Optional[Dict[str, float]] | Omit = omit,
+        logprobs: Optional[bool] | Omit = omit,
+        max_tokens: Optional[int] | Omit = omit,
+        n: Optional[int] | Omit = omit,
+        presence_penalty: Optional[float] | Omit = omit,
+        seed: Optional[int] | Omit = omit,
+        stop: Union[str, SequenceNotStr[str], None] | Omit = omit,
+        stream_options: Optional[Dict[str, object]] | Omit = omit,
+        suffix: Optional[str] | Omit = omit,
+        temperature: Optional[float] | Omit = omit,
+        top_p: Optional[float] | Omit = omit,
+        user: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -244,49 +172,13 @@ class CompletionsResource(SyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> CompletionCreateResponse | Stream[CompletionCreateResponse]:
-        """Create completion.
+        """
+        Create completion.
 
-        Generate an OpenAI-compatible completion for the given prompt
-        using the specified model.
+        Generate an OpenAI-compatible completion for the given prompt using the
+        specified model.
 
         Args:
-          model: The identifier of the model to use. The model must be registered with Llama
-              Stack and available via the /models endpoint.
-
-          prompt: The prompt to generate a completion for.
-
-          stream: (Optional) Whether to stream the response.
-
-          best_of: (Optional) The number of completions to generate.
-
-          echo: (Optional) Whether to echo the prompt.
-
-          frequency_penalty: (Optional) The penalty for repeated tokens.
-
-          logit_bias: (Optional) The logit bias to use.
-
-          logprobs: (Optional) The log probabilities to use.
-
-          max_tokens: (Optional) The maximum number of tokens to generate.
-
-          n: (Optional) The number of completions to generate.
-
-          presence_penalty: (Optional) The penalty for repeated tokens.
-
-          seed: (Optional) The seed to use.
-
-          stop: (Optional) The stop tokens to use.
-
-          stream_options: (Optional) The stream options to use.
-
-          suffix: (Optional) The suffix that should be appended to the completion.
-
-          temperature: (Optional) The temperature to use.
-
-          top_p: (Optional) The top p to use.
-
-          user: (Optional) The user to use.
-
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -303,22 +195,22 @@ class CompletionsResource(SyncAPIResource):
         *,
         model: str,
         prompt: Union[str, SequenceNotStr[str], Iterable[int], Iterable[Iterable[int]]],
-        best_of: int | Omit = omit,
-        echo: bool | Omit = omit,
-        frequency_penalty: float | Omit = omit,
-        logit_bias: Dict[str, float] | Omit = omit,
-        logprobs: bool | Omit = omit,
-        max_tokens: int | Omit = omit,
-        n: int | Omit = omit,
-        presence_penalty: float | Omit = omit,
-        seed: int | Omit = omit,
-        stop: Union[str, SequenceNotStr[str]] | Omit = omit,
-        stream: Literal[False] | Literal[True] | Omit = omit,
-        stream_options: Dict[str, Union[bool, float, str, Iterable[object], object, None]] | Omit = omit,
-        suffix: str | Omit = omit,
-        temperature: float | Omit = omit,
-        top_p: float | Omit = omit,
-        user: str | Omit = omit,
+        best_of: Optional[int] | Omit = omit,
+        echo: Optional[bool] | Omit = omit,
+        frequency_penalty: Optional[float] | Omit = omit,
+        logit_bias: Optional[Dict[str, float]] | Omit = omit,
+        logprobs: Optional[bool] | Omit = omit,
+        max_tokens: Optional[int] | Omit = omit,
+        n: Optional[int] | Omit = omit,
+        presence_penalty: Optional[float] | Omit = omit,
+        seed: Optional[int] | Omit = omit,
+        stop: Union[str, SequenceNotStr[str], None] | Omit = omit,
+        stream: Optional[Literal[False]] | Literal[True] | Omit = omit,
+        stream_options: Optional[Dict[str, object]] | Omit = omit,
+        suffix: Optional[str] | Omit = omit,
+        temperature: Optional[float] | Omit = omit,
+        top_p: Optional[float] | Omit = omit,
+        user: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -388,22 +280,22 @@ class AsyncCompletionsResource(AsyncAPIResource):
         *,
         model: str,
         prompt: Union[str, SequenceNotStr[str], Iterable[int], Iterable[Iterable[int]]],
-        best_of: int | Omit = omit,
-        echo: bool | Omit = omit,
-        frequency_penalty: float | Omit = omit,
-        logit_bias: Dict[str, float] | Omit = omit,
-        logprobs: bool | Omit = omit,
-        max_tokens: int | Omit = omit,
-        n: int | Omit = omit,
-        presence_penalty: float | Omit = omit,
-        seed: int | Omit = omit,
-        stop: Union[str, SequenceNotStr[str]] | Omit = omit,
-        stream: Literal[False] | Omit = omit,
-        stream_options: Dict[str, Union[bool, float, str, Iterable[object], object, None]] | Omit = omit,
-        suffix: str | Omit = omit,
-        temperature: float | Omit = omit,
-        top_p: float | Omit = omit,
-        user: str | Omit = omit,
+        best_of: Optional[int] | Omit = omit,
+        echo: Optional[bool] | Omit = omit,
+        frequency_penalty: Optional[float] | Omit = omit,
+        logit_bias: Optional[Dict[str, float]] | Omit = omit,
+        logprobs: Optional[bool] | Omit = omit,
+        max_tokens: Optional[int] | Omit = omit,
+        n: Optional[int] | Omit = omit,
+        presence_penalty: Optional[float] | Omit = omit,
+        seed: Optional[int] | Omit = omit,
+        stop: Union[str, SequenceNotStr[str], None] | Omit = omit,
+        stream: Optional[Literal[False]] | Omit = omit,
+        stream_options: Optional[Dict[str, object]] | Omit = omit,
+        suffix: Optional[str] | Omit = omit,
+        temperature: Optional[float] | Omit = omit,
+        top_p: Optional[float] | Omit = omit,
+        user: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -411,49 +303,13 @@ class AsyncCompletionsResource(AsyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> CompletionCreateResponse:
-        """Create completion.
+        """
+        Create completion.
 
-        Generate an OpenAI-compatible completion for the given prompt
-        using the specified model.
+        Generate an OpenAI-compatible completion for the given prompt using the
+        specified model.
 
         Args:
-          model: The identifier of the model to use. The model must be registered with Llama
-              Stack and available via the /models endpoint.
-
-          prompt: The prompt to generate a completion for.
-
-          best_of: (Optional) The number of completions to generate.
-
-          echo: (Optional) Whether to echo the prompt.
-
-          frequency_penalty: (Optional) The penalty for repeated tokens.
-
-          logit_bias: (Optional) The logit bias to use.
-
-          logprobs: (Optional) The log probabilities to use.
-
-          max_tokens: (Optional) The maximum number of tokens to generate.
-
-          n: (Optional) The number of completions to generate.
-
-          presence_penalty: (Optional) The penalty for repeated tokens.
-
-          seed: (Optional) The seed to use.
-
-          stop: (Optional) The stop tokens to use.
-
-          stream: (Optional) Whether to stream the response.
-
-          stream_options: (Optional) The stream options to use.
-
-          suffix: (Optional) The suffix that should be appended to the completion.
-
-          temperature: (Optional) The temperature to use.
-
-          top_p: (Optional) The top p to use.
-
-          user: (Optional) The user to use.
-
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -471,21 +327,21 @@ class AsyncCompletionsResource(AsyncAPIResource):
         model: str,
         prompt: Union[str, SequenceNotStr[str], Iterable[int], Iterable[Iterable[int]]],
         stream: Literal[True],
-        best_of: int | Omit = omit,
-        echo: bool | Omit = omit,
-        frequency_penalty: float | Omit = omit,
-        logit_bias: Dict[str, float] | Omit = omit,
-        logprobs: bool | Omit = omit,
-        max_tokens: int | Omit = omit,
-        n: int | Omit = omit,
-        presence_penalty: float | Omit = omit,
-        seed: int | Omit = omit,
-        stop: Union[str, SequenceNotStr[str]] | Omit = omit,
-        stream_options: Dict[str, Union[bool, float, str, Iterable[object], object, None]] | Omit = omit,
-        suffix: str | Omit = omit,
-        temperature: float | Omit = omit,
-        top_p: float | Omit = omit,
-        user: str | Omit = omit,
+        best_of: Optional[int] | Omit = omit,
+        echo: Optional[bool] | Omit = omit,
+        frequency_penalty: Optional[float] | Omit = omit,
+        logit_bias: Optional[Dict[str, float]] | Omit = omit,
+        logprobs: Optional[bool] | Omit = omit,
+        max_tokens: Optional[int] | Omit = omit,
+        n: Optional[int] | Omit = omit,
+        presence_penalty: Optional[float] | Omit = omit,
+        seed: Optional[int] | Omit = omit,
+        stop: Union[str, SequenceNotStr[str], None] | Omit = omit,
+        stream_options: Optional[Dict[str, object]] | Omit = omit,
+        suffix: Optional[str] | Omit = omit,
+        temperature: Optional[float] | Omit = omit,
+        top_p: Optional[float] | Omit = omit,
+        user: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -493,49 +349,13 @@ class AsyncCompletionsResource(AsyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> AsyncStream[CompletionCreateResponse]:
-        """Create completion.
+        """
+        Create completion.
 
-        Generate an OpenAI-compatible completion for the given prompt
-        using the specified model.
+        Generate an OpenAI-compatible completion for the given prompt using the
+        specified model.
 
         Args:
-          model: The identifier of the model to use. The model must be registered with Llama
-              Stack and available via the /models endpoint.
-
-          prompt: The prompt to generate a completion for.
-
-          stream: (Optional) Whether to stream the response.
-
-          best_of: (Optional) The number of completions to generate.
-
-          echo: (Optional) Whether to echo the prompt.
-
-          frequency_penalty: (Optional) The penalty for repeated tokens.
-
-          logit_bias: (Optional) The logit bias to use.
-
-          logprobs: (Optional) The log probabilities to use.
-
-          max_tokens: (Optional) The maximum number of tokens to generate.
-
-          n: (Optional) The number of completions to generate.
-
-          presence_penalty: (Optional) The penalty for repeated tokens.
-
-          seed: (Optional) The seed to use.
-
-          stop: (Optional) The stop tokens to use.
-
-          stream_options: (Optional) The stream options to use.
-
-          suffix: (Optional) The suffix that should be appended to the completion.
-
-          temperature: (Optional) The temperature to use.
-
-          top_p: (Optional) The top p to use.
-
-          user: (Optional) The user to use.
-
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -553,21 +373,21 @@ class AsyncCompletionsResource(AsyncAPIResource):
         model: str,
         prompt: Union[str, SequenceNotStr[str], Iterable[int], Iterable[Iterable[int]]],
         stream: bool,
-        best_of: int | Omit = omit,
-        echo: bool | Omit = omit,
-        frequency_penalty: float | Omit = omit,
-        logit_bias: Dict[str, float] | Omit = omit,
-        logprobs: bool | Omit = omit,
-        max_tokens: int | Omit = omit,
-        n: int | Omit = omit,
-        presence_penalty: float | Omit = omit,
-        seed: int | Omit = omit,
-        stop: Union[str, SequenceNotStr[str]] | Omit = omit,
-        stream_options: Dict[str, Union[bool, float, str, Iterable[object], object, None]] | Omit = omit,
-        suffix: str | Omit = omit,
-        temperature: float | Omit = omit,
-        top_p: float | Omit = omit,
-        user: str | Omit = omit,
+        best_of: Optional[int] | Omit = omit,
+        echo: Optional[bool] | Omit = omit,
+        frequency_penalty: Optional[float] | Omit = omit,
+        logit_bias: Optional[Dict[str, float]] | Omit = omit,
+        logprobs: Optional[bool] | Omit = omit,
+        max_tokens: Optional[int] | Omit = omit,
+        n: Optional[int] | Omit = omit,
+        presence_penalty: Optional[float] | Omit = omit,
+        seed: Optional[int] | Omit = omit,
+        stop: Union[str, SequenceNotStr[str], None] | Omit = omit,
+        stream_options: Optional[Dict[str, object]] | Omit = omit,
+        suffix: Optional[str] | Omit = omit,
+        temperature: Optional[float] | Omit = omit,
+        top_p: Optional[float] | Omit = omit,
+        user: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -575,49 +395,13 @@ class AsyncCompletionsResource(AsyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> CompletionCreateResponse | AsyncStream[CompletionCreateResponse]:
-        """Create completion.
+        """
+        Create completion.
 
-        Generate an OpenAI-compatible completion for the given prompt
-        using the specified model.
+        Generate an OpenAI-compatible completion for the given prompt using the
+        specified model.
 
         Args:
-          model: The identifier of the model to use. The model must be registered with Llama
-              Stack and available via the /models endpoint.
-
-          prompt: The prompt to generate a completion for.
-
-          stream: (Optional) Whether to stream the response.
-
-          best_of: (Optional) The number of completions to generate.
-
-          echo: (Optional) Whether to echo the prompt.
-
-          frequency_penalty: (Optional) The penalty for repeated tokens.
-
-          logit_bias: (Optional) The logit bias to use.
-
-          logprobs: (Optional) The log probabilities to use.
-
-          max_tokens: (Optional) The maximum number of tokens to generate.
-
-          n: (Optional) The number of completions to generate.
-
-          presence_penalty: (Optional) The penalty for repeated tokens.
-
-          seed: (Optional) The seed to use.
-
-          stop: (Optional) The stop tokens to use.
-
-          stream_options: (Optional) The stream options to use.
-
-          suffix: (Optional) The suffix that should be appended to the completion.
-
-          temperature: (Optional) The temperature to use.
-
-          top_p: (Optional) The top p to use.
-
-          user: (Optional) The user to use.
-
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -634,22 +418,22 @@ class AsyncCompletionsResource(AsyncAPIResource):
         *,
         model: str,
         prompt: Union[str, SequenceNotStr[str], Iterable[int], Iterable[Iterable[int]]],
-        best_of: int | Omit = omit,
-        echo: bool | Omit = omit,
-        frequency_penalty: float | Omit = omit,
-        logit_bias: Dict[str, float] | Omit = omit,
-        logprobs: bool | Omit = omit,
-        max_tokens: int | Omit = omit,
-        n: int | Omit = omit,
-        presence_penalty: float | Omit = omit,
-        seed: int | Omit = omit,
-        stop: Union[str, SequenceNotStr[str]] | Omit = omit,
-        stream: Literal[False] | Literal[True] | Omit = omit,
-        stream_options: Dict[str, Union[bool, float, str, Iterable[object], object, None]] | Omit = omit,
-        suffix: str | Omit = omit,
-        temperature: float | Omit = omit,
-        top_p: float | Omit = omit,
-        user: str | Omit = omit,
+        best_of: Optional[int] | Omit = omit,
+        echo: Optional[bool] | Omit = omit,
+        frequency_penalty: Optional[float] | Omit = omit,
+        logit_bias: Optional[Dict[str, float]] | Omit = omit,
+        logprobs: Optional[bool] | Omit = omit,
+        max_tokens: Optional[int] | Omit = omit,
+        n: Optional[int] | Omit = omit,
+        presence_penalty: Optional[float] | Omit = omit,
+        seed: Optional[int] | Omit = omit,
+        stop: Union[str, SequenceNotStr[str], None] | Omit = omit,
+        stream: Optional[Literal[False]] | Literal[True] | Omit = omit,
+        stream_options: Optional[Dict[str, object]] | Omit = omit,
+        suffix: Optional[str] | Omit = omit,
+        temperature: Optional[float] | Omit = omit,
+        top_p: Optional[float] | Omit = omit,
+        user: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,

@@ -16,7 +16,5 @@ __all__ = ["ScoringScoreBatchResponse"]
 
 class ScoringScoreBatchResponse(BaseModel):
     results: Dict[str, ScoringResult]
-    """A map of scoring function name to ScoringResult"""
 
     dataset_id: Optional[str] = None
-    """(Optional) The identifier of the dataset that was scored"""

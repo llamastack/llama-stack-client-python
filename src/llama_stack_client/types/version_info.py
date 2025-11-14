@@ -13,4 +13,3 @@ __all__ = ["VersionInfo"]
 
 class VersionInfo(BaseModel):
     version: str
-    """Version number of the service"""

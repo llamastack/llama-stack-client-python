@@ -33,19 +33,10 @@ class TestEval:
             benchmark_config={
                 "eval_candidate": {
                     "model": "model",
-                    "sampling_params": {"strategy": {"type": "greedy"}},
-                    "type": "model",
-                },
-                "scoring_params": {
-                    "foo": {
-                        "aggregation_functions": ["average"],
-                        "judge_model": "judge_model",
-                        "judge_score_regexes": ["string"],
-                        "type": "llm_as_judge",
-                    }
-                },
+                    "sampling_params": {},
+                }
             },
-            input_rows=[{"foo": True}],
+            input_rows=[{"foo": "bar"}],
             scoring_functions=["string"],
         )
         assert_matches_type(EvaluateResponse, eval, path=["response"])
@@ -58,29 +49,29 @@ class TestEval:
                 "eval_candidate": {
                     "model": "model",
                     "sampling_params": {
-                        "strategy": {"type": "greedy"},
                         "max_tokens": 0,
                         "repetition_penalty": 0,
                         "stop": ["string"],
+                        "strategy": {"type": "greedy"},
                     },
-                    "type": "model",
                     "system_message": {
                         "content": "string",
                         "role": "system",
                     },
-                },
-                "scoring_params": {
-                    "foo": {
-                        "aggregation_functions": ["average"],
-                        "judge_model": "judge_model",
-                        "judge_score_regexes": ["string"],
-                        "type": "llm_as_judge",
-                        "prompt_template": "prompt_template",
-                    }
+                    "type": "model",
                 },
                 "num_examples": 0,
+                "scoring_params": {
+                    "foo": {
+                        "judge_model": "judge_model",
+                        "aggregation_functions": ["average"],
+                        "judge_score_regexes": ["string"],
+                        "prompt_template": "prompt_template",
+                        "type": "llm_as_judge",
+                    }
+                },
             },
-            input_rows=[{"foo": True}],
+            input_rows=[{"foo": "bar"}],
             scoring_functions=["string"],
         )
         assert_matches_type(EvaluateResponse, eval, path=["response"])
@@ -92,19 +83,10 @@ class TestEval:
             benchmark_config={
                 "eval_candidate": {
                     "model": "model",
-                    "sampling_params": {"strategy": {"type": "greedy"}},
-                    "type": "model",
-                },
-                "scoring_params": {
-                    "foo": {
-                        "aggregation_functions": ["average"],
-                        "judge_model": "judge_model",
-                        "judge_score_regexes": ["string"],
-                        "type": "llm_as_judge",
-                    }
-                },
+                    "sampling_params": {},
+                }
             },
-            input_rows=[{"foo": True}],
+            input_rows=[{"foo": "bar"}],
             scoring_functions=["string"],
         )
 
@@ -120,19 +102,10 @@ class TestEval:
             benchmark_config={
                 "eval_candidate": {
                     "model": "model",
-                    "sampling_params": {"strategy": {"type": "greedy"}},
-                    "type": "model",
-                },
-                "scoring_params": {
-                    "foo": {
-                        "aggregation_functions": ["average"],
-                        "judge_model": "judge_model",
-                        "judge_score_regexes": ["string"],
-                        "type": "llm_as_judge",
-                    }
-                },
+                    "sampling_params": {},
+                }
             },
-            input_rows=[{"foo": True}],
+            input_rows=[{"foo": "bar"}],
             scoring_functions=["string"],
         ) as response:
             assert not response.is_closed
@@ -151,19 +124,10 @@ class TestEval:
                 benchmark_config={
                     "eval_candidate": {
                         "model": "model",
-                        "sampling_params": {"strategy": {"type": "greedy"}},
-                        "type": "model",
-                    },
-                    "scoring_params": {
-                        "foo": {
-                            "aggregation_functions": ["average"],
-                            "judge_model": "judge_model",
-                            "judge_score_regexes": ["string"],
-                            "type": "llm_as_judge",
-                        }
-                    },
+                        "sampling_params": {},
+                    }
                 },
-                input_rows=[{"foo": True}],
+                input_rows=[{"foo": "bar"}],
                 scoring_functions=["string"],
             )
 
@@ -174,19 +138,10 @@ class TestEval:
             benchmark_config={
                 "eval_candidate": {
                     "model": "model",
-                    "sampling_params": {"strategy": {"type": "greedy"}},
-                    "type": "model",
-                },
-                "scoring_params": {
-                    "foo": {
-                        "aggregation_functions": ["average"],
-                        "judge_model": "judge_model",
-                        "judge_score_regexes": ["string"],
-                        "type": "llm_as_judge",
-                    }
-                },
+                    "sampling_params": {},
+                }
             },
-            input_rows=[{"foo": True}],
+            input_rows=[{"foo": "bar"}],
             scoring_functions=["string"],
         )
         assert_matches_type(EvaluateResponse, eval, path=["response"])
@@ -199,29 +154,29 @@ class TestEval:
                 "eval_candidate": {
                     "model": "model",
                     "sampling_params": {
-                        "strategy": {"type": "greedy"},
                         "max_tokens": 0,
                         "repetition_penalty": 0,
                         "stop": ["string"],
+                        "strategy": {"type": "greedy"},
                     },
-                    "type": "model",
                     "system_message": {
                         "content": "string",
                         "role": "system",
                     },
-                },
-                "scoring_params": {
-                    "foo": {
-                        "aggregation_functions": ["average"],
-                        "judge_model": "judge_model",
-                        "judge_score_regexes": ["string"],
-                        "type": "llm_as_judge",
-                        "prompt_template": "prompt_template",
-                    }
+                    "type": "model",
                 },
                 "num_examples": 0,
+                "scoring_params": {
+                    "foo": {
+                        "judge_model": "judge_model",
+                        "aggregation_functions": ["average"],
+                        "judge_score_regexes": ["string"],
+                        "prompt_template": "prompt_template",
+                        "type": "llm_as_judge",
+                    }
+                },
             },
-            input_rows=[{"foo": True}],
+            input_rows=[{"foo": "bar"}],
             scoring_functions=["string"],
         )
         assert_matches_type(EvaluateResponse, eval, path=["response"])
@@ -233,19 +188,10 @@ class TestEval:
             benchmark_config={
                 "eval_candidate": {
                     "model": "model",
-                    "sampling_params": {"strategy": {"type": "greedy"}},
-                    "type": "model",
-                },
-                "scoring_params": {
-                    "foo": {
-                        "aggregation_functions": ["average"],
-                        "judge_model": "judge_model",
-                        "judge_score_regexes": ["string"],
-                        "type": "llm_as_judge",
-                    }
-                },
+                    "sampling_params": {},
+                }
             },
-            input_rows=[{"foo": True}],
+            input_rows=[{"foo": "bar"}],
             scoring_functions=["string"],
         )
 
@@ -261,19 +207,10 @@ class TestEval:
             benchmark_config={
                 "eval_candidate": {
                     "model": "model",
-                    "sampling_params": {"strategy": {"type": "greedy"}},
-                    "type": "model",
-                },
-                "scoring_params": {
-                    "foo": {
-                        "aggregation_functions": ["average"],
-                        "judge_model": "judge_model",
-                        "judge_score_regexes": ["string"],
-                        "type": "llm_as_judge",
-                    }
-                },
+                    "sampling_params": {},
+                }
             },
-            input_rows=[{"foo": True}],
+            input_rows=[{"foo": "bar"}],
             scoring_functions=["string"],
         ) as response:
             assert not response.is_closed
@@ -292,19 +229,10 @@ class TestEval:
                 benchmark_config={
                     "eval_candidate": {
                         "model": "model",
-                        "sampling_params": {"strategy": {"type": "greedy"}},
-                        "type": "model",
-                    },
-                    "scoring_params": {
-                        "foo": {
-                            "aggregation_functions": ["average"],
-                            "judge_model": "judge_model",
-                            "judge_score_regexes": ["string"],
-                            "type": "llm_as_judge",
-                        }
-                    },
+                        "sampling_params": {},
+                    }
                 },
-                input_rows=[{"foo": True}],
+                input_rows=[{"foo": "bar"}],
                 scoring_functions=["string"],
             )
 
@@ -312,20 +240,9 @@ class TestEval:
     def test_method_run_eval(self, client: LlamaStackClient) -> None:
         eval = client.alpha.eval.run_eval(
             benchmark_id="benchmark_id",
-            benchmark_config={
-                "eval_candidate": {
-                    "model": "model",
-                    "sampling_params": {"strategy": {"type": "greedy"}},
-                    "type": "model",
-                },
-                "scoring_params": {
-                    "foo": {
-                        "aggregation_functions": ["average"],
-                        "judge_model": "judge_model",
-                        "judge_score_regexes": ["string"],
-                        "type": "llm_as_judge",
-                    }
-                },
+            eval_candidate={
+                "model": "model",
+                "sampling_params": {},
             },
         )
         assert_matches_type(Job, eval, path=["response"])
@@ -334,31 +251,29 @@ class TestEval:
     def test_method_run_eval_with_all_params(self, client: LlamaStackClient) -> None:
         eval = client.alpha.eval.run_eval(
             benchmark_id="benchmark_id",
-            benchmark_config={
-                "eval_candidate": {
-                    "model": "model",
-                    "sampling_params": {
-                        "strategy": {"type": "greedy"},
-                        "max_tokens": 0,
-                        "repetition_penalty": 0,
-                        "stop": ["string"],
-                    },
-                    "type": "model",
-                    "system_message": {
-                        "content": "string",
-                        "role": "system",
-                    },
+            eval_candidate={
+                "model": "model",
+                "sampling_params": {
+                    "max_tokens": 0,
+                    "repetition_penalty": 0,
+                    "stop": ["string"],
+                    "strategy": {"type": "greedy"},
                 },
-                "scoring_params": {
-                    "foo": {
-                        "aggregation_functions": ["average"],
-                        "judge_model": "judge_model",
-                        "judge_score_regexes": ["string"],
-                        "type": "llm_as_judge",
-                        "prompt_template": "prompt_template",
-                    }
+                "system_message": {
+                    "content": "string",
+                    "role": "system",
                 },
-                "num_examples": 0,
+                "type": "model",
+            },
+            num_examples=0,
+            scoring_params={
+                "foo": {
+                    "judge_model": "judge_model",
+                    "aggregation_functions": ["average"],
+                    "judge_score_regexes": ["string"],
+                    "prompt_template": "prompt_template",
+                    "type": "llm_as_judge",
+                }
             },
         )
         assert_matches_type(Job, eval, path=["response"])
@@ -367,20 +282,9 @@ class TestEval:
     def test_raw_response_run_eval(self, client: LlamaStackClient) -> None:
         response = client.alpha.eval.with_raw_response.run_eval(
             benchmark_id="benchmark_id",
-            benchmark_config={
-                "eval_candidate": {
-                    "model": "model",
-                    "sampling_params": {"strategy": {"type": "greedy"}},
-                    "type": "model",
-                },
-                "scoring_params": {
-                    "foo": {
-                        "aggregation_functions": ["average"],
-                        "judge_model": "judge_model",
-                        "judge_score_regexes": ["string"],
-                        "type": "llm_as_judge",
-                    }
-                },
+            eval_candidate={
+                "model": "model",
+                "sampling_params": {},
             },
         )
 
@@ -393,20 +297,9 @@ class TestEval:
     def test_streaming_response_run_eval(self, client: LlamaStackClient) -> None:
         with client.alpha.eval.with_streaming_response.run_eval(
             benchmark_id="benchmark_id",
-            benchmark_config={
-                "eval_candidate": {
-                    "model": "model",
-                    "sampling_params": {"strategy": {"type": "greedy"}},
-                    "type": "model",
-                },
-                "scoring_params": {
-                    "foo": {
-                        "aggregation_functions": ["average"],
-                        "judge_model": "judge_model",
-                        "judge_score_regexes": ["string"],
-                        "type": "llm_as_judge",
-                    }
-                },
+            eval_candidate={
+                "model": "model",
+                "sampling_params": {},
             },
         ) as response:
             assert not response.is_closed
@@ -422,20 +315,9 @@ class TestEval:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `benchmark_id` but received ''"):
             client.alpha.eval.with_raw_response.run_eval(
                 benchmark_id="",
-                benchmark_config={
-                    "eval_candidate": {
-                        "model": "model",
-                        "sampling_params": {"strategy": {"type": "greedy"}},
-                        "type": "model",
-                    },
-                    "scoring_params": {
-                        "foo": {
-                            "aggregation_functions": ["average"],
-                            "judge_model": "judge_model",
-                            "judge_score_regexes": ["string"],
-                            "type": "llm_as_judge",
-                        }
-                    },
+                eval_candidate={
+                    "model": "model",
+                    "sampling_params": {},
                 },
             )
 
@@ -443,20 +325,9 @@ class TestEval:
     def test_method_run_eval_alpha(self, client: LlamaStackClient) -> None:
         eval = client.alpha.eval.run_eval_alpha(
             benchmark_id="benchmark_id",
-            benchmark_config={
-                "eval_candidate": {
-                    "model": "model",
-                    "sampling_params": {"strategy": {"type": "greedy"}},
-                    "type": "model",
-                },
-                "scoring_params": {
-                    "foo": {
-                        "aggregation_functions": ["average"],
-                        "judge_model": "judge_model",
-                        "judge_score_regexes": ["string"],
-                        "type": "llm_as_judge",
-                    }
-                },
+            eval_candidate={
+                "model": "model",
+                "sampling_params": {},
             },
         )
         assert_matches_type(Job, eval, path=["response"])
@@ -465,31 +336,29 @@ class TestEval:
     def test_method_run_eval_alpha_with_all_params(self, client: LlamaStackClient) -> None:
         eval = client.alpha.eval.run_eval_alpha(
             benchmark_id="benchmark_id",
-            benchmark_config={
-                "eval_candidate": {
-                    "model": "model",
-                    "sampling_params": {
-                        "strategy": {"type": "greedy"},
-                        "max_tokens": 0,
-                        "repetition_penalty": 0,
-                        "stop": ["string"],
-                    },
-                    "type": "model",
-                    "system_message": {
-                        "content": "string",
-                        "role": "system",
-                    },
+            eval_candidate={
+                "model": "model",
+                "sampling_params": {
+                    "max_tokens": 0,
+                    "repetition_penalty": 0,
+                    "stop": ["string"],
+                    "strategy": {"type": "greedy"},
                 },
-                "scoring_params": {
-                    "foo": {
-                        "aggregation_functions": ["average"],
-                        "judge_model": "judge_model",
-                        "judge_score_regexes": ["string"],
-                        "type": "llm_as_judge",
-                        "prompt_template": "prompt_template",
-                    }
+                "system_message": {
+                    "content": "string",
+                    "role": "system",
                 },
-                "num_examples": 0,
+                "type": "model",
+            },
+            num_examples=0,
+            scoring_params={
+                "foo": {
+                    "judge_model": "judge_model",
+                    "aggregation_functions": ["average"],
+                    "judge_score_regexes": ["string"],
+                    "prompt_template": "prompt_template",
+                    "type": "llm_as_judge",
+                }
             },
         )
         assert_matches_type(Job, eval, path=["response"])
@@ -498,20 +367,9 @@ class TestEval:
     def test_raw_response_run_eval_alpha(self, client: LlamaStackClient) -> None:
         response = client.alpha.eval.with_raw_response.run_eval_alpha(
             benchmark_id="benchmark_id",
-            benchmark_config={
-                "eval_candidate": {
-                    "model": "model",
-                    "sampling_params": {"strategy": {"type": "greedy"}},
-                    "type": "model",
-                },
-                "scoring_params": {
-                    "foo": {
-                        "aggregation_functions": ["average"],
-                        "judge_model": "judge_model",
-                        "judge_score_regexes": ["string"],
-                        "type": "llm_as_judge",
-                    }
-                },
+            eval_candidate={
+                "model": "model",
+                "sampling_params": {},
             },
         )
 
@@ -524,20 +382,9 @@ class TestEval:
     def test_streaming_response_run_eval_alpha(self, client: LlamaStackClient) -> None:
         with client.alpha.eval.with_streaming_response.run_eval_alpha(
             benchmark_id="benchmark_id",
-            benchmark_config={
-                "eval_candidate": {
-                    "model": "model",
-                    "sampling_params": {"strategy": {"type": "greedy"}},
-                    "type": "model",
-                },
-                "scoring_params": {
-                    "foo": {
-                        "aggregation_functions": ["average"],
-                        "judge_model": "judge_model",
-                        "judge_score_regexes": ["string"],
-                        "type": "llm_as_judge",
-                    }
-                },
+            eval_candidate={
+                "model": "model",
+                "sampling_params": {},
             },
         ) as response:
             assert not response.is_closed
@@ -553,20 +400,9 @@ class TestEval:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `benchmark_id` but received ''"):
             client.alpha.eval.with_raw_response.run_eval_alpha(
                 benchmark_id="",
-                benchmark_config={
-                    "eval_candidate": {
-                        "model": "model",
-                        "sampling_params": {"strategy": {"type": "greedy"}},
-                        "type": "model",
-                    },
-                    "scoring_params": {
-                        "foo": {
-                            "aggregation_functions": ["average"],
-                            "judge_model": "judge_model",
-                            "judge_score_regexes": ["string"],
-                            "type": "llm_as_judge",
-                        }
-                    },
+                eval_candidate={
+                    "model": "model",
+                    "sampling_params": {},
                 },
             )
 
@@ -583,19 +419,10 @@ class TestAsyncEval:
             benchmark_config={
                 "eval_candidate": {
                     "model": "model",
-                    "sampling_params": {"strategy": {"type": "greedy"}},
-                    "type": "model",
-                },
-                "scoring_params": {
-                    "foo": {
-                        "aggregation_functions": ["average"],
-                        "judge_model": "judge_model",
-                        "judge_score_regexes": ["string"],
-                        "type": "llm_as_judge",
-                    }
-                },
+                    "sampling_params": {},
+                }
             },
-            input_rows=[{"foo": True}],
+            input_rows=[{"foo": "bar"}],
             scoring_functions=["string"],
         )
         assert_matches_type(EvaluateResponse, eval, path=["response"])
@@ -608,29 +435,29 @@ class TestAsyncEval:
                 "eval_candidate": {
                     "model": "model",
                     "sampling_params": {
-                        "strategy": {"type": "greedy"},
                         "max_tokens": 0,
                         "repetition_penalty": 0,
                         "stop": ["string"],
+                        "strategy": {"type": "greedy"},
                     },
-                    "type": "model",
                     "system_message": {
                         "content": "string",
                         "role": "system",
                     },
-                },
-                "scoring_params": {
-                    "foo": {
-                        "aggregation_functions": ["average"],
-                        "judge_model": "judge_model",
-                        "judge_score_regexes": ["string"],
-                        "type": "llm_as_judge",
-                        "prompt_template": "prompt_template",
-                    }
+                    "type": "model",
                 },
                 "num_examples": 0,
+                "scoring_params": {
+                    "foo": {
+                        "judge_model": "judge_model",
+                        "aggregation_functions": ["average"],
+                        "judge_score_regexes": ["string"],
+                        "prompt_template": "prompt_template",
+                        "type": "llm_as_judge",
+                    }
+                },
             },
-            input_rows=[{"foo": True}],
+            input_rows=[{"foo": "bar"}],
             scoring_functions=["string"],
         )
         assert_matches_type(EvaluateResponse, eval, path=["response"])
@@ -642,19 +469,10 @@ class TestAsyncEval:
             benchmark_config={
                 "eval_candidate": {
                     "model": "model",
-                    "sampling_params": {"strategy": {"type": "greedy"}},
-                    "type": "model",
-                },
-                "scoring_params": {
-                    "foo": {
-                        "aggregation_functions": ["average"],
-                        "judge_model": "judge_model",
-                        "judge_score_regexes": ["string"],
-                        "type": "llm_as_judge",
-                    }
-                },
+                    "sampling_params": {},
+                }
             },
-            input_rows=[{"foo": True}],
+            input_rows=[{"foo": "bar"}],
             scoring_functions=["string"],
         )
 
@@ -670,19 +488,10 @@ class TestAsyncEval:
             benchmark_config={
                 "eval_candidate": {
                     "model": "model",
-                    "sampling_params": {"strategy": {"type": "greedy"}},
-                    "type": "model",
-                },
-                "scoring_params": {
-                    "foo": {
-                        "aggregation_functions": ["average"],
-                        "judge_model": "judge_model",
-                        "judge_score_regexes": ["string"],
-                        "type": "llm_as_judge",
-                    }
-                },
+                    "sampling_params": {},
+                }
             },
-            input_rows=[{"foo": True}],
+            input_rows=[{"foo": "bar"}],
             scoring_functions=["string"],
         ) as response:
             assert not response.is_closed
@@ -701,19 +510,10 @@ class TestAsyncEval:
                 benchmark_config={
                     "eval_candidate": {
                         "model": "model",
-                        "sampling_params": {"strategy": {"type": "greedy"}},
-                        "type": "model",
-                    },
-                    "scoring_params": {
-                        "foo": {
-                            "aggregation_functions": ["average"],
-                            "judge_model": "judge_model",
-                            "judge_score_regexes": ["string"],
-                            "type": "llm_as_judge",
-                        }
-                    },
+                        "sampling_params": {},
+                    }
                 },
-                input_rows=[{"foo": True}],
+                input_rows=[{"foo": "bar"}],
                 scoring_functions=["string"],
             )
 
@@ -724,19 +524,10 @@ class TestAsyncEval:
             benchmark_config={
                 "eval_candidate": {
                     "model": "model",
-                    "sampling_params": {"strategy": {"type": "greedy"}},
-                    "type": "model",
-                },
-                "scoring_params": {
-                    "foo": {
-                        "aggregation_functions": ["average"],
-                        "judge_model": "judge_model",
-                        "judge_score_regexes": ["string"],
-                        "type": "llm_as_judge",
-                    }
-                },
+                    "sampling_params": {},
+                }
             },
-            input_rows=[{"foo": True}],
+            input_rows=[{"foo": "bar"}],
             scoring_functions=["string"],
         )
         assert_matches_type(EvaluateResponse, eval, path=["response"])
@@ -749,29 +540,29 @@ class TestAsyncEval:
                 "eval_candidate": {
                     "model": "model",
                     "sampling_params": {
-                        "strategy": {"type": "greedy"},
                         "max_tokens": 0,
                         "repetition_penalty": 0,
                         "stop": ["string"],
+                        "strategy": {"type": "greedy"},
                     },
-                    "type": "model",
                     "system_message": {
                         "content": "string",
                         "role": "system",
                     },
-                },
-                "scoring_params": {
-                    "foo": {
-                        "aggregation_functions": ["average"],
-                        "judge_model": "judge_model",
-                        "judge_score_regexes": ["string"],
-                        "type": "llm_as_judge",
-                        "prompt_template": "prompt_template",
-                    }
+                    "type": "model",
                 },
                 "num_examples": 0,
+                "scoring_params": {
+                    "foo": {
+                        "judge_model": "judge_model",
+                        "aggregation_functions": ["average"],
+                        "judge_score_regexes": ["string"],
+                        "prompt_template": "prompt_template",
+                        "type": "llm_as_judge",
+                    }
+                },
             },
-            input_rows=[{"foo": True}],
+            input_rows=[{"foo": "bar"}],
             scoring_functions=["string"],
         )
         assert_matches_type(EvaluateResponse, eval, path=["response"])
@@ -783,19 +574,10 @@ class TestAsyncEval:
             benchmark_config={
                 "eval_candidate": {
                     "model": "model",
-                    "sampling_params": {"strategy": {"type": "greedy"}},
-                    "type": "model",
-                },
-                "scoring_params": {
-                    "foo": {
-                        "aggregation_functions": ["average"],
-                        "judge_model": "judge_model",
-                        "judge_score_regexes": ["string"],
-                        "type": "llm_as_judge",
-                    }
-                },
+                    "sampling_params": {},
+                }
             },
-            input_rows=[{"foo": True}],
+            input_rows=[{"foo": "bar"}],
             scoring_functions=["string"],
         )
 
@@ -811,19 +593,10 @@ class TestAsyncEval:
             benchmark_config={
                 "eval_candidate": {
                     "model": "model",
-                    "sampling_params": {"strategy": {"type": "greedy"}},
-                    "type": "model",
-                },
-                "scoring_params": {
-                    "foo": {
-                        "aggregation_functions": ["average"],
-                        "judge_model": "judge_model",
-                        "judge_score_regexes": ["string"],
-                        "type": "llm_as_judge",
-                    }
-                },
+                    "sampling_params": {},
+                }
             },
-            input_rows=[{"foo": True}],
+            input_rows=[{"foo": "bar"}],
             scoring_functions=["string"],
         ) as response:
             assert not response.is_closed
@@ -842,19 +615,10 @@ class TestAsyncEval:
                 benchmark_config={
                     "eval_candidate": {
                         "model": "model",
-                        "sampling_params": {"strategy": {"type": "greedy"}},
-                        "type": "model",
-                    },
-                    "scoring_params": {
-                        "foo": {
-                            "aggregation_functions": ["average"],
-                            "judge_model": "judge_model",
-                            "judge_score_regexes": ["string"],
-                            "type": "llm_as_judge",
-                        }
-                    },
+                        "sampling_params": {},
+                    }
                 },
-                input_rows=[{"foo": True}],
+                input_rows=[{"foo": "bar"}],
                 scoring_functions=["string"],
             )
 
@@ -862,20 +626,9 @@ class TestAsyncEval:
     async def test_method_run_eval(self, async_client: AsyncLlamaStackClient) -> None:
         eval = await async_client.alpha.eval.run_eval(
             benchmark_id="benchmark_id",
-            benchmark_config={
-                "eval_candidate": {
-                    "model": "model",
-                    "sampling_params": {"strategy": {"type": "greedy"}},
-                    "type": "model",
-                },
-                "scoring_params": {
-                    "foo": {
-                        "aggregation_functions": ["average"],
-                        "judge_model": "judge_model",
-                        "judge_score_regexes": ["string"],
-                        "type": "llm_as_judge",
-                    }
-                },
+            eval_candidate={
+                "model": "model",
+                "sampling_params": {},
             },
         )
         assert_matches_type(Job, eval, path=["response"])
@@ -884,31 +637,29 @@ class TestAsyncEval:
     async def test_method_run_eval_with_all_params(self, async_client: AsyncLlamaStackClient) -> None:
         eval = await async_client.alpha.eval.run_eval(
             benchmark_id="benchmark_id",
-            benchmark_config={
-                "eval_candidate": {
-                    "model": "model",
-                    "sampling_params": {
-                        "strategy": {"type": "greedy"},
-                        "max_tokens": 0,
-                        "repetition_penalty": 0,
-                        "stop": ["string"],
-                    },
-                    "type": "model",
-                    "system_message": {
-                        "content": "string",
-                        "role": "system",
-                    },
+            eval_candidate={
+                "model": "model",
+                "sampling_params": {
+                    "max_tokens": 0,
+                    "repetition_penalty": 0,
+                    "stop": ["string"],
+                    "strategy": {"type": "greedy"},
                 },
-                "scoring_params": {
-                    "foo": {
-                        "aggregation_functions": ["average"],
-                        "judge_model": "judge_model",
-                        "judge_score_regexes": ["string"],
-                        "type": "llm_as_judge",
-                        "prompt_template": "prompt_template",
-                    }
+                "system_message": {
+                    "content": "string",
+                    "role": "system",
                 },
-                "num_examples": 0,
+                "type": "model",
+            },
+            num_examples=0,
+            scoring_params={
+                "foo": {
+                    "judge_model": "judge_model",
+                    "aggregation_functions": ["average"],
+                    "judge_score_regexes": ["string"],
+                    "prompt_template": "prompt_template",
+                    "type": "llm_as_judge",
+                }
             },
         )
         assert_matches_type(Job, eval, path=["response"])
@@ -917,20 +668,9 @@ class TestAsyncEval:
     async def test_raw_response_run_eval(self, async_client: AsyncLlamaStackClient) -> None:
         response = await async_client.alpha.eval.with_raw_response.run_eval(
             benchmark_id="benchmark_id",
-            benchmark_config={
-                "eval_candidate": {
-                    "model": "model",
-                    "sampling_params": {"strategy": {"type": "greedy"}},
-                    "type": "model",
-                },
-                "scoring_params": {
-                    "foo": {
-                        "aggregation_functions": ["average"],
-                        "judge_model": "judge_model",
-                        "judge_score_regexes": ["string"],
-                        "type": "llm_as_judge",
-                    }
-                },
+            eval_candidate={
+                "model": "model",
+                "sampling_params": {},
             },
         )
 
@@ -943,20 +683,9 @@ class TestAsyncEval:
     async def test_streaming_response_run_eval(self, async_client: AsyncLlamaStackClient) -> None:
         async with async_client.alpha.eval.with_streaming_response.run_eval(
             benchmark_id="benchmark_id",
-            benchmark_config={
-                "eval_candidate": {
-                    "model": "model",
-                    "sampling_params": {"strategy": {"type": "greedy"}},
-                    "type": "model",
-                },
-                "scoring_params": {
-                    "foo": {
-                        "aggregation_functions": ["average"],
-                        "judge_model": "judge_model",
-                        "judge_score_regexes": ["string"],
-                        "type": "llm_as_judge",
-                    }
-                },
+            eval_candidate={
+                "model": "model",
+                "sampling_params": {},
             },
         ) as response:
             assert not response.is_closed
@@ -972,20 +701,9 @@ class TestAsyncEval:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `benchmark_id` but received ''"):
             await async_client.alpha.eval.with_raw_response.run_eval(
                 benchmark_id="",
-                benchmark_config={
-                    "eval_candidate": {
-                        "model": "model",
-                        "sampling_params": {"strategy": {"type": "greedy"}},
-                        "type": "model",
-                    },
-                    "scoring_params": {
-                        "foo": {
-                            "aggregation_functions": ["average"],
-                            "judge_model": "judge_model",
-                            "judge_score_regexes": ["string"],
-                            "type": "llm_as_judge",
-                        }
-                    },
+                eval_candidate={
+                    "model": "model",
+                    "sampling_params": {},
                 },
             )
 
@@ -993,20 +711,9 @@ class TestAsyncEval:
     async def test_method_run_eval_alpha(self, async_client: AsyncLlamaStackClient) -> None:
         eval = await async_client.alpha.eval.run_eval_alpha(
             benchmark_id="benchmark_id",
-            benchmark_config={
-                "eval_candidate": {
-                    "model": "model",
-                    "sampling_params": {"strategy": {"type": "greedy"}},
-                    "type": "model",
-                },
-                "scoring_params": {
-                    "foo": {
-                        "aggregation_functions": ["average"],
-                        "judge_model": "judge_model",
-                        "judge_score_regexes": ["string"],
-                        "type": "llm_as_judge",
-                    }
-                },
+            eval_candidate={
+                "model": "model",
+                "sampling_params": {},
             },
         )
         assert_matches_type(Job, eval, path=["response"])
@@ -1015,31 +722,29 @@ class TestAsyncEval:
     async def test_method_run_eval_alpha_with_all_params(self, async_client: AsyncLlamaStackClient) -> None:
         eval = await async_client.alpha.eval.run_eval_alpha(
             benchmark_id="benchmark_id",
-            benchmark_config={
-                "eval_candidate": {
-                    "model": "model",
-                    "sampling_params": {
-                        "strategy": {"type": "greedy"},
-                        "max_tokens": 0,
-                        "repetition_penalty": 0,
-                        "stop": ["string"],
-                    },
-                    "type": "model",
-                    "system_message": {
-                        "content": "string",
-                        "role": "system",
-                    },
+            eval_candidate={
+                "model": "model",
+                "sampling_params": {
+                    "max_tokens": 0,
+                    "repetition_penalty": 0,
+                    "stop": ["string"],
+                    "strategy": {"type": "greedy"},
                 },
-                "scoring_params": {
-                    "foo": {
-                        "aggregation_functions": ["average"],
-                        "judge_model": "judge_model",
-                        "judge_score_regexes": ["string"],
-                        "type": "llm_as_judge",
-                        "prompt_template": "prompt_template",
-                    }
+                "system_message": {
+                    "content": "string",
+                    "role": "system",
                 },
-                "num_examples": 0,
+                "type": "model",
+            },
+            num_examples=0,
+            scoring_params={
+                "foo": {
+                    "judge_model": "judge_model",
+                    "aggregation_functions": ["average"],
+                    "judge_score_regexes": ["string"],
+                    "prompt_template": "prompt_template",
+                    "type": "llm_as_judge",
+                }
             },
         )
         assert_matches_type(Job, eval, path=["response"])
@@ -1048,20 +753,9 @@ class TestAsyncEval:
     async def test_raw_response_run_eval_alpha(self, async_client: AsyncLlamaStackClient) -> None:
         response = await async_client.alpha.eval.with_raw_response.run_eval_alpha(
             benchmark_id="benchmark_id",
-            benchmark_config={
-                "eval_candidate": {
-                    "model": "model",
-                    "sampling_params": {"strategy": {"type": "greedy"}},
-                    "type": "model",
-                },
-                "scoring_params": {
-                    "foo": {
-                        "aggregation_functions": ["average"],
-                        "judge_model": "judge_model",
-                        "judge_score_regexes": ["string"],
-                        "type": "llm_as_judge",
-                    }
-                },
+            eval_candidate={
+                "model": "model",
+                "sampling_params": {},
             },
         )
 
@@ -1074,20 +768,9 @@ class TestAsyncEval:
     async def test_streaming_response_run_eval_alpha(self, async_client: AsyncLlamaStackClient) -> None:
         async with async_client.alpha.eval.with_streaming_response.run_eval_alpha(
             benchmark_id="benchmark_id",
-            benchmark_config={
-                "eval_candidate": {
-                    "model": "model",
-                    "sampling_params": {"strategy": {"type": "greedy"}},
-                    "type": "model",
-                },
-                "scoring_params": {
-                    "foo": {
-                        "aggregation_functions": ["average"],
-                        "judge_model": "judge_model",
-                        "judge_score_regexes": ["string"],
-                        "type": "llm_as_judge",
-                    }
-                },
+            eval_candidate={
+                "model": "model",
+                "sampling_params": {},
             },
         ) as response:
             assert not response.is_closed
@@ -1103,19 +786,8 @@ class TestAsyncEval:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `benchmark_id` but received ''"):
             await async_client.alpha.eval.with_raw_response.run_eval_alpha(
                 benchmark_id="",
-                benchmark_config={
-                    "eval_candidate": {
-                        "model": "model",
-                        "sampling_params": {"strategy": {"type": "greedy"}},
-                        "type": "model",
-                    },
-                    "scoring_params": {
-                        "foo": {
-                            "aggregation_functions": ["average"],
-                            "judge_model": "judge_model",
-                            "judge_score_regexes": ["string"],
-                            "type": "llm_as_judge",
-                        }
-                    },
+                eval_candidate={
+                    "model": "model",
+                    "sampling_params": {},
                 },
             )

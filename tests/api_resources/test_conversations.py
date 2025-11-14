@@ -38,9 +38,9 @@ class TestConversations:
                 {
                     "content": "string",
                     "role": "system",
-                    "type": "message",
                     "id": "id",
                     "status": "status",
+                    "type": "message",
                 }
             ],
             metadata={"foo": "string"},
@@ -203,9 +203,9 @@ class TestAsyncConversations:
                 {
                     "content": "string",
                     "role": "system",
-                    "type": "message",
                     "id": "id",
                     "status": "status",
+                    "type": "message",
                 }
             ],
             metadata={"foo": "string"},

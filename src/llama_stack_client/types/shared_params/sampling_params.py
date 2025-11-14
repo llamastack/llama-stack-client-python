@@ -8,7 +8,7 @@
 
 from __future__ import annotations
 
-from typing import Union
+from typing import Union, Optional
 from typing_extensions import Literal, Required, TypeAlias, TypedDict
 
 from ..._types import SequenceNotStr
@@ -23,52 +23,35 @@ __all__ = [
 
 
 class StrategyGreedySamplingStrategy(TypedDict, total=False):
-    type: Required[Literal["greedy"]]
-    """Must be "greedy" to identify this sampling strategy"""
+    type: Literal["greedy"]
 
 
 class StrategyTopPSamplingStrategy(TypedDict, total=False):
-    type: Required[Literal["top_p"]]
-    """Must be "top_p" to identify this sampling strategy"""
+    temperature: Required[Optional[float]]
 
-    temperature: float
-    """Controls randomness in sampling. Higher values increase randomness"""
+    top_p: Optional[float]
 
-    top_p: float
-    """Cumulative probability threshold for nucleus sampling. Defaults to 0.95"""
+    type: Literal["top_p"]
 
 
 class StrategyTopKSamplingStrategy(TypedDict, total=False):
     top_k: Required[int]
-    """Number of top tokens to consider for sampling. Must be at least 1"""
 
-    type: Required[Literal["top_k"]]
-    """Must be "top_k" to identify this sampling strategy"""
+    type: Literal["top_k"]
 
 
 Strategy: TypeAlias = Union[StrategyGreedySamplingStrategy, StrategyTopPSamplingStrategy, StrategyTopKSamplingStrategy]
 
 
 class SamplingParams(TypedDict, total=False):
-    strategy: Required[Strategy]
-    """The sampling strategy."""
+    max_tokens: Optional[int]
 
-    max_tokens: int
-    """The maximum number of tokens that can be generated in the completion.
+    repetition_penalty: Optional[float]
 
-    The token count of your prompt plus max_tokens cannot exceed the model's context
-    length.
+    stop: Optional[SequenceNotStr[str]]
+
+    strategy: Strategy
     """
-
-    repetition_penalty: float
-    """Number between -2.0 and 2.0.
-
-    Positive values penalize new tokens based on whether they appear in the text so
-    far, increasing the model's likelihood to talk about new topics.
-    """
-
-    stop: SequenceNotStr[str]
-    """Up to 4 sequences where the API will stop generating further tokens.
-
-    The returned text will not contain the stop sequence.
+    Greedy sampling strategy that selects the highest probability token at each
+    step.
     """

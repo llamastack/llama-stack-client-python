@@ -8,7 +8,7 @@
 
 from __future__ import annotations
 
-from typing import Dict, Iterable
+from typing import Dict, Iterable, Optional
 
 import httpx
 
@@ -65,8 +65,8 @@ class ConversationsResource(SyncAPIResource):
     def create(
         self,
         *,
-        items: Iterable[conversation_create_params.Item] | Omit = omit,
-        metadata: Dict[str, str] | Omit = omit,
+        items: Optional[Iterable[conversation_create_params.Item]] | Omit = omit,
+        metadata: Optional[Dict[str, str]] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -74,15 +74,12 @@ class ConversationsResource(SyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> ConversationObject:
-        """Create a conversation.
+        """
+        Create a conversation.
 
         Create a conversation.
 
         Args:
-          items: Initial items to include in the conversation context.
-
-          metadata: Set of key-value pairs that can be attached to an object.
-
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -117,7 +114,8 @@ class ConversationsResource(SyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> ConversationObject:
-        """Retrieve a conversation.
+        """
+        Retrieve a conversation.
 
         Get a conversation with the given ID.
 
@@ -152,13 +150,12 @@ class ConversationsResource(SyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> ConversationObject:
-        """Update a conversation.
+        """
+        Update a conversation.
 
         Update a conversation's metadata with the given ID.
 
         Args:
-          metadata: Set of key-value pairs that can be attached to an object.
-
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -189,7 +186,8 @@ class ConversationsResource(SyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> ConversationDeleteResponse:
-        """Delete a conversation.
+        """
+        Delete a conversation.
 
         Delete a conversation with the given ID.
 
@@ -240,8 +238,8 @@ class AsyncConversationsResource(AsyncAPIResource):
     async def create(
         self,
         *,
-        items: Iterable[conversation_create_params.Item] | Omit = omit,
-        metadata: Dict[str, str] | Omit = omit,
+        items: Optional[Iterable[conversation_create_params.Item]] | Omit = omit,
+        metadata: Optional[Dict[str, str]] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -249,15 +247,12 @@ class AsyncConversationsResource(AsyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> ConversationObject:
-        """Create a conversation.
+        """
+        Create a conversation.
 
         Create a conversation.
 
         Args:
-          items: Initial items to include in the conversation context.
-
-          metadata: Set of key-value pairs that can be attached to an object.
-
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -292,7 +287,8 @@ class AsyncConversationsResource(AsyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> ConversationObject:
-        """Retrieve a conversation.
+        """
+        Retrieve a conversation.
 
         Get a conversation with the given ID.
 
@@ -327,13 +323,12 @@ class AsyncConversationsResource(AsyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> ConversationObject:
-        """Update a conversation.
+        """
+        Update a conversation.
 
         Update a conversation's metadata with the given ID.
 
         Args:
-          metadata: Set of key-value pairs that can be attached to an object.
-
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -366,7 +361,8 @@ class AsyncConversationsResource(AsyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> ConversationDeleteResponse:
-        """Delete a conversation.
+        """
+        Delete a conversation.
 
         Delete a conversation with the given ID.
 

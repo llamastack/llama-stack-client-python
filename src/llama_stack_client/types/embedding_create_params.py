@@ -8,7 +8,7 @@
 
 from __future__ import annotations
 
-from typing import Union
+from typing import Union, Optional
 from typing_extensions import Required, TypedDict
 
 from .._types import SequenceNotStr
@@ -18,32 +18,11 @@ __all__ = ["EmbeddingCreateParams"]
 
 class EmbeddingCreateParams(TypedDict, total=False):
     input: Required[Union[str, SequenceNotStr[str]]]
-    """Input text to embed, encoded as a string or array of strings.
-
-    To embed multiple inputs in a single request, pass an array of strings.
-    """
 
     model: Required[str]
-    """The identifier of the model to use.
 
-    The model must be an embedding model registered with Llama Stack and available
-    via the /models endpoint.
-    """
+    dimensions: Optional[int]
 
-    dimensions: int
-    """(Optional) The number of dimensions the resulting output embeddings should have.
+    encoding_format: Optional[str]
 
-    Only supported in text-embedding-3 and later models.
-    """
-
-    encoding_format: str
-    """(Optional) The format to return the embeddings in.
-
-    Can be either "float" or "base64". Defaults to "float".
-    """
-
-    user: str
-    """
-    (Optional) A unique identifier representing your end-user, which can help OpenAI
-    to monitor and detect abuse.
-    """
+    user: Optional[str]

@@ -8,7 +8,7 @@
 
 from __future__ import annotations
 
-from typing import Dict, Union, Iterable
+from typing import Dict, Union, Iterable, Optional
 from typing_extensions import Literal, Required, TypeAlias, TypedDict
 
 from ..._types import SequenceNotStr
@@ -16,23 +16,23 @@ from ..._types import SequenceNotStr
 __all__ = [
     "CompletionCreateParamsBase",
     "Message",
-    "MessageOpenAIUserMessageParam",
-    "MessageOpenAIUserMessageParamContentUnionMember1",
-    "MessageOpenAIUserMessageParamContentUnionMember1OpenAIChatCompletionContentPartTextParam",
-    "MessageOpenAIUserMessageParamContentUnionMember1OpenAIChatCompletionContentPartImageParam",
-    "MessageOpenAIUserMessageParamContentUnionMember1OpenAIChatCompletionContentPartImageParamImageURL",
-    "MessageOpenAIUserMessageParamContentUnionMember1OpenAIFile",
-    "MessageOpenAIUserMessageParamContentUnionMember1OpenAIFileFile",
+    "MessageOpenAIUserMessageParamInput",
+    "MessageOpenAIUserMessageParamInputContentListOpenAIChatCompletionContentPartTextParamOpenAIChatCompletionContentPartImageParamOpenAIFile",
+    "MessageOpenAIUserMessageParamInputContentListOpenAIChatCompletionContentPartTextParamOpenAIChatCompletionContentPartImageParamOpenAIFileOpenAIChatCompletionContentPartTextParam",
+    "MessageOpenAIUserMessageParamInputContentListOpenAIChatCompletionContentPartTextParamOpenAIChatCompletionContentPartImageParamOpenAIFileOpenAIChatCompletionContentPartImageParam",
+    "MessageOpenAIUserMessageParamInputContentListOpenAIChatCompletionContentPartTextParamOpenAIChatCompletionContentPartImageParamOpenAIFileOpenAIChatCompletionContentPartImageParamImageURL",
+    "MessageOpenAIUserMessageParamInputContentListOpenAIChatCompletionContentPartTextParamOpenAIChatCompletionContentPartImageParamOpenAIFileOpenAIFile",
+    "MessageOpenAIUserMessageParamInputContentListOpenAIChatCompletionContentPartTextParamOpenAIChatCompletionContentPartImageParamOpenAIFileOpenAIFileFile",
     "MessageOpenAISystemMessageParam",
-    "MessageOpenAISystemMessageParamContentUnionMember1",
-    "MessageOpenAIAssistantMessageParam",
-    "MessageOpenAIAssistantMessageParamContentUnionMember1",
-    "MessageOpenAIAssistantMessageParamToolCall",
-    "MessageOpenAIAssistantMessageParamToolCallFunction",
+    "MessageOpenAISystemMessageParamContentListOpenAIChatCompletionContentPartTextParam",
+    "MessageOpenAIAssistantMessageParamInput",
+    "MessageOpenAIAssistantMessageParamInputContentListOpenAIChatCompletionContentPartTextParam",
+    "MessageOpenAIAssistantMessageParamInputToolCall",
+    "MessageOpenAIAssistantMessageParamInputToolCallFunction",
     "MessageOpenAIToolMessageParam",
-    "MessageOpenAIToolMessageParamContentUnionMember1",
+    "MessageOpenAIToolMessageParamContentListOpenAIChatCompletionContentPartTextParam",
     "MessageOpenAIDeveloperMessageParam",
-    "MessageOpenAIDeveloperMessageParamContentUnionMember1",
+    "MessageOpenAIDeveloperMessageParamContentListOpenAIChatCompletionContentPartTextParam",
     "ResponseFormat",
     "ResponseFormatOpenAIResponseFormatText",
     "ResponseFormatOpenAIResponseFormatJsonSchema",
@@ -45,284 +45,237 @@ __all__ = [
 
 class CompletionCreateParamsBase(TypedDict, total=False):
     messages: Required[Iterable[Message]]
-    """List of messages in the conversation."""
 
     model: Required[str]
-    """The identifier of the model to use.
 
-    The model must be registered with Llama Stack and available via the /models
-    endpoint.
-    """
+    frequency_penalty: Optional[float]
 
-    frequency_penalty: float
-    """(Optional) The penalty for repeated tokens."""
+    function_call: Union[str, Dict[str, object], None]
 
-    function_call: Union[str, Dict[str, Union[bool, float, str, Iterable[object], object, None]]]
-    """(Optional) The function call to use."""
+    functions: Optional[Iterable[Dict[str, object]]]
 
-    functions: Iterable[Dict[str, Union[bool, float, str, Iterable[object], object, None]]]
-    """(Optional) List of functions to use."""
+    logit_bias: Optional[Dict[str, float]]
 
-    logit_bias: Dict[str, float]
-    """(Optional) The logit bias to use."""
+    logprobs: Optional[bool]
 
-    logprobs: bool
-    """(Optional) The log probabilities to use."""
+    max_completion_tokens: Optional[int]
 
-    max_completion_tokens: int
-    """(Optional) The maximum number of tokens to generate."""
+    max_tokens: Optional[int]
 
-    max_tokens: int
-    """(Optional) The maximum number of tokens to generate."""
+    n: Optional[int]
 
-    n: int
-    """(Optional) The number of completions to generate."""
+    parallel_tool_calls: Optional[bool]
 
-    parallel_tool_calls: bool
-    """(Optional) Whether to parallelize tool calls."""
+    presence_penalty: Optional[float]
 
-    presence_penalty: float
-    """(Optional) The penalty for repeated tokens."""
+    response_format: Optional[ResponseFormat]
+    """Text response format for OpenAI-compatible chat completion requests."""
 
-    response_format: ResponseFormat
-    """(Optional) The response format to use."""
+    seed: Optional[int]
 
-    seed: int
-    """(Optional) The seed to use."""
+    stop: Union[str, SequenceNotStr[str], None]
 
-    stop: Union[str, SequenceNotStr[str]]
-    """(Optional) The stop tokens to use."""
+    stream_options: Optional[Dict[str, object]]
 
-    stream_options: Dict[str, Union[bool, float, str, Iterable[object], object, None]]
-    """(Optional) The stream options to use."""
+    temperature: Optional[float]
 
-    temperature: float
-    """(Optional) The temperature to use."""
+    tool_choice: Union[str, Dict[str, object], None]
 
-    tool_choice: Union[str, Dict[str, Union[bool, float, str, Iterable[object], object, None]]]
-    """(Optional) The tool choice to use."""
+    tools: Optional[Iterable[Dict[str, object]]]
 
-    tools: Iterable[Dict[str, Union[bool, float, str, Iterable[object], object, None]]]
-    """(Optional) The tools to use."""
+    top_logprobs: Optional[int]
 
-    top_logprobs: int
-    """(Optional) The top log probabilities to use."""
+    top_p: Optional[float]
 
-    top_p: float
-    """(Optional) The top p to use."""
-
-    user: str
-    """(Optional) The user to use."""
+    user: Optional[str]
 
 
-class MessageOpenAIUserMessageParamContentUnionMember1OpenAIChatCompletionContentPartTextParam(TypedDict, total=False):
+class MessageOpenAIUserMessageParamInputContentListOpenAIChatCompletionContentPartTextParamOpenAIChatCompletionContentPartImageParamOpenAIFileOpenAIChatCompletionContentPartTextParam(
+    TypedDict, total=False
+):
     text: Required[str]
-    """The text content of the message"""
 
-    type: Required[Literal["text"]]
-    """Must be "text" to identify this as text content"""
+    type: Literal["text"]
 
 
-class MessageOpenAIUserMessageParamContentUnionMember1OpenAIChatCompletionContentPartImageParamImageURL(
+class MessageOpenAIUserMessageParamInputContentListOpenAIChatCompletionContentPartTextParamOpenAIChatCompletionContentPartImageParamOpenAIFileOpenAIChatCompletionContentPartImageParamImageURL(
     TypedDict, total=False
 ):
     url: Required[str]
-    """URL of the image to include in the message"""
 
-    detail: str
-    """(Optional) Level of detail for image processing.
-
-    Can be "low", "high", or "auto"
-    """
+    detail: Optional[str]
 
 
-class MessageOpenAIUserMessageParamContentUnionMember1OpenAIChatCompletionContentPartImageParam(TypedDict, total=False):
+class MessageOpenAIUserMessageParamInputContentListOpenAIChatCompletionContentPartTextParamOpenAIChatCompletionContentPartImageParamOpenAIFileOpenAIChatCompletionContentPartImageParam(
+    TypedDict, total=False
+):
     image_url: Required[
-        MessageOpenAIUserMessageParamContentUnionMember1OpenAIChatCompletionContentPartImageParamImageURL
+        MessageOpenAIUserMessageParamInputContentListOpenAIChatCompletionContentPartTextParamOpenAIChatCompletionContentPartImageParamOpenAIFileOpenAIChatCompletionContentPartImageParamImageURL
     ]
-    """Image URL specification and processing details"""
+    """Image URL specification for OpenAI-compatible chat completion messages."""
 
-    type: Required[Literal["image_url"]]
-    """Must be "image_url" to identify this as image content"""
-
-
-class MessageOpenAIUserMessageParamContentUnionMember1OpenAIFileFile(TypedDict, total=False):
-    file_data: str
-
-    file_id: str
-
-    filename: str
+    type: Literal["image_url"]
 
 
-class MessageOpenAIUserMessageParamContentUnionMember1OpenAIFile(TypedDict, total=False):
-    file: Required[MessageOpenAIUserMessageParamContentUnionMember1OpenAIFileFile]
+class MessageOpenAIUserMessageParamInputContentListOpenAIChatCompletionContentPartTextParamOpenAIChatCompletionContentPartImageParamOpenAIFileOpenAIFileFile(
+    TypedDict, total=False
+):
+    file_data: Optional[str]
 
-    type: Required[Literal["file"]]
+    file_id: Optional[str]
+
+    filename: Optional[str]
 
 
-MessageOpenAIUserMessageParamContentUnionMember1: TypeAlias = Union[
-    MessageOpenAIUserMessageParamContentUnionMember1OpenAIChatCompletionContentPartTextParam,
-    MessageOpenAIUserMessageParamContentUnionMember1OpenAIChatCompletionContentPartImageParam,
-    MessageOpenAIUserMessageParamContentUnionMember1OpenAIFile,
+class MessageOpenAIUserMessageParamInputContentListOpenAIChatCompletionContentPartTextParamOpenAIChatCompletionContentPartImageParamOpenAIFileOpenAIFile(
+    TypedDict, total=False
+):
+    file: Required[
+        MessageOpenAIUserMessageParamInputContentListOpenAIChatCompletionContentPartTextParamOpenAIChatCompletionContentPartImageParamOpenAIFileOpenAIFileFile
+    ]
+
+    type: Literal["file"]
+
+
+MessageOpenAIUserMessageParamInputContentListOpenAIChatCompletionContentPartTextParamOpenAIChatCompletionContentPartImageParamOpenAIFile: TypeAlias = Union[
+    MessageOpenAIUserMessageParamInputContentListOpenAIChatCompletionContentPartTextParamOpenAIChatCompletionContentPartImageParamOpenAIFileOpenAIChatCompletionContentPartTextParam,
+    MessageOpenAIUserMessageParamInputContentListOpenAIChatCompletionContentPartTextParamOpenAIChatCompletionContentPartImageParamOpenAIFileOpenAIChatCompletionContentPartImageParam,
+    MessageOpenAIUserMessageParamInputContentListOpenAIChatCompletionContentPartTextParamOpenAIChatCompletionContentPartImageParamOpenAIFileOpenAIFile,
 ]
 
 
-class MessageOpenAIUserMessageParam(TypedDict, total=False):
-    content: Required[Union[str, Iterable[MessageOpenAIUserMessageParamContentUnionMember1]]]
-    """The content of the message, which can include text and other media"""
+class MessageOpenAIUserMessageParamInput(TypedDict, total=False):
+    content: Required[
+        Union[
+            str,
+            Iterable[
+                MessageOpenAIUserMessageParamInputContentListOpenAIChatCompletionContentPartTextParamOpenAIChatCompletionContentPartImageParamOpenAIFile
+            ],
+        ]
+    ]
 
-    role: Required[Literal["user"]]
-    """Must be "user" to identify this as a user message"""
+    name: Optional[str]
 
-    name: str
-    """(Optional) The name of the user message participant."""
+    role: Literal["user"]
 
 
-class MessageOpenAISystemMessageParamContentUnionMember1(TypedDict, total=False):
+class MessageOpenAISystemMessageParamContentListOpenAIChatCompletionContentPartTextParam(TypedDict, total=False):
     text: Required[str]
-    """The text content of the message"""
 
-    type: Required[Literal["text"]]
-    """Must be "text" to identify this as text content"""
+    type: Literal["text"]
 
 
 class MessageOpenAISystemMessageParam(TypedDict, total=False):
-    content: Required[Union[str, Iterable[MessageOpenAISystemMessageParamContentUnionMember1]]]
-    """The content of the "system prompt".
+    content: Required[
+        Union[str, Iterable[MessageOpenAISystemMessageParamContentListOpenAIChatCompletionContentPartTextParam]]
+    ]
 
-    If multiple system messages are provided, they are concatenated. The underlying
-    Llama Stack code may also add other system messages (for example, for formatting
-    tool definitions).
-    """
+    name: Optional[str]
 
-    role: Required[Literal["system"]]
-    """Must be "system" to identify this as a system message"""
-
-    name: str
-    """(Optional) The name of the system message participant."""
+    role: Literal["system"]
 
 
-class MessageOpenAIAssistantMessageParamContentUnionMember1(TypedDict, total=False):
+class MessageOpenAIAssistantMessageParamInputContentListOpenAIChatCompletionContentPartTextParam(
+    TypedDict, total=False
+):
     text: Required[str]
-    """The text content of the message"""
 
-    type: Required[Literal["text"]]
-    """Must be "text" to identify this as text content"""
+    type: Literal["text"]
 
 
-class MessageOpenAIAssistantMessageParamToolCallFunction(TypedDict, total=False):
-    arguments: str
-    """(Optional) Arguments to pass to the function as a JSON string"""
+class MessageOpenAIAssistantMessageParamInputToolCallFunction(TypedDict, total=False):
+    arguments: Optional[str]
 
-    name: str
-    """(Optional) Name of the function to call"""
+    name: Optional[str]
 
 
-class MessageOpenAIAssistantMessageParamToolCall(TypedDict, total=False):
-    type: Required[Literal["function"]]
-    """Must be "function" to identify this as a function call"""
+class MessageOpenAIAssistantMessageParamInputToolCall(TypedDict, total=False):
+    id: Optional[str]
 
-    id: str
-    """(Optional) Unique identifier for the tool call"""
+    function: Optional[MessageOpenAIAssistantMessageParamInputToolCallFunction]
+    """Function call details for OpenAI-compatible tool calls."""
 
-    function: MessageOpenAIAssistantMessageParamToolCallFunction
-    """(Optional) Function call details"""
+    index: Optional[int]
 
-    index: int
-    """(Optional) Index of the tool call in the list"""
+    type: Literal["function"]
 
 
-class MessageOpenAIAssistantMessageParam(TypedDict, total=False):
-    role: Required[Literal["assistant"]]
-    """Must be "assistant" to identify this as the model's response"""
+class MessageOpenAIAssistantMessageParamInput(TypedDict, total=False):
+    content: Union[
+        str, Iterable[MessageOpenAIAssistantMessageParamInputContentListOpenAIChatCompletionContentPartTextParam], None
+    ]
 
-    content: Union[str, Iterable[MessageOpenAIAssistantMessageParamContentUnionMember1]]
-    """The content of the model's response"""
+    name: Optional[str]
 
-    name: str
-    """(Optional) The name of the assistant message participant."""
+    role: Literal["assistant"]
 
-    tool_calls: Iterable[MessageOpenAIAssistantMessageParamToolCall]
-    """List of tool calls. Each tool call is an OpenAIChatCompletionToolCall object."""
+    tool_calls: Optional[Iterable[MessageOpenAIAssistantMessageParamInputToolCall]]
 
 
-class MessageOpenAIToolMessageParamContentUnionMember1(TypedDict, total=False):
+class MessageOpenAIToolMessageParamContentListOpenAIChatCompletionContentPartTextParam(TypedDict, total=False):
     text: Required[str]
-    """The text content of the message"""
 
-    type: Required[Literal["text"]]
-    """Must be "text" to identify this as text content"""
+    type: Literal["text"]
 
 
 class MessageOpenAIToolMessageParam(TypedDict, total=False):
-    content: Required[Union[str, Iterable[MessageOpenAIToolMessageParamContentUnionMember1]]]
-    """The response content from the tool"""
-
-    role: Required[Literal["tool"]]
-    """Must be "tool" to identify this as a tool response"""
+    content: Required[
+        Union[str, Iterable[MessageOpenAIToolMessageParamContentListOpenAIChatCompletionContentPartTextParam]]
+    ]
 
     tool_call_id: Required[str]
-    """Unique identifier for the tool call this response is for"""
+
+    role: Literal["tool"]
 
 
-class MessageOpenAIDeveloperMessageParamContentUnionMember1(TypedDict, total=False):
+class MessageOpenAIDeveloperMessageParamContentListOpenAIChatCompletionContentPartTextParam(TypedDict, total=False):
     text: Required[str]
-    """The text content of the message"""
 
-    type: Required[Literal["text"]]
-    """Must be "text" to identify this as text content"""
+    type: Literal["text"]
 
 
 class MessageOpenAIDeveloperMessageParam(TypedDict, total=False):
-    content: Required[Union[str, Iterable[MessageOpenAIDeveloperMessageParamContentUnionMember1]]]
-    """The content of the developer message"""
+    content: Required[
+        Union[str, Iterable[MessageOpenAIDeveloperMessageParamContentListOpenAIChatCompletionContentPartTextParam]]
+    ]
 
-    role: Required[Literal["developer"]]
-    """Must be "developer" to identify this as a developer message"""
+    name: Optional[str]
 
-    name: str
-    """(Optional) The name of the developer message participant."""
+    role: Literal["developer"]
 
 
 Message: TypeAlias = Union[
-    MessageOpenAIUserMessageParam,
+    MessageOpenAIUserMessageParamInput,
     MessageOpenAISystemMessageParam,
-    MessageOpenAIAssistantMessageParam,
+    MessageOpenAIAssistantMessageParamInput,
     MessageOpenAIToolMessageParam,
     MessageOpenAIDeveloperMessageParam,
 ]
 
 
 class ResponseFormatOpenAIResponseFormatText(TypedDict, total=False):
-    type: Required[Literal["text"]]
-    """Must be "text" to indicate plain text response format"""
+    type: Literal["text"]
 
 
 class ResponseFormatOpenAIResponseFormatJsonSchemaJsonSchema(TypedDict, total=False):
-    name: Required[str]
-    """Name of the schema"""
+    description: Optional[str]
 
-    description: str
-    """(Optional) Description of the schema"""
+    name: str
 
-    schema: Dict[str, Union[bool, float, str, Iterable[object], object, None]]
-    """(Optional) The JSON schema definition"""
+    schema: Optional[Dict[str, object]]
 
-    strict: bool
-    """(Optional) Whether to enforce strict adherence to the schema"""
+    strict: Optional[bool]
 
 
 class ResponseFormatOpenAIResponseFormatJsonSchema(TypedDict, total=False):
     json_schema: Required[ResponseFormatOpenAIResponseFormatJsonSchemaJsonSchema]
-    """The JSON schema specification for the response"""
+    """JSON schema specification for OpenAI-compatible structured response format."""
 
-    type: Required[Literal["json_schema"]]
-    """Must be "json_schema" to indicate structured JSON response format"""
+    type: Literal["json_schema"]
 
 
 class ResponseFormatOpenAIResponseFormatJsonObject(TypedDict, total=False):
-    type: Required[Literal["json_object"]]
-    """Must be "json_object" to indicate generic JSON object response format"""
+    type: Literal["json_object"]
 
 
 ResponseFormat: TypeAlias = Union[
@@ -333,13 +286,11 @@ ResponseFormat: TypeAlias = Union[
 
 
 class CompletionCreateParamsNonStreaming(CompletionCreateParamsBase, total=False):
-    stream: Literal[False]
-    """(Optional) Whether to stream the response."""
+    stream: Optional[Literal[False]]
 
 
 class CompletionCreateParamsStreaming(CompletionCreateParamsBase):
     stream: Required[Literal[True]]
-    """(Optional) Whether to stream the response."""
 
 
 CompletionCreateParams = Union[CompletionCreateParamsNonStreaming, CompletionCreateParamsStreaming]

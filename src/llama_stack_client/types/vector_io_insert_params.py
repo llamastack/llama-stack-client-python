@@ -8,90 +8,135 @@
 
 from __future__ import annotations
 
-from typing import Dict, Union, Iterable
-from typing_extensions import Required, TypedDict
+from typing import Dict, Union, Iterable, Optional
+from typing_extensions import Literal, Required, TypeAlias, TypedDict
 
-from .shared_params.interleaved_content import InterleavedContent
-
-__all__ = ["VectorIoInsertParams", "Chunk", "ChunkChunkMetadata"]
+__all__ = [
+    "VectorIoInsertParams",
+    "Chunk",
+    "ChunkContent",
+    "ChunkContentImageContentItemInput",
+    "ChunkContentImageContentItemInputImage",
+    "ChunkContentImageContentItemInputImageURL",
+    "ChunkContentTextContentItem",
+    "ChunkContentListImageContentItemInputTextContentItem",
+    "ChunkContentListImageContentItemInputTextContentItemImageContentItemInput",
+    "ChunkContentListImageContentItemInputTextContentItemImageContentItemInputImage",
+    "ChunkContentListImageContentItemInputTextContentItemImageContentItemInputImageURL",
+    "ChunkContentListImageContentItemInputTextContentItemTextContentItem",
+    "ChunkChunkMetadata",
+]
 
 
 class VectorIoInsertParams(TypedDict, total=False):
     chunks: Required[Iterable[Chunk]]
-    """The chunks to insert.
-
-    Each `Chunk` should contain content which can be interleaved text, images, or
-    other types. `metadata`: `dict[str, Any]` and `embedding`: `List[float]` are
-    optional. If `metadata` is provided, you configure how Llama Stack formats the
-    chunk during generation. If `embedding` is not provided, it will be computed
-    later.
-    """
 
     vector_store_id: Required[str]
-    """The identifier of the vector database to insert the chunks into."""
 
-    ttl_seconds: int
-    """The time to live of the chunks."""
+    ttl_seconds: Optional[int]
+
+
+class ChunkContentImageContentItemInputImageURL(TypedDict, total=False):
+    uri: Required[str]
+
+
+class ChunkContentImageContentItemInputImage(TypedDict, total=False):
+    data: Optional[str]
+
+    url: Optional[ChunkContentImageContentItemInputImageURL]
+    """A URL reference to external content."""
+
+
+class ChunkContentImageContentItemInput(TypedDict, total=False):
+    image: Required[ChunkContentImageContentItemInputImage]
+    """A URL or a base64 encoded string"""
+
+    type: Literal["image"]
+
+
+class ChunkContentTextContentItem(TypedDict, total=False):
+    text: Required[str]
+
+    type: Literal["text"]
+
+
+class ChunkContentListImageContentItemInputTextContentItemImageContentItemInputImageURL(TypedDict, total=False):
+    uri: Required[str]
+
+
+class ChunkContentListImageContentItemInputTextContentItemImageContentItemInputImage(TypedDict, total=False):
+    data: Optional[str]
+
+    url: Optional[ChunkContentListImageContentItemInputTextContentItemImageContentItemInputImageURL]
+    """A URL reference to external content."""
+
+
+class ChunkContentListImageContentItemInputTextContentItemImageContentItemInput(TypedDict, total=False):
+    image: Required[ChunkContentListImageContentItemInputTextContentItemImageContentItemInputImage]
+    """A URL or a base64 encoded string"""
+
+    type: Literal["image"]
+
+
+class ChunkContentListImageContentItemInputTextContentItemTextContentItem(TypedDict, total=False):
+    text: Required[str]
+
+    type: Literal["text"]
+
+
+ChunkContentListImageContentItemInputTextContentItem: TypeAlias = Union[
+    ChunkContentListImageContentItemInputTextContentItemImageContentItemInput,
+    ChunkContentListImageContentItemInputTextContentItemTextContentItem,
+]
+
+ChunkContent: TypeAlias = Union[
+    str,
+    ChunkContentImageContentItemInput,
+    ChunkContentTextContentItem,
+    Iterable[ChunkContentListImageContentItemInputTextContentItem],
+]
 
 
 class ChunkChunkMetadata(TypedDict, total=False):
-    chunk_embedding_dimension: int
-    """The dimension of the embedding vector for the chunk."""
+    chunk_embedding_dimension: Optional[int]
 
-    chunk_embedding_model: str
-    """The embedding model used to create the chunk's embedding."""
+    chunk_embedding_model: Optional[str]
 
-    chunk_id: str
-    """The ID of the chunk.
+    chunk_id: Optional[str]
 
-    If not set, it will be generated based on the document ID and content.
-    """
+    chunk_tokenizer: Optional[str]
 
-    chunk_tokenizer: str
-    """The tokenizer used to create the chunk. Default is Tiktoken."""
+    chunk_window: Optional[str]
 
-    chunk_window: str
-    """The window of the chunk, which can be used to group related chunks together."""
+    content_token_count: Optional[int]
 
-    content_token_count: int
-    """The number of tokens in the content of the chunk."""
+    created_timestamp: Optional[int]
 
-    created_timestamp: int
-    """An optional timestamp indicating when the chunk was created."""
+    document_id: Optional[str]
 
-    document_id: str
-    """The ID of the document this chunk belongs to."""
+    metadata_token_count: Optional[int]
 
-    metadata_token_count: int
-    """The number of tokens in the metadata of the chunk."""
+    source: Optional[str]
 
-    source: str
-    """The source of the content, such as a URL, file path, or other identifier."""
-
-    updated_timestamp: int
-    """An optional timestamp indicating when the chunk was last updated."""
+    updated_timestamp: Optional[int]
 
 
 class Chunk(TypedDict, total=False):
     chunk_id: Required[str]
-    """Unique identifier for the chunk. Must be provided explicitly."""
 
-    content: Required[InterleavedContent]
-    """
-    The content of the chunk, which can be interleaved text, images, or other types.
-    """
+    content: Required[ChunkContent]
+    """A image content item"""
 
-    metadata: Required[Dict[str, Union[bool, float, str, Iterable[object], object, None]]]
+    chunk_metadata: Optional[ChunkChunkMetadata]
     """
-    Metadata associated with the chunk that will be used in the model context during
-    inference.
-    """
-
-    chunk_metadata: ChunkChunkMetadata
-    """Metadata for the chunk that will NOT be used in the context during inference.
-
-    The `chunk_metadata` is required backend functionality.
+    `ChunkMetadata` is backend metadata for a `Chunk` that is used to store
+    additional information about the chunk that will not be used in the context
+    during inference, but is required for backend functionality. The `ChunkMetadata`
+    is set during chunk creation in `MemoryToolRuntimeImpl().insert()`and is not
+    expected to change after. Use `Chunk.metadata` for metadata that will be used in
+    the context during inference.
     """
 
-    embedding: Iterable[float]
-    """Optional embedding for the chunk. If not provided, it will be computed later."""
+    embedding: Optional[Iterable[float]]
+
+    metadata: Dict[str, object]

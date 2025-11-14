@@ -6,22 +6,90 @@
 
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-from typing_extensions import Literal
+from typing import List, Union, Optional
+from typing_extensions import Literal, Annotated, TypeAlias
 
+from ..._utils import PropertyInfo
 from ..._models import BaseModel
-from .interleaved_content import InterleavedContent
 
-__all__ = ["SystemMessage"]
+__all__ = [
+    "SystemMessage",
+    "Content",
+    "ContentImageContentItemInput",
+    "ContentImageContentItemInputImage",
+    "ContentImageContentItemInputImageURL",
+    "ContentTextContentItem",
+    "ContentListImageContentItemInputTextContentItem",
+    "ContentListImageContentItemInputTextContentItemImageContentItemInput",
+    "ContentListImageContentItemInputTextContentItemImageContentItemInputImage",
+    "ContentListImageContentItemInputTextContentItemImageContentItemInputImageURL",
+    "ContentListImageContentItemInputTextContentItemTextContentItem",
+]
+
+
+class ContentImageContentItemInputImageURL(BaseModel):
+    uri: str
+
+
+class ContentImageContentItemInputImage(BaseModel):
+    data: Optional[str] = None
+
+    url: Optional[ContentImageContentItemInputImageURL] = None
+    """A URL reference to external content."""
+
+
+class ContentImageContentItemInput(BaseModel):
+    image: ContentImageContentItemInputImage
+    """A URL or a base64 encoded string"""
+
+    type: Optional[Literal["image"]] = None
+
+
+class ContentTextContentItem(BaseModel):
+    text: str
+
+    type: Optional[Literal["text"]] = None
+
+
+class ContentListImageContentItemInputTextContentItemImageContentItemInputImageURL(BaseModel):
+    uri: str
+
+
+class ContentListImageContentItemInputTextContentItemImageContentItemInputImage(BaseModel):
+    data: Optional[str] = None
+
+    url: Optional[ContentListImageContentItemInputTextContentItemImageContentItemInputImageURL] = None
+    """A URL reference to external content."""
+
+
+class ContentListImageContentItemInputTextContentItemImageContentItemInput(BaseModel):
+    image: ContentListImageContentItemInputTextContentItemImageContentItemInputImage
+    """A URL or a base64 encoded string"""
+
+    type: Optional[Literal["image"]] = None
+
+
+class ContentListImageContentItemInputTextContentItemTextContentItem(BaseModel):
+    text: str
+
+    type: Optional[Literal["text"]] = None
+
+
+ContentListImageContentItemInputTextContentItem: TypeAlias = Annotated[
+    Union[
+        ContentListImageContentItemInputTextContentItemImageContentItemInput,
+        ContentListImageContentItemInputTextContentItemTextContentItem,
+    ],
+    PropertyInfo(discriminator="type"),
+]
+
+Content: TypeAlias = Union[
+    str, ContentImageContentItemInput, ContentTextContentItem, List[ContentListImageContentItemInputTextContentItem]
+]
 
 
 class SystemMessage(BaseModel):
-    content: InterleavedContent
-    """The content of the "system prompt".
+    content: Content
+    """A image content item"""
 
-    If multiple system messages are provided, they are concatenated. The underlying
-    Llama Stack code may also add other system messages (for example, for formatting
-    tool definitions).
-    """
-
-    role: Literal["system"]
-    """Must be "system" to identify this as a system message"""
+    role: Optional[Literal["system"]] = None

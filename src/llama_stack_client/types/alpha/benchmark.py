@@ -6,7 +6,7 @@
 
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-from typing import Dict, List, Union, Optional
+from typing import Dict, List, Optional
 from typing_extensions import Literal
 
 from ..._models import BaseModel
@@ -16,19 +16,19 @@ __all__ = ["Benchmark"]
 
 class Benchmark(BaseModel):
     dataset_id: str
-    """Identifier of the dataset to use for the benchmark evaluation"""
 
     identifier: str
-
-    metadata: Dict[str, Union[bool, float, str, List[object], object, None]]
-    """Metadata for this evaluation task"""
+    """Unique identifier for this resource in llama stack"""
 
     provider_id: str
+    """ID of the provider that owns this resource"""
 
     scoring_functions: List[str]
-    """List of scoring function identifiers to apply during evaluation"""
 
-    type: Literal["benchmark"]
-    """The resource type, always benchmark"""
+    metadata: Optional[Dict[str, object]] = None
+    """Metadata for this evaluation task"""
 
     provider_resource_id: Optional[str] = None
+    """Unique identifier for this resource in the provider"""
+
+    type: Optional[Literal["benchmark"]] = None

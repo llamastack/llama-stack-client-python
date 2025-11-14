@@ -8,7 +8,7 @@
 
 from __future__ import annotations
 
-from typing import Dict, Union, Iterable
+from typing import Dict, Iterable
 from typing_extensions import Required, TypedDict
 
 from ..._types import SequenceNotStr
@@ -19,10 +19,8 @@ __all__ = ["EvalEvaluateRowsParams"]
 
 class EvalEvaluateRowsParams(TypedDict, total=False):
     benchmark_config: Required[BenchmarkConfigParam]
-    """The configuration for the benchmark."""
+    """A benchmark configuration for evaluation."""
 
-    input_rows: Required[Iterable[Dict[str, Union[bool, float, str, Iterable[object], object, None]]]]
-    """The rows to evaluate."""
+    input_rows: Required[Iterable[Dict[str, object]]]
 
     scoring_functions: Required[SequenceNotStr[str]]
-    """The scoring functions to use for the evaluation."""

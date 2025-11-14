@@ -47,6 +47,7 @@ if TYPE_CHECKING:
         models,
         routes,
         safety,
+        batches,
         inspect,
         prompts,
         scoring,
@@ -67,6 +68,7 @@ if TYPE_CHECKING:
     from .resources.tools import ToolsResource, AsyncToolsResource
     from .resources.routes import RoutesResource, AsyncRoutesResource
     from .resources.safety import SafetyResource, AsyncSafetyResource
+    from .resources.batches import BatchesResource, AsyncBatchesResource
     from .resources.inspect import InspectResource, AsyncInspectResource
     from .resources.scoring import ScoringResource, AsyncScoringResource
     from .resources.shields import ShieldsResource, AsyncShieldsResource
@@ -79,11 +81,11 @@ if TYPE_CHECKING:
     from .resources.alpha.alpha import AlphaResource, AsyncAlphaResource
     from .resources.completions import CompletionsResource, AsyncCompletionsResource
     from .resources.moderations import ModerationsResource, AsyncModerationsResource
+    from .resources.tool_runtime import ToolRuntimeResource, AsyncToolRuntimeResource
     from .resources.models.models import ModelsResource, AsyncModelsResource
     from .resources.prompts.prompts import PromptsResource, AsyncPromptsResource
     from .resources.scoring_functions import ScoringFunctionsResource, AsyncScoringFunctionsResource
     from .resources.responses.responses import ResponsesResource, AsyncResponsesResource
-    from .resources.tool_runtime.tool_runtime import ToolRuntimeResource, AsyncToolRuntimeResource
     from .resources.conversations.conversations import ConversationsResource, AsyncConversationsResource
     from .resources.vector_stores.vector_stores import VectorStoresResource, AsyncVectorStoresResource
 
@@ -281,6 +283,12 @@ class LlamaStackClient(SyncAPIClient):
         from .resources.files import FilesResource
 
         return FilesResource(self)
+
+    @cached_property
+    def batches(self) -> BatchesResource:
+        from .resources.batches import BatchesResource
+
+        return BatchesResource(self)
 
     @cached_property
     def alpha(self) -> AlphaResource:
@@ -593,6 +601,12 @@ class AsyncLlamaStackClient(AsyncAPIClient):
         return AsyncFilesResource(self)
 
     @cached_property
+    def batches(self) -> AsyncBatchesResource:
+        from .resources.batches import AsyncBatchesResource
+
+        return AsyncBatchesResource(self)
+
+    @cached_property
     def alpha(self) -> AsyncAlphaResource:
         from .resources.alpha import AsyncAlphaResource
 
@@ -852,6 +866,12 @@ class LlamaStackClientWithRawResponse:
         return FilesResourceWithRawResponse(self._client.files)
 
     @cached_property
+    def batches(self) -> batches.BatchesResourceWithRawResponse:
+        from .resources.batches import BatchesResourceWithRawResponse
+
+        return BatchesResourceWithRawResponse(self._client.batches)
+
+    @cached_property
     def alpha(self) -> alpha.AlphaResourceWithRawResponse:
         from .resources.alpha import AlphaResourceWithRawResponse
 
@@ -995,6 +1015,12 @@ class AsyncLlamaStackClientWithRawResponse:
         from .resources.files import AsyncFilesResourceWithRawResponse
 
         return AsyncFilesResourceWithRawResponse(self._client.files)
+
+    @cached_property
+    def batches(self) -> batches.AsyncBatchesResourceWithRawResponse:
+        from .resources.batches import AsyncBatchesResourceWithRawResponse
+
+        return AsyncBatchesResourceWithRawResponse(self._client.batches)
 
     @cached_property
     def alpha(self) -> alpha.AsyncAlphaResourceWithRawResponse:
@@ -1142,6 +1168,12 @@ class LlamaStackClientWithStreamedResponse:
         return FilesResourceWithStreamingResponse(self._client.files)
 
     @cached_property
+    def batches(self) -> batches.BatchesResourceWithStreamingResponse:
+        from .resources.batches import BatchesResourceWithStreamingResponse
+
+        return BatchesResourceWithStreamingResponse(self._client.batches)
+
+    @cached_property
     def alpha(self) -> alpha.AlphaResourceWithStreamingResponse:
         from .resources.alpha import AlphaResourceWithStreamingResponse
 
@@ -1285,6 +1317,12 @@ class AsyncLlamaStackClientWithStreamedResponse:
         from .resources.files import AsyncFilesResourceWithStreamingResponse
 
         return AsyncFilesResourceWithStreamingResponse(self._client.files)
+
+    @cached_property
+    def batches(self) -> batches.AsyncBatchesResourceWithStreamingResponse:
+        from .resources.batches import AsyncBatchesResourceWithStreamingResponse
+
+        return AsyncBatchesResourceWithStreamingResponse(self._client.batches)
 
     @cached_property
     def alpha(self) -> alpha.AsyncAlphaResourceWithStreamingResponse:

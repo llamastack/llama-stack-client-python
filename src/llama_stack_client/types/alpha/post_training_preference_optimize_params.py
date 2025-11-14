@@ -8,7 +8,7 @@
 
 from __future__ import annotations
 
-from typing import Dict, Union, Iterable
+from typing import Dict, Optional
 from typing_extensions import Literal, Required, TypedDict
 
 __all__ = [
@@ -23,107 +23,80 @@ __all__ = [
 
 class PostTrainingPreferenceOptimizeParams(TypedDict, total=False):
     algorithm_config: Required[AlgorithmConfig]
-    """The algorithm configuration."""
+    """Configuration for Direct Preference Optimization (DPO) alignment."""
 
     finetuned_model: Required[str]
-    """The model to fine-tune."""
 
-    hyperparam_search_config: Required[Dict[str, Union[bool, float, str, Iterable[object], object, None]]]
-    """The hyperparam search configuration."""
+    hyperparam_search_config: Required[Dict[str, object]]
 
     job_uuid: Required[str]
-    """The UUID of the job to create."""
 
-    logger_config: Required[Dict[str, Union[bool, float, str, Iterable[object], object, None]]]
-    """The logger configuration."""
+    logger_config: Required[Dict[str, object]]
 
     training_config: Required[TrainingConfig]
-    """The training configuration."""
+    """Comprehensive configuration for the training process."""
 
 
 class AlgorithmConfig(TypedDict, total=False):
     beta: Required[float]
-    """Temperature parameter for the DPO loss"""
 
-    loss_type: Required[Literal["sigmoid", "hinge", "ipo", "kto_pair"]]
-    """The type of loss function to use for DPO"""
+    loss_type: Literal["sigmoid", "hinge", "ipo", "kto_pair"]
 
 
 class TrainingConfigDataConfig(TypedDict, total=False):
     batch_size: Required[int]
-    """Number of samples per training batch"""
 
     data_format: Required[Literal["instruct", "dialog"]]
-    """Format of the dataset (instruct or dialog)"""
+    """Format of the training dataset."""
 
     dataset_id: Required[str]
-    """Unique identifier for the training dataset"""
 
     shuffle: Required[bool]
-    """Whether to shuffle the dataset during training"""
 
-    packed: bool
-    """
-    (Optional) Whether to pack multiple samples into a single sequence for
-    efficiency
-    """
+    packed: Optional[bool]
 
-    train_on_input: bool
-    """(Optional) Whether to compute loss on input tokens as well as output tokens"""
+    train_on_input: Optional[bool]
 
-    validation_dataset_id: str
-    """(Optional) Unique identifier for the validation dataset"""
+    validation_dataset_id: Optional[str]
 
 
 class TrainingConfigEfficiencyConfig(TypedDict, total=False):
-    enable_activation_checkpointing: bool
-    """(Optional) Whether to use activation checkpointing to reduce memory usage"""
+    enable_activation_checkpointing: Optional[bool]
 
-    enable_activation_offloading: bool
-    """(Optional) Whether to offload activations to CPU to save GPU memory"""
+    enable_activation_offloading: Optional[bool]
 
-    fsdp_cpu_offload: bool
-    """(Optional) Whether to offload FSDP parameters to CPU"""
+    fsdp_cpu_offload: Optional[bool]
 
-    memory_efficient_fsdp_wrap: bool
-    """(Optional) Whether to use memory-efficient FSDP wrapping"""
+    memory_efficient_fsdp_wrap: Optional[bool]
 
 
 class TrainingConfigOptimizerConfig(TypedDict, total=False):
     lr: Required[float]
-    """Learning rate for the optimizer"""
 
     num_warmup_steps: Required[int]
-    """Number of steps for learning rate warmup"""
 
     optimizer_type: Required[Literal["adam", "adamw", "sgd"]]
-    """Type of optimizer to use (adam, adamw, or sgd)"""
+    """Available optimizer algorithms for training."""
 
     weight_decay: Required[float]
-    """Weight decay coefficient for regularization"""
 
 
 class TrainingConfig(TypedDict, total=False):
-    gradient_accumulation_steps: Required[int]
-    """Number of steps to accumulate gradients before updating"""
-
-    max_steps_per_epoch: Required[int]
-    """Maximum number of steps to run per epoch"""
-
     n_epochs: Required[int]
-    """Number of training epochs to run"""
 
-    data_config: TrainingConfigDataConfig
-    """(Optional) Configuration for data loading and formatting"""
+    data_config: Optional[TrainingConfigDataConfig]
+    """Configuration for training data and data loading."""
 
-    dtype: str
-    """(Optional) Data type for model parameters (bf16, fp16, fp32)"""
+    dtype: Optional[str]
 
-    efficiency_config: TrainingConfigEfficiencyConfig
-    """(Optional) Configuration for memory and compute optimizations"""
+    efficiency_config: Optional[TrainingConfigEfficiencyConfig]
+    """Configuration for memory and compute efficiency optimizations."""
 
-    max_validation_steps: int
-    """(Optional) Maximum number of validation steps per epoch"""
+    gradient_accumulation_steps: int
 
-    optimizer_config: TrainingConfigOptimizerConfig
-    """(Optional) Configuration for the optimization algorithm"""
+    max_steps_per_epoch: int
+
+    max_validation_steps: Optional[int]
+
+    optimizer_config: Optional[TrainingConfigOptimizerConfig]
+    """Configuration parameters for the optimization algorithm."""

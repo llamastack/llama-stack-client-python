@@ -39,7 +39,7 @@ class TestFiles:
             purpose="assistants",
             expires_after={
                 "anchor": "created_at",
-                "seconds": 0,
+                "seconds": 3600,
             },
         )
         assert_matches_type(File, file, path=["response"])
@@ -240,7 +240,7 @@ class TestAsyncFiles:
             purpose="assistants",
             expires_after={
                 "anchor": "created_at",
-                "seconds": 0,
+                "seconds": 3600,
             },
         )
         assert_matches_type(File, file, path=["response"])

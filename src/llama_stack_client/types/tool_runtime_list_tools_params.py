@@ -8,22 +8,20 @@
 
 from __future__ import annotations
 
+from typing import Optional
 from typing_extensions import Required, TypedDict
 
 __all__ = ["ToolRuntimeListToolsParams", "McpEndpoint"]
 
 
 class ToolRuntimeListToolsParams(TypedDict, total=False):
-    authorization: str
-    """(Optional) OAuth access token for authenticating with the MCP server."""
+    authorization: Optional[str]
 
-    mcp_endpoint: McpEndpoint
-    """The MCP endpoint to use for the tool group."""
+    mcp_endpoint: Optional[McpEndpoint]
+    """A URL reference to external content."""
 
-    tool_group_id: str
-    """The ID of the tool group to list tools for."""
+    tool_group_id: Optional[str]
 
 
 class McpEndpoint(TypedDict, total=False):
     uri: Required[str]
-    """The URL string pointing to the resource"""

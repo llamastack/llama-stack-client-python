@@ -8,7 +8,7 @@
 
 from __future__ import annotations
 
-from typing import Type, cast
+from typing import Type, Optional, cast
 
 import httpx
 
@@ -54,7 +54,7 @@ class ToolsResource(SyncAPIResource):
     def list(
         self,
         *,
-        toolgroup_id: str | Omit = omit,
+        toolgroup_id: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -66,8 +66,6 @@ class ToolsResource(SyncAPIResource):
         List tools with optional tool group.
 
         Args:
-          toolgroup_id: The ID of the tool group to list tools for.
-
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -146,7 +144,7 @@ class AsyncToolsResource(AsyncAPIResource):
     async def list(
         self,
         *,
-        toolgroup_id: str | Omit = omit,
+        toolgroup_id: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -158,8 +156,6 @@ class AsyncToolsResource(AsyncAPIResource):
         List tools with optional tool group.
 
         Args:
-          toolgroup_id: The ID of the tool group to list tools for.
-
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request

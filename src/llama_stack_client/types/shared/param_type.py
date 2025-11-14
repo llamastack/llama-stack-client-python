@@ -1,6 +1,6 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-from typing import Union
+from typing import Union, Optional
 from typing_extensions import Literal, Annotated, TypeAlias
 
 from ..._utils import PropertyInfo
@@ -21,48 +21,39 @@ __all__ = [
 
 
 class StringType(BaseModel):
-    type: Literal["string"]
-    """Discriminator type. Always "string" """
+    type: Optional[Literal["string"]] = None
 
 
 class NumberType(BaseModel):
-    type: Literal["number"]
-    """Discriminator type. Always "number" """
+    type: Optional[Literal["number"]] = None
 
 
 class BooleanType(BaseModel):
-    type: Literal["boolean"]
-    """Discriminator type. Always "boolean" """
+    type: Optional[Literal["boolean"]] = None
 
 
 class ArrayType(BaseModel):
-    type: Literal["array"]
-    """Discriminator type. Always "array" """
+    type: Optional[Literal["array"]] = None
 
 
 class ObjectType(BaseModel):
-    type: Literal["object"]
-    """Discriminator type. Always "object" """
+    type: Optional[Literal["object"]] = None
 
 
 class JsonType(BaseModel):
-    type: Literal["json"]
-    """Discriminator type. Always "json" """
+    type: Optional[Literal["json"]] = None
 
 
 class UnionType(BaseModel):
-    type: Literal["union"]
-    """Discriminator type. Always "union" """
+    type: Optional[Literal["union"]] = None
 
 
 class ChatCompletionInputType(BaseModel):
-    type: Literal["chat_completion_input"]
-    """Discriminator type. Always "chat_completion_input" """
+    type: Optional[Literal["chat_completion_input"]] = None
 
 
 class CompletionInputType(BaseModel):
-    type: Literal["completion_input"]
-    """Discriminator type. Always "completion_input" """
+    type: Optional[Literal["completion_input"]] = None
 
 
 ParamType: TypeAlias = Annotated[

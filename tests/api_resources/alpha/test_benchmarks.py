@@ -106,7 +106,7 @@ class TestBenchmarks:
                 benchmark_id="benchmark_id",
                 dataset_id="dataset_id",
                 scoring_functions=["string"],
-                metadata={"foo": True},
+                metadata={"foo": "bar"},
                 provider_benchmark_id="provider_benchmark_id",
                 provider_id="provider_id",
             )
@@ -142,6 +142,49 @@ class TestBenchmarks:
                 assert benchmark is None
 
         assert cast(Any, response.is_closed) is True
+
+    @parametrize
+    def test_method_unregister(self, client: LlamaStackClient) -> None:
+        with pytest.warns(DeprecationWarning):
+            benchmark = client.alpha.benchmarks.unregister(
+                "benchmark_id",
+            )
+
+        assert benchmark is None
+
+    @parametrize
+    def test_raw_response_unregister(self, client: LlamaStackClient) -> None:
+        with pytest.warns(DeprecationWarning):
+            response = client.alpha.benchmarks.with_raw_response.unregister(
+                "benchmark_id",
+            )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        benchmark = response.parse()
+        assert benchmark is None
+
+    @parametrize
+    def test_streaming_response_unregister(self, client: LlamaStackClient) -> None:
+        with pytest.warns(DeprecationWarning):
+            with client.alpha.benchmarks.with_streaming_response.unregister(
+                "benchmark_id",
+            ) as response:
+                assert not response.is_closed
+                assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+                benchmark = response.parse()
+                assert benchmark is None
+
+        assert cast(Any, response.is_closed) is True
+
+    @parametrize
+    def test_path_params_unregister(self, client: LlamaStackClient) -> None:
+        with pytest.warns(DeprecationWarning):
+            with pytest.raises(ValueError, match=r"Expected a non-empty value for `benchmark_id` but received ''"):
+                client.alpha.benchmarks.with_raw_response.unregister(
+                    "",
+                )
 
 
 class TestAsyncBenchmarks:
@@ -230,7 +273,7 @@ class TestAsyncBenchmarks:
                 benchmark_id="benchmark_id",
                 dataset_id="dataset_id",
                 scoring_functions=["string"],
-                metadata={"foo": True},
+                metadata={"foo": "bar"},
                 provider_benchmark_id="provider_benchmark_id",
                 provider_id="provider_id",
             )
@@ -266,3 +309,46 @@ class TestAsyncBenchmarks:
                 assert benchmark is None
 
         assert cast(Any, response.is_closed) is True
+
+    @parametrize
+    async def test_method_unregister(self, async_client: AsyncLlamaStackClient) -> None:
+        with pytest.warns(DeprecationWarning):
+            benchmark = await async_client.alpha.benchmarks.unregister(
+                "benchmark_id",
+            )
+
+        assert benchmark is None
+
+    @parametrize
+    async def test_raw_response_unregister(self, async_client: AsyncLlamaStackClient) -> None:
+        with pytest.warns(DeprecationWarning):
+            response = await async_client.alpha.benchmarks.with_raw_response.unregister(
+                "benchmark_id",
+            )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        benchmark = await response.parse()
+        assert benchmark is None
+
+    @parametrize
+    async def test_streaming_response_unregister(self, async_client: AsyncLlamaStackClient) -> None:
+        with pytest.warns(DeprecationWarning):
+            async with async_client.alpha.benchmarks.with_streaming_response.unregister(
+                "benchmark_id",
+            ) as response:
+                assert not response.is_closed
+                assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+                benchmark = await response.parse()
+                assert benchmark is None
+
+        assert cast(Any, response.is_closed) is True
+
+    @parametrize
+    async def test_path_params_unregister(self, async_client: AsyncLlamaStackClient) -> None:
+        with pytest.warns(DeprecationWarning):
+            with pytest.raises(ValueError, match=r"Expected a non-empty value for `benchmark_id` but received ''"):
+                await async_client.alpha.benchmarks.with_raw_response.unregister(
+                    "",
+                )

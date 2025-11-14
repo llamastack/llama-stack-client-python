@@ -20,6 +20,7 @@ from llama_stack_client.types.conversations import (
     ItemGetResponse,
     ItemListResponse,
     ItemCreateResponse,
+    ItemDeleteResponse,
 )
 
 base_url = os.environ.get("TEST_API_BASE_URL", "http://127.0.0.1:4010")
@@ -141,6 +142,54 @@ class TestItems:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `conversation_id` but received ''"):
             client.conversations.items.with_raw_response.list(
                 conversation_id="",
+            )
+
+    @parametrize
+    def test_method_delete(self, client: LlamaStackClient) -> None:
+        item = client.conversations.items.delete(
+            item_id="item_id",
+            conversation_id="conversation_id",
+        )
+        assert_matches_type(ItemDeleteResponse, item, path=["response"])
+
+    @parametrize
+    def test_raw_response_delete(self, client: LlamaStackClient) -> None:
+        response = client.conversations.items.with_raw_response.delete(
+            item_id="item_id",
+            conversation_id="conversation_id",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        item = response.parse()
+        assert_matches_type(ItemDeleteResponse, item, path=["response"])
+
+    @parametrize
+    def test_streaming_response_delete(self, client: LlamaStackClient) -> None:
+        with client.conversations.items.with_streaming_response.delete(
+            item_id="item_id",
+            conversation_id="conversation_id",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            item = response.parse()
+            assert_matches_type(ItemDeleteResponse, item, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @parametrize
+    def test_path_params_delete(self, client: LlamaStackClient) -> None:
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `conversation_id` but received ''"):
+            client.conversations.items.with_raw_response.delete(
+                item_id="item_id",
+                conversation_id="",
+            )
+
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `item_id` but received ''"):
+            client.conversations.items.with_raw_response.delete(
+                item_id="",
+                conversation_id="conversation_id",
             )
 
     @parametrize
@@ -310,6 +359,54 @@ class TestAsyncItems:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `conversation_id` but received ''"):
             await async_client.conversations.items.with_raw_response.list(
                 conversation_id="",
+            )
+
+    @parametrize
+    async def test_method_delete(self, async_client: AsyncLlamaStackClient) -> None:
+        item = await async_client.conversations.items.delete(
+            item_id="item_id",
+            conversation_id="conversation_id",
+        )
+        assert_matches_type(ItemDeleteResponse, item, path=["response"])
+
+    @parametrize
+    async def test_raw_response_delete(self, async_client: AsyncLlamaStackClient) -> None:
+        response = await async_client.conversations.items.with_raw_response.delete(
+            item_id="item_id",
+            conversation_id="conversation_id",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        item = await response.parse()
+        assert_matches_type(ItemDeleteResponse, item, path=["response"])
+
+    @parametrize
+    async def test_streaming_response_delete(self, async_client: AsyncLlamaStackClient) -> None:
+        async with async_client.conversations.items.with_streaming_response.delete(
+            item_id="item_id",
+            conversation_id="conversation_id",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            item = await response.parse()
+            assert_matches_type(ItemDeleteResponse, item, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @parametrize
+    async def test_path_params_delete(self, async_client: AsyncLlamaStackClient) -> None:
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `conversation_id` but received ''"):
+            await async_client.conversations.items.with_raw_response.delete(
+                item_id="item_id",
+                conversation_id="",
+            )
+
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `item_id` but received ''"):
+            await async_client.conversations.items.with_raw_response.delete(
+                item_id="",
+                conversation_id="conversation_id",
             )
 
     @parametrize

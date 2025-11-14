@@ -14,4 +14,3 @@ __all__ = ["ListRoutesResponse"]
 
 class ListRoutesResponse(BaseModel):
     data: RouteListResponse
-    """List of available route information objects"""

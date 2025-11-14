@@ -15,4 +15,3 @@ __all__ = ["JobCancelParams"]
 
 class JobCancelParams(TypedDict, total=False):
     job_uuid: Required[str]
-    """The UUID of the job to cancel."""

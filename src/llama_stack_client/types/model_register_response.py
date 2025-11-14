@@ -1,6 +1,6 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-from typing import Dict, List, Union, Optional
+from typing import Dict, Optional
 from typing_extensions import Literal
 
 from pydantic import Field as FieldInfo
@@ -14,17 +14,16 @@ class ModelRegisterResponse(BaseModel):
     identifier: str
     """Unique identifier for this resource in llama stack"""
 
-    metadata: Dict[str, Union[bool, float, str, List[object], object, None]]
-    """Any additional metadata for this model"""
-
-    api_model_type: Literal["llm", "embedding", "rerank"] = FieldInfo(alias="model_type")
-    """The type of model (LLM or embedding model)"""
-
     provider_id: str
     """ID of the provider that owns this resource"""
 
-    type: Literal["model"]
-    """The resource type, always 'model' for model resources"""
+    metadata: Optional[Dict[str, object]] = None
+    """Any additional metadata for this model"""
+
+    api_model_type: Optional[Literal["llm", "embedding", "rerank"]] = FieldInfo(alias="model_type", default=None)
+    """Enumeration of supported model types in Llama Stack."""
 
     provider_resource_id: Optional[str] = None
     """Unique identifier for this resource in the provider"""
+
+    type: Optional[Literal["model"]] = None

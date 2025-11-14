@@ -7,12 +7,19 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 from typing import Dict, List, Union, Optional
-from typing_extensions import Literal
+from typing_extensions import Literal, Annotated, TypeAlias
 
+from .._utils import PropertyInfo
 from .._models import BaseModel
-from .scoring_fn_params import ScoringFnParams
 
-__all__ = ["ScoringFn", "ReturnType"]
+__all__ = [
+    "ScoringFn",
+    "ReturnType",
+    "Params",
+    "ParamsLlmAsJudgeScoringFnParams",
+    "ParamsRegexParserScoringFnParams",
+    "ParamsBasicScoringFnParams",
+]
 
 
 class ReturnType(BaseModel):
@@ -30,21 +37,70 @@ class ReturnType(BaseModel):
     ]
 
 
+class ParamsLlmAsJudgeScoringFnParams(BaseModel):
+    judge_model: str
+
+    aggregation_functions: Optional[
+        List[Literal["average", "weighted_average", "median", "categorical_count", "accuracy"]]
+    ] = None
+    """Aggregation functions to apply to the scores of each row"""
+
+    judge_score_regexes: Optional[List[str]] = None
+    """Regexes to extract the answer from generated response"""
+
+    prompt_template: Optional[str] = None
+
+    type: Optional[Literal["llm_as_judge"]] = None
+
+
+class ParamsRegexParserScoringFnParams(BaseModel):
+    aggregation_functions: Optional[
+        List[Literal["average", "weighted_average", "median", "categorical_count", "accuracy"]]
+    ] = None
+    """Aggregation functions to apply to the scores of each row"""
+
+    parsing_regexes: Optional[List[str]] = None
+    """Regex to extract the answer from generated response"""
+
+    type: Optional[Literal["regex_parser"]] = None
+
+
+class ParamsBasicScoringFnParams(BaseModel):
+    aggregation_functions: Optional[
+        List[Literal["average", "weighted_average", "median", "categorical_count", "accuracy"]]
+    ] = None
+    """Aggregation functions to apply to the scores of each row"""
+
+    type: Optional[Literal["basic"]] = None
+
+
+Params: TypeAlias = Annotated[
+    Union[ParamsLlmAsJudgeScoringFnParams, ParamsRegexParserScoringFnParams, ParamsBasicScoringFnParams, None],
+    PropertyInfo(discriminator="type"),
+]
+
+
 class ScoringFn(BaseModel):
     identifier: str
-
-    metadata: Dict[str, Union[bool, float, str, List[object], object, None]]
+    """Unique identifier for this resource in llama stack"""
 
     provider_id: str
+    """ID of the provider that owns this resource"""
 
     return_type: ReturnType
 
-    type: Literal["scoring_function"]
-    """The resource type, always scoring_function"""
-
     description: Optional[str] = None
 
-    params: Optional[ScoringFnParams] = None
-    """Parameters for LLM-as-judge scoring function configuration."""
+    metadata: Optional[Dict[str, object]] = None
+    """Any additional metadata for this definition"""
+
+    params: Optional[Params] = None
+    """
+    The parameters for the scoring function for benchmark eval, these can be
+    overridden for app eval
+    """
 
     provider_resource_id: Optional[str] = None
+    """Unique identifier for this resource in the provider"""
+
+    type: Optional[Literal["scoring_function"]] = None
