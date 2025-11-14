@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.4.0-alpha.9 (2025-11-14)
+
+Full Changelog: [v0.4.0-alpha.8...v0.4.0-alpha.9](https://github.com/llamastack/llama-stack-client-python/compare/v0.4.0-alpha.8...v0.4.0-alpha.9)
+
+### Chores
+
+* use Pydantic to generate OpenAPI schema ([59f7867](https://github.com/llamastack/llama-stack-client-python/commit/59f7867d3d96eaa7048aae70fcb0a0fe4670a9fa))
+
 ## 0.4.0-alpha.8 (2025-11-14)
 
 Full Changelog: [v0.4.0-alpha.7...v0.4.0-alpha.8](https://github.com/llamastack/llama-stack-client-python/compare/v0.4.0-alpha.7...v0.4.0-alpha.8)
