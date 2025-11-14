@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+from typing import Optional
 from typing_extensions import Literal
 
 import httpx
@@ -47,11 +48,11 @@ class InputItemsResource(SyncAPIResource):
         self,
         response_id: str,
         *,
-        after: str | Omit = omit,
-        before: str | Omit = omit,
-        include: SequenceNotStr[str] | Omit = omit,
-        limit: int | Omit = omit,
-        order: Literal["asc", "desc"] | Omit = omit,
+        after: Optional[str] | Omit = omit,
+        before: Optional[str] | Omit = omit,
+        include: Optional[SequenceNotStr[str]] | Omit = omit,
+        limit: Optional[int] | Omit = omit,
+        order: Optional[Literal["asc", "desc"]] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -63,16 +64,7 @@ class InputItemsResource(SyncAPIResource):
         List input items.
 
         Args:
-          after: An item ID to list items after, used for pagination.
-
-          before: An item ID to list items before, used for pagination.
-
-          include: Additional fields to include in the response.
-
-          limit: A limit on the number of objects to be returned. Limit can range between 1 and
-              100, and the default is 20.
-
-          order: The order to return the input items in. Default is desc.
+          order: Sort order for paginated responses.
 
           extra_headers: Send extra headers
 
@@ -130,11 +122,11 @@ class AsyncInputItemsResource(AsyncAPIResource):
         self,
         response_id: str,
         *,
-        after: str | Omit = omit,
-        before: str | Omit = omit,
-        include: SequenceNotStr[str] | Omit = omit,
-        limit: int | Omit = omit,
-        order: Literal["asc", "desc"] | Omit = omit,
+        after: Optional[str] | Omit = omit,
+        before: Optional[str] | Omit = omit,
+        include: Optional[SequenceNotStr[str]] | Omit = omit,
+        limit: Optional[int] | Omit = omit,
+        order: Optional[Literal["asc", "desc"]] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -146,16 +138,7 @@ class AsyncInputItemsResource(AsyncAPIResource):
         List input items.
 
         Args:
-          after: An item ID to list items after, used for pagination.
-
-          before: An item ID to list items before, used for pagination.
-
-          include: Additional fields to include in the response.
-
-          limit: A limit on the number of objects to be returned. Limit can range between 1 and
-              100, and the default is 20.
-
-          order: The order to return the input items in. Default is desc.
+          order: Sort order for paginated responses.
 
           extra_headers: Send extra headers
 

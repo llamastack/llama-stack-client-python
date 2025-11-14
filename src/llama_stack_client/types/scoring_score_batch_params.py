@@ -2,20 +2,61 @@
 
 from __future__ import annotations
 
-from typing import Dict, Optional
-from typing_extensions import Required, TypedDict
+from typing import Dict, List, Union, Optional
+from typing_extensions import Literal, Required, TypeAlias, TypedDict
 
-from .scoring_fn_params_param import ScoringFnParamsParam
+from .._types import SequenceNotStr
 
-__all__ = ["ScoringScoreBatchParams"]
+__all__ = [
+    "ScoringScoreBatchParams",
+    "ScoringFunctions",
+    "ScoringFunctionsLlmAsJudgeScoringFnParams",
+    "ScoringFunctionsRegexParserScoringFnParams",
+    "ScoringFunctionsBasicScoringFnParams",
+]
 
 
 class ScoringScoreBatchParams(TypedDict, total=False):
     dataset_id: Required[str]
-    """The ID of the dataset to score."""
 
-    save_results_dataset: Required[bool]
-    """Whether to save the results to a dataset."""
+    scoring_functions: Required[Dict[str, Optional[ScoringFunctions]]]
 
-    scoring_functions: Required[Dict[str, Optional[ScoringFnParamsParam]]]
-    """The scoring functions to use for the scoring."""
+    save_results_dataset: bool
+
+
+class ScoringFunctionsLlmAsJudgeScoringFnParams(TypedDict, total=False):
+    judge_model: Required[str]
+
+    aggregation_functions: List[Literal["average", "weighted_average", "median", "categorical_count", "accuracy"]]
+    """Aggregation functions to apply to the scores of each row"""
+
+    judge_score_regexes: SequenceNotStr[str]
+    """Regexes to extract the answer from generated response"""
+
+    prompt_template: Optional[str]
+
+    type: Literal["llm_as_judge"]
+
+
+class ScoringFunctionsRegexParserScoringFnParams(TypedDict, total=False):
+    aggregation_functions: List[Literal["average", "weighted_average", "median", "categorical_count", "accuracy"]]
+    """Aggregation functions to apply to the scores of each row"""
+
+    parsing_regexes: SequenceNotStr[str]
+    """Regex to extract the answer from generated response"""
+
+    type: Literal["regex_parser"]
+
+
+class ScoringFunctionsBasicScoringFnParams(TypedDict, total=False):
+    aggregation_functions: List[Literal["average", "weighted_average", "median", "categorical_count", "accuracy"]]
+    """Aggregation functions to apply to the scores of each row"""
+
+    type: Literal["basic"]
+
+
+ScoringFunctions: TypeAlias = Union[
+    ScoringFunctionsLlmAsJudgeScoringFnParams,
+    ScoringFunctionsRegexParserScoringFnParams,
+    ScoringFunctionsBasicScoringFnParams,
+]

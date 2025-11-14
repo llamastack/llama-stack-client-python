@@ -9,4 +9,3 @@ __all__ = ["HealthInfo"]
 
 class HealthInfo(BaseModel):
     status: Literal["OK", "Error", "Not Implemented"]
-    """Current health status of the service"""

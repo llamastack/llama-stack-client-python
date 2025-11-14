@@ -100,7 +100,7 @@ class TestModels:
         with pytest.warns(DeprecationWarning):
             model = client.models.register(
                 model_id="model_id",
-                metadata={"foo": True},
+                metadata={"foo": "bar"},
                 model_type="llm",
                 provider_id="provider_id",
                 provider_model_id="provider_model_id",
@@ -260,7 +260,7 @@ class TestAsyncModels:
         with pytest.warns(DeprecationWarning):
             model = await async_client.models.register(
                 model_id="model_id",
-                metadata={"foo": True},
+                metadata={"foo": "bar"},
                 model_type="llm",
                 provider_id="provider_id",
                 provider_model_id="provider_model_id",

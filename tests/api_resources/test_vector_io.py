@@ -24,7 +24,6 @@ class TestVectorIo:
                 {
                     "chunk_id": "chunk_id",
                     "content": "string",
-                    "metadata": {"foo": True},
                 }
             ],
             vector_store_id="vector_store_id",
@@ -38,7 +37,6 @@ class TestVectorIo:
                 {
                     "chunk_id": "chunk_id",
                     "content": "string",
-                    "metadata": {"foo": True},
                     "chunk_metadata": {
                         "chunk_embedding_dimension": 0,
                         "chunk_embedding_model": "chunk_embedding_model",
@@ -53,6 +51,7 @@ class TestVectorIo:
                         "updated_timestamp": 0,
                     },
                     "embedding": [0],
+                    "metadata": {"foo": "bar"},
                 }
             ],
             vector_store_id="vector_store_id",
@@ -67,7 +66,6 @@ class TestVectorIo:
                 {
                     "chunk_id": "chunk_id",
                     "content": "string",
-                    "metadata": {"foo": True},
                 }
             ],
             vector_store_id="vector_store_id",
@@ -85,7 +83,6 @@ class TestVectorIo:
                 {
                     "chunk_id": "chunk_id",
                     "content": "string",
-                    "metadata": {"foo": True},
                 }
             ],
             vector_store_id="vector_store_id",
@@ -111,7 +108,7 @@ class TestVectorIo:
         vector_io = client.vector_io.query(
             query="string",
             vector_store_id="vector_store_id",
-            params={"foo": True},
+            params={"foo": "bar"},
         )
         assert_matches_type(QueryChunksResponse, vector_io, path=["response"])
 
@@ -154,7 +151,6 @@ class TestAsyncVectorIo:
                 {
                     "chunk_id": "chunk_id",
                     "content": "string",
-                    "metadata": {"foo": True},
                 }
             ],
             vector_store_id="vector_store_id",
@@ -168,7 +164,6 @@ class TestAsyncVectorIo:
                 {
                     "chunk_id": "chunk_id",
                     "content": "string",
-                    "metadata": {"foo": True},
                     "chunk_metadata": {
                         "chunk_embedding_dimension": 0,
                         "chunk_embedding_model": "chunk_embedding_model",
@@ -183,6 +178,7 @@ class TestAsyncVectorIo:
                         "updated_timestamp": 0,
                     },
                     "embedding": [0],
+                    "metadata": {"foo": "bar"},
                 }
             ],
             vector_store_id="vector_store_id",
@@ -197,7 +193,6 @@ class TestAsyncVectorIo:
                 {
                     "chunk_id": "chunk_id",
                     "content": "string",
-                    "metadata": {"foo": True},
                 }
             ],
             vector_store_id="vector_store_id",
@@ -215,7 +210,6 @@ class TestAsyncVectorIo:
                 {
                     "chunk_id": "chunk_id",
                     "content": "string",
-                    "metadata": {"foo": True},
                 }
             ],
             vector_store_id="vector_store_id",
@@ -241,7 +235,7 @@ class TestAsyncVectorIo:
         vector_io = await async_client.vector_io.query(
             query="string",
             vector_store_id="vector_store_id",
-            params={"foo": True},
+            params={"foo": "bar"},
         )
         assert_matches_type(QueryChunksResponse, vector_io, path=["response"])
 

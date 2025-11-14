@@ -17,34 +17,26 @@ __all__ = [
 
 class ImageContentItemImageURL(BaseModel):
     uri: str
-    """The URL string pointing to the resource"""
 
 
 class ImageContentItemImage(BaseModel):
     data: Optional[str] = None
-    """base64 encoded image data as string"""
 
     url: Optional[ImageContentItemImageURL] = None
-    """A URL of the image or data URL in the format of data:image/{type};base64,{data}.
-
-    Note that URL could have length limits.
-    """
+    """A URL reference to external content."""
 
 
 class ImageContentItem(BaseModel):
     image: ImageContentItemImage
-    """Image as a base64 encoded string or an URL"""
+    """A URL or a base64 encoded string"""
 
-    type: Literal["image"]
-    """Discriminator type of the content item. Always "image" """
+    type: Optional[Literal["image"]] = None
 
 
 class TextContentItem(BaseModel):
     text: str
-    """Text content"""
 
-    type: Literal["text"]
-    """Discriminator type of the content item. Always "text" """
+    type: Optional[Literal["text"]] = None
 
 
 InterleavedContentItem: TypeAlias = Annotated[

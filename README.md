@@ -29,10 +29,7 @@ from llama_stack_client import LlamaStackClient
 
 client = LlamaStackClient()
 
-response = client.models.register(
-    model_id="model_id",
-)
-print(response.identifier)
+models = client.models.list()
 ```
 
 While you can provide an `api_key` keyword argument,
@@ -52,10 +49,7 @@ client = AsyncLlamaStackClient()
 
 
 async def main() -> None:
-    response = await client.models.register(
-        model_id="model_id",
-    )
-    print(response.identifier)
+    models = await client.models.list()
 
 
 asyncio.run(main())
@@ -86,10 +80,7 @@ async def main() -> None:
     async with AsyncLlamaStackClient(
         http_client=DefaultAioHttpClient(),
     ) as client:
-        response = await client.models.register(
-            model_id="model_id",
-        )
-        print(response.identifier)
+        models = await client.models.list()
 
 
 asyncio.run(main())
@@ -115,7 +106,7 @@ stream = client.chat.completions.create(
     stream=True,
 )
 for completion in stream:
-    print(completion)
+    print(completion.id)
 ```
 
 The async client uses the exact same interface.
@@ -136,7 +127,7 @@ stream = await client.chat.completions.create(
     stream=True,
 )
 async for completion in stream:
-    print(completion)
+    print(completion.id)
 ```
 
 ## Using types
@@ -339,7 +330,7 @@ response = client.chat.completions.with_raw_response.create(
 print(response.headers.get('X-My-Header'))
 
 completion = response.parse()  # get the object that `chat.completions.create()` would have returned
-print(completion)
+print(completion.id)
 ```
 
 These methods return an [`APIResponse`](https://github.com/llamastack/llama-stack-client-python/tree/main/src/llama_stack_client/_response.py) object.

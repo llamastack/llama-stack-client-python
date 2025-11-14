@@ -91,7 +91,7 @@ class TestDatasets:
     def test_method_appendrows(self, client: LlamaStackClient) -> None:
         dataset = client.beta.datasets.appendrows(
             dataset_id="dataset_id",
-            rows=[{"foo": True}],
+            rows=[{"foo": "bar"}],
         )
         assert dataset is None
 
@@ -99,7 +99,7 @@ class TestDatasets:
     def test_raw_response_appendrows(self, client: LlamaStackClient) -> None:
         response = client.beta.datasets.with_raw_response.appendrows(
             dataset_id="dataset_id",
-            rows=[{"foo": True}],
+            rows=[{"foo": "bar"}],
         )
 
         assert response.is_closed is True
@@ -111,7 +111,7 @@ class TestDatasets:
     def test_streaming_response_appendrows(self, client: LlamaStackClient) -> None:
         with client.beta.datasets.with_streaming_response.appendrows(
             dataset_id="dataset_id",
-            rows=[{"foo": True}],
+            rows=[{"foo": "bar"}],
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -126,7 +126,7 @@ class TestDatasets:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `dataset_id` but received ''"):
             client.beta.datasets.with_raw_response.appendrows(
                 dataset_id="",
-                rows=[{"foo": True}],
+                rows=[{"foo": "bar"}],
             )
 
     @parametrize
@@ -180,11 +180,8 @@ class TestDatasets:
     def test_method_register(self, client: LlamaStackClient) -> None:
         with pytest.warns(DeprecationWarning):
             dataset = client.beta.datasets.register(
-                purpose="post-training/messages",
-                source={
-                    "type": "uri",
-                    "uri": "uri",
-                },
+                purpose={},
+                source={},
             )
 
         assert_matches_type(DatasetRegisterResponse, dataset, path=["response"])
@@ -193,13 +190,10 @@ class TestDatasets:
     def test_method_register_with_all_params(self, client: LlamaStackClient) -> None:
         with pytest.warns(DeprecationWarning):
             dataset = client.beta.datasets.register(
-                purpose="post-training/messages",
-                source={
-                    "type": "uri",
-                    "uri": "uri",
-                },
-                dataset_id="dataset_id",
-                metadata={"foo": True},
+                purpose={},
+                source={},
+                dataset_id={},
+                metadata={},
             )
 
         assert_matches_type(DatasetRegisterResponse, dataset, path=["response"])
@@ -208,11 +202,8 @@ class TestDatasets:
     def test_raw_response_register(self, client: LlamaStackClient) -> None:
         with pytest.warns(DeprecationWarning):
             response = client.beta.datasets.with_raw_response.register(
-                purpose="post-training/messages",
-                source={
-                    "type": "uri",
-                    "uri": "uri",
-                },
+                purpose={},
+                source={},
             )
 
         assert response.is_closed is True
@@ -224,11 +215,8 @@ class TestDatasets:
     def test_streaming_response_register(self, client: LlamaStackClient) -> None:
         with pytest.warns(DeprecationWarning):
             with client.beta.datasets.with_streaming_response.register(
-                purpose="post-training/messages",
-                source={
-                    "type": "uri",
-                    "uri": "uri",
-                },
+                purpose={},
+                source={},
             ) as response:
                 assert not response.is_closed
                 assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -354,7 +342,7 @@ class TestAsyncDatasets:
     async def test_method_appendrows(self, async_client: AsyncLlamaStackClient) -> None:
         dataset = await async_client.beta.datasets.appendrows(
             dataset_id="dataset_id",
-            rows=[{"foo": True}],
+            rows=[{"foo": "bar"}],
         )
         assert dataset is None
 
@@ -362,7 +350,7 @@ class TestAsyncDatasets:
     async def test_raw_response_appendrows(self, async_client: AsyncLlamaStackClient) -> None:
         response = await async_client.beta.datasets.with_raw_response.appendrows(
             dataset_id="dataset_id",
-            rows=[{"foo": True}],
+            rows=[{"foo": "bar"}],
         )
 
         assert response.is_closed is True
@@ -374,7 +362,7 @@ class TestAsyncDatasets:
     async def test_streaming_response_appendrows(self, async_client: AsyncLlamaStackClient) -> None:
         async with async_client.beta.datasets.with_streaming_response.appendrows(
             dataset_id="dataset_id",
-            rows=[{"foo": True}],
+            rows=[{"foo": "bar"}],
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -389,7 +377,7 @@ class TestAsyncDatasets:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `dataset_id` but received ''"):
             await async_client.beta.datasets.with_raw_response.appendrows(
                 dataset_id="",
-                rows=[{"foo": True}],
+                rows=[{"foo": "bar"}],
             )
 
     @parametrize
@@ -443,11 +431,8 @@ class TestAsyncDatasets:
     async def test_method_register(self, async_client: AsyncLlamaStackClient) -> None:
         with pytest.warns(DeprecationWarning):
             dataset = await async_client.beta.datasets.register(
-                purpose="post-training/messages",
-                source={
-                    "type": "uri",
-                    "uri": "uri",
-                },
+                purpose={},
+                source={},
             )
 
         assert_matches_type(DatasetRegisterResponse, dataset, path=["response"])
@@ -456,13 +441,10 @@ class TestAsyncDatasets:
     async def test_method_register_with_all_params(self, async_client: AsyncLlamaStackClient) -> None:
         with pytest.warns(DeprecationWarning):
             dataset = await async_client.beta.datasets.register(
-                purpose="post-training/messages",
-                source={
-                    "type": "uri",
-                    "uri": "uri",
-                },
-                dataset_id="dataset_id",
-                metadata={"foo": True},
+                purpose={},
+                source={},
+                dataset_id={},
+                metadata={},
             )
 
         assert_matches_type(DatasetRegisterResponse, dataset, path=["response"])
@@ -471,11 +453,8 @@ class TestAsyncDatasets:
     async def test_raw_response_register(self, async_client: AsyncLlamaStackClient) -> None:
         with pytest.warns(DeprecationWarning):
             response = await async_client.beta.datasets.with_raw_response.register(
-                purpose="post-training/messages",
-                source={
-                    "type": "uri",
-                    "uri": "uri",
-                },
+                purpose={},
+                source={},
             )
 
         assert response.is_closed is True
@@ -487,11 +466,8 @@ class TestAsyncDatasets:
     async def test_streaming_response_register(self, async_client: AsyncLlamaStackClient) -> None:
         with pytest.warns(DeprecationWarning):
             async with async_client.beta.datasets.with_streaming_response.register(
-                purpose="post-training/messages",
-                source={
-                    "type": "uri",
-                    "uri": "uri",
-                },
+                purpose={},
+                source={},
             ) as response:
                 assert not response.is_closed
                 assert response.http_request.headers.get("X-Stainless-Lang") == "python"

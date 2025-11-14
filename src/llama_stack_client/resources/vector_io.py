@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from typing import Dict, Union, Iterable
+from typing import Dict, Iterable, Optional
 
 import httpx
 
@@ -19,7 +19,6 @@ from .._response import (
 )
 from .._base_client import make_request_options
 from ..types.query_chunks_response import QueryChunksResponse
-from ..types.shared_params.interleaved_content import InterleavedContent
 
 __all__ = ["VectorIoResource", "AsyncVectorIoResource"]
 
@@ -49,7 +48,7 @@ class VectorIoResource(SyncAPIResource):
         *,
         chunks: Iterable[vector_io_insert_params.Chunk],
         vector_store_id: str,
-        ttl_seconds: int | Omit = omit,
+        ttl_seconds: Optional[int] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -57,21 +56,10 @@ class VectorIoResource(SyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> None:
-        """Insert chunks into a vector database.
+        """
+        Insert chunks into a vector database.
 
         Args:
-          chunks: The chunks to insert.
-
-        Each `Chunk` should contain content which can be
-              interleaved text, images, or other types. `metadata`: `dict[str, Any]` and
-              `embedding`: `List[float]` are optional. If `metadata` is provided, you
-              configure how Llama Stack formats the chunk during generation. If `embedding` is
-              not provided, it will be computed later.
-
-          vector_store_id: The identifier of the vector database to insert the chunks into.
-
-          ttl_seconds: The time to live of the chunks.
-
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -100,9 +88,9 @@ class VectorIoResource(SyncAPIResource):
     def query(
         self,
         *,
-        query: InterleavedContent,
+        query: vector_io_query_params.Query,
         vector_store_id: str,
-        params: Dict[str, Union[bool, float, str, Iterable[object], object, None]] | Omit = omit,
+        params: Optional[Dict[str, object]] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -114,11 +102,7 @@ class VectorIoResource(SyncAPIResource):
         Query chunks from a vector database.
 
         Args:
-          query: The query to search for.
-
-          vector_store_id: The identifier of the vector database to query.
-
-          params: The parameters of the query.
+          query: A image content item
 
           extra_headers: Send extra headers
 
@@ -170,7 +154,7 @@ class AsyncVectorIoResource(AsyncAPIResource):
         *,
         chunks: Iterable[vector_io_insert_params.Chunk],
         vector_store_id: str,
-        ttl_seconds: int | Omit = omit,
+        ttl_seconds: Optional[int] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -178,21 +162,10 @@ class AsyncVectorIoResource(AsyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> None:
-        """Insert chunks into a vector database.
+        """
+        Insert chunks into a vector database.
 
         Args:
-          chunks: The chunks to insert.
-
-        Each `Chunk` should contain content which can be
-              interleaved text, images, or other types. `metadata`: `dict[str, Any]` and
-              `embedding`: `List[float]` are optional. If `metadata` is provided, you
-              configure how Llama Stack formats the chunk during generation. If `embedding` is
-              not provided, it will be computed later.
-
-          vector_store_id: The identifier of the vector database to insert the chunks into.
-
-          ttl_seconds: The time to live of the chunks.
-
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -221,9 +194,9 @@ class AsyncVectorIoResource(AsyncAPIResource):
     async def query(
         self,
         *,
-        query: InterleavedContent,
+        query: vector_io_query_params.Query,
         vector_store_id: str,
-        params: Dict[str, Union[bool, float, str, Iterable[object], object, None]] | Omit = omit,
+        params: Optional[Dict[str, object]] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -235,11 +208,7 @@ class AsyncVectorIoResource(AsyncAPIResource):
         Query chunks from a vector database.
 
         Args:
-          query: The query to search for.
-
-          vector_store_id: The identifier of the vector database to query.
-
-          params: The parameters of the query.
+          query: A image content item
 
           extra_headers: Send extra headers
 

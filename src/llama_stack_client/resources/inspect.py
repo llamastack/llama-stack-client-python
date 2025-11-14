@@ -50,7 +50,11 @@ class InspectResource(SyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> HealthInfo:
-        """Get health status. Get the current health status of the service."""
+        """
+        Get health status.
+
+        Get the current health status of the service.
+        """
         return self._get(
             "/v1/health",
             options=make_request_options(
@@ -69,7 +73,11 @@ class InspectResource(SyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> VersionInfo:
-        """Get version. Get the version of the service."""
+        """
+        Get version.
+
+        Get the version of the service.
+        """
         return self._get(
             "/v1/version",
             options=make_request_options(
@@ -109,7 +117,11 @@ class AsyncInspectResource(AsyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> HealthInfo:
-        """Get health status. Get the current health status of the service."""
+        """
+        Get health status.
+
+        Get the current health status of the service.
+        """
         return await self._get(
             "/v1/health",
             options=make_request_options(
@@ -128,7 +140,11 @@ class AsyncInspectResource(AsyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> VersionInfo:
-        """Get version. Get the version of the service."""
+        """
+        Get version.
+
+        Get the version of the service.
+        """
         return await self._get(
             "/v1/version",
             options=make_request_options(

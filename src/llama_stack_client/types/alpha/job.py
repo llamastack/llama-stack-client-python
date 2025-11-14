@@ -9,7 +9,6 @@ __all__ = ["Job"]
 
 class Job(BaseModel):
     job_id: str
-    """Unique identifier for the job"""
 
     status: Literal["completed", "in_progress", "failed", "scheduled", "cancelled"]
-    """Current execution status of the job"""
+    """Status of a job execution."""

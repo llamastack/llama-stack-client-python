@@ -11,19 +11,19 @@ from .._models import BaseModel
 __all__ = [
     "ResponseListResponse",
     "Input",
-    "InputOpenAIResponseMessage",
-    "InputOpenAIResponseMessageContentUnionMember1",
-    "InputOpenAIResponseMessageContentUnionMember1OpenAIResponseInputMessageContentText",
-    "InputOpenAIResponseMessageContentUnionMember1OpenAIResponseInputMessageContentImage",
-    "InputOpenAIResponseMessageContentUnionMember1OpenAIResponseInputMessageContentFile",
-    "InputOpenAIResponseMessageContentUnionMember2",
-    "InputOpenAIResponseMessageContentUnionMember2OpenAIResponseOutputMessageContentOutputText",
-    "InputOpenAIResponseMessageContentUnionMember2OpenAIResponseOutputMessageContentOutputTextAnnotation",
-    "InputOpenAIResponseMessageContentUnionMember2OpenAIResponseOutputMessageContentOutputTextAnnotationOpenAIResponseAnnotationFileCitation",
-    "InputOpenAIResponseMessageContentUnionMember2OpenAIResponseOutputMessageContentOutputTextAnnotationOpenAIResponseAnnotationCitation",
-    "InputOpenAIResponseMessageContentUnionMember2OpenAIResponseOutputMessageContentOutputTextAnnotationOpenAIResponseAnnotationContainerFileCitation",
-    "InputOpenAIResponseMessageContentUnionMember2OpenAIResponseOutputMessageContentOutputTextAnnotationOpenAIResponseAnnotationFilePath",
-    "InputOpenAIResponseMessageContentUnionMember2OpenAIResponseContentPartRefusal",
+    "InputOpenAIResponseMessageOutput",
+    "InputOpenAIResponseMessageOutputContentListOpenAIResponseInputMessageContentTextOpenAIResponseInputMessageContentImageOpenAIResponseInputMessageContentFile",
+    "InputOpenAIResponseMessageOutputContentListOpenAIResponseInputMessageContentTextOpenAIResponseInputMessageContentImageOpenAIResponseInputMessageContentFileOpenAIResponseInputMessageContentText",
+    "InputOpenAIResponseMessageOutputContentListOpenAIResponseInputMessageContentTextOpenAIResponseInputMessageContentImageOpenAIResponseInputMessageContentFileOpenAIResponseInputMessageContentImage",
+    "InputOpenAIResponseMessageOutputContentListOpenAIResponseInputMessageContentTextOpenAIResponseInputMessageContentImageOpenAIResponseInputMessageContentFileOpenAIResponseInputMessageContentFile",
+    "InputOpenAIResponseMessageOutputContentListOpenAIResponseOutputMessageContentOutputTextOpenAIResponseContentPartRefusal",
+    "InputOpenAIResponseMessageOutputContentListOpenAIResponseOutputMessageContentOutputTextOpenAIResponseContentPartRefusalOpenAIResponseOutputMessageContentOutputText",
+    "InputOpenAIResponseMessageOutputContentListOpenAIResponseOutputMessageContentOutputTextOpenAIResponseContentPartRefusalOpenAIResponseOutputMessageContentOutputTextAnnotation",
+    "InputOpenAIResponseMessageOutputContentListOpenAIResponseOutputMessageContentOutputTextOpenAIResponseContentPartRefusalOpenAIResponseOutputMessageContentOutputTextAnnotationOpenAIResponseAnnotationFileCitation",
+    "InputOpenAIResponseMessageOutputContentListOpenAIResponseOutputMessageContentOutputTextOpenAIResponseContentPartRefusalOpenAIResponseOutputMessageContentOutputTextAnnotationOpenAIResponseAnnotationCitation",
+    "InputOpenAIResponseMessageOutputContentListOpenAIResponseOutputMessageContentOutputTextOpenAIResponseContentPartRefusalOpenAIResponseOutputMessageContentOutputTextAnnotationOpenAIResponseAnnotationContainerFileCitation",
+    "InputOpenAIResponseMessageOutputContentListOpenAIResponseOutputMessageContentOutputTextOpenAIResponseContentPartRefusalOpenAIResponseOutputMessageContentOutputTextAnnotationOpenAIResponseAnnotationFilePath",
+    "InputOpenAIResponseMessageOutputContentListOpenAIResponseOutputMessageContentOutputTextOpenAIResponseContentPartRefusalOpenAIResponseContentPartRefusal",
     "InputOpenAIResponseOutputMessageWebSearchToolCall",
     "InputOpenAIResponseOutputMessageFileSearchToolCall",
     "InputOpenAIResponseOutputMessageFileSearchToolCallResult",
@@ -35,19 +35,19 @@ __all__ = [
     "InputOpenAIResponseInputFunctionToolCallOutput",
     "InputOpenAIResponseMcpApprovalResponse",
     "Output",
-    "OutputOpenAIResponseMessage",
-    "OutputOpenAIResponseMessageContentUnionMember1",
-    "OutputOpenAIResponseMessageContentUnionMember1OpenAIResponseInputMessageContentText",
-    "OutputOpenAIResponseMessageContentUnionMember1OpenAIResponseInputMessageContentImage",
-    "OutputOpenAIResponseMessageContentUnionMember1OpenAIResponseInputMessageContentFile",
-    "OutputOpenAIResponseMessageContentUnionMember2",
-    "OutputOpenAIResponseMessageContentUnionMember2OpenAIResponseOutputMessageContentOutputText",
-    "OutputOpenAIResponseMessageContentUnionMember2OpenAIResponseOutputMessageContentOutputTextAnnotation",
-    "OutputOpenAIResponseMessageContentUnionMember2OpenAIResponseOutputMessageContentOutputTextAnnotationOpenAIResponseAnnotationFileCitation",
-    "OutputOpenAIResponseMessageContentUnionMember2OpenAIResponseOutputMessageContentOutputTextAnnotationOpenAIResponseAnnotationCitation",
-    "OutputOpenAIResponseMessageContentUnionMember2OpenAIResponseOutputMessageContentOutputTextAnnotationOpenAIResponseAnnotationContainerFileCitation",
-    "OutputOpenAIResponseMessageContentUnionMember2OpenAIResponseOutputMessageContentOutputTextAnnotationOpenAIResponseAnnotationFilePath",
-    "OutputOpenAIResponseMessageContentUnionMember2OpenAIResponseContentPartRefusal",
+    "OutputOpenAIResponseMessageOutput",
+    "OutputOpenAIResponseMessageOutputContentListOpenAIResponseInputMessageContentTextOpenAIResponseInputMessageContentImageOpenAIResponseInputMessageContentFile",
+    "OutputOpenAIResponseMessageOutputContentListOpenAIResponseInputMessageContentTextOpenAIResponseInputMessageContentImageOpenAIResponseInputMessageContentFileOpenAIResponseInputMessageContentText",
+    "OutputOpenAIResponseMessageOutputContentListOpenAIResponseInputMessageContentTextOpenAIResponseInputMessageContentImageOpenAIResponseInputMessageContentFileOpenAIResponseInputMessageContentImage",
+    "OutputOpenAIResponseMessageOutputContentListOpenAIResponseInputMessageContentTextOpenAIResponseInputMessageContentImageOpenAIResponseInputMessageContentFileOpenAIResponseInputMessageContentFile",
+    "OutputOpenAIResponseMessageOutputContentListOpenAIResponseOutputMessageContentOutputTextOpenAIResponseContentPartRefusal",
+    "OutputOpenAIResponseMessageOutputContentListOpenAIResponseOutputMessageContentOutputTextOpenAIResponseContentPartRefusalOpenAIResponseOutputMessageContentOutputText",
+    "OutputOpenAIResponseMessageOutputContentListOpenAIResponseOutputMessageContentOutputTextOpenAIResponseContentPartRefusalOpenAIResponseOutputMessageContentOutputTextAnnotation",
+    "OutputOpenAIResponseMessageOutputContentListOpenAIResponseOutputMessageContentOutputTextOpenAIResponseContentPartRefusalOpenAIResponseOutputMessageContentOutputTextAnnotationOpenAIResponseAnnotationFileCitation",
+    "OutputOpenAIResponseMessageOutputContentListOpenAIResponseOutputMessageContentOutputTextOpenAIResponseContentPartRefusalOpenAIResponseOutputMessageContentOutputTextAnnotationOpenAIResponseAnnotationCitation",
+    "OutputOpenAIResponseMessageOutputContentListOpenAIResponseOutputMessageContentOutputTextOpenAIResponseContentPartRefusalOpenAIResponseOutputMessageContentOutputTextAnnotationOpenAIResponseAnnotationContainerFileCitation",
+    "OutputOpenAIResponseMessageOutputContentListOpenAIResponseOutputMessageContentOutputTextOpenAIResponseContentPartRefusalOpenAIResponseOutputMessageContentOutputTextAnnotationOpenAIResponseAnnotationFilePath",
+    "OutputOpenAIResponseMessageOutputContentListOpenAIResponseOutputMessageContentOutputTextOpenAIResponseContentPartRefusalOpenAIResponseContentPartRefusal",
     "OutputOpenAIResponseOutputMessageWebSearchToolCall",
     "OutputOpenAIResponseOutputMessageFileSearchToolCall",
     "OutputOpenAIResponseOutputMessageFileSearchToolCallResult",
@@ -56,14 +56,14 @@ __all__ = [
     "OutputOpenAIResponseOutputMessageMcpListTools",
     "OutputOpenAIResponseOutputMessageMcpListToolsTool",
     "OutputOpenAIResponseMcpApprovalRequest",
-    "Text",
-    "TextFormat",
     "Error",
     "Prompt",
     "PromptVariables",
     "PromptVariablesOpenAIResponseInputMessageContentText",
     "PromptVariablesOpenAIResponseInputMessageContentImage",
     "PromptVariablesOpenAIResponseInputMessageContentFile",
+    "Text",
+    "TextFormat",
     "Tool",
     "ToolOpenAIResponseInputToolWebSearch",
     "ToolOpenAIResponseInputToolFileSearch",
@@ -78,91 +78,77 @@ __all__ = [
 ]
 
 
-class InputOpenAIResponseMessageContentUnionMember1OpenAIResponseInputMessageContentText(BaseModel):
+class InputOpenAIResponseMessageOutputContentListOpenAIResponseInputMessageContentTextOpenAIResponseInputMessageContentImageOpenAIResponseInputMessageContentFileOpenAIResponseInputMessageContentText(
+    BaseModel
+):
     text: str
-    """The text content of the input message"""
 
-    type: Literal["input_text"]
-    """Content type identifier, always "input_text" """
+    type: Optional[Literal["input_text"]] = None
 
 
-class InputOpenAIResponseMessageContentUnionMember1OpenAIResponseInputMessageContentImage(BaseModel):
-    detail: Literal["low", "high", "auto"]
-    """Level of detail for image processing, can be "low", "high", or "auto" """
-
-    type: Literal["input_image"]
-    """Content type identifier, always "input_image" """
+class InputOpenAIResponseMessageOutputContentListOpenAIResponseInputMessageContentTextOpenAIResponseInputMessageContentImageOpenAIResponseInputMessageContentFileOpenAIResponseInputMessageContentImage(
+    BaseModel
+):
+    detail: Optional[Literal["low", "high", "auto"]] = None
 
     file_id: Optional[str] = None
-    """(Optional) The ID of the file to be sent to the model."""
 
     image_url: Optional[str] = None
-    """(Optional) URL of the image content"""
+
+    type: Optional[Literal["input_image"]] = None
 
 
-class InputOpenAIResponseMessageContentUnionMember1OpenAIResponseInputMessageContentFile(BaseModel):
-    type: Literal["input_file"]
-    """The type of the input item. Always `input_file`."""
-
+class InputOpenAIResponseMessageOutputContentListOpenAIResponseInputMessageContentTextOpenAIResponseInputMessageContentImageOpenAIResponseInputMessageContentFileOpenAIResponseInputMessageContentFile(
+    BaseModel
+):
     file_data: Optional[str] = None
-    """The data of the file to be sent to the model."""
 
     file_id: Optional[str] = None
-    """(Optional) The ID of the file to be sent to the model."""
 
     file_url: Optional[str] = None
-    """The URL of the file to be sent to the model."""
 
     filename: Optional[str] = None
-    """The name of the file to be sent to the model."""
+
+    type: Optional[Literal["input_file"]] = None
 
 
-InputOpenAIResponseMessageContentUnionMember1: TypeAlias = Annotated[
+InputOpenAIResponseMessageOutputContentListOpenAIResponseInputMessageContentTextOpenAIResponseInputMessageContentImageOpenAIResponseInputMessageContentFile: TypeAlias = Annotated[
     Union[
-        InputOpenAIResponseMessageContentUnionMember1OpenAIResponseInputMessageContentText,
-        InputOpenAIResponseMessageContentUnionMember1OpenAIResponseInputMessageContentImage,
-        InputOpenAIResponseMessageContentUnionMember1OpenAIResponseInputMessageContentFile,
+        InputOpenAIResponseMessageOutputContentListOpenAIResponseInputMessageContentTextOpenAIResponseInputMessageContentImageOpenAIResponseInputMessageContentFileOpenAIResponseInputMessageContentText,
+        InputOpenAIResponseMessageOutputContentListOpenAIResponseInputMessageContentTextOpenAIResponseInputMessageContentImageOpenAIResponseInputMessageContentFileOpenAIResponseInputMessageContentImage,
+        InputOpenAIResponseMessageOutputContentListOpenAIResponseInputMessageContentTextOpenAIResponseInputMessageContentImageOpenAIResponseInputMessageContentFileOpenAIResponseInputMessageContentFile,
     ],
     PropertyInfo(discriminator="type"),
 ]
 
 
-class InputOpenAIResponseMessageContentUnionMember2OpenAIResponseOutputMessageContentOutputTextAnnotationOpenAIResponseAnnotationFileCitation(
+class InputOpenAIResponseMessageOutputContentListOpenAIResponseOutputMessageContentOutputTextOpenAIResponseContentPartRefusalOpenAIResponseOutputMessageContentOutputTextAnnotationOpenAIResponseAnnotationFileCitation(
     BaseModel
 ):
     file_id: str
-    """Unique identifier of the referenced file"""
 
     filename: str
-    """Name of the referenced file"""
 
     index: int
-    """Position index of the citation within the content"""
 
-    type: Literal["file_citation"]
-    """Annotation type identifier, always "file_citation" """
+    type: Optional[Literal["file_citation"]] = None
 
 
-class InputOpenAIResponseMessageContentUnionMember2OpenAIResponseOutputMessageContentOutputTextAnnotationOpenAIResponseAnnotationCitation(
+class InputOpenAIResponseMessageOutputContentListOpenAIResponseOutputMessageContentOutputTextOpenAIResponseContentPartRefusalOpenAIResponseOutputMessageContentOutputTextAnnotationOpenAIResponseAnnotationCitation(
     BaseModel
 ):
     end_index: int
-    """End position of the citation span in the content"""
 
     start_index: int
-    """Start position of the citation span in the content"""
 
     title: str
-    """Title of the referenced web resource"""
-
-    type: Literal["url_citation"]
-    """Annotation type identifier, always "url_citation" """
 
     url: str
-    """URL of the referenced web resource"""
+
+    type: Optional[Literal["url_citation"]] = None
 
 
-class InputOpenAIResponseMessageContentUnionMember2OpenAIResponseOutputMessageContentOutputTextAnnotationOpenAIResponseAnnotationContainerFileCitation(
+class InputOpenAIResponseMessageOutputContentListOpenAIResponseOutputMessageContentOutputTextOpenAIResponseContentPartRefusalOpenAIResponseOutputMessageContentOutputTextAnnotationOpenAIResponseAnnotationContainerFileCitation(
     BaseModel
 ):
     container_id: str
@@ -175,182 +161,159 @@ class InputOpenAIResponseMessageContentUnionMember2OpenAIResponseOutputMessageCo
 
     start_index: int
 
-    type: Literal["container_file_citation"]
+    type: Optional[Literal["container_file_citation"]] = None
 
 
-class InputOpenAIResponseMessageContentUnionMember2OpenAIResponseOutputMessageContentOutputTextAnnotationOpenAIResponseAnnotationFilePath(
+class InputOpenAIResponseMessageOutputContentListOpenAIResponseOutputMessageContentOutputTextOpenAIResponseContentPartRefusalOpenAIResponseOutputMessageContentOutputTextAnnotationOpenAIResponseAnnotationFilePath(
     BaseModel
 ):
     file_id: str
 
     index: int
 
-    type: Literal["file_path"]
+    type: Optional[Literal["file_path"]] = None
 
 
-InputOpenAIResponseMessageContentUnionMember2OpenAIResponseOutputMessageContentOutputTextAnnotation: TypeAlias = Annotated[
+InputOpenAIResponseMessageOutputContentListOpenAIResponseOutputMessageContentOutputTextOpenAIResponseContentPartRefusalOpenAIResponseOutputMessageContentOutputTextAnnotation: TypeAlias = Annotated[
     Union[
-        InputOpenAIResponseMessageContentUnionMember2OpenAIResponseOutputMessageContentOutputTextAnnotationOpenAIResponseAnnotationFileCitation,
-        InputOpenAIResponseMessageContentUnionMember2OpenAIResponseOutputMessageContentOutputTextAnnotationOpenAIResponseAnnotationCitation,
-        InputOpenAIResponseMessageContentUnionMember2OpenAIResponseOutputMessageContentOutputTextAnnotationOpenAIResponseAnnotationContainerFileCitation,
-        InputOpenAIResponseMessageContentUnionMember2OpenAIResponseOutputMessageContentOutputTextAnnotationOpenAIResponseAnnotationFilePath,
+        InputOpenAIResponseMessageOutputContentListOpenAIResponseOutputMessageContentOutputTextOpenAIResponseContentPartRefusalOpenAIResponseOutputMessageContentOutputTextAnnotationOpenAIResponseAnnotationFileCitation,
+        InputOpenAIResponseMessageOutputContentListOpenAIResponseOutputMessageContentOutputTextOpenAIResponseContentPartRefusalOpenAIResponseOutputMessageContentOutputTextAnnotationOpenAIResponseAnnotationCitation,
+        InputOpenAIResponseMessageOutputContentListOpenAIResponseOutputMessageContentOutputTextOpenAIResponseContentPartRefusalOpenAIResponseOutputMessageContentOutputTextAnnotationOpenAIResponseAnnotationContainerFileCitation,
+        InputOpenAIResponseMessageOutputContentListOpenAIResponseOutputMessageContentOutputTextOpenAIResponseContentPartRefusalOpenAIResponseOutputMessageContentOutputTextAnnotationOpenAIResponseAnnotationFilePath,
     ],
     PropertyInfo(discriminator="type"),
 ]
 
 
-class InputOpenAIResponseMessageContentUnionMember2OpenAIResponseOutputMessageContentOutputText(BaseModel):
-    annotations: List[
-        InputOpenAIResponseMessageContentUnionMember2OpenAIResponseOutputMessageContentOutputTextAnnotation
-    ]
-
+class InputOpenAIResponseMessageOutputContentListOpenAIResponseOutputMessageContentOutputTextOpenAIResponseContentPartRefusalOpenAIResponseOutputMessageContentOutputText(
+    BaseModel
+):
     text: str
 
-    type: Literal["output_text"]
+    annotations: Optional[
+        List[
+            InputOpenAIResponseMessageOutputContentListOpenAIResponseOutputMessageContentOutputTextOpenAIResponseContentPartRefusalOpenAIResponseOutputMessageContentOutputTextAnnotation
+        ]
+    ] = None
+
+    type: Optional[Literal["output_text"]] = None
 
 
-class InputOpenAIResponseMessageContentUnionMember2OpenAIResponseContentPartRefusal(BaseModel):
+class InputOpenAIResponseMessageOutputContentListOpenAIResponseOutputMessageContentOutputTextOpenAIResponseContentPartRefusalOpenAIResponseContentPartRefusal(
+    BaseModel
+):
     refusal: str
-    """Refusal text supplied by the model"""
 
-    type: Literal["refusal"]
-    """Content part type identifier, always "refusal" """
+    type: Optional[Literal["refusal"]] = None
 
 
-InputOpenAIResponseMessageContentUnionMember2: TypeAlias = Annotated[
+InputOpenAIResponseMessageOutputContentListOpenAIResponseOutputMessageContentOutputTextOpenAIResponseContentPartRefusal: TypeAlias = Annotated[
     Union[
-        InputOpenAIResponseMessageContentUnionMember2OpenAIResponseOutputMessageContentOutputText,
-        InputOpenAIResponseMessageContentUnionMember2OpenAIResponseContentPartRefusal,
+        InputOpenAIResponseMessageOutputContentListOpenAIResponseOutputMessageContentOutputTextOpenAIResponseContentPartRefusalOpenAIResponseOutputMessageContentOutputText,
+        InputOpenAIResponseMessageOutputContentListOpenAIResponseOutputMessageContentOutputTextOpenAIResponseContentPartRefusalOpenAIResponseContentPartRefusal,
     ],
     PropertyInfo(discriminator="type"),
 ]
 
 
-class InputOpenAIResponseMessage(BaseModel):
+class InputOpenAIResponseMessageOutput(BaseModel):
     content: Union[
-        str, List[InputOpenAIResponseMessageContentUnionMember1], List[InputOpenAIResponseMessageContentUnionMember2]
+        str,
+        List[
+            InputOpenAIResponseMessageOutputContentListOpenAIResponseInputMessageContentTextOpenAIResponseInputMessageContentImageOpenAIResponseInputMessageContentFile
+        ],
+        List[
+            InputOpenAIResponseMessageOutputContentListOpenAIResponseOutputMessageContentOutputTextOpenAIResponseContentPartRefusal
+        ],
     ]
 
     role: Literal["system", "developer", "user", "assistant"]
 
-    type: Literal["message"]
-
     id: Optional[str] = None
 
     status: Optional[str] = None
+
+    type: Optional[Literal["message"]] = None
 
 
 class InputOpenAIResponseOutputMessageWebSearchToolCall(BaseModel):
     id: str
-    """Unique identifier for this tool call"""
 
     status: str
-    """Current status of the web search operation"""
 
-    type: Literal["web_search_call"]
-    """Tool call type identifier, always "web_search_call" """
+    type: Optional[Literal["web_search_call"]] = None
 
 
 class InputOpenAIResponseOutputMessageFileSearchToolCallResult(BaseModel):
-    attributes: Dict[str, Union[bool, float, str, List[object], object, None]]
-    """(Optional) Key-value attributes associated with the file"""
+    attributes: Dict[str, object]
 
     file_id: str
-    """Unique identifier of the file containing the result"""
 
     filename: str
-    """Name of the file containing the result"""
 
     score: float
-    """Relevance score for this search result (between 0 and 1)"""
 
     text: str
-    """Text content of the search result"""
 
 
 class InputOpenAIResponseOutputMessageFileSearchToolCall(BaseModel):
     id: str
-    """Unique identifier for this tool call"""
 
     queries: List[str]
-    """List of search queries executed"""
 
     status: str
-    """Current status of the file search operation"""
-
-    type: Literal["file_search_call"]
-    """Tool call type identifier, always "file_search_call" """
 
     results: Optional[List[InputOpenAIResponseOutputMessageFileSearchToolCallResult]] = None
-    """(Optional) Search results returned by the file search operation"""
+
+    type: Optional[Literal["file_search_call"]] = None
 
 
 class InputOpenAIResponseOutputMessageFunctionToolCall(BaseModel):
     arguments: str
-    """JSON string containing the function arguments"""
 
     call_id: str
-    """Unique identifier for the function call"""
 
     name: str
-    """Name of the function being called"""
-
-    type: Literal["function_call"]
-    """Tool call type identifier, always "function_call" """
 
     id: Optional[str] = None
-    """(Optional) Additional identifier for the tool call"""
 
     status: Optional[str] = None
-    """(Optional) Current status of the function call execution"""
+
+    type: Optional[Literal["function_call"]] = None
 
 
 class InputOpenAIResponseOutputMessageMcpCall(BaseModel):
     id: str
-    """Unique identifier for this MCP call"""
 
     arguments: str
-    """JSON string containing the MCP call arguments"""
 
     name: str
-    """Name of the MCP method being called"""
 
     server_label: str
-    """Label identifying the MCP server handling the call"""
-
-    type: Literal["mcp_call"]
-    """Tool call type identifier, always "mcp_call" """
 
     error: Optional[str] = None
-    """(Optional) Error message if the MCP call failed"""
 
     output: Optional[str] = None
-    """(Optional) Output result from the successful MCP call"""
+
+    type: Optional[Literal["mcp_call"]] = None
 
 
 class InputOpenAIResponseOutputMessageMcpListToolsTool(BaseModel):
-    input_schema: Dict[str, Union[bool, float, str, List[object], object, None]]
-    """JSON schema defining the tool's input parameters"""
+    input_schema: Dict[str, object]
 
     name: str
-    """Name of the tool"""
 
     description: Optional[str] = None
-    """(Optional) Description of what the tool does"""
 
 
 class InputOpenAIResponseOutputMessageMcpListTools(BaseModel):
     id: str
-    """Unique identifier for this MCP list tools operation"""
 
     server_label: str
-    """Label identifying the MCP server providing the tools"""
 
     tools: List[InputOpenAIResponseOutputMessageMcpListToolsTool]
-    """List of available tools provided by the MCP server"""
 
-    type: Literal["mcp_list_tools"]
-    """Tool call type identifier, always "mcp_list_tools" """
+    type: Optional[Literal["mcp_list_tools"]] = None
 
 
 class InputOpenAIResponseMcpApprovalRequest(BaseModel):
@@ -362,7 +325,7 @@ class InputOpenAIResponseMcpApprovalRequest(BaseModel):
 
     server_label: str
 
-    type: Literal["mcp_approval_request"]
+    type: Optional[Literal["mcp_approval_request"]] = None
 
 
 class InputOpenAIResponseInputFunctionToolCallOutput(BaseModel):
@@ -370,11 +333,11 @@ class InputOpenAIResponseInputFunctionToolCallOutput(BaseModel):
 
     output: str
 
-    type: Literal["function_call_output"]
-
     id: Optional[str] = None
 
     status: Optional[str] = None
+
+    type: Optional[Literal["function_call_output"]] = None
 
 
 class InputOpenAIResponseMcpApprovalResponse(BaseModel):
@@ -382,15 +345,15 @@ class InputOpenAIResponseMcpApprovalResponse(BaseModel):
 
     approve: bool
 
-    type: Literal["mcp_approval_response"]
-
     id: Optional[str] = None
 
     reason: Optional[str] = None
 
+    type: Optional[Literal["mcp_approval_response"]] = None
+
 
 Input: TypeAlias = Union[
-    InputOpenAIResponseMessage,
+    InputOpenAIResponseMessageOutput,
     InputOpenAIResponseOutputMessageWebSearchToolCall,
     InputOpenAIResponseOutputMessageFileSearchToolCall,
     InputOpenAIResponseOutputMessageFunctionToolCall,
@@ -399,95 +362,81 @@ Input: TypeAlias = Union[
     InputOpenAIResponseMcpApprovalRequest,
     InputOpenAIResponseInputFunctionToolCallOutput,
     InputOpenAIResponseMcpApprovalResponse,
-    InputOpenAIResponseMessage,
+    InputOpenAIResponseMessageOutput,
 ]
 
 
-class OutputOpenAIResponseMessageContentUnionMember1OpenAIResponseInputMessageContentText(BaseModel):
+class OutputOpenAIResponseMessageOutputContentListOpenAIResponseInputMessageContentTextOpenAIResponseInputMessageContentImageOpenAIResponseInputMessageContentFileOpenAIResponseInputMessageContentText(
+    BaseModel
+):
     text: str
-    """The text content of the input message"""
 
-    type: Literal["input_text"]
-    """Content type identifier, always "input_text" """
+    type: Optional[Literal["input_text"]] = None
 
 
-class OutputOpenAIResponseMessageContentUnionMember1OpenAIResponseInputMessageContentImage(BaseModel):
-    detail: Literal["low", "high", "auto"]
-    """Level of detail for image processing, can be "low", "high", or "auto" """
-
-    type: Literal["input_image"]
-    """Content type identifier, always "input_image" """
+class OutputOpenAIResponseMessageOutputContentListOpenAIResponseInputMessageContentTextOpenAIResponseInputMessageContentImageOpenAIResponseInputMessageContentFileOpenAIResponseInputMessageContentImage(
+    BaseModel
+):
+    detail: Optional[Literal["low", "high", "auto"]] = None
 
     file_id: Optional[str] = None
-    """(Optional) The ID of the file to be sent to the model."""
 
     image_url: Optional[str] = None
-    """(Optional) URL of the image content"""
+
+    type: Optional[Literal["input_image"]] = None
 
 
-class OutputOpenAIResponseMessageContentUnionMember1OpenAIResponseInputMessageContentFile(BaseModel):
-    type: Literal["input_file"]
-    """The type of the input item. Always `input_file`."""
-
+class OutputOpenAIResponseMessageOutputContentListOpenAIResponseInputMessageContentTextOpenAIResponseInputMessageContentImageOpenAIResponseInputMessageContentFileOpenAIResponseInputMessageContentFile(
+    BaseModel
+):
     file_data: Optional[str] = None
-    """The data of the file to be sent to the model."""
 
     file_id: Optional[str] = None
-    """(Optional) The ID of the file to be sent to the model."""
 
     file_url: Optional[str] = None
-    """The URL of the file to be sent to the model."""
 
     filename: Optional[str] = None
-    """The name of the file to be sent to the model."""
+
+    type: Optional[Literal["input_file"]] = None
 
 
-OutputOpenAIResponseMessageContentUnionMember1: TypeAlias = Annotated[
+OutputOpenAIResponseMessageOutputContentListOpenAIResponseInputMessageContentTextOpenAIResponseInputMessageContentImageOpenAIResponseInputMessageContentFile: TypeAlias = Annotated[
     Union[
-        OutputOpenAIResponseMessageContentUnionMember1OpenAIResponseInputMessageContentText,
-        OutputOpenAIResponseMessageContentUnionMember1OpenAIResponseInputMessageContentImage,
-        OutputOpenAIResponseMessageContentUnionMember1OpenAIResponseInputMessageContentFile,
+        OutputOpenAIResponseMessageOutputContentListOpenAIResponseInputMessageContentTextOpenAIResponseInputMessageContentImageOpenAIResponseInputMessageContentFileOpenAIResponseInputMessageContentText,
+        OutputOpenAIResponseMessageOutputContentListOpenAIResponseInputMessageContentTextOpenAIResponseInputMessageContentImageOpenAIResponseInputMessageContentFileOpenAIResponseInputMessageContentImage,
+        OutputOpenAIResponseMessageOutputContentListOpenAIResponseInputMessageContentTextOpenAIResponseInputMessageContentImageOpenAIResponseInputMessageContentFileOpenAIResponseInputMessageContentFile,
     ],
     PropertyInfo(discriminator="type"),
 ]
 
 
-class OutputOpenAIResponseMessageContentUnionMember2OpenAIResponseOutputMessageContentOutputTextAnnotationOpenAIResponseAnnotationFileCitation(
+class OutputOpenAIResponseMessageOutputContentListOpenAIResponseOutputMessageContentOutputTextOpenAIResponseContentPartRefusalOpenAIResponseOutputMessageContentOutputTextAnnotationOpenAIResponseAnnotationFileCitation(
     BaseModel
 ):
     file_id: str
-    """Unique identifier of the referenced file"""
 
     filename: str
-    """Name of the referenced file"""
 
     index: int
-    """Position index of the citation within the content"""
 
-    type: Literal["file_citation"]
-    """Annotation type identifier, always "file_citation" """
+    type: Optional[Literal["file_citation"]] = None
 
 
-class OutputOpenAIResponseMessageContentUnionMember2OpenAIResponseOutputMessageContentOutputTextAnnotationOpenAIResponseAnnotationCitation(
+class OutputOpenAIResponseMessageOutputContentListOpenAIResponseOutputMessageContentOutputTextOpenAIResponseContentPartRefusalOpenAIResponseOutputMessageContentOutputTextAnnotationOpenAIResponseAnnotationCitation(
     BaseModel
 ):
     end_index: int
-    """End position of the citation span in the content"""
 
     start_index: int
-    """Start position of the citation span in the content"""
 
     title: str
-    """Title of the referenced web resource"""
-
-    type: Literal["url_citation"]
-    """Annotation type identifier, always "url_citation" """
 
     url: str
-    """URL of the referenced web resource"""
+
+    type: Optional[Literal["url_citation"]] = None
 
 
-class OutputOpenAIResponseMessageContentUnionMember2OpenAIResponseOutputMessageContentOutputTextAnnotationOpenAIResponseAnnotationContainerFileCitation(
+class OutputOpenAIResponseMessageOutputContentListOpenAIResponseOutputMessageContentOutputTextOpenAIResponseContentPartRefusalOpenAIResponseOutputMessageContentOutputTextAnnotationOpenAIResponseAnnotationContainerFileCitation(
     BaseModel
 ):
     container_id: str
@@ -500,182 +449,159 @@ class OutputOpenAIResponseMessageContentUnionMember2OpenAIResponseOutputMessageC
 
     start_index: int
 
-    type: Literal["container_file_citation"]
+    type: Optional[Literal["container_file_citation"]] = None
 
 
-class OutputOpenAIResponseMessageContentUnionMember2OpenAIResponseOutputMessageContentOutputTextAnnotationOpenAIResponseAnnotationFilePath(
+class OutputOpenAIResponseMessageOutputContentListOpenAIResponseOutputMessageContentOutputTextOpenAIResponseContentPartRefusalOpenAIResponseOutputMessageContentOutputTextAnnotationOpenAIResponseAnnotationFilePath(
     BaseModel
 ):
     file_id: str
 
     index: int
 
-    type: Literal["file_path"]
+    type: Optional[Literal["file_path"]] = None
 
 
-OutputOpenAIResponseMessageContentUnionMember2OpenAIResponseOutputMessageContentOutputTextAnnotation: TypeAlias = Annotated[
+OutputOpenAIResponseMessageOutputContentListOpenAIResponseOutputMessageContentOutputTextOpenAIResponseContentPartRefusalOpenAIResponseOutputMessageContentOutputTextAnnotation: TypeAlias = Annotated[
     Union[
-        OutputOpenAIResponseMessageContentUnionMember2OpenAIResponseOutputMessageContentOutputTextAnnotationOpenAIResponseAnnotationFileCitation,
-        OutputOpenAIResponseMessageContentUnionMember2OpenAIResponseOutputMessageContentOutputTextAnnotationOpenAIResponseAnnotationCitation,
-        OutputOpenAIResponseMessageContentUnionMember2OpenAIResponseOutputMessageContentOutputTextAnnotationOpenAIResponseAnnotationContainerFileCitation,
-        OutputOpenAIResponseMessageContentUnionMember2OpenAIResponseOutputMessageContentOutputTextAnnotationOpenAIResponseAnnotationFilePath,
+        OutputOpenAIResponseMessageOutputContentListOpenAIResponseOutputMessageContentOutputTextOpenAIResponseContentPartRefusalOpenAIResponseOutputMessageContentOutputTextAnnotationOpenAIResponseAnnotationFileCitation,
+        OutputOpenAIResponseMessageOutputContentListOpenAIResponseOutputMessageContentOutputTextOpenAIResponseContentPartRefusalOpenAIResponseOutputMessageContentOutputTextAnnotationOpenAIResponseAnnotationCitation,
+        OutputOpenAIResponseMessageOutputContentListOpenAIResponseOutputMessageContentOutputTextOpenAIResponseContentPartRefusalOpenAIResponseOutputMessageContentOutputTextAnnotationOpenAIResponseAnnotationContainerFileCitation,
+        OutputOpenAIResponseMessageOutputContentListOpenAIResponseOutputMessageContentOutputTextOpenAIResponseContentPartRefusalOpenAIResponseOutputMessageContentOutputTextAnnotationOpenAIResponseAnnotationFilePath,
     ],
     PropertyInfo(discriminator="type"),
 ]
 
 
-class OutputOpenAIResponseMessageContentUnionMember2OpenAIResponseOutputMessageContentOutputText(BaseModel):
-    annotations: List[
-        OutputOpenAIResponseMessageContentUnionMember2OpenAIResponseOutputMessageContentOutputTextAnnotation
-    ]
-
+class OutputOpenAIResponseMessageOutputContentListOpenAIResponseOutputMessageContentOutputTextOpenAIResponseContentPartRefusalOpenAIResponseOutputMessageContentOutputText(
+    BaseModel
+):
     text: str
 
-    type: Literal["output_text"]
+    annotations: Optional[
+        List[
+            OutputOpenAIResponseMessageOutputContentListOpenAIResponseOutputMessageContentOutputTextOpenAIResponseContentPartRefusalOpenAIResponseOutputMessageContentOutputTextAnnotation
+        ]
+    ] = None
+
+    type: Optional[Literal["output_text"]] = None
 
 
-class OutputOpenAIResponseMessageContentUnionMember2OpenAIResponseContentPartRefusal(BaseModel):
+class OutputOpenAIResponseMessageOutputContentListOpenAIResponseOutputMessageContentOutputTextOpenAIResponseContentPartRefusalOpenAIResponseContentPartRefusal(
+    BaseModel
+):
     refusal: str
-    """Refusal text supplied by the model"""
 
-    type: Literal["refusal"]
-    """Content part type identifier, always "refusal" """
+    type: Optional[Literal["refusal"]] = None
 
 
-OutputOpenAIResponseMessageContentUnionMember2: TypeAlias = Annotated[
+OutputOpenAIResponseMessageOutputContentListOpenAIResponseOutputMessageContentOutputTextOpenAIResponseContentPartRefusal: TypeAlias = Annotated[
     Union[
-        OutputOpenAIResponseMessageContentUnionMember2OpenAIResponseOutputMessageContentOutputText,
-        OutputOpenAIResponseMessageContentUnionMember2OpenAIResponseContentPartRefusal,
+        OutputOpenAIResponseMessageOutputContentListOpenAIResponseOutputMessageContentOutputTextOpenAIResponseContentPartRefusalOpenAIResponseOutputMessageContentOutputText,
+        OutputOpenAIResponseMessageOutputContentListOpenAIResponseOutputMessageContentOutputTextOpenAIResponseContentPartRefusalOpenAIResponseContentPartRefusal,
     ],
     PropertyInfo(discriminator="type"),
 ]
 
 
-class OutputOpenAIResponseMessage(BaseModel):
+class OutputOpenAIResponseMessageOutput(BaseModel):
     content: Union[
-        str, List[OutputOpenAIResponseMessageContentUnionMember1], List[OutputOpenAIResponseMessageContentUnionMember2]
+        str,
+        List[
+            OutputOpenAIResponseMessageOutputContentListOpenAIResponseInputMessageContentTextOpenAIResponseInputMessageContentImageOpenAIResponseInputMessageContentFile
+        ],
+        List[
+            OutputOpenAIResponseMessageOutputContentListOpenAIResponseOutputMessageContentOutputTextOpenAIResponseContentPartRefusal
+        ],
     ]
 
     role: Literal["system", "developer", "user", "assistant"]
 
-    type: Literal["message"]
-
     id: Optional[str] = None
 
     status: Optional[str] = None
+
+    type: Optional[Literal["message"]] = None
 
 
 class OutputOpenAIResponseOutputMessageWebSearchToolCall(BaseModel):
     id: str
-    """Unique identifier for this tool call"""
 
     status: str
-    """Current status of the web search operation"""
 
-    type: Literal["web_search_call"]
-    """Tool call type identifier, always "web_search_call" """
+    type: Optional[Literal["web_search_call"]] = None
 
 
 class OutputOpenAIResponseOutputMessageFileSearchToolCallResult(BaseModel):
-    attributes: Dict[str, Union[bool, float, str, List[object], object, None]]
-    """(Optional) Key-value attributes associated with the file"""
+    attributes: Dict[str, object]
 
     file_id: str
-    """Unique identifier of the file containing the result"""
 
     filename: str
-    """Name of the file containing the result"""
 
     score: float
-    """Relevance score for this search result (between 0 and 1)"""
 
     text: str
-    """Text content of the search result"""
 
 
 class OutputOpenAIResponseOutputMessageFileSearchToolCall(BaseModel):
     id: str
-    """Unique identifier for this tool call"""
 
     queries: List[str]
-    """List of search queries executed"""
 
     status: str
-    """Current status of the file search operation"""
-
-    type: Literal["file_search_call"]
-    """Tool call type identifier, always "file_search_call" """
 
     results: Optional[List[OutputOpenAIResponseOutputMessageFileSearchToolCallResult]] = None
-    """(Optional) Search results returned by the file search operation"""
+
+    type: Optional[Literal["file_search_call"]] = None
 
 
 class OutputOpenAIResponseOutputMessageFunctionToolCall(BaseModel):
     arguments: str
-    """JSON string containing the function arguments"""
 
     call_id: str
-    """Unique identifier for the function call"""
 
     name: str
-    """Name of the function being called"""
-
-    type: Literal["function_call"]
-    """Tool call type identifier, always "function_call" """
 
     id: Optional[str] = None
-    """(Optional) Additional identifier for the tool call"""
 
     status: Optional[str] = None
-    """(Optional) Current status of the function call execution"""
+
+    type: Optional[Literal["function_call"]] = None
 
 
 class OutputOpenAIResponseOutputMessageMcpCall(BaseModel):
     id: str
-    """Unique identifier for this MCP call"""
 
     arguments: str
-    """JSON string containing the MCP call arguments"""
 
     name: str
-    """Name of the MCP method being called"""
 
     server_label: str
-    """Label identifying the MCP server handling the call"""
-
-    type: Literal["mcp_call"]
-    """Tool call type identifier, always "mcp_call" """
 
     error: Optional[str] = None
-    """(Optional) Error message if the MCP call failed"""
 
     output: Optional[str] = None
-    """(Optional) Output result from the successful MCP call"""
+
+    type: Optional[Literal["mcp_call"]] = None
 
 
 class OutputOpenAIResponseOutputMessageMcpListToolsTool(BaseModel):
-    input_schema: Dict[str, Union[bool, float, str, List[object], object, None]]
-    """JSON schema defining the tool's input parameters"""
+    input_schema: Dict[str, object]
 
     name: str
-    """Name of the tool"""
 
     description: Optional[str] = None
-    """(Optional) Description of what the tool does"""
 
 
 class OutputOpenAIResponseOutputMessageMcpListTools(BaseModel):
     id: str
-    """Unique identifier for this MCP list tools operation"""
 
     server_label: str
-    """Label identifying the MCP server providing the tools"""
 
     tools: List[OutputOpenAIResponseOutputMessageMcpListToolsTool]
-    """List of available tools provided by the MCP server"""
 
-    type: Literal["mcp_list_tools"]
-    """Tool call type identifier, always "mcp_list_tools" """
+    type: Optional[Literal["mcp_list_tools"]] = None
 
 
 class OutputOpenAIResponseMcpApprovalRequest(BaseModel):
@@ -687,12 +613,12 @@ class OutputOpenAIResponseMcpApprovalRequest(BaseModel):
 
     server_label: str
 
-    type: Literal["mcp_approval_request"]
+    type: Optional[Literal["mcp_approval_request"]] = None
 
 
 Output: TypeAlias = Annotated[
     Union[
-        OutputOpenAIResponseMessage,
+        OutputOpenAIResponseMessageOutput,
         OutputOpenAIResponseOutputMessageWebSearchToolCall,
         OutputOpenAIResponseOutputMessageFileSearchToolCall,
         OutputOpenAIResponseOutputMessageFunctionToolCall,
@@ -704,81 +630,38 @@ Output: TypeAlias = Annotated[
 ]
 
 
-class TextFormat(BaseModel):
-    type: Literal["text", "json_schema", "json_object"]
-    """Must be "text", "json_schema", or "json_object" to identify the format type"""
-
-    description: Optional[str] = None
-    """(Optional) A description of the response format. Only used for json_schema."""
-
-    name: Optional[str] = None
-    """The name of the response format. Only used for json_schema."""
-
-    schema_: Optional[Dict[str, Union[bool, float, str, List[object], object, None]]] = FieldInfo(
-        alias="schema", default=None
-    )
-    """The JSON schema the response should conform to.
-
-    In a Python SDK, this is often a `pydantic` model. Only used for json_schema.
-    """
-
-    strict: Optional[bool] = None
-    """(Optional) Whether to strictly enforce the JSON schema.
-
-    If true, the response must match the schema exactly. Only used for json_schema.
-    """
-
-
-class Text(BaseModel):
-    format: Optional[TextFormat] = None
-    """(Optional) Text format configuration specifying output format requirements"""
-
-
 class Error(BaseModel):
     code: str
-    """Error code identifying the type of failure"""
 
     message: str
-    """Human-readable error message describing the failure"""
 
 
 class PromptVariablesOpenAIResponseInputMessageContentText(BaseModel):
     text: str
-    """The text content of the input message"""
 
-    type: Literal["input_text"]
-    """Content type identifier, always "input_text" """
+    type: Optional[Literal["input_text"]] = None
 
 
 class PromptVariablesOpenAIResponseInputMessageContentImage(BaseModel):
-    detail: Literal["low", "high", "auto"]
-    """Level of detail for image processing, can be "low", "high", or "auto" """
-
-    type: Literal["input_image"]
-    """Content type identifier, always "input_image" """
+    detail: Optional[Literal["low", "high", "auto"]] = None
 
     file_id: Optional[str] = None
-    """(Optional) The ID of the file to be sent to the model."""
 
     image_url: Optional[str] = None
-    """(Optional) URL of the image content"""
+
+    type: Optional[Literal["input_image"]] = None
 
 
 class PromptVariablesOpenAIResponseInputMessageContentFile(BaseModel):
-    type: Literal["input_file"]
-    """The type of the input item. Always `input_file`."""
-
     file_data: Optional[str] = None
-    """The data of the file to be sent to the model."""
 
     file_id: Optional[str] = None
-    """(Optional) The ID of the file to be sent to the model."""
 
     file_url: Optional[str] = None
-    """The URL of the file to be sent to the model."""
 
     filename: Optional[str] = None
-    """The name of the file to be sent to the model."""
+
+    type: Optional[Literal["input_file"]] = None
 
 
 PromptVariables: TypeAlias = Annotated[
@@ -793,88 +676,84 @@ PromptVariables: TypeAlias = Annotated[
 
 class Prompt(BaseModel):
     id: str
-    """Unique identifier of the prompt template"""
 
     variables: Optional[Dict[str, PromptVariables]] = None
-    """
-    Dictionary of variable names to OpenAIResponseInputMessageContent structure for
-    template substitution. The substitution values can either be strings, or other
-    Response input types like images or files.
-    """
 
     version: Optional[str] = None
-    """Version number of the prompt to use (defaults to latest if not specified)"""
+
+
+class TextFormat(BaseModel):
+    description: Optional[str] = None
+
+    name: Optional[str] = None
+
+    schema_: Optional[Dict[str, object]] = FieldInfo(alias="schema", default=None)
+
+    strict: Optional[bool] = None
+
+    type: Optional[Literal["text", "json_schema", "json_object"]] = None
+
+
+class Text(BaseModel):
+    format: Optional[TextFormat] = None
+    """Configuration for Responses API text format."""
 
 
 class ToolOpenAIResponseInputToolWebSearch(BaseModel):
-    type: Literal["web_search", "web_search_preview", "web_search_preview_2025_03_11", "web_search_2025_08_26"]
-    """Web search tool type variant to use"""
-
     search_context_size: Optional[str] = None
-    """(Optional) Size of search context, must be "low", "medium", or "high" """
+
+    type: Optional[
+        Literal["web_search", "web_search_preview", "web_search_preview_2025_03_11", "web_search_2025_08_26"]
+    ] = None
 
 
 class ToolOpenAIResponseInputToolFileSearchRankingOptions(BaseModel):
     ranker: Optional[str] = None
-    """(Optional) Name of the ranking algorithm to use"""
 
     score_threshold: Optional[float] = None
-    """(Optional) Minimum relevance score threshold for results"""
 
 
 class ToolOpenAIResponseInputToolFileSearch(BaseModel):
-    type: Literal["file_search"]
-    """Tool type identifier, always "file_search" """
-
     vector_store_ids: List[str]
-    """List of vector store identifiers to search within"""
 
-    filters: Optional[Dict[str, Union[bool, float, str, List[object], object, None]]] = None
-    """(Optional) Additional filters to apply to the search"""
+    filters: Optional[Dict[str, object]] = None
 
     max_num_results: Optional[int] = None
-    """(Optional) Maximum number of search results to return (1-50)"""
 
     ranking_options: Optional[ToolOpenAIResponseInputToolFileSearchRankingOptions] = None
-    """(Optional) Options for ranking and scoring search results"""
+    """Options for ranking and filtering search results."""
+
+    type: Optional[Literal["file_search"]] = None
 
 
 class ToolOpenAIResponseInputToolFunction(BaseModel):
     name: str
-    """Name of the function that can be called"""
 
-    type: Literal["function"]
-    """Tool type identifier, always "function" """
+    parameters: Optional[Dict[str, object]] = None
 
     description: Optional[str] = None
-    """(Optional) Description of what the function does"""
-
-    parameters: Optional[Dict[str, Union[bool, float, str, List[object], object, None]]] = None
-    """(Optional) JSON schema defining the function's parameters"""
 
     strict: Optional[bool] = None
-    """(Optional) Whether to enforce strict parameter validation"""
+
+    type: Optional[Literal["function"]] = None
 
 
 class ToolOpenAIResponseToolMcpAllowedToolsAllowedToolsFilter(BaseModel):
     tool_names: Optional[List[str]] = None
-    """(Optional) List of specific tool names that are allowed"""
 
 
 ToolOpenAIResponseToolMcpAllowedTools: TypeAlias = Union[
-    List[str], ToolOpenAIResponseToolMcpAllowedToolsAllowedToolsFilter
+    List[str], ToolOpenAIResponseToolMcpAllowedToolsAllowedToolsFilter, None
 ]
 
 
 class ToolOpenAIResponseToolMcp(BaseModel):
     server_label: str
-    """Label to identify this MCP server"""
-
-    type: Literal["mcp"]
-    """Tool type identifier, always "mcp" """
 
     allowed_tools: Optional[ToolOpenAIResponseToolMcpAllowedTools] = None
-    """(Optional) Restriction on which tools can be used from this server"""
+    """Filter configuration for restricting which MCP tools can be used."""
+
+    type: Optional[Literal["mcp"]] = None
 
 
 Tool: TypeAlias = Union[
@@ -887,88 +766,65 @@ Tool: TypeAlias = Union[
 
 class UsageInputTokensDetails(BaseModel):
     cached_tokens: Optional[int] = None
-    """Number of tokens retrieved from cache"""
 
 
 class UsageOutputTokensDetails(BaseModel):
     reasoning_tokens: Optional[int] = None
-    """Number of tokens used for reasoning (o1/o3 models)"""
 
 
 class Usage(BaseModel):
     input_tokens: int
-    """Number of tokens in the input"""
 
     output_tokens: int
-    """Number of tokens in the output"""
 
     total_tokens: int
-    """Total tokens used (input + output)"""
 
     input_tokens_details: Optional[UsageInputTokensDetails] = None
-    """Detailed breakdown of input token usage"""
+    """Token details for input tokens in OpenAI response usage."""
 
     output_tokens_details: Optional[UsageOutputTokensDetails] = None
-    """Detailed breakdown of output token usage"""
+    """Token details for output tokens in OpenAI response usage."""
 
 
 class ResponseListResponse(BaseModel):
     id: str
-    """Unique identifier for this response"""
 
     created_at: int
-    """Unix timestamp when the response was created"""
 
     input: List[Input]
-    """List of input items that led to this response"""
 
     model: str
-    """Model identifier used for generation"""
-
-    object: Literal["response"]
-    """Object type identifier, always "response" """
 
     output: List[Output]
-    """List of generated output items (messages, tool calls, etc.)"""
-
-    parallel_tool_calls: bool
-    """Whether tool calls can be executed in parallel"""
 
     status: str
-    """Current status of the response generation"""
-
-    text: Text
-    """Text formatting configuration for the response"""
 
     error: Optional[Error] = None
-    """(Optional) Error details if the response generation failed"""
+    """Error details for failed OpenAI response requests."""
 
     instructions: Optional[str] = None
-    """(Optional) System message inserted into the model's context"""
 
     max_tool_calls: Optional[int] = None
-    """
-    (Optional) Max number of total calls to built-in tools that can be processed in
-    a response
-    """
+
+    object: Optional[Literal["response"]] = None
+
+    parallel_tool_calls: Optional[bool] = None
 
     previous_response_id: Optional[str] = None
-    """(Optional) ID of the previous response in a conversation"""
 
     prompt: Optional[Prompt] = None
-    """(Optional) Reference to a prompt template and its variables."""
+    """OpenAI compatible Prompt object that is used in OpenAI responses."""
 
     temperature: Optional[float] = None
-    """(Optional) Sampling temperature used for generation"""
+
+    text: Optional[Text] = None
+    """Text response configuration for OpenAI responses."""
 
     tools: Optional[List[Tool]] = None
-    """(Optional) An array of tools the model may call while generating a response."""
 
     top_p: Optional[float] = None
-    """(Optional) Nucleus sampling parameter used for generation"""
 
     truncation: Optional[str] = None
-    """(Optional) Truncation strategy applied to the response"""
 
     usage: Optional[Usage] = None
-    """(Optional) Token usage information for the response"""
+    """Usage information for OpenAI response."""

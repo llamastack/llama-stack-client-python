@@ -3,7 +3,7 @@
 from __future__ import annotations
 
 import typing_extensions
-from typing import Dict, Type, Union, Iterable, cast
+from typing import Dict, Type, Optional, cast
 
 import httpx
 
@@ -142,9 +142,9 @@ class ShieldsResource(SyncAPIResource):
         self,
         *,
         shield_id: str,
-        params: Dict[str, Union[bool, float, str, Iterable[object], object, None]] | Omit = omit,
-        provider_id: str | Omit = omit,
-        provider_shield_id: str | Omit = omit,
+        params: Optional[Dict[str, object]] | Omit = omit,
+        provider_id: Optional[str] | Omit = omit,
+        provider_shield_id: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -156,14 +156,6 @@ class ShieldsResource(SyncAPIResource):
         Register a shield.
 
         Args:
-          shield_id: The identifier of the shield to register.
-
-          params: The parameters of the shield.
-
-          provider_id: The identifier of the provider.
-
-          provider_shield_id: The identifier of the shield in the provider.
-
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -306,9 +298,9 @@ class AsyncShieldsResource(AsyncAPIResource):
         self,
         *,
         shield_id: str,
-        params: Dict[str, Union[bool, float, str, Iterable[object], object, None]] | Omit = omit,
-        provider_id: str | Omit = omit,
-        provider_shield_id: str | Omit = omit,
+        params: Optional[Dict[str, object]] | Omit = omit,
+        provider_id: Optional[str] | Omit = omit,
+        provider_shield_id: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -320,14 +312,6 @@ class AsyncShieldsResource(AsyncAPIResource):
         Register a shield.
 
         Args:
-          shield_id: The identifier of the shield to register.
-
-          params: The parameters of the shield.
-
-          provider_id: The identifier of the provider.
-
-          provider_shield_id: The identifier of the shield in the provider.
-
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request

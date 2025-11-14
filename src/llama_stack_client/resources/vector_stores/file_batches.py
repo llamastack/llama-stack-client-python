@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from typing import Dict, Union, Iterable
+from typing import Dict, Optional
 
 import httpx
 
@@ -50,8 +50,8 @@ class FileBatchesResource(SyncAPIResource):
         vector_store_id: str,
         *,
         file_ids: SequenceNotStr[str],
-        attributes: Dict[str, Union[bool, float, str, Iterable[object], object, None]] | Omit = omit,
-        chunking_strategy: file_batch_create_params.ChunkingStrategy | Omit = omit,
+        attributes: Optional[Dict[str, object]] | Omit = omit,
+        chunking_strategy: Optional[file_batch_create_params.ChunkingStrategy] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -59,17 +59,14 @@ class FileBatchesResource(SyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> VectorStoreFileBatches:
-        """Create a vector store file batch.
+        """
+        Create a vector store file batch.
 
-        Generate an OpenAI-compatible vector store
-        file batch for the given vector store.
+        Generate an OpenAI-compatible vector store file batch for the given vector
+        store.
 
         Args:
-          file_ids: A list of File IDs that the vector store should use
-
-          attributes: (Optional) Key-value attributes to store with the files
-
-          chunking_strategy: (Optional) The chunking strategy used to chunk the file(s). Defaults to auto
+          chunking_strategy: Automatic chunking strategy for vector store files.
 
           extra_headers: Send extra headers
 
@@ -174,11 +171,11 @@ class FileBatchesResource(SyncAPIResource):
         batch_id: str,
         *,
         vector_store_id: str,
-        after: str | Omit = omit,
-        before: str | Omit = omit,
-        filter: str | Omit = omit,
-        limit: int | Omit = omit,
-        order: str | Omit = omit,
+        after: Optional[str] | Omit = omit,
+        before: Optional[str] | Omit = omit,
+        filter: Optional[str] | Omit = omit,
+        limit: Optional[int] | Omit = omit,
+        order: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -190,20 +187,6 @@ class FileBatchesResource(SyncAPIResource):
         Returns a list of vector store files in a batch.
 
         Args:
-          after: A cursor for use in pagination. `after` is an object ID that defines your place
-              in the list.
-
-          before: A cursor for use in pagination. `before` is an object ID that defines your place
-              in the list.
-
-          filter: Filter by file status. One of in_progress, completed, failed, cancelled.
-
-          limit: A limit on the number of objects to be returned. Limit can range between 1 and
-              100, and the default is 20.
-
-          order: Sort order by the `created_at` timestamp of the objects. `asc` for ascending
-              order and `desc` for descending order.
-
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -264,8 +247,8 @@ class AsyncFileBatchesResource(AsyncAPIResource):
         vector_store_id: str,
         *,
         file_ids: SequenceNotStr[str],
-        attributes: Dict[str, Union[bool, float, str, Iterable[object], object, None]] | Omit = omit,
-        chunking_strategy: file_batch_create_params.ChunkingStrategy | Omit = omit,
+        attributes: Optional[Dict[str, object]] | Omit = omit,
+        chunking_strategy: Optional[file_batch_create_params.ChunkingStrategy] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -273,17 +256,14 @@ class AsyncFileBatchesResource(AsyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> VectorStoreFileBatches:
-        """Create a vector store file batch.
+        """
+        Create a vector store file batch.
 
-        Generate an OpenAI-compatible vector store
-        file batch for the given vector store.
+        Generate an OpenAI-compatible vector store file batch for the given vector
+        store.
 
         Args:
-          file_ids: A list of File IDs that the vector store should use
-
-          attributes: (Optional) Key-value attributes to store with the files
-
-          chunking_strategy: (Optional) The chunking strategy used to chunk the file(s). Defaults to auto
+          chunking_strategy: Automatic chunking strategy for vector store files.
 
           extra_headers: Send extra headers
 
@@ -388,11 +368,11 @@ class AsyncFileBatchesResource(AsyncAPIResource):
         batch_id: str,
         *,
         vector_store_id: str,
-        after: str | Omit = omit,
-        before: str | Omit = omit,
-        filter: str | Omit = omit,
-        limit: int | Omit = omit,
-        order: str | Omit = omit,
+        after: Optional[str] | Omit = omit,
+        before: Optional[str] | Omit = omit,
+        filter: Optional[str] | Omit = omit,
+        limit: Optional[int] | Omit = omit,
+        order: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -404,20 +384,6 @@ class AsyncFileBatchesResource(AsyncAPIResource):
         Returns a list of vector store files in a batch.
 
         Args:
-          after: A cursor for use in pagination. `after` is an object ID that defines your place
-              in the list.
-
-          before: A cursor for use in pagination. `before` is an object ID that defines your place
-              in the list.
-
-          filter: Filter by file status. One of in_progress, completed, failed, cancelled.
-
-          limit: A limit on the number of objects to be returned. Limit can range between 1 and
-              100, and the default is 20.
-
-          order: Sort order by the `created_at` timestamp of the objects. `asc` for ascending
-              order and `desc` for descending order.
-
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request

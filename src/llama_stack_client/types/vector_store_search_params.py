@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from typing import Dict, Union, Iterable
+from typing import Dict, Union, Optional
 from typing_extensions import Required, TypedDict
 
 from .._types import SequenceNotStr
@@ -12,27 +12,20 @@ __all__ = ["VectorStoreSearchParams", "RankingOptions"]
 
 class VectorStoreSearchParams(TypedDict, total=False):
     query: Required[Union[str, SequenceNotStr[str]]]
-    """The query string or array for performing the search."""
 
-    filters: Dict[str, Union[bool, float, str, Iterable[object], object, None]]
-    """Filters based on file attributes to narrow the search results."""
+    filters: Optional[Dict[str, object]]
 
-    max_num_results: int
-    """Maximum number of results to return (1 to 50 inclusive, default 10)."""
+    max_num_results: Optional[int]
 
-    ranking_options: RankingOptions
-    """Ranking options for fine-tuning the search results."""
+    ranking_options: Optional[RankingOptions]
+    """Options for ranking and filtering search results."""
 
-    rewrite_query: bool
-    """Whether to rewrite the natural language query for vector search (default false)"""
+    rewrite_query: Optional[bool]
 
-    search_mode: str
-    """The search mode to use - "keyword", "vector", or "hybrid" (default "vector")"""
+    search_mode: Optional[str]
 
 
 class RankingOptions(TypedDict, total=False):
-    ranker: str
-    """(Optional) Name of the ranking algorithm to use"""
+    ranker: Optional[str]
 
-    score_threshold: float
-    """(Optional) Minimum relevance score threshold for results"""
+    score_threshold: Optional[float]

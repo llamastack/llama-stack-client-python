@@ -2,14 +2,13 @@
 
 from __future__ import annotations
 
+from typing import Optional
 from typing_extensions import TypedDict
 
 __all__ = ["DatasetIterrowsParams"]
 
 
 class DatasetIterrowsParams(TypedDict, total=False):
-    limit: int
-    """The number of rows to get."""
+    limit: Optional[int]
 
-    start_index: int
-    """Index into dataset for the first row to get. Get all rows if None."""
+    start_index: Optional[int]

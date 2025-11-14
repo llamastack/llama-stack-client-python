@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from typing import Dict, Union, Iterable
+from typing import Dict, Optional
 
 import httpx
 
@@ -24,13 +24,9 @@ from ...._response import (
     async_to_raw_response_wrapper,
     async_to_streamed_response_wrapper,
 )
-from ....types.alpha import (
-    post_training_preference_optimize_params,
-    post_training_supervised_fine_tune_params,
-)
+from ....types.alpha import post_training_preference_optimize_params, post_training_supervised_fine_tune_params
 from ...._base_client import make_request_options
 from ....types.alpha.post_training_job import PostTrainingJob
-from ....types.alpha.algorithm_config_param import AlgorithmConfigParam
 
 __all__ = ["PostTrainingResource", "AsyncPostTrainingResource"]
 
@@ -64,9 +60,9 @@ class PostTrainingResource(SyncAPIResource):
         *,
         algorithm_config: post_training_preference_optimize_params.AlgorithmConfig,
         finetuned_model: str,
-        hyperparam_search_config: Dict[str, Union[bool, float, str, Iterable[object], object, None]],
+        hyperparam_search_config: Dict[str, object],
         job_uuid: str,
-        logger_config: Dict[str, Union[bool, float, str, Iterable[object], object, None]],
+        logger_config: Dict[str, object],
         training_config: post_training_preference_optimize_params.TrainingConfig,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -79,17 +75,9 @@ class PostTrainingResource(SyncAPIResource):
         Run preference optimization of a model.
 
         Args:
-          algorithm_config: The algorithm configuration.
+          algorithm_config: Configuration for Direct Preference Optimization (DPO) alignment.
 
-          finetuned_model: The model to fine-tune.
-
-          hyperparam_search_config: The hyperparam search configuration.
-
-          job_uuid: The UUID of the job to create.
-
-          logger_config: The logger configuration.
-
-          training_config: The training configuration.
+          training_config: Comprehensive configuration for the training process.
 
           extra_headers: Send extra headers
 
@@ -121,13 +109,13 @@ class PostTrainingResource(SyncAPIResource):
     def supervised_fine_tune(
         self,
         *,
-        hyperparam_search_config: Dict[str, Union[bool, float, str, Iterable[object], object, None]],
+        hyperparam_search_config: Dict[str, object],
         job_uuid: str,
-        logger_config: Dict[str, Union[bool, float, str, Iterable[object], object, None]],
+        logger_config: Dict[str, object],
         training_config: post_training_supervised_fine_tune_params.TrainingConfig,
-        algorithm_config: AlgorithmConfigParam | Omit = omit,
-        checkpoint_dir: str | Omit = omit,
-        model: str | Omit = omit,
+        algorithm_config: Optional[post_training_supervised_fine_tune_params.AlgorithmConfig] | Omit = omit,
+        checkpoint_dir: Optional[str] | Omit = omit,
+        model: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -139,19 +127,11 @@ class PostTrainingResource(SyncAPIResource):
         Run supervised fine-tuning of a model.
 
         Args:
-          hyperparam_search_config: The hyperparam search configuration.
+          training_config: Comprehensive configuration for the training process.
 
-          job_uuid: The UUID of the job to create.
+          algorithm_config: Configuration for Low-Rank Adaptation (LoRA) fine-tuning.
 
-          logger_config: The logger configuration.
-
-          training_config: The training configuration.
-
-          algorithm_config: The algorithm configuration.
-
-          checkpoint_dir: The directory to save checkpoint(s) to.
-
-          model: The model to fine-tune.
+          model: Model descriptor for training if not in provider config`
 
           extra_headers: Send extra headers
 
@@ -211,9 +191,9 @@ class AsyncPostTrainingResource(AsyncAPIResource):
         *,
         algorithm_config: post_training_preference_optimize_params.AlgorithmConfig,
         finetuned_model: str,
-        hyperparam_search_config: Dict[str, Union[bool, float, str, Iterable[object], object, None]],
+        hyperparam_search_config: Dict[str, object],
         job_uuid: str,
-        logger_config: Dict[str, Union[bool, float, str, Iterable[object], object, None]],
+        logger_config: Dict[str, object],
         training_config: post_training_preference_optimize_params.TrainingConfig,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -226,17 +206,9 @@ class AsyncPostTrainingResource(AsyncAPIResource):
         Run preference optimization of a model.
 
         Args:
-          algorithm_config: The algorithm configuration.
+          algorithm_config: Configuration for Direct Preference Optimization (DPO) alignment.
 
-          finetuned_model: The model to fine-tune.
-
-          hyperparam_search_config: The hyperparam search configuration.
-
-          job_uuid: The UUID of the job to create.
-
-          logger_config: The logger configuration.
-
-          training_config: The training configuration.
+          training_config: Comprehensive configuration for the training process.
 
           extra_headers: Send extra headers
 
@@ -268,13 +240,13 @@ class AsyncPostTrainingResource(AsyncAPIResource):
     async def supervised_fine_tune(
         self,
         *,
-        hyperparam_search_config: Dict[str, Union[bool, float, str, Iterable[object], object, None]],
+        hyperparam_search_config: Dict[str, object],
         job_uuid: str,
-        logger_config: Dict[str, Union[bool, float, str, Iterable[object], object, None]],
+        logger_config: Dict[str, object],
         training_config: post_training_supervised_fine_tune_params.TrainingConfig,
-        algorithm_config: AlgorithmConfigParam | Omit = omit,
-        checkpoint_dir: str | Omit = omit,
-        model: str | Omit = omit,
+        algorithm_config: Optional[post_training_supervised_fine_tune_params.AlgorithmConfig] | Omit = omit,
+        checkpoint_dir: Optional[str] | Omit = omit,
+        model: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -286,19 +258,11 @@ class AsyncPostTrainingResource(AsyncAPIResource):
         Run supervised fine-tuning of a model.
 
         Args:
-          hyperparam_search_config: The hyperparam search configuration.
+          training_config: Comprehensive configuration for the training process.
 
-          job_uuid: The UUID of the job to create.
+          algorithm_config: Configuration for Low-Rank Adaptation (LoRA) fine-tuning.
 
-          logger_config: The logger configuration.
-
-          training_config: The training configuration.
-
-          algorithm_config: The algorithm configuration.
-
-          checkpoint_dir: The directory to save checkpoint(s) to.
-
-          model: The model to fine-tune.
+          model: Model descriptor for training if not in provider config`
 
           extra_headers: Send extra headers
 

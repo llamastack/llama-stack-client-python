@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from typing import Dict, Union, Iterable
+from typing import Dict, Union, Optional
 
 import httpx
 
@@ -78,11 +78,11 @@ class VectorStoresResource(SyncAPIResource):
     def create(
         self,
         *,
-        chunking_strategy: vector_store_create_params.ChunkingStrategy | Omit = omit,
-        expires_after: Dict[str, Union[bool, float, str, Iterable[object], object, None]] | Omit = omit,
-        file_ids: SequenceNotStr[str] | Omit = omit,
-        metadata: Dict[str, Union[bool, float, str, Iterable[object], object, None]] | Omit = omit,
-        name: str | Omit = omit,
+        chunking_strategy: Optional[vector_store_create_params.ChunkingStrategy] | Omit = omit,
+        expires_after: Optional[Dict[str, object]] | Omit = omit,
+        file_ids: Optional[SequenceNotStr[str]] | Omit = omit,
+        metadata: Optional[Dict[str, object]] | Omit = omit,
+        name: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -90,21 +90,13 @@ class VectorStoresResource(SyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> VectorStore:
-        """Creates a vector store.
+        """
+        Creates a vector store.
 
-        Generate an OpenAI-compatible vector store with the
-        given parameters.
+        Generate an OpenAI-compatible vector store with the given parameters.
 
         Args:
-          chunking_strategy: (Optional) Strategy for splitting files into chunks
-
-          expires_after: (Optional) Expiration policy for the vector store
-
-          file_ids: List of file IDs to include in the vector store
-
-          metadata: Set of key-value pairs that can be attached to the vector store
-
-          name: (Optional) A name for the vector store
+          chunking_strategy: Automatic chunking strategy for vector store files.
 
           extra_headers: Send extra headers
 
@@ -169,9 +161,9 @@ class VectorStoresResource(SyncAPIResource):
         self,
         vector_store_id: str,
         *,
-        expires_after: Dict[str, Union[bool, float, str, Iterable[object], object, None]] | Omit = omit,
-        metadata: Dict[str, Union[bool, float, str, Iterable[object], object, None]] | Omit = omit,
-        name: str | Omit = omit,
+        expires_after: Optional[Dict[str, object]] | Omit = omit,
+        metadata: Optional[Dict[str, object]] | Omit = omit,
+        name: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -183,12 +175,6 @@ class VectorStoresResource(SyncAPIResource):
         Updates a vector store.
 
         Args:
-          expires_after: The expiration policy for a vector store.
-
-          metadata: Set of 16 key-value pairs that can be attached to an object.
-
-          name: The name of the vector store.
-
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -218,10 +204,10 @@ class VectorStoresResource(SyncAPIResource):
     def list(
         self,
         *,
-        after: str | Omit = omit,
-        before: str | Omit = omit,
-        limit: int | Omit = omit,
-        order: str | Omit = omit,
+        after: Optional[str] | Omit = omit,
+        before: Optional[str] | Omit = omit,
+        limit: Optional[int] | Omit = omit,
+        order: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -229,23 +215,10 @@ class VectorStoresResource(SyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> SyncOpenAICursorPage[VectorStore]:
-        """Returns a list of vector stores.
+        """
+        Returns a list of vector stores.
 
         Args:
-          after: A cursor for use in pagination.
-
-        `after` is an object ID that defines your place
-              in the list.
-
-          before: A cursor for use in pagination. `before` is an object ID that defines your place
-              in the list.
-
-          limit: A limit on the number of objects to be returned. Limit can range between 1 and
-              100, and the default is 20.
-
-          order: Sort order by the `created_at` timestamp of the objects. `asc` for ascending
-              order and `desc` for descending order.
-
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -313,11 +286,11 @@ class VectorStoresResource(SyncAPIResource):
         vector_store_id: str,
         *,
         query: Union[str, SequenceNotStr[str]],
-        filters: Dict[str, Union[bool, float, str, Iterable[object], object, None]] | Omit = omit,
-        max_num_results: int | Omit = omit,
-        ranking_options: vector_store_search_params.RankingOptions | Omit = omit,
-        rewrite_query: bool | Omit = omit,
-        search_mode: str | Omit = omit,
+        filters: Optional[Dict[str, object]] | Omit = omit,
+        max_num_results: Optional[int] | Omit = omit,
+        ranking_options: Optional[vector_store_search_params.RankingOptions] | Omit = omit,
+        rewrite_query: Optional[bool] | Omit = omit,
+        search_mode: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -325,23 +298,14 @@ class VectorStoresResource(SyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> VectorStoreSearchResponse:
-        """Search for chunks in a vector store.
+        """
+        Search for chunks in a vector store.
 
-        Searches a vector store for relevant chunks
-        based on a query and optional file attribute filters.
+        Searches a vector store for relevant chunks based on a query and optional file
+        attribute filters.
 
         Args:
-          query: The query string or array for performing the search.
-
-          filters: Filters based on file attributes to narrow the search results.
-
-          max_num_results: Maximum number of results to return (1 to 50 inclusive, default 10).
-
-          ranking_options: Ranking options for fine-tuning the search results.
-
-          rewrite_query: Whether to rewrite the natural language query for vector search (default false)
-
-          search_mode: The search mode to use - "keyword", "vector", or "hybrid" (default "vector")
+          ranking_options: Options for ranking and filtering search results.
 
           extra_headers: Send extra headers
 
@@ -404,11 +368,11 @@ class AsyncVectorStoresResource(AsyncAPIResource):
     async def create(
         self,
         *,
-        chunking_strategy: vector_store_create_params.ChunkingStrategy | Omit = omit,
-        expires_after: Dict[str, Union[bool, float, str, Iterable[object], object, None]] | Omit = omit,
-        file_ids: SequenceNotStr[str] | Omit = omit,
-        metadata: Dict[str, Union[bool, float, str, Iterable[object], object, None]] | Omit = omit,
-        name: str | Omit = omit,
+        chunking_strategy: Optional[vector_store_create_params.ChunkingStrategy] | Omit = omit,
+        expires_after: Optional[Dict[str, object]] | Omit = omit,
+        file_ids: Optional[SequenceNotStr[str]] | Omit = omit,
+        metadata: Optional[Dict[str, object]] | Omit = omit,
+        name: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -416,21 +380,13 @@ class AsyncVectorStoresResource(AsyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> VectorStore:
-        """Creates a vector store.
+        """
+        Creates a vector store.
 
-        Generate an OpenAI-compatible vector store with the
-        given parameters.
+        Generate an OpenAI-compatible vector store with the given parameters.
 
         Args:
-          chunking_strategy: (Optional) Strategy for splitting files into chunks
-
-          expires_after: (Optional) Expiration policy for the vector store
-
-          file_ids: List of file IDs to include in the vector store
-
-          metadata: Set of key-value pairs that can be attached to the vector store
-
-          name: (Optional) A name for the vector store
+          chunking_strategy: Automatic chunking strategy for vector store files.
 
           extra_headers: Send extra headers
 
@@ -495,9 +451,9 @@ class AsyncVectorStoresResource(AsyncAPIResource):
         self,
         vector_store_id: str,
         *,
-        expires_after: Dict[str, Union[bool, float, str, Iterable[object], object, None]] | Omit = omit,
-        metadata: Dict[str, Union[bool, float, str, Iterable[object], object, None]] | Omit = omit,
-        name: str | Omit = omit,
+        expires_after: Optional[Dict[str, object]] | Omit = omit,
+        metadata: Optional[Dict[str, object]] | Omit = omit,
+        name: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -509,12 +465,6 @@ class AsyncVectorStoresResource(AsyncAPIResource):
         Updates a vector store.
 
         Args:
-          expires_after: The expiration policy for a vector store.
-
-          metadata: Set of 16 key-value pairs that can be attached to an object.
-
-          name: The name of the vector store.
-
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -544,10 +494,10 @@ class AsyncVectorStoresResource(AsyncAPIResource):
     def list(
         self,
         *,
-        after: str | Omit = omit,
-        before: str | Omit = omit,
-        limit: int | Omit = omit,
-        order: str | Omit = omit,
+        after: Optional[str] | Omit = omit,
+        before: Optional[str] | Omit = omit,
+        limit: Optional[int] | Omit = omit,
+        order: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -555,23 +505,10 @@ class AsyncVectorStoresResource(AsyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> AsyncPaginator[VectorStore, AsyncOpenAICursorPage[VectorStore]]:
-        """Returns a list of vector stores.
+        """
+        Returns a list of vector stores.
 
         Args:
-          after: A cursor for use in pagination.
-
-        `after` is an object ID that defines your place
-              in the list.
-
-          before: A cursor for use in pagination. `before` is an object ID that defines your place
-              in the list.
-
-          limit: A limit on the number of objects to be returned. Limit can range between 1 and
-              100, and the default is 20.
-
-          order: Sort order by the `created_at` timestamp of the objects. `asc` for ascending
-              order and `desc` for descending order.
-
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -639,11 +576,11 @@ class AsyncVectorStoresResource(AsyncAPIResource):
         vector_store_id: str,
         *,
         query: Union[str, SequenceNotStr[str]],
-        filters: Dict[str, Union[bool, float, str, Iterable[object], object, None]] | Omit = omit,
-        max_num_results: int | Omit = omit,
-        ranking_options: vector_store_search_params.RankingOptions | Omit = omit,
-        rewrite_query: bool | Omit = omit,
-        search_mode: str | Omit = omit,
+        filters: Optional[Dict[str, object]] | Omit = omit,
+        max_num_results: Optional[int] | Omit = omit,
+        ranking_options: Optional[vector_store_search_params.RankingOptions] | Omit = omit,
+        rewrite_query: Optional[bool] | Omit = omit,
+        search_mode: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -651,23 +588,14 @@ class AsyncVectorStoresResource(AsyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> VectorStoreSearchResponse:
-        """Search for chunks in a vector store.
+        """
+        Search for chunks in a vector store.
 
-        Searches a vector store for relevant chunks
-        based on a query and optional file attribute filters.
+        Searches a vector store for relevant chunks based on a query and optional file
+        attribute filters.
 
         Args:
-          query: The query string or array for performing the search.
-
-          filters: Filters based on file attributes to narrow the search results.
-
-          max_num_results: Maximum number of results to return (1 to 50 inclusive, default 10).
-
-          ranking_options: Ranking options for fine-tuning the search results.
-
-          rewrite_query: Whether to rewrite the natural language query for vector search (default false)
-
-          search_mode: The search mode to use - "keyword", "vector", or "hybrid" (default "vector")
+          ranking_options: Options for ranking and filtering search results.
 
           extra_headers: Send extra headers
 

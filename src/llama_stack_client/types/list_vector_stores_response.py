@@ -10,16 +10,11 @@ __all__ = ["ListVectorStoresResponse"]
 
 class ListVectorStoresResponse(BaseModel):
     data: List[VectorStore]
-    """List of vector store objects"""
-
-    has_more: bool
-    """Whether there are more vector stores available beyond this page"""
-
-    object: str
-    """Object type identifier, always "list" """
 
     first_id: Optional[str] = None
-    """(Optional) ID of the first vector store in the list for pagination"""
+
+    has_more: Optional[bool] = None
 
     last_id: Optional[str] = None
-    """(Optional) ID of the last vector store in the list for pagination"""
+
+    object: Optional[str] = None

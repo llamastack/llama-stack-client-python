@@ -53,7 +53,8 @@ class VersionsResource(SyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> PromptListResponse:
-        """List prompt versions.
+        """
+        List prompt versions.
 
         List all versions of a specific prompt.
 
@@ -112,7 +113,8 @@ class AsyncVersionsResource(AsyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> PromptListResponse:
-        """List prompt versions.
+        """
+        List prompt versions.
 
         List all versions of a specific prompt.
 

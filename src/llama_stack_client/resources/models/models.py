@@ -3,7 +3,7 @@
 from __future__ import annotations
 
 import typing_extensions
-from typing import Dict, Type, Union, Iterable, cast
+from typing import Dict, Type, Optional, cast
 from typing_extensions import Literal
 
 import httpx
@@ -71,7 +71,8 @@ class ModelsResource(SyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> ModelRetrieveResponse:
-        """Get model.
+        """
+        Get model.
 
         Get a model by its identifier.
 
@@ -122,10 +123,10 @@ class ModelsResource(SyncAPIResource):
         self,
         *,
         model_id: str,
-        metadata: Dict[str, Union[bool, float, str, Iterable[object], object, None]] | Omit = omit,
-        model_type: Literal["llm", "embedding", "rerank"] | Omit = omit,
-        provider_id: str | Omit = omit,
-        provider_model_id: str | Omit = omit,
+        metadata: Optional[Dict[str, object]] | Omit = omit,
+        model_type: Optional[Literal["llm", "embedding", "rerank"]] | Omit = omit,
+        provider_id: Optional[str] | Omit = omit,
+        provider_model_id: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -133,20 +134,13 @@ class ModelsResource(SyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> ModelRegisterResponse:
-        """Register model.
+        """
+        Register model.
 
         Register a model.
 
         Args:
-          model_id: The identifier of the model to register.
-
-          metadata: Any additional metadata for this model.
-
-          model_type: The type of model to register.
-
-          provider_id: The identifier of the provider.
-
-          provider_model_id: The identifier of the model in the provider.
+          model_type: Enumeration of supported model types in Llama Stack.
 
           extra_headers: Send extra headers
 
@@ -186,7 +180,8 @@ class ModelsResource(SyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> None:
-        """Unregister model.
+        """
+        Unregister model.
 
         Unregister a model.
 
@@ -246,7 +241,8 @@ class AsyncModelsResource(AsyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> ModelRetrieveResponse:
-        """Get model.
+        """
+        Get model.
 
         Get a model by its identifier.
 
@@ -297,10 +293,10 @@ class AsyncModelsResource(AsyncAPIResource):
         self,
         *,
         model_id: str,
-        metadata: Dict[str, Union[bool, float, str, Iterable[object], object, None]] | Omit = omit,
-        model_type: Literal["llm", "embedding", "rerank"] | Omit = omit,
-        provider_id: str | Omit = omit,
-        provider_model_id: str | Omit = omit,
+        metadata: Optional[Dict[str, object]] | Omit = omit,
+        model_type: Optional[Literal["llm", "embedding", "rerank"]] | Omit = omit,
+        provider_id: Optional[str] | Omit = omit,
+        provider_model_id: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -308,20 +304,13 @@ class AsyncModelsResource(AsyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> ModelRegisterResponse:
-        """Register model.
+        """
+        Register model.
 
         Register a model.
 
         Args:
-          model_id: The identifier of the model to register.
-
-          metadata: Any additional metadata for this model.
-
-          model_type: The type of model to register.
-
-          provider_id: The identifier of the provider.
-
-          provider_model_id: The identifier of the model in the provider.
+          model_type: Enumeration of supported model types in Llama Stack.
 
           extra_headers: Send extra headers
 
@@ -361,7 +350,8 @@ class AsyncModelsResource(AsyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> None:
-        """Unregister model.
+        """
+        Unregister model.
 
         Unregister a model.
 

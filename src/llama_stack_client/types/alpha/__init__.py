@@ -7,7 +7,6 @@ from .benchmark import Benchmark as Benchmark
 from .evaluate_response import EvaluateResponse as EvaluateResponse
 from .post_training_job import PostTrainingJob as PostTrainingJob
 from .eval_run_eval_params import EvalRunEvalParams as EvalRunEvalParams
-from .algorithm_config_param import AlgorithmConfigParam as AlgorithmConfigParam
 from .benchmark_config_param import BenchmarkConfigParam as BenchmarkConfigParam
 from .benchmark_list_response import BenchmarkListResponse as BenchmarkListResponse
 from .inference_rerank_params import InferenceRerankParams as InferenceRerankParams

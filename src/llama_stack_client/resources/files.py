@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from typing import Mapping, cast
+from typing import Mapping, Optional, cast
 from typing_extensions import Literal
 
 import httpx
@@ -51,7 +51,7 @@ class FilesResource(SyncAPIResource):
         *,
         file: FileTypes,
         purpose: Literal["assistants", "batch"],
-        expires_after: file_create_params.ExpiresAfter | Omit = omit,
+        expires_after: Optional[file_create_params.ExpiresAfter] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -59,7 +59,8 @@ class FilesResource(SyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> File:
-        """Upload file.
+        """
+        Upload file.
 
         Upload a file that can be used across various endpoints.
 
@@ -72,8 +73,9 @@ class FilesResource(SyncAPIResource):
         Args:
           purpose: Valid purpose values for OpenAI Files API.
 
-          expires_after:
-              Control expiration of uploaded files. Params:
+          expires_after: Control expiration of uploaded files.
+
+              Params:
 
               - anchor, must be "created_at"
               - seconds, must be int between 3600 and 2592000 (1 hour to 30 days)
@@ -119,7 +121,8 @@ class FilesResource(SyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> File:
-        """Retrieve file.
+        """
+        Retrieve file.
 
         Returns information about a specific file.
 
@@ -145,10 +148,10 @@ class FilesResource(SyncAPIResource):
     def list(
         self,
         *,
-        after: str | Omit = omit,
-        limit: int | Omit = omit,
-        order: Literal["asc", "desc"] | Omit = omit,
-        purpose: Literal["assistants", "batch"] | Omit = omit,
+        after: Optional[str] | Omit = omit,
+        limit: Optional[int] | Omit = omit,
+        order: Optional[Literal["asc", "desc"]] | Omit = omit,
+        purpose: Optional[Literal["assistants", "batch"]] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -156,23 +159,15 @@ class FilesResource(SyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> SyncOpenAICursorPage[File]:
-        """List files.
+        """
+        List files.
 
         Returns a list of files that belong to the user's organization.
 
         Args:
-          after: A cursor for use in pagination. `after` is an object ID that defines your place
-              in the list. For instance, if you make a list request and receive 100 objects,
-              ending with obj_foo, your subsequent call can include after=obj_foo in order to
-              fetch the next page of the list.
+          order: Sort order for paginated responses.
 
-          limit: A limit on the number of objects to be returned. Limit can range between 1 and
-              10,000, and the default is 10,000.
-
-          order: Sort order by the `created_at` timestamp of the objects. `asc` for ascending
-              order and `desc` for descending order.
-
-          purpose: Only return files with the given purpose.
+          purpose: Valid purpose values for OpenAI Files API.
 
           extra_headers: Send extra headers
 
@@ -247,7 +242,8 @@ class FilesResource(SyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> object:
-        """Retrieve file content.
+        """
+        Retrieve file content.
 
         Returns the contents of the specified file.
 
@@ -296,7 +292,7 @@ class AsyncFilesResource(AsyncAPIResource):
         *,
         file: FileTypes,
         purpose: Literal["assistants", "batch"],
-        expires_after: file_create_params.ExpiresAfter | Omit = omit,
+        expires_after: Optional[file_create_params.ExpiresAfter] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -304,7 +300,8 @@ class AsyncFilesResource(AsyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> File:
-        """Upload file.
+        """
+        Upload file.
 
         Upload a file that can be used across various endpoints.
 
@@ -317,8 +314,9 @@ class AsyncFilesResource(AsyncAPIResource):
         Args:
           purpose: Valid purpose values for OpenAI Files API.
 
-          expires_after:
-              Control expiration of uploaded files. Params:
+          expires_after: Control expiration of uploaded files.
+
+              Params:
 
               - anchor, must be "created_at"
               - seconds, must be int between 3600 and 2592000 (1 hour to 30 days)
@@ -364,7 +362,8 @@ class AsyncFilesResource(AsyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> File:
-        """Retrieve file.
+        """
+        Retrieve file.
 
         Returns information about a specific file.
 
@@ -390,10 +389,10 @@ class AsyncFilesResource(AsyncAPIResource):
     def list(
         self,
         *,
-        after: str | Omit = omit,
-        limit: int | Omit = omit,
-        order: Literal["asc", "desc"] | Omit = omit,
-        purpose: Literal["assistants", "batch"] | Omit = omit,
+        after: Optional[str] | Omit = omit,
+        limit: Optional[int] | Omit = omit,
+        order: Optional[Literal["asc", "desc"]] | Omit = omit,
+        purpose: Optional[Literal["assistants", "batch"]] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -401,23 +400,15 @@ class AsyncFilesResource(AsyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> AsyncPaginator[File, AsyncOpenAICursorPage[File]]:
-        """List files.
+        """
+        List files.
 
         Returns a list of files that belong to the user's organization.
 
         Args:
-          after: A cursor for use in pagination. `after` is an object ID that defines your place
-              in the list. For instance, if you make a list request and receive 100 objects,
-              ending with obj_foo, your subsequent call can include after=obj_foo in order to
-              fetch the next page of the list.
+          order: Sort order for paginated responses.
 
-          limit: A limit on the number of objects to be returned. Limit can range between 1 and
-              10,000, and the default is 10,000.
-
-          order: Sort order by the `created_at` timestamp of the objects. `asc` for ascending
-              order and `desc` for descending order.
-
-          purpose: Only return files with the given purpose.
+          purpose: Valid purpose values for OpenAI Files API.
 
           extra_headers: Send extra headers
 
@@ -492,7 +483,8 @@ class AsyncFilesResource(AsyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> object:
-        """Retrieve file content.
+        """
+        Retrieve file content.
 
         Returns the contents of the specified file.
 

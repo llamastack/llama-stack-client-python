@@ -2,21 +2,84 @@
 
 from __future__ import annotations
 
-from typing_extensions import Literal, Required, TypedDict
+from typing import Union, Iterable, Optional
+from typing_extensions import Literal, Required, TypeAlias, TypedDict
 
-from .interleaved_content import InterleavedContent
+__all__ = [
+    "SystemMessage",
+    "Content",
+    "ContentImageContentItemInput",
+    "ContentImageContentItemInputImage",
+    "ContentImageContentItemInputImageURL",
+    "ContentTextContentItem",
+    "ContentListImageContentItemInputTextContentItem",
+    "ContentListImageContentItemInputTextContentItemImageContentItemInput",
+    "ContentListImageContentItemInputTextContentItemImageContentItemInputImage",
+    "ContentListImageContentItemInputTextContentItemImageContentItemInputImageURL",
+    "ContentListImageContentItemInputTextContentItemTextContentItem",
+]
 
-__all__ = ["SystemMessage"]
+
+class ContentImageContentItemInputImageURL(TypedDict, total=False):
+    uri: Required[str]
+
+
+class ContentImageContentItemInputImage(TypedDict, total=False):
+    data: Optional[str]
+
+    url: Optional[ContentImageContentItemInputImageURL]
+    """A URL reference to external content."""
+
+
+class ContentImageContentItemInput(TypedDict, total=False):
+    image: Required[ContentImageContentItemInputImage]
+    """A URL or a base64 encoded string"""
+
+    type: Literal["image"]
+
+
+class ContentTextContentItem(TypedDict, total=False):
+    text: Required[str]
+
+    type: Literal["text"]
+
+
+class ContentListImageContentItemInputTextContentItemImageContentItemInputImageURL(TypedDict, total=False):
+    uri: Required[str]
+
+
+class ContentListImageContentItemInputTextContentItemImageContentItemInputImage(TypedDict, total=False):
+    data: Optional[str]
+
+    url: Optional[ContentListImageContentItemInputTextContentItemImageContentItemInputImageURL]
+    """A URL reference to external content."""
+
+
+class ContentListImageContentItemInputTextContentItemImageContentItemInput(TypedDict, total=False):
+    image: Required[ContentListImageContentItemInputTextContentItemImageContentItemInputImage]
+    """A URL or a base64 encoded string"""
+
+    type: Literal["image"]
+
+
+class ContentListImageContentItemInputTextContentItemTextContentItem(TypedDict, total=False):
+    text: Required[str]
+
+    type: Literal["text"]
+
+
+ContentListImageContentItemInputTextContentItem: TypeAlias = Union[
+    ContentListImageContentItemInputTextContentItemImageContentItemInput,
+    ContentListImageContentItemInputTextContentItemTextContentItem,
+]
+
+Content: TypeAlias = Union[
+    str, ContentImageContentItemInput, ContentTextContentItem, Iterable[ContentListImageContentItemInputTextContentItem]
+]
 
 
 class SystemMessage(TypedDict, total=False):
-    content: Required[InterleavedContent]
-    """The content of the "system prompt".
+    content: Required[Content]
+    """A image content item"""
 
-    If multiple system messages are provided, they are concatenated. The underlying
-    Llama Stack code may also add other system messages (for example, for formatting
-    tool definitions).
-    """
-
-    role: Required[Literal["system"]]
-    """Must be "system" to identify this as a system message"""
+    role: Literal["system"]

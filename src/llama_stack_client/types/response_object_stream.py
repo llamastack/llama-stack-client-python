@@ -14,18 +14,18 @@ __all__ = [
     "OpenAIResponseObjectStreamResponseOutputItemAdded",
     "OpenAIResponseObjectStreamResponseOutputItemAddedItem",
     "OpenAIResponseObjectStreamResponseOutputItemAddedItemOpenAIResponseMessage",
-    "OpenAIResponseObjectStreamResponseOutputItemAddedItemOpenAIResponseMessageContentUnionMember1",
-    "OpenAIResponseObjectStreamResponseOutputItemAddedItemOpenAIResponseMessageContentUnionMember1OpenAIResponseInputMessageContentText",
-    "OpenAIResponseObjectStreamResponseOutputItemAddedItemOpenAIResponseMessageContentUnionMember1OpenAIResponseInputMessageContentImage",
-    "OpenAIResponseObjectStreamResponseOutputItemAddedItemOpenAIResponseMessageContentUnionMember1OpenAIResponseInputMessageContentFile",
-    "OpenAIResponseObjectStreamResponseOutputItemAddedItemOpenAIResponseMessageContentUnionMember2",
-    "OpenAIResponseObjectStreamResponseOutputItemAddedItemOpenAIResponseMessageContentUnionMember2OpenAIResponseOutputMessageContentOutputText",
-    "OpenAIResponseObjectStreamResponseOutputItemAddedItemOpenAIResponseMessageContentUnionMember2OpenAIResponseOutputMessageContentOutputTextAnnotation",
-    "OpenAIResponseObjectStreamResponseOutputItemAddedItemOpenAIResponseMessageContentUnionMember2OpenAIResponseOutputMessageContentOutputTextAnnotationOpenAIResponseAnnotationFileCitation",
-    "OpenAIResponseObjectStreamResponseOutputItemAddedItemOpenAIResponseMessageContentUnionMember2OpenAIResponseOutputMessageContentOutputTextAnnotationOpenAIResponseAnnotationCitation",
-    "OpenAIResponseObjectStreamResponseOutputItemAddedItemOpenAIResponseMessageContentUnionMember2OpenAIResponseOutputMessageContentOutputTextAnnotationOpenAIResponseAnnotationContainerFileCitation",
-    "OpenAIResponseObjectStreamResponseOutputItemAddedItemOpenAIResponseMessageContentUnionMember2OpenAIResponseOutputMessageContentOutputTextAnnotationOpenAIResponseAnnotationFilePath",
-    "OpenAIResponseObjectStreamResponseOutputItemAddedItemOpenAIResponseMessageContentUnionMember2OpenAIResponseContentPartRefusal",
+    "OpenAIResponseObjectStreamResponseOutputItemAddedItemOpenAIResponseMessageContentListOpenAIResponseInputMessageContentTextOpenAIResponseInputMessageContentImageOpenAIResponseInputMessageContentFile",
+    "OpenAIResponseObjectStreamResponseOutputItemAddedItemOpenAIResponseMessageContentListOpenAIResponseInputMessageContentTextOpenAIResponseInputMessageContentImageOpenAIResponseInputMessageContentFileOpenAIResponseInputMessageContentText",
+    "OpenAIResponseObjectStreamResponseOutputItemAddedItemOpenAIResponseMessageContentListOpenAIResponseInputMessageContentTextOpenAIResponseInputMessageContentImageOpenAIResponseInputMessageContentFileOpenAIResponseInputMessageContentImage",
+    "OpenAIResponseObjectStreamResponseOutputItemAddedItemOpenAIResponseMessageContentListOpenAIResponseInputMessageContentTextOpenAIResponseInputMessageContentImageOpenAIResponseInputMessageContentFileOpenAIResponseInputMessageContentFile",
+    "OpenAIResponseObjectStreamResponseOutputItemAddedItemOpenAIResponseMessageContentListOpenAIResponseOutputMessageContentOutputTextOpenAIResponseContentPartRefusal",
+    "OpenAIResponseObjectStreamResponseOutputItemAddedItemOpenAIResponseMessageContentListOpenAIResponseOutputMessageContentOutputTextOpenAIResponseContentPartRefusalOpenAIResponseOutputMessageContentOutputText",
+    "OpenAIResponseObjectStreamResponseOutputItemAddedItemOpenAIResponseMessageContentListOpenAIResponseOutputMessageContentOutputTextOpenAIResponseContentPartRefusalOpenAIResponseOutputMessageContentOutputTextAnnotation",
+    "OpenAIResponseObjectStreamResponseOutputItemAddedItemOpenAIResponseMessageContentListOpenAIResponseOutputMessageContentOutputTextOpenAIResponseContentPartRefusalOpenAIResponseOutputMessageContentOutputTextAnnotationOpenAIResponseAnnotationFileCitation",
+    "OpenAIResponseObjectStreamResponseOutputItemAddedItemOpenAIResponseMessageContentListOpenAIResponseOutputMessageContentOutputTextOpenAIResponseContentPartRefusalOpenAIResponseOutputMessageContentOutputTextAnnotationOpenAIResponseAnnotationCitation",
+    "OpenAIResponseObjectStreamResponseOutputItemAddedItemOpenAIResponseMessageContentListOpenAIResponseOutputMessageContentOutputTextOpenAIResponseContentPartRefusalOpenAIResponseOutputMessageContentOutputTextAnnotationOpenAIResponseAnnotationContainerFileCitation",
+    "OpenAIResponseObjectStreamResponseOutputItemAddedItemOpenAIResponseMessageContentListOpenAIResponseOutputMessageContentOutputTextOpenAIResponseContentPartRefusalOpenAIResponseOutputMessageContentOutputTextAnnotationOpenAIResponseAnnotationFilePath",
+    "OpenAIResponseObjectStreamResponseOutputItemAddedItemOpenAIResponseMessageContentListOpenAIResponseOutputMessageContentOutputTextOpenAIResponseContentPartRefusalOpenAIResponseContentPartRefusal",
     "OpenAIResponseObjectStreamResponseOutputItemAddedItemOpenAIResponseOutputMessageWebSearchToolCall",
     "OpenAIResponseObjectStreamResponseOutputItemAddedItemOpenAIResponseOutputMessageFileSearchToolCall",
     "OpenAIResponseObjectStreamResponseOutputItemAddedItemOpenAIResponseOutputMessageFileSearchToolCallResult",
@@ -37,18 +37,18 @@ __all__ = [
     "OpenAIResponseObjectStreamResponseOutputItemDone",
     "OpenAIResponseObjectStreamResponseOutputItemDoneItem",
     "OpenAIResponseObjectStreamResponseOutputItemDoneItemOpenAIResponseMessage",
-    "OpenAIResponseObjectStreamResponseOutputItemDoneItemOpenAIResponseMessageContentUnionMember1",
-    "OpenAIResponseObjectStreamResponseOutputItemDoneItemOpenAIResponseMessageContentUnionMember1OpenAIResponseInputMessageContentText",
-    "OpenAIResponseObjectStreamResponseOutputItemDoneItemOpenAIResponseMessageContentUnionMember1OpenAIResponseInputMessageContentImage",
-    "OpenAIResponseObjectStreamResponseOutputItemDoneItemOpenAIResponseMessageContentUnionMember1OpenAIResponseInputMessageContentFile",
-    "OpenAIResponseObjectStreamResponseOutputItemDoneItemOpenAIResponseMessageContentUnionMember2",
-    "OpenAIResponseObjectStreamResponseOutputItemDoneItemOpenAIResponseMessageContentUnionMember2OpenAIResponseOutputMessageContentOutputText",
-    "OpenAIResponseObjectStreamResponseOutputItemDoneItemOpenAIResponseMessageContentUnionMember2OpenAIResponseOutputMessageContentOutputTextAnnotation",
-    "OpenAIResponseObjectStreamResponseOutputItemDoneItemOpenAIResponseMessageContentUnionMember2OpenAIResponseOutputMessageContentOutputTextAnnotationOpenAIResponseAnnotationFileCitation",
-    "OpenAIResponseObjectStreamResponseOutputItemDoneItemOpenAIResponseMessageContentUnionMember2OpenAIResponseOutputMessageContentOutputTextAnnotationOpenAIResponseAnnotationCitation",
-    "OpenAIResponseObjectStreamResponseOutputItemDoneItemOpenAIResponseMessageContentUnionMember2OpenAIResponseOutputMessageContentOutputTextAnnotationOpenAIResponseAnnotationContainerFileCitation",
-    "OpenAIResponseObjectStreamResponseOutputItemDoneItemOpenAIResponseMessageContentUnionMember2OpenAIResponseOutputMessageContentOutputTextAnnotationOpenAIResponseAnnotationFilePath",
-    "OpenAIResponseObjectStreamResponseOutputItemDoneItemOpenAIResponseMessageContentUnionMember2OpenAIResponseContentPartRefusal",
+    "OpenAIResponseObjectStreamResponseOutputItemDoneItemOpenAIResponseMessageContentListOpenAIResponseInputMessageContentTextOpenAIResponseInputMessageContentImageOpenAIResponseInputMessageContentFile",
+    "OpenAIResponseObjectStreamResponseOutputItemDoneItemOpenAIResponseMessageContentListOpenAIResponseInputMessageContentTextOpenAIResponseInputMessageContentImageOpenAIResponseInputMessageContentFileOpenAIResponseInputMessageContentText",
+    "OpenAIResponseObjectStreamResponseOutputItemDoneItemOpenAIResponseMessageContentListOpenAIResponseInputMessageContentTextOpenAIResponseInputMessageContentImageOpenAIResponseInputMessageContentFileOpenAIResponseInputMessageContentImage",
+    "OpenAIResponseObjectStreamResponseOutputItemDoneItemOpenAIResponseMessageContentListOpenAIResponseInputMessageContentTextOpenAIResponseInputMessageContentImageOpenAIResponseInputMessageContentFileOpenAIResponseInputMessageContentFile",
+    "OpenAIResponseObjectStreamResponseOutputItemDoneItemOpenAIResponseMessageContentListOpenAIResponseOutputMessageContentOutputTextOpenAIResponseContentPartRefusal",
+    "OpenAIResponseObjectStreamResponseOutputItemDoneItemOpenAIResponseMessageContentListOpenAIResponseOutputMessageContentOutputTextOpenAIResponseContentPartRefusalOpenAIResponseOutputMessageContentOutputText",
+    "OpenAIResponseObjectStreamResponseOutputItemDoneItemOpenAIResponseMessageContentListOpenAIResponseOutputMessageContentOutputTextOpenAIResponseContentPartRefusalOpenAIResponseOutputMessageContentOutputTextAnnotation",
+    "OpenAIResponseObjectStreamResponseOutputItemDoneItemOpenAIResponseMessageContentListOpenAIResponseOutputMessageContentOutputTextOpenAIResponseContentPartRefusalOpenAIResponseOutputMessageContentOutputTextAnnotationOpenAIResponseAnnotationFileCitation",
+    "OpenAIResponseObjectStreamResponseOutputItemDoneItemOpenAIResponseMessageContentListOpenAIResponseOutputMessageContentOutputTextOpenAIResponseContentPartRefusalOpenAIResponseOutputMessageContentOutputTextAnnotationOpenAIResponseAnnotationCitation",
+    "OpenAIResponseObjectStreamResponseOutputItemDoneItemOpenAIResponseMessageContentListOpenAIResponseOutputMessageContentOutputTextOpenAIResponseContentPartRefusalOpenAIResponseOutputMessageContentOutputTextAnnotationOpenAIResponseAnnotationContainerFileCitation",
+    "OpenAIResponseObjectStreamResponseOutputItemDoneItemOpenAIResponseMessageContentListOpenAIResponseOutputMessageContentOutputTextOpenAIResponseContentPartRefusalOpenAIResponseOutputMessageContentOutputTextAnnotationOpenAIResponseAnnotationFilePath",
+    "OpenAIResponseObjectStreamResponseOutputItemDoneItemOpenAIResponseMessageContentListOpenAIResponseOutputMessageContentOutputTextOpenAIResponseContentPartRefusalOpenAIResponseContentPartRefusal",
     "OpenAIResponseObjectStreamResponseOutputItemDoneItemOpenAIResponseOutputMessageWebSearchToolCall",
     "OpenAIResponseObjectStreamResponseOutputItemDoneItemOpenAIResponseOutputMessageFileSearchToolCall",
     "OpenAIResponseObjectStreamResponseOutputItemDoneItemOpenAIResponseOutputMessageFileSearchToolCallResult",
@@ -119,114 +119,91 @@ __all__ = [
 
 class OpenAIResponseObjectStreamResponseCreated(BaseModel):
     response: ResponseObject
-    """The response object that was created"""
+    """Complete OpenAI response object containing generation results and metadata."""
 
-    type: Literal["response.created"]
-    """Event type identifier, always "response.created" """
+    type: Optional[Literal["response.created"]] = None
 
 
 class OpenAIResponseObjectStreamResponseInProgress(BaseModel):
     response: ResponseObject
-    """Current response state while in progress"""
+    """Complete OpenAI response object containing generation results and metadata."""
 
     sequence_number: int
-    """Sequential number for ordering streaming events"""
 
-    type: Literal["response.in_progress"]
-    """Event type identifier, always "response.in_progress" """
+    type: Optional[Literal["response.in_progress"]] = None
 
 
-class OpenAIResponseObjectStreamResponseOutputItemAddedItemOpenAIResponseMessageContentUnionMember1OpenAIResponseInputMessageContentText(
+class OpenAIResponseObjectStreamResponseOutputItemAddedItemOpenAIResponseMessageContentListOpenAIResponseInputMessageContentTextOpenAIResponseInputMessageContentImageOpenAIResponseInputMessageContentFileOpenAIResponseInputMessageContentText(
     BaseModel
 ):
     text: str
-    """The text content of the input message"""
 
-    type: Literal["input_text"]
-    """Content type identifier, always "input_text" """
+    type: Optional[Literal["input_text"]] = None
 
 
-class OpenAIResponseObjectStreamResponseOutputItemAddedItemOpenAIResponseMessageContentUnionMember1OpenAIResponseInputMessageContentImage(
+class OpenAIResponseObjectStreamResponseOutputItemAddedItemOpenAIResponseMessageContentListOpenAIResponseInputMessageContentTextOpenAIResponseInputMessageContentImageOpenAIResponseInputMessageContentFileOpenAIResponseInputMessageContentImage(
     BaseModel
 ):
-    detail: Literal["low", "high", "auto"]
-    """Level of detail for image processing, can be "low", "high", or "auto" """
-
-    type: Literal["input_image"]
-    """Content type identifier, always "input_image" """
+    detail: Optional[Literal["low", "high", "auto"]] = None
 
     file_id: Optional[str] = None
-    """(Optional) The ID of the file to be sent to the model."""
 
     image_url: Optional[str] = None
-    """(Optional) URL of the image content"""
+
+    type: Optional[Literal["input_image"]] = None
 
 
-class OpenAIResponseObjectStreamResponseOutputItemAddedItemOpenAIResponseMessageContentUnionMember1OpenAIResponseInputMessageContentFile(
+class OpenAIResponseObjectStreamResponseOutputItemAddedItemOpenAIResponseMessageContentListOpenAIResponseInputMessageContentTextOpenAIResponseInputMessageContentImageOpenAIResponseInputMessageContentFileOpenAIResponseInputMessageContentFile(
     BaseModel
 ):
-    type: Literal["input_file"]
-    """The type of the input item. Always `input_file`."""
-
     file_data: Optional[str] = None
-    """The data of the file to be sent to the model."""
 
     file_id: Optional[str] = None
-    """(Optional) The ID of the file to be sent to the model."""
 
     file_url: Optional[str] = None
-    """The URL of the file to be sent to the model."""
 
     filename: Optional[str] = None
-    """The name of the file to be sent to the model."""
+
+    type: Optional[Literal["input_file"]] = None
 
 
-OpenAIResponseObjectStreamResponseOutputItemAddedItemOpenAIResponseMessageContentUnionMember1: TypeAlias = Annotated[
+OpenAIResponseObjectStreamResponseOutputItemAddedItemOpenAIResponseMessageContentListOpenAIResponseInputMessageContentTextOpenAIResponseInputMessageContentImageOpenAIResponseInputMessageContentFile: TypeAlias = Annotated[
     Union[
-        OpenAIResponseObjectStreamResponseOutputItemAddedItemOpenAIResponseMessageContentUnionMember1OpenAIResponseInputMessageContentText,
-        OpenAIResponseObjectStreamResponseOutputItemAddedItemOpenAIResponseMessageContentUnionMember1OpenAIResponseInputMessageContentImage,
-        OpenAIResponseObjectStreamResponseOutputItemAddedItemOpenAIResponseMessageContentUnionMember1OpenAIResponseInputMessageContentFile,
+        OpenAIResponseObjectStreamResponseOutputItemAddedItemOpenAIResponseMessageContentListOpenAIResponseInputMessageContentTextOpenAIResponseInputMessageContentImageOpenAIResponseInputMessageContentFileOpenAIResponseInputMessageContentText,
+        OpenAIResponseObjectStreamResponseOutputItemAddedItemOpenAIResponseMessageContentListOpenAIResponseInputMessageContentTextOpenAIResponseInputMessageContentImageOpenAIResponseInputMessageContentFileOpenAIResponseInputMessageContentImage,
+        OpenAIResponseObjectStreamResponseOutputItemAddedItemOpenAIResponseMessageContentListOpenAIResponseInputMessageContentTextOpenAIResponseInputMessageContentImageOpenAIResponseInputMessageContentFileOpenAIResponseInputMessageContentFile,
     ],
     PropertyInfo(discriminator="type"),
 ]
 
 
-class OpenAIResponseObjectStreamResponseOutputItemAddedItemOpenAIResponseMessageContentUnionMember2OpenAIResponseOutputMessageContentOutputTextAnnotationOpenAIResponseAnnotationFileCitation(
+class OpenAIResponseObjectStreamResponseOutputItemAddedItemOpenAIResponseMessageContentListOpenAIResponseOutputMessageContentOutputTextOpenAIResponseContentPartRefusalOpenAIResponseOutputMessageContentOutputTextAnnotationOpenAIResponseAnnotationFileCitation(
     BaseModel
 ):
     file_id: str
-    """Unique identifier of the referenced file"""
 
     filename: str
-    """Name of the referenced file"""
 
     index: int
-    """Position index of the citation within the content"""
 
-    type: Literal["file_citation"]
-    """Annotation type identifier, always "file_citation" """
+    type: Optional[Literal["file_citation"]] = None
 
 
-class OpenAIResponseObjectStreamResponseOutputItemAddedItemOpenAIResponseMessageContentUnionMember2OpenAIResponseOutputMessageContentOutputTextAnnotationOpenAIResponseAnnotationCitation(
+class OpenAIResponseObjectStreamResponseOutputItemAddedItemOpenAIResponseMessageContentListOpenAIResponseOutputMessageContentOutputTextOpenAIResponseContentPartRefusalOpenAIResponseOutputMessageContentOutputTextAnnotationOpenAIResponseAnnotationCitation(
     BaseModel
 ):
     end_index: int
-    """End position of the citation span in the content"""
 
     start_index: int
-    """Start position of the citation span in the content"""
 
     title: str
-    """Title of the referenced web resource"""
-
-    type: Literal["url_citation"]
-    """Annotation type identifier, always "url_citation" """
 
     url: str
-    """URL of the referenced web resource"""
+
+    type: Optional[Literal["url_citation"]] = None
 
 
-class OpenAIResponseObjectStreamResponseOutputItemAddedItemOpenAIResponseMessageContentUnionMember2OpenAIResponseOutputMessageContentOutputTextAnnotationOpenAIResponseAnnotationContainerFileCitation(
+class OpenAIResponseObjectStreamResponseOutputItemAddedItemOpenAIResponseMessageContentListOpenAIResponseOutputMessageContentOutputTextOpenAIResponseContentPartRefusalOpenAIResponseOutputMessageContentOutputTextAnnotationOpenAIResponseAnnotationContainerFileCitation(
     BaseModel
 ):
     container_id: str
@@ -239,56 +216,56 @@ class OpenAIResponseObjectStreamResponseOutputItemAddedItemOpenAIResponseMessage
 
     start_index: int
 
-    type: Literal["container_file_citation"]
+    type: Optional[Literal["container_file_citation"]] = None
 
 
-class OpenAIResponseObjectStreamResponseOutputItemAddedItemOpenAIResponseMessageContentUnionMember2OpenAIResponseOutputMessageContentOutputTextAnnotationOpenAIResponseAnnotationFilePath(
+class OpenAIResponseObjectStreamResponseOutputItemAddedItemOpenAIResponseMessageContentListOpenAIResponseOutputMessageContentOutputTextOpenAIResponseContentPartRefusalOpenAIResponseOutputMessageContentOutputTextAnnotationOpenAIResponseAnnotationFilePath(
     BaseModel
 ):
     file_id: str
 
     index: int
 
-    type: Literal["file_path"]
+    type: Optional[Literal["file_path"]] = None
 
 
-OpenAIResponseObjectStreamResponseOutputItemAddedItemOpenAIResponseMessageContentUnionMember2OpenAIResponseOutputMessageContentOutputTextAnnotation: TypeAlias = Annotated[
+OpenAIResponseObjectStreamResponseOutputItemAddedItemOpenAIResponseMessageContentListOpenAIResponseOutputMessageContentOutputTextOpenAIResponseContentPartRefusalOpenAIResponseOutputMessageContentOutputTextAnnotation: TypeAlias = Annotated[
     Union[
-        OpenAIResponseObjectStreamResponseOutputItemAddedItemOpenAIResponseMessageContentUnionMember2OpenAIResponseOutputMessageContentOutputTextAnnotationOpenAIResponseAnnotationFileCitation,
-        OpenAIResponseObjectStreamResponseOutputItemAddedItemOpenAIResponseMessageContentUnionMember2OpenAIResponseOutputMessageContentOutputTextAnnotationOpenAIResponseAnnotationCitation,
-        OpenAIResponseObjectStreamResponseOutputItemAddedItemOpenAIResponseMessageContentUnionMember2OpenAIResponseOutputMessageContentOutputTextAnnotationOpenAIResponseAnnotationContainerFileCitation,
-        OpenAIResponseObjectStreamResponseOutputItemAddedItemOpenAIResponseMessageContentUnionMember2OpenAIResponseOutputMessageContentOutputTextAnnotationOpenAIResponseAnnotationFilePath,
+        OpenAIResponseObjectStreamResponseOutputItemAddedItemOpenAIResponseMessageContentListOpenAIResponseOutputMessageContentOutputTextOpenAIResponseContentPartRefusalOpenAIResponseOutputMessageContentOutputTextAnnotationOpenAIResponseAnnotationFileCitation,
+        OpenAIResponseObjectStreamResponseOutputItemAddedItemOpenAIResponseMessageContentListOpenAIResponseOutputMessageContentOutputTextOpenAIResponseContentPartRefusalOpenAIResponseOutputMessageContentOutputTextAnnotationOpenAIResponseAnnotationCitation,
+        OpenAIResponseObjectStreamResponseOutputItemAddedItemOpenAIResponseMessageContentListOpenAIResponseOutputMessageContentOutputTextOpenAIResponseContentPartRefusalOpenAIResponseOutputMessageContentOutputTextAnnotationOpenAIResponseAnnotationContainerFileCitation,
+        OpenAIResponseObjectStreamResponseOutputItemAddedItemOpenAIResponseMessageContentListOpenAIResponseOutputMessageContentOutputTextOpenAIResponseContentPartRefusalOpenAIResponseOutputMessageContentOutputTextAnnotationOpenAIResponseAnnotationFilePath,
     ],
     PropertyInfo(discriminator="type"),
 ]
 
 
-class OpenAIResponseObjectStreamResponseOutputItemAddedItemOpenAIResponseMessageContentUnionMember2OpenAIResponseOutputMessageContentOutputText(
+class OpenAIResponseObjectStreamResponseOutputItemAddedItemOpenAIResponseMessageContentListOpenAIResponseOutputMessageContentOutputTextOpenAIResponseContentPartRefusalOpenAIResponseOutputMessageContentOutputText(
     BaseModel
 ):
-    annotations: List[
-        OpenAIResponseObjectStreamResponseOutputItemAddedItemOpenAIResponseMessageContentUnionMember2OpenAIResponseOutputMessageContentOutputTextAnnotation
-    ]
-
     text: str
 
-    type: Literal["output_text"]
+    annotations: Optional[
+        List[
+            OpenAIResponseObjectStreamResponseOutputItemAddedItemOpenAIResponseMessageContentListOpenAIResponseOutputMessageContentOutputTextOpenAIResponseContentPartRefusalOpenAIResponseOutputMessageContentOutputTextAnnotation
+        ]
+    ] = None
+
+    type: Optional[Literal["output_text"]] = None
 
 
-class OpenAIResponseObjectStreamResponseOutputItemAddedItemOpenAIResponseMessageContentUnionMember2OpenAIResponseContentPartRefusal(
+class OpenAIResponseObjectStreamResponseOutputItemAddedItemOpenAIResponseMessageContentListOpenAIResponseOutputMessageContentOutputTextOpenAIResponseContentPartRefusalOpenAIResponseContentPartRefusal(
     BaseModel
 ):
     refusal: str
-    """Refusal text supplied by the model"""
 
-    type: Literal["refusal"]
-    """Content part type identifier, always "refusal" """
+    type: Optional[Literal["refusal"]] = None
 
 
-OpenAIResponseObjectStreamResponseOutputItemAddedItemOpenAIResponseMessageContentUnionMember2: TypeAlias = Annotated[
+OpenAIResponseObjectStreamResponseOutputItemAddedItemOpenAIResponseMessageContentListOpenAIResponseOutputMessageContentOutputTextOpenAIResponseContentPartRefusal: TypeAlias = Annotated[
     Union[
-        OpenAIResponseObjectStreamResponseOutputItemAddedItemOpenAIResponseMessageContentUnionMember2OpenAIResponseOutputMessageContentOutputText,
-        OpenAIResponseObjectStreamResponseOutputItemAddedItemOpenAIResponseMessageContentUnionMember2OpenAIResponseContentPartRefusal,
+        OpenAIResponseObjectStreamResponseOutputItemAddedItemOpenAIResponseMessageContentListOpenAIResponseOutputMessageContentOutputTextOpenAIResponseContentPartRefusalOpenAIResponseOutputMessageContentOutputText,
+        OpenAIResponseObjectStreamResponseOutputItemAddedItemOpenAIResponseMessageContentListOpenAIResponseOutputMessageContentOutputTextOpenAIResponseContentPartRefusalOpenAIResponseContentPartRefusal,
     ],
     PropertyInfo(discriminator="type"),
 ]
@@ -297,134 +274,105 @@ OpenAIResponseObjectStreamResponseOutputItemAddedItemOpenAIResponseMessageConten
 class OpenAIResponseObjectStreamResponseOutputItemAddedItemOpenAIResponseMessage(BaseModel):
     content: Union[
         str,
-        List[OpenAIResponseObjectStreamResponseOutputItemAddedItemOpenAIResponseMessageContentUnionMember1],
-        List[OpenAIResponseObjectStreamResponseOutputItemAddedItemOpenAIResponseMessageContentUnionMember2],
+        List[
+            OpenAIResponseObjectStreamResponseOutputItemAddedItemOpenAIResponseMessageContentListOpenAIResponseInputMessageContentTextOpenAIResponseInputMessageContentImageOpenAIResponseInputMessageContentFile
+        ],
+        List[
+            OpenAIResponseObjectStreamResponseOutputItemAddedItemOpenAIResponseMessageContentListOpenAIResponseOutputMessageContentOutputTextOpenAIResponseContentPartRefusal
+        ],
     ]
 
     role: Literal["system", "developer", "user", "assistant"]
-
-    type: Literal["message"]
 
     id: Optional[str] = None
 
     status: Optional[str] = None
 
+    type: Optional[Literal["message"]] = None
+
 
 class OpenAIResponseObjectStreamResponseOutputItemAddedItemOpenAIResponseOutputMessageWebSearchToolCall(BaseModel):
     id: str
-    """Unique identifier for this tool call"""
 
     status: str
-    """Current status of the web search operation"""
 
-    type: Literal["web_search_call"]
-    """Tool call type identifier, always "web_search_call" """
+    type: Optional[Literal["web_search_call"]] = None
 
 
 class OpenAIResponseObjectStreamResponseOutputItemAddedItemOpenAIResponseOutputMessageFileSearchToolCallResult(
     BaseModel
 ):
-    attributes: Dict[str, Union[bool, float, str, List[object], object, None]]
-    """(Optional) Key-value attributes associated with the file"""
+    attributes: Dict[str, object]
 
     file_id: str
-    """Unique identifier of the file containing the result"""
 
     filename: str
-    """Name of the file containing the result"""
 
     score: float
-    """Relevance score for this search result (between 0 and 1)"""
 
     text: str
-    """Text content of the search result"""
 
 
 class OpenAIResponseObjectStreamResponseOutputItemAddedItemOpenAIResponseOutputMessageFileSearchToolCall(BaseModel):
     id: str
-    """Unique identifier for this tool call"""
 
     queries: List[str]
-    """List of search queries executed"""
 
     status: str
-    """Current status of the file search operation"""
-
-    type: Literal["file_search_call"]
-    """Tool call type identifier, always "file_search_call" """
 
     results: Optional[
         List[OpenAIResponseObjectStreamResponseOutputItemAddedItemOpenAIResponseOutputMessageFileSearchToolCallResult]
     ] = None
-    """(Optional) Search results returned by the file search operation"""
+
+    type: Optional[Literal["file_search_call"]] = None
 
 
 class OpenAIResponseObjectStreamResponseOutputItemAddedItemOpenAIResponseOutputMessageFunctionToolCall(BaseModel):
     arguments: str
-    """JSON string containing the function arguments"""
 
     call_id: str
-    """Unique identifier for the function call"""
 
     name: str
-    """Name of the function being called"""
-
-    type: Literal["function_call"]
-    """Tool call type identifier, always "function_call" """
 
     id: Optional[str] = None
-    """(Optional) Additional identifier for the tool call"""
 
     status: Optional[str] = None
-    """(Optional) Current status of the function call execution"""
+
+    type: Optional[Literal["function_call"]] = None
 
 
 class OpenAIResponseObjectStreamResponseOutputItemAddedItemOpenAIResponseOutputMessageMcpCall(BaseModel):
     id: str
-    """Unique identifier for this MCP call"""
 
     arguments: str
-    """JSON string containing the MCP call arguments"""
 
     name: str
-    """Name of the MCP method being called"""
 
     server_label: str
-    """Label identifying the MCP server handling the call"""
-
-    type: Literal["mcp_call"]
-    """Tool call type identifier, always "mcp_call" """
 
     error: Optional[str] = None
-    """(Optional) Error message if the MCP call failed"""
 
     output: Optional[str] = None
-    """(Optional) Output result from the successful MCP call"""
+
+    type: Optional[Literal["mcp_call"]] = None
 
 
 class OpenAIResponseObjectStreamResponseOutputItemAddedItemOpenAIResponseOutputMessageMcpListToolsTool(BaseModel):
-    input_schema: Dict[str, Union[bool, float, str, List[object], object, None]]
-    """JSON schema defining the tool's input parameters"""
+    input_schema: Dict[str, object]
 
     name: str
-    """Name of the tool"""
 
     description: Optional[str] = None
-    """(Optional) Description of what the tool does"""
 
 
 class OpenAIResponseObjectStreamResponseOutputItemAddedItemOpenAIResponseOutputMessageMcpListTools(BaseModel):
     id: str
-    """Unique identifier for this MCP list tools operation"""
 
     server_label: str
-    """Label identifying the MCP server providing the tools"""
 
     tools: List[OpenAIResponseObjectStreamResponseOutputItemAddedItemOpenAIResponseOutputMessageMcpListToolsTool]
-    """List of available tools provided by the MCP server"""
 
-    type: Literal["mcp_list_tools"]
-    """Tool call type identifier, always "mcp_list_tools" """
+    type: Optional[Literal["mcp_list_tools"]] = None
 
 
 class OpenAIResponseObjectStreamResponseOutputItemAddedItemOpenAIResponseMcpApprovalRequest(BaseModel):
@@ -436,7 +384,7 @@ class OpenAIResponseObjectStreamResponseOutputItemAddedItemOpenAIResponseMcpAppr
 
     server_label: str
 
-    type: Literal["mcp_approval_request"]
+    type: Optional[Literal["mcp_approval_request"]] = None
 
 
 OpenAIResponseObjectStreamResponseOutputItemAddedItem: TypeAlias = Annotated[
@@ -455,112 +403,92 @@ OpenAIResponseObjectStreamResponseOutputItemAddedItem: TypeAlias = Annotated[
 
 class OpenAIResponseObjectStreamResponseOutputItemAdded(BaseModel):
     item: OpenAIResponseObjectStreamResponseOutputItemAddedItem
-    """The output item that was added (message, tool call, etc.)"""
+    """
+    Corresponds to the various Message types in the Responses API. They are all
+    under one type because the Responses API gives them all the same "type" value,
+    and there is no way to tell them apart in certain scenarios.
+    """
 
     output_index: int
-    """Index position of this item in the output list"""
 
     response_id: str
-    """Unique identifier of the response containing this output"""
 
     sequence_number: int
-    """Sequential number for ordering streaming events"""
 
-    type: Literal["response.output_item.added"]
-    """Event type identifier, always "response.output_item.added" """
+    type: Optional[Literal["response.output_item.added"]] = None
 
 
-class OpenAIResponseObjectStreamResponseOutputItemDoneItemOpenAIResponseMessageContentUnionMember1OpenAIResponseInputMessageContentText(
+class OpenAIResponseObjectStreamResponseOutputItemDoneItemOpenAIResponseMessageContentListOpenAIResponseInputMessageContentTextOpenAIResponseInputMessageContentImageOpenAIResponseInputMessageContentFileOpenAIResponseInputMessageContentText(
     BaseModel
 ):
     text: str
-    """The text content of the input message"""
 
-    type: Literal["input_text"]
-    """Content type identifier, always "input_text" """
+    type: Optional[Literal["input_text"]] = None
 
 
-class OpenAIResponseObjectStreamResponseOutputItemDoneItemOpenAIResponseMessageContentUnionMember1OpenAIResponseInputMessageContentImage(
+class OpenAIResponseObjectStreamResponseOutputItemDoneItemOpenAIResponseMessageContentListOpenAIResponseInputMessageContentTextOpenAIResponseInputMessageContentImageOpenAIResponseInputMessageContentFileOpenAIResponseInputMessageContentImage(
     BaseModel
 ):
-    detail: Literal["low", "high", "auto"]
-    """Level of detail for image processing, can be "low", "high", or "auto" """
-
-    type: Literal["input_image"]
-    """Content type identifier, always "input_image" """
+    detail: Optional[Literal["low", "high", "auto"]] = None
 
     file_id: Optional[str] = None
-    """(Optional) The ID of the file to be sent to the model."""
 
     image_url: Optional[str] = None
-    """(Optional) URL of the image content"""
+
+    type: Optional[Literal["input_image"]] = None
 
 
-class OpenAIResponseObjectStreamResponseOutputItemDoneItemOpenAIResponseMessageContentUnionMember1OpenAIResponseInputMessageContentFile(
+class OpenAIResponseObjectStreamResponseOutputItemDoneItemOpenAIResponseMessageContentListOpenAIResponseInputMessageContentTextOpenAIResponseInputMessageContentImageOpenAIResponseInputMessageContentFileOpenAIResponseInputMessageContentFile(
     BaseModel
 ):
-    type: Literal["input_file"]
-    """The type of the input item. Always `input_file`."""
-
     file_data: Optional[str] = None
-    """The data of the file to be sent to the model."""
 
     file_id: Optional[str] = None
-    """(Optional) The ID of the file to be sent to the model."""
 
     file_url: Optional[str] = None
-    """The URL of the file to be sent to the model."""
 
     filename: Optional[str] = None
-    """The name of the file to be sent to the model."""
+
+    type: Optional[Literal["input_file"]] = None
 
 
-OpenAIResponseObjectStreamResponseOutputItemDoneItemOpenAIResponseMessageContentUnionMember1: TypeAlias = Annotated[
+OpenAIResponseObjectStreamResponseOutputItemDoneItemOpenAIResponseMessageContentListOpenAIResponseInputMessageContentTextOpenAIResponseInputMessageContentImageOpenAIResponseInputMessageContentFile: TypeAlias = Annotated[
     Union[
-        OpenAIResponseObjectStreamResponseOutputItemDoneItemOpenAIResponseMessageContentUnionMember1OpenAIResponseInputMessageContentText,
-        OpenAIResponseObjectStreamResponseOutputItemDoneItemOpenAIResponseMessageContentUnionMember1OpenAIResponseInputMessageContentImage,
-        OpenAIResponseObjectStreamResponseOutputItemDoneItemOpenAIResponseMessageContentUnionMember1OpenAIResponseInputMessageContentFile,
+        OpenAIResponseObjectStreamResponseOutputItemDoneItemOpenAIResponseMessageContentListOpenAIResponseInputMessageContentTextOpenAIResponseInputMessageContentImageOpenAIResponseInputMessageContentFileOpenAIResponseInputMessageContentText,
+        OpenAIResponseObjectStreamResponseOutputItemDoneItemOpenAIResponseMessageContentListOpenAIResponseInputMessageContentTextOpenAIResponseInputMessageContentImageOpenAIResponseInputMessageContentFileOpenAIResponseInputMessageContentImage,
+        OpenAIResponseObjectStreamResponseOutputItemDoneItemOpenAIResponseMessageContentListOpenAIResponseInputMessageContentTextOpenAIResponseInputMessageContentImageOpenAIResponseInputMessageContentFileOpenAIResponseInputMessageContentFile,
     ],
     PropertyInfo(discriminator="type"),
 ]
 
 
-class OpenAIResponseObjectStreamResponseOutputItemDoneItemOpenAIResponseMessageContentUnionMember2OpenAIResponseOutputMessageContentOutputTextAnnotationOpenAIResponseAnnotationFileCitation(
+class OpenAIResponseObjectStreamResponseOutputItemDoneItemOpenAIResponseMessageContentListOpenAIResponseOutputMessageContentOutputTextOpenAIResponseContentPartRefusalOpenAIResponseOutputMessageContentOutputTextAnnotationOpenAIResponseAnnotationFileCitation(
     BaseModel
 ):
     file_id: str
-    """Unique identifier of the referenced file"""
 
     filename: str
-    """Name of the referenced file"""
 
     index: int
-    """Position index of the citation within the content"""
 
-    type: Literal["file_citation"]
-    """Annotation type identifier, always "file_citation" """
+    type: Optional[Literal["file_citation"]] = None
 
 
-class OpenAIResponseObjectStreamResponseOutputItemDoneItemOpenAIResponseMessageContentUnionMember2OpenAIResponseOutputMessageContentOutputTextAnnotationOpenAIResponseAnnotationCitation(
+class OpenAIResponseObjectStreamResponseOutputItemDoneItemOpenAIResponseMessageContentListOpenAIResponseOutputMessageContentOutputTextOpenAIResponseContentPartRefusalOpenAIResponseOutputMessageContentOutputTextAnnotationOpenAIResponseAnnotationCitation(
     BaseModel
 ):
     end_index: int
-    """End position of the citation span in the content"""
 
     start_index: int
-    """Start position of the citation span in the content"""
 
     title: str
-    """Title of the referenced web resource"""
-
-    type: Literal["url_citation"]
-    """Annotation type identifier, always "url_citation" """
 
     url: str
-    """URL of the referenced web resource"""
+
+    type: Optional[Literal["url_citation"]] = None
 
 
-class OpenAIResponseObjectStreamResponseOutputItemDoneItemOpenAIResponseMessageContentUnionMember2OpenAIResponseOutputMessageContentOutputTextAnnotationOpenAIResponseAnnotationContainerFileCitation(
+class OpenAIResponseObjectStreamResponseOutputItemDoneItemOpenAIResponseMessageContentListOpenAIResponseOutputMessageContentOutputTextOpenAIResponseContentPartRefusalOpenAIResponseOutputMessageContentOutputTextAnnotationOpenAIResponseAnnotationContainerFileCitation(
     BaseModel
 ):
     container_id: str
@@ -573,56 +501,56 @@ class OpenAIResponseObjectStreamResponseOutputItemDoneItemOpenAIResponseMessageC
 
     start_index: int
 
-    type: Literal["container_file_citation"]
+    type: Optional[Literal["container_file_citation"]] = None
 
 
-class OpenAIResponseObjectStreamResponseOutputItemDoneItemOpenAIResponseMessageContentUnionMember2OpenAIResponseOutputMessageContentOutputTextAnnotationOpenAIResponseAnnotationFilePath(
+class OpenAIResponseObjectStreamResponseOutputItemDoneItemOpenAIResponseMessageContentListOpenAIResponseOutputMessageContentOutputTextOpenAIResponseContentPartRefusalOpenAIResponseOutputMessageContentOutputTextAnnotationOpenAIResponseAnnotationFilePath(
     BaseModel
 ):
     file_id: str
 
     index: int
 
-    type: Literal["file_path"]
+    type: Optional[Literal["file_path"]] = None
 
 
-OpenAIResponseObjectStreamResponseOutputItemDoneItemOpenAIResponseMessageContentUnionMember2OpenAIResponseOutputMessageContentOutputTextAnnotation: TypeAlias = Annotated[
+OpenAIResponseObjectStreamResponseOutputItemDoneItemOpenAIResponseMessageContentListOpenAIResponseOutputMessageContentOutputTextOpenAIResponseContentPartRefusalOpenAIResponseOutputMessageContentOutputTextAnnotation: TypeAlias = Annotated[
     Union[
-        OpenAIResponseObjectStreamResponseOutputItemDoneItemOpenAIResponseMessageContentUnionMember2OpenAIResponseOutputMessageContentOutputTextAnnotationOpenAIResponseAnnotationFileCitation,
-        OpenAIResponseObjectStreamResponseOutputItemDoneItemOpenAIResponseMessageContentUnionMember2OpenAIResponseOutputMessageContentOutputTextAnnotationOpenAIResponseAnnotationCitation,
-        OpenAIResponseObjectStreamResponseOutputItemDoneItemOpenAIResponseMessageContentUnionMember2OpenAIResponseOutputMessageContentOutputTextAnnotationOpenAIResponseAnnotationContainerFileCitation,
-        OpenAIResponseObjectStreamResponseOutputItemDoneItemOpenAIResponseMessageContentUnionMember2OpenAIResponseOutputMessageContentOutputTextAnnotationOpenAIResponseAnnotationFilePath,
+        OpenAIResponseObjectStreamResponseOutputItemDoneItemOpenAIResponseMessageContentListOpenAIResponseOutputMessageContentOutputTextOpenAIResponseContentPartRefusalOpenAIResponseOutputMessageContentOutputTextAnnotationOpenAIResponseAnnotationFileCitation,
+        OpenAIResponseObjectStreamResponseOutputItemDoneItemOpenAIResponseMessageContentListOpenAIResponseOutputMessageContentOutputTextOpenAIResponseContentPartRefusalOpenAIResponseOutputMessageContentOutputTextAnnotationOpenAIResponseAnnotationCitation,
+        OpenAIResponseObjectStreamResponseOutputItemDoneItemOpenAIResponseMessageContentListOpenAIResponseOutputMessageContentOutputTextOpenAIResponseContentPartRefusalOpenAIResponseOutputMessageContentOutputTextAnnotationOpenAIResponseAnnotationContainerFileCitation,
+        OpenAIResponseObjectStreamResponseOutputItemDoneItemOpenAIResponseMessageContentListOpenAIResponseOutputMessageContentOutputTextOpenAIResponseContentPartRefusalOpenAIResponseOutputMessageContentOutputTextAnnotationOpenAIResponseAnnotationFilePath,
     ],
     PropertyInfo(discriminator="type"),
 ]
 
 
-class OpenAIResponseObjectStreamResponseOutputItemDoneItemOpenAIResponseMessageContentUnionMember2OpenAIResponseOutputMessageContentOutputText(
+class OpenAIResponseObjectStreamResponseOutputItemDoneItemOpenAIResponseMessageContentListOpenAIResponseOutputMessageContentOutputTextOpenAIResponseContentPartRefusalOpenAIResponseOutputMessageContentOutputText(
     BaseModel
 ):
-    annotations: List[
-        OpenAIResponseObjectStreamResponseOutputItemDoneItemOpenAIResponseMessageContentUnionMember2OpenAIResponseOutputMessageContentOutputTextAnnotation
-    ]
-
     text: str
 
-    type: Literal["output_text"]
+    annotations: Optional[
+        List[
+            OpenAIResponseObjectStreamResponseOutputItemDoneItemOpenAIResponseMessageContentListOpenAIResponseOutputMessageContentOutputTextOpenAIResponseContentPartRefusalOpenAIResponseOutputMessageContentOutputTextAnnotation
+        ]
+    ] = None
+
+    type: Optional[Literal["output_text"]] = None
 
 
-class OpenAIResponseObjectStreamResponseOutputItemDoneItemOpenAIResponseMessageContentUnionMember2OpenAIResponseContentPartRefusal(
+class OpenAIResponseObjectStreamResponseOutputItemDoneItemOpenAIResponseMessageContentListOpenAIResponseOutputMessageContentOutputTextOpenAIResponseContentPartRefusalOpenAIResponseContentPartRefusal(
     BaseModel
 ):
     refusal: str
-    """Refusal text supplied by the model"""
 
-    type: Literal["refusal"]
-    """Content part type identifier, always "refusal" """
+    type: Optional[Literal["refusal"]] = None
 
 
-OpenAIResponseObjectStreamResponseOutputItemDoneItemOpenAIResponseMessageContentUnionMember2: TypeAlias = Annotated[
+OpenAIResponseObjectStreamResponseOutputItemDoneItemOpenAIResponseMessageContentListOpenAIResponseOutputMessageContentOutputTextOpenAIResponseContentPartRefusal: TypeAlias = Annotated[
     Union[
-        OpenAIResponseObjectStreamResponseOutputItemDoneItemOpenAIResponseMessageContentUnionMember2OpenAIResponseOutputMessageContentOutputText,
-        OpenAIResponseObjectStreamResponseOutputItemDoneItemOpenAIResponseMessageContentUnionMember2OpenAIResponseContentPartRefusal,
+        OpenAIResponseObjectStreamResponseOutputItemDoneItemOpenAIResponseMessageContentListOpenAIResponseOutputMessageContentOutputTextOpenAIResponseContentPartRefusalOpenAIResponseOutputMessageContentOutputText,
+        OpenAIResponseObjectStreamResponseOutputItemDoneItemOpenAIResponseMessageContentListOpenAIResponseOutputMessageContentOutputTextOpenAIResponseContentPartRefusalOpenAIResponseContentPartRefusal,
     ],
     PropertyInfo(discriminator="type"),
 ]
@@ -631,134 +559,105 @@ OpenAIResponseObjectStreamResponseOutputItemDoneItemOpenAIResponseMessageContent
 class OpenAIResponseObjectStreamResponseOutputItemDoneItemOpenAIResponseMessage(BaseModel):
     content: Union[
         str,
-        List[OpenAIResponseObjectStreamResponseOutputItemDoneItemOpenAIResponseMessageContentUnionMember1],
-        List[OpenAIResponseObjectStreamResponseOutputItemDoneItemOpenAIResponseMessageContentUnionMember2],
+        List[
+            OpenAIResponseObjectStreamResponseOutputItemDoneItemOpenAIResponseMessageContentListOpenAIResponseInputMessageContentTextOpenAIResponseInputMessageContentImageOpenAIResponseInputMessageContentFile
+        ],
+        List[
+            OpenAIResponseObjectStreamResponseOutputItemDoneItemOpenAIResponseMessageContentListOpenAIResponseOutputMessageContentOutputTextOpenAIResponseContentPartRefusal
+        ],
     ]
 
     role: Literal["system", "developer", "user", "assistant"]
-
-    type: Literal["message"]
 
     id: Optional[str] = None
 
     status: Optional[str] = None
 
+    type: Optional[Literal["message"]] = None
+
 
 class OpenAIResponseObjectStreamResponseOutputItemDoneItemOpenAIResponseOutputMessageWebSearchToolCall(BaseModel):
     id: str
-    """Unique identifier for this tool call"""
 
     status: str
-    """Current status of the web search operation"""
 
-    type: Literal["web_search_call"]
-    """Tool call type identifier, always "web_search_call" """
+    type: Optional[Literal["web_search_call"]] = None
 
 
 class OpenAIResponseObjectStreamResponseOutputItemDoneItemOpenAIResponseOutputMessageFileSearchToolCallResult(
     BaseModel
 ):
-    attributes: Dict[str, Union[bool, float, str, List[object], object, None]]
-    """(Optional) Key-value attributes associated with the file"""
+    attributes: Dict[str, object]
 
     file_id: str
-    """Unique identifier of the file containing the result"""
 
     filename: str
-    """Name of the file containing the result"""
 
     score: float
-    """Relevance score for this search result (between 0 and 1)"""
 
     text: str
-    """Text content of the search result"""
 
 
 class OpenAIResponseObjectStreamResponseOutputItemDoneItemOpenAIResponseOutputMessageFileSearchToolCall(BaseModel):
     id: str
-    """Unique identifier for this tool call"""
 
     queries: List[str]
-    """List of search queries executed"""
 
     status: str
-    """Current status of the file search operation"""
-
-    type: Literal["file_search_call"]
-    """Tool call type identifier, always "file_search_call" """
 
     results: Optional[
         List[OpenAIResponseObjectStreamResponseOutputItemDoneItemOpenAIResponseOutputMessageFileSearchToolCallResult]
     ] = None
-    """(Optional) Search results returned by the file search operation"""
+
+    type: Optional[Literal["file_search_call"]] = None
 
 
 class OpenAIResponseObjectStreamResponseOutputItemDoneItemOpenAIResponseOutputMessageFunctionToolCall(BaseModel):
     arguments: str
-    """JSON string containing the function arguments"""
 
     call_id: str
-    """Unique identifier for the function call"""
 
     name: str
-    """Name of the function being called"""
-
-    type: Literal["function_call"]
-    """Tool call type identifier, always "function_call" """
 
     id: Optional[str] = None
-    """(Optional) Additional identifier for the tool call"""
 
     status: Optional[str] = None
-    """(Optional) Current status of the function call execution"""
+
+    type: Optional[Literal["function_call"]] = None
 
 
 class OpenAIResponseObjectStreamResponseOutputItemDoneItemOpenAIResponseOutputMessageMcpCall(BaseModel):
     id: str
-    """Unique identifier for this MCP call"""
 
     arguments: str
-    """JSON string containing the MCP call arguments"""
 
     name: str
-    """Name of the MCP method being called"""
 
     server_label: str
-    """Label identifying the MCP server handling the call"""
-
-    type: Literal["mcp_call"]
-    """Tool call type identifier, always "mcp_call" """
 
     error: Optional[str] = None
-    """(Optional) Error message if the MCP call failed"""
 
     output: Optional[str] = None
-    """(Optional) Output result from the successful MCP call"""
+
+    type: Optional[Literal["mcp_call"]] = None
 
 
 class OpenAIResponseObjectStreamResponseOutputItemDoneItemOpenAIResponseOutputMessageMcpListToolsTool(BaseModel):
-    input_schema: Dict[str, Union[bool, float, str, List[object], object, None]]
-    """JSON schema defining the tool's input parameters"""
+    input_schema: Dict[str, object]
 
     name: str
-    """Name of the tool"""
 
     description: Optional[str] = None
-    """(Optional) Description of what the tool does"""
 
 
 class OpenAIResponseObjectStreamResponseOutputItemDoneItemOpenAIResponseOutputMessageMcpListTools(BaseModel):
     id: str
-    """Unique identifier for this MCP list tools operation"""
 
     server_label: str
-    """Label identifying the MCP server providing the tools"""
 
     tools: List[OpenAIResponseObjectStreamResponseOutputItemDoneItemOpenAIResponseOutputMessageMcpListToolsTool]
-    """List of available tools provided by the MCP server"""
 
-    type: Literal["mcp_list_tools"]
-    """Tool call type identifier, always "mcp_list_tools" """
+    type: Optional[Literal["mcp_list_tools"]] = None
 
 
 class OpenAIResponseObjectStreamResponseOutputItemDoneItemOpenAIResponseMcpApprovalRequest(BaseModel):
@@ -770,7 +669,7 @@ class OpenAIResponseObjectStreamResponseOutputItemDoneItemOpenAIResponseMcpAppro
 
     server_label: str
 
-    type: Literal["mcp_approval_request"]
+    type: Optional[Literal["mcp_approval_request"]] = None
 
 
 OpenAIResponseObjectStreamResponseOutputItemDoneItem: TypeAlias = Annotated[
@@ -789,107 +688,81 @@ OpenAIResponseObjectStreamResponseOutputItemDoneItem: TypeAlias = Annotated[
 
 class OpenAIResponseObjectStreamResponseOutputItemDone(BaseModel):
     item: OpenAIResponseObjectStreamResponseOutputItemDoneItem
-    """The completed output item (message, tool call, etc.)"""
+    """
+    Corresponds to the various Message types in the Responses API. They are all
+    under one type because the Responses API gives them all the same "type" value,
+    and there is no way to tell them apart in certain scenarios.
+    """
 
     output_index: int
-    """Index position of this item in the output list"""
 
     response_id: str
-    """Unique identifier of the response containing this output"""
 
     sequence_number: int
-    """Sequential number for ordering streaming events"""
 
-    type: Literal["response.output_item.done"]
-    """Event type identifier, always "response.output_item.done" """
+    type: Optional[Literal["response.output_item.done"]] = None
 
 
 class OpenAIResponseObjectStreamResponseOutputTextDelta(BaseModel):
     content_index: int
-    """Index position within the text content"""
 
     delta: str
-    """Incremental text content being added"""
 
     item_id: str
-    """Unique identifier of the output item being updated"""
 
     output_index: int
-    """Index position of the item in the output list"""
 
     sequence_number: int
-    """Sequential number for ordering streaming events"""
 
-    type: Literal["response.output_text.delta"]
-    """Event type identifier, always "response.output_text.delta" """
+    type: Optional[Literal["response.output_text.delta"]] = None
 
 
 class OpenAIResponseObjectStreamResponseOutputTextDone(BaseModel):
     content_index: int
-    """Index position within the text content"""
 
     item_id: str
-    """Unique identifier of the completed output item"""
 
     output_index: int
-    """Index position of the item in the output list"""
 
     sequence_number: int
-    """Sequential number for ordering streaming events"""
 
     text: str
-    """Final complete text content of the output item"""
 
-    type: Literal["response.output_text.done"]
-    """Event type identifier, always "response.output_text.done" """
+    type: Optional[Literal["response.output_text.done"]] = None
 
 
 class OpenAIResponseObjectStreamResponseFunctionCallArgumentsDelta(BaseModel):
     delta: str
-    """Incremental function call arguments being added"""
 
     item_id: str
-    """Unique identifier of the function call being updated"""
 
     output_index: int
-    """Index position of the item in the output list"""
 
     sequence_number: int
-    """Sequential number for ordering streaming events"""
 
-    type: Literal["response.function_call_arguments.delta"]
-    """Event type identifier, always "response.function_call_arguments.delta" """
+    type: Optional[Literal["response.function_call_arguments.delta"]] = None
 
 
 class OpenAIResponseObjectStreamResponseFunctionCallArgumentsDone(BaseModel):
     arguments: str
-    """Final complete arguments JSON string for the function call"""
 
     item_id: str
-    """Unique identifier of the completed function call"""
 
     output_index: int
-    """Index position of the item in the output list"""
 
     sequence_number: int
-    """Sequential number for ordering streaming events"""
 
-    type: Literal["response.function_call_arguments.done"]
-    """Event type identifier, always "response.function_call_arguments.done" """
+    type: Optional[Literal["response.function_call_arguments.done"]] = None
 
 
 class OpenAIResponseObjectStreamResponseWebSearchCallInProgress(BaseModel):
     item_id: str
-    """Unique identifier of the web search call"""
 
     output_index: int
-    """Index position of the item in the output list"""
 
     sequence_number: int
-    """Sequential number for ordering streaming events"""
 
-    type: Literal["response.web_search_call.in_progress"]
-    """Event type identifier, always "response.web_search_call.in_progress" """
+    type: Optional[Literal["response.web_search_call.in_progress"]] = None
 
 
 class OpenAIResponseObjectStreamResponseWebSearchCallSearching(BaseModel):
@@ -899,39 +772,35 @@ class OpenAIResponseObjectStreamResponseWebSearchCallSearching(BaseModel):
 
     sequence_number: int
 
-    type: Literal["response.web_search_call.searching"]
+    type: Optional[Literal["response.web_search_call.searching"]] = None
 
 
 class OpenAIResponseObjectStreamResponseWebSearchCallCompleted(BaseModel):
     item_id: str
-    """Unique identifier of the completed web search call"""
 
     output_index: int
-    """Index position of the item in the output list"""
 
     sequence_number: int
-    """Sequential number for ordering streaming events"""
 
-    type: Literal["response.web_search_call.completed"]
-    """Event type identifier, always "response.web_search_call.completed" """
+    type: Optional[Literal["response.web_search_call.completed"]] = None
 
 
 class OpenAIResponseObjectStreamResponseMcpListToolsInProgress(BaseModel):
     sequence_number: int
 
-    type: Literal["response.mcp_list_tools.in_progress"]
+    type: Optional[Literal["response.mcp_list_tools.in_progress"]] = None
 
 
 class OpenAIResponseObjectStreamResponseMcpListToolsFailed(BaseModel):
     sequence_number: int
 
-    type: Literal["response.mcp_list_tools.failed"]
+    type: Optional[Literal["response.mcp_list_tools.failed"]] = None
 
 
 class OpenAIResponseObjectStreamResponseMcpListToolsCompleted(BaseModel):
     sequence_number: int
 
-    type: Literal["response.mcp_list_tools.completed"]
+    type: Optional[Literal["response.mcp_list_tools.completed"]] = None
 
 
 class OpenAIResponseObjectStreamResponseMcpCallArgumentsDelta(BaseModel):
@@ -943,7 +812,7 @@ class OpenAIResponseObjectStreamResponseMcpCallArgumentsDelta(BaseModel):
 
     sequence_number: int
 
-    type: Literal["response.mcp_call.arguments.delta"]
+    type: Optional[Literal["response.mcp_call.arguments.delta"]] = None
 
 
 class OpenAIResponseObjectStreamResponseMcpCallArgumentsDone(BaseModel):
@@ -955,72 +824,55 @@ class OpenAIResponseObjectStreamResponseMcpCallArgumentsDone(BaseModel):
 
     sequence_number: int
 
-    type: Literal["response.mcp_call.arguments.done"]
+    type: Optional[Literal["response.mcp_call.arguments.done"]] = None
 
 
 class OpenAIResponseObjectStreamResponseMcpCallInProgress(BaseModel):
     item_id: str
-    """Unique identifier of the MCP call"""
 
     output_index: int
-    """Index position of the item in the output list"""
 
     sequence_number: int
-    """Sequential number for ordering streaming events"""
 
-    type: Literal["response.mcp_call.in_progress"]
-    """Event type identifier, always "response.mcp_call.in_progress" """
+    type: Optional[Literal["response.mcp_call.in_progress"]] = None
 
 
 class OpenAIResponseObjectStreamResponseMcpCallFailed(BaseModel):
     sequence_number: int
-    """Sequential number for ordering streaming events"""
 
-    type: Literal["response.mcp_call.failed"]
-    """Event type identifier, always "response.mcp_call.failed" """
+    type: Optional[Literal["response.mcp_call.failed"]] = None
 
 
 class OpenAIResponseObjectStreamResponseMcpCallCompleted(BaseModel):
     sequence_number: int
-    """Sequential number for ordering streaming events"""
 
-    type: Literal["response.mcp_call.completed"]
-    """Event type identifier, always "response.mcp_call.completed" """
+    type: Optional[Literal["response.mcp_call.completed"]] = None
 
 
 class OpenAIResponseObjectStreamResponseContentPartAddedPartOpenAIResponseContentPartOutputTextAnnotationOpenAIResponseAnnotationFileCitation(
     BaseModel
 ):
     file_id: str
-    """Unique identifier of the referenced file"""
 
     filename: str
-    """Name of the referenced file"""
 
     index: int
-    """Position index of the citation within the content"""
 
-    type: Literal["file_citation"]
-    """Annotation type identifier, always "file_citation" """
+    type: Optional[Literal["file_citation"]] = None
 
 
 class OpenAIResponseObjectStreamResponseContentPartAddedPartOpenAIResponseContentPartOutputTextAnnotationOpenAIResponseAnnotationCitation(
     BaseModel
 ):
     end_index: int
-    """End position of the citation span in the content"""
 
     start_index: int
-    """Start position of the citation span in the content"""
 
     title: str
-    """Title of the referenced web resource"""
-
-    type: Literal["url_citation"]
-    """Annotation type identifier, always "url_citation" """
 
     url: str
-    """URL of the referenced web resource"""
+
+    type: Optional[Literal["url_citation"]] = None
 
 
 class OpenAIResponseObjectStreamResponseContentPartAddedPartOpenAIResponseContentPartOutputTextAnnotationOpenAIResponseAnnotationContainerFileCitation(
@@ -1036,7 +888,7 @@ class OpenAIResponseObjectStreamResponseContentPartAddedPartOpenAIResponseConten
 
     start_index: int
 
-    type: Literal["container_file_citation"]
+    type: Optional[Literal["container_file_citation"]] = None
 
 
 class OpenAIResponseObjectStreamResponseContentPartAddedPartOpenAIResponseContentPartOutputTextAnnotationOpenAIResponseAnnotationFilePath(
@@ -1046,7 +898,7 @@ class OpenAIResponseObjectStreamResponseContentPartAddedPartOpenAIResponseConten
 
     index: int
 
-    type: Literal["file_path"]
+    type: Optional[Literal["file_path"]] = None
 
 
 OpenAIResponseObjectStreamResponseContentPartAddedPartOpenAIResponseContentPartOutputTextAnnotation: TypeAlias = Annotated[
@@ -1061,35 +913,27 @@ OpenAIResponseObjectStreamResponseContentPartAddedPartOpenAIResponseContentPartO
 
 
 class OpenAIResponseObjectStreamResponseContentPartAddedPartOpenAIResponseContentPartOutputText(BaseModel):
-    annotations: List[
-        OpenAIResponseObjectStreamResponseContentPartAddedPartOpenAIResponseContentPartOutputTextAnnotation
-    ]
-    """Structured annotations associated with the text"""
-
     text: str
-    """Text emitted for this content part"""
 
-    type: Literal["output_text"]
-    """Content part type identifier, always "output_text" """
+    annotations: Optional[
+        List[OpenAIResponseObjectStreamResponseContentPartAddedPartOpenAIResponseContentPartOutputTextAnnotation]
+    ] = None
 
-    logprobs: Optional[List[Dict[str, Union[bool, float, str, List[object], object, None]]]] = None
-    """(Optional) Token log probability details"""
+    logprobs: Optional[List[Dict[str, object]]] = None
+
+    type: Optional[Literal["output_text"]] = None
 
 
 class OpenAIResponseObjectStreamResponseContentPartAddedPartOpenAIResponseContentPartRefusal(BaseModel):
     refusal: str
-    """Refusal text supplied by the model"""
 
-    type: Literal["refusal"]
-    """Content part type identifier, always "refusal" """
+    type: Optional[Literal["refusal"]] = None
 
 
 class OpenAIResponseObjectStreamResponseContentPartAddedPartOpenAIResponseContentPartReasoningText(BaseModel):
     text: str
-    """Reasoning text supplied by the model"""
 
-    type: Literal["reasoning_text"]
-    """Content part type identifier, always "reasoning_text" """
+    type: Optional[Literal["reasoning_text"]] = None
 
 
 OpenAIResponseObjectStreamResponseContentPartAddedPart: TypeAlias = Annotated[
@@ -1104,60 +948,45 @@ OpenAIResponseObjectStreamResponseContentPartAddedPart: TypeAlias = Annotated[
 
 class OpenAIResponseObjectStreamResponseContentPartAdded(BaseModel):
     content_index: int
-    """Index position of the part within the content array"""
 
     item_id: str
-    """Unique identifier of the output item containing this content part"""
 
     output_index: int
-    """Index position of the output item in the response"""
 
     part: OpenAIResponseObjectStreamResponseContentPartAddedPart
-    """The content part that was added"""
+    """Text content within a streamed response part."""
 
     response_id: str
-    """Unique identifier of the response containing this content"""
 
     sequence_number: int
-    """Sequential number for ordering streaming events"""
 
-    type: Literal["response.content_part.added"]
-    """Event type identifier, always "response.content_part.added" """
+    type: Optional[Literal["response.content_part.added"]] = None
 
 
 class OpenAIResponseObjectStreamResponseContentPartDonePartOpenAIResponseContentPartOutputTextAnnotationOpenAIResponseAnnotationFileCitation(
     BaseModel
 ):
     file_id: str
-    """Unique identifier of the referenced file"""
 
     filename: str
-    """Name of the referenced file"""
 
     index: int
-    """Position index of the citation within the content"""
 
-    type: Literal["file_citation"]
-    """Annotation type identifier, always "file_citation" """
+    type: Optional[Literal["file_citation"]] = None
 
 
 class OpenAIResponseObjectStreamResponseContentPartDonePartOpenAIResponseContentPartOutputTextAnnotationOpenAIResponseAnnotationCitation(
     BaseModel
 ):
     end_index: int
-    """End position of the citation span in the content"""
 
     start_index: int
-    """Start position of the citation span in the content"""
 
     title: str
-    """Title of the referenced web resource"""
-
-    type: Literal["url_citation"]
-    """Annotation type identifier, always "url_citation" """
 
     url: str
-    """URL of the referenced web resource"""
+
+    type: Optional[Literal["url_citation"]] = None
 
 
 class OpenAIResponseObjectStreamResponseContentPartDonePartOpenAIResponseContentPartOutputTextAnnotationOpenAIResponseAnnotationContainerFileCitation(
@@ -1173,7 +1002,7 @@ class OpenAIResponseObjectStreamResponseContentPartDonePartOpenAIResponseContent
 
     start_index: int
 
-    type: Literal["container_file_citation"]
+    type: Optional[Literal["container_file_citation"]] = None
 
 
 class OpenAIResponseObjectStreamResponseContentPartDonePartOpenAIResponseContentPartOutputTextAnnotationOpenAIResponseAnnotationFilePath(
@@ -1183,7 +1012,7 @@ class OpenAIResponseObjectStreamResponseContentPartDonePartOpenAIResponseContent
 
     index: int
 
-    type: Literal["file_path"]
+    type: Optional[Literal["file_path"]] = None
 
 
 OpenAIResponseObjectStreamResponseContentPartDonePartOpenAIResponseContentPartOutputTextAnnotation: TypeAlias = Annotated[
@@ -1198,35 +1027,27 @@ OpenAIResponseObjectStreamResponseContentPartDonePartOpenAIResponseContentPartOu
 
 
 class OpenAIResponseObjectStreamResponseContentPartDonePartOpenAIResponseContentPartOutputText(BaseModel):
-    annotations: List[
-        OpenAIResponseObjectStreamResponseContentPartDonePartOpenAIResponseContentPartOutputTextAnnotation
-    ]
-    """Structured annotations associated with the text"""
-
     text: str
-    """Text emitted for this content part"""
 
-    type: Literal["output_text"]
-    """Content part type identifier, always "output_text" """
+    annotations: Optional[
+        List[OpenAIResponseObjectStreamResponseContentPartDonePartOpenAIResponseContentPartOutputTextAnnotation]
+    ] = None
 
-    logprobs: Optional[List[Dict[str, Union[bool, float, str, List[object], object, None]]]] = None
-    """(Optional) Token log probability details"""
+    logprobs: Optional[List[Dict[str, object]]] = None
+
+    type: Optional[Literal["output_text"]] = None
 
 
 class OpenAIResponseObjectStreamResponseContentPartDonePartOpenAIResponseContentPartRefusal(BaseModel):
     refusal: str
-    """Refusal text supplied by the model"""
 
-    type: Literal["refusal"]
-    """Content part type identifier, always "refusal" """
+    type: Optional[Literal["refusal"]] = None
 
 
 class OpenAIResponseObjectStreamResponseContentPartDonePartOpenAIResponseContentPartReasoningText(BaseModel):
     text: str
-    """Reasoning text supplied by the model"""
 
-    type: Literal["reasoning_text"]
-    """Content part type identifier, always "reasoning_text" """
+    type: Optional[Literal["reasoning_text"]] = None
 
 
 OpenAIResponseObjectStreamResponseContentPartDonePart: TypeAlias = Annotated[
@@ -1241,234 +1062,169 @@ OpenAIResponseObjectStreamResponseContentPartDonePart: TypeAlias = Annotated[
 
 class OpenAIResponseObjectStreamResponseContentPartDone(BaseModel):
     content_index: int
-    """Index position of the part within the content array"""
 
     item_id: str
-    """Unique identifier of the output item containing this content part"""
 
     output_index: int
-    """Index position of the output item in the response"""
 
     part: OpenAIResponseObjectStreamResponseContentPartDonePart
-    """The completed content part"""
+    """Text content within a streamed response part."""
 
     response_id: str
-    """Unique identifier of the response containing this content"""
 
     sequence_number: int
-    """Sequential number for ordering streaming events"""
 
-    type: Literal["response.content_part.done"]
-    """Event type identifier, always "response.content_part.done" """
+    type: Optional[Literal["response.content_part.done"]] = None
 
 
 class OpenAIResponseObjectStreamResponseReasoningTextDelta(BaseModel):
     content_index: int
-    """Index position of the reasoning content part"""
 
     delta: str
-    """Incremental reasoning text being added"""
 
     item_id: str
-    """Unique identifier of the output item being updated"""
 
     output_index: int
-    """Index position of the item in the output list"""
 
     sequence_number: int
-    """Sequential number for ordering streaming events"""
 
-    type: Literal["response.reasoning_text.delta"]
-    """Event type identifier, always "response.reasoning_text.delta" """
+    type: Optional[Literal["response.reasoning_text.delta"]] = None
 
 
 class OpenAIResponseObjectStreamResponseReasoningTextDone(BaseModel):
     content_index: int
-    """Index position of the reasoning content part"""
 
     item_id: str
-    """Unique identifier of the completed output item"""
 
     output_index: int
-    """Index position of the item in the output list"""
 
     sequence_number: int
-    """Sequential number for ordering streaming events"""
 
     text: str
-    """Final complete reasoning text"""
 
-    type: Literal["response.reasoning_text.done"]
-    """Event type identifier, always "response.reasoning_text.done" """
+    type: Optional[Literal["response.reasoning_text.done"]] = None
 
 
 class OpenAIResponseObjectStreamResponseReasoningSummaryPartAddedPart(BaseModel):
     text: str
-    """Summary text"""
 
-    type: Literal["summary_text"]
-    """Content part type identifier, always "summary_text" """
+    type: Optional[Literal["summary_text"]] = None
 
 
 class OpenAIResponseObjectStreamResponseReasoningSummaryPartAdded(BaseModel):
     item_id: str
-    """Unique identifier of the output item"""
 
     output_index: int
-    """Index position of the output item"""
 
     part: OpenAIResponseObjectStreamResponseReasoningSummaryPartAddedPart
-    """The summary part that was added"""
+    """Reasoning summary part in a streamed response."""
 
     sequence_number: int
-    """Sequential number for ordering streaming events"""
 
     summary_index: int
-    """Index of the summary part within the reasoning summary"""
 
-    type: Literal["response.reasoning_summary_part.added"]
-    """Event type identifier, always "response.reasoning_summary_part.added" """
+    type: Optional[Literal["response.reasoning_summary_part.added"]] = None
 
 
 class OpenAIResponseObjectStreamResponseReasoningSummaryPartDonePart(BaseModel):
     text: str
-    """Summary text"""
 
-    type: Literal["summary_text"]
-    """Content part type identifier, always "summary_text" """
+    type: Optional[Literal["summary_text"]] = None
 
 
 class OpenAIResponseObjectStreamResponseReasoningSummaryPartDone(BaseModel):
     item_id: str
-    """Unique identifier of the output item"""
 
     output_index: int
-    """Index position of the output item"""
 
     part: OpenAIResponseObjectStreamResponseReasoningSummaryPartDonePart
-    """The completed summary part"""
+    """Reasoning summary part in a streamed response."""
 
     sequence_number: int
-    """Sequential number for ordering streaming events"""
 
     summary_index: int
-    """Index of the summary part within the reasoning summary"""
 
-    type: Literal["response.reasoning_summary_part.done"]
-    """Event type identifier, always "response.reasoning_summary_part.done" """
+    type: Optional[Literal["response.reasoning_summary_part.done"]] = None
 
 
 class OpenAIResponseObjectStreamResponseReasoningSummaryTextDelta(BaseModel):
     delta: str
-    """Incremental summary text being added"""
 
     item_id: str
-    """Unique identifier of the output item"""
 
     output_index: int
-    """Index position of the output item"""
 
     sequence_number: int
-    """Sequential number for ordering streaming events"""
 
     summary_index: int
-    """Index of the summary part within the reasoning summary"""
 
-    type: Literal["response.reasoning_summary_text.delta"]
-    """Event type identifier, always "response.reasoning_summary_text.delta" """
+    type: Optional[Literal["response.reasoning_summary_text.delta"]] = None
 
 
 class OpenAIResponseObjectStreamResponseReasoningSummaryTextDone(BaseModel):
     item_id: str
-    """Unique identifier of the output item"""
 
     output_index: int
-    """Index position of the output item"""
 
     sequence_number: int
-    """Sequential number for ordering streaming events"""
 
     summary_index: int
-    """Index of the summary part within the reasoning summary"""
 
     text: str
-    """Final complete summary text"""
 
-    type: Literal["response.reasoning_summary_text.done"]
-    """Event type identifier, always "response.reasoning_summary_text.done" """
+    type: Optional[Literal["response.reasoning_summary_text.done"]] = None
 
 
 class OpenAIResponseObjectStreamResponseRefusalDelta(BaseModel):
     content_index: int
-    """Index position of the content part"""
 
     delta: str
-    """Incremental refusal text being added"""
 
     item_id: str
-    """Unique identifier of the output item"""
 
     output_index: int
-    """Index position of the item in the output list"""
 
     sequence_number: int
-    """Sequential number for ordering streaming events"""
 
-    type: Literal["response.refusal.delta"]
-    """Event type identifier, always "response.refusal.delta" """
+    type: Optional[Literal["response.refusal.delta"]] = None
 
 
 class OpenAIResponseObjectStreamResponseRefusalDone(BaseModel):
     content_index: int
-    """Index position of the content part"""
 
     item_id: str
-    """Unique identifier of the output item"""
 
     output_index: int
-    """Index position of the item in the output list"""
 
     refusal: str
-    """Final complete refusal text"""
 
     sequence_number: int
-    """Sequential number for ordering streaming events"""
 
-    type: Literal["response.refusal.done"]
-    """Event type identifier, always "response.refusal.done" """
+    type: Optional[Literal["response.refusal.done"]] = None
 
 
 class OpenAIResponseObjectStreamResponseOutputTextAnnotationAddedAnnotationOpenAIResponseAnnotationFileCitation(
     BaseModel
 ):
     file_id: str
-    """Unique identifier of the referenced file"""
 
     filename: str
-    """Name of the referenced file"""
 
     index: int
-    """Position index of the citation within the content"""
 
-    type: Literal["file_citation"]
-    """Annotation type identifier, always "file_citation" """
+    type: Optional[Literal["file_citation"]] = None
 
 
 class OpenAIResponseObjectStreamResponseOutputTextAnnotationAddedAnnotationOpenAIResponseAnnotationCitation(BaseModel):
     end_index: int
-    """End position of the citation span in the content"""
 
     start_index: int
-    """Start position of the citation span in the content"""
 
     title: str
-    """Title of the referenced web resource"""
-
-    type: Literal["url_citation"]
-    """Annotation type identifier, always "url_citation" """
 
     url: str
-    """URL of the referenced web resource"""
+
+    type: Optional[Literal["url_citation"]] = None
 
 
 class OpenAIResponseObjectStreamResponseOutputTextAnnotationAddedAnnotationOpenAIResponseAnnotationContainerFileCitation(
@@ -1484,7 +1240,7 @@ class OpenAIResponseObjectStreamResponseOutputTextAnnotationAddedAnnotationOpenA
 
     start_index: int
 
-    type: Literal["container_file_citation"]
+    type: Optional[Literal["container_file_citation"]] = None
 
 
 class OpenAIResponseObjectStreamResponseOutputTextAnnotationAddedAnnotationOpenAIResponseAnnotationFilePath(BaseModel):
@@ -1492,7 +1248,7 @@ class OpenAIResponseObjectStreamResponseOutputTextAnnotationAddedAnnotationOpenA
 
     index: int
 
-    type: Literal["file_path"]
+    type: Optional[Literal["file_path"]] = None
 
 
 OpenAIResponseObjectStreamResponseOutputTextAnnotationAddedAnnotation: TypeAlias = Annotated[
@@ -1508,97 +1264,74 @@ OpenAIResponseObjectStreamResponseOutputTextAnnotationAddedAnnotation: TypeAlias
 
 class OpenAIResponseObjectStreamResponseOutputTextAnnotationAdded(BaseModel):
     annotation: OpenAIResponseObjectStreamResponseOutputTextAnnotationAddedAnnotation
-    """The annotation object being added"""
+    """File citation annotation for referencing specific files in response content."""
 
     annotation_index: int
-    """Index of the annotation within the content part"""
 
     content_index: int
-    """Index position of the content part within the output item"""
 
     item_id: str
-    """Unique identifier of the item to which the annotation is being added"""
 
     output_index: int
-    """Index position of the output item in the response's output array"""
 
     sequence_number: int
-    """Sequential number for ordering streaming events"""
 
-    type: Literal["response.output_text.annotation.added"]
-    """Event type identifier, always "response.output_text.annotation.added" """
+    type: Optional[Literal["response.output_text.annotation.added"]] = None
 
 
 class OpenAIResponseObjectStreamResponseFileSearchCallInProgress(BaseModel):
     item_id: str
-    """Unique identifier of the file search call"""
 
     output_index: int
-    """Index position of the item in the output list"""
 
     sequence_number: int
-    """Sequential number for ordering streaming events"""
 
-    type: Literal["response.file_search_call.in_progress"]
-    """Event type identifier, always "response.file_search_call.in_progress" """
+    type: Optional[Literal["response.file_search_call.in_progress"]] = None
 
 
 class OpenAIResponseObjectStreamResponseFileSearchCallSearching(BaseModel):
     item_id: str
-    """Unique identifier of the file search call"""
 
     output_index: int
-    """Index position of the item in the output list"""
 
     sequence_number: int
-    """Sequential number for ordering streaming events"""
 
-    type: Literal["response.file_search_call.searching"]
-    """Event type identifier, always "response.file_search_call.searching" """
+    type: Optional[Literal["response.file_search_call.searching"]] = None
 
 
 class OpenAIResponseObjectStreamResponseFileSearchCallCompleted(BaseModel):
     item_id: str
-    """Unique identifier of the completed file search call"""
 
     output_index: int
-    """Index position of the item in the output list"""
 
     sequence_number: int
-    """Sequential number for ordering streaming events"""
 
-    type: Literal["response.file_search_call.completed"]
-    """Event type identifier, always "response.file_search_call.completed" """
+    type: Optional[Literal["response.file_search_call.completed"]] = None
 
 
 class OpenAIResponseObjectStreamResponseIncomplete(BaseModel):
     response: ResponseObject
-    """Response object describing the incomplete state"""
+    """Complete OpenAI response object containing generation results and metadata."""
 
     sequence_number: int
-    """Sequential number for ordering streaming events"""
 
-    type: Literal["response.incomplete"]
-    """Event type identifier, always "response.incomplete" """
+    type: Optional[Literal["response.incomplete"]] = None
 
 
 class OpenAIResponseObjectStreamResponseFailed(BaseModel):
     response: ResponseObject
-    """Response object describing the failure"""
+    """Complete OpenAI response object containing generation results and metadata."""
 
     sequence_number: int
-    """Sequential number for ordering streaming events"""
 
-    type: Literal["response.failed"]
-    """Event type identifier, always "response.failed" """
+    type: Optional[Literal["response.failed"]] = None
 
 
 class OpenAIResponseObjectStreamResponseCompleted(BaseModel):
     response: ResponseObject
-    """Completed response object"""
+    """Complete OpenAI response object containing generation results and metadata."""
 
-    type: Literal["response.completed"]
-    """Event type identifier, always "response.completed" """
+    type: Optional[Literal["response.completed"]] = None
 
 
 ResponseObjectStream: TypeAlias = Annotated[

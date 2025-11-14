@@ -139,7 +139,7 @@ class TestShields:
         with pytest.warns(DeprecationWarning):
             shield = client.shields.register(
                 shield_id="shield_id",
-                params={"foo": True},
+                params={"foo": "bar"},
                 provider_id="provider_id",
                 provider_shield_id="provider_shield_id",
             )
@@ -298,7 +298,7 @@ class TestAsyncShields:
         with pytest.warns(DeprecationWarning):
             shield = await async_client.shields.register(
                 shield_id="shield_id",
-                params={"foo": True},
+                params={"foo": "bar"},
                 provider_id="provider_id",
                 provider_shield_id="provider_shield_id",
             )

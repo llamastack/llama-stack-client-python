@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from typing import Union
+from typing import Union, Optional
 
 import httpx
 
@@ -48,9 +48,9 @@ class EmbeddingsResource(SyncAPIResource):
         *,
         input: Union[str, SequenceNotStr[str]],
         model: str,
-        dimensions: int | Omit = omit,
-        encoding_format: str | Omit = omit,
-        user: str | Omit = omit,
+        dimensions: Optional[int] | Omit = omit,
+        encoding_format: Optional[str] | Omit = omit,
+        user: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -58,27 +58,13 @@ class EmbeddingsResource(SyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> CreateEmbeddingsResponse:
-        """Create embeddings.
+        """
+        Create embeddings.
 
-        Generate OpenAI-compatible embeddings for the given input
-        using the specified model.
+        Generate OpenAI-compatible embeddings for the given input using the specified
+        model.
 
         Args:
-          input: Input text to embed, encoded as a string or array of strings. To embed multiple
-              inputs in a single request, pass an array of strings.
-
-          model: The identifier of the model to use. The model must be an embedding model
-              registered with Llama Stack and available via the /models endpoint.
-
-          dimensions: (Optional) The number of dimensions the resulting output embeddings should have.
-              Only supported in text-embedding-3 and later models.
-
-          encoding_format: (Optional) The format to return the embeddings in. Can be either "float" or
-              "base64". Defaults to "float".
-
-          user: (Optional) A unique identifier representing your end-user, which can help OpenAI
-              to monitor and detect abuse.
-
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -131,9 +117,9 @@ class AsyncEmbeddingsResource(AsyncAPIResource):
         *,
         input: Union[str, SequenceNotStr[str]],
         model: str,
-        dimensions: int | Omit = omit,
-        encoding_format: str | Omit = omit,
-        user: str | Omit = omit,
+        dimensions: Optional[int] | Omit = omit,
+        encoding_format: Optional[str] | Omit = omit,
+        user: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -141,27 +127,13 @@ class AsyncEmbeddingsResource(AsyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> CreateEmbeddingsResponse:
-        """Create embeddings.
+        """
+        Create embeddings.
 
-        Generate OpenAI-compatible embeddings for the given input
-        using the specified model.
+        Generate OpenAI-compatible embeddings for the given input using the specified
+        model.
 
         Args:
-          input: Input text to embed, encoded as a string or array of strings. To embed multiple
-              inputs in a single request, pass an array of strings.
-
-          model: The identifier of the model to use. The model must be an embedding model
-              registered with Llama Stack and available via the /models endpoint.
-
-          dimensions: (Optional) The number of dimensions the resulting output embeddings should have.
-              Only supported in text-embedding-3 and later models.
-
-          encoding_format: (Optional) The format to return the embeddings in. Can be either "float" or
-              "base64". Defaults to "float".
-
-          user: (Optional) A unique identifier representing your end-user, which can help OpenAI
-              to monitor and detect abuse.
-
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request

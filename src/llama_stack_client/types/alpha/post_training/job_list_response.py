@@ -3,13 +3,8 @@
 from typing import List
 from typing_extensions import TypeAlias
 
-from ...._models import BaseModel
+from ..post_training_job import PostTrainingJob
 
-__all__ = ["JobListResponse", "JobListResponseItem"]
+__all__ = ["JobListResponse"]
 
-
-class JobListResponseItem(BaseModel):
-    job_uuid: str
-
-
-JobListResponse: TypeAlias = List[JobListResponseItem]
+JobListResponse: TypeAlias = List[PostTrainingJob]

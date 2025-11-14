@@ -3,7 +3,7 @@
 from __future__ import annotations
 
 import typing_extensions
-from typing import Dict, Type, Union, Iterable, cast
+from typing import Dict, Type, Optional, cast
 
 import httpx
 
@@ -109,9 +109,9 @@ class BenchmarksResource(SyncAPIResource):
         benchmark_id: str,
         dataset_id: str,
         scoring_functions: SequenceNotStr[str],
-        metadata: Dict[str, Union[bool, float, str, Iterable[object], object, None]] | Omit = omit,
-        provider_benchmark_id: str | Omit = omit,
-        provider_id: str | Omit = omit,
+        metadata: Optional[Dict[str, object]] | Omit = omit,
+        provider_benchmark_id: Optional[str] | Omit = omit,
+        provider_id: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -123,18 +123,6 @@ class BenchmarksResource(SyncAPIResource):
         Register a benchmark.
 
         Args:
-          benchmark_id: The ID of the benchmark to register.
-
-          dataset_id: The ID of the dataset to use for the benchmark.
-
-          scoring_functions: The scoring functions to use for the benchmark.
-
-          metadata: The metadata to use for the benchmark.
-
-          provider_benchmark_id: The ID of the provider benchmark to use for the benchmark.
-
-          provider_id: The ID of the provider to use for the benchmark.
-
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -157,6 +145,41 @@ class BenchmarksResource(SyncAPIResource):
                 },
                 benchmark_register_params.BenchmarkRegisterParams,
             ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=NoneType,
+        )
+
+    @typing_extensions.deprecated("deprecated")
+    def unregister(
+        self,
+        benchmark_id: str,
+        *,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> None:
+        """
+        Unregister a benchmark.
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not benchmark_id:
+            raise ValueError(f"Expected a non-empty value for `benchmark_id` but received {benchmark_id!r}")
+        extra_headers = {"Accept": "*/*", **(extra_headers or {})}
+        return self._delete(
+            f"/v1alpha/eval/benchmarks/{benchmark_id}",
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -247,9 +270,9 @@ class AsyncBenchmarksResource(AsyncAPIResource):
         benchmark_id: str,
         dataset_id: str,
         scoring_functions: SequenceNotStr[str],
-        metadata: Dict[str, Union[bool, float, str, Iterable[object], object, None]] | Omit = omit,
-        provider_benchmark_id: str | Omit = omit,
-        provider_id: str | Omit = omit,
+        metadata: Optional[Dict[str, object]] | Omit = omit,
+        provider_benchmark_id: Optional[str] | Omit = omit,
+        provider_id: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -261,18 +284,6 @@ class AsyncBenchmarksResource(AsyncAPIResource):
         Register a benchmark.
 
         Args:
-          benchmark_id: The ID of the benchmark to register.
-
-          dataset_id: The ID of the dataset to use for the benchmark.
-
-          scoring_functions: The scoring functions to use for the benchmark.
-
-          metadata: The metadata to use for the benchmark.
-
-          provider_benchmark_id: The ID of the provider benchmark to use for the benchmark.
-
-          provider_id: The ID of the provider to use for the benchmark.
-
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -301,6 +312,41 @@ class AsyncBenchmarksResource(AsyncAPIResource):
             cast_to=NoneType,
         )
 
+    @typing_extensions.deprecated("deprecated")
+    async def unregister(
+        self,
+        benchmark_id: str,
+        *,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> None:
+        """
+        Unregister a benchmark.
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not benchmark_id:
+            raise ValueError(f"Expected a non-empty value for `benchmark_id` but received {benchmark_id!r}")
+        extra_headers = {"Accept": "*/*", **(extra_headers or {})}
+        return await self._delete(
+            f"/v1alpha/eval/benchmarks/{benchmark_id}",
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=NoneType,
+        )
+
 
 class BenchmarksResourceWithRawResponse:
     def __init__(self, benchmarks: BenchmarksResource) -> None:
@@ -315,6 +361,11 @@ class BenchmarksResourceWithRawResponse:
         self.register = (  # pyright: ignore[reportDeprecated]
             to_raw_response_wrapper(
                 benchmarks.register,  # pyright: ignore[reportDeprecated],
+            )
+        )
+        self.unregister = (  # pyright: ignore[reportDeprecated]
+            to_raw_response_wrapper(
+                benchmarks.unregister,  # pyright: ignore[reportDeprecated],
             )
         )
 
@@ -334,6 +385,11 @@ class AsyncBenchmarksResourceWithRawResponse:
                 benchmarks.register,  # pyright: ignore[reportDeprecated],
             )
         )
+        self.unregister = (  # pyright: ignore[reportDeprecated]
+            async_to_raw_response_wrapper(
+                benchmarks.unregister,  # pyright: ignore[reportDeprecated],
+            )
+        )
 
 
 class BenchmarksResourceWithStreamingResponse:
@@ -351,6 +407,11 @@ class BenchmarksResourceWithStreamingResponse:
                 benchmarks.register,  # pyright: ignore[reportDeprecated],
             )
         )
+        self.unregister = (  # pyright: ignore[reportDeprecated]
+            to_streamed_response_wrapper(
+                benchmarks.unregister,  # pyright: ignore[reportDeprecated],
+            )
+        )
 
 
 class AsyncBenchmarksResourceWithStreamingResponse:
@@ -366,5 +427,10 @@ class AsyncBenchmarksResourceWithStreamingResponse:
         self.register = (  # pyright: ignore[reportDeprecated]
             async_to_streamed_response_wrapper(
                 benchmarks.register,  # pyright: ignore[reportDeprecated],
+            )
+        )
+        self.unregister = (  # pyright: ignore[reportDeprecated]
+            async_to_streamed_response_wrapper(
+                benchmarks.unregister,  # pyright: ignore[reportDeprecated],
             )
         )

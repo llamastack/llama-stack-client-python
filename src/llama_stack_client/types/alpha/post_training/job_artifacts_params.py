@@ -9,4 +9,3 @@ __all__ = ["JobArtifactsParams"]
 
 class JobArtifactsParams(TypedDict, total=False):
     job_uuid: Required[str]
-    """The UUID of the job to get the artifacts of."""

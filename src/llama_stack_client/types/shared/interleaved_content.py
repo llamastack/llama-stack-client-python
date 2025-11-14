@@ -1,10 +1,10 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 from typing import List, Union, Optional
-from typing_extensions import Literal, TypeAlias
+from typing_extensions import Literal, Annotated, TypeAlias
 
+from ..._utils import PropertyInfo
 from ..._models import BaseModel
-from .interleaved_content_item import InterleavedContentItem
 
 __all__ = [
     "InterleavedContent",
@@ -12,39 +12,65 @@ __all__ = [
     "ImageContentItemImage",
     "ImageContentItemImageURL",
     "TextContentItem",
+    "ListImageContentItemTextContentItem",
+    "ListImageContentItemTextContentItemImageContentItem",
+    "ListImageContentItemTextContentItemImageContentItemImage",
+    "ListImageContentItemTextContentItemImageContentItemImageURL",
+    "ListImageContentItemTextContentItemTextContentItem",
 ]
 
 
 class ImageContentItemImageURL(BaseModel):
     uri: str
-    """The URL string pointing to the resource"""
 
 
 class ImageContentItemImage(BaseModel):
     data: Optional[str] = None
-    """base64 encoded image data as string"""
 
     url: Optional[ImageContentItemImageURL] = None
-    """A URL of the image or data URL in the format of data:image/{type};base64,{data}.
-
-    Note that URL could have length limits.
-    """
+    """A URL reference to external content."""
 
 
 class ImageContentItem(BaseModel):
     image: ImageContentItemImage
-    """Image as a base64 encoded string or an URL"""
+    """A URL or a base64 encoded string"""
 
-    type: Literal["image"]
-    """Discriminator type of the content item. Always "image" """
+    type: Optional[Literal["image"]] = None
 
 
 class TextContentItem(BaseModel):
     text: str
-    """Text content"""
 
-    type: Literal["text"]
-    """Discriminator type of the content item. Always "text" """
+    type: Optional[Literal["text"]] = None
 
 
-InterleavedContent: TypeAlias = Union[str, ImageContentItem, TextContentItem, List[InterleavedContentItem]]
+class ListImageContentItemTextContentItemImageContentItemImageURL(BaseModel):
+    uri: str
+
+
+class ListImageContentItemTextContentItemImageContentItemImage(BaseModel):
+    data: Optional[str] = None
+
+    url: Optional[ListImageContentItemTextContentItemImageContentItemImageURL] = None
+    """A URL reference to external content."""
+
+
+class ListImageContentItemTextContentItemImageContentItem(BaseModel):
+    image: ListImageContentItemTextContentItemImageContentItemImage
+    """A URL or a base64 encoded string"""
+
+    type: Optional[Literal["image"]] = None
+
+
+class ListImageContentItemTextContentItemTextContentItem(BaseModel):
+    text: str
+
+    type: Optional[Literal["text"]] = None
+
+
+ListImageContentItemTextContentItem: TypeAlias = Annotated[
+    Union[ListImageContentItemTextContentItemImageContentItem, ListImageContentItemTextContentItemTextContentItem],
+    PropertyInfo(discriminator="type"),
+]
+
+InterleavedContent: TypeAlias = Union[str, ImageContentItem, TextContentItem, List[ListImageContentItemTextContentItem]]

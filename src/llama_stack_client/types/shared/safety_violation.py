@@ -1,6 +1,6 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-from typing import Dict, List, Union, Optional
+from typing import Dict, Optional
 from typing_extensions import Literal
 
 from ..._models import BaseModel
@@ -9,14 +9,9 @@ __all__ = ["SafetyViolation"]
 
 
 class SafetyViolation(BaseModel):
-    metadata: Dict[str, Union[bool, float, str, List[object], object, None]]
-    """
-    Additional metadata including specific violation codes for debugging and
-    telemetry
-    """
-
     violation_level: Literal["info", "warn", "error"]
-    """Severity level of the violation"""
+    """Severity level of a safety violation."""
+
+    metadata: Optional[Dict[str, object]] = None
 
     user_message: Optional[str] = None
-    """(Optional) Message to convey to the user about the violation"""

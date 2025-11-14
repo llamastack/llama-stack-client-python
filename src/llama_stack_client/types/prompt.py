@@ -8,20 +8,17 @@ __all__ = ["Prompt"]
 
 
 class Prompt(BaseModel):
-    is_default: bool
-    """Boolean indicating whether this version is the default version for this prompt"""
-
     prompt_id: str
-    """Unique identifier formatted as 'pmpt\\__<48-digit-hash>'"""
-
-    variables: List[str]
-    """List of prompt variable names that can be used in the prompt template"""
+    """Unique identifier in format 'pmpt\\__<48-digit-hash>'"""
 
     version: int
     """Version (integer starting at 1, incremented on save)"""
 
-    prompt: Optional[str] = None
-    """The system prompt text with variable placeholders.
+    is_default: Optional[bool] = None
+    """Boolean indicating whether this version is the default version"""
 
-    Variables are only supported when using the Responses API.
-    """
+    prompt: Optional[str] = None
+    """The system prompt with variable placeholders"""
+
+    variables: Optional[List[str]] = None
+    """List of variable names that can be used in the prompt template"""

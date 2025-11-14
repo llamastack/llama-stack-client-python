@@ -54,10 +54,8 @@ class ChoiceLogprobsRefusal(BaseModel):
 
 class ChoiceLogprobs(BaseModel):
     content: Optional[List[ChoiceLogprobsContent]] = None
-    """(Optional) The log probabilities for the tokens in the message"""
 
     refusal: Optional[List[ChoiceLogprobsRefusal]] = None
-    """(Optional) The log probabilities for the tokens in the message"""
 
 
 class Choice(BaseModel):
@@ -83,4 +81,4 @@ class CompletionCreateResponse(BaseModel):
 
     model: str
 
-    object: Literal["text_completion"]
+    object: Optional[Literal["text_completion"]] = None

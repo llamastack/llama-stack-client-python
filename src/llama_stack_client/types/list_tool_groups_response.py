@@ -8,4 +8,3 @@ __all__ = ["ListToolGroupsResponse"]
 
 class ListToolGroupsResponse(BaseModel):
     data: ToolgroupListResponse
-    """List of tool groups"""

@@ -10,4 +10,3 @@ __all__ = ["ScoringScoreResponse"]
 
 class ScoringScoreResponse(BaseModel):
     results: Dict[str, ScoringResult]
-    """A map of scoring function name to ScoringResult."""

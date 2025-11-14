@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from typing import Type, cast
+from typing import Type, Optional, cast
 
 import httpx
 
@@ -50,7 +50,7 @@ class InferenceResource(SyncAPIResource):
         items: SequenceNotStr[inference_rerank_params.Item],
         model: str,
         query: inference_rerank_params.Query,
-        max_num_results: int | Omit = omit,
+        max_num_results: Optional[int] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -62,16 +62,7 @@ class InferenceResource(SyncAPIResource):
         Rerank a list of documents based on their relevance to a query.
 
         Args:
-          items: List of items to rerank. Each item can be a string, text content part, or image
-              content part. Each input must not exceed the model's max input token length.
-
-          model: The identifier of the reranking model to use.
-
-          query: The search query to rank items against. Can be a string, text content part, or
-              image content part. The input must not exceed the model's max input token
-              length.
-
-          max_num_results: (Optional) Maximum number of results to return. Default: returns all.
+          query: Text content part for OpenAI-compatible chat completion messages.
 
           extra_headers: Send extra headers
 
@@ -129,7 +120,7 @@ class AsyncInferenceResource(AsyncAPIResource):
         items: SequenceNotStr[inference_rerank_params.Item],
         model: str,
         query: inference_rerank_params.Query,
-        max_num_results: int | Omit = omit,
+        max_num_results: Optional[int] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -141,16 +132,7 @@ class AsyncInferenceResource(AsyncAPIResource):
         Rerank a list of documents based on their relevance to a query.
 
         Args:
-          items: List of items to rerank. Each item can be a string, text content part, or image
-              content part. Each input must not exceed the model's max input token length.
-
-          model: The identifier of the reranking model to use.
-
-          query: The search query to rank items against. Can be a string, text content part, or
-              image content part. The input must not exceed the model's max input token
-              length.
-
-          max_num_results: (Optional) Maximum number of results to return. Default: returns all.
+          query: Text content part for OpenAI-compatible chat completion messages.
 
           extra_headers: Send extra headers
 

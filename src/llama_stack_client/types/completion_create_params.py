@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from typing import Dict, Union, Iterable
+from typing import Dict, Union, Iterable, Optional
 from typing_extensions import Literal, Required, TypedDict
 
 from .._types import SequenceNotStr
@@ -12,69 +12,46 @@ __all__ = ["CompletionCreateParamsBase", "CompletionCreateParamsNonStreaming", "
 
 class CompletionCreateParamsBase(TypedDict, total=False):
     model: Required[str]
-    """The identifier of the model to use.
-
-    The model must be registered with Llama Stack and available via the /models
-    endpoint.
-    """
 
     prompt: Required[Union[str, SequenceNotStr[str], Iterable[int], Iterable[Iterable[int]]]]
-    """The prompt to generate a completion for."""
 
-    best_of: int
-    """(Optional) The number of completions to generate."""
+    best_of: Optional[int]
 
-    echo: bool
-    """(Optional) Whether to echo the prompt."""
+    echo: Optional[bool]
 
-    frequency_penalty: float
-    """(Optional) The penalty for repeated tokens."""
+    frequency_penalty: Optional[float]
 
-    logit_bias: Dict[str, float]
-    """(Optional) The logit bias to use."""
+    logit_bias: Optional[Dict[str, float]]
 
-    logprobs: bool
-    """(Optional) The log probabilities to use."""
+    logprobs: Optional[bool]
 
-    max_tokens: int
-    """(Optional) The maximum number of tokens to generate."""
+    max_tokens: Optional[int]
 
-    n: int
-    """(Optional) The number of completions to generate."""
+    n: Optional[int]
 
-    presence_penalty: float
-    """(Optional) The penalty for repeated tokens."""
+    presence_penalty: Optional[float]
 
-    seed: int
-    """(Optional) The seed to use."""
+    seed: Optional[int]
 
-    stop: Union[str, SequenceNotStr[str]]
-    """(Optional) The stop tokens to use."""
+    stop: Union[str, SequenceNotStr[str], None]
 
-    stream_options: Dict[str, Union[bool, float, str, Iterable[object], object, None]]
-    """(Optional) The stream options to use."""
+    stream_options: Optional[Dict[str, object]]
 
-    suffix: str
-    """(Optional) The suffix that should be appended to the completion."""
+    suffix: Optional[str]
 
-    temperature: float
-    """(Optional) The temperature to use."""
+    temperature: Optional[float]
 
-    top_p: float
-    """(Optional) The top p to use."""
+    top_p: Optional[float]
 
-    user: str
-    """(Optional) The user to use."""
+    user: Optional[str]
 
 
 class CompletionCreateParamsNonStreaming(CompletionCreateParamsBase, total=False):
-    stream: Literal[False]
-    """(Optional) Whether to stream the response."""
+    stream: Optional[Literal[False]]
 
 
 class CompletionCreateParamsStreaming(CompletionCreateParamsBase):
     stream: Required[Literal[True]]
-    """(Optional) Whether to stream the response."""
 
 
 CompletionCreateParams = Union[CompletionCreateParamsNonStreaming, CompletionCreateParamsStreaming]

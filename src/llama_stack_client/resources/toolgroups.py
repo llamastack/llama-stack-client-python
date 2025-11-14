@@ -3,7 +3,7 @@
 from __future__ import annotations
 
 import typing_extensions
-from typing import Dict, Type, Union, Iterable, cast
+from typing import Dict, Type, Optional, cast
 
 import httpx
 
@@ -108,8 +108,8 @@ class ToolgroupsResource(SyncAPIResource):
         *,
         provider_id: str,
         toolgroup_id: str,
-        args: Dict[str, Union[bool, float, str, Iterable[object], object, None]] | Omit = omit,
-        mcp_endpoint: toolgroup_register_params.McpEndpoint | Omit = omit,
+        args: Optional[Dict[str, object]] | Omit = omit,
+        mcp_endpoint: Optional[toolgroup_register_params.McpEndpoint] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -121,13 +121,7 @@ class ToolgroupsResource(SyncAPIResource):
         Register a tool group.
 
         Args:
-          provider_id: The ID of the provider to use for the tool group.
-
-          toolgroup_id: The ID of the tool group to register.
-
-          args: A dictionary of arguments to pass to the tool group.
-
-          mcp_endpoint: The MCP endpoint to use for the tool group.
+          mcp_endpoint: A URL reference to external content.
 
           extra_headers: Send extra headers
 
@@ -273,8 +267,8 @@ class AsyncToolgroupsResource(AsyncAPIResource):
         *,
         provider_id: str,
         toolgroup_id: str,
-        args: Dict[str, Union[bool, float, str, Iterable[object], object, None]] | Omit = omit,
-        mcp_endpoint: toolgroup_register_params.McpEndpoint | Omit = omit,
+        args: Optional[Dict[str, object]] | Omit = omit,
+        mcp_endpoint: Optional[toolgroup_register_params.McpEndpoint] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -286,13 +280,7 @@ class AsyncToolgroupsResource(AsyncAPIResource):
         Register a tool group.
 
         Args:
-          provider_id: The ID of the provider to use for the tool group.
-
-          toolgroup_id: The ID of the tool group to register.
-
-          args: A dictionary of arguments to pass to the tool group.
-
-          mcp_endpoint: The MCP endpoint to use for the tool group.
+          mcp_endpoint: A URL reference to external content.
 
           extra_headers: Send extra headers
 

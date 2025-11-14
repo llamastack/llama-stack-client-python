@@ -34,7 +34,7 @@ class TestFileBatches:
         file_batch = client.vector_stores.file_batches.create(
             vector_store_id="vector_store_id",
             file_ids=["string"],
-            attributes={"foo": True},
+            attributes={"foo": "bar"},
             chunking_strategy={"type": "auto"},
         )
         assert_matches_type(VectorStoreFileBatches, file_batch, path=["response"])
@@ -249,7 +249,7 @@ class TestAsyncFileBatches:
         file_batch = await async_client.vector_stores.file_batches.create(
             vector_store_id="vector_store_id",
             file_ids=["string"],
-            attributes={"foo": True},
+            attributes={"foo": "bar"},
             chunking_strategy={"type": "auto"},
         )
         assert_matches_type(VectorStoreFileBatches, file_batch, path=["response"])

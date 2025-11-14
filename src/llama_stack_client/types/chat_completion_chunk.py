@@ -24,43 +24,31 @@ __all__ = [
 
 class ChoiceDeltaToolCallFunction(BaseModel):
     arguments: Optional[str] = None
-    """(Optional) Arguments to pass to the function as a JSON string"""
 
     name: Optional[str] = None
-    """(Optional) Name of the function to call"""
 
 
 class ChoiceDeltaToolCall(BaseModel):
-    type: Literal["function"]
-    """Must be "function" to identify this as a function call"""
-
     id: Optional[str] = None
-    """(Optional) Unique identifier for the tool call"""
 
     function: Optional[ChoiceDeltaToolCallFunction] = None
-    """(Optional) Function call details"""
+    """Function call details for OpenAI-compatible tool calls."""
 
     index: Optional[int] = None
-    """(Optional) Index of the tool call in the list"""
+
+    type: Optional[Literal["function"]] = None
 
 
 class ChoiceDelta(BaseModel):
     content: Optional[str] = None
-    """(Optional) The content of the delta"""
 
     reasoning_content: Optional[str] = None
-    """
-    (Optional) The reasoning content from the model (non-standard, for o1/o3 models)
-    """
 
     refusal: Optional[str] = None
-    """(Optional) The refusal of the delta"""
 
     role: Optional[str] = None
-    """(Optional) The role of the delta"""
 
     tool_calls: Optional[List[ChoiceDeltaToolCall]] = None
-    """(Optional) The tool calls of the delta"""
 
 
 class ChoiceLogprobsContentTopLogprob(BaseModel):
@@ -101,45 +89,39 @@ class ChoiceLogprobsRefusal(BaseModel):
 
 class ChoiceLogprobs(BaseModel):
     content: Optional[List[ChoiceLogprobsContent]] = None
-    """(Optional) The log probabilities for the tokens in the message"""
 
     refusal: Optional[List[ChoiceLogprobsRefusal]] = None
-    """(Optional) The log probabilities for the tokens in the message"""
 
 
 class Choice(BaseModel):
     delta: ChoiceDelta
-    """The delta from the chunk"""
+    """A delta from an OpenAI-compatible chat completion streaming response."""
 
     finish_reason: str
-    """The reason the model stopped generating"""
 
     index: int
-    """The index of the choice"""
 
     logprobs: Optional[ChoiceLogprobs] = None
-    """(Optional) The log probabilities for the tokens in the message"""
+    """
+    The log probabilities for the tokens in the message from an OpenAI-compatible
+    chat completion response.
+    """
 
 
 class UsageCompletionTokensDetails(BaseModel):
     reasoning_tokens: Optional[int] = None
-    """Number of tokens used for reasoning (o1/o3 models)"""
 
 
 class UsagePromptTokensDetails(BaseModel):
     cached_tokens: Optional[int] = None
-    """Number of tokens retrieved from cache"""
 
 
 class Usage(BaseModel):
     completion_tokens: int
-    """Number of tokens in the completion"""
 
     prompt_tokens: int
-    """Number of tokens in the prompt"""
 
     total_tokens: int
-    """Total tokens used (prompt + completion)"""
 
     completion_tokens_details: Optional[UsageCompletionTokensDetails] = None
     """Token details for output tokens in OpenAI chat completion usage."""
@@ -150,19 +132,14 @@ class Usage(BaseModel):
 
 class ChatCompletionChunk(BaseModel):
     id: str
-    """The ID of the chat completion"""
 
     choices: List[Choice]
-    """List of choices"""
 
     created: int
-    """The Unix timestamp in seconds when the chat completion was created"""
 
     model: str
-    """The model that was used to generate the chat completion"""
 
-    object: Literal["chat.completion.chunk"]
-    """The object type, which will be "chat.completion.chunk" """
+    object: Optional[Literal["chat.completion.chunk"]] = None
 
     usage: Optional[Usage] = None
-    """Token usage information (typically included in final chunk with stream_options)"""
+    """Usage information for OpenAI chat completion."""

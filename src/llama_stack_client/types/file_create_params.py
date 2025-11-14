@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+from typing import Optional
 from typing_extensions import Literal, Required, TypedDict
 
 from .._types import FileTypes
@@ -15,8 +16,10 @@ class FileCreateParams(TypedDict, total=False):
     purpose: Required[Literal["assistants", "batch"]]
     """Valid purpose values for OpenAI Files API."""
 
-    expires_after: ExpiresAfter
-    """Control expiration of uploaded files. Params:
+    expires_after: Optional[ExpiresAfter]
+    """Control expiration of uploaded files.
+
+    Params:
 
     - anchor, must be "created_at"
     - seconds, must be int between 3600 and 2592000 (1 hour to 30 days)

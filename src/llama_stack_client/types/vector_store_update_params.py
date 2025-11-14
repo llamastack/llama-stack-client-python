@@ -2,18 +2,15 @@
 
 from __future__ import annotations
 
-from typing import Dict, Union, Iterable
+from typing import Dict, Optional
 from typing_extensions import TypedDict
 
 __all__ = ["VectorStoreUpdateParams"]
 
 
 class VectorStoreUpdateParams(TypedDict, total=False):
-    expires_after: Dict[str, Union[bool, float, str, Iterable[object], object, None]]
-    """The expiration policy for a vector store."""
+    expires_after: Optional[Dict[str, object]]
 
-    metadata: Dict[str, Union[bool, float, str, Iterable[object], object, None]]
-    """Set of 16 key-value pairs that can be attached to an object."""
+    metadata: Optional[Dict[str, object]]
 
-    name: str
-    """The name of the vector store."""
+    name: Optional[str]

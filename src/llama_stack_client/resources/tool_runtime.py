@@ -2,25 +2,25 @@
 
 from __future__ import annotations
 
-from typing import Dict, Type, Union, Iterable, cast
+from typing import Dict, Type, Optional, cast
 
 import httpx
 
-from ...types import tool_runtime_list_tools_params, tool_runtime_invoke_tool_params
-from ..._types import Body, Omit, Query, Headers, NotGiven, omit, not_given
-from ..._utils import maybe_transform, async_maybe_transform
-from ..._compat import cached_property
-from ..._resource import SyncAPIResource, AsyncAPIResource
-from ..._response import (
+from ..types import tool_runtime_list_tools_params, tool_runtime_invoke_tool_params
+from .._types import Body, Omit, Query, Headers, NotGiven, omit, not_given
+from .._utils import maybe_transform, async_maybe_transform
+from .._compat import cached_property
+from .._resource import SyncAPIResource, AsyncAPIResource
+from .._response import (
     to_raw_response_wrapper,
     to_streamed_response_wrapper,
     async_to_raw_response_wrapper,
     async_to_streamed_response_wrapper,
 )
-from ..._wrappers import DataWrapper
-from ..._base_client import make_request_options
-from ...types.tool_invocation_result import ToolInvocationResult
-from ...types.tool_runtime_list_tools_response import ToolRuntimeListToolsResponse
+from .._wrappers import DataWrapper
+from .._base_client import make_request_options
+from ..types.tool_invocation_result import ToolInvocationResult
+from ..types.tool_runtime_list_tools_response import ToolRuntimeListToolsResponse
 
 __all__ = ["ToolRuntimeResource", "AsyncToolRuntimeResource"]
 
@@ -48,9 +48,9 @@ class ToolRuntimeResource(SyncAPIResource):
     def invoke_tool(
         self,
         *,
-        kwargs: Dict[str, Union[bool, float, str, Iterable[object], object, None]],
+        kwargs: Dict[str, object],
         tool_name: str,
-        authorization: str | Omit = omit,
+        authorization: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -62,12 +62,6 @@ class ToolRuntimeResource(SyncAPIResource):
         Run a tool with the given arguments.
 
         Args:
-          kwargs: A dictionary of arguments to pass to the tool.
-
-          tool_name: The name of the tool to invoke.
-
-          authorization: (Optional) OAuth access token for authenticating with the MCP server.
-
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -95,9 +89,9 @@ class ToolRuntimeResource(SyncAPIResource):
     def list_tools(
         self,
         *,
-        authorization: str | Omit = omit,
-        mcp_endpoint: tool_runtime_list_tools_params.McpEndpoint | Omit = omit,
-        tool_group_id: str | Omit = omit,
+        authorization: Optional[str] | Omit = omit,
+        mcp_endpoint: Optional[tool_runtime_list_tools_params.McpEndpoint] | Omit = omit,
+        tool_group_id: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -109,11 +103,7 @@ class ToolRuntimeResource(SyncAPIResource):
         List all tools in the runtime.
 
         Args:
-          authorization: (Optional) OAuth access token for authenticating with the MCP server.
-
-          mcp_endpoint: The MCP endpoint to use for the tool group.
-
-          tool_group_id: The ID of the tool group to list tools for.
+          mcp_endpoint: A URL reference to external content.
 
           extra_headers: Send extra headers
 
@@ -167,9 +157,9 @@ class AsyncToolRuntimeResource(AsyncAPIResource):
     async def invoke_tool(
         self,
         *,
-        kwargs: Dict[str, Union[bool, float, str, Iterable[object], object, None]],
+        kwargs: Dict[str, object],
         tool_name: str,
-        authorization: str | Omit = omit,
+        authorization: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -181,12 +171,6 @@ class AsyncToolRuntimeResource(AsyncAPIResource):
         Run a tool with the given arguments.
 
         Args:
-          kwargs: A dictionary of arguments to pass to the tool.
-
-          tool_name: The name of the tool to invoke.
-
-          authorization: (Optional) OAuth access token for authenticating with the MCP server.
-
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -214,9 +198,9 @@ class AsyncToolRuntimeResource(AsyncAPIResource):
     async def list_tools(
         self,
         *,
-        authorization: str | Omit = omit,
-        mcp_endpoint: tool_runtime_list_tools_params.McpEndpoint | Omit = omit,
-        tool_group_id: str | Omit = omit,
+        authorization: Optional[str] | Omit = omit,
+        mcp_endpoint: Optional[tool_runtime_list_tools_params.McpEndpoint] | Omit = omit,
+        tool_group_id: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -228,11 +212,7 @@ class AsyncToolRuntimeResource(AsyncAPIResource):
         List all tools in the runtime.
 
         Args:
-          authorization: (Optional) OAuth access token for authenticating with the MCP server.
-
-          mcp_endpoint: The MCP endpoint to use for the tool group.
-
-          tool_group_id: The ID of the tool group to list tools for.
+          mcp_endpoint: A URL reference to external content.
 
           extra_headers: Send extra headers
 

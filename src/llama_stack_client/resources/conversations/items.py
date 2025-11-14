@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from typing import Any, List, Iterable, cast
+from typing import Any, List, Iterable, Optional, cast
 from typing_extensions import Literal
 
 import httpx
@@ -23,6 +23,7 @@ from ...types.conversations import item_list_params, item_create_params
 from ...types.conversations.item_get_response import ItemGetResponse
 from ...types.conversations.item_list_response import ItemListResponse
 from ...types.conversations.item_create_response import ItemCreateResponse
+from ...types.conversations.item_delete_response import ItemDeleteResponse
 
 __all__ = ["ItemsResource", "AsyncItemsResource"]
 
@@ -59,13 +60,12 @@ class ItemsResource(SyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> ItemCreateResponse:
-        """Create items.
+        """
+        Create items.
 
         Create items in the conversation.
 
         Args:
-          items: Items to include in the conversation context.
-
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -89,21 +89,23 @@ class ItemsResource(SyncAPIResource):
         self,
         conversation_id: str,
         *,
-        after: str | Omit = omit,
-        include: List[
-            Literal[
-                "web_search_call.action.sources",
-                "code_interpreter_call.outputs",
-                "computer_call_output.output.image_url",
-                "file_search_call.results",
-                "message.input_image.image_url",
-                "message.output_text.logprobs",
-                "reasoning.encrypted_content",
+        after: Optional[str] | Omit = omit,
+        include: Optional[
+            List[
+                Literal[
+                    "web_search_call.action.sources",
+                    "code_interpreter_call.outputs",
+                    "computer_call_output.output.image_url",
+                    "file_search_call.results",
+                    "message.input_image.image_url",
+                    "message.output_text.logprobs",
+                    "reasoning.encrypted_content",
+                ]
             ]
         ]
         | Omit = omit,
-        limit: int | Omit = omit,
-        order: Literal["asc", "desc"] | Omit = omit,
+        limit: Optional[int] | Omit = omit,
+        order: Optional[Literal["asc", "desc"]] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -111,19 +113,12 @@ class ItemsResource(SyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> SyncOpenAICursorPage[ItemListResponse]:
-        """List items.
+        """
+        List items.
 
         List items in the conversation.
 
         Args:
-          after: An item ID to list items after, used in pagination.
-
-          include: Specify additional output data to include in the response.
-
-          limit: A limit on the number of objects to be returned (1-100, default 20).
-
-          order: The order to return items in (asc or desc, default desc).
-
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -155,6 +150,44 @@ class ItemsResource(SyncAPIResource):
             model=cast(Any, ItemListResponse),  # Union types cannot be passed in as arguments in the type system
         )
 
+    def delete(
+        self,
+        item_id: str,
+        *,
+        conversation_id: str,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> ItemDeleteResponse:
+        """
+        Delete an item.
+
+        Delete a conversation item.
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not conversation_id:
+            raise ValueError(f"Expected a non-empty value for `conversation_id` but received {conversation_id!r}")
+        if not item_id:
+            raise ValueError(f"Expected a non-empty value for `item_id` but received {item_id!r}")
+        return self._delete(
+            f"/v1/conversations/{conversation_id}/items/{item_id}",
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=ItemDeleteResponse,
+        )
+
     def get(
         self,
         item_id: str,
@@ -167,7 +200,8 @@ class ItemsResource(SyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> ItemGetResponse:
-        """Retrieve an item.
+        """
+        Retrieve an item.
 
         Retrieve a conversation item.
 
@@ -184,15 +218,12 @@ class ItemsResource(SyncAPIResource):
             raise ValueError(f"Expected a non-empty value for `conversation_id` but received {conversation_id!r}")
         if not item_id:
             raise ValueError(f"Expected a non-empty value for `item_id` but received {item_id!r}")
-        return cast(
-            ItemGetResponse,
-            self._get(
-                f"/v1/conversations/{conversation_id}/items/{item_id}",
-                options=make_request_options(
-                    extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
-                ),
-                cast_to=cast(Any, ItemGetResponse),  # Union types cannot be passed in as arguments in the type system
+        return self._get(
+            f"/v1/conversations/{conversation_id}/items/{item_id}",
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
+            cast_to=ItemGetResponse,
         )
 
 
@@ -228,13 +259,12 @@ class AsyncItemsResource(AsyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> ItemCreateResponse:
-        """Create items.
+        """
+        Create items.
 
         Create items in the conversation.
 
         Args:
-          items: Items to include in the conversation context.
-
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -258,21 +288,23 @@ class AsyncItemsResource(AsyncAPIResource):
         self,
         conversation_id: str,
         *,
-        after: str | Omit = omit,
-        include: List[
-            Literal[
-                "web_search_call.action.sources",
-                "code_interpreter_call.outputs",
-                "computer_call_output.output.image_url",
-                "file_search_call.results",
-                "message.input_image.image_url",
-                "message.output_text.logprobs",
-                "reasoning.encrypted_content",
+        after: Optional[str] | Omit = omit,
+        include: Optional[
+            List[
+                Literal[
+                    "web_search_call.action.sources",
+                    "code_interpreter_call.outputs",
+                    "computer_call_output.output.image_url",
+                    "file_search_call.results",
+                    "message.input_image.image_url",
+                    "message.output_text.logprobs",
+                    "reasoning.encrypted_content",
+                ]
             ]
         ]
         | Omit = omit,
-        limit: int | Omit = omit,
-        order: Literal["asc", "desc"] | Omit = omit,
+        limit: Optional[int] | Omit = omit,
+        order: Optional[Literal["asc", "desc"]] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -280,19 +312,12 @@ class AsyncItemsResource(AsyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> AsyncPaginator[ItemListResponse, AsyncOpenAICursorPage[ItemListResponse]]:
-        """List items.
+        """
+        List items.
 
         List items in the conversation.
 
         Args:
-          after: An item ID to list items after, used in pagination.
-
-          include: Specify additional output data to include in the response.
-
-          limit: A limit on the number of objects to be returned (1-100, default 20).
-
-          order: The order to return items in (asc or desc, default desc).
-
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -324,6 +349,44 @@ class AsyncItemsResource(AsyncAPIResource):
             model=cast(Any, ItemListResponse),  # Union types cannot be passed in as arguments in the type system
         )
 
+    async def delete(
+        self,
+        item_id: str,
+        *,
+        conversation_id: str,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> ItemDeleteResponse:
+        """
+        Delete an item.
+
+        Delete a conversation item.
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not conversation_id:
+            raise ValueError(f"Expected a non-empty value for `conversation_id` but received {conversation_id!r}")
+        if not item_id:
+            raise ValueError(f"Expected a non-empty value for `item_id` but received {item_id!r}")
+        return await self._delete(
+            f"/v1/conversations/{conversation_id}/items/{item_id}",
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=ItemDeleteResponse,
+        )
+
     async def get(
         self,
         item_id: str,
@@ -336,7 +399,8 @@ class AsyncItemsResource(AsyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> ItemGetResponse:
-        """Retrieve an item.
+        """
+        Retrieve an item.
 
         Retrieve a conversation item.
 
@@ -353,15 +417,12 @@ class AsyncItemsResource(AsyncAPIResource):
             raise ValueError(f"Expected a non-empty value for `conversation_id` but received {conversation_id!r}")
         if not item_id:
             raise ValueError(f"Expected a non-empty value for `item_id` but received {item_id!r}")
-        return cast(
-            ItemGetResponse,
-            await self._get(
-                f"/v1/conversations/{conversation_id}/items/{item_id}",
-                options=make_request_options(
-                    extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
-                ),
-                cast_to=cast(Any, ItemGetResponse),  # Union types cannot be passed in as arguments in the type system
+        return await self._get(
+            f"/v1/conversations/{conversation_id}/items/{item_id}",
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
+            cast_to=ItemGetResponse,
         )
 
 
@@ -374,6 +435,9 @@ class ItemsResourceWithRawResponse:
         )
         self.list = to_raw_response_wrapper(
             items.list,
+        )
+        self.delete = to_raw_response_wrapper(
+            items.delete,
         )
         self.get = to_raw_response_wrapper(
             items.get,
@@ -390,6 +454,9 @@ class AsyncItemsResourceWithRawResponse:
         self.list = async_to_raw_response_wrapper(
             items.list,
         )
+        self.delete = async_to_raw_response_wrapper(
+            items.delete,
+        )
         self.get = async_to_raw_response_wrapper(
             items.get,
         )
@@ -405,6 +472,9 @@ class ItemsResourceWithStreamingResponse:
         self.list = to_streamed_response_wrapper(
             items.list,
         )
+        self.delete = to_streamed_response_wrapper(
+            items.delete,
+        )
         self.get = to_streamed_response_wrapper(
             items.get,
         )
@@ -419,6 +489,9 @@ class AsyncItemsResourceWithStreamingResponse:
         )
         self.list = async_to_streamed_response_wrapper(
             items.list,
+        )
+        self.delete = async_to_streamed_response_wrapper(
+            items.delete,
         )
         self.get = async_to_streamed_response_wrapper(
             items.get,

@@ -56,17 +56,17 @@ class TestResponses:
             temperature=0,
             text={
                 "format": {
-                    "type": "text",
                     "description": "description",
                     "name": "name",
-                    "schema": {"foo": True},
+                    "schema": {"foo": "bar"},
                     "strict": True,
+                    "type": "text",
                 }
             },
             tools=[
                 {
+                    "search_context_size": 'S?oC"high',
                     "type": "web_search",
-                    "search_context_size": "search_context_size",
                 }
             ],
         )
@@ -133,17 +133,17 @@ class TestResponses:
             temperature=0,
             text={
                 "format": {
-                    "type": "text",
                     "description": "description",
                     "name": "name",
-                    "schema": {"foo": True},
+                    "schema": {"foo": "bar"},
                     "strict": True,
+                    "type": "text",
                 }
             },
             tools=[
                 {
+                    "search_context_size": 'S?oC"high',
                     "type": "web_search",
-                    "search_context_size": "search_context_size",
                 }
             ],
         )
@@ -327,17 +327,17 @@ class TestAsyncResponses:
             temperature=0,
             text={
                 "format": {
-                    "type": "text",
                     "description": "description",
                     "name": "name",
-                    "schema": {"foo": True},
+                    "schema": {"foo": "bar"},
                     "strict": True,
+                    "type": "text",
                 }
             },
             tools=[
                 {
+                    "search_context_size": 'S?oC"high',
                     "type": "web_search",
-                    "search_context_size": "search_context_size",
                 }
             ],
         )
@@ -404,17 +404,17 @@ class TestAsyncResponses:
             temperature=0,
             text={
                 "format": {
-                    "type": "text",
                     "description": "description",
                     "name": "name",
-                    "schema": {"foo": True},
+                    "schema": {"foo": "bar"},
                     "strict": True,
+                    "type": "text",
                 }
             },
             tools=[
                 {
+                    "search_context_size": 'S?oC"high',
                     "type": "web_search",
-                    "search_context_size": "search_context_size",
                 }
             ],
         )

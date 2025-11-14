@@ -2,12 +2,12 @@
 
 from __future__ import annotations
 
-from typing import Dict, Union, Iterable, Optional
+from typing import Dict, Iterable, Optional
 
 import httpx
 
 from ..types import scoring_score_params, scoring_score_batch_params
-from .._types import Body, Query, Headers, NotGiven, not_given
+from .._types import Body, Omit, Query, Headers, NotGiven, omit, not_given
 from .._utils import maybe_transform, async_maybe_transform
 from .._compat import cached_property
 from .._resource import SyncAPIResource, AsyncAPIResource
@@ -19,7 +19,6 @@ from .._response import (
 )
 from .._base_client import make_request_options
 from ..types.scoring_score_response import ScoringScoreResponse
-from ..types.scoring_fn_params_param import ScoringFnParamsParam
 from ..types.scoring_score_batch_response import ScoringScoreBatchResponse
 
 __all__ = ["ScoringResource", "AsyncScoringResource"]
@@ -48,8 +47,8 @@ class ScoringResource(SyncAPIResource):
     def score(
         self,
         *,
-        input_rows: Iterable[Dict[str, Union[bool, float, str, Iterable[object], object, None]]],
-        scoring_functions: Dict[str, Optional[ScoringFnParamsParam]],
+        input_rows: Iterable[Dict[str, object]],
+        scoring_functions: Dict[str, Optional[scoring_score_params.ScoringFunctions]],
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -61,10 +60,6 @@ class ScoringResource(SyncAPIResource):
         Score a list of rows.
 
         Args:
-          input_rows: The rows to score.
-
-          scoring_functions: The scoring functions to use for the scoring.
-
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -92,8 +87,8 @@ class ScoringResource(SyncAPIResource):
         self,
         *,
         dataset_id: str,
-        save_results_dataset: bool,
-        scoring_functions: Dict[str, Optional[ScoringFnParamsParam]],
+        scoring_functions: Dict[str, Optional[scoring_score_batch_params.ScoringFunctions]],
+        save_results_dataset: bool | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -105,12 +100,6 @@ class ScoringResource(SyncAPIResource):
         Score a batch of rows.
 
         Args:
-          dataset_id: The ID of the dataset to score.
-
-          save_results_dataset: Whether to save the results to a dataset.
-
-          scoring_functions: The scoring functions to use for the scoring.
-
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -124,8 +113,8 @@ class ScoringResource(SyncAPIResource):
             body=maybe_transform(
                 {
                     "dataset_id": dataset_id,
-                    "save_results_dataset": save_results_dataset,
                     "scoring_functions": scoring_functions,
+                    "save_results_dataset": save_results_dataset,
                 },
                 scoring_score_batch_params.ScoringScoreBatchParams,
             ),
@@ -159,8 +148,8 @@ class AsyncScoringResource(AsyncAPIResource):
     async def score(
         self,
         *,
-        input_rows: Iterable[Dict[str, Union[bool, float, str, Iterable[object], object, None]]],
-        scoring_functions: Dict[str, Optional[ScoringFnParamsParam]],
+        input_rows: Iterable[Dict[str, object]],
+        scoring_functions: Dict[str, Optional[scoring_score_params.ScoringFunctions]],
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -172,10 +161,6 @@ class AsyncScoringResource(AsyncAPIResource):
         Score a list of rows.
 
         Args:
-          input_rows: The rows to score.
-
-          scoring_functions: The scoring functions to use for the scoring.
-
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -203,8 +188,8 @@ class AsyncScoringResource(AsyncAPIResource):
         self,
         *,
         dataset_id: str,
-        save_results_dataset: bool,
-        scoring_functions: Dict[str, Optional[ScoringFnParamsParam]],
+        scoring_functions: Dict[str, Optional[scoring_score_batch_params.ScoringFunctions]],
+        save_results_dataset: bool | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -216,12 +201,6 @@ class AsyncScoringResource(AsyncAPIResource):
         Score a batch of rows.
 
         Args:
-          dataset_id: The ID of the dataset to score.
-
-          save_results_dataset: Whether to save the results to a dataset.
-
-          scoring_functions: The scoring functions to use for the scoring.
-
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -235,8 +214,8 @@ class AsyncScoringResource(AsyncAPIResource):
             body=await async_maybe_transform(
                 {
                     "dataset_id": dataset_id,
-                    "save_results_dataset": save_results_dataset,
                     "scoring_functions": scoring_functions,
+                    "save_results_dataset": save_results_dataset,
                 },
                 scoring_score_batch_params.ScoringScoreBatchParams,
             ),

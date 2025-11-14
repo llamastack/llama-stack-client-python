@@ -1,6 +1,5 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-import builtins
 from typing import Dict, List, Optional
 from typing_extensions import Literal
 
@@ -11,11 +10,26 @@ __all__ = ["ConversationObject"]
 
 class ConversationObject(BaseModel):
     id: str
+    """The unique ID of the conversation."""
 
     created_at: int
+    """
+    The time at which the conversation was created, measured in seconds since the
+    Unix epoch.
+    """
 
-    object: Literal["conversation"]
+    items: Optional[List[Dict[str, object]]] = None
+    """Initial items to include in the conversation context.
 
-    items: Optional[List[builtins.object]] = None
+    You may add up to 20 items at a time.
+    """
 
     metadata: Optional[Dict[str, str]] = None
+    """Set of 16 key-value pairs that can be attached to an object.
+
+    This can be useful for storing additional information about the object in a
+    structured format, and querying for objects via API or the dashboard.
+    """
+
+    object: Optional[Literal["conversation"]] = None
+    """The object type, which is always conversation."""

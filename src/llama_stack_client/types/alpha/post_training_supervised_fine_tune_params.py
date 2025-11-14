@@ -2,10 +2,10 @@
 
 from __future__ import annotations
 
-from typing import Dict, Union, Iterable
-from typing_extensions import Literal, Required, TypedDict
+from typing import Dict, Union, Optional
+from typing_extensions import Literal, Required, TypeAlias, TypedDict
 
-from .algorithm_config_param import AlgorithmConfigParam
+from ..._types import SequenceNotStr
 
 __all__ = [
     "PostTrainingSupervisedFineTuneParams",
@@ -13,107 +13,114 @@ __all__ = [
     "TrainingConfigDataConfig",
     "TrainingConfigEfficiencyConfig",
     "TrainingConfigOptimizerConfig",
+    "AlgorithmConfig",
+    "AlgorithmConfigLoraFinetuningConfig",
+    "AlgorithmConfigQatFinetuningConfig",
 ]
 
 
 class PostTrainingSupervisedFineTuneParams(TypedDict, total=False):
-    hyperparam_search_config: Required[Dict[str, Union[bool, float, str, Iterable[object], object, None]]]
-    """The hyperparam search configuration."""
+    hyperparam_search_config: Required[Dict[str, object]]
 
     job_uuid: Required[str]
-    """The UUID of the job to create."""
 
-    logger_config: Required[Dict[str, Union[bool, float, str, Iterable[object], object, None]]]
-    """The logger configuration."""
+    logger_config: Required[Dict[str, object]]
 
     training_config: Required[TrainingConfig]
-    """The training configuration."""
+    """Comprehensive configuration for the training process."""
 
-    algorithm_config: AlgorithmConfigParam
-    """The algorithm configuration."""
+    algorithm_config: Optional[AlgorithmConfig]
+    """Configuration for Low-Rank Adaptation (LoRA) fine-tuning."""
 
-    checkpoint_dir: str
-    """The directory to save checkpoint(s) to."""
+    checkpoint_dir: Optional[str]
 
-    model: str
-    """The model to fine-tune."""
+    model: Optional[str]
+    """Model descriptor for training if not in provider config`"""
 
 
 class TrainingConfigDataConfig(TypedDict, total=False):
     batch_size: Required[int]
-    """Number of samples per training batch"""
 
     data_format: Required[Literal["instruct", "dialog"]]
-    """Format of the dataset (instruct or dialog)"""
+    """Format of the training dataset."""
 
     dataset_id: Required[str]
-    """Unique identifier for the training dataset"""
 
     shuffle: Required[bool]
-    """Whether to shuffle the dataset during training"""
 
-    packed: bool
-    """
-    (Optional) Whether to pack multiple samples into a single sequence for
-    efficiency
-    """
+    packed: Optional[bool]
 
-    train_on_input: bool
-    """(Optional) Whether to compute loss on input tokens as well as output tokens"""
+    train_on_input: Optional[bool]
 
-    validation_dataset_id: str
-    """(Optional) Unique identifier for the validation dataset"""
+    validation_dataset_id: Optional[str]
 
 
 class TrainingConfigEfficiencyConfig(TypedDict, total=False):
-    enable_activation_checkpointing: bool
-    """(Optional) Whether to use activation checkpointing to reduce memory usage"""
+    enable_activation_checkpointing: Optional[bool]
 
-    enable_activation_offloading: bool
-    """(Optional) Whether to offload activations to CPU to save GPU memory"""
+    enable_activation_offloading: Optional[bool]
 
-    fsdp_cpu_offload: bool
-    """(Optional) Whether to offload FSDP parameters to CPU"""
+    fsdp_cpu_offload: Optional[bool]
 
-    memory_efficient_fsdp_wrap: bool
-    """(Optional) Whether to use memory-efficient FSDP wrapping"""
+    memory_efficient_fsdp_wrap: Optional[bool]
 
 
 class TrainingConfigOptimizerConfig(TypedDict, total=False):
     lr: Required[float]
-    """Learning rate for the optimizer"""
 
     num_warmup_steps: Required[int]
-    """Number of steps for learning rate warmup"""
 
     optimizer_type: Required[Literal["adam", "adamw", "sgd"]]
-    """Type of optimizer to use (adam, adamw, or sgd)"""
+    """Available optimizer algorithms for training."""
 
     weight_decay: Required[float]
-    """Weight decay coefficient for regularization"""
 
 
 class TrainingConfig(TypedDict, total=False):
-    gradient_accumulation_steps: Required[int]
-    """Number of steps to accumulate gradients before updating"""
-
-    max_steps_per_epoch: Required[int]
-    """Maximum number of steps to run per epoch"""
-
     n_epochs: Required[int]
-    """Number of training epochs to run"""
 
-    data_config: TrainingConfigDataConfig
-    """(Optional) Configuration for data loading and formatting"""
+    data_config: Optional[TrainingConfigDataConfig]
+    """Configuration for training data and data loading."""
 
-    dtype: str
-    """(Optional) Data type for model parameters (bf16, fp16, fp32)"""
+    dtype: Optional[str]
 
-    efficiency_config: TrainingConfigEfficiencyConfig
-    """(Optional) Configuration for memory and compute optimizations"""
+    efficiency_config: Optional[TrainingConfigEfficiencyConfig]
+    """Configuration for memory and compute efficiency optimizations."""
 
-    max_validation_steps: int
-    """(Optional) Maximum number of validation steps per epoch"""
+    gradient_accumulation_steps: int
 
-    optimizer_config: TrainingConfigOptimizerConfig
-    """(Optional) Configuration for the optimization algorithm"""
+    max_steps_per_epoch: int
+
+    max_validation_steps: Optional[int]
+
+    optimizer_config: Optional[TrainingConfigOptimizerConfig]
+    """Configuration parameters for the optimization algorithm."""
+
+
+class AlgorithmConfigLoraFinetuningConfig(TypedDict, total=False):
+    alpha: Required[int]
+
+    apply_lora_to_mlp: Required[bool]
+
+    apply_lora_to_output: Required[bool]
+
+    lora_attn_modules: Required[SequenceNotStr[str]]
+
+    rank: Required[int]
+
+    quantize_base: Optional[bool]
+
+    type: Literal["LoRA"]
+
+    use_dora: Optional[bool]
+
+
+class AlgorithmConfigQatFinetuningConfig(TypedDict, total=False):
+    group_size: Required[int]
+
+    quantizer_name: Required[str]
+
+    type: Literal["QAT"]
+
+
+AlgorithmConfig: TypeAlias = Union[AlgorithmConfigLoraFinetuningConfig, AlgorithmConfigQatFinetuningConfig]

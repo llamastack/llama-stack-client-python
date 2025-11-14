@@ -27,10 +27,12 @@ from .create_response import CreateResponse as CreateResponse
 from .response_object import ResponseObject as ResponseObject
 from .file_list_params import FileListParams as FileListParams
 from .tool_list_params import ToolListParams as ToolListParams
+from .batch_list_params import BatchListParams as BatchListParams
 from .route_list_params import RouteListParams as RouteListParams
-from .scoring_fn_params import ScoringFnParams as ScoringFnParams
 from .file_create_params import FileCreateParams as FileCreateParams
 from .tool_list_response import ToolListResponse as ToolListResponse
+from .batch_create_params import BatchCreateParams as BatchCreateParams
+from .batch_list_response import BatchListResponse as BatchListResponse
 from .conversation_object import ConversationObject as ConversationObject
 from .list_files_response import ListFilesResponse as ListFilesResponse
 from .model_list_response import ModelListResponse as ModelListResponse
@@ -45,6 +47,8 @@ from .prompt_update_params import PromptUpdateParams as PromptUpdateParams
 from .response_list_params import ResponseListParams as ResponseListParams
 from .scoring_score_params import ScoringScoreParams as ScoringScoreParams
 from .shield_list_response import ShieldListResponse as ShieldListResponse
+from .batch_cancel_response import BatchCancelResponse as BatchCancelResponse
+from .batch_create_response import BatchCreateResponse as BatchCreateResponse
 from .chat_completion_chunk import ChatCompletionChunk as ChatCompletionChunk
 from .list_prompts_response import ListPromptsResponse as ListPromptsResponse
 from .list_shields_response import ListShieldsResponse as ListShieldsResponse
@@ -59,11 +63,11 @@ from .scoring_score_response import ScoringScoreResponse as ScoringScoreResponse
 from .shield_register_params import ShieldRegisterParams as ShieldRegisterParams
 from .tool_invocation_result import ToolInvocationResult as ToolInvocationResult
 from .vector_io_query_params import VectorIoQueryParams as VectorIoQueryParams
+from .batch_retrieve_response import BatchRetrieveResponse as BatchRetrieveResponse
 from .embedding_create_params import EmbeddingCreateParams as EmbeddingCreateParams
 from .list_providers_response import ListProvidersResponse as ListProvidersResponse
 from .model_register_response import ModelRegisterResponse as ModelRegisterResponse
 from .model_retrieve_response import ModelRetrieveResponse as ModelRetrieveResponse
-from .scoring_fn_params_param import ScoringFnParamsParam as ScoringFnParamsParam
 from .toolgroup_list_response import ToolgroupListResponse as ToolgroupListResponse
 from .vector_io_insert_params import VectorIoInsertParams as VectorIoInsertParams
 from .completion_create_params import CompletionCreateParams as CompletionCreateParams
