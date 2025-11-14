@@ -1,5 +1,18 @@
 # Changelog
 
+## 0.4.0-alpha.8 (2025-11-14)
+
+Full Changelog: [v0.4.0-alpha.7...v0.4.0-alpha.8](https://github.com/llamastack/llama-stack-client-python/compare/v0.4.0-alpha.7...v0.4.0-alpha.8)
+
+### Features
+
+* **ci:** add integration tests workflow ([#300](https://github.com/llamastack/llama-stack-client-python/issues/300)) ([32cb959](https://github.com/llamastack/llama-stack-client-python/commit/32cb9594b4e7ddf79c3b613f4dc026de01bac892))
+
+
+### Bug Fixes
+
+* MCP authorization parameter implementation ([0b552c6](https://github.com/llamastack/llama-stack-client-python/commit/0b552c666e7e071d115f9611bae9ca64d10e9211))
+
 ## 0.4.0-alpha.7 (2025-11-13)
 
 Full Changelog: [v0.4.0-alpha.6...v0.4.0-alpha.7](https://github.com/llamastack/llama-stack-client-python/compare/v0.4.0-alpha.6...v0.4.0-alpha.7)
