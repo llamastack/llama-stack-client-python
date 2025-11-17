@@ -3,7 +3,7 @@
 from __future__ import annotations
 
 import typing_extensions
-from typing import Type, cast
+from typing import Type, Optional, cast
 
 import httpx
 
@@ -106,12 +106,12 @@ class ScoringFunctionsResource(SyncAPIResource):
     def register(
         self,
         *,
-        description: object,
-        return_type: object,
-        scoring_fn_id: object,
-        params: object | Omit = omit,
-        provider_id: object | Omit = omit,
-        provider_scoring_fn_id: object | Omit = omit,
+        description: str,
+        return_type: scoring_function_register_params.ReturnType,
+        scoring_fn_id: str,
+        params: Optional[scoring_function_register_params.Params] | Omit = omit,
+        provider_id: Optional[str] | Omit = omit,
+        provider_scoring_fn_id: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -123,6 +123,8 @@ class ScoringFunctionsResource(SyncAPIResource):
         Register a scoring function.
 
         Args:
+          params: Parameters for LLM-as-judge scoring function configuration.
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -267,12 +269,12 @@ class AsyncScoringFunctionsResource(AsyncAPIResource):
     async def register(
         self,
         *,
-        description: object,
-        return_type: object,
-        scoring_fn_id: object,
-        params: object | Omit = omit,
-        provider_id: object | Omit = omit,
-        provider_scoring_fn_id: object | Omit = omit,
+        description: str,
+        return_type: scoring_function_register_params.ReturnType,
+        scoring_fn_id: str,
+        params: Optional[scoring_function_register_params.Params] | Omit = omit,
+        provider_id: Optional[str] | Omit = omit,
+        provider_scoring_fn_id: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -284,6 +286,8 @@ class AsyncScoringFunctionsResource(AsyncAPIResource):
         Register a scoring function.
 
         Args:
+          params: Parameters for LLM-as-judge scoring function configuration.
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request

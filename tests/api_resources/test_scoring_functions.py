@@ -86,9 +86,9 @@ class TestScoringFunctions:
     def test_method_register(self, client: LlamaStackClient) -> None:
         with pytest.warns(DeprecationWarning):
             scoring_function = client.scoring_functions.register(
-                description={},
-                return_type={},
-                scoring_fn_id={},
+                description="description",
+                return_type={"type": "string"},
+                scoring_fn_id="scoring_fn_id",
             )
 
         assert scoring_function is None
@@ -97,12 +97,18 @@ class TestScoringFunctions:
     def test_method_register_with_all_params(self, client: LlamaStackClient) -> None:
         with pytest.warns(DeprecationWarning):
             scoring_function = client.scoring_functions.register(
-                description={},
-                return_type={},
-                scoring_fn_id={},
-                params={},
-                provider_id={},
-                provider_scoring_fn_id={},
+                description="description",
+                return_type={"type": "string"},
+                scoring_fn_id="scoring_fn_id",
+                params={
+                    "judge_model": "judge_model",
+                    "aggregation_functions": ["average"],
+                    "judge_score_regexes": ["string"],
+                    "prompt_template": "prompt_template",
+                    "type": "llm_as_judge",
+                },
+                provider_id="provider_id",
+                provider_scoring_fn_id="provider_scoring_fn_id",
             )
 
         assert scoring_function is None
@@ -111,9 +117,9 @@ class TestScoringFunctions:
     def test_raw_response_register(self, client: LlamaStackClient) -> None:
         with pytest.warns(DeprecationWarning):
             response = client.scoring_functions.with_raw_response.register(
-                description={},
-                return_type={},
-                scoring_fn_id={},
+                description="description",
+                return_type={"type": "string"},
+                scoring_fn_id="scoring_fn_id",
             )
 
         assert response.is_closed is True
@@ -125,9 +131,9 @@ class TestScoringFunctions:
     def test_streaming_response_register(self, client: LlamaStackClient) -> None:
         with pytest.warns(DeprecationWarning):
             with client.scoring_functions.with_streaming_response.register(
-                description={},
-                return_type={},
-                scoring_fn_id={},
+                description="description",
+                return_type={"type": "string"},
+                scoring_fn_id="scoring_fn_id",
             ) as response:
                 assert not response.is_closed
                 assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -253,9 +259,9 @@ class TestAsyncScoringFunctions:
     async def test_method_register(self, async_client: AsyncLlamaStackClient) -> None:
         with pytest.warns(DeprecationWarning):
             scoring_function = await async_client.scoring_functions.register(
-                description={},
-                return_type={},
-                scoring_fn_id={},
+                description="description",
+                return_type={"type": "string"},
+                scoring_fn_id="scoring_fn_id",
             )
 
         assert scoring_function is None
@@ -264,12 +270,18 @@ class TestAsyncScoringFunctions:
     async def test_method_register_with_all_params(self, async_client: AsyncLlamaStackClient) -> None:
         with pytest.warns(DeprecationWarning):
             scoring_function = await async_client.scoring_functions.register(
-                description={},
-                return_type={},
-                scoring_fn_id={},
-                params={},
-                provider_id={},
-                provider_scoring_fn_id={},
+                description="description",
+                return_type={"type": "string"},
+                scoring_fn_id="scoring_fn_id",
+                params={
+                    "judge_model": "judge_model",
+                    "aggregation_functions": ["average"],
+                    "judge_score_regexes": ["string"],
+                    "prompt_template": "prompt_template",
+                    "type": "llm_as_judge",
+                },
+                provider_id="provider_id",
+                provider_scoring_fn_id="provider_scoring_fn_id",
             )
 
         assert scoring_function is None
@@ -278,9 +290,9 @@ class TestAsyncScoringFunctions:
     async def test_raw_response_register(self, async_client: AsyncLlamaStackClient) -> None:
         with pytest.warns(DeprecationWarning):
             response = await async_client.scoring_functions.with_raw_response.register(
-                description={},
-                return_type={},
-                scoring_fn_id={},
+                description="description",
+                return_type={"type": "string"},
+                scoring_fn_id="scoring_fn_id",
             )
 
         assert response.is_closed is True
@@ -292,9 +304,9 @@ class TestAsyncScoringFunctions:
     async def test_streaming_response_register(self, async_client: AsyncLlamaStackClient) -> None:
         with pytest.warns(DeprecationWarning):
             async with async_client.scoring_functions.with_streaming_response.register(
-                description={},
-                return_type={},
-                scoring_fn_id={},
+                description="description",
+                return_type={"type": "string"},
+                scoring_fn_id="scoring_fn_id",
             ) as response:
                 assert not response.is_closed
                 assert response.http_request.headers.get("X-Stainless-Lang") == "python"
