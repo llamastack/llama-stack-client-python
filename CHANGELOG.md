@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.4.0-alpha.10 (2025-11-17)
+
+Full Changelog: [v0.4.0-alpha.9...v0.4.0-alpha.10](https://github.com/llamastack/llama-stack-client-python/compare/v0.4.0-alpha.9...v0.4.0-alpha.10)
+
+### Bug Fixes
+
+* **openapi:** restore embedded request wrappers ([261e364](https://github.com/llamastack/llama-stack-client-python/commit/261e3640c942c60860af08cd4d205d8e402bb702))
+
 ## 0.4.0-alpha.9 (2025-11-14)
 
 Full Changelog: [v0.4.0-alpha.8...v0.4.0-alpha.9](https://github.com/llamastack/llama-stack-client-python/compare/v0.4.0-alpha.8...v0.4.0-alpha.9)

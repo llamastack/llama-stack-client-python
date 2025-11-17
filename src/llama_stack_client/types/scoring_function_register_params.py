@@ -2,20 +2,82 @@
 
 from __future__ import annotations
 
-from typing_extensions import Required, TypedDict
+from typing import List, Union, Optional
+from typing_extensions import Literal, Required, TypeAlias, TypedDict
 
-__all__ = ["ScoringFunctionRegisterParams"]
+from .._types import SequenceNotStr
+
+__all__ = [
+    "ScoringFunctionRegisterParams",
+    "ReturnType",
+    "Params",
+    "ParamsLlmAsJudgeScoringFnParams",
+    "ParamsRegexParserScoringFnParams",
+    "ParamsBasicScoringFnParams",
+]
 
 
 class ScoringFunctionRegisterParams(TypedDict, total=False):
-    description: Required[object]
+    description: Required[str]
 
-    return_type: Required[object]
+    return_type: Required[ReturnType]
 
-    scoring_fn_id: Required[object]
+    scoring_fn_id: Required[str]
 
-    params: object
+    params: Optional[Params]
+    """Parameters for LLM-as-judge scoring function configuration."""
 
-    provider_id: object
+    provider_id: Optional[str]
 
-    provider_scoring_fn_id: object
+    provider_scoring_fn_id: Optional[str]
+
+
+class ReturnType(TypedDict, total=False):
+    type: Required[
+        Literal[
+            "string",
+            "number",
+            "boolean",
+            "array",
+            "object",
+            "json",
+            "union",
+            "chat_completion_input",
+            "completion_input",
+            "agent_turn_input",
+        ]
+    ]
+
+
+class ParamsLlmAsJudgeScoringFnParams(TypedDict, total=False):
+    judge_model: Required[str]
+
+    aggregation_functions: List[Literal["average", "weighted_average", "median", "categorical_count", "accuracy"]]
+    """Aggregation functions to apply to the scores of each row"""
+
+    judge_score_regexes: SequenceNotStr[str]
+    """Regexes to extract the answer from generated response"""
+
+    prompt_template: Optional[str]
+
+    type: Literal["llm_as_judge"]
+
+
+class ParamsRegexParserScoringFnParams(TypedDict, total=False):
+    aggregation_functions: List[Literal["average", "weighted_average", "median", "categorical_count", "accuracy"]]
+    """Aggregation functions to apply to the scores of each row"""
+
+    parsing_regexes: SequenceNotStr[str]
+    """Regex to extract the answer from generated response"""
+
+    type: Literal["regex_parser"]
+
+
+class ParamsBasicScoringFnParams(TypedDict, total=False):
+    aggregation_functions: List[Literal["average", "weighted_average", "median", "categorical_count", "accuracy"]]
+    """Aggregation functions to apply to the scores of each row"""
+
+    type: Literal["basic"]
+
+
+Params: TypeAlias = Union[ParamsLlmAsJudgeScoringFnParams, ParamsRegexParserScoringFnParams, ParamsBasicScoringFnParams]
