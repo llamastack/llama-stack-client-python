@@ -8,7 +8,7 @@
 
 from __future__ import annotations
 
-from typing import Dict, Iterable, Optional
+from typing import Dict, Iterable
 
 import httpx
 
@@ -20,7 +20,7 @@ from .jobs import (
     JobsResourceWithStreamingResponse,
     AsyncJobsResourceWithStreamingResponse,
 )
-from ...._types import Body, Omit, Query, Headers, NotGiven, SequenceNotStr, omit, not_given
+from ...._types import Body, Query, Headers, NotGiven, SequenceNotStr, not_given
 from ...._utils import maybe_transform, async_maybe_transform
 from ...._compat import cached_property
 from ...._resource import SyncAPIResource, AsyncAPIResource
@@ -164,9 +164,7 @@ class EvalResource(SyncAPIResource):
         self,
         benchmark_id: str,
         *,
-        eval_candidate: eval_run_eval_params.EvalCandidate,
-        num_examples: Optional[int] | Omit = omit,
-        scoring_params: Dict[str, eval_run_eval_params.ScoringParams] | Omit = omit,
+        benchmark_config: BenchmarkConfigParam,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -178,13 +176,7 @@ class EvalResource(SyncAPIResource):
         Run an evaluation on a benchmark.
 
         Args:
-          eval_candidate: A model candidate for evaluation.
-
-          num_examples: Number of examples to evaluate (useful for testing), if not provided, all
-              examples in the dataset will be evaluated
-
-          scoring_params: Map between scoring function id and parameters for each scoring function you
-              want to run
+          benchmark_config: A benchmark configuration for evaluation.
 
           extra_headers: Send extra headers
 
@@ -198,14 +190,7 @@ class EvalResource(SyncAPIResource):
             raise ValueError(f"Expected a non-empty value for `benchmark_id` but received {benchmark_id!r}")
         return self._post(
             f"/v1alpha/eval/benchmarks/{benchmark_id}/jobs",
-            body=maybe_transform(
-                {
-                    "eval_candidate": eval_candidate,
-                    "num_examples": num_examples,
-                    "scoring_params": scoring_params,
-                },
-                eval_run_eval_params.EvalRunEvalParams,
-            ),
+            body=maybe_transform({"benchmark_config": benchmark_config}, eval_run_eval_params.EvalRunEvalParams),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -216,9 +201,7 @@ class EvalResource(SyncAPIResource):
         self,
         benchmark_id: str,
         *,
-        eval_candidate: eval_run_eval_alpha_params.EvalCandidate,
-        num_examples: Optional[int] | Omit = omit,
-        scoring_params: Dict[str, eval_run_eval_alpha_params.ScoringParams] | Omit = omit,
+        benchmark_config: BenchmarkConfigParam,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -230,13 +213,7 @@ class EvalResource(SyncAPIResource):
         Run an evaluation on a benchmark.
 
         Args:
-          eval_candidate: A model candidate for evaluation.
-
-          num_examples: Number of examples to evaluate (useful for testing), if not provided, all
-              examples in the dataset will be evaluated
-
-          scoring_params: Map between scoring function id and parameters for each scoring function you
-              want to run
+          benchmark_config: A benchmark configuration for evaluation.
 
           extra_headers: Send extra headers
 
@@ -251,12 +228,7 @@ class EvalResource(SyncAPIResource):
         return self._post(
             f"/v1alpha/eval/benchmarks/{benchmark_id}/jobs",
             body=maybe_transform(
-                {
-                    "eval_candidate": eval_candidate,
-                    "num_examples": num_examples,
-                    "scoring_params": scoring_params,
-                },
-                eval_run_eval_alpha_params.EvalRunEvalAlphaParams,
+                {"benchmark_config": benchmark_config}, eval_run_eval_alpha_params.EvalRunEvalAlphaParams
             ),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
@@ -385,9 +357,7 @@ class AsyncEvalResource(AsyncAPIResource):
         self,
         benchmark_id: str,
         *,
-        eval_candidate: eval_run_eval_params.EvalCandidate,
-        num_examples: Optional[int] | Omit = omit,
-        scoring_params: Dict[str, eval_run_eval_params.ScoringParams] | Omit = omit,
+        benchmark_config: BenchmarkConfigParam,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -399,13 +369,7 @@ class AsyncEvalResource(AsyncAPIResource):
         Run an evaluation on a benchmark.
 
         Args:
-          eval_candidate: A model candidate for evaluation.
-
-          num_examples: Number of examples to evaluate (useful for testing), if not provided, all
-              examples in the dataset will be evaluated
-
-          scoring_params: Map between scoring function id and parameters for each scoring function you
-              want to run
+          benchmark_config: A benchmark configuration for evaluation.
 
           extra_headers: Send extra headers
 
@@ -420,12 +384,7 @@ class AsyncEvalResource(AsyncAPIResource):
         return await self._post(
             f"/v1alpha/eval/benchmarks/{benchmark_id}/jobs",
             body=await async_maybe_transform(
-                {
-                    "eval_candidate": eval_candidate,
-                    "num_examples": num_examples,
-                    "scoring_params": scoring_params,
-                },
-                eval_run_eval_params.EvalRunEvalParams,
+                {"benchmark_config": benchmark_config}, eval_run_eval_params.EvalRunEvalParams
             ),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
@@ -437,9 +396,7 @@ class AsyncEvalResource(AsyncAPIResource):
         self,
         benchmark_id: str,
         *,
-        eval_candidate: eval_run_eval_alpha_params.EvalCandidate,
-        num_examples: Optional[int] | Omit = omit,
-        scoring_params: Dict[str, eval_run_eval_alpha_params.ScoringParams] | Omit = omit,
+        benchmark_config: BenchmarkConfigParam,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -451,13 +408,7 @@ class AsyncEvalResource(AsyncAPIResource):
         Run an evaluation on a benchmark.
 
         Args:
-          eval_candidate: A model candidate for evaluation.
-
-          num_examples: Number of examples to evaluate (useful for testing), if not provided, all
-              examples in the dataset will be evaluated
-
-          scoring_params: Map between scoring function id and parameters for each scoring function you
-              want to run
+          benchmark_config: A benchmark configuration for evaluation.
 
           extra_headers: Send extra headers
 
@@ -472,12 +423,7 @@ class AsyncEvalResource(AsyncAPIResource):
         return await self._post(
             f"/v1alpha/eval/benchmarks/{benchmark_id}/jobs",
             body=await async_maybe_transform(
-                {
-                    "eval_candidate": eval_candidate,
-                    "num_examples": num_examples,
-                    "scoring_params": scoring_params,
-                },
-                eval_run_eval_alpha_params.EvalRunEvalAlphaParams,
+                {"benchmark_config": benchmark_config}, eval_run_eval_alpha_params.EvalRunEvalAlphaParams
             ),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout

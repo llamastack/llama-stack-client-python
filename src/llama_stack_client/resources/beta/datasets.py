@@ -10,6 +10,7 @@ from __future__ import annotations
 
 import typing_extensions
 from typing import Dict, Type, Iterable, Optional, cast
+from typing_extensions import Literal
 
 import httpx
 
@@ -205,10 +206,10 @@ class DatasetsResource(SyncAPIResource):
     def register(
         self,
         *,
-        purpose: object,
-        source: object,
-        dataset_id: object | Omit = omit,
-        metadata: object | Omit = omit,
+        purpose: Literal["post-training/messages", "eval/question-answer", "eval/messages-answer"],
+        source: dataset_register_params.Source,
+        dataset_id: Optional[str] | Omit = omit,
+        metadata: Optional[Dict[str, object]] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -216,10 +217,15 @@ class DatasetsResource(SyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> DatasetRegisterResponse:
-        """
-        Register a new dataset.
+        """Register a new dataset.
 
         Args:
+          purpose: Purpose of the dataset.
+
+        Each purpose has a required input data schema.
+
+          source: A dataset that can be obtained from a URI.
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -452,10 +458,10 @@ class AsyncDatasetsResource(AsyncAPIResource):
     async def register(
         self,
         *,
-        purpose: object,
-        source: object,
-        dataset_id: object | Omit = omit,
-        metadata: object | Omit = omit,
+        purpose: Literal["post-training/messages", "eval/question-answer", "eval/messages-answer"],
+        source: dataset_register_params.Source,
+        dataset_id: Optional[str] | Omit = omit,
+        metadata: Optional[Dict[str, object]] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -463,10 +469,15 @@ class AsyncDatasetsResource(AsyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> DatasetRegisterResponse:
-        """
-        Register a new dataset.
+        """Register a new dataset.
 
         Args:
+          purpose: Purpose of the dataset.
+
+        Each purpose has a required input data schema.
+
+          source: A dataset that can be obtained from a URI.
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
