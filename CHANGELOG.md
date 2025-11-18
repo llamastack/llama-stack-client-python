@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.4.0-alpha.11 (2025-11-18)
+
+Full Changelog: [v0.4.0-alpha.10...v0.4.0-alpha.11](https://github.com/llamastack/llama-stack-client-python/compare/v0.4.0-alpha.10...v0.4.0-alpha.11)
+
+### Features
+
+* Wire through parallel_tool_calls to Responses API ([2888bed](https://github.com/llamastack/llama-stack-client-python/commit/2888bed06c11f2eb5c7e71d7555ff0c1a19eb696))
+
 ## 0.4.0-alpha.10 (2025-11-17)
 
 Full Changelog: [v0.4.0-alpha.9...v0.4.0-alpha.10](https://github.com/llamastack/llama-stack-client-python/compare/v0.4.0-alpha.9...v0.4.0-alpha.10)
