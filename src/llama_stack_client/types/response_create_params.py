@@ -70,6 +70,8 @@ class ResponseCreateParamsBase(TypedDict, total=False):
 
     max_tool_calls: Optional[int]
 
+    parallel_tool_calls: Optional[bool]
+
     previous_response_id: Optional[str]
 
     prompt: Optional[Prompt]

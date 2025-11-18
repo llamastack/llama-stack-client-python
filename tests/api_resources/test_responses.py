@@ -40,6 +40,7 @@ class TestResponses:
             instructions="instructions",
             max_infer_iters=0,
             max_tool_calls=0,
+            parallel_tool_calls=True,
             previous_response_id="previous_response_id",
             prompt={
                 "id": "id",
@@ -118,6 +119,7 @@ class TestResponses:
             instructions="instructions",
             max_infer_iters=0,
             max_tool_calls=0,
+            parallel_tool_calls=True,
             previous_response_id="previous_response_id",
             prompt={
                 "id": "id",
@@ -311,6 +313,7 @@ class TestAsyncResponses:
             instructions="instructions",
             max_infer_iters=0,
             max_tool_calls=0,
+            parallel_tool_calls=True,
             previous_response_id="previous_response_id",
             prompt={
                 "id": "id",
@@ -389,6 +392,7 @@ class TestAsyncResponses:
             instructions="instructions",
             max_infer_iters=0,
             max_tool_calls=0,
+            parallel_tool_calls=True,
             previous_response_id="previous_response_id",
             prompt={
                 "id": "id",
