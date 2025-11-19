@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.4.0-alpha.12 (2025-11-19)
+
+Full Changelog: [v0.4.0-alpha.11...v0.4.0-alpha.12](https://github.com/llamastack/llama-stack-client-python/compare/v0.4.0-alpha.11...v0.4.0-alpha.12)
+
+### Bug Fixes
+
+* Pydantic validation error with list-type metadata in vector search ([#3797](https://github.com/llamastack/llama-stack-client-python/issues/3797)) ([6729d3f](https://github.com/llamastack/llama-stack-client-python/commit/6729d3f41aac315ca24ef844ca1f9fa5ce8eb5de))
+
 ## 0.4.0-alpha.11 (2025-11-18)
 
 Full Changelog: [v0.4.0-alpha.10...v0.4.0-alpha.11](https://github.com/llamastack/llama-stack-client-python/compare/v0.4.0-alpha.10...v0.4.0-alpha.11)
