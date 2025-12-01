@@ -46,6 +46,7 @@ class ToolgroupsResource(SyncAPIResource):
         """
         return ToolgroupsResourceWithStreamingResponse(self)
 
+    @typing_extensions.deprecated("deprecated")
     def list(
         self,
         *,
@@ -69,6 +70,7 @@ class ToolgroupsResource(SyncAPIResource):
             cast_to=cast(Type[ToolgroupListResponse], DataWrapper[ToolgroupListResponse]),
         )
 
+    @typing_extensions.deprecated("deprecated")
     def get(
         self,
         toolgroup_id: str,
@@ -205,6 +207,7 @@ class AsyncToolgroupsResource(AsyncAPIResource):
         """
         return AsyncToolgroupsResourceWithStreamingResponse(self)
 
+    @typing_extensions.deprecated("deprecated")
     async def list(
         self,
         *,
@@ -228,6 +231,7 @@ class AsyncToolgroupsResource(AsyncAPIResource):
             cast_to=cast(Type[ToolgroupListResponse], DataWrapper[ToolgroupListResponse]),
         )
 
+    @typing_extensions.deprecated("deprecated")
     async def get(
         self,
         toolgroup_id: str,
@@ -348,11 +352,15 @@ class ToolgroupsResourceWithRawResponse:
     def __init__(self, toolgroups: ToolgroupsResource) -> None:
         self._toolgroups = toolgroups
 
-        self.list = to_raw_response_wrapper(
-            toolgroups.list,
+        self.list = (  # pyright: ignore[reportDeprecated]
+            to_raw_response_wrapper(
+                toolgroups.list,  # pyright: ignore[reportDeprecated],
+            )
         )
-        self.get = to_raw_response_wrapper(
-            toolgroups.get,
+        self.get = (  # pyright: ignore[reportDeprecated]
+            to_raw_response_wrapper(
+                toolgroups.get,  # pyright: ignore[reportDeprecated],
+            )
         )
         self.register = (  # pyright: ignore[reportDeprecated]
             to_raw_response_wrapper(
@@ -370,11 +378,15 @@ class AsyncToolgroupsResourceWithRawResponse:
     def __init__(self, toolgroups: AsyncToolgroupsResource) -> None:
         self._toolgroups = toolgroups
 
-        self.list = async_to_raw_response_wrapper(
-            toolgroups.list,
+        self.list = (  # pyright: ignore[reportDeprecated]
+            async_to_raw_response_wrapper(
+                toolgroups.list,  # pyright: ignore[reportDeprecated],
+            )
         )
-        self.get = async_to_raw_response_wrapper(
-            toolgroups.get,
+        self.get = (  # pyright: ignore[reportDeprecated]
+            async_to_raw_response_wrapper(
+                toolgroups.get,  # pyright: ignore[reportDeprecated],
+            )
         )
         self.register = (  # pyright: ignore[reportDeprecated]
             async_to_raw_response_wrapper(
@@ -392,11 +404,15 @@ class ToolgroupsResourceWithStreamingResponse:
     def __init__(self, toolgroups: ToolgroupsResource) -> None:
         self._toolgroups = toolgroups
 
-        self.list = to_streamed_response_wrapper(
-            toolgroups.list,
+        self.list = (  # pyright: ignore[reportDeprecated]
+            to_streamed_response_wrapper(
+                toolgroups.list,  # pyright: ignore[reportDeprecated],
+            )
         )
-        self.get = to_streamed_response_wrapper(
-            toolgroups.get,
+        self.get = (  # pyright: ignore[reportDeprecated]
+            to_streamed_response_wrapper(
+                toolgroups.get,  # pyright: ignore[reportDeprecated],
+            )
         )
         self.register = (  # pyright: ignore[reportDeprecated]
             to_streamed_response_wrapper(
@@ -414,11 +430,15 @@ class AsyncToolgroupsResourceWithStreamingResponse:
     def __init__(self, toolgroups: AsyncToolgroupsResource) -> None:
         self._toolgroups = toolgroups
 
-        self.list = async_to_streamed_response_wrapper(
-            toolgroups.list,
+        self.list = (  # pyright: ignore[reportDeprecated]
+            async_to_streamed_response_wrapper(
+                toolgroups.list,  # pyright: ignore[reportDeprecated],
+            )
         )
-        self.get = async_to_streamed_response_wrapper(
-            toolgroups.get,
+        self.get = (  # pyright: ignore[reportDeprecated]
+            async_to_streamed_response_wrapper(
+                toolgroups.get,  # pyright: ignore[reportDeprecated],
+            )
         )
         self.register = (  # pyright: ignore[reportDeprecated]
             async_to_streamed_response_wrapper(

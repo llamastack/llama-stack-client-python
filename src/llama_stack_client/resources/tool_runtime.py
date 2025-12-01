@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import typing_extensions
 from typing import Dict, Type, Optional, cast
 
 import httpx
@@ -45,6 +46,7 @@ class ToolRuntimeResource(SyncAPIResource):
         """
         return ToolRuntimeResourceWithStreamingResponse(self)
 
+    @typing_extensions.deprecated("deprecated")
     def invoke_tool(
         self,
         *,
@@ -86,6 +88,7 @@ class ToolRuntimeResource(SyncAPIResource):
             cast_to=ToolInvocationResult,
         )
 
+    @typing_extensions.deprecated("deprecated")
     def list_tools(
         self,
         *,
@@ -154,6 +157,7 @@ class AsyncToolRuntimeResource(AsyncAPIResource):
         """
         return AsyncToolRuntimeResourceWithStreamingResponse(self)
 
+    @typing_extensions.deprecated("deprecated")
     async def invoke_tool(
         self,
         *,
@@ -195,6 +199,7 @@ class AsyncToolRuntimeResource(AsyncAPIResource):
             cast_to=ToolInvocationResult,
         )
 
+    @typing_extensions.deprecated("deprecated")
     async def list_tools(
         self,
         *,
@@ -247,11 +252,15 @@ class ToolRuntimeResourceWithRawResponse:
     def __init__(self, tool_runtime: ToolRuntimeResource) -> None:
         self._tool_runtime = tool_runtime
 
-        self.invoke_tool = to_raw_response_wrapper(
-            tool_runtime.invoke_tool,
+        self.invoke_tool = (  # pyright: ignore[reportDeprecated]
+            to_raw_response_wrapper(
+                tool_runtime.invoke_tool,  # pyright: ignore[reportDeprecated],
+            )
         )
-        self.list_tools = to_raw_response_wrapper(
-            tool_runtime.list_tools,
+        self.list_tools = (  # pyright: ignore[reportDeprecated]
+            to_raw_response_wrapper(
+                tool_runtime.list_tools,  # pyright: ignore[reportDeprecated],
+            )
         )
 
 
@@ -259,11 +268,15 @@ class AsyncToolRuntimeResourceWithRawResponse:
     def __init__(self, tool_runtime: AsyncToolRuntimeResource) -> None:
         self._tool_runtime = tool_runtime
 
-        self.invoke_tool = async_to_raw_response_wrapper(
-            tool_runtime.invoke_tool,
+        self.invoke_tool = (  # pyright: ignore[reportDeprecated]
+            async_to_raw_response_wrapper(
+                tool_runtime.invoke_tool,  # pyright: ignore[reportDeprecated],
+            )
         )
-        self.list_tools = async_to_raw_response_wrapper(
-            tool_runtime.list_tools,
+        self.list_tools = (  # pyright: ignore[reportDeprecated]
+            async_to_raw_response_wrapper(
+                tool_runtime.list_tools,  # pyright: ignore[reportDeprecated],
+            )
         )
 
 
@@ -271,11 +284,15 @@ class ToolRuntimeResourceWithStreamingResponse:
     def __init__(self, tool_runtime: ToolRuntimeResource) -> None:
         self._tool_runtime = tool_runtime
 
-        self.invoke_tool = to_streamed_response_wrapper(
-            tool_runtime.invoke_tool,
+        self.invoke_tool = (  # pyright: ignore[reportDeprecated]
+            to_streamed_response_wrapper(
+                tool_runtime.invoke_tool,  # pyright: ignore[reportDeprecated],
+            )
         )
-        self.list_tools = to_streamed_response_wrapper(
-            tool_runtime.list_tools,
+        self.list_tools = (  # pyright: ignore[reportDeprecated]
+            to_streamed_response_wrapper(
+                tool_runtime.list_tools,  # pyright: ignore[reportDeprecated],
+            )
         )
 
 
@@ -283,9 +300,13 @@ class AsyncToolRuntimeResourceWithStreamingResponse:
     def __init__(self, tool_runtime: AsyncToolRuntimeResource) -> None:
         self._tool_runtime = tool_runtime
 
-        self.invoke_tool = async_to_streamed_response_wrapper(
-            tool_runtime.invoke_tool,
+        self.invoke_tool = (  # pyright: ignore[reportDeprecated]
+            async_to_streamed_response_wrapper(
+                tool_runtime.invoke_tool,  # pyright: ignore[reportDeprecated],
+            )
         )
-        self.list_tools = async_to_streamed_response_wrapper(
-            tool_runtime.list_tools,
+        self.list_tools = (  # pyright: ignore[reportDeprecated]
+            async_to_streamed_response_wrapper(
+                tool_runtime.list_tools,  # pyright: ignore[reportDeprecated],
+            )
         )
