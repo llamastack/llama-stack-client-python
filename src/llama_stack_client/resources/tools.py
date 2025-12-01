@@ -8,6 +8,7 @@
 
 from __future__ import annotations
 
+import typing_extensions
 from typing import Type, Optional, cast
 
 import httpx
@@ -51,6 +52,7 @@ class ToolsResource(SyncAPIResource):
         """
         return ToolsResourceWithStreamingResponse(self)
 
+    @typing_extensions.deprecated("deprecated")
     def list(
         self,
         *,
@@ -87,6 +89,7 @@ class ToolsResource(SyncAPIResource):
             cast_to=cast(Type[ToolListResponse], DataWrapper[ToolListResponse]),
         )
 
+    @typing_extensions.deprecated("deprecated")
     def get(
         self,
         tool_name: str,
@@ -141,6 +144,7 @@ class AsyncToolsResource(AsyncAPIResource):
         """
         return AsyncToolsResourceWithStreamingResponse(self)
 
+    @typing_extensions.deprecated("deprecated")
     async def list(
         self,
         *,
@@ -177,6 +181,7 @@ class AsyncToolsResource(AsyncAPIResource):
             cast_to=cast(Type[ToolListResponse], DataWrapper[ToolListResponse]),
         )
 
+    @typing_extensions.deprecated("deprecated")
     async def get(
         self,
         tool_name: str,
@@ -215,11 +220,15 @@ class ToolsResourceWithRawResponse:
     def __init__(self, tools: ToolsResource) -> None:
         self._tools = tools
 
-        self.list = to_raw_response_wrapper(
-            tools.list,
+        self.list = (  # pyright: ignore[reportDeprecated]
+            to_raw_response_wrapper(
+                tools.list,  # pyright: ignore[reportDeprecated],
+            )
         )
-        self.get = to_raw_response_wrapper(
-            tools.get,
+        self.get = (  # pyright: ignore[reportDeprecated]
+            to_raw_response_wrapper(
+                tools.get,  # pyright: ignore[reportDeprecated],
+            )
         )
 
 
@@ -227,11 +236,15 @@ class AsyncToolsResourceWithRawResponse:
     def __init__(self, tools: AsyncToolsResource) -> None:
         self._tools = tools
 
-        self.list = async_to_raw_response_wrapper(
-            tools.list,
+        self.list = (  # pyright: ignore[reportDeprecated]
+            async_to_raw_response_wrapper(
+                tools.list,  # pyright: ignore[reportDeprecated],
+            )
         )
-        self.get = async_to_raw_response_wrapper(
-            tools.get,
+        self.get = (  # pyright: ignore[reportDeprecated]
+            async_to_raw_response_wrapper(
+                tools.get,  # pyright: ignore[reportDeprecated],
+            )
         )
 
 
@@ -239,11 +252,15 @@ class ToolsResourceWithStreamingResponse:
     def __init__(self, tools: ToolsResource) -> None:
         self._tools = tools
 
-        self.list = to_streamed_response_wrapper(
-            tools.list,
+        self.list = (  # pyright: ignore[reportDeprecated]
+            to_streamed_response_wrapper(
+                tools.list,  # pyright: ignore[reportDeprecated],
+            )
         )
-        self.get = to_streamed_response_wrapper(
-            tools.get,
+        self.get = (  # pyright: ignore[reportDeprecated]
+            to_streamed_response_wrapper(
+                tools.get,  # pyright: ignore[reportDeprecated],
+            )
         )
 
 
@@ -251,9 +268,13 @@ class AsyncToolsResourceWithStreamingResponse:
     def __init__(self, tools: AsyncToolsResource) -> None:
         self._tools = tools
 
-        self.list = async_to_streamed_response_wrapper(
-            tools.list,
+        self.list = (  # pyright: ignore[reportDeprecated]
+            async_to_streamed_response_wrapper(
+                tools.list,  # pyright: ignore[reportDeprecated],
+            )
         )
-        self.get = async_to_streamed_response_wrapper(
-            tools.get,
+        self.get = (  # pyright: ignore[reportDeprecated]
+            async_to_streamed_response_wrapper(
+                tools.get,  # pyright: ignore[reportDeprecated],
+            )
         )
