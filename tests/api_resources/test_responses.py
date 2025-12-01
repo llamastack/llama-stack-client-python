@@ -40,6 +40,7 @@ class TestResponses:
             instructions="instructions",
             max_infer_iters=0,
             max_tool_calls=0,
+            metadata={"foo": "string"},
             parallel_tool_calls=True,
             previous_response_id="previous_response_id",
             prompt={
@@ -119,6 +120,7 @@ class TestResponses:
             instructions="instructions",
             max_infer_iters=0,
             max_tool_calls=0,
+            metadata={"foo": "string"},
             parallel_tool_calls=True,
             previous_response_id="previous_response_id",
             prompt={
@@ -313,6 +315,7 @@ class TestAsyncResponses:
             instructions="instructions",
             max_infer_iters=0,
             max_tool_calls=0,
+            metadata={"foo": "string"},
             parallel_tool_calls=True,
             previous_response_id="previous_response_id",
             prompt={
@@ -392,6 +395,7 @@ class TestAsyncResponses:
             instructions="instructions",
             max_infer_iters=0,
             max_tool_calls=0,
+            metadata={"foo": "string"},
             parallel_tool_calls=True,
             previous_response_id="previous_response_id",
             prompt={
