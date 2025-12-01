@@ -8,7 +8,7 @@
 
 from __future__ import annotations
 
-from typing import Union, Iterable, Optional
+from typing import Dict, Union, Iterable, Optional
 from typing_extensions import Literal, overload
 
 import httpx
@@ -83,6 +83,7 @@ class ResponsesResource(SyncAPIResource):
         instructions: Optional[str] | Omit = omit,
         max_infer_iters: Optional[int] | Omit = omit,
         max_tool_calls: Optional[int] | Omit = omit,
+        metadata: Optional[Dict[str, str]] | Omit = omit,
         parallel_tool_calls: Optional[bool] | Omit = omit,
         previous_response_id: Optional[str] | Omit = omit,
         prompt: Optional[response_create_params.Prompt] | Omit = omit,
@@ -133,6 +134,7 @@ class ResponsesResource(SyncAPIResource):
         instructions: Optional[str] | Omit = omit,
         max_infer_iters: Optional[int] | Omit = omit,
         max_tool_calls: Optional[int] | Omit = omit,
+        metadata: Optional[Dict[str, str]] | Omit = omit,
         parallel_tool_calls: Optional[bool] | Omit = omit,
         previous_response_id: Optional[str] | Omit = omit,
         prompt: Optional[response_create_params.Prompt] | Omit = omit,
@@ -182,6 +184,7 @@ class ResponsesResource(SyncAPIResource):
         instructions: Optional[str] | Omit = omit,
         max_infer_iters: Optional[int] | Omit = omit,
         max_tool_calls: Optional[int] | Omit = omit,
+        metadata: Optional[Dict[str, str]] | Omit = omit,
         parallel_tool_calls: Optional[bool] | Omit = omit,
         previous_response_id: Optional[str] | Omit = omit,
         prompt: Optional[response_create_params.Prompt] | Omit = omit,
@@ -230,6 +233,7 @@ class ResponsesResource(SyncAPIResource):
         instructions: Optional[str] | Omit = omit,
         max_infer_iters: Optional[int] | Omit = omit,
         max_tool_calls: Optional[int] | Omit = omit,
+        metadata: Optional[Dict[str, str]] | Omit = omit,
         parallel_tool_calls: Optional[bool] | Omit = omit,
         previous_response_id: Optional[str] | Omit = omit,
         prompt: Optional[response_create_params.Prompt] | Omit = omit,
@@ -256,6 +260,7 @@ class ResponsesResource(SyncAPIResource):
                     "instructions": instructions,
                     "max_infer_iters": max_infer_iters,
                     "max_tool_calls": max_tool_calls,
+                    "metadata": metadata,
                     "parallel_tool_calls": parallel_tool_calls,
                     "previous_response_id": previous_response_id,
                     "prompt": prompt,
@@ -433,6 +438,7 @@ class AsyncResponsesResource(AsyncAPIResource):
         instructions: Optional[str] | Omit = omit,
         max_infer_iters: Optional[int] | Omit = omit,
         max_tool_calls: Optional[int] | Omit = omit,
+        metadata: Optional[Dict[str, str]] | Omit = omit,
         parallel_tool_calls: Optional[bool] | Omit = omit,
         previous_response_id: Optional[str] | Omit = omit,
         prompt: Optional[response_create_params.Prompt] | Omit = omit,
@@ -483,6 +489,7 @@ class AsyncResponsesResource(AsyncAPIResource):
         instructions: Optional[str] | Omit = omit,
         max_infer_iters: Optional[int] | Omit = omit,
         max_tool_calls: Optional[int] | Omit = omit,
+        metadata: Optional[Dict[str, str]] | Omit = omit,
         parallel_tool_calls: Optional[bool] | Omit = omit,
         previous_response_id: Optional[str] | Omit = omit,
         prompt: Optional[response_create_params.Prompt] | Omit = omit,
@@ -532,6 +539,7 @@ class AsyncResponsesResource(AsyncAPIResource):
         instructions: Optional[str] | Omit = omit,
         max_infer_iters: Optional[int] | Omit = omit,
         max_tool_calls: Optional[int] | Omit = omit,
+        metadata: Optional[Dict[str, str]] | Omit = omit,
         parallel_tool_calls: Optional[bool] | Omit = omit,
         previous_response_id: Optional[str] | Omit = omit,
         prompt: Optional[response_create_params.Prompt] | Omit = omit,
@@ -580,6 +588,7 @@ class AsyncResponsesResource(AsyncAPIResource):
         instructions: Optional[str] | Omit = omit,
         max_infer_iters: Optional[int] | Omit = omit,
         max_tool_calls: Optional[int] | Omit = omit,
+        metadata: Optional[Dict[str, str]] | Omit = omit,
         parallel_tool_calls: Optional[bool] | Omit = omit,
         previous_response_id: Optional[str] | Omit = omit,
         prompt: Optional[response_create_params.Prompt] | Omit = omit,
@@ -606,6 +615,7 @@ class AsyncResponsesResource(AsyncAPIResource):
                     "instructions": instructions,
                     "max_infer_iters": max_infer_iters,
                     "max_tool_calls": max_tool_calls,
+                    "metadata": metadata,
                     "parallel_tool_calls": parallel_tool_calls,
                     "previous_response_id": previous_response_id,
                     "prompt": prompt,
