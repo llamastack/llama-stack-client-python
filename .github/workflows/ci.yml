@@ -25,7 +25,7 @@ jobs:
       - name: Install uv
         uses: astral-sh/setup-uv@v5
         with:
-          version: '0.8.11'
+          version: '0.9.13'
 
       - name: Install dependencies
         run: uv sync --all-extras
@@ -47,7 +47,7 @@ jobs:
       - name: Install uv
         uses: astral-sh/setup-uv@v5
         with:
-          version: '0.8.11'
+          version: '0.9.13'
 
       - name: Install dependencies
         run: uv sync --all-extras
@@ -81,7 +81,7 @@ jobs:
       - name: Install uv
         uses: astral-sh/setup-uv@v5
         with:
-          version: '0.8.11'
+          version: '0.9.13'
 
       - name: Bootstrap
         run: ./scripts/bootstrap
