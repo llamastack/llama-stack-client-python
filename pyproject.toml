@@ -5,13 +5,14 @@ description = "The official Python library for the llama-stack-client API"
 dynamic = ["readme"]
 license = "MIT"
 authors = [{ name = "Meta Llama", email = "llama-oss@meta.com" }]
+
 dependencies = [
-    "httpx>=0.23.0, <1",
-    "pydantic>=1.9.0, <3",
+  "httpx>=0.23.0, <1",
+  "pydantic>=1.9.0, <3",
     "typing-extensions>=4.7, <5",
-    "anyio>=3.5.0, <5",
-    "distro>=1.7.0, <2",
-    "sniffio",
+  "anyio>=3.5.0, <5",
+  "distro>=1.7.0, <2",
+  "sniffio",
     "tqdm",
     "rich",
     "click",
@@ -22,6 +23,7 @@ dependencies = [
     "fire",
     "requests",
 ]
+
 requires-python = ">= 3.12"
 classifiers = [
   "Typing :: Typed",
