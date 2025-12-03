@@ -8,3 +8,4 @@ from .job_status_params import JobStatusParams as JobStatusParams
 from .job_status_response import JobStatusResponse as JobStatusResponse
 from .job_artifacts_params import JobArtifactsParams as JobArtifactsParams
 from .job_artifacts_response import JobArtifactsResponse as JobArtifactsResponse
+from .list_post_training_jobs_response import ListPostTrainingJobsResponse as ListPostTrainingJobsResponse

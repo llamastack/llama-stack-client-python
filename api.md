@@ -459,11 +459,7 @@ Methods:
 Types:
 
 ```python
-from llama_stack_client.types.alpha import (
-    AlgorithmConfig,
-    ListPostTrainingJobsResponse,
-    PostTrainingJob,
-)
+from llama_stack_client.types.alpha import AlgorithmConfig, PostTrainingJob
 ```
 
 Methods:
@@ -477,6 +473,7 @@ Types:
 
 ```python
 from llama_stack_client.types.alpha.post_training import (
+    ListPostTrainingJobsResponse,
     JobListResponse,
     JobArtifactsResponse,
     JobStatusResponse,
