@@ -10,5 +10,7 @@ __all__ = ["BatchListParams"]
 
 class BatchListParams(TypedDict, total=False):
     after: Optional[str]
+    """Optional cursor for pagination. Returns batches after this ID."""
 
     limit: int
+    """Maximum number of batches to return. Defaults to 20."""

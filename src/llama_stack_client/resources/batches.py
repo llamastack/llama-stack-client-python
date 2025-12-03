@@ -67,6 +67,16 @@ class BatchesResource(SyncAPIResource):
         Create a new batch for processing multiple API requests.
 
         Args:
+          completion_window: The time window within which the batch should be processed.
+
+          endpoint: The endpoint to be used for all requests in the batch.
+
+          input_file_id: The ID of an uploaded file containing requests for the batch.
+
+          idempotency_key: Optional idempotency key. When provided, enables idempotent behavior.
+
+          metadata: Optional metadata for the batch.
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -108,6 +118,8 @@ class BatchesResource(SyncAPIResource):
         Retrieve information about a specific batch.
 
         Args:
+          batch_id: The ID of the batch to retrieve.
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -142,6 +154,10 @@ class BatchesResource(SyncAPIResource):
         List all batches for the current user.
 
         Args:
+          after: Optional cursor for pagination. Returns batches after this ID.
+
+          limit: Maximum number of batches to return. Defaults to 20.
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -184,6 +200,8 @@ class BatchesResource(SyncAPIResource):
         Cancel a batch that is in progress.
 
         Args:
+          batch_id: The ID of the batch to cancel.
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -242,6 +260,16 @@ class AsyncBatchesResource(AsyncAPIResource):
         Create a new batch for processing multiple API requests.
 
         Args:
+          completion_window: The time window within which the batch should be processed.
+
+          endpoint: The endpoint to be used for all requests in the batch.
+
+          input_file_id: The ID of an uploaded file containing requests for the batch.
+
+          idempotency_key: Optional idempotency key. When provided, enables idempotent behavior.
+
+          metadata: Optional metadata for the batch.
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -283,6 +311,8 @@ class AsyncBatchesResource(AsyncAPIResource):
         Retrieve information about a specific batch.
 
         Args:
+          batch_id: The ID of the batch to retrieve.
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -317,6 +347,10 @@ class AsyncBatchesResource(AsyncAPIResource):
         List all batches for the current user.
 
         Args:
+          after: Optional cursor for pagination. Returns batches after this ID.
+
+          limit: Maximum number of batches to return. Defaults to 20.
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -359,6 +393,8 @@ class AsyncBatchesResource(AsyncAPIResource):
         Cancel a batch that is in progress.
 
         Args:
+          batch_id: The ID of the batch to cancel.
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
