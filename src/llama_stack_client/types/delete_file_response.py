@@ -9,6 +9,8 @@ __all__ = ["DeleteFileResponse"]
 
 
 class DeleteFileResponse(BaseModel):
+    """Response for deleting a file in OpenAI Files API."""
+
     id: str
 
     deleted: bool

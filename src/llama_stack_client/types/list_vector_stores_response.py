@@ -9,6 +9,8 @@ __all__ = ["ListVectorStoresResponse"]
 
 
 class ListVectorStoresResponse(BaseModel):
+    """Response from listing vector stores."""
+
     data: List[VectorStore]
 
     first_id: Optional[str] = None

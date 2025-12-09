@@ -32,6 +32,8 @@ class ReturnType(BaseModel):
 
 
 class ParamsLlmAsJudgeScoringFnParams(BaseModel):
+    """Parameters for LLM-as-judge scoring function configuration."""
+
     judge_model: str
 
     aggregation_functions: Optional[
@@ -48,6 +50,8 @@ class ParamsLlmAsJudgeScoringFnParams(BaseModel):
 
 
 class ParamsRegexParserScoringFnParams(BaseModel):
+    """Parameters for regex parser scoring function configuration."""
+
     aggregation_functions: Optional[
         List[Literal["average", "weighted_average", "median", "categorical_count", "accuracy"]]
     ] = None
@@ -60,6 +64,8 @@ class ParamsRegexParserScoringFnParams(BaseModel):
 
 
 class ParamsBasicScoringFnParams(BaseModel):
+    """Parameters for basic scoring function configuration."""
+
     aggregation_functions: Optional[
         List[Literal["average", "weighted_average", "median", "categorical_count", "accuracy"]]
     ] = None
@@ -75,6 +81,8 @@ Params: TypeAlias = Annotated[
 
 
 class ScoringFn(BaseModel):
+    """A scoring function resource for evaluating model outputs."""
+
     identifier: str
     """Unique identifier for this resource in llama stack"""
 

@@ -16,12 +16,16 @@ __all__ = [
 
 
 class DatasetListResponseItemSourceUriDataSource(BaseModel):
+    """A dataset that can be obtained from a URI."""
+
     uri: str
 
     type: Optional[Literal["uri"]] = None
 
 
 class DatasetListResponseItemSourceRowsDataSource(BaseModel):
+    """A dataset stored in rows."""
+
     rows: List[Dict[str, object]]
 
     type: Optional[Literal["rows"]] = None
@@ -34,6 +38,8 @@ DatasetListResponseItemSource: TypeAlias = Annotated[
 
 
 class DatasetListResponseItem(BaseModel):
+    """Dataset resource for storing and accessing training or evaluation data."""
+
     identifier: str
     """Unique identifier for this resource in llama stack"""
 

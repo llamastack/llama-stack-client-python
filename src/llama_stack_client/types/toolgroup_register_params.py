@@ -20,4 +20,6 @@ class ToolgroupRegisterParams(TypedDict, total=False):
 
 
 class McpEndpoint(TypedDict, total=False):
+    """A URL reference to external content."""
+
     uri: Required[str]

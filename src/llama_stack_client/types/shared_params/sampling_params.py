@@ -17,10 +17,18 @@ __all__ = [
 
 
 class StrategyGreedySamplingStrategy(TypedDict, total=False):
+    """
+    Greedy sampling strategy that selects the highest probability token at each step.
+    """
+
     type: Literal["greedy"]
 
 
 class StrategyTopPSamplingStrategy(TypedDict, total=False):
+    """
+    Top-p (nucleus) sampling strategy that samples from the smallest set of tokens with cumulative probability >= p.
+    """
+
     temperature: Required[Optional[float]]
 
     top_p: Optional[float]
@@ -29,6 +37,8 @@ class StrategyTopPSamplingStrategy(TypedDict, total=False):
 
 
 class StrategyTopKSamplingStrategy(TypedDict, total=False):
+    """Top-k sampling strategy that restricts sampling to the k most likely tokens."""
+
     top_k: Required[int]
 
     type: Literal["top_k"]
@@ -38,6 +48,8 @@ Strategy: TypeAlias = Union[StrategyGreedySamplingStrategy, StrategyTopPSampling
 
 
 class SamplingParams(TypedDict, total=False):
+    """Sampling parameters."""
+
     max_tokens: Optional[int]
 
     repetition_penalty: Optional[float]

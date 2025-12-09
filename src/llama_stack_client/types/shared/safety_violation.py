@@ -9,6 +9,8 @@ __all__ = ["SafetyViolation"]
 
 
 class SafetyViolation(BaseModel):
+    """Details of a safety violation detected by content moderation."""
+
     violation_level: Literal["info", "warn", "error"]
     """Severity level of a safety violation."""
 

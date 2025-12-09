@@ -24,16 +24,22 @@ class FileCreateParams(TypedDict, total=False):
 
 
 class ChunkingStrategyVectorStoreChunkingStrategyAuto(TypedDict, total=False):
+    """Automatic chunking strategy for vector store files."""
+
     type: Literal["auto"]
 
 
 class ChunkingStrategyVectorStoreChunkingStrategyStaticStatic(TypedDict, total=False):
+    """Configuration for static chunking strategy."""
+
     chunk_overlap_tokens: int
 
     max_chunk_size_tokens: int
 
 
 class ChunkingStrategyVectorStoreChunkingStrategyStatic(TypedDict, total=False):
+    """Static chunking strategy with configurable parameters."""
+
     static: Required[ChunkingStrategyVectorStoreChunkingStrategyStaticStatic]
     """Configuration for static chunking strategy."""
 

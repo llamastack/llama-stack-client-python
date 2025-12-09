@@ -9,6 +9,8 @@ __all__ = ["InferenceRerankResponse", "InferenceRerankResponseItem"]
 
 
 class InferenceRerankResponseItem(BaseModel):
+    """A single rerank result from a reranking response."""
+
     index: int
 
     relevance_score: float

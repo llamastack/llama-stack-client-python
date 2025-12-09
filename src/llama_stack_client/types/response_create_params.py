@@ -92,6 +92,8 @@ class ResponseCreateParamsBase(TypedDict, total=False):
 class InputListOpenAIResponseMessageUnionOpenAIResponseInputFunctionToolCallOutputOpenAIResponseMessageInputContentListOpenAIResponseInputMessageContentTextOpenAIResponseInputMessageContentImageOpenAIResponseInputMessageContentFileOpenAIResponseInputMessageContentText(
     TypedDict, total=False
 ):
+    """Text content for input messages in OpenAI response format."""
+
     text: Required[str]
 
     type: Literal["input_text"]
@@ -100,6 +102,8 @@ class InputListOpenAIResponseMessageUnionOpenAIResponseInputFunctionToolCallOutp
 class InputListOpenAIResponseMessageUnionOpenAIResponseInputFunctionToolCallOutputOpenAIResponseMessageInputContentListOpenAIResponseInputMessageContentTextOpenAIResponseInputMessageContentImageOpenAIResponseInputMessageContentFileOpenAIResponseInputMessageContentImage(
     TypedDict, total=False
 ):
+    """Image content for input messages in OpenAI response format."""
+
     detail: Literal["low", "high", "auto"]
 
     file_id: Optional[str]
@@ -112,6 +116,8 @@ class InputListOpenAIResponseMessageUnionOpenAIResponseInputFunctionToolCallOutp
 class InputListOpenAIResponseMessageUnionOpenAIResponseInputFunctionToolCallOutputOpenAIResponseMessageInputContentListOpenAIResponseInputMessageContentTextOpenAIResponseInputMessageContentImageOpenAIResponseInputMessageContentFileOpenAIResponseInputMessageContentFile(
     TypedDict, total=False
 ):
+    """File content for input messages in OpenAI response format."""
+
     file_data: Optional[str]
 
     file_id: Optional[str]
@@ -133,6 +139,8 @@ InputListOpenAIResponseMessageUnionOpenAIResponseInputFunctionToolCallOutputOpen
 class InputListOpenAIResponseMessageUnionOpenAIResponseInputFunctionToolCallOutputOpenAIResponseMessageInputContentListOpenAIResponseOutputMessageContentOutputTextOpenAIResponseContentPartRefusalOpenAIResponseOutputMessageContentOutputTextAnnotationOpenAIResponseAnnotationFileCitation(
     TypedDict, total=False
 ):
+    """File citation annotation for referencing specific files in response content."""
+
     file_id: Required[str]
 
     filename: Required[str]
@@ -145,6 +153,8 @@ class InputListOpenAIResponseMessageUnionOpenAIResponseInputFunctionToolCallOutp
 class InputListOpenAIResponseMessageUnionOpenAIResponseInputFunctionToolCallOutputOpenAIResponseMessageInputContentListOpenAIResponseOutputMessageContentOutputTextOpenAIResponseContentPartRefusalOpenAIResponseOutputMessageContentOutputTextAnnotationOpenAIResponseAnnotationCitation(
     TypedDict, total=False
 ):
+    """URL citation annotation for referencing external web resources."""
+
     end_index: Required[int]
 
     start_index: Required[int]
@@ -205,6 +215,8 @@ class InputListOpenAIResponseMessageUnionOpenAIResponseInputFunctionToolCallOutp
 class InputListOpenAIResponseMessageUnionOpenAIResponseInputFunctionToolCallOutputOpenAIResponseMessageInputContentListOpenAIResponseOutputMessageContentOutputTextOpenAIResponseContentPartRefusalOpenAIResponseContentPartRefusal(
     TypedDict, total=False
 ):
+    """Refusal content within a streamed response part."""
+
     refusal: Required[str]
 
     type: Literal["refusal"]
@@ -219,6 +231,13 @@ InputListOpenAIResponseMessageUnionOpenAIResponseInputFunctionToolCallOutputOpen
 class InputListOpenAIResponseMessageUnionOpenAIResponseInputFunctionToolCallOutputOpenAIResponseMessageInput(
     TypedDict, total=False
 ):
+    """
+    Corresponds to the various Message types in the Responses API.
+    They are all under one type because the Responses API gives them all
+    the same "type" value, and there is no way to tell them apart in certain
+    scenarios.
+    """
+
     content: Required[
         Union[
             str,
@@ -243,6 +262,8 @@ class InputListOpenAIResponseMessageUnionOpenAIResponseInputFunctionToolCallOutp
 class InputListOpenAIResponseMessageUnionOpenAIResponseInputFunctionToolCallOutputOpenAIResponseOutputMessageWebSearchToolCall(
     TypedDict, total=False
 ):
+    """Web search tool call output message for OpenAI responses."""
+
     id: Required[str]
 
     status: Required[str]
@@ -253,6 +274,8 @@ class InputListOpenAIResponseMessageUnionOpenAIResponseInputFunctionToolCallOutp
 class InputListOpenAIResponseMessageUnionOpenAIResponseInputFunctionToolCallOutputOpenAIResponseOutputMessageFileSearchToolCallResult(
     TypedDict, total=False
 ):
+    """Search results returned by the file search operation."""
+
     attributes: Required[Dict[str, object]]
 
     file_id: Required[str]
@@ -267,6 +290,8 @@ class InputListOpenAIResponseMessageUnionOpenAIResponseInputFunctionToolCallOutp
 class InputListOpenAIResponseMessageUnionOpenAIResponseInputFunctionToolCallOutputOpenAIResponseOutputMessageFileSearchToolCall(
     TypedDict, total=False
 ):
+    """File search tool call output message for OpenAI responses."""
+
     id: Required[str]
 
     queries: Required[SequenceNotStr[str]]
@@ -285,6 +310,8 @@ class InputListOpenAIResponseMessageUnionOpenAIResponseInputFunctionToolCallOutp
 class InputListOpenAIResponseMessageUnionOpenAIResponseInputFunctionToolCallOutputOpenAIResponseOutputMessageFunctionToolCall(
     TypedDict, total=False
 ):
+    """Function tool call output message for OpenAI responses."""
+
     arguments: Required[str]
 
     call_id: Required[str]
@@ -301,6 +328,8 @@ class InputListOpenAIResponseMessageUnionOpenAIResponseInputFunctionToolCallOutp
 class InputListOpenAIResponseMessageUnionOpenAIResponseInputFunctionToolCallOutputOpenAIResponseOutputMessageMcpCall(
     TypedDict, total=False
 ):
+    """Model Context Protocol (MCP) call output message for OpenAI responses."""
+
     id: Required[str]
 
     arguments: Required[str]
@@ -319,6 +348,8 @@ class InputListOpenAIResponseMessageUnionOpenAIResponseInputFunctionToolCallOutp
 class InputListOpenAIResponseMessageUnionOpenAIResponseInputFunctionToolCallOutputOpenAIResponseOutputMessageMcpListToolsTool(
     TypedDict, total=False
 ):
+    """Tool definition returned by MCP list tools operation."""
+
     input_schema: Required[Dict[str, object]]
 
     name: Required[str]
@@ -329,6 +360,8 @@ class InputListOpenAIResponseMessageUnionOpenAIResponseInputFunctionToolCallOutp
 class InputListOpenAIResponseMessageUnionOpenAIResponseInputFunctionToolCallOutputOpenAIResponseOutputMessageMcpListTools(
     TypedDict, total=False
 ):
+    """MCP list tools output message containing available tools from an MCP server."""
+
     id: Required[str]
 
     server_label: Required[str]
@@ -345,6 +378,8 @@ class InputListOpenAIResponseMessageUnionOpenAIResponseInputFunctionToolCallOutp
 class InputListOpenAIResponseMessageUnionOpenAIResponseInputFunctionToolCallOutputOpenAIResponseMcpApprovalRequest(
     TypedDict, total=False
 ):
+    """A request for human approval of a tool invocation."""
+
     id: Required[str]
 
     arguments: Required[str]
@@ -359,6 +394,10 @@ class InputListOpenAIResponseMessageUnionOpenAIResponseInputFunctionToolCallOutp
 class InputListOpenAIResponseMessageUnionOpenAIResponseInputFunctionToolCallOutputOpenAIResponseInputFunctionToolCallOutput(
     TypedDict, total=False
 ):
+    """
+    This represents the output of a function call that gets passed back to the model.
+    """
+
     call_id: Required[str]
 
     output: Required[str]
@@ -373,6 +412,8 @@ class InputListOpenAIResponseMessageUnionOpenAIResponseInputFunctionToolCallOutp
 class InputListOpenAIResponseMessageUnionOpenAIResponseInputFunctionToolCallOutputOpenAIResponseMcpApprovalResponse(
     TypedDict, total=False
 ):
+    """A response to an MCP approval request."""
+
     approval_request_id: Required[str]
 
     approve: Required[bool]
@@ -399,12 +440,16 @@ InputListOpenAIResponseMessageUnionOpenAIResponseInputFunctionToolCallOutput: Ty
 
 
 class PromptVariablesOpenAIResponseInputMessageContentText(TypedDict, total=False):
+    """Text content for input messages in OpenAI response format."""
+
     text: Required[str]
 
     type: Literal["input_text"]
 
 
 class PromptVariablesOpenAIResponseInputMessageContentImage(TypedDict, total=False):
+    """Image content for input messages in OpenAI response format."""
+
     detail: Literal["low", "high", "auto"]
 
     file_id: Optional[str]
@@ -415,6 +460,8 @@ class PromptVariablesOpenAIResponseInputMessageContentImage(TypedDict, total=Fal
 
 
 class PromptVariablesOpenAIResponseInputMessageContentFile(TypedDict, total=False):
+    """File content for input messages in OpenAI response format."""
+
     file_data: Optional[str]
 
     file_id: Optional[str]
@@ -434,6 +481,8 @@ PromptVariables: TypeAlias = Union[
 
 
 class Prompt(TypedDict, total=False):
+    """OpenAI compatible Prompt object that is used in OpenAI responses."""
+
     id: Required[str]
 
     variables: Optional[Dict[str, PromptVariables]]
@@ -442,6 +491,8 @@ class Prompt(TypedDict, total=False):
 
 
 class TextFormat(TypedDict, total=False):
+    """Configuration for Responses API text format."""
+
     description: Optional[str]
 
     name: Optional[str]
@@ -454,23 +505,31 @@ class TextFormat(TypedDict, total=False):
 
 
 class Text(TypedDict, total=False):
+    """Text response configuration for OpenAI responses."""
+
     format: Optional[TextFormat]
     """Configuration for Responses API text format."""
 
 
 class ToolOpenAIResponseInputToolWebSearch(TypedDict, total=False):
+    """Web search tool configuration for OpenAI response inputs."""
+
     search_context_size: Optional[str]
 
     type: Literal["web_search", "web_search_preview", "web_search_preview_2025_03_11", "web_search_2025_08_26"]
 
 
 class ToolOpenAIResponseInputToolFileSearchRankingOptions(TypedDict, total=False):
+    """Options for ranking and filtering search results."""
+
     ranker: Optional[str]
 
     score_threshold: Optional[float]
 
 
 class ToolOpenAIResponseInputToolFileSearch(TypedDict, total=False):
+    """File search tool configuration for OpenAI response inputs."""
+
     vector_store_ids: Required[SequenceNotStr[str]]
 
     filters: Optional[Dict[str, object]]
@@ -484,6 +543,8 @@ class ToolOpenAIResponseInputToolFileSearch(TypedDict, total=False):
 
 
 class ToolOpenAIResponseInputToolFunction(TypedDict, total=False):
+    """Function tool configuration for OpenAI response inputs."""
+
     name: Required[str]
 
     parameters: Required[Optional[Dict[str, object]]]
@@ -496,6 +557,8 @@ class ToolOpenAIResponseInputToolFunction(TypedDict, total=False):
 
 
 class ToolOpenAIResponseInputToolMcpAllowedToolsAllowedToolsFilter(TypedDict, total=False):
+    """Filter configuration for restricting which MCP tools can be used."""
+
     tool_names: Optional[SequenceNotStr[str]]
 
 
@@ -505,6 +568,8 @@ ToolOpenAIResponseInputToolMcpAllowedTools: TypeAlias = Union[
 
 
 class ToolOpenAIResponseInputToolMcpRequireApprovalApprovalFilter(TypedDict, total=False):
+    """Filter configuration for MCP tool approval requirements."""
+
     always: Optional[SequenceNotStr[str]]
 
     never: Optional[SequenceNotStr[str]]
@@ -516,6 +581,8 @@ ToolOpenAIResponseInputToolMcpRequireApproval: TypeAlias = Union[
 
 
 class ToolOpenAIResponseInputToolMcp(TypedDict, total=False):
+    """Model Context Protocol (MCP) tool configuration for OpenAI response inputs."""
+
     server_label: Required[str]
 
     server_url: Required[str]

@@ -32,18 +32,24 @@ class InferenceRerankParams(TypedDict, total=False):
 
 
 class ItemOpenAIChatCompletionContentPartTextParam(TypedDict, total=False):
+    """Text content part for OpenAI-compatible chat completion messages."""
+
     text: Required[str]
 
     type: Literal["text"]
 
 
 class ItemOpenAIChatCompletionContentPartImageParamImageURL(TypedDict, total=False):
+    """Image URL specification for OpenAI-compatible chat completion messages."""
+
     url: Required[str]
 
     detail: Optional[str]
 
 
 class ItemOpenAIChatCompletionContentPartImageParam(TypedDict, total=False):
+    """Image content part for OpenAI-compatible chat completion messages."""
+
     image_url: Required[ItemOpenAIChatCompletionContentPartImageParamImageURL]
     """Image URL specification for OpenAI-compatible chat completion messages."""
 
@@ -56,18 +62,24 @@ Item: TypeAlias = Union[
 
 
 class QueryOpenAIChatCompletionContentPartTextParam(TypedDict, total=False):
+    """Text content part for OpenAI-compatible chat completion messages."""
+
     text: Required[str]
 
     type: Literal["text"]
 
 
 class QueryOpenAIChatCompletionContentPartImageParamImageURL(TypedDict, total=False):
+    """Image URL specification for OpenAI-compatible chat completion messages."""
+
     url: Required[str]
 
     detail: Optional[str]
 
 
 class QueryOpenAIChatCompletionContentPartImageParam(TypedDict, total=False):
+    """Image content part for OpenAI-compatible chat completion messages."""
+
     image_url: Required[QueryOpenAIChatCompletionContentPartImageParamImageURL]
     """Image URL specification for OpenAI-compatible chat completion messages."""
 

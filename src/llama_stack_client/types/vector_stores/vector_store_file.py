@@ -17,16 +17,22 @@ __all__ = [
 
 
 class ChunkingStrategyVectorStoreChunkingStrategyAuto(BaseModel):
+    """Automatic chunking strategy for vector store files."""
+
     type: Optional[Literal["auto"]] = None
 
 
 class ChunkingStrategyVectorStoreChunkingStrategyStaticStatic(BaseModel):
+    """Configuration for static chunking strategy."""
+
     chunk_overlap_tokens: Optional[int] = None
 
     max_chunk_size_tokens: Optional[int] = None
 
 
 class ChunkingStrategyVectorStoreChunkingStrategyStatic(BaseModel):
+    """Static chunking strategy with configurable parameters."""
+
     static: ChunkingStrategyVectorStoreChunkingStrategyStaticStatic
     """Configuration for static chunking strategy."""
 
@@ -40,12 +46,16 @@ ChunkingStrategy: TypeAlias = Annotated[
 
 
 class LastError(BaseModel):
+    """Error information for failed vector store file processing."""
+
     code: Literal["server_error", "rate_limit_exceeded"]
 
     message: str
 
 
 class VectorStoreFile(BaseModel):
+    """OpenAI Vector Store File object."""
+
     id: str
 
     chunking_strategy: ChunkingStrategy

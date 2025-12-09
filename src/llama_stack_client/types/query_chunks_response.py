@@ -24,10 +24,14 @@ __all__ = [
 
 
 class ChunkContentImageContentItemOutputImageURL(BaseModel):
+    """A URL reference to external content."""
+
     uri: str
 
 
 class ChunkContentImageContentItemOutputImage(BaseModel):
+    """A URL or a base64 encoded string"""
+
     data: Optional[str] = None
 
     url: Optional[ChunkContentImageContentItemOutputImageURL] = None
@@ -35,6 +39,8 @@ class ChunkContentImageContentItemOutputImage(BaseModel):
 
 
 class ChunkContentImageContentItemOutput(BaseModel):
+    """A image content item"""
+
     image: ChunkContentImageContentItemOutputImage
     """A URL or a base64 encoded string"""
 
@@ -42,16 +48,22 @@ class ChunkContentImageContentItemOutput(BaseModel):
 
 
 class ChunkContentTextContentItem(BaseModel):
+    """A text content item"""
+
     text: str
 
     type: Optional[Literal["text"]] = None
 
 
 class ChunkContentListImageContentItemOutputTextContentItemImageContentItemOutputImageURL(BaseModel):
+    """A URL reference to external content."""
+
     uri: str
 
 
 class ChunkContentListImageContentItemOutputTextContentItemImageContentItemOutputImage(BaseModel):
+    """A URL or a base64 encoded string"""
+
     data: Optional[str] = None
 
     url: Optional[ChunkContentListImageContentItemOutputTextContentItemImageContentItemOutputImageURL] = None
@@ -59,6 +71,8 @@ class ChunkContentListImageContentItemOutputTextContentItemImageContentItemOutpu
 
 
 class ChunkContentListImageContentItemOutputTextContentItemImageContentItemOutput(BaseModel):
+    """A image content item"""
+
     image: ChunkContentListImageContentItemOutputTextContentItemImageContentItemOutputImage
     """A URL or a base64 encoded string"""
 
@@ -66,6 +80,8 @@ class ChunkContentListImageContentItemOutputTextContentItemImageContentItemOutpu
 
 
 class ChunkContentListImageContentItemOutputTextContentItemTextContentItem(BaseModel):
+    """A text content item"""
+
     text: str
 
     type: Optional[Literal["text"]] = None
@@ -88,6 +104,13 @@ ChunkContent: TypeAlias = Union[
 
 
 class ChunkChunkMetadata(BaseModel):
+    """
+    `ChunkMetadata` is backend metadata for a `Chunk` that is used to store additional information about the chunk that
+        will not be used in the context during inference, but is required for backend functionality. The `ChunkMetadata`
+        is set during chunk creation in `MemoryToolRuntimeImpl().insert()`and is not expected to change after.
+        Use `Chunk.metadata` for metadata that will be used in the context during inference.
+    """
+
     chunk_embedding_dimension: Optional[int] = None
 
     chunk_embedding_model: Optional[str] = None
@@ -112,6 +135,8 @@ class ChunkChunkMetadata(BaseModel):
 
 
 class Chunk(BaseModel):
+    """A chunk of content that can be inserted into a vector database."""
+
     chunk_id: str
 
     content: ChunkContent
@@ -133,6 +158,8 @@ class Chunk(BaseModel):
 
 
 class QueryChunksResponse(BaseModel):
+    """Response from querying chunks in a vector database."""
+
     chunks: List[Chunk]
 
     scores: List[float]

@@ -8,6 +8,8 @@ __all__ = ["FileDeleteResponse"]
 
 
 class FileDeleteResponse(BaseModel):
+    """Response from deleting a vector store file."""
+
     id: str
 
     deleted: Optional[bool] = None

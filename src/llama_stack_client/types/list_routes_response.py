@@ -7,4 +7,6 @@ __all__ = ["ListRoutesResponse"]
 
 
 class ListRoutesResponse(BaseModel):
+    """Response containing a list of all available API routes."""
+
     data: RouteListResponse

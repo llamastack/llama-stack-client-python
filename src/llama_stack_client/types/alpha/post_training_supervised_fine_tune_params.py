@@ -39,6 +39,8 @@ class PostTrainingSupervisedFineTuneParams(TypedDict, total=False):
 
 
 class TrainingConfigDataConfig(TypedDict, total=False):
+    """Configuration for training data and data loading."""
+
     batch_size: Required[int]
 
     data_format: Required[Literal["instruct", "dialog"]]
@@ -56,6 +58,8 @@ class TrainingConfigDataConfig(TypedDict, total=False):
 
 
 class TrainingConfigEfficiencyConfig(TypedDict, total=False):
+    """Configuration for memory and compute efficiency optimizations."""
+
     enable_activation_checkpointing: Optional[bool]
 
     enable_activation_offloading: Optional[bool]
@@ -66,6 +70,8 @@ class TrainingConfigEfficiencyConfig(TypedDict, total=False):
 
 
 class TrainingConfigOptimizerConfig(TypedDict, total=False):
+    """Configuration parameters for the optimization algorithm."""
+
     lr: Required[float]
 
     num_warmup_steps: Required[int]
@@ -77,6 +83,8 @@ class TrainingConfigOptimizerConfig(TypedDict, total=False):
 
 
 class TrainingConfig(TypedDict, total=False):
+    """Comprehensive configuration for the training process."""
+
     n_epochs: Required[int]
 
     data_config: Optional[TrainingConfigDataConfig]
@@ -98,6 +106,8 @@ class TrainingConfig(TypedDict, total=False):
 
 
 class AlgorithmConfigLoraFinetuningConfig(TypedDict, total=False):
+    """Configuration for Low-Rank Adaptation (LoRA) fine-tuning."""
+
     alpha: Required[int]
 
     apply_lora_to_mlp: Required[bool]
@@ -116,6 +126,8 @@ class AlgorithmConfigLoraFinetuningConfig(TypedDict, total=False):
 
 
 class AlgorithmConfigQatFinetuningConfig(TypedDict, total=False):
+    """Configuration for Quantization-Aware Training (QAT) fine-tuning."""
+
     group_size: Required[int]
 
     quantizer_name: Required[str]

@@ -8,6 +8,8 @@ __all__ = ["ConversationDeleteResponse"]
 
 
 class ConversationDeleteResponse(BaseModel):
+    """Response for deleted conversation."""
+
     id: str
     """The deleted conversation identifier"""
 

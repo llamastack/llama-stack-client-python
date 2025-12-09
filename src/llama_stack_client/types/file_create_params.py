@@ -27,6 +27,13 @@ class FileCreateParams(TypedDict, total=False):
 
 
 class ExpiresAfter(TypedDict, total=False):
+    """Control expiration of uploaded files.
+
+    Params:
+     - anchor, must be "created_at"
+     - seconds, must be int between 3600 and 2592000 (1 hour to 30 days)
+    """
+
     anchor: Required[Literal["created_at"]]
 
     seconds: Required[int]

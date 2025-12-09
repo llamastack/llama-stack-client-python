@@ -9,6 +9,8 @@ __all__ = ["Shield"]
 
 
 class Shield(BaseModel):
+    """A safety shield resource that can be used to check content."""
+
     identifier: str
     """Unique identifier for this resource in llama stack"""
 

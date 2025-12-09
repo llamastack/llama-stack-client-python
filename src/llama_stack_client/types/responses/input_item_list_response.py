@@ -38,6 +38,8 @@ __all__ = [
 class DataOpenAIResponseMessageOutputContentListOpenAIResponseInputMessageContentTextOpenAIResponseInputMessageContentImageOpenAIResponseInputMessageContentFileOpenAIResponseInputMessageContentText(
     BaseModel
 ):
+    """Text content for input messages in OpenAI response format."""
+
     text: str
 
     type: Optional[Literal["input_text"]] = None
@@ -46,6 +48,8 @@ class DataOpenAIResponseMessageOutputContentListOpenAIResponseInputMessageConten
 class DataOpenAIResponseMessageOutputContentListOpenAIResponseInputMessageContentTextOpenAIResponseInputMessageContentImageOpenAIResponseInputMessageContentFileOpenAIResponseInputMessageContentImage(
     BaseModel
 ):
+    """Image content for input messages in OpenAI response format."""
+
     detail: Optional[Literal["low", "high", "auto"]] = None
 
     file_id: Optional[str] = None
@@ -58,6 +62,8 @@ class DataOpenAIResponseMessageOutputContentListOpenAIResponseInputMessageConten
 class DataOpenAIResponseMessageOutputContentListOpenAIResponseInputMessageContentTextOpenAIResponseInputMessageContentImageOpenAIResponseInputMessageContentFileOpenAIResponseInputMessageContentFile(
     BaseModel
 ):
+    """File content for input messages in OpenAI response format."""
+
     file_data: Optional[str] = None
 
     file_id: Optional[str] = None
@@ -82,6 +88,8 @@ DataOpenAIResponseMessageOutputContentListOpenAIResponseInputMessageContentTextO
 class DataOpenAIResponseMessageOutputContentListOpenAIResponseOutputMessageContentOutputTextOpenAIResponseContentPartRefusalOpenAIResponseOutputMessageContentOutputTextAnnotationOpenAIResponseAnnotationFileCitation(
     BaseModel
 ):
+    """File citation annotation for referencing specific files in response content."""
+
     file_id: str
 
     filename: str
@@ -94,6 +102,8 @@ class DataOpenAIResponseMessageOutputContentListOpenAIResponseOutputMessageConte
 class DataOpenAIResponseMessageOutputContentListOpenAIResponseOutputMessageContentOutputTextOpenAIResponseContentPartRefusalOpenAIResponseOutputMessageContentOutputTextAnnotationOpenAIResponseAnnotationCitation(
     BaseModel
 ):
+    """URL citation annotation for referencing external web resources."""
+
     end_index: int
 
     start_index: int
@@ -159,6 +169,8 @@ class DataOpenAIResponseMessageOutputContentListOpenAIResponseOutputMessageConte
 class DataOpenAIResponseMessageOutputContentListOpenAIResponseOutputMessageContentOutputTextOpenAIResponseContentPartRefusalOpenAIResponseContentPartRefusal(
     BaseModel
 ):
+    """Refusal content within a streamed response part."""
+
     refusal: str
 
     type: Optional[Literal["refusal"]] = None
@@ -174,6 +186,13 @@ DataOpenAIResponseMessageOutputContentListOpenAIResponseOutputMessageContentOutp
 
 
 class DataOpenAIResponseMessageOutput(BaseModel):
+    """
+    Corresponds to the various Message types in the Responses API.
+    They are all under one type because the Responses API gives them all
+    the same "type" value, and there is no way to tell them apart in certain
+    scenarios.
+    """
+
     content: Union[
         str,
         List[
@@ -194,6 +213,8 @@ class DataOpenAIResponseMessageOutput(BaseModel):
 
 
 class DataOpenAIResponseOutputMessageWebSearchToolCall(BaseModel):
+    """Web search tool call output message for OpenAI responses."""
+
     id: str
 
     status: str
@@ -202,6 +223,8 @@ class DataOpenAIResponseOutputMessageWebSearchToolCall(BaseModel):
 
 
 class DataOpenAIResponseOutputMessageFileSearchToolCallResult(BaseModel):
+    """Search results returned by the file search operation."""
+
     attributes: Dict[str, object]
 
     file_id: str
@@ -214,6 +237,8 @@ class DataOpenAIResponseOutputMessageFileSearchToolCallResult(BaseModel):
 
 
 class DataOpenAIResponseOutputMessageFileSearchToolCall(BaseModel):
+    """File search tool call output message for OpenAI responses."""
+
     id: str
 
     queries: List[str]
@@ -226,6 +251,8 @@ class DataOpenAIResponseOutputMessageFileSearchToolCall(BaseModel):
 
 
 class DataOpenAIResponseOutputMessageFunctionToolCall(BaseModel):
+    """Function tool call output message for OpenAI responses."""
+
     arguments: str
 
     call_id: str
@@ -240,6 +267,8 @@ class DataOpenAIResponseOutputMessageFunctionToolCall(BaseModel):
 
 
 class DataOpenAIResponseOutputMessageMcpCall(BaseModel):
+    """Model Context Protocol (MCP) call output message for OpenAI responses."""
+
     id: str
 
     arguments: str
@@ -256,6 +285,8 @@ class DataOpenAIResponseOutputMessageMcpCall(BaseModel):
 
 
 class DataOpenAIResponseOutputMessageMcpListToolsTool(BaseModel):
+    """Tool definition returned by MCP list tools operation."""
+
     input_schema: Dict[str, object]
 
     name: str
@@ -264,6 +295,8 @@ class DataOpenAIResponseOutputMessageMcpListToolsTool(BaseModel):
 
 
 class DataOpenAIResponseOutputMessageMcpListTools(BaseModel):
+    """MCP list tools output message containing available tools from an MCP server."""
+
     id: str
 
     server_label: str
@@ -274,6 +307,8 @@ class DataOpenAIResponseOutputMessageMcpListTools(BaseModel):
 
 
 class DataOpenAIResponseMcpApprovalRequest(BaseModel):
+    """A request for human approval of a tool invocation."""
+
     id: str
 
     arguments: str
@@ -286,6 +321,10 @@ class DataOpenAIResponseMcpApprovalRequest(BaseModel):
 
 
 class DataOpenAIResponseInputFunctionToolCallOutput(BaseModel):
+    """
+    This represents the output of a function call that gets passed back to the model.
+    """
+
     call_id: str
 
     output: str
@@ -298,6 +337,8 @@ class DataOpenAIResponseInputFunctionToolCallOutput(BaseModel):
 
 
 class DataOpenAIResponseMcpApprovalResponse(BaseModel):
+    """A response to an MCP approval request."""
+
     approval_request_id: str
 
     approve: bool
@@ -324,6 +365,8 @@ Data: TypeAlias = Union[
 
 
 class InputItemListResponse(BaseModel):
+    """List container for OpenAI response input items."""
+
     data: List[Data]
 
     object: Optional[Literal["list"]] = None

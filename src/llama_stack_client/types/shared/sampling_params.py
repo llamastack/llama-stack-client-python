@@ -16,10 +16,18 @@ __all__ = [
 
 
 class StrategyGreedySamplingStrategy(BaseModel):
+    """
+    Greedy sampling strategy that selects the highest probability token at each step.
+    """
+
     type: Optional[Literal["greedy"]] = None
 
 
 class StrategyTopPSamplingStrategy(BaseModel):
+    """
+    Top-p (nucleus) sampling strategy that samples from the smallest set of tokens with cumulative probability >= p.
+    """
+
     temperature: Optional[float] = None
 
     top_p: Optional[float] = None
@@ -28,6 +36,8 @@ class StrategyTopPSamplingStrategy(BaseModel):
 
 
 class StrategyTopKSamplingStrategy(BaseModel):
+    """Top-k sampling strategy that restricts sampling to the k most likely tokens."""
+
     top_k: int
 
     type: Optional[Literal["top_k"]] = None
@@ -40,6 +50,8 @@ Strategy: TypeAlias = Annotated[
 
 
 class SamplingParams(BaseModel):
+    """Sampling parameters."""
+
     max_tokens: Optional[int] = None
 
     repetition_penalty: Optional[float] = None

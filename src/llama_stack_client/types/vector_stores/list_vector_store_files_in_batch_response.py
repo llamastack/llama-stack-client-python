@@ -9,6 +9,8 @@ __all__ = ["ListVectorStoreFilesInBatchResponse"]
 
 
 class ListVectorStoreFilesInBatchResponse(BaseModel):
+    """Response from listing files in a vector store file batch."""
+
     data: List[VectorStoreFile]
 
     first_id: Optional[str] = None

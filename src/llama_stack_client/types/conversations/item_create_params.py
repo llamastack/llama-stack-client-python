@@ -43,6 +43,8 @@ class ItemCreateParams(TypedDict, total=False):
 class ItemOpenAIResponseMessageInputContentListOpenAIResponseInputMessageContentTextOpenAIResponseInputMessageContentImageOpenAIResponseInputMessageContentFileOpenAIResponseInputMessageContentText(
     TypedDict, total=False
 ):
+    """Text content for input messages in OpenAI response format."""
+
     text: Required[str]
 
     type: Literal["input_text"]
@@ -51,6 +53,8 @@ class ItemOpenAIResponseMessageInputContentListOpenAIResponseInputMessageContent
 class ItemOpenAIResponseMessageInputContentListOpenAIResponseInputMessageContentTextOpenAIResponseInputMessageContentImageOpenAIResponseInputMessageContentFileOpenAIResponseInputMessageContentImage(
     TypedDict, total=False
 ):
+    """Image content for input messages in OpenAI response format."""
+
     detail: Literal["low", "high", "auto"]
 
     file_id: Optional[str]
@@ -63,6 +67,8 @@ class ItemOpenAIResponseMessageInputContentListOpenAIResponseInputMessageContent
 class ItemOpenAIResponseMessageInputContentListOpenAIResponseInputMessageContentTextOpenAIResponseInputMessageContentImageOpenAIResponseInputMessageContentFileOpenAIResponseInputMessageContentFile(
     TypedDict, total=False
 ):
+    """File content for input messages in OpenAI response format."""
+
     file_data: Optional[str]
 
     file_id: Optional[str]
@@ -84,6 +90,8 @@ ItemOpenAIResponseMessageInputContentListOpenAIResponseInputMessageContentTextOp
 class ItemOpenAIResponseMessageInputContentListOpenAIResponseOutputMessageContentOutputTextOpenAIResponseContentPartRefusalOpenAIResponseOutputMessageContentOutputTextAnnotationOpenAIResponseAnnotationFileCitation(
     TypedDict, total=False
 ):
+    """File citation annotation for referencing specific files in response content."""
+
     file_id: Required[str]
 
     filename: Required[str]
@@ -96,6 +104,8 @@ class ItemOpenAIResponseMessageInputContentListOpenAIResponseOutputMessageConten
 class ItemOpenAIResponseMessageInputContentListOpenAIResponseOutputMessageContentOutputTextOpenAIResponseContentPartRefusalOpenAIResponseOutputMessageContentOutputTextAnnotationOpenAIResponseAnnotationCitation(
     TypedDict, total=False
 ):
+    """URL citation annotation for referencing external web resources."""
+
     end_index: Required[int]
 
     start_index: Required[int]
@@ -156,6 +166,8 @@ class ItemOpenAIResponseMessageInputContentListOpenAIResponseOutputMessageConten
 class ItemOpenAIResponseMessageInputContentListOpenAIResponseOutputMessageContentOutputTextOpenAIResponseContentPartRefusalOpenAIResponseContentPartRefusal(
     TypedDict, total=False
 ):
+    """Refusal content within a streamed response part."""
+
     refusal: Required[str]
 
     type: Literal["refusal"]
@@ -168,6 +180,13 @@ ItemOpenAIResponseMessageInputContentListOpenAIResponseOutputMessageContentOutpu
 
 
 class ItemOpenAIResponseMessageInput(TypedDict, total=False):
+    """
+    Corresponds to the various Message types in the Responses API.
+    They are all under one type because the Responses API gives them all
+    the same "type" value, and there is no way to tell them apart in certain
+    scenarios.
+    """
+
     content: Required[
         Union[
             str,
@@ -190,6 +209,8 @@ class ItemOpenAIResponseMessageInput(TypedDict, total=False):
 
 
 class ItemOpenAIResponseOutputMessageWebSearchToolCall(TypedDict, total=False):
+    """Web search tool call output message for OpenAI responses."""
+
     id: Required[str]
 
     status: Required[str]
@@ -198,6 +219,8 @@ class ItemOpenAIResponseOutputMessageWebSearchToolCall(TypedDict, total=False):
 
 
 class ItemOpenAIResponseOutputMessageFileSearchToolCallResult(TypedDict, total=False):
+    """Search results returned by the file search operation."""
+
     attributes: Required[Dict[str, object]]
 
     file_id: Required[str]
@@ -210,6 +233,8 @@ class ItemOpenAIResponseOutputMessageFileSearchToolCallResult(TypedDict, total=F
 
 
 class ItemOpenAIResponseOutputMessageFileSearchToolCall(TypedDict, total=False):
+    """File search tool call output message for OpenAI responses."""
+
     id: Required[str]
 
     queries: Required[SequenceNotStr[str]]
@@ -222,6 +247,8 @@ class ItemOpenAIResponseOutputMessageFileSearchToolCall(TypedDict, total=False):
 
 
 class ItemOpenAIResponseOutputMessageFunctionToolCall(TypedDict, total=False):
+    """Function tool call output message for OpenAI responses."""
+
     arguments: Required[str]
 
     call_id: Required[str]
@@ -236,6 +263,10 @@ class ItemOpenAIResponseOutputMessageFunctionToolCall(TypedDict, total=False):
 
 
 class ItemOpenAIResponseInputFunctionToolCallOutput(TypedDict, total=False):
+    """
+    This represents the output of a function call that gets passed back to the model.
+    """
+
     call_id: Required[str]
 
     output: Required[str]
@@ -248,6 +279,8 @@ class ItemOpenAIResponseInputFunctionToolCallOutput(TypedDict, total=False):
 
 
 class ItemOpenAIResponseMcpApprovalRequest(TypedDict, total=False):
+    """A request for human approval of a tool invocation."""
+
     id: Required[str]
 
     arguments: Required[str]
@@ -260,6 +293,8 @@ class ItemOpenAIResponseMcpApprovalRequest(TypedDict, total=False):
 
 
 class ItemOpenAIResponseMcpApprovalResponse(TypedDict, total=False):
+    """A response to an MCP approval request."""
+
     approval_request_id: Required[str]
 
     approve: Required[bool]
@@ -272,6 +307,8 @@ class ItemOpenAIResponseMcpApprovalResponse(TypedDict, total=False):
 
 
 class ItemOpenAIResponseOutputMessageMcpCall(TypedDict, total=False):
+    """Model Context Protocol (MCP) call output message for OpenAI responses."""
+
     id: Required[str]
 
     arguments: Required[str]
@@ -288,6 +325,8 @@ class ItemOpenAIResponseOutputMessageMcpCall(TypedDict, total=False):
 
 
 class ItemOpenAIResponseOutputMessageMcpListToolsTool(TypedDict, total=False):
+    """Tool definition returned by MCP list tools operation."""
+
     input_schema: Required[Dict[str, object]]
 
     name: Required[str]
@@ -296,6 +335,8 @@ class ItemOpenAIResponseOutputMessageMcpListToolsTool(TypedDict, total=False):
 
 
 class ItemOpenAIResponseOutputMessageMcpListTools(TypedDict, total=False):
+    """MCP list tools output message containing available tools from an MCP server."""
+
     id: Required[str]
 
     server_label: Required[str]

@@ -8,6 +8,8 @@ __all__ = ["Job"]
 
 
 class Job(BaseModel):
+    """A job execution instance with status tracking."""
+
     job_id: str
 
     status: Literal["completed", "in_progress", "failed", "scheduled", "cancelled"]

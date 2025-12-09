@@ -22,10 +22,14 @@ __all__ = [
 
 
 class ContentImageContentItemInputImageURL(BaseModel):
+    """A URL reference to external content."""
+
     uri: str
 
 
 class ContentImageContentItemInputImage(BaseModel):
+    """A URL or a base64 encoded string"""
+
     data: Optional[str] = None
 
     url: Optional[ContentImageContentItemInputImageURL] = None
@@ -33,6 +37,8 @@ class ContentImageContentItemInputImage(BaseModel):
 
 
 class ContentImageContentItemInput(BaseModel):
+    """A image content item"""
+
     image: ContentImageContentItemInputImage
     """A URL or a base64 encoded string"""
 
@@ -40,16 +46,22 @@ class ContentImageContentItemInput(BaseModel):
 
 
 class ContentTextContentItem(BaseModel):
+    """A text content item"""
+
     text: str
 
     type: Optional[Literal["text"]] = None
 
 
 class ContentListImageContentItemInputTextContentItemImageContentItemInputImageURL(BaseModel):
+    """A URL reference to external content."""
+
     uri: str
 
 
 class ContentListImageContentItemInputTextContentItemImageContentItemInputImage(BaseModel):
+    """A URL or a base64 encoded string"""
+
     data: Optional[str] = None
 
     url: Optional[ContentListImageContentItemInputTextContentItemImageContentItemInputImageURL] = None
@@ -57,6 +69,8 @@ class ContentListImageContentItemInputTextContentItemImageContentItemInputImage(
 
 
 class ContentListImageContentItemInputTextContentItemImageContentItemInput(BaseModel):
+    """A image content item"""
+
     image: ContentListImageContentItemInputTextContentItemImageContentItemInputImage
     """A URL or a base64 encoded string"""
 
@@ -64,6 +78,8 @@ class ContentListImageContentItemInputTextContentItemImageContentItemInput(BaseM
 
 
 class ContentListImageContentItemInputTextContentItemTextContentItem(BaseModel):
+    """A text content item"""
+
     text: str
 
     type: Optional[Literal["text"]] = None
@@ -83,6 +99,8 @@ Content: TypeAlias = Union[
 
 
 class SystemMessage(BaseModel):
+    """A system message providing instructions or context to the model."""
+
     content: Content
     """A image content item"""
 

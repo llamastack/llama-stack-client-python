@@ -21,10 +21,14 @@ __all__ = [
 
 
 class ContentImageContentItemInputImageURL(TypedDict, total=False):
+    """A URL reference to external content."""
+
     uri: Required[str]
 
 
 class ContentImageContentItemInputImage(TypedDict, total=False):
+    """A URL or a base64 encoded string"""
+
     data: Optional[str]
 
     url: Optional[ContentImageContentItemInputImageURL]
@@ -32,6 +36,8 @@ class ContentImageContentItemInputImage(TypedDict, total=False):
 
 
 class ContentImageContentItemInput(TypedDict, total=False):
+    """A image content item"""
+
     image: Required[ContentImageContentItemInputImage]
     """A URL or a base64 encoded string"""
 
@@ -39,16 +45,22 @@ class ContentImageContentItemInput(TypedDict, total=False):
 
 
 class ContentTextContentItem(TypedDict, total=False):
+    """A text content item"""
+
     text: Required[str]
 
     type: Literal["text"]
 
 
 class ContentListImageContentItemInputTextContentItemImageContentItemInputImageURL(TypedDict, total=False):
+    """A URL reference to external content."""
+
     uri: Required[str]
 
 
 class ContentListImageContentItemInputTextContentItemImageContentItemInputImage(TypedDict, total=False):
+    """A URL or a base64 encoded string"""
+
     data: Optional[str]
 
     url: Optional[ContentListImageContentItemInputTextContentItemImageContentItemInputImageURL]
@@ -56,6 +68,8 @@ class ContentListImageContentItemInputTextContentItemImageContentItemInputImage(
 
 
 class ContentListImageContentItemInputTextContentItemImageContentItemInput(TypedDict, total=False):
+    """A image content item"""
+
     image: Required[ContentListImageContentItemInputTextContentItemImageContentItemInputImage]
     """A URL or a base64 encoded string"""
 
@@ -63,6 +77,8 @@ class ContentListImageContentItemInputTextContentItemImageContentItemInput(Typed
 
 
 class ContentListImageContentItemInputTextContentItemTextContentItem(TypedDict, total=False):
+    """A text content item"""
+
     text: Required[str]
 
     type: Literal["text"]
@@ -79,6 +95,8 @@ Content: TypeAlias = Union[
 
 
 class SystemMessage(TypedDict, total=False):
+    """A system message providing instructions or context to the model."""
+
     content: Required[Content]
     """A image content item"""
 

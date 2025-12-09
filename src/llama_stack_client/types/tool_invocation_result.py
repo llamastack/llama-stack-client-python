@@ -22,10 +22,14 @@ __all__ = [
 
 
 class ContentImageContentItemOutputImageURL(BaseModel):
+    """A URL reference to external content."""
+
     uri: str
 
 
 class ContentImageContentItemOutputImage(BaseModel):
+    """A URL or a base64 encoded string"""
+
     data: Optional[str] = None
 
     url: Optional[ContentImageContentItemOutputImageURL] = None
@@ -33,6 +37,8 @@ class ContentImageContentItemOutputImage(BaseModel):
 
 
 class ContentImageContentItemOutput(BaseModel):
+    """A image content item"""
+
     image: ContentImageContentItemOutputImage
     """A URL or a base64 encoded string"""
 
@@ -40,16 +46,22 @@ class ContentImageContentItemOutput(BaseModel):
 
 
 class ContentTextContentItem(BaseModel):
+    """A text content item"""
+
     text: str
 
     type: Optional[Literal["text"]] = None
 
 
 class ContentListImageContentItemOutputTextContentItemImageContentItemOutputImageURL(BaseModel):
+    """A URL reference to external content."""
+
     uri: str
 
 
 class ContentListImageContentItemOutputTextContentItemImageContentItemOutputImage(BaseModel):
+    """A URL or a base64 encoded string"""
+
     data: Optional[str] = None
 
     url: Optional[ContentListImageContentItemOutputTextContentItemImageContentItemOutputImageURL] = None
@@ -57,6 +69,8 @@ class ContentListImageContentItemOutputTextContentItemImageContentItemOutputImag
 
 
 class ContentListImageContentItemOutputTextContentItemImageContentItemOutput(BaseModel):
+    """A image content item"""
+
     image: ContentListImageContentItemOutputTextContentItemImageContentItemOutputImage
     """A URL or a base64 encoded string"""
 
@@ -64,6 +78,8 @@ class ContentListImageContentItemOutputTextContentItemImageContentItemOutput(Bas
 
 
 class ContentListImageContentItemOutputTextContentItemTextContentItem(BaseModel):
+    """A text content item"""
+
     text: str
 
     type: Optional[Literal["text"]] = None
@@ -87,6 +103,8 @@ Content: TypeAlias = Union[
 
 
 class ToolInvocationResult(BaseModel):
+    """Result of a tool invocation."""
+
     content: Optional[Content] = None
     """A image content item"""
 

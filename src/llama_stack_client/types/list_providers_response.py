@@ -7,4 +7,6 @@ __all__ = ["ListProvidersResponse"]
 
 
 class ListProvidersResponse(BaseModel):
+    """Response containing a list of all available providers."""
+
     data: ProviderListResponse

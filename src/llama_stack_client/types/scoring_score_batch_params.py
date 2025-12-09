@@ -25,6 +25,8 @@ class ScoringScoreBatchParams(TypedDict, total=False):
 
 
 class ScoringFunctionsLlmAsJudgeScoringFnParams(TypedDict, total=False):
+    """Parameters for LLM-as-judge scoring function configuration."""
+
     judge_model: Required[str]
 
     aggregation_functions: List[Literal["average", "weighted_average", "median", "categorical_count", "accuracy"]]
@@ -39,6 +41,8 @@ class ScoringFunctionsLlmAsJudgeScoringFnParams(TypedDict, total=False):
 
 
 class ScoringFunctionsRegexParserScoringFnParams(TypedDict, total=False):
+    """Parameters for regex parser scoring function configuration."""
+
     aggregation_functions: List[Literal["average", "weighted_average", "median", "categorical_count", "accuracy"]]
     """Aggregation functions to apply to the scores of each row"""
 
@@ -49,6 +53,8 @@ class ScoringFunctionsRegexParserScoringFnParams(TypedDict, total=False):
 
 
 class ScoringFunctionsBasicScoringFnParams(TypedDict, total=False):
+    """Parameters for basic scoring function configuration."""
+
     aggregation_functions: List[Literal["average", "weighted_average", "median", "categorical_count", "accuracy"]]
     """Aggregation functions to apply to the scores of each row"""
 
