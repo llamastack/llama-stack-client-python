@@ -18,13 +18,19 @@ __all__ = ["BenchmarkRegisterParams"]
 
 class BenchmarkRegisterParams(TypedDict, total=False):
     benchmark_id: Required[str]
+    """The ID of the benchmark to register."""
 
     dataset_id: Required[str]
+    """The ID of the dataset to use for the benchmark."""
 
     scoring_functions: Required[SequenceNotStr[str]]
+    """The scoring functions to use for the benchmark."""
 
     metadata: Optional[Dict[str, object]]
+    """The metadata to use for the benchmark."""
 
     provider_benchmark_id: Optional[str]
+    """The ID of the provider benchmark to use for the benchmark."""
 
     provider_id: Optional[str]
+    """The ID of the provider to use for the benchmark."""
