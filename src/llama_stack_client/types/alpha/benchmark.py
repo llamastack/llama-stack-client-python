@@ -18,6 +18,7 @@ class Benchmark(BaseModel):
     """A benchmark resource for evaluating model performance."""
 
     dataset_id: str
+    """Identifier of the dataset to use for the benchmark evaluation."""
 
     identifier: str
     """Unique identifier for this resource in llama stack"""
@@ -26,11 +27,13 @@ class Benchmark(BaseModel):
     """ID of the provider that owns this resource"""
 
     scoring_functions: List[str]
+    """List of scoring function identifiers to apply during evaluation."""
 
     metadata: Optional[Dict[str, object]] = None
-    """Metadata for this evaluation task"""
+    """Metadata for this evaluation task."""
 
     provider_resource_id: Optional[str] = None
     """Unique identifier for this resource in the provider"""
 
     type: Optional[Literal["benchmark"]] = None
+    """The resource type, always benchmark."""
