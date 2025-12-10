@@ -7,4 +7,7 @@ __all__ = ["ListBenchmarksResponse"]
 
 
 class ListBenchmarksResponse(BaseModel):
+    """Response containing a list of benchmark objects."""
+
     data: BenchmarkListResponse
+    """List of benchmark objects."""

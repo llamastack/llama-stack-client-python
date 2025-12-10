@@ -61,6 +61,8 @@ class BenchmarksResource(SyncAPIResource):
         Get a benchmark by its ID.
 
         Args:
+          benchmark_id: The ID of the benchmark to get.
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -123,6 +125,18 @@ class BenchmarksResource(SyncAPIResource):
         Register a benchmark.
 
         Args:
+          benchmark_id: The ID of the benchmark to register.
+
+          dataset_id: The ID of the dataset to use for the benchmark.
+
+          scoring_functions: The scoring functions to use for the benchmark.
+
+          metadata: The metadata to use for the benchmark.
+
+          provider_benchmark_id: The ID of the provider benchmark to use for the benchmark.
+
+          provider_id: The ID of the provider to use for the benchmark.
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -167,6 +181,8 @@ class BenchmarksResource(SyncAPIResource):
         Unregister a benchmark.
 
         Args:
+          benchmark_id: The ID of the benchmark to unregister.
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -222,6 +238,8 @@ class AsyncBenchmarksResource(AsyncAPIResource):
         Get a benchmark by its ID.
 
         Args:
+          benchmark_id: The ID of the benchmark to get.
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -284,6 +302,18 @@ class AsyncBenchmarksResource(AsyncAPIResource):
         Register a benchmark.
 
         Args:
+          benchmark_id: The ID of the benchmark to register.
+
+          dataset_id: The ID of the dataset to use for the benchmark.
+
+          scoring_functions: The scoring functions to use for the benchmark.
+
+          metadata: The metadata to use for the benchmark.
+
+          provider_benchmark_id: The ID of the provider benchmark to use for the benchmark.
+
+          provider_id: The ID of the provider to use for the benchmark.
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -328,6 +358,8 @@ class AsyncBenchmarksResource(AsyncAPIResource):
         Unregister a benchmark.
 
         Args:
+          benchmark_id: The ID of the benchmark to unregister.
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
