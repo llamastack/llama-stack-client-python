@@ -288,9 +288,9 @@ class DataChoiceLogprobsContent(BaseModel):
 
     logprob: float
 
-    top_logprobs: List[DataChoiceLogprobsContentTopLogprob]
-
     bytes: Optional[List[int]] = None
+
+    top_logprobs: Optional[List[DataChoiceLogprobsContentTopLogprob]] = None
 
 
 class DataChoiceLogprobsRefusalTopLogprob(BaseModel):
@@ -323,9 +323,9 @@ class DataChoiceLogprobsRefusal(BaseModel):
 
     logprob: float
 
-    top_logprobs: List[DataChoiceLogprobsRefusalTopLogprob]
-
     bytes: Optional[List[int]] = None
+
+    top_logprobs: Optional[List[DataChoiceLogprobsRefusalTopLogprob]] = None
 
 
 class DataChoiceLogprobs(BaseModel):

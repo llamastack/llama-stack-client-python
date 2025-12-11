@@ -25,6 +25,8 @@ __all__ = [
     "ContentListOpenAIResponseOutputMessageContentOutputTextOpenAIResponseContentPartRefusalOpenAIResponseOutputMessageContentOutputTextAnnotationOpenAIResponseAnnotationCitation",
     "ContentListOpenAIResponseOutputMessageContentOutputTextOpenAIResponseContentPartRefusalOpenAIResponseOutputMessageContentOutputTextAnnotationOpenAIResponseAnnotationContainerFileCitation",
     "ContentListOpenAIResponseOutputMessageContentOutputTextOpenAIResponseContentPartRefusalOpenAIResponseOutputMessageContentOutputTextAnnotationOpenAIResponseAnnotationFilePath",
+    "ContentListOpenAIResponseOutputMessageContentOutputTextOpenAIResponseContentPartRefusalOpenAIResponseOutputMessageContentOutputTextLogprob",
+    "ContentListOpenAIResponseOutputMessageContentOutputTextOpenAIResponseContentPartRefusalOpenAIResponseOutputMessageContentOutputTextLogprobTopLogprob",
     "ContentListOpenAIResponseOutputMessageContentOutputTextOpenAIResponseContentPartRefusalOpenAIResponseContentPartRefusal",
 ]
 
@@ -146,6 +148,49 @@ ContentListOpenAIResponseOutputMessageContentOutputTextOpenAIResponseContentPart
 ]
 
 
+class ContentListOpenAIResponseOutputMessageContentOutputTextOpenAIResponseContentPartRefusalOpenAIResponseOutputMessageContentOutputTextLogprobTopLogprob(
+    BaseModel
+):
+    """
+    The top log probability for a token from an OpenAI-compatible chat completion response.
+
+    :token: The token
+    :bytes: (Optional) The bytes for the token
+    :logprob: The log probability of the token
+    """
+
+    token: str
+
+    logprob: float
+
+    bytes: Optional[List[int]] = None
+
+
+class ContentListOpenAIResponseOutputMessageContentOutputTextOpenAIResponseContentPartRefusalOpenAIResponseOutputMessageContentOutputTextLogprob(
+    BaseModel
+):
+    """
+    The log probability for a token from an OpenAI-compatible chat completion response.
+
+    :token: The token
+    :bytes: (Optional) The bytes for the token
+    :logprob: The log probability of the token
+    :top_logprobs: The top log probabilities for the token
+    """
+
+    token: str
+
+    logprob: float
+
+    bytes: Optional[List[int]] = None
+
+    top_logprobs: Optional[
+        List[
+            ContentListOpenAIResponseOutputMessageContentOutputTextOpenAIResponseContentPartRefusalOpenAIResponseOutputMessageContentOutputTextLogprobTopLogprob
+        ]
+    ] = None
+
+
 class ContentListOpenAIResponseOutputMessageContentOutputTextOpenAIResponseContentPartRefusalOpenAIResponseOutputMessageContentOutputText(
     BaseModel
 ):
@@ -154,6 +199,12 @@ class ContentListOpenAIResponseOutputMessageContentOutputTextOpenAIResponseConte
     annotations: Optional[
         List[
             ContentListOpenAIResponseOutputMessageContentOutputTextOpenAIResponseContentPartRefusalOpenAIResponseOutputMessageContentOutputTextAnnotation
+        ]
+    ] = None
+
+    logprobs: Optional[
+        List[
+            ContentListOpenAIResponseOutputMessageContentOutputTextOpenAIResponseContentPartRefusalOpenAIResponseOutputMessageContentOutputTextLogprob
         ]
     ] = None
 
