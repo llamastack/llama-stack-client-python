@@ -25,6 +25,8 @@ __all__ = [
     "OpenAIResponseObjectStreamResponseOutputItemAddedItemOpenAIResponseMessageContentListOpenAIResponseOutputMessageContentOutputTextOpenAIResponseContentPartRefusalOpenAIResponseOutputMessageContentOutputTextAnnotationOpenAIResponseAnnotationCitation",
     "OpenAIResponseObjectStreamResponseOutputItemAddedItemOpenAIResponseMessageContentListOpenAIResponseOutputMessageContentOutputTextOpenAIResponseContentPartRefusalOpenAIResponseOutputMessageContentOutputTextAnnotationOpenAIResponseAnnotationContainerFileCitation",
     "OpenAIResponseObjectStreamResponseOutputItemAddedItemOpenAIResponseMessageContentListOpenAIResponseOutputMessageContentOutputTextOpenAIResponseContentPartRefusalOpenAIResponseOutputMessageContentOutputTextAnnotationOpenAIResponseAnnotationFilePath",
+    "OpenAIResponseObjectStreamResponseOutputItemAddedItemOpenAIResponseMessageContentListOpenAIResponseOutputMessageContentOutputTextOpenAIResponseContentPartRefusalOpenAIResponseOutputMessageContentOutputTextLogprob",
+    "OpenAIResponseObjectStreamResponseOutputItemAddedItemOpenAIResponseMessageContentListOpenAIResponseOutputMessageContentOutputTextOpenAIResponseContentPartRefusalOpenAIResponseOutputMessageContentOutputTextLogprobTopLogprob",
     "OpenAIResponseObjectStreamResponseOutputItemAddedItemOpenAIResponseMessageContentListOpenAIResponseOutputMessageContentOutputTextOpenAIResponseContentPartRefusalOpenAIResponseContentPartRefusal",
     "OpenAIResponseObjectStreamResponseOutputItemAddedItemOpenAIResponseOutputMessageWebSearchToolCall",
     "OpenAIResponseObjectStreamResponseOutputItemAddedItemOpenAIResponseOutputMessageFileSearchToolCall",
@@ -48,6 +50,8 @@ __all__ = [
     "OpenAIResponseObjectStreamResponseOutputItemDoneItemOpenAIResponseMessageContentListOpenAIResponseOutputMessageContentOutputTextOpenAIResponseContentPartRefusalOpenAIResponseOutputMessageContentOutputTextAnnotationOpenAIResponseAnnotationCitation",
     "OpenAIResponseObjectStreamResponseOutputItemDoneItemOpenAIResponseMessageContentListOpenAIResponseOutputMessageContentOutputTextOpenAIResponseContentPartRefusalOpenAIResponseOutputMessageContentOutputTextAnnotationOpenAIResponseAnnotationContainerFileCitation",
     "OpenAIResponseObjectStreamResponseOutputItemDoneItemOpenAIResponseMessageContentListOpenAIResponseOutputMessageContentOutputTextOpenAIResponseContentPartRefusalOpenAIResponseOutputMessageContentOutputTextAnnotationOpenAIResponseAnnotationFilePath",
+    "OpenAIResponseObjectStreamResponseOutputItemDoneItemOpenAIResponseMessageContentListOpenAIResponseOutputMessageContentOutputTextOpenAIResponseContentPartRefusalOpenAIResponseOutputMessageContentOutputTextLogprob",
+    "OpenAIResponseObjectStreamResponseOutputItemDoneItemOpenAIResponseMessageContentListOpenAIResponseOutputMessageContentOutputTextOpenAIResponseContentPartRefusalOpenAIResponseOutputMessageContentOutputTextLogprobTopLogprob",
     "OpenAIResponseObjectStreamResponseOutputItemDoneItemOpenAIResponseMessageContentListOpenAIResponseOutputMessageContentOutputTextOpenAIResponseContentPartRefusalOpenAIResponseContentPartRefusal",
     "OpenAIResponseObjectStreamResponseOutputItemDoneItemOpenAIResponseOutputMessageWebSearchToolCall",
     "OpenAIResponseObjectStreamResponseOutputItemDoneItemOpenAIResponseOutputMessageFileSearchToolCall",
@@ -58,6 +62,8 @@ __all__ = [
     "OpenAIResponseObjectStreamResponseOutputItemDoneItemOpenAIResponseOutputMessageMcpListToolsTool",
     "OpenAIResponseObjectStreamResponseOutputItemDoneItemOpenAIResponseMcpApprovalRequest",
     "OpenAIResponseObjectStreamResponseOutputTextDelta",
+    "OpenAIResponseObjectStreamResponseOutputTextDeltaLogprob",
+    "OpenAIResponseObjectStreamResponseOutputTextDeltaLogprobTopLogprob",
     "OpenAIResponseObjectStreamResponseOutputTextDone",
     "OpenAIResponseObjectStreamResponseFunctionCallArgumentsDelta",
     "OpenAIResponseObjectStreamResponseFunctionCallArgumentsDone",
@@ -80,6 +86,8 @@ __all__ = [
     "OpenAIResponseObjectStreamResponseContentPartAddedPartOpenAIResponseContentPartOutputTextAnnotationOpenAIResponseAnnotationCitation",
     "OpenAIResponseObjectStreamResponseContentPartAddedPartOpenAIResponseContentPartOutputTextAnnotationOpenAIResponseAnnotationContainerFileCitation",
     "OpenAIResponseObjectStreamResponseContentPartAddedPartOpenAIResponseContentPartOutputTextAnnotationOpenAIResponseAnnotationFilePath",
+    "OpenAIResponseObjectStreamResponseContentPartAddedPartOpenAIResponseContentPartOutputTextLogprob",
+    "OpenAIResponseObjectStreamResponseContentPartAddedPartOpenAIResponseContentPartOutputTextLogprobTopLogprob",
     "OpenAIResponseObjectStreamResponseContentPartAddedPartOpenAIResponseContentPartRefusal",
     "OpenAIResponseObjectStreamResponseContentPartAddedPartOpenAIResponseContentPartReasoningText",
     "OpenAIResponseObjectStreamResponseContentPartDone",
@@ -90,6 +98,8 @@ __all__ = [
     "OpenAIResponseObjectStreamResponseContentPartDonePartOpenAIResponseContentPartOutputTextAnnotationOpenAIResponseAnnotationCitation",
     "OpenAIResponseObjectStreamResponseContentPartDonePartOpenAIResponseContentPartOutputTextAnnotationOpenAIResponseAnnotationContainerFileCitation",
     "OpenAIResponseObjectStreamResponseContentPartDonePartOpenAIResponseContentPartOutputTextAnnotationOpenAIResponseAnnotationFilePath",
+    "OpenAIResponseObjectStreamResponseContentPartDonePartOpenAIResponseContentPartOutputTextLogprob",
+    "OpenAIResponseObjectStreamResponseContentPartDonePartOpenAIResponseContentPartOutputTextLogprobTopLogprob",
     "OpenAIResponseObjectStreamResponseContentPartDonePartOpenAIResponseContentPartRefusal",
     "OpenAIResponseObjectStreamResponseContentPartDonePartOpenAIResponseContentPartReasoningText",
     "OpenAIResponseObjectStreamResponseReasoningTextDelta",
@@ -254,6 +264,49 @@ OpenAIResponseObjectStreamResponseOutputItemAddedItemOpenAIResponseMessageConten
 ]
 
 
+class OpenAIResponseObjectStreamResponseOutputItemAddedItemOpenAIResponseMessageContentListOpenAIResponseOutputMessageContentOutputTextOpenAIResponseContentPartRefusalOpenAIResponseOutputMessageContentOutputTextLogprobTopLogprob(
+    BaseModel
+):
+    """
+    The top log probability for a token from an OpenAI-compatible chat completion response.
+
+    :token: The token
+    :bytes: (Optional) The bytes for the token
+    :logprob: The log probability of the token
+    """
+
+    token: str
+
+    logprob: float
+
+    bytes: Optional[List[int]] = None
+
+
+class OpenAIResponseObjectStreamResponseOutputItemAddedItemOpenAIResponseMessageContentListOpenAIResponseOutputMessageContentOutputTextOpenAIResponseContentPartRefusalOpenAIResponseOutputMessageContentOutputTextLogprob(
+    BaseModel
+):
+    """
+    The log probability for a token from an OpenAI-compatible chat completion response.
+
+    :token: The token
+    :bytes: (Optional) The bytes for the token
+    :logprob: The log probability of the token
+    :top_logprobs: The top log probabilities for the token
+    """
+
+    token: str
+
+    logprob: float
+
+    bytes: Optional[List[int]] = None
+
+    top_logprobs: Optional[
+        List[
+            OpenAIResponseObjectStreamResponseOutputItemAddedItemOpenAIResponseMessageContentListOpenAIResponseOutputMessageContentOutputTextOpenAIResponseContentPartRefusalOpenAIResponseOutputMessageContentOutputTextLogprobTopLogprob
+        ]
+    ] = None
+
+
 class OpenAIResponseObjectStreamResponseOutputItemAddedItemOpenAIResponseMessageContentListOpenAIResponseOutputMessageContentOutputTextOpenAIResponseContentPartRefusalOpenAIResponseOutputMessageContentOutputText(
     BaseModel
 ):
@@ -262,6 +315,12 @@ class OpenAIResponseObjectStreamResponseOutputItemAddedItemOpenAIResponseMessage
     annotations: Optional[
         List[
             OpenAIResponseObjectStreamResponseOutputItemAddedItemOpenAIResponseMessageContentListOpenAIResponseOutputMessageContentOutputTextOpenAIResponseContentPartRefusalOpenAIResponseOutputMessageContentOutputTextAnnotation
+        ]
+    ] = None
+
+    logprobs: Optional[
+        List[
+            OpenAIResponseObjectStreamResponseOutputItemAddedItemOpenAIResponseMessageContentListOpenAIResponseOutputMessageContentOutputTextOpenAIResponseContentPartRefusalOpenAIResponseOutputMessageContentOutputTextLogprob
         ]
     ] = None
 
@@ -576,6 +635,49 @@ OpenAIResponseObjectStreamResponseOutputItemDoneItemOpenAIResponseMessageContent
 ]
 
 
+class OpenAIResponseObjectStreamResponseOutputItemDoneItemOpenAIResponseMessageContentListOpenAIResponseOutputMessageContentOutputTextOpenAIResponseContentPartRefusalOpenAIResponseOutputMessageContentOutputTextLogprobTopLogprob(
+    BaseModel
+):
+    """
+    The top log probability for a token from an OpenAI-compatible chat completion response.
+
+    :token: The token
+    :bytes: (Optional) The bytes for the token
+    :logprob: The log probability of the token
+    """
+
+    token: str
+
+    logprob: float
+
+    bytes: Optional[List[int]] = None
+
+
+class OpenAIResponseObjectStreamResponseOutputItemDoneItemOpenAIResponseMessageContentListOpenAIResponseOutputMessageContentOutputTextOpenAIResponseContentPartRefusalOpenAIResponseOutputMessageContentOutputTextLogprob(
+    BaseModel
+):
+    """
+    The log probability for a token from an OpenAI-compatible chat completion response.
+
+    :token: The token
+    :bytes: (Optional) The bytes for the token
+    :logprob: The log probability of the token
+    :top_logprobs: The top log probabilities for the token
+    """
+
+    token: str
+
+    logprob: float
+
+    bytes: Optional[List[int]] = None
+
+    top_logprobs: Optional[
+        List[
+            OpenAIResponseObjectStreamResponseOutputItemDoneItemOpenAIResponseMessageContentListOpenAIResponseOutputMessageContentOutputTextOpenAIResponseContentPartRefusalOpenAIResponseOutputMessageContentOutputTextLogprobTopLogprob
+        ]
+    ] = None
+
+
 class OpenAIResponseObjectStreamResponseOutputItemDoneItemOpenAIResponseMessageContentListOpenAIResponseOutputMessageContentOutputTextOpenAIResponseContentPartRefusalOpenAIResponseOutputMessageContentOutputText(
     BaseModel
 ):
@@ -584,6 +686,12 @@ class OpenAIResponseObjectStreamResponseOutputItemDoneItemOpenAIResponseMessageC
     annotations: Optional[
         List[
             OpenAIResponseObjectStreamResponseOutputItemDoneItemOpenAIResponseMessageContentListOpenAIResponseOutputMessageContentOutputTextOpenAIResponseContentPartRefusalOpenAIResponseOutputMessageContentOutputTextAnnotation
+        ]
+    ] = None
+
+    logprobs: Optional[
+        List[
+            OpenAIResponseObjectStreamResponseOutputItemDoneItemOpenAIResponseMessageContentListOpenAIResponseOutputMessageContentOutputTextOpenAIResponseContentPartRefusalOpenAIResponseOutputMessageContentOutputTextLogprob
         ]
     ] = None
 
@@ -781,6 +889,41 @@ class OpenAIResponseObjectStreamResponseOutputItemDone(BaseModel):
     type: Optional[Literal["response.output_item.done"]] = None
 
 
+class OpenAIResponseObjectStreamResponseOutputTextDeltaLogprobTopLogprob(BaseModel):
+    """
+    The top log probability for a token from an OpenAI-compatible chat completion response.
+
+    :token: The token
+    :bytes: (Optional) The bytes for the token
+    :logprob: The log probability of the token
+    """
+
+    token: str
+
+    logprob: float
+
+    bytes: Optional[List[int]] = None
+
+
+class OpenAIResponseObjectStreamResponseOutputTextDeltaLogprob(BaseModel):
+    """
+    The log probability for a token from an OpenAI-compatible chat completion response.
+
+    :token: The token
+    :bytes: (Optional) The bytes for the token
+    :logprob: The log probability of the token
+    :top_logprobs: The top log probabilities for the token
+    """
+
+    token: str
+
+    logprob: float
+
+    bytes: Optional[List[int]] = None
+
+    top_logprobs: Optional[List[OpenAIResponseObjectStreamResponseOutputTextDeltaLogprobTopLogprob]] = None
+
+
 class OpenAIResponseObjectStreamResponseOutputTextDelta(BaseModel):
     """Streaming event for incremental text content updates."""
 
@@ -793,6 +936,8 @@ class OpenAIResponseObjectStreamResponseOutputTextDelta(BaseModel):
     output_index: int
 
     sequence_number: int
+
+    logprobs: Optional[List[OpenAIResponseObjectStreamResponseOutputTextDeltaLogprob]] = None
 
     type: Optional[Literal["response.output_text.delta"]] = None
 
@@ -1012,6 +1157,45 @@ OpenAIResponseObjectStreamResponseContentPartAddedPartOpenAIResponseContentPartO
 ]
 
 
+class OpenAIResponseObjectStreamResponseContentPartAddedPartOpenAIResponseContentPartOutputTextLogprobTopLogprob(
+    BaseModel
+):
+    """
+    The top log probability for a token from an OpenAI-compatible chat completion response.
+
+    :token: The token
+    :bytes: (Optional) The bytes for the token
+    :logprob: The log probability of the token
+    """
+
+    token: str
+
+    logprob: float
+
+    bytes: Optional[List[int]] = None
+
+
+class OpenAIResponseObjectStreamResponseContentPartAddedPartOpenAIResponseContentPartOutputTextLogprob(BaseModel):
+    """
+    The log probability for a token from an OpenAI-compatible chat completion response.
+
+    :token: The token
+    :bytes: (Optional) The bytes for the token
+    :logprob: The log probability of the token
+    :top_logprobs: The top log probabilities for the token
+    """
+
+    token: str
+
+    logprob: float
+
+    bytes: Optional[List[int]] = None
+
+    top_logprobs: Optional[
+        List[OpenAIResponseObjectStreamResponseContentPartAddedPartOpenAIResponseContentPartOutputTextLogprobTopLogprob]
+    ] = None
+
+
 class OpenAIResponseObjectStreamResponseContentPartAddedPartOpenAIResponseContentPartOutputText(BaseModel):
     """Text content within a streamed response part."""
 
@@ -1021,7 +1205,9 @@ class OpenAIResponseObjectStreamResponseContentPartAddedPartOpenAIResponseConten
         List[OpenAIResponseObjectStreamResponseContentPartAddedPartOpenAIResponseContentPartOutputTextAnnotation]
     ] = None
 
-    logprobs: Optional[List[Dict[str, object]]] = None
+    logprobs: Optional[
+        List[OpenAIResponseObjectStreamResponseContentPartAddedPartOpenAIResponseContentPartOutputTextLogprob]
+    ] = None
 
     type: Optional[Literal["output_text"]] = None
 
@@ -1138,6 +1324,45 @@ OpenAIResponseObjectStreamResponseContentPartDonePartOpenAIResponseContentPartOu
 ]
 
 
+class OpenAIResponseObjectStreamResponseContentPartDonePartOpenAIResponseContentPartOutputTextLogprobTopLogprob(
+    BaseModel
+):
+    """
+    The top log probability for a token from an OpenAI-compatible chat completion response.
+
+    :token: The token
+    :bytes: (Optional) The bytes for the token
+    :logprob: The log probability of the token
+    """
+
+    token: str
+
+    logprob: float
+
+    bytes: Optional[List[int]] = None
+
+
+class OpenAIResponseObjectStreamResponseContentPartDonePartOpenAIResponseContentPartOutputTextLogprob(BaseModel):
+    """
+    The log probability for a token from an OpenAI-compatible chat completion response.
+
+    :token: The token
+    :bytes: (Optional) The bytes for the token
+    :logprob: The log probability of the token
+    :top_logprobs: The top log probabilities for the token
+    """
+
+    token: str
+
+    logprob: float
+
+    bytes: Optional[List[int]] = None
+
+    top_logprobs: Optional[
+        List[OpenAIResponseObjectStreamResponseContentPartDonePartOpenAIResponseContentPartOutputTextLogprobTopLogprob]
+    ] = None
+
+
 class OpenAIResponseObjectStreamResponseContentPartDonePartOpenAIResponseContentPartOutputText(BaseModel):
     """Text content within a streamed response part."""
 
@@ -1147,7 +1372,9 @@ class OpenAIResponseObjectStreamResponseContentPartDonePartOpenAIResponseContent
         List[OpenAIResponseObjectStreamResponseContentPartDonePartOpenAIResponseContentPartOutputTextAnnotation]
     ] = None
 
-    logprobs: Optional[List[Dict[str, object]]] = None
+    logprobs: Optional[
+        List[OpenAIResponseObjectStreamResponseContentPartDonePartOpenAIResponseContentPartOutputTextLogprob]
+    ] = None
 
     type: Optional[Literal["output_text"]] = None
 

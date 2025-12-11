@@ -2,13 +2,13 @@
 
 from __future__ import annotations
 
-from typing import Dict, Union, Iterable, Optional
+from typing import Dict, List, Union, Iterable, Optional
 from typing_extensions import Literal, overload
 
 import httpx
 
 from ...types import response_list_params, response_create_params
-from ..._types import Body, Omit, Query, Headers, NotGiven, SequenceNotStr, omit, not_given
+from ..._types import Body, Omit, Query, Headers, NotGiven, omit, not_given
 from ..._utils import required_args, maybe_transform, async_maybe_transform
 from ..._compat import cached_property
 from ..._resource import SyncAPIResource, AsyncAPIResource
@@ -73,7 +73,20 @@ class ResponsesResource(SyncAPIResource):
         ],
         model: str,
         conversation: Optional[str] | Omit = omit,
-        include: Optional[SequenceNotStr[str]] | Omit = omit,
+        include: Optional[
+            List[
+                Literal[
+                    "web_search_call.action.sources",
+                    "code_interpreter_call.outputs",
+                    "computer_call_output.output.image_url",
+                    "file_search_call.results",
+                    "message.input_image.image_url",
+                    "message.output_text.logprobs",
+                    "reasoning.encrypted_content",
+                ]
+            ]
+        ]
+        | Omit = omit,
         instructions: Optional[str] | Omit = omit,
         max_infer_iters: Optional[int] | Omit = omit,
         max_tool_calls: Optional[int] | Omit = omit,
@@ -124,7 +137,20 @@ class ResponsesResource(SyncAPIResource):
         model: str,
         stream: Literal[True],
         conversation: Optional[str] | Omit = omit,
-        include: Optional[SequenceNotStr[str]] | Omit = omit,
+        include: Optional[
+            List[
+                Literal[
+                    "web_search_call.action.sources",
+                    "code_interpreter_call.outputs",
+                    "computer_call_output.output.image_url",
+                    "file_search_call.results",
+                    "message.input_image.image_url",
+                    "message.output_text.logprobs",
+                    "reasoning.encrypted_content",
+                ]
+            ]
+        ]
+        | Omit = omit,
         instructions: Optional[str] | Omit = omit,
         max_infer_iters: Optional[int] | Omit = omit,
         max_tool_calls: Optional[int] | Omit = omit,
@@ -174,7 +200,20 @@ class ResponsesResource(SyncAPIResource):
         model: str,
         stream: bool,
         conversation: Optional[str] | Omit = omit,
-        include: Optional[SequenceNotStr[str]] | Omit = omit,
+        include: Optional[
+            List[
+                Literal[
+                    "web_search_call.action.sources",
+                    "code_interpreter_call.outputs",
+                    "computer_call_output.output.image_url",
+                    "file_search_call.results",
+                    "message.input_image.image_url",
+                    "message.output_text.logprobs",
+                    "reasoning.encrypted_content",
+                ]
+            ]
+        ]
+        | Omit = omit,
         instructions: Optional[str] | Omit = omit,
         max_infer_iters: Optional[int] | Omit = omit,
         max_tool_calls: Optional[int] | Omit = omit,
@@ -223,7 +262,20 @@ class ResponsesResource(SyncAPIResource):
         ],
         model: str,
         conversation: Optional[str] | Omit = omit,
-        include: Optional[SequenceNotStr[str]] | Omit = omit,
+        include: Optional[
+            List[
+                Literal[
+                    "web_search_call.action.sources",
+                    "code_interpreter_call.outputs",
+                    "computer_call_output.output.image_url",
+                    "file_search_call.results",
+                    "message.input_image.image_url",
+                    "message.output_text.logprobs",
+                    "reasoning.encrypted_content",
+                ]
+            ]
+        ]
+        | Omit = omit,
         instructions: Optional[str] | Omit = omit,
         max_infer_iters: Optional[int] | Omit = omit,
         max_tool_calls: Optional[int] | Omit = omit,
@@ -428,7 +480,20 @@ class AsyncResponsesResource(AsyncAPIResource):
         ],
         model: str,
         conversation: Optional[str] | Omit = omit,
-        include: Optional[SequenceNotStr[str]] | Omit = omit,
+        include: Optional[
+            List[
+                Literal[
+                    "web_search_call.action.sources",
+                    "code_interpreter_call.outputs",
+                    "computer_call_output.output.image_url",
+                    "file_search_call.results",
+                    "message.input_image.image_url",
+                    "message.output_text.logprobs",
+                    "reasoning.encrypted_content",
+                ]
+            ]
+        ]
+        | Omit = omit,
         instructions: Optional[str] | Omit = omit,
         max_infer_iters: Optional[int] | Omit = omit,
         max_tool_calls: Optional[int] | Omit = omit,
@@ -479,7 +544,20 @@ class AsyncResponsesResource(AsyncAPIResource):
         model: str,
         stream: Literal[True],
         conversation: Optional[str] | Omit = omit,
-        include: Optional[SequenceNotStr[str]] | Omit = omit,
+        include: Optional[
+            List[
+                Literal[
+                    "web_search_call.action.sources",
+                    "code_interpreter_call.outputs",
+                    "computer_call_output.output.image_url",
+                    "file_search_call.results",
+                    "message.input_image.image_url",
+                    "message.output_text.logprobs",
+                    "reasoning.encrypted_content",
+                ]
+            ]
+        ]
+        | Omit = omit,
         instructions: Optional[str] | Omit = omit,
         max_infer_iters: Optional[int] | Omit = omit,
         max_tool_calls: Optional[int] | Omit = omit,
@@ -529,7 +607,20 @@ class AsyncResponsesResource(AsyncAPIResource):
         model: str,
         stream: bool,
         conversation: Optional[str] | Omit = omit,
-        include: Optional[SequenceNotStr[str]] | Omit = omit,
+        include: Optional[
+            List[
+                Literal[
+                    "web_search_call.action.sources",
+                    "code_interpreter_call.outputs",
+                    "computer_call_output.output.image_url",
+                    "file_search_call.results",
+                    "message.input_image.image_url",
+                    "message.output_text.logprobs",
+                    "reasoning.encrypted_content",
+                ]
+            ]
+        ]
+        | Omit = omit,
         instructions: Optional[str] | Omit = omit,
         max_infer_iters: Optional[int] | Omit = omit,
         max_tool_calls: Optional[int] | Omit = omit,
@@ -578,7 +669,20 @@ class AsyncResponsesResource(AsyncAPIResource):
         ],
         model: str,
         conversation: Optional[str] | Omit = omit,
-        include: Optional[SequenceNotStr[str]] | Omit = omit,
+        include: Optional[
+            List[
+                Literal[
+                    "web_search_call.action.sources",
+                    "code_interpreter_call.outputs",
+                    "computer_call_output.output.image_url",
+                    "file_search_call.results",
+                    "message.input_image.image_url",
+                    "message.output_text.logprobs",
+                    "reasoning.encrypted_content",
+                ]
+            ]
+        ]
+        | Omit = omit,
         instructions: Optional[str] | Omit = omit,
         max_infer_iters: Optional[int] | Omit = omit,
         max_tool_calls: Optional[int] | Omit = omit,
