@@ -1,6 +1,17 @@
 name: CI
 on:
- workflow_dispatch:
+  push:
+    branches-ignore:
+      - 'generated'
+      - 'codegen/**'
+      - 'integrated/**'
+      - 'stl-preview-head/**'
+      - 'stl-preview-base/**'
+  pull_request:
+    branches-ignore:
+      - 'stl-preview-head/**'
+      - 'stl-preview-base/**'
+  workflow_dispatch:
 
 jobs:
   lint:
