@@ -68,6 +68,13 @@ __all__ = [
     "PromptVariablesOpenAIResponseInputMessageContentFile",
     "Text",
     "TextFormat",
+    "ToolChoice",
+    "ToolChoiceOpenAIResponseInputToolChoiceAllowedTools",
+    "ToolChoiceOpenAIResponseInputToolChoiceFileSearch",
+    "ToolChoiceOpenAIResponseInputToolChoiceWebSearch",
+    "ToolChoiceOpenAIResponseInputToolChoiceFunctionTool",
+    "ToolChoiceOpenAIResponseInputToolChoiceMcpTool",
+    "ToolChoiceOpenAIResponseInputToolChoiceCustomTool",
     "Tool",
     "ToolOpenAIResponseInputToolWebSearch",
     "ToolOpenAIResponseInputToolFileSearch",
@@ -891,6 +898,68 @@ class Text(BaseModel):
     """Configuration for Responses API text format."""
 
 
+class ToolChoiceOpenAIResponseInputToolChoiceAllowedTools(BaseModel):
+    """Constrains the tools available to the model to a pre-defined set."""
+
+    tools: List[Dict[str, str]]
+
+    mode: Optional[Literal["auto", "required"]] = None
+
+    type: Optional[Literal["allowed_tools"]] = None
+
+
+class ToolChoiceOpenAIResponseInputToolChoiceFileSearch(BaseModel):
+    """Indicates that the model should use file search to generate a response."""
+
+    type: Optional[Literal["file_search"]] = None
+
+
+class ToolChoiceOpenAIResponseInputToolChoiceWebSearch(BaseModel):
+    """Indicates that the model should use web search to generate a response"""
+
+    type: Optional[
+        Literal["web_search", "web_search_preview", "web_search_preview_2025_03_11", "web_search_2025_08_26"]
+    ] = None
+
+
+class ToolChoiceOpenAIResponseInputToolChoiceFunctionTool(BaseModel):
+    """Forces the model to call a specific function."""
+
+    name: str
+
+    type: Optional[Literal["function"]] = None
+
+
+class ToolChoiceOpenAIResponseInputToolChoiceMcpTool(BaseModel):
+    """Forces the model to call a specific tool on a remote MCP server"""
+
+    server_label: str
+
+    name: Optional[str] = None
+
+    type: Optional[Literal["mcp"]] = None
+
+
+class ToolChoiceOpenAIResponseInputToolChoiceCustomTool(BaseModel):
+    """Forces the model to call a custom tool."""
+
+    name: str
+
+    type: Optional[Literal["custom"]] = None
+
+
+ToolChoice: TypeAlias = Union[
+    Literal["auto", "required", "none"],
+    ToolChoiceOpenAIResponseInputToolChoiceAllowedTools,
+    ToolChoiceOpenAIResponseInputToolChoiceFileSearch,
+    ToolChoiceOpenAIResponseInputToolChoiceWebSearch,
+    ToolChoiceOpenAIResponseInputToolChoiceFunctionTool,
+    ToolChoiceOpenAIResponseInputToolChoiceMcpTool,
+    ToolChoiceOpenAIResponseInputToolChoiceCustomTool,
+    None,
+]
+
+
 class ToolOpenAIResponseInputToolWebSearch(BaseModel):
     """Web search tool configuration for OpenAI response inputs."""
 
@@ -1033,6 +1102,9 @@ class ResponseListResponse(BaseModel):
 
     text: Optional[Text] = None
     """Text response configuration for OpenAI responses."""
+
+    tool_choice: Optional[ToolChoice] = None
+    """Constrains the tools available to the model to a pre-defined set."""
 
     tools: Optional[List[Tool]] = None
 
