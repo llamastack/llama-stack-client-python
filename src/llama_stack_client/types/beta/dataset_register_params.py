@@ -16,30 +16,44 @@ __all__ = ["DatasetRegisterParams", "Source", "SourceUriDataSource", "SourceRows
 
 class DatasetRegisterParams(TypedDict, total=False):
     purpose: Required[Literal["post-training/messages", "eval/question-answer", "eval/messages-answer"]]
-    """Purpose of the dataset. Each purpose has a required input data schema."""
+    """The purpose of the dataset."""
 
     source: Required[Source]
-    """A dataset that can be obtained from a URI."""
+    """The data source of the dataset."""
 
     dataset_id: Optional[str]
+    """The ID of the dataset. If not provided, an ID will be generated."""
 
     metadata: Optional[Dict[str, object]]
+    """The metadata for the dataset."""
 
 
 class SourceUriDataSource(TypedDict, total=False):
     """A dataset that can be obtained from a URI."""
 
     uri: Required[str]
+    """The dataset can be obtained from a URI.
+
+    E.g. "https://mywebsite.com/mydata.jsonl", "lsfs://mydata.jsonl",
+    "data:csv;base64,{base64_content}"
+    """
 
     type: Literal["uri"]
+    """The type of data source."""
 
 
 class SourceRowsDataSource(TypedDict, total=False):
     """A dataset stored in rows."""
 
     rows: Required[Iterable[Dict[str, object]]]
+    """The dataset is stored in rows.
+
+    E.g. [{"messages": [{"role": "user", "content": "Hello, world!"}, {"role":
+    "assistant", "content": "Hello, world!"}]}]
+    """
 
     type: Literal["rows"]
+    """The type of data source."""
 
 
 Source: TypeAlias = Union[SourceUriDataSource, SourceRowsDataSource]

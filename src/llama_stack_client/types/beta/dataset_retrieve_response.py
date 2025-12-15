@@ -19,16 +19,28 @@ class SourceUriDataSource(BaseModel):
     """A dataset that can be obtained from a URI."""
 
     uri: str
+    """The dataset can be obtained from a URI.
+
+    E.g. "https://mywebsite.com/mydata.jsonl", "lsfs://mydata.jsonl",
+    "data:csv;base64,{base64_content}"
+    """
 
     type: Optional[Literal["uri"]] = None
+    """The type of data source."""
 
 
 class SourceRowsDataSource(BaseModel):
     """A dataset stored in rows."""
 
     rows: List[Dict[str, object]]
+    """The dataset is stored in rows.
+
+    E.g. [{"messages": [{"role": "user", "content": "Hello, world!"}, {"role":
+    "assistant", "content": "Hello, world!"}]}]
+    """
 
     type: Optional[Literal["rows"]] = None
+    """The type of data source."""
 
 
 Source: TypeAlias = Annotated[Union[SourceUriDataSource, SourceRowsDataSource], PropertyInfo(discriminator="type")]
@@ -44,10 +56,10 @@ class DatasetRetrieveResponse(BaseModel):
     """ID of the provider that owns this resource"""
 
     purpose: Literal["post-training/messages", "eval/question-answer", "eval/messages-answer"]
-    """Purpose of the dataset. Each purpose has a required input data schema."""
+    """Purpose of the dataset indicating its intended use"""
 
     source: Source
-    """A dataset that can be obtained from a URI."""
+    """Data source configuration for the dataset"""
 
     metadata: Optional[Dict[str, object]] = None
     """Any additional metadata for this dataset"""
@@ -56,3 +68,4 @@ class DatasetRetrieveResponse(BaseModel):
     """Unique identifier for this resource in the provider"""
 
     type: Optional[Literal["dataset"]] = None
+    """Type of resource, always 'dataset' for datasets"""

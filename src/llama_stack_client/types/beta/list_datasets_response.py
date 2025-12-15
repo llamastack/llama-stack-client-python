@@ -16,3 +16,4 @@ class ListDatasetsResponse(BaseModel):
     """Response from listing datasets."""
 
     data: DatasetListResponse
+    """List of datasets"""
