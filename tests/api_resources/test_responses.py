@@ -71,6 +71,7 @@ class TestResponses:
                     "type": "text",
                 }
             },
+            tool_choice="auto",
             tools=[
                 {
                     "search_context_size": 'S?oC"high',
@@ -150,6 +151,7 @@ class TestResponses:
                     "type": "text",
                 }
             },
+            tool_choice="auto",
             tools=[
                 {
                     "search_context_size": 'S?oC"high',
@@ -346,6 +348,7 @@ class TestAsyncResponses:
                     "type": "text",
                 }
             },
+            tool_choice="auto",
             tools=[
                 {
                     "search_context_size": 'S?oC"high',
@@ -425,6 +428,7 @@ class TestAsyncResponses:
                     "type": "text",
                 }
             },
+            tool_choice="auto",
             tools=[
                 {
                     "search_context_size": 'S?oC"high',

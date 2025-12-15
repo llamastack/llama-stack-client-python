@@ -104,6 +104,7 @@ class ResponsesResource(SyncAPIResource):
         stream: Optional[Literal[False]] | Omit = omit,
         temperature: Optional[float] | Omit = omit,
         text: Optional[response_create_params.Text] | Omit = omit,
+        tool_choice: Optional[response_create_params.ToolChoice] | Omit = omit,
         tools: Optional[Iterable[response_create_params.Tool]] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -119,6 +120,8 @@ class ResponsesResource(SyncAPIResource):
           prompt: OpenAI compatible Prompt object that is used in OpenAI responses.
 
           text: Text response configuration for OpenAI responses.
+
+          tool_choice: Constrains the tools available to the model to a pre-defined set.
 
           extra_headers: Send extra headers
 
@@ -167,6 +170,7 @@ class ResponsesResource(SyncAPIResource):
         store: Optional[bool] | Omit = omit,
         temperature: Optional[float] | Omit = omit,
         text: Optional[response_create_params.Text] | Omit = omit,
+        tool_choice: Optional[response_create_params.ToolChoice] | Omit = omit,
         tools: Optional[Iterable[response_create_params.Tool]] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -182,6 +186,8 @@ class ResponsesResource(SyncAPIResource):
           prompt: OpenAI compatible Prompt object that is used in OpenAI responses.
 
           text: Text response configuration for OpenAI responses.
+
+          tool_choice: Constrains the tools available to the model to a pre-defined set.
 
           extra_headers: Send extra headers
 
@@ -230,6 +236,7 @@ class ResponsesResource(SyncAPIResource):
         store: Optional[bool] | Omit = omit,
         temperature: Optional[float] | Omit = omit,
         text: Optional[response_create_params.Text] | Omit = omit,
+        tool_choice: Optional[response_create_params.ToolChoice] | Omit = omit,
         tools: Optional[Iterable[response_create_params.Tool]] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -245,6 +252,8 @@ class ResponsesResource(SyncAPIResource):
           prompt: OpenAI compatible Prompt object that is used in OpenAI responses.
 
           text: Text response configuration for OpenAI responses.
+
+          tool_choice: Constrains the tools available to the model to a pre-defined set.
 
           extra_headers: Send extra headers
 
@@ -293,6 +302,7 @@ class ResponsesResource(SyncAPIResource):
         stream: Optional[Literal[False]] | Literal[True] | Omit = omit,
         temperature: Optional[float] | Omit = omit,
         text: Optional[response_create_params.Text] | Omit = omit,
+        tool_choice: Optional[response_create_params.ToolChoice] | Omit = omit,
         tools: Optional[Iterable[response_create_params.Tool]] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -320,6 +330,7 @@ class ResponsesResource(SyncAPIResource):
                     "stream": stream,
                     "temperature": temperature,
                     "text": text,
+                    "tool_choice": tool_choice,
                     "tools": tools,
                 },
                 response_create_params.ResponseCreateParamsStreaming
@@ -511,6 +522,7 @@ class AsyncResponsesResource(AsyncAPIResource):
         stream: Optional[Literal[False]] | Omit = omit,
         temperature: Optional[float] | Omit = omit,
         text: Optional[response_create_params.Text] | Omit = omit,
+        tool_choice: Optional[response_create_params.ToolChoice] | Omit = omit,
         tools: Optional[Iterable[response_create_params.Tool]] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -526,6 +538,8 @@ class AsyncResponsesResource(AsyncAPIResource):
           prompt: OpenAI compatible Prompt object that is used in OpenAI responses.
 
           text: Text response configuration for OpenAI responses.
+
+          tool_choice: Constrains the tools available to the model to a pre-defined set.
 
           extra_headers: Send extra headers
 
@@ -574,6 +588,7 @@ class AsyncResponsesResource(AsyncAPIResource):
         store: Optional[bool] | Omit = omit,
         temperature: Optional[float] | Omit = omit,
         text: Optional[response_create_params.Text] | Omit = omit,
+        tool_choice: Optional[response_create_params.ToolChoice] | Omit = omit,
         tools: Optional[Iterable[response_create_params.Tool]] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -589,6 +604,8 @@ class AsyncResponsesResource(AsyncAPIResource):
           prompt: OpenAI compatible Prompt object that is used in OpenAI responses.
 
           text: Text response configuration for OpenAI responses.
+
+          tool_choice: Constrains the tools available to the model to a pre-defined set.
 
           extra_headers: Send extra headers
 
@@ -637,6 +654,7 @@ class AsyncResponsesResource(AsyncAPIResource):
         store: Optional[bool] | Omit = omit,
         temperature: Optional[float] | Omit = omit,
         text: Optional[response_create_params.Text] | Omit = omit,
+        tool_choice: Optional[response_create_params.ToolChoice] | Omit = omit,
         tools: Optional[Iterable[response_create_params.Tool]] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -652,6 +670,8 @@ class AsyncResponsesResource(AsyncAPIResource):
           prompt: OpenAI compatible Prompt object that is used in OpenAI responses.
 
           text: Text response configuration for OpenAI responses.
+
+          tool_choice: Constrains the tools available to the model to a pre-defined set.
 
           extra_headers: Send extra headers
 
@@ -700,6 +720,7 @@ class AsyncResponsesResource(AsyncAPIResource):
         stream: Optional[Literal[False]] | Literal[True] | Omit = omit,
         temperature: Optional[float] | Omit = omit,
         text: Optional[response_create_params.Text] | Omit = omit,
+        tool_choice: Optional[response_create_params.ToolChoice] | Omit = omit,
         tools: Optional[Iterable[response_create_params.Tool]] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -727,6 +748,7 @@ class AsyncResponsesResource(AsyncAPIResource):
                     "stream": stream,
                     "temperature": temperature,
                     "text": text,
+                    "tool_choice": tool_choice,
                     "tools": tools,
                 },
                 response_create_params.ResponseCreateParamsStreaming

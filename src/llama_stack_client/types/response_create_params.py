@@ -48,6 +48,13 @@ __all__ = [
     "PromptVariablesOpenAIResponseInputMessageContentFile",
     "Text",
     "TextFormat",
+    "ToolChoice",
+    "ToolChoiceOpenAIResponseInputToolChoiceAllowedTools",
+    "ToolChoiceOpenAIResponseInputToolChoiceFileSearch",
+    "ToolChoiceOpenAIResponseInputToolChoiceWebSearch",
+    "ToolChoiceOpenAIResponseInputToolChoiceFunctionTool",
+    "ToolChoiceOpenAIResponseInputToolChoiceMcpTool",
+    "ToolChoiceOpenAIResponseInputToolChoiceCustomTool",
     "Tool",
     "ToolOpenAIResponseInputToolWebSearch",
     "ToolOpenAIResponseInputToolFileSearch",
@@ -105,6 +112,9 @@ class ResponseCreateParamsBase(TypedDict, total=False):
 
     text: Optional[Text]
     """Text response configuration for OpenAI responses."""
+
+    tool_choice: Optional[ToolChoice]
+    """Constrains the tools available to the model to a pre-defined set."""
 
     tools: Optional[Iterable[Tool]]
 
@@ -578,6 +588,65 @@ class Text(TypedDict, total=False):
 
     format: Optional[TextFormat]
     """Configuration for Responses API text format."""
+
+
+class ToolChoiceOpenAIResponseInputToolChoiceAllowedTools(TypedDict, total=False):
+    """Constrains the tools available to the model to a pre-defined set."""
+
+    tools: Required[Iterable[Dict[str, str]]]
+
+    mode: Literal["auto", "required"]
+
+    type: Literal["allowed_tools"]
+
+
+class ToolChoiceOpenAIResponseInputToolChoiceFileSearch(TypedDict, total=False):
+    """Indicates that the model should use file search to generate a response."""
+
+    type: Literal["file_search"]
+
+
+class ToolChoiceOpenAIResponseInputToolChoiceWebSearch(TypedDict, total=False):
+    """Indicates that the model should use web search to generate a response"""
+
+    type: Literal["web_search", "web_search_preview", "web_search_preview_2025_03_11", "web_search_2025_08_26"]
+
+
+class ToolChoiceOpenAIResponseInputToolChoiceFunctionTool(TypedDict, total=False):
+    """Forces the model to call a specific function."""
+
+    name: Required[str]
+
+    type: Literal["function"]
+
+
+class ToolChoiceOpenAIResponseInputToolChoiceMcpTool(TypedDict, total=False):
+    """Forces the model to call a specific tool on a remote MCP server"""
+
+    server_label: Required[str]
+
+    name: Optional[str]
+
+    type: Literal["mcp"]
+
+
+class ToolChoiceOpenAIResponseInputToolChoiceCustomTool(TypedDict, total=False):
+    """Forces the model to call a custom tool."""
+
+    name: Required[str]
+
+    type: Literal["custom"]
+
+
+ToolChoice: TypeAlias = Union[
+    Literal["auto", "required", "none"],
+    ToolChoiceOpenAIResponseInputToolChoiceAllowedTools,
+    ToolChoiceOpenAIResponseInputToolChoiceFileSearch,
+    ToolChoiceOpenAIResponseInputToolChoiceWebSearch,
+    ToolChoiceOpenAIResponseInputToolChoiceFunctionTool,
+    ToolChoiceOpenAIResponseInputToolChoiceMcpTool,
+    ToolChoiceOpenAIResponseInputToolChoiceCustomTool,
+]
 
 
 class ToolOpenAIResponseInputToolWebSearch(TypedDict, total=False):
