@@ -64,6 +64,8 @@ class DatasetsResource(SyncAPIResource):
         Get a dataset by its ID.
 
         Args:
+          dataset_id: The ID of the dataset to get.
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -211,14 +213,17 @@ class DatasetsResource(SyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> DatasetRegisterResponse:
-        """Register a new dataset.
+        """
+        Register a new dataset.
 
         Args:
-          purpose: Purpose of the dataset.
+          purpose: The purpose of the dataset.
 
-        Each purpose has a required input data schema.
+          source: The data source of the dataset.
 
-          source: A dataset that can be obtained from a URI.
+          dataset_id: The ID of the dataset. If not provided, an ID will be generated.
+
+          metadata: The metadata for the dataset.
 
           extra_headers: Send extra headers
 
@@ -261,6 +266,8 @@ class DatasetsResource(SyncAPIResource):
         Unregister a dataset by its ID.
 
         Args:
+          dataset_id: The ID of the dataset to unregister.
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -316,6 +323,8 @@ class AsyncDatasetsResource(AsyncAPIResource):
         Get a dataset by its ID.
 
         Args:
+          dataset_id: The ID of the dataset to get.
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -463,14 +472,17 @@ class AsyncDatasetsResource(AsyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> DatasetRegisterResponse:
-        """Register a new dataset.
+        """
+        Register a new dataset.
 
         Args:
-          purpose: Purpose of the dataset.
+          purpose: The purpose of the dataset.
 
-        Each purpose has a required input data schema.
+          source: The data source of the dataset.
 
-          source: A dataset that can be obtained from a URI.
+          dataset_id: The ID of the dataset. If not provided, an ID will be generated.
+
+          metadata: The metadata for the dataset.
 
           extra_headers: Send extra headers
 
@@ -513,6 +525,8 @@ class AsyncDatasetsResource(AsyncAPIResource):
         Unregister a dataset by its ID.
 
         Args:
+          dataset_id: The ID of the dataset to unregister.
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
