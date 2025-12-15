@@ -187,7 +187,10 @@ class TestDatasets:
         with pytest.warns(DeprecationWarning):
             dataset = client.beta.datasets.register(
                 purpose="post-training/messages",
-                source={"uri": "uri"},
+                source={
+                    "uri": "uri",
+                    "type": "uri",
+                },
             )
 
         assert_matches_type(DatasetRegisterResponse, dataset, path=["response"])
@@ -212,7 +215,10 @@ class TestDatasets:
         with pytest.warns(DeprecationWarning):
             response = client.beta.datasets.with_raw_response.register(
                 purpose="post-training/messages",
-                source={"uri": "uri"},
+                source={
+                    "uri": "uri",
+                    "type": "uri",
+                },
             )
 
         assert response.is_closed is True
@@ -225,7 +231,10 @@ class TestDatasets:
         with pytest.warns(DeprecationWarning):
             with client.beta.datasets.with_streaming_response.register(
                 purpose="post-training/messages",
-                source={"uri": "uri"},
+                source={
+                    "uri": "uri",
+                    "type": "uri",
+                },
             ) as response:
                 assert not response.is_closed
                 assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -441,7 +450,10 @@ class TestAsyncDatasets:
         with pytest.warns(DeprecationWarning):
             dataset = await async_client.beta.datasets.register(
                 purpose="post-training/messages",
-                source={"uri": "uri"},
+                source={
+                    "uri": "uri",
+                    "type": "uri",
+                },
             )
 
         assert_matches_type(DatasetRegisterResponse, dataset, path=["response"])
@@ -466,7 +478,10 @@ class TestAsyncDatasets:
         with pytest.warns(DeprecationWarning):
             response = await async_client.beta.datasets.with_raw_response.register(
                 purpose="post-training/messages",
-                source={"uri": "uri"},
+                source={
+                    "uri": "uri",
+                    "type": "uri",
+                },
             )
 
         assert response.is_closed is True
@@ -479,7 +494,10 @@ class TestAsyncDatasets:
         with pytest.warns(DeprecationWarning):
             async with async_client.beta.datasets.with_streaming_response.register(
                 purpose="post-training/messages",
-                source={"uri": "uri"},
+                source={
+                    "uri": "uri",
+                    "type": "uri",
+                },
             ) as response:
                 assert not response.is_closed
                 assert response.http_request.headers.get("X-Stainless-Lang") == "python"
