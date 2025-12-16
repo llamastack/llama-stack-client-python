@@ -1,5 +1,19 @@
 # Changelog
 
+## 0.4.0-alpha.13 (2025-12-15)
+
+Full Changelog: [v0.4.0-alpha.12...v0.4.0-alpha.13](https://github.com/llamastack/llama-stack-client-python/compare/v0.4.0-alpha.12...v0.4.0-alpha.13)
+
+### Bug Fixes
+
+* **ci:** restore push triggers for Stainless preview builds ([71c9874](https://github.com/llamastack/llama-stack-client-python/commit/71c9874d1106f12de11abcf4254f13af6533d58c))
+
+
+### Chores
+
+* add license header on all files ([#308](https://github.com/llamastack/llama-stack-client-python/issues/308)) ([8fe2baf](https://github.com/llamastack/llama-stack-client-python/commit/8fe2baf1d53aacdb41f3e47aee91a1a8ea094a90))
+* update uv.lock ([4665b4f](https://github.com/llamastack/llama-stack-client-python/commit/4665b4f708ddf4f96a031edc80bb226da8b0ec37))
+
 ## 0.4.0-alpha.12 (2025-11-19)
 
 Full Changelog: [v0.4.0-alpha.11...v0.4.0-alpha.12](https://github.com/llamastack/llama-stack-client-python/compare/v0.4.0-alpha.11...v0.4.0-alpha.12)
