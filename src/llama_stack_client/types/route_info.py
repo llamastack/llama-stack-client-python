@@ -13,7 +13,10 @@ class RouteInfo(BaseModel):
     """
 
     method: str
+    """The HTTP method for the route"""
 
     provider_types: List[str]
+    """List of provider types implementing this route"""
 
     route: str
+    """The API route path"""
