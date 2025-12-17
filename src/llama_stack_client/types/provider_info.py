@@ -13,11 +13,16 @@ class ProviderInfo(BaseModel):
     """
 
     api: str
+    """The API name this provider implements"""
 
     config: Dict[str, object]
+    """Configuration parameters for the provider"""
 
     health: Dict[str, object]
+    """Current health status of the provider"""
 
     provider_id: str
+    """Unique identifier for the provider"""
 
     provider_type: str
+    """The type of provider implementation"""

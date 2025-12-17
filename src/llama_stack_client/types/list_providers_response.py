@@ -10,3 +10,4 @@ class ListProvidersResponse(BaseModel):
     """Response containing a list of all available providers."""
 
     data: ProviderListResponse
+    """List of provider information objects"""
