@@ -17,3 +17,4 @@ class HealthInfo(BaseModel):
     """Health status information for the service."""
 
     status: Literal["OK", "Error", "Not Implemented"]
+    """The health status of the service"""
