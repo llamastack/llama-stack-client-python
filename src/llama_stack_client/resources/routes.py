@@ -63,11 +63,14 @@ class RoutesResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> RouteListResponse:
         """
-        List routes.
-
         List all available API routes with their methods and implementing providers.
 
         Args:
+          api_filter: Optional filter to control which routes are returned. Can be an API level ('v1',
+              'v1alpha', 'v1beta') to show non-deprecated routes at that level, or
+              'deprecated' to show deprecated routes across all levels. If not specified,
+              returns all non-deprecated routes.
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -122,11 +125,14 @@ class AsyncRoutesResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> RouteListResponse:
         """
-        List routes.
-
         List all available API routes with their methods and implementing providers.
 
         Args:
+          api_filter: Optional filter to control which routes are returned. Can be an API level ('v1',
+              'v1alpha', 'v1beta') to show non-deprecated routes at that level, or
+              'deprecated' to show deprecated routes across all levels. If not specified,
+              returns all non-deprecated routes.
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request

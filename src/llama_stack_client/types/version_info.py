@@ -15,3 +15,4 @@ class VersionInfo(BaseModel):
     """Version information for the service."""
 
     version: str
+    """The version string of the service"""
