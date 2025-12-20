@@ -86,50 +86,6 @@ async def main() -> None:
 asyncio.run(main())
 ```
 
-## Streaming responses
-
-We provide support for streaming responses using Server Side Events (SSE).
-
-```python
-from llama_stack_client import LlamaStackClient
-
-client = LlamaStackClient()
-
-stream = client.chat.completions.create(
-    messages=[
-        {
-            "content": "string",
-            "role": "user",
-        }
-    ],
-    model="model",
-    stream=True,
-)
-for completion in stream:
-    print(completion.id)
-```
-
-The async client uses the exact same interface.
-
-```python
-from llama_stack_client import AsyncLlamaStackClient
-
-client = AsyncLlamaStackClient()
-
-stream = await client.chat.completions.create(
-    messages=[
-        {
-            "content": "string",
-            "role": "user",
-        }
-    ],
-    model="model",
-    stream=True,
-)
-async for completion in stream:
-    print(completion.id)
-```
-
 ## Using types
 
 Nested request parameters are [TypedDicts](https://docs.python.org/3/library/typing.html#typing.TypedDict). Responses are [Pydantic models](https://docs.pydantic.dev) which also provide helper methods for things like:
@@ -138,6 +94,69 @@ Nested request parameters are [TypedDicts](https://docs.python.org/3/library/typ
 - Converting to a dictionary, `model.to_dict()`
 
 Typed requests and responses provide autocomplete and documentation within your editor. If you would like to see type errors in VS Code to help catch bugs earlier, set `python.analysis.typeCheckingMode` to `basic`.
+
+## Pagination
+
+List methods in the Llama Stack Client API are paginated.
+
+This library provides auto-paginating iterators with each list response, so you do not have to request successive pages manually:
+
+```python
+from llama_stack_client import LlamaStackClient
+
+client = LlamaStackClient()
+
+all_responses = []
+# Automatically fetches more pages as needed.
+for response in client.responses.list():
+    # Do something with response here
+    all_responses.append(response)
+print(all_responses)
+```
+
+Or, asynchronously:
+
+```python
+import asyncio
+from llama_stack_client import AsyncLlamaStackClient
+
+client = AsyncLlamaStackClient()
+
+
+async def main() -> None:
+    all_responses = []
+    # Iterate through items across all pages, issuing requests as needed.
+    async for response in client.responses.list():
+        all_responses.append(response)
+    print(all_responses)
+
+
+asyncio.run(main())
+```
+
+Alternatively, you can use the `.has_next_page()`, `.next_page_info()`, or `.get_next_page()` methods for more granular control working with pages:
+
+```python
+first_page = await client.responses.list()
+if first_page.has_next_page():
+    print(f"will fetch next page using these details: {first_page.next_page_info()}")
+    next_page = await first_page.get_next_page()
+    print(f"number of items we just fetched: {len(next_page.data)}")
+
+# Remove `await` for non-async usage.
+```
+
+Or just work directly with the returned data:
+
+```python
+first_page = await client.responses.list()
+
+print(f"next page cursor: {first_page.last_id}")  # => "next page cursor: ..."
+for response in first_page.data:
+    print(response.id)
+
+# Remove `await` for non-async usage.
+```
 
 ## Nested params
 
