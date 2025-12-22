@@ -32,6 +32,8 @@ class VectorStoreSearchParams(TypedDict, total=False):
 
 
 class RankingOptions(TypedDict, total=False):
+    """Options for ranking and filtering search results."""
+
     ranker: Optional[str]
 
     score_threshold: Optional[float]

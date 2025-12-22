@@ -45,6 +45,8 @@ class SafetyRunShieldParams(TypedDict, total=False):
 class MessageOpenAIUserMessageParamInputContentListOpenAIChatCompletionContentPartTextParamOpenAIChatCompletionContentPartImageParamOpenAIFileOpenAIChatCompletionContentPartTextParam(
     TypedDict, total=False
 ):
+    """Text content part for OpenAI-compatible chat completion messages."""
+
     text: Required[str]
 
     type: Literal["text"]
@@ -53,6 +55,8 @@ class MessageOpenAIUserMessageParamInputContentListOpenAIChatCompletionContentPa
 class MessageOpenAIUserMessageParamInputContentListOpenAIChatCompletionContentPartTextParamOpenAIChatCompletionContentPartImageParamOpenAIFileOpenAIChatCompletionContentPartImageParamImageURL(
     TypedDict, total=False
 ):
+    """Image URL specification for OpenAI-compatible chat completion messages."""
+
     url: Required[str]
 
     detail: Optional[str]
@@ -61,6 +65,8 @@ class MessageOpenAIUserMessageParamInputContentListOpenAIChatCompletionContentPa
 class MessageOpenAIUserMessageParamInputContentListOpenAIChatCompletionContentPartTextParamOpenAIChatCompletionContentPartImageParamOpenAIFileOpenAIChatCompletionContentPartImageParam(
     TypedDict, total=False
 ):
+    """Image content part for OpenAI-compatible chat completion messages."""
+
     image_url: Required[
         MessageOpenAIUserMessageParamInputContentListOpenAIChatCompletionContentPartTextParamOpenAIChatCompletionContentPartImageParamOpenAIFileOpenAIChatCompletionContentPartImageParamImageURL
     ]
@@ -97,6 +103,8 @@ MessageOpenAIUserMessageParamInputContentListOpenAIChatCompletionContentPartText
 
 
 class MessageOpenAIUserMessageParamInput(TypedDict, total=False):
+    """A message from the user in an OpenAI-compatible chat completion request."""
+
     content: Required[
         Union[
             str,
@@ -112,12 +120,16 @@ class MessageOpenAIUserMessageParamInput(TypedDict, total=False):
 
 
 class MessageOpenAISystemMessageParamContentListOpenAIChatCompletionContentPartTextParam(TypedDict, total=False):
+    """Text content part for OpenAI-compatible chat completion messages."""
+
     text: Required[str]
 
     type: Literal["text"]
 
 
 class MessageOpenAISystemMessageParam(TypedDict, total=False):
+    """A system message providing instructions or context to the model."""
+
     content: Required[
         Union[str, Iterable[MessageOpenAISystemMessageParamContentListOpenAIChatCompletionContentPartTextParam]]
     ]
@@ -130,18 +142,24 @@ class MessageOpenAISystemMessageParam(TypedDict, total=False):
 class MessageOpenAIAssistantMessageParamInputContentListOpenAIChatCompletionContentPartTextParam(
     TypedDict, total=False
 ):
+    """Text content part for OpenAI-compatible chat completion messages."""
+
     text: Required[str]
 
     type: Literal["text"]
 
 
 class MessageOpenAIAssistantMessageParamInputToolCallFunction(TypedDict, total=False):
+    """Function call details for OpenAI-compatible tool calls."""
+
     arguments: Optional[str]
 
     name: Optional[str]
 
 
 class MessageOpenAIAssistantMessageParamInputToolCall(TypedDict, total=False):
+    """Tool call specification for OpenAI-compatible chat completion responses."""
+
     id: Optional[str]
 
     function: Optional[MessageOpenAIAssistantMessageParamInputToolCallFunction]
@@ -153,6 +171,10 @@ class MessageOpenAIAssistantMessageParamInputToolCall(TypedDict, total=False):
 
 
 class MessageOpenAIAssistantMessageParamInput(TypedDict, total=False):
+    """
+    A message containing the model's (assistant) response in an OpenAI-compatible chat completion request.
+    """
+
     content: Union[
         str, Iterable[MessageOpenAIAssistantMessageParamInputContentListOpenAIChatCompletionContentPartTextParam], None
     ]
@@ -165,12 +187,18 @@ class MessageOpenAIAssistantMessageParamInput(TypedDict, total=False):
 
 
 class MessageOpenAIToolMessageParamContentListOpenAIChatCompletionContentPartTextParam(TypedDict, total=False):
+    """Text content part for OpenAI-compatible chat completion messages."""
+
     text: Required[str]
 
     type: Literal["text"]
 
 
 class MessageOpenAIToolMessageParam(TypedDict, total=False):
+    """
+    A message representing the result of a tool invocation in an OpenAI-compatible chat completion request.
+    """
+
     content: Required[
         Union[str, Iterable[MessageOpenAIToolMessageParamContentListOpenAIChatCompletionContentPartTextParam]]
     ]
@@ -181,12 +209,16 @@ class MessageOpenAIToolMessageParam(TypedDict, total=False):
 
 
 class MessageOpenAIDeveloperMessageParamContentListOpenAIChatCompletionContentPartTextParam(TypedDict, total=False):
+    """Text content part for OpenAI-compatible chat completion messages."""
+
     text: Required[str]
 
     type: Literal["text"]
 
 
 class MessageOpenAIDeveloperMessageParam(TypedDict, total=False):
+    """A message from the developer in an OpenAI-compatible chat completion request."""
+
     content: Required[
         Union[str, Iterable[MessageOpenAIDeveloperMessageParamContentListOpenAIChatCompletionContentPartTextParam]]
     ]

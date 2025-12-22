@@ -15,6 +15,8 @@ __all__ = ["Benchmark"]
 
 
 class Benchmark(BaseModel):
+    """A benchmark resource for evaluating model performance."""
+
     dataset_id: str
 
     identifier: str

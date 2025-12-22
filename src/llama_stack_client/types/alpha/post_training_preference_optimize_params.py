@@ -38,12 +38,16 @@ class PostTrainingPreferenceOptimizeParams(TypedDict, total=False):
 
 
 class AlgorithmConfig(TypedDict, total=False):
+    """Configuration for Direct Preference Optimization (DPO) alignment."""
+
     beta: Required[float]
 
     loss_type: Literal["sigmoid", "hinge", "ipo", "kto_pair"]
 
 
 class TrainingConfigDataConfig(TypedDict, total=False):
+    """Configuration for training data and data loading."""
+
     batch_size: Required[int]
 
     data_format: Required[Literal["instruct", "dialog"]]
@@ -61,6 +65,8 @@ class TrainingConfigDataConfig(TypedDict, total=False):
 
 
 class TrainingConfigEfficiencyConfig(TypedDict, total=False):
+    """Configuration for memory and compute efficiency optimizations."""
+
     enable_activation_checkpointing: Optional[bool]
 
     enable_activation_offloading: Optional[bool]
@@ -71,6 +77,8 @@ class TrainingConfigEfficiencyConfig(TypedDict, total=False):
 
 
 class TrainingConfigOptimizerConfig(TypedDict, total=False):
+    """Configuration parameters for the optimization algorithm."""
+
     lr: Required[float]
 
     num_warmup_steps: Required[int]
@@ -82,6 +90,8 @@ class TrainingConfigOptimizerConfig(TypedDict, total=False):
 
 
 class TrainingConfig(TypedDict, total=False):
+    """Comprehensive configuration for the training process."""
+
     n_epochs: Required[int]
 
     data_config: Optional[TrainingConfigDataConfig]

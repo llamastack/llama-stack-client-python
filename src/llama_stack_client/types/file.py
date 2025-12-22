@@ -15,6 +15,8 @@ __all__ = ["File"]
 
 
 class File(BaseModel):
+    """OpenAI File object as defined in the OpenAI Files API."""
+
     id: str
 
     bytes: int

@@ -16,6 +16,8 @@ __all__ = ["ListFilesResponse"]
 
 
 class ListFilesResponse(BaseModel):
+    """Response for listing files in OpenAI Files API."""
+
     data: List[File]
 
     first_id: str

@@ -124,6 +124,8 @@ __all__ = [
 
 
 class OpenAIResponseObjectStreamResponseCreated(BaseModel):
+    """Streaming event indicating a new response has been created."""
+
     response: ResponseObject
     """Complete OpenAI response object containing generation results and metadata."""
 
@@ -131,6 +133,8 @@ class OpenAIResponseObjectStreamResponseCreated(BaseModel):
 
 
 class OpenAIResponseObjectStreamResponseInProgress(BaseModel):
+    """Streaming event indicating the response remains in progress."""
+
     response: ResponseObject
     """Complete OpenAI response object containing generation results and metadata."""
 
@@ -142,6 +146,8 @@ class OpenAIResponseObjectStreamResponseInProgress(BaseModel):
 class OpenAIResponseObjectStreamResponseOutputItemAddedItemOpenAIResponseMessageContentListOpenAIResponseInputMessageContentTextOpenAIResponseInputMessageContentImageOpenAIResponseInputMessageContentFileOpenAIResponseInputMessageContentText(
     BaseModel
 ):
+    """Text content for input messages in OpenAI response format."""
+
     text: str
 
     type: Optional[Literal["input_text"]] = None
@@ -150,6 +156,8 @@ class OpenAIResponseObjectStreamResponseOutputItemAddedItemOpenAIResponseMessage
 class OpenAIResponseObjectStreamResponseOutputItemAddedItemOpenAIResponseMessageContentListOpenAIResponseInputMessageContentTextOpenAIResponseInputMessageContentImageOpenAIResponseInputMessageContentFileOpenAIResponseInputMessageContentImage(
     BaseModel
 ):
+    """Image content for input messages in OpenAI response format."""
+
     detail: Optional[Literal["low", "high", "auto"]] = None
 
     file_id: Optional[str] = None
@@ -162,6 +170,8 @@ class OpenAIResponseObjectStreamResponseOutputItemAddedItemOpenAIResponseMessage
 class OpenAIResponseObjectStreamResponseOutputItemAddedItemOpenAIResponseMessageContentListOpenAIResponseInputMessageContentTextOpenAIResponseInputMessageContentImageOpenAIResponseInputMessageContentFileOpenAIResponseInputMessageContentFile(
     BaseModel
 ):
+    """File content for input messages in OpenAI response format."""
+
     file_data: Optional[str] = None
 
     file_id: Optional[str] = None
@@ -186,6 +196,8 @@ OpenAIResponseObjectStreamResponseOutputItemAddedItemOpenAIResponseMessageConten
 class OpenAIResponseObjectStreamResponseOutputItemAddedItemOpenAIResponseMessageContentListOpenAIResponseOutputMessageContentOutputTextOpenAIResponseContentPartRefusalOpenAIResponseOutputMessageContentOutputTextAnnotationOpenAIResponseAnnotationFileCitation(
     BaseModel
 ):
+    """File citation annotation for referencing specific files in response content."""
+
     file_id: str
 
     filename: str
@@ -198,6 +210,8 @@ class OpenAIResponseObjectStreamResponseOutputItemAddedItemOpenAIResponseMessage
 class OpenAIResponseObjectStreamResponseOutputItemAddedItemOpenAIResponseMessageContentListOpenAIResponseOutputMessageContentOutputTextOpenAIResponseContentPartRefusalOpenAIResponseOutputMessageContentOutputTextAnnotationOpenAIResponseAnnotationCitation(
     BaseModel
 ):
+    """URL citation annotation for referencing external web resources."""
+
     end_index: int
 
     start_index: int
@@ -263,6 +277,8 @@ class OpenAIResponseObjectStreamResponseOutputItemAddedItemOpenAIResponseMessage
 class OpenAIResponseObjectStreamResponseOutputItemAddedItemOpenAIResponseMessageContentListOpenAIResponseOutputMessageContentOutputTextOpenAIResponseContentPartRefusalOpenAIResponseContentPartRefusal(
     BaseModel
 ):
+    """Refusal content within a streamed response part."""
+
     refusal: str
 
     type: Optional[Literal["refusal"]] = None
@@ -278,6 +294,13 @@ OpenAIResponseObjectStreamResponseOutputItemAddedItemOpenAIResponseMessageConten
 
 
 class OpenAIResponseObjectStreamResponseOutputItemAddedItemOpenAIResponseMessage(BaseModel):
+    """
+    Corresponds to the various Message types in the Responses API.
+    They are all under one type because the Responses API gives them all
+    the same "type" value, and there is no way to tell them apart in certain
+    scenarios.
+    """
+
     content: Union[
         str,
         List[
@@ -298,6 +321,8 @@ class OpenAIResponseObjectStreamResponseOutputItemAddedItemOpenAIResponseMessage
 
 
 class OpenAIResponseObjectStreamResponseOutputItemAddedItemOpenAIResponseOutputMessageWebSearchToolCall(BaseModel):
+    """Web search tool call output message for OpenAI responses."""
+
     id: str
 
     status: str
@@ -308,6 +333,8 @@ class OpenAIResponseObjectStreamResponseOutputItemAddedItemOpenAIResponseOutputM
 class OpenAIResponseObjectStreamResponseOutputItemAddedItemOpenAIResponseOutputMessageFileSearchToolCallResult(
     BaseModel
 ):
+    """Search results returned by the file search operation."""
+
     attributes: Dict[str, object]
 
     file_id: str
@@ -320,6 +347,8 @@ class OpenAIResponseObjectStreamResponseOutputItemAddedItemOpenAIResponseOutputM
 
 
 class OpenAIResponseObjectStreamResponseOutputItemAddedItemOpenAIResponseOutputMessageFileSearchToolCall(BaseModel):
+    """File search tool call output message for OpenAI responses."""
+
     id: str
 
     queries: List[str]
@@ -334,6 +363,8 @@ class OpenAIResponseObjectStreamResponseOutputItemAddedItemOpenAIResponseOutputM
 
 
 class OpenAIResponseObjectStreamResponseOutputItemAddedItemOpenAIResponseOutputMessageFunctionToolCall(BaseModel):
+    """Function tool call output message for OpenAI responses."""
+
     arguments: str
 
     call_id: str
@@ -348,6 +379,8 @@ class OpenAIResponseObjectStreamResponseOutputItemAddedItemOpenAIResponseOutputM
 
 
 class OpenAIResponseObjectStreamResponseOutputItemAddedItemOpenAIResponseOutputMessageMcpCall(BaseModel):
+    """Model Context Protocol (MCP) call output message for OpenAI responses."""
+
     id: str
 
     arguments: str
@@ -364,6 +397,8 @@ class OpenAIResponseObjectStreamResponseOutputItemAddedItemOpenAIResponseOutputM
 
 
 class OpenAIResponseObjectStreamResponseOutputItemAddedItemOpenAIResponseOutputMessageMcpListToolsTool(BaseModel):
+    """Tool definition returned by MCP list tools operation."""
+
     input_schema: Dict[str, object]
 
     name: str
@@ -372,6 +407,8 @@ class OpenAIResponseObjectStreamResponseOutputItemAddedItemOpenAIResponseOutputM
 
 
 class OpenAIResponseObjectStreamResponseOutputItemAddedItemOpenAIResponseOutputMessageMcpListTools(BaseModel):
+    """MCP list tools output message containing available tools from an MCP server."""
+
     id: str
 
     server_label: str
@@ -382,6 +419,8 @@ class OpenAIResponseObjectStreamResponseOutputItemAddedItemOpenAIResponseOutputM
 
 
 class OpenAIResponseObjectStreamResponseOutputItemAddedItemOpenAIResponseMcpApprovalRequest(BaseModel):
+    """A request for human approval of a tool invocation."""
+
     id: str
 
     arguments: str
@@ -408,6 +447,8 @@ OpenAIResponseObjectStreamResponseOutputItemAddedItem: TypeAlias = Annotated[
 
 
 class OpenAIResponseObjectStreamResponseOutputItemAdded(BaseModel):
+    """Streaming event for when a new output item is added to the response."""
+
     item: OpenAIResponseObjectStreamResponseOutputItemAddedItem
     """
     Corresponds to the various Message types in the Responses API. They are all
@@ -427,6 +468,8 @@ class OpenAIResponseObjectStreamResponseOutputItemAdded(BaseModel):
 class OpenAIResponseObjectStreamResponseOutputItemDoneItemOpenAIResponseMessageContentListOpenAIResponseInputMessageContentTextOpenAIResponseInputMessageContentImageOpenAIResponseInputMessageContentFileOpenAIResponseInputMessageContentText(
     BaseModel
 ):
+    """Text content for input messages in OpenAI response format."""
+
     text: str
 
     type: Optional[Literal["input_text"]] = None
@@ -435,6 +478,8 @@ class OpenAIResponseObjectStreamResponseOutputItemDoneItemOpenAIResponseMessageC
 class OpenAIResponseObjectStreamResponseOutputItemDoneItemOpenAIResponseMessageContentListOpenAIResponseInputMessageContentTextOpenAIResponseInputMessageContentImageOpenAIResponseInputMessageContentFileOpenAIResponseInputMessageContentImage(
     BaseModel
 ):
+    """Image content for input messages in OpenAI response format."""
+
     detail: Optional[Literal["low", "high", "auto"]] = None
 
     file_id: Optional[str] = None
@@ -447,6 +492,8 @@ class OpenAIResponseObjectStreamResponseOutputItemDoneItemOpenAIResponseMessageC
 class OpenAIResponseObjectStreamResponseOutputItemDoneItemOpenAIResponseMessageContentListOpenAIResponseInputMessageContentTextOpenAIResponseInputMessageContentImageOpenAIResponseInputMessageContentFileOpenAIResponseInputMessageContentFile(
     BaseModel
 ):
+    """File content for input messages in OpenAI response format."""
+
     file_data: Optional[str] = None
 
     file_id: Optional[str] = None
@@ -471,6 +518,8 @@ OpenAIResponseObjectStreamResponseOutputItemDoneItemOpenAIResponseMessageContent
 class OpenAIResponseObjectStreamResponseOutputItemDoneItemOpenAIResponseMessageContentListOpenAIResponseOutputMessageContentOutputTextOpenAIResponseContentPartRefusalOpenAIResponseOutputMessageContentOutputTextAnnotationOpenAIResponseAnnotationFileCitation(
     BaseModel
 ):
+    """File citation annotation for referencing specific files in response content."""
+
     file_id: str
 
     filename: str
@@ -483,6 +532,8 @@ class OpenAIResponseObjectStreamResponseOutputItemDoneItemOpenAIResponseMessageC
 class OpenAIResponseObjectStreamResponseOutputItemDoneItemOpenAIResponseMessageContentListOpenAIResponseOutputMessageContentOutputTextOpenAIResponseContentPartRefusalOpenAIResponseOutputMessageContentOutputTextAnnotationOpenAIResponseAnnotationCitation(
     BaseModel
 ):
+    """URL citation annotation for referencing external web resources."""
+
     end_index: int
 
     start_index: int
@@ -548,6 +599,8 @@ class OpenAIResponseObjectStreamResponseOutputItemDoneItemOpenAIResponseMessageC
 class OpenAIResponseObjectStreamResponseOutputItemDoneItemOpenAIResponseMessageContentListOpenAIResponseOutputMessageContentOutputTextOpenAIResponseContentPartRefusalOpenAIResponseContentPartRefusal(
     BaseModel
 ):
+    """Refusal content within a streamed response part."""
+
     refusal: str
 
     type: Optional[Literal["refusal"]] = None
@@ -563,6 +616,13 @@ OpenAIResponseObjectStreamResponseOutputItemDoneItemOpenAIResponseMessageContent
 
 
 class OpenAIResponseObjectStreamResponseOutputItemDoneItemOpenAIResponseMessage(BaseModel):
+    """
+    Corresponds to the various Message types in the Responses API.
+    They are all under one type because the Responses API gives them all
+    the same "type" value, and there is no way to tell them apart in certain
+    scenarios.
+    """
+
     content: Union[
         str,
         List[
@@ -583,6 +643,8 @@ class OpenAIResponseObjectStreamResponseOutputItemDoneItemOpenAIResponseMessage(
 
 
 class OpenAIResponseObjectStreamResponseOutputItemDoneItemOpenAIResponseOutputMessageWebSearchToolCall(BaseModel):
+    """Web search tool call output message for OpenAI responses."""
+
     id: str
 
     status: str
@@ -593,6 +655,8 @@ class OpenAIResponseObjectStreamResponseOutputItemDoneItemOpenAIResponseOutputMe
 class OpenAIResponseObjectStreamResponseOutputItemDoneItemOpenAIResponseOutputMessageFileSearchToolCallResult(
     BaseModel
 ):
+    """Search results returned by the file search operation."""
+
     attributes: Dict[str, object]
 
     file_id: str
@@ -605,6 +669,8 @@ class OpenAIResponseObjectStreamResponseOutputItemDoneItemOpenAIResponseOutputMe
 
 
 class OpenAIResponseObjectStreamResponseOutputItemDoneItemOpenAIResponseOutputMessageFileSearchToolCall(BaseModel):
+    """File search tool call output message for OpenAI responses."""
+
     id: str
 
     queries: List[str]
@@ -619,6 +685,8 @@ class OpenAIResponseObjectStreamResponseOutputItemDoneItemOpenAIResponseOutputMe
 
 
 class OpenAIResponseObjectStreamResponseOutputItemDoneItemOpenAIResponseOutputMessageFunctionToolCall(BaseModel):
+    """Function tool call output message for OpenAI responses."""
+
     arguments: str
 
     call_id: str
@@ -633,6 +701,8 @@ class OpenAIResponseObjectStreamResponseOutputItemDoneItemOpenAIResponseOutputMe
 
 
 class OpenAIResponseObjectStreamResponseOutputItemDoneItemOpenAIResponseOutputMessageMcpCall(BaseModel):
+    """Model Context Protocol (MCP) call output message for OpenAI responses."""
+
     id: str
 
     arguments: str
@@ -649,6 +719,8 @@ class OpenAIResponseObjectStreamResponseOutputItemDoneItemOpenAIResponseOutputMe
 
 
 class OpenAIResponseObjectStreamResponseOutputItemDoneItemOpenAIResponseOutputMessageMcpListToolsTool(BaseModel):
+    """Tool definition returned by MCP list tools operation."""
+
     input_schema: Dict[str, object]
 
     name: str
@@ -657,6 +729,8 @@ class OpenAIResponseObjectStreamResponseOutputItemDoneItemOpenAIResponseOutputMe
 
 
 class OpenAIResponseObjectStreamResponseOutputItemDoneItemOpenAIResponseOutputMessageMcpListTools(BaseModel):
+    """MCP list tools output message containing available tools from an MCP server."""
+
     id: str
 
     server_label: str
@@ -667,6 +741,8 @@ class OpenAIResponseObjectStreamResponseOutputItemDoneItemOpenAIResponseOutputMe
 
 
 class OpenAIResponseObjectStreamResponseOutputItemDoneItemOpenAIResponseMcpApprovalRequest(BaseModel):
+    """A request for human approval of a tool invocation."""
+
     id: str
 
     arguments: str
@@ -693,6 +769,8 @@ OpenAIResponseObjectStreamResponseOutputItemDoneItem: TypeAlias = Annotated[
 
 
 class OpenAIResponseObjectStreamResponseOutputItemDone(BaseModel):
+    """Streaming event for when an output item is completed."""
+
     item: OpenAIResponseObjectStreamResponseOutputItemDoneItem
     """
     Corresponds to the various Message types in the Responses API. They are all
@@ -710,6 +788,8 @@ class OpenAIResponseObjectStreamResponseOutputItemDone(BaseModel):
 
 
 class OpenAIResponseObjectStreamResponseOutputTextDelta(BaseModel):
+    """Streaming event for incremental text content updates."""
+
     content_index: int
 
     delta: str
@@ -724,6 +804,8 @@ class OpenAIResponseObjectStreamResponseOutputTextDelta(BaseModel):
 
 
 class OpenAIResponseObjectStreamResponseOutputTextDone(BaseModel):
+    """Streaming event for when text output is completed."""
+
     content_index: int
 
     item_id: str
@@ -738,6 +820,8 @@ class OpenAIResponseObjectStreamResponseOutputTextDone(BaseModel):
 
 
 class OpenAIResponseObjectStreamResponseFunctionCallArgumentsDelta(BaseModel):
+    """Streaming event for incremental function call argument updates."""
+
     delta: str
 
     item_id: str
@@ -750,6 +834,8 @@ class OpenAIResponseObjectStreamResponseFunctionCallArgumentsDelta(BaseModel):
 
 
 class OpenAIResponseObjectStreamResponseFunctionCallArgumentsDone(BaseModel):
+    """Streaming event for when function call arguments are completed."""
+
     arguments: str
 
     item_id: str
@@ -762,6 +848,8 @@ class OpenAIResponseObjectStreamResponseFunctionCallArgumentsDone(BaseModel):
 
 
 class OpenAIResponseObjectStreamResponseWebSearchCallInProgress(BaseModel):
+    """Streaming event for web search calls in progress."""
+
     item_id: str
 
     output_index: int
@@ -782,6 +870,8 @@ class OpenAIResponseObjectStreamResponseWebSearchCallSearching(BaseModel):
 
 
 class OpenAIResponseObjectStreamResponseWebSearchCallCompleted(BaseModel):
+    """Streaming event for completed web search calls."""
+
     item_id: str
 
     output_index: int
@@ -834,6 +924,8 @@ class OpenAIResponseObjectStreamResponseMcpCallArgumentsDone(BaseModel):
 
 
 class OpenAIResponseObjectStreamResponseMcpCallInProgress(BaseModel):
+    """Streaming event for MCP calls in progress."""
+
     item_id: str
 
     output_index: int
@@ -844,12 +936,16 @@ class OpenAIResponseObjectStreamResponseMcpCallInProgress(BaseModel):
 
 
 class OpenAIResponseObjectStreamResponseMcpCallFailed(BaseModel):
+    """Streaming event for failed MCP calls."""
+
     sequence_number: int
 
     type: Optional[Literal["response.mcp_call.failed"]] = None
 
 
 class OpenAIResponseObjectStreamResponseMcpCallCompleted(BaseModel):
+    """Streaming event for completed MCP calls."""
+
     sequence_number: int
 
     type: Optional[Literal["response.mcp_call.completed"]] = None
@@ -858,6 +954,8 @@ class OpenAIResponseObjectStreamResponseMcpCallCompleted(BaseModel):
 class OpenAIResponseObjectStreamResponseContentPartAddedPartOpenAIResponseContentPartOutputTextAnnotationOpenAIResponseAnnotationFileCitation(
     BaseModel
 ):
+    """File citation annotation for referencing specific files in response content."""
+
     file_id: str
 
     filename: str
@@ -870,6 +968,8 @@ class OpenAIResponseObjectStreamResponseContentPartAddedPartOpenAIResponseConten
 class OpenAIResponseObjectStreamResponseContentPartAddedPartOpenAIResponseContentPartOutputTextAnnotationOpenAIResponseAnnotationCitation(
     BaseModel
 ):
+    """URL citation annotation for referencing external web resources."""
+
     end_index: int
 
     start_index: int
@@ -919,6 +1019,8 @@ OpenAIResponseObjectStreamResponseContentPartAddedPartOpenAIResponseContentPartO
 
 
 class OpenAIResponseObjectStreamResponseContentPartAddedPartOpenAIResponseContentPartOutputText(BaseModel):
+    """Text content within a streamed response part."""
+
     text: str
 
     annotations: Optional[
@@ -931,12 +1033,16 @@ class OpenAIResponseObjectStreamResponseContentPartAddedPartOpenAIResponseConten
 
 
 class OpenAIResponseObjectStreamResponseContentPartAddedPartOpenAIResponseContentPartRefusal(BaseModel):
+    """Refusal content within a streamed response part."""
+
     refusal: str
 
     type: Optional[Literal["refusal"]] = None
 
 
 class OpenAIResponseObjectStreamResponseContentPartAddedPartOpenAIResponseContentPartReasoningText(BaseModel):
+    """Reasoning text emitted as part of a streamed response."""
+
     text: str
 
     type: Optional[Literal["reasoning_text"]] = None
@@ -953,6 +1059,8 @@ OpenAIResponseObjectStreamResponseContentPartAddedPart: TypeAlias = Annotated[
 
 
 class OpenAIResponseObjectStreamResponseContentPartAdded(BaseModel):
+    """Streaming event for when a new content part is added to a response item."""
+
     content_index: int
 
     item_id: str
@@ -972,6 +1080,8 @@ class OpenAIResponseObjectStreamResponseContentPartAdded(BaseModel):
 class OpenAIResponseObjectStreamResponseContentPartDonePartOpenAIResponseContentPartOutputTextAnnotationOpenAIResponseAnnotationFileCitation(
     BaseModel
 ):
+    """File citation annotation for referencing specific files in response content."""
+
     file_id: str
 
     filename: str
@@ -984,6 +1094,8 @@ class OpenAIResponseObjectStreamResponseContentPartDonePartOpenAIResponseContent
 class OpenAIResponseObjectStreamResponseContentPartDonePartOpenAIResponseContentPartOutputTextAnnotationOpenAIResponseAnnotationCitation(
     BaseModel
 ):
+    """URL citation annotation for referencing external web resources."""
+
     end_index: int
 
     start_index: int
@@ -1033,6 +1145,8 @@ OpenAIResponseObjectStreamResponseContentPartDonePartOpenAIResponseContentPartOu
 
 
 class OpenAIResponseObjectStreamResponseContentPartDonePartOpenAIResponseContentPartOutputText(BaseModel):
+    """Text content within a streamed response part."""
+
     text: str
 
     annotations: Optional[
@@ -1045,12 +1159,16 @@ class OpenAIResponseObjectStreamResponseContentPartDonePartOpenAIResponseContent
 
 
 class OpenAIResponseObjectStreamResponseContentPartDonePartOpenAIResponseContentPartRefusal(BaseModel):
+    """Refusal content within a streamed response part."""
+
     refusal: str
 
     type: Optional[Literal["refusal"]] = None
 
 
 class OpenAIResponseObjectStreamResponseContentPartDonePartOpenAIResponseContentPartReasoningText(BaseModel):
+    """Reasoning text emitted as part of a streamed response."""
+
     text: str
 
     type: Optional[Literal["reasoning_text"]] = None
@@ -1067,6 +1185,8 @@ OpenAIResponseObjectStreamResponseContentPartDonePart: TypeAlias = Annotated[
 
 
 class OpenAIResponseObjectStreamResponseContentPartDone(BaseModel):
+    """Streaming event for when a content part is completed."""
+
     content_index: int
 
     item_id: str
@@ -1084,6 +1204,8 @@ class OpenAIResponseObjectStreamResponseContentPartDone(BaseModel):
 
 
 class OpenAIResponseObjectStreamResponseReasoningTextDelta(BaseModel):
+    """Streaming event for incremental reasoning text updates."""
+
     content_index: int
 
     delta: str
@@ -1098,6 +1220,8 @@ class OpenAIResponseObjectStreamResponseReasoningTextDelta(BaseModel):
 
 
 class OpenAIResponseObjectStreamResponseReasoningTextDone(BaseModel):
+    """Streaming event for when reasoning text is completed."""
+
     content_index: int
 
     item_id: str
@@ -1112,12 +1236,16 @@ class OpenAIResponseObjectStreamResponseReasoningTextDone(BaseModel):
 
 
 class OpenAIResponseObjectStreamResponseReasoningSummaryPartAddedPart(BaseModel):
+    """Reasoning summary part in a streamed response."""
+
     text: str
 
     type: Optional[Literal["summary_text"]] = None
 
 
 class OpenAIResponseObjectStreamResponseReasoningSummaryPartAdded(BaseModel):
+    """Streaming event for when a new reasoning summary part is added."""
+
     item_id: str
 
     output_index: int
@@ -1133,12 +1261,16 @@ class OpenAIResponseObjectStreamResponseReasoningSummaryPartAdded(BaseModel):
 
 
 class OpenAIResponseObjectStreamResponseReasoningSummaryPartDonePart(BaseModel):
+    """Reasoning summary part in a streamed response."""
+
     text: str
 
     type: Optional[Literal["summary_text"]] = None
 
 
 class OpenAIResponseObjectStreamResponseReasoningSummaryPartDone(BaseModel):
+    """Streaming event for when a reasoning summary part is completed."""
+
     item_id: str
 
     output_index: int
@@ -1154,6 +1286,8 @@ class OpenAIResponseObjectStreamResponseReasoningSummaryPartDone(BaseModel):
 
 
 class OpenAIResponseObjectStreamResponseReasoningSummaryTextDelta(BaseModel):
+    """Streaming event for incremental reasoning summary text updates."""
+
     delta: str
 
     item_id: str
@@ -1168,6 +1302,8 @@ class OpenAIResponseObjectStreamResponseReasoningSummaryTextDelta(BaseModel):
 
 
 class OpenAIResponseObjectStreamResponseReasoningSummaryTextDone(BaseModel):
+    """Streaming event for when reasoning summary text is completed."""
+
     item_id: str
 
     output_index: int
@@ -1182,6 +1318,8 @@ class OpenAIResponseObjectStreamResponseReasoningSummaryTextDone(BaseModel):
 
 
 class OpenAIResponseObjectStreamResponseRefusalDelta(BaseModel):
+    """Streaming event for incremental refusal text updates."""
+
     content_index: int
 
     delta: str
@@ -1196,6 +1334,8 @@ class OpenAIResponseObjectStreamResponseRefusalDelta(BaseModel):
 
 
 class OpenAIResponseObjectStreamResponseRefusalDone(BaseModel):
+    """Streaming event for when refusal text is completed."""
+
     content_index: int
 
     item_id: str
@@ -1212,6 +1352,8 @@ class OpenAIResponseObjectStreamResponseRefusalDone(BaseModel):
 class OpenAIResponseObjectStreamResponseOutputTextAnnotationAddedAnnotationOpenAIResponseAnnotationFileCitation(
     BaseModel
 ):
+    """File citation annotation for referencing specific files in response content."""
+
     file_id: str
 
     filename: str
@@ -1222,6 +1364,8 @@ class OpenAIResponseObjectStreamResponseOutputTextAnnotationAddedAnnotationOpenA
 
 
 class OpenAIResponseObjectStreamResponseOutputTextAnnotationAddedAnnotationOpenAIResponseAnnotationCitation(BaseModel):
+    """URL citation annotation for referencing external web resources."""
+
     end_index: int
 
     start_index: int
@@ -1269,6 +1413,8 @@ OpenAIResponseObjectStreamResponseOutputTextAnnotationAddedAnnotation: TypeAlias
 
 
 class OpenAIResponseObjectStreamResponseOutputTextAnnotationAdded(BaseModel):
+    """Streaming event for when an annotation is added to output text."""
+
     annotation: OpenAIResponseObjectStreamResponseOutputTextAnnotationAddedAnnotation
     """File citation annotation for referencing specific files in response content."""
 
@@ -1286,6 +1432,8 @@ class OpenAIResponseObjectStreamResponseOutputTextAnnotationAdded(BaseModel):
 
 
 class OpenAIResponseObjectStreamResponseFileSearchCallInProgress(BaseModel):
+    """Streaming event for file search calls in progress."""
+
     item_id: str
 
     output_index: int
@@ -1296,6 +1444,8 @@ class OpenAIResponseObjectStreamResponseFileSearchCallInProgress(BaseModel):
 
 
 class OpenAIResponseObjectStreamResponseFileSearchCallSearching(BaseModel):
+    """Streaming event for file search currently searching."""
+
     item_id: str
 
     output_index: int
@@ -1306,6 +1456,8 @@ class OpenAIResponseObjectStreamResponseFileSearchCallSearching(BaseModel):
 
 
 class OpenAIResponseObjectStreamResponseFileSearchCallCompleted(BaseModel):
+    """Streaming event for completed file search calls."""
+
     item_id: str
 
     output_index: int
@@ -1316,6 +1468,8 @@ class OpenAIResponseObjectStreamResponseFileSearchCallCompleted(BaseModel):
 
 
 class OpenAIResponseObjectStreamResponseIncomplete(BaseModel):
+    """Streaming event emitted when a response ends in an incomplete state."""
+
     response: ResponseObject
     """Complete OpenAI response object containing generation results and metadata."""
 
@@ -1325,6 +1479,8 @@ class OpenAIResponseObjectStreamResponseIncomplete(BaseModel):
 
 
 class OpenAIResponseObjectStreamResponseFailed(BaseModel):
+    """Streaming event emitted when a response fails."""
+
     response: ResponseObject
     """Complete OpenAI response object containing generation results and metadata."""
 
@@ -1334,6 +1490,8 @@ class OpenAIResponseObjectStreamResponseFailed(BaseModel):
 
 
 class OpenAIResponseObjectStreamResponseCompleted(BaseModel):
+    """Streaming event indicating a response has been completed."""
+
     response: ResponseObject
     """Complete OpenAI response object containing generation results and metadata."""
 

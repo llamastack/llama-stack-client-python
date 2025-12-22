@@ -36,10 +36,14 @@ class VectorIoQueryParams(TypedDict, total=False):
 
 
 class QueryImageContentItemInputImageURL(TypedDict, total=False):
+    """A URL reference to external content."""
+
     uri: Required[str]
 
 
 class QueryImageContentItemInputImage(TypedDict, total=False):
+    """A URL or a base64 encoded string"""
+
     data: Optional[str]
 
     url: Optional[QueryImageContentItemInputImageURL]
@@ -47,6 +51,8 @@ class QueryImageContentItemInputImage(TypedDict, total=False):
 
 
 class QueryImageContentItemInput(TypedDict, total=False):
+    """A image content item"""
+
     image: Required[QueryImageContentItemInputImage]
     """A URL or a base64 encoded string"""
 
@@ -54,16 +60,22 @@ class QueryImageContentItemInput(TypedDict, total=False):
 
 
 class QueryTextContentItem(TypedDict, total=False):
+    """A text content item"""
+
     text: Required[str]
 
     type: Literal["text"]
 
 
 class QueryListImageContentItemInputTextContentItemImageContentItemInputImageURL(TypedDict, total=False):
+    """A URL reference to external content."""
+
     uri: Required[str]
 
 
 class QueryListImageContentItemInputTextContentItemImageContentItemInputImage(TypedDict, total=False):
+    """A URL or a base64 encoded string"""
+
     data: Optional[str]
 
     url: Optional[QueryListImageContentItemInputTextContentItemImageContentItemInputImageURL]
@@ -71,6 +83,8 @@ class QueryListImageContentItemInputTextContentItemImageContentItemInputImage(Ty
 
 
 class QueryListImageContentItemInputTextContentItemImageContentItemInput(TypedDict, total=False):
+    """A image content item"""
+
     image: Required[QueryListImageContentItemInputTextContentItemImageContentItemInputImage]
     """A URL or a base64 encoded string"""
 
@@ -78,6 +92,8 @@ class QueryListImageContentItemInputTextContentItemImageContentItemInput(TypedDi
 
 
 class QueryListImageContentItemInputTextContentItemTextContentItem(TypedDict, total=False):
+    """A text content item"""
+
     text: Required[str]
 
     type: Literal["text"]

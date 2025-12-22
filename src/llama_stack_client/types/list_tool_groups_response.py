@@ -13,4 +13,6 @@ __all__ = ["ListToolGroupsResponse"]
 
 
 class ListToolGroupsResponse(BaseModel):
+    """Response containing a list of tool groups."""
+
     data: ToolgroupListResponse

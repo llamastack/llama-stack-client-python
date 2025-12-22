@@ -22,10 +22,14 @@ __all__ = [
 
 
 class ImageContentItemImageURL(BaseModel):
+    """A URL reference to external content."""
+
     uri: str
 
 
 class ImageContentItemImage(BaseModel):
+    """A URL or a base64 encoded string"""
+
     data: Optional[str] = None
 
     url: Optional[ImageContentItemImageURL] = None
@@ -33,6 +37,8 @@ class ImageContentItemImage(BaseModel):
 
 
 class ImageContentItem(BaseModel):
+    """A image content item"""
+
     image: ImageContentItemImage
     """A URL or a base64 encoded string"""
 
@@ -40,6 +46,8 @@ class ImageContentItem(BaseModel):
 
 
 class TextContentItem(BaseModel):
+    """A text content item"""
+
     text: str
 
     type: Optional[Literal["text"]] = None

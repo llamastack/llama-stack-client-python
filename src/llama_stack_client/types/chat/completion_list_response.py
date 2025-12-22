@@ -66,6 +66,8 @@ __all__ = [
 class DataChoiceMessageOpenAIUserMessageParamOutputContentListOpenAIChatCompletionContentPartTextParamOpenAIChatCompletionContentPartImageParamOpenAIFileOpenAIChatCompletionContentPartTextParam(
     BaseModel
 ):
+    """Text content part for OpenAI-compatible chat completion messages."""
+
     text: str
 
     type: Optional[Literal["text"]] = None
@@ -74,6 +76,8 @@ class DataChoiceMessageOpenAIUserMessageParamOutputContentListOpenAIChatCompleti
 class DataChoiceMessageOpenAIUserMessageParamOutputContentListOpenAIChatCompletionContentPartTextParamOpenAIChatCompletionContentPartImageParamOpenAIFileOpenAIChatCompletionContentPartImageParamImageURL(
     BaseModel
 ):
+    """Image URL specification for OpenAI-compatible chat completion messages."""
+
     url: str
 
     detail: Optional[str] = None
@@ -82,6 +86,8 @@ class DataChoiceMessageOpenAIUserMessageParamOutputContentListOpenAIChatCompleti
 class DataChoiceMessageOpenAIUserMessageParamOutputContentListOpenAIChatCompletionContentPartTextParamOpenAIChatCompletionContentPartImageParamOpenAIFileOpenAIChatCompletionContentPartImageParam(
     BaseModel
 ):
+    """Image content part for OpenAI-compatible chat completion messages."""
+
     image_url: DataChoiceMessageOpenAIUserMessageParamOutputContentListOpenAIChatCompletionContentPartTextParamOpenAIChatCompletionContentPartImageParamOpenAIFileOpenAIChatCompletionContentPartImageParamImageURL
     """Image URL specification for OpenAI-compatible chat completion messages."""
 
@@ -117,6 +123,8 @@ DataChoiceMessageOpenAIUserMessageParamOutputContentListOpenAIChatCompletionCont
 
 
 class DataChoiceMessageOpenAIUserMessageParamOutput(BaseModel):
+    """A message from the user in an OpenAI-compatible chat completion request."""
+
     content: Union[
         str,
         List[
@@ -130,12 +138,16 @@ class DataChoiceMessageOpenAIUserMessageParamOutput(BaseModel):
 
 
 class DataChoiceMessageOpenAISystemMessageParamContentListOpenAIChatCompletionContentPartTextParam(BaseModel):
+    """Text content part for OpenAI-compatible chat completion messages."""
+
     text: str
 
     type: Optional[Literal["text"]] = None
 
 
 class DataChoiceMessageOpenAISystemMessageParam(BaseModel):
+    """A system message providing instructions or context to the model."""
+
     content: Union[
         str, List[DataChoiceMessageOpenAISystemMessageParamContentListOpenAIChatCompletionContentPartTextParam]
     ]
@@ -146,18 +158,24 @@ class DataChoiceMessageOpenAISystemMessageParam(BaseModel):
 
 
 class DataChoiceMessageOpenAIAssistantMessageParamOutputContentListOpenAIChatCompletionContentPartTextParam(BaseModel):
+    """Text content part for OpenAI-compatible chat completion messages."""
+
     text: str
 
     type: Optional[Literal["text"]] = None
 
 
 class DataChoiceMessageOpenAIAssistantMessageParamOutputToolCallFunction(BaseModel):
+    """Function call details for OpenAI-compatible tool calls."""
+
     arguments: Optional[str] = None
 
     name: Optional[str] = None
 
 
 class DataChoiceMessageOpenAIAssistantMessageParamOutputToolCall(BaseModel):
+    """Tool call specification for OpenAI-compatible chat completion responses."""
+
     id: Optional[str] = None
 
     function: Optional[DataChoiceMessageOpenAIAssistantMessageParamOutputToolCallFunction] = None
@@ -169,6 +187,10 @@ class DataChoiceMessageOpenAIAssistantMessageParamOutputToolCall(BaseModel):
 
 
 class DataChoiceMessageOpenAIAssistantMessageParamOutput(BaseModel):
+    """
+    A message containing the model's (assistant) response in an OpenAI-compatible chat completion request.
+    """
+
     content: Union[
         str,
         List[DataChoiceMessageOpenAIAssistantMessageParamOutputContentListOpenAIChatCompletionContentPartTextParam],
@@ -183,12 +205,18 @@ class DataChoiceMessageOpenAIAssistantMessageParamOutput(BaseModel):
 
 
 class DataChoiceMessageOpenAIToolMessageParamContentListOpenAIChatCompletionContentPartTextParam(BaseModel):
+    """Text content part for OpenAI-compatible chat completion messages."""
+
     text: str
 
     type: Optional[Literal["text"]] = None
 
 
 class DataChoiceMessageOpenAIToolMessageParam(BaseModel):
+    """
+    A message representing the result of a tool invocation in an OpenAI-compatible chat completion request.
+    """
+
     content: Union[
         str, List[DataChoiceMessageOpenAIToolMessageParamContentListOpenAIChatCompletionContentPartTextParam]
     ]
@@ -199,12 +227,16 @@ class DataChoiceMessageOpenAIToolMessageParam(BaseModel):
 
 
 class DataChoiceMessageOpenAIDeveloperMessageParamContentListOpenAIChatCompletionContentPartTextParam(BaseModel):
+    """Text content part for OpenAI-compatible chat completion messages."""
+
     text: str
 
     type: Optional[Literal["text"]] = None
 
 
 class DataChoiceMessageOpenAIDeveloperMessageParam(BaseModel):
+    """A message from the developer in an OpenAI-compatible chat completion request."""
+
     content: Union[
         str, List[DataChoiceMessageOpenAIDeveloperMessageParamContentListOpenAIChatCompletionContentPartTextParam]
     ]
@@ -227,6 +259,14 @@ DataChoiceMessage: TypeAlias = Annotated[
 
 
 class DataChoiceLogprobsContentTopLogprob(BaseModel):
+    """
+    The top log probability for a token from an OpenAI-compatible chat completion response.
+
+    :token: The token
+    :bytes: (Optional) The bytes for the token
+    :logprob: The log probability of the token
+    """
+
     token: str
 
     logprob: float
@@ -235,6 +275,15 @@ class DataChoiceLogprobsContentTopLogprob(BaseModel):
 
 
 class DataChoiceLogprobsContent(BaseModel):
+    """
+    The log probability for a token from an OpenAI-compatible chat completion response.
+
+    :token: The token
+    :bytes: (Optional) The bytes for the token
+    :logprob: The log probability of the token
+    :top_logprobs: The top log probabilities for the token
+    """
+
     token: str
 
     logprob: float
@@ -245,6 +294,14 @@ class DataChoiceLogprobsContent(BaseModel):
 
 
 class DataChoiceLogprobsRefusalTopLogprob(BaseModel):
+    """
+    The top log probability for a token from an OpenAI-compatible chat completion response.
+
+    :token: The token
+    :bytes: (Optional) The bytes for the token
+    :logprob: The log probability of the token
+    """
+
     token: str
 
     logprob: float
@@ -253,6 +310,15 @@ class DataChoiceLogprobsRefusalTopLogprob(BaseModel):
 
 
 class DataChoiceLogprobsRefusal(BaseModel):
+    """
+    The log probability for a token from an OpenAI-compatible chat completion response.
+
+    :token: The token
+    :bytes: (Optional) The bytes for the token
+    :logprob: The log probability of the token
+    :top_logprobs: The top log probabilities for the token
+    """
+
     token: str
 
     logprob: float
@@ -263,12 +329,18 @@ class DataChoiceLogprobsRefusal(BaseModel):
 
 
 class DataChoiceLogprobs(BaseModel):
+    """
+    The log probabilities for the tokens in the message from an OpenAI-compatible chat completion response.
+    """
+
     content: Optional[List[DataChoiceLogprobsContent]] = None
 
     refusal: Optional[List[DataChoiceLogprobsRefusal]] = None
 
 
 class DataChoice(BaseModel):
+    """A choice from an OpenAI-compatible chat completion response."""
+
     finish_reason: str
 
     index: int
@@ -286,6 +358,8 @@ class DataChoice(BaseModel):
 class DataInputMessageOpenAIUserMessageParamOutputContentListOpenAIChatCompletionContentPartTextParamOpenAIChatCompletionContentPartImageParamOpenAIFileOpenAIChatCompletionContentPartTextParam(
     BaseModel
 ):
+    """Text content part for OpenAI-compatible chat completion messages."""
+
     text: str
 
     type: Optional[Literal["text"]] = None
@@ -294,6 +368,8 @@ class DataInputMessageOpenAIUserMessageParamOutputContentListOpenAIChatCompletio
 class DataInputMessageOpenAIUserMessageParamOutputContentListOpenAIChatCompletionContentPartTextParamOpenAIChatCompletionContentPartImageParamOpenAIFileOpenAIChatCompletionContentPartImageParamImageURL(
     BaseModel
 ):
+    """Image URL specification for OpenAI-compatible chat completion messages."""
+
     url: str
 
     detail: Optional[str] = None
@@ -302,6 +378,8 @@ class DataInputMessageOpenAIUserMessageParamOutputContentListOpenAIChatCompletio
 class DataInputMessageOpenAIUserMessageParamOutputContentListOpenAIChatCompletionContentPartTextParamOpenAIChatCompletionContentPartImageParamOpenAIFileOpenAIChatCompletionContentPartImageParam(
     BaseModel
 ):
+    """Image content part for OpenAI-compatible chat completion messages."""
+
     image_url: DataInputMessageOpenAIUserMessageParamOutputContentListOpenAIChatCompletionContentPartTextParamOpenAIChatCompletionContentPartImageParamOpenAIFileOpenAIChatCompletionContentPartImageParamImageURL
     """Image URL specification for OpenAI-compatible chat completion messages."""
 
@@ -337,6 +415,8 @@ DataInputMessageOpenAIUserMessageParamOutputContentListOpenAIChatCompletionConte
 
 
 class DataInputMessageOpenAIUserMessageParamOutput(BaseModel):
+    """A message from the user in an OpenAI-compatible chat completion request."""
+
     content: Union[
         str,
         List[
@@ -350,12 +430,16 @@ class DataInputMessageOpenAIUserMessageParamOutput(BaseModel):
 
 
 class DataInputMessageOpenAISystemMessageParamContentListOpenAIChatCompletionContentPartTextParam(BaseModel):
+    """Text content part for OpenAI-compatible chat completion messages."""
+
     text: str
 
     type: Optional[Literal["text"]] = None
 
 
 class DataInputMessageOpenAISystemMessageParam(BaseModel):
+    """A system message providing instructions or context to the model."""
+
     content: Union[
         str, List[DataInputMessageOpenAISystemMessageParamContentListOpenAIChatCompletionContentPartTextParam]
     ]
@@ -366,18 +450,24 @@ class DataInputMessageOpenAISystemMessageParam(BaseModel):
 
 
 class DataInputMessageOpenAIAssistantMessageParamOutputContentListOpenAIChatCompletionContentPartTextParam(BaseModel):
+    """Text content part for OpenAI-compatible chat completion messages."""
+
     text: str
 
     type: Optional[Literal["text"]] = None
 
 
 class DataInputMessageOpenAIAssistantMessageParamOutputToolCallFunction(BaseModel):
+    """Function call details for OpenAI-compatible tool calls."""
+
     arguments: Optional[str] = None
 
     name: Optional[str] = None
 
 
 class DataInputMessageOpenAIAssistantMessageParamOutputToolCall(BaseModel):
+    """Tool call specification for OpenAI-compatible chat completion responses."""
+
     id: Optional[str] = None
 
     function: Optional[DataInputMessageOpenAIAssistantMessageParamOutputToolCallFunction] = None
@@ -389,6 +479,10 @@ class DataInputMessageOpenAIAssistantMessageParamOutputToolCall(BaseModel):
 
 
 class DataInputMessageOpenAIAssistantMessageParamOutput(BaseModel):
+    """
+    A message containing the model's (assistant) response in an OpenAI-compatible chat completion request.
+    """
+
     content: Union[
         str,
         List[DataInputMessageOpenAIAssistantMessageParamOutputContentListOpenAIChatCompletionContentPartTextParam],
@@ -403,12 +497,18 @@ class DataInputMessageOpenAIAssistantMessageParamOutput(BaseModel):
 
 
 class DataInputMessageOpenAIToolMessageParamContentListOpenAIChatCompletionContentPartTextParam(BaseModel):
+    """Text content part for OpenAI-compatible chat completion messages."""
+
     text: str
 
     type: Optional[Literal["text"]] = None
 
 
 class DataInputMessageOpenAIToolMessageParam(BaseModel):
+    """
+    A message representing the result of a tool invocation in an OpenAI-compatible chat completion request.
+    """
+
     content: Union[str, List[DataInputMessageOpenAIToolMessageParamContentListOpenAIChatCompletionContentPartTextParam]]
 
     tool_call_id: str
@@ -417,12 +517,16 @@ class DataInputMessageOpenAIToolMessageParam(BaseModel):
 
 
 class DataInputMessageOpenAIDeveloperMessageParamContentListOpenAIChatCompletionContentPartTextParam(BaseModel):
+    """Text content part for OpenAI-compatible chat completion messages."""
+
     text: str
 
     type: Optional[Literal["text"]] = None
 
 
 class DataInputMessageOpenAIDeveloperMessageParam(BaseModel):
+    """A message from the developer in an OpenAI-compatible chat completion request."""
+
     content: Union[
         str, List[DataInputMessageOpenAIDeveloperMessageParamContentListOpenAIChatCompletionContentPartTextParam]
     ]
@@ -445,14 +549,20 @@ DataInputMessage: TypeAlias = Annotated[
 
 
 class DataUsageCompletionTokensDetails(BaseModel):
+    """Token details for output tokens in OpenAI chat completion usage."""
+
     reasoning_tokens: Optional[int] = None
 
 
 class DataUsagePromptTokensDetails(BaseModel):
+    """Token details for prompt tokens in OpenAI chat completion usage."""
+
     cached_tokens: Optional[int] = None
 
 
 class DataUsage(BaseModel):
+    """Usage information for OpenAI chat completion."""
+
     completion_tokens: int
 
     prompt_tokens: int
@@ -484,6 +594,8 @@ class Data(BaseModel):
 
 
 class CompletionListResponse(BaseModel):
+    """Response from listing OpenAI-compatible chat completions."""
+
     data: List[Data]
 
     first_id: str

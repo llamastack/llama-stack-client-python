@@ -15,4 +15,6 @@ __all__ = ["ScoringScoreResponse"]
 
 
 class ScoringScoreResponse(BaseModel):
+    """The response from scoring."""
+
     results: Dict[str, ScoringResult]

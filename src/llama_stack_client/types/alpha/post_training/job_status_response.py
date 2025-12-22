@@ -16,6 +16,8 @@ __all__ = ["JobStatusResponse", "Checkpoint", "CheckpointTrainingMetrics"]
 
 
 class CheckpointTrainingMetrics(BaseModel):
+    """Training metrics captured during post-training jobs."""
+
     epoch: int
 
     perplexity: float
@@ -26,6 +28,8 @@ class CheckpointTrainingMetrics(BaseModel):
 
 
 class Checkpoint(BaseModel):
+    """Checkpoint created during training runs."""
+
     created_at: datetime
 
     epoch: int
@@ -41,6 +45,8 @@ class Checkpoint(BaseModel):
 
 
 class JobStatusResponse(BaseModel):
+    """Status of a finetuning job."""
+
     job_uuid: str
 
     status: Literal["completed", "in_progress", "failed", "scheduled", "cancelled"]

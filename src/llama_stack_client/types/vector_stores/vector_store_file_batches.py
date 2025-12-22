@@ -15,6 +15,8 @@ __all__ = ["VectorStoreFileBatches", "FileCounts"]
 
 
 class FileCounts(BaseModel):
+    """File processing status counts for a vector store."""
+
     cancelled: int
 
     completed: int
@@ -27,6 +29,8 @@ class FileCounts(BaseModel):
 
 
 class VectorStoreFileBatches(BaseModel):
+    """OpenAI Vector Store File Batch object."""
+
     id: str
 
     created_at: int

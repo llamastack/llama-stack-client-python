@@ -15,10 +15,14 @@ __all__ = ["ToolGroup", "McpEndpoint"]
 
 
 class McpEndpoint(BaseModel):
+    """A URL reference to external content."""
+
     uri: str
 
 
 class ToolGroup(BaseModel):
+    """A group of related tools managed together."""
+
     identifier: str
     """Unique identifier for this resource in llama stack"""
 

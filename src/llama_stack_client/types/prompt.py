@@ -14,6 +14,10 @@ __all__ = ["Prompt"]
 
 
 class Prompt(BaseModel):
+    """
+    A prompt resource representing a stored OpenAI Compatible prompt template in Llama Stack.
+    """
+
     prompt_id: str
     """Unique identifier in format 'pmpt\\__<48-digit-hash>'"""
 

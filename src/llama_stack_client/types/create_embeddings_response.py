@@ -15,6 +15,8 @@ __all__ = ["CreateEmbeddingsResponse", "Data", "Usage"]
 
 
 class Data(BaseModel):
+    """A single embedding data object from an OpenAI-compatible embeddings response."""
+
     embedding: Union[List[float], str]
 
     index: int
@@ -23,12 +25,16 @@ class Data(BaseModel):
 
 
 class Usage(BaseModel):
+    """Usage information for an OpenAI-compatible embeddings response."""
+
     prompt_tokens: int
 
     total_tokens: int
 
 
 class CreateEmbeddingsResponse(BaseModel):
+    """Response from an OpenAI-compatible embeddings request."""
+
     data: List[Data]
 
     model: str
