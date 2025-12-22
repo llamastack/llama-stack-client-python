@@ -6,14 +6,13 @@
 
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-from .._models import BaseModel
-from .route_list_response import RouteListResponse
+from ..._models import BaseModel
 
-__all__ = ["ListRoutesResponse"]
+__all__ = ["VersionInfo"]
 
 
-class ListRoutesResponse(BaseModel):
-    """Response containing a list of all available API routes."""
+class VersionInfo(BaseModel):
+    """Version information for the service."""
 
-    data: RouteListResponse
-    """List of available API routes"""
+    version: str
+    """The version string of the service"""

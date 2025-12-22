@@ -9,7 +9,7 @@
 from typing import List
 from typing_extensions import TypeAlias
 
-from .provider_info import ProviderInfo
+from .shared.provider_info import ProviderInfo
 
 __all__ = ["ProviderListResponse"]
 
