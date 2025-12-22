@@ -2,13 +2,19 @@
 
 ```python
 from llama_stack_client.types import (
+    HealthInfo,
     InterleavedContent,
     InterleavedContentItem,
+    ListProvidersResponse,
+    ListRoutesResponse,
     ParamType,
+    ProviderInfo,
+    RouteInfo,
     SafetyViolation,
     SamplingParams,
     ScoringResult,
     SystemMessage,
+    VersionInfo,
 )
 ```
 
@@ -145,16 +151,10 @@ Methods:
 
 # Inspect
 
-Types:
-
-```python
-from llama_stack_client.types import HealthInfo, ProviderInfo, RouteInfo, VersionInfo
-```
-
 Methods:
 
-- <code title="get /v1/health">client.inspect.<a href="./src/llama_stack_client/resources/inspect.py">health</a>() -> <a href="./src/llama_stack_client/types/health_info.py">HealthInfo</a></code>
-- <code title="get /v1/version">client.inspect.<a href="./src/llama_stack_client/resources/inspect.py">version</a>() -> <a href="./src/llama_stack_client/types/version_info.py">VersionInfo</a></code>
+- <code title="get /v1/health">client.inspect.<a href="./src/llama_stack_client/resources/inspect.py">health</a>() -> <a href="./src/llama_stack_client/types/shared/health_info.py">HealthInfo</a></code>
+- <code title="get /v1/version">client.inspect.<a href="./src/llama_stack_client/resources/inspect.py">version</a>() -> <a href="./src/llama_stack_client/types/shared/version_info.py">VersionInfo</a></code>
 
 # Embeddings
 
@@ -312,12 +312,12 @@ Methods:
 Types:
 
 ```python
-from llama_stack_client.types import ListProvidersResponse, ProviderListResponse
+from llama_stack_client.types import ProviderListResponse
 ```
 
 Methods:
 
-- <code title="get /v1/providers/{provider_id}">client.providers.<a href="./src/llama_stack_client/resources/providers.py">retrieve</a>(provider_id) -> <a href="./src/llama_stack_client/types/provider_info.py">ProviderInfo</a></code>
+- <code title="get /v1/providers/{provider_id}">client.providers.<a href="./src/llama_stack_client/resources/providers.py">retrieve</a>(provider_id) -> <a href="./src/llama_stack_client/types/shared/provider_info.py">ProviderInfo</a></code>
 - <code title="get /v1/providers">client.providers.<a href="./src/llama_stack_client/resources/providers.py">list</a>() -> <a href="./src/llama_stack_client/types/provider_list_response.py">ProviderListResponse</a></code>
 
 # Routes
@@ -325,7 +325,7 @@ Methods:
 Types:
 
 ```python
-from llama_stack_client.types import ListRoutesResponse, RouteListResponse
+from llama_stack_client.types import RouteListResponse
 ```
 
 Methods:
@@ -527,6 +527,16 @@ Methods:
 - <code title="get /v1alpha/eval/benchmarks/{benchmark_id}/jobs/{job_id}/result">client.alpha.eval.jobs.<a href="./src/llama_stack_client/resources/alpha/eval/jobs.py">retrieve</a>(job_id, \*, benchmark_id) -> <a href="./src/llama_stack_client/types/alpha/evaluate_response.py">EvaluateResponse</a></code>
 - <code title="delete /v1alpha/eval/benchmarks/{benchmark_id}/jobs/{job_id}">client.alpha.eval.jobs.<a href="./src/llama_stack_client/resources/alpha/eval/jobs.py">cancel</a>(job_id, \*, benchmark_id) -> None</code>
 - <code title="get /v1alpha/eval/benchmarks/{benchmark_id}/jobs/{job_id}">client.alpha.eval.jobs.<a href="./src/llama_stack_client/resources/alpha/eval/jobs.py">status</a>(job_id, \*, benchmark_id) -> <a href="./src/llama_stack_client/types/alpha/job.py">Job</a></code>
+
+## Admin
+
+Methods:
+
+- <code title="get /v1alpha/admin/health">client.alpha.admin.<a href="./src/llama_stack_client/resources/alpha/admin.py">health</a>() -> <a href="./src/llama_stack_client/types/shared/health_info.py">HealthInfo</a></code>
+- <code title="get /v1alpha/admin/providers/{provider_id}">client.alpha.admin.<a href="./src/llama_stack_client/resources/alpha/admin.py">inspect_provider</a>(provider_id) -> <a href="./src/llama_stack_client/types/shared/provider_info.py">ProviderInfo</a></code>
+- <code title="get /v1alpha/admin/providers">client.alpha.admin.<a href="./src/llama_stack_client/resources/alpha/admin.py">list_providers</a>() -> <a href="./src/llama_stack_client/types/provider_list_response.py">ProviderListResponse</a></code>
+- <code title="get /v1alpha/admin/inspect/routes">client.alpha.admin.<a href="./src/llama_stack_client/resources/alpha/admin.py">list_routes</a>(\*\*<a href="src/llama_stack_client/types/alpha/admin_list_routes_params.py">params</a>) -> <a href="./src/llama_stack_client/types/route_list_response.py">RouteListResponse</a></code>
+- <code title="get /v1alpha/admin/version">client.alpha.admin.<a href="./src/llama_stack_client/resources/alpha/admin.py">version</a>() -> <a href="./src/llama_stack_client/types/shared/version_info.py">VersionInfo</a></code>
 
 # Beta
 

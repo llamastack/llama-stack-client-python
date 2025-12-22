@@ -3,7 +3,7 @@
 from typing import List
 from typing_extensions import TypeAlias
 
-from .route_info import RouteInfo
+from .shared.route_info import RouteInfo
 
 __all__ = ["RouteListResponse"]
 

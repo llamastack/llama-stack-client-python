@@ -17,7 +17,7 @@ from .._response import (
 )
 from .._wrappers import DataWrapper
 from .._base_client import make_request_options
-from ..types.provider_info import ProviderInfo
+from ..types.shared.provider_info import ProviderInfo
 from ..types.provider_list_response import ProviderListResponse
 
 __all__ = ["ProvidersResource", "AsyncProvidersResource"]

@@ -8,6 +8,14 @@ from .eval import (
     EvalResourceWithStreamingResponse,
     AsyncEvalResourceWithStreamingResponse,
 )
+from .admin import (
+    AdminResource,
+    AsyncAdminResource,
+    AdminResourceWithRawResponse,
+    AsyncAdminResourceWithRawResponse,
+    AdminResourceWithStreamingResponse,
+    AsyncAdminResourceWithStreamingResponse,
+)
 from .alpha import (
     AlphaResource,
     AsyncAlphaResource,
@@ -66,6 +74,12 @@ __all__ = [
     "AsyncEvalResourceWithRawResponse",
     "EvalResourceWithStreamingResponse",
     "AsyncEvalResourceWithStreamingResponse",
+    "AdminResource",
+    "AsyncAdminResource",
+    "AdminResourceWithRawResponse",
+    "AsyncAdminResourceWithRawResponse",
+    "AdminResourceWithStreamingResponse",
+    "AsyncAdminResourceWithStreamingResponse",
     "AlphaResource",
     "AsyncAlphaResource",
     "AlphaResourceWithRawResponse",

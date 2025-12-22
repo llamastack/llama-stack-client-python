@@ -2,6 +2,14 @@
 
 from __future__ import annotations
 
+from .admin import (
+    AdminResource,
+    AsyncAdminResource,
+    AdminResourceWithRawResponse,
+    AsyncAdminResourceWithRawResponse,
+    AdminResourceWithStreamingResponse,
+    AsyncAdminResourceWithStreamingResponse,
+)
 from ..._compat import cached_property
 from .eval.eval import (
     EvalResource,
@@ -58,6 +66,10 @@ class AlphaResource(SyncAPIResource):
         return EvalResource(self._client)
 
     @cached_property
+    def admin(self) -> AdminResource:
+        return AdminResource(self._client)
+
+    @cached_property
     def with_raw_response(self) -> AlphaResourceWithRawResponse:
         """
         This property can be used as a prefix for any HTTP method call to return
@@ -93,6 +105,10 @@ class AsyncAlphaResource(AsyncAPIResource):
     @cached_property
     def eval(self) -> AsyncEvalResource:
         return AsyncEvalResource(self._client)
+
+    @cached_property
+    def admin(self) -> AsyncAdminResource:
+        return AsyncAdminResource(self._client)
 
     @cached_property
     def with_raw_response(self) -> AsyncAlphaResourceWithRawResponse:
@@ -134,6 +150,10 @@ class AlphaResourceWithRawResponse:
     def eval(self) -> EvalResourceWithRawResponse:
         return EvalResourceWithRawResponse(self._alpha.eval)
 
+    @cached_property
+    def admin(self) -> AdminResourceWithRawResponse:
+        return AdminResourceWithRawResponse(self._alpha.admin)
+
 
 class AsyncAlphaResourceWithRawResponse:
     def __init__(self, alpha: AsyncAlphaResource) -> None:
@@ -154,6 +174,10 @@ class AsyncAlphaResourceWithRawResponse:
     @cached_property
     def eval(self) -> AsyncEvalResourceWithRawResponse:
         return AsyncEvalResourceWithRawResponse(self._alpha.eval)
+
+    @cached_property
+    def admin(self) -> AsyncAdminResourceWithRawResponse:
+        return AsyncAdminResourceWithRawResponse(self._alpha.admin)
 
 
 class AlphaResourceWithStreamingResponse:
@@ -176,6 +200,10 @@ class AlphaResourceWithStreamingResponse:
     def eval(self) -> EvalResourceWithStreamingResponse:
         return EvalResourceWithStreamingResponse(self._alpha.eval)
 
+    @cached_property
+    def admin(self) -> AdminResourceWithStreamingResponse:
+        return AdminResourceWithStreamingResponse(self._alpha.admin)
+
 
 class AsyncAlphaResourceWithStreamingResponse:
     def __init__(self, alpha: AsyncAlphaResource) -> None:
@@ -196,3 +224,7 @@ class AsyncAlphaResourceWithStreamingResponse:
     @cached_property
     def eval(self) -> AsyncEvalResourceWithStreamingResponse:
         return AsyncEvalResourceWithStreamingResponse(self._alpha.eval)
+
+    @cached_property
+    def admin(self) -> AsyncAdminResourceWithStreamingResponse:
+        return AsyncAdminResourceWithStreamingResponse(self._alpha.admin)
