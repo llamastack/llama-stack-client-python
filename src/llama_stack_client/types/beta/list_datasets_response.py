@@ -13,4 +13,6 @@ __all__ = ["ListDatasetsResponse"]
 
 
 class ListDatasetsResponse(BaseModel):
+    """Response from listing datasets."""
+
     data: DatasetListResponse

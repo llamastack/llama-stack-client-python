@@ -37,10 +37,14 @@ class VectorIoInsertParams(TypedDict, total=False):
 
 
 class ChunkContentImageContentItemInputImageURL(TypedDict, total=False):
+    """A URL reference to external content."""
+
     uri: Required[str]
 
 
 class ChunkContentImageContentItemInputImage(TypedDict, total=False):
+    """A URL or a base64 encoded string"""
+
     data: Optional[str]
 
     url: Optional[ChunkContentImageContentItemInputImageURL]
@@ -48,6 +52,8 @@ class ChunkContentImageContentItemInputImage(TypedDict, total=False):
 
 
 class ChunkContentImageContentItemInput(TypedDict, total=False):
+    """A image content item"""
+
     image: Required[ChunkContentImageContentItemInputImage]
     """A URL or a base64 encoded string"""
 
@@ -55,16 +61,22 @@ class ChunkContentImageContentItemInput(TypedDict, total=False):
 
 
 class ChunkContentTextContentItem(TypedDict, total=False):
+    """A text content item"""
+
     text: Required[str]
 
     type: Literal["text"]
 
 
 class ChunkContentListImageContentItemInputTextContentItemImageContentItemInputImageURL(TypedDict, total=False):
+    """A URL reference to external content."""
+
     uri: Required[str]
 
 
 class ChunkContentListImageContentItemInputTextContentItemImageContentItemInputImage(TypedDict, total=False):
+    """A URL or a base64 encoded string"""
+
     data: Optional[str]
 
     url: Optional[ChunkContentListImageContentItemInputTextContentItemImageContentItemInputImageURL]
@@ -72,6 +84,8 @@ class ChunkContentListImageContentItemInputTextContentItemImageContentItemInputI
 
 
 class ChunkContentListImageContentItemInputTextContentItemImageContentItemInput(TypedDict, total=False):
+    """A image content item"""
+
     image: Required[ChunkContentListImageContentItemInputTextContentItemImageContentItemInputImage]
     """A URL or a base64 encoded string"""
 
@@ -79,6 +93,8 @@ class ChunkContentListImageContentItemInputTextContentItemImageContentItemInput(
 
 
 class ChunkContentListImageContentItemInputTextContentItemTextContentItem(TypedDict, total=False):
+    """A text content item"""
+
     text: Required[str]
 
     type: Literal["text"]
@@ -98,6 +114,13 @@ ChunkContent: TypeAlias = Union[
 
 
 class ChunkChunkMetadata(TypedDict, total=False):
+    """
+    `ChunkMetadata` is backend metadata for a `Chunk` that is used to store additional information about the chunk that
+        will not be used in the context during inference, but is required for backend functionality. The `ChunkMetadata`
+        is set during chunk creation in `MemoryToolRuntimeImpl().insert()`and is not expected to change after.
+        Use `Chunk.metadata` for metadata that will be used in the context during inference.
+    """
+
     chunk_embedding_dimension: Optional[int]
 
     chunk_embedding_model: Optional[str]
@@ -122,6 +145,8 @@ class ChunkChunkMetadata(TypedDict, total=False):
 
 
 class Chunk(TypedDict, total=False):
+    """A chunk of content that can be inserted into a vector database."""
+
     chunk_id: Required[str]
 
     content: Required[ChunkContent]

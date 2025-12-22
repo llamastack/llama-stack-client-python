@@ -14,6 +14,8 @@ __all__ = ["CreateResponse", "Result"]
 
 
 class Result(BaseModel):
+    """A moderation object."""
+
     flagged: bool
 
     categories: Optional[Dict[str, bool]] = None
@@ -28,6 +30,8 @@ class Result(BaseModel):
 
 
 class CreateResponse(BaseModel):
+    """A moderation object."""
+
     id: str
 
     model: str

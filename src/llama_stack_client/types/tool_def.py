@@ -14,6 +14,8 @@ __all__ = ["ToolDef"]
 
 
 class ToolDef(BaseModel):
+    """Tool definition used in runtime contexts."""
+
     name: str
 
     description: Optional[str] = None

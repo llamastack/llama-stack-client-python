@@ -14,6 +14,10 @@ __all__ = ["ProviderInfo"]
 
 
 class ProviderInfo(BaseModel):
+    """
+    Information about a registered provider including its configuration and health status.
+    """
+
     api: str
 
     config: Dict[str, object]

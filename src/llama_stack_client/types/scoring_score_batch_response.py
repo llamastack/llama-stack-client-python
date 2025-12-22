@@ -15,6 +15,8 @@ __all__ = ["ScoringScoreBatchResponse"]
 
 
 class ScoringScoreBatchResponse(BaseModel):
+    """Response from batch scoring operations on datasets."""
+
     results: Dict[str, ScoringResult]
 
     dataset_id: Optional[str] = None

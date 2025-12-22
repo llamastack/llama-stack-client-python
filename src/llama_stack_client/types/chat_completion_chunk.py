@@ -29,12 +29,16 @@ __all__ = [
 
 
 class ChoiceDeltaToolCallFunction(BaseModel):
+    """Function call details for OpenAI-compatible tool calls."""
+
     arguments: Optional[str] = None
 
     name: Optional[str] = None
 
 
 class ChoiceDeltaToolCall(BaseModel):
+    """Tool call specification for OpenAI-compatible chat completion responses."""
+
     id: Optional[str] = None
 
     function: Optional[ChoiceDeltaToolCallFunction] = None
@@ -46,6 +50,8 @@ class ChoiceDeltaToolCall(BaseModel):
 
 
 class ChoiceDelta(BaseModel):
+    """A delta from an OpenAI-compatible chat completion streaming response."""
+
     content: Optional[str] = None
 
     reasoning_content: Optional[str] = None
@@ -58,6 +64,14 @@ class ChoiceDelta(BaseModel):
 
 
 class ChoiceLogprobsContentTopLogprob(BaseModel):
+    """
+    The top log probability for a token from an OpenAI-compatible chat completion response.
+
+    :token: The token
+    :bytes: (Optional) The bytes for the token
+    :logprob: The log probability of the token
+    """
+
     token: str
 
     logprob: float
@@ -66,6 +80,15 @@ class ChoiceLogprobsContentTopLogprob(BaseModel):
 
 
 class ChoiceLogprobsContent(BaseModel):
+    """
+    The log probability for a token from an OpenAI-compatible chat completion response.
+
+    :token: The token
+    :bytes: (Optional) The bytes for the token
+    :logprob: The log probability of the token
+    :top_logprobs: The top log probabilities for the token
+    """
+
     token: str
 
     logprob: float
@@ -76,6 +99,14 @@ class ChoiceLogprobsContent(BaseModel):
 
 
 class ChoiceLogprobsRefusalTopLogprob(BaseModel):
+    """
+    The top log probability for a token from an OpenAI-compatible chat completion response.
+
+    :token: The token
+    :bytes: (Optional) The bytes for the token
+    :logprob: The log probability of the token
+    """
+
     token: str
 
     logprob: float
@@ -84,6 +115,15 @@ class ChoiceLogprobsRefusalTopLogprob(BaseModel):
 
 
 class ChoiceLogprobsRefusal(BaseModel):
+    """
+    The log probability for a token from an OpenAI-compatible chat completion response.
+
+    :token: The token
+    :bytes: (Optional) The bytes for the token
+    :logprob: The log probability of the token
+    :top_logprobs: The top log probabilities for the token
+    """
+
     token: str
 
     logprob: float
@@ -94,12 +134,18 @@ class ChoiceLogprobsRefusal(BaseModel):
 
 
 class ChoiceLogprobs(BaseModel):
+    """
+    The log probabilities for the tokens in the message from an OpenAI-compatible chat completion response.
+    """
+
     content: Optional[List[ChoiceLogprobsContent]] = None
 
     refusal: Optional[List[ChoiceLogprobsRefusal]] = None
 
 
 class Choice(BaseModel):
+    """A chunk choice from an OpenAI-compatible chat completion streaming response."""
+
     delta: ChoiceDelta
     """A delta from an OpenAI-compatible chat completion streaming response."""
 
@@ -115,14 +161,20 @@ class Choice(BaseModel):
 
 
 class UsageCompletionTokensDetails(BaseModel):
+    """Token details for output tokens in OpenAI chat completion usage."""
+
     reasoning_tokens: Optional[int] = None
 
 
 class UsagePromptTokensDetails(BaseModel):
+    """Token details for prompt tokens in OpenAI chat completion usage."""
+
     cached_tokens: Optional[int] = None
 
 
 class Usage(BaseModel):
+    """Usage information for OpenAI chat completion."""
+
     completion_tokens: int
 
     prompt_tokens: int
@@ -137,6 +189,10 @@ class Usage(BaseModel):
 
 
 class ChatCompletionChunk(BaseModel):
+    """
+    Chunk from a streaming response to an OpenAI-compatible chat completion request.
+    """
+
     id: str
 
     choices: List[Choice]

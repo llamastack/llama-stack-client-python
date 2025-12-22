@@ -32,6 +32,8 @@ __all__ = [
 class ContentListOpenAIResponseInputMessageContentTextOpenAIResponseInputMessageContentImageOpenAIResponseInputMessageContentFileOpenAIResponseInputMessageContentText(
     BaseModel
 ):
+    """Text content for input messages in OpenAI response format."""
+
     text: str
 
     type: Optional[Literal["input_text"]] = None
@@ -40,6 +42,8 @@ class ContentListOpenAIResponseInputMessageContentTextOpenAIResponseInputMessage
 class ContentListOpenAIResponseInputMessageContentTextOpenAIResponseInputMessageContentImageOpenAIResponseInputMessageContentFileOpenAIResponseInputMessageContentImage(
     BaseModel
 ):
+    """Image content for input messages in OpenAI response format."""
+
     detail: Optional[Literal["low", "high", "auto"]] = None
 
     file_id: Optional[str] = None
@@ -52,6 +56,8 @@ class ContentListOpenAIResponseInputMessageContentTextOpenAIResponseInputMessage
 class ContentListOpenAIResponseInputMessageContentTextOpenAIResponseInputMessageContentImageOpenAIResponseInputMessageContentFileOpenAIResponseInputMessageContentFile(
     BaseModel
 ):
+    """File content for input messages in OpenAI response format."""
+
     file_data: Optional[str] = None
 
     file_id: Optional[str] = None
@@ -76,6 +82,8 @@ ContentListOpenAIResponseInputMessageContentTextOpenAIResponseInputMessageConten
 class ContentListOpenAIResponseOutputMessageContentOutputTextOpenAIResponseContentPartRefusalOpenAIResponseOutputMessageContentOutputTextAnnotationOpenAIResponseAnnotationFileCitation(
     BaseModel
 ):
+    """File citation annotation for referencing specific files in response content."""
+
     file_id: str
 
     filename: str
@@ -88,6 +96,8 @@ class ContentListOpenAIResponseOutputMessageContentOutputTextOpenAIResponseConte
 class ContentListOpenAIResponseOutputMessageContentOutputTextOpenAIResponseContentPartRefusalOpenAIResponseOutputMessageContentOutputTextAnnotationOpenAIResponseAnnotationCitation(
     BaseModel
 ):
+    """URL citation annotation for referencing external web resources."""
+
     end_index: int
 
     start_index: int
@@ -153,6 +163,8 @@ class ContentListOpenAIResponseOutputMessageContentOutputTextOpenAIResponseConte
 class ContentListOpenAIResponseOutputMessageContentOutputTextOpenAIResponseContentPartRefusalOpenAIResponseContentPartRefusal(
     BaseModel
 ):
+    """Refusal content within a streamed response part."""
+
     refusal: str
 
     type: Optional[Literal["refusal"]] = None
@@ -168,6 +180,13 @@ ContentListOpenAIResponseOutputMessageContentOutputTextOpenAIResponseContentPart
 
 
 class ItemGetResponse(BaseModel):
+    """
+    Corresponds to the various Message types in the Responses API.
+    They are all under one type because the Responses API gives them all
+    the same "type" value, and there is no way to tell them apart in certain
+    scenarios.
+    """
+
     content: Union[
         str,
         List[

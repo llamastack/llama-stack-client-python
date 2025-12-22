@@ -17,6 +17,8 @@ __all__ = ["ModelRegisterResponse"]
 
 
 class ModelRegisterResponse(BaseModel):
+    """A model resource representing an AI model registered in Llama Stack."""
+
     identifier: str
     """Unique identifier for this resource in llama stack"""
 

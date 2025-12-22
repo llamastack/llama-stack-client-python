@@ -14,6 +14,8 @@ __all__ = ["DatasetIterrowsResponse"]
 
 
 class DatasetIterrowsResponse(BaseModel):
+    """A generic paginated response that follows a simple format."""
+
     data: List[Dict[str, object]]
 
     has_more: bool

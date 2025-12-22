@@ -15,6 +15,8 @@ __all__ = ["ConversationObject"]
 
 
 class ConversationObject(BaseModel):
+    """OpenAI-compatible conversation object."""
+
     id: str
     """The unique ID of the conversation."""
 

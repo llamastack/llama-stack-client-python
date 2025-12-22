@@ -15,6 +15,13 @@ __all__ = ["VectorStoreSearchResponse", "Data", "DataContent", "DataContentChunk
 
 
 class DataContentChunkMetadata(BaseModel):
+    """
+    `ChunkMetadata` is backend metadata for a `Chunk` that is used to store additional information about the chunk that
+        will not be used in the context during inference, but is required for backend functionality. The `ChunkMetadata`
+        is set during chunk creation in `MemoryToolRuntimeImpl().insert()`and is not expected to change after.
+        Use `Chunk.metadata` for metadata that will be used in the context during inference.
+    """
+
     chunk_embedding_dimension: Optional[int] = None
 
     chunk_embedding_model: Optional[str] = None
@@ -39,6 +46,8 @@ class DataContentChunkMetadata(BaseModel):
 
 
 class DataContent(BaseModel):
+    """Content item from a vector store file or search result."""
+
     text: str
 
     type: Literal["text"]
@@ -59,6 +68,8 @@ class DataContent(BaseModel):
 
 
 class Data(BaseModel):
+    """Response from searching a vector store."""
+
     content: List[DataContent]
 
     file_id: str
@@ -71,6 +82,8 @@ class Data(BaseModel):
 
 
 class VectorStoreSearchResponse(BaseModel):
+    """Paginated response from searching a vector store."""
+
     data: List[Data]
 
     search_query: List[str]

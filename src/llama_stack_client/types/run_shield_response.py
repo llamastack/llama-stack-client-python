@@ -15,5 +15,7 @@ __all__ = ["RunShieldResponse"]
 
 
 class RunShieldResponse(BaseModel):
+    """Response from running a safety shield."""
+
     violation: Optional[SafetyViolation] = None
     """Details of a safety violation detected by content moderation."""

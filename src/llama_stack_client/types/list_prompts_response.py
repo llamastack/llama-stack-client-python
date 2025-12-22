@@ -13,4 +13,6 @@ __all__ = ["ListPromptsResponse"]
 
 
 class ListPromptsResponse(BaseModel):
+    """Response model to list prompts."""
+
     data: PromptListResponse

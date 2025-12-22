@@ -27,12 +27,16 @@ class DatasetRegisterParams(TypedDict, total=False):
 
 
 class SourceUriDataSource(TypedDict, total=False):
+    """A dataset that can be obtained from a URI."""
+
     uri: Required[str]
 
     type: Literal["uri"]
 
 
 class SourceRowsDataSource(TypedDict, total=False):
+    """A dataset stored in rows."""
+
     rows: Required[Iterable[Dict[str, object]]]
 
     type: Literal["rows"]

@@ -26,6 +26,8 @@ __all__ = [
 
 
 class EvalCandidate(TypedDict, total=False):
+    """A model candidate for evaluation."""
+
     model: Required[str]
 
     sampling_params: Required[SamplingParams]
@@ -38,6 +40,8 @@ class EvalCandidate(TypedDict, total=False):
 
 
 class ScoringParamsLlmAsJudgeScoringFnParams(TypedDict, total=False):
+    """Parameters for LLM-as-judge scoring function configuration."""
+
     judge_model: Required[str]
 
     aggregation_functions: List[Literal["average", "weighted_average", "median", "categorical_count", "accuracy"]]
@@ -52,6 +56,8 @@ class ScoringParamsLlmAsJudgeScoringFnParams(TypedDict, total=False):
 
 
 class ScoringParamsRegexParserScoringFnParams(TypedDict, total=False):
+    """Parameters for regex parser scoring function configuration."""
+
     aggregation_functions: List[Literal["average", "weighted_average", "median", "categorical_count", "accuracy"]]
     """Aggregation functions to apply to the scores of each row"""
 
@@ -62,6 +68,8 @@ class ScoringParamsRegexParserScoringFnParams(TypedDict, total=False):
 
 
 class ScoringParamsBasicScoringFnParams(TypedDict, total=False):
+    """Parameters for basic scoring function configuration."""
+
     aggregation_functions: List[Literal["average", "weighted_average", "median", "categorical_count", "accuracy"]]
     """Aggregation functions to apply to the scores of each row"""
 
@@ -74,6 +82,8 @@ ScoringParams: TypeAlias = Union[
 
 
 class BenchmarkConfigParam(TypedDict, total=False):
+    """A benchmark configuration for evaluation."""
+
     eval_candidate: Required[EvalCandidate]
     """A model candidate for evaluation."""
 
