@@ -20,8 +20,8 @@ from .._response import (
     async_to_streamed_response_wrapper,
 )
 from .._base_client import make_request_options
-from ..types.health_info import HealthInfo
-from ..types.version_info import VersionInfo
+from ..types.shared.health_info import HealthInfo
+from ..types.shared.version_info import VersionInfo
 
 __all__ = ["InspectResource", "AsyncInspectResource"]
 

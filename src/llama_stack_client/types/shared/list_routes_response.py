@@ -6,15 +6,14 @@
 
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-from typing_extensions import Literal
+from ..._models import BaseModel
+from ..route_list_response import RouteListResponse
 
-from .._models import BaseModel
-
-__all__ = ["HealthInfo"]
+__all__ = ["ListRoutesResponse"]
 
 
-class HealthInfo(BaseModel):
-    """Health status information for the service."""
+class ListRoutesResponse(BaseModel):
+    """Response containing a list of all available API routes."""
 
-    status: Literal["OK", "Error", "Not Implemented"]
-    """The health status of the service"""
+    data: RouteListResponse
+    """List of available API routes"""

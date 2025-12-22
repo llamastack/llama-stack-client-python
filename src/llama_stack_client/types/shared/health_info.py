@@ -6,13 +6,15 @@
 
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-from .._models import BaseModel
+from typing_extensions import Literal
 
-__all__ = ["VersionInfo"]
+from ..._models import BaseModel
+
+__all__ = ["HealthInfo"]
 
 
-class VersionInfo(BaseModel):
-    """Version information for the service."""
+class HealthInfo(BaseModel):
+    """Health status information for the service."""
 
-    version: str
-    """The version string of the service"""
+    status: Literal["OK", "Error", "Not Implemented"]
+    """The health status of the service"""
