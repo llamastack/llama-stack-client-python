@@ -1,5 +1,49 @@
 # Changelog
 
+## 0.4.0-alpha.14 (2025-12-22)
+
+Full Changelog: [v0.4.0-alpha.13...v0.4.0-alpha.14](https://github.com/llamastack/llama-stack-client-python/compare/v0.4.0-alpha.13...v0.4.0-alpha.14)
+
+### Features
+
+* Add metadata field to request and response ([a83a98e](https://github.com/llamastack/llama-stack-client-python/commit/a83a98e73429e9c12fc679e429cd350498276f2f))
+* add support for tool_choice to repsponses api ([32c453f](https://github.com/llamastack/llama-stack-client-python/commit/32c453f2c2ba39e65830d36f92b11d7ea6bf98f5))
+* **api:** add readonly connectors API ([05f867b](https://github.com/llamastack/llama-stack-client-python/commit/05f867b82f03b4ece33c52b68a06b5e68c345ccc))
+* **api:** deprecate `toolgroup` and `tool_runtime` apis ([d5cef5a](https://github.com/llamastack/llama-stack-client-python/commit/d5cef5ae52db0f4d4ccffb36d4c69e39182af91b))
+* convert Benchmarks API to use FastAPI router ([c784ae1](https://github.com/llamastack/llama-stack-client-python/commit/c784ae1fd823e70fef91793125fadd44d33ba0ce))
+* convert Datasets API to use FastAPI router ([2f53a3f](https://github.com/llamastack/llama-stack-client-python/commit/2f53a3f60fb7da474e2e8d3839d6c58d6a6d2c89))
+* Implement FastAPI router system ([2ca4485](https://github.com/llamastack/llama-stack-client-python/commit/2ca44854928f4360911439690461fa0cfa2db8f9))
+* Implement include parameter specifically for adding logprobs in the output message ([05a0330](https://github.com/llamastack/llama-stack-client-python/commit/05a0330bb08ca21980d79ffdd66cdd2e3af21d51))
+* introduce /admin API for stack administration and operations ([3279ec9](https://github.com/llamastack/llama-stack-client-python/commit/3279ec9799e21595b7410f0cc784a4b0c854ade5))
+* migrate Inspect API to FastAPI router ([7774bec](https://github.com/llamastack/llama-stack-client-python/commit/7774bec492608a78eedb804fd6ab7997fdabdc60))
+* migrate Providers API to FastAPI router pattern ([f8c84cd](https://github.com/llamastack/llama-stack-client-python/commit/f8c84cd0fb2ba351366c3a68c9836dd8112b09d0))
+
+
+### Bug Fixes
+
+* **client:** fix issue with duplicate definitions in Go ([dd94553](https://github.com/llamastack/llama-stack-client-python/commit/dd9455390a84c918ef517a2d1488598c44a9fb40))
+* ensure streams are always closed ([9dc1025](https://github.com/llamastack/llama-stack-client-python/commit/9dc1025c4679f82a9528e859ce2332b9bc8dfb9d))
+* **types:** allow pyright to infer TypedDict types within SequenceNotStr ([93be516](https://github.com/llamastack/llama-stack-client-python/commit/93be5160a0dd1260b728959c29a931b5d7f42fdb))
+* use async_to_httpx_files in patch method ([77df10d](https://github.com/llamastack/llama-stack-client-python/commit/77df10d1c6635984f5f9b48e4479872c88fbb91b))
+
+
+### Chores
+
+* add missing docstrings ([18c54f3](https://github.com/llamastack/llama-stack-client-python/commit/18c54f3ca59edc71633a937914762129856a8950))
+* bump required `uv` version ([2a1523b](https://github.com/llamastack/llama-stack-client-python/commit/2a1523b450a8e66ce2e16f20a5b73f821144748a))
+* **deps:** mypy 1.18.1 has a regression, pin to 1.17 ([a900167](https://github.com/llamastack/llama-stack-client-python/commit/a90016741193156e589525c874dff32459be2a6d))
+* **internal:** add `--fix` argument to lint script ([89e14ad](https://github.com/llamastack/llama-stack-client-python/commit/89e14ad88db7e5ac1dc088c6affec85e749ff4e8))
+* **internal:** add missing files argument to base client ([9cae3df](https://github.com/llamastack/llama-stack-client-python/commit/9cae3df5c115b176be5515fb47ed3d2d69cd0bb8))
+* **internal:** avoid using unstable Python versions in tests ([36336dd](https://github.com/llamastack/llama-stack-client-python/commit/36336dd67f3dcaa355b3b4bb99d4e1f6d73b9779))
+* **internal:** version bump ([597c7c6](https://github.com/llamastack/llama-stack-client-python/commit/597c7c6156b28bcb7f3c59d742532c1204dd2647))
+* update lockfile ([de67c1e](https://github.com/llamastack/llama-stack-client-python/commit/de67c1ebd3abbdc111dfbd979e1ecb655cff25e7))
+* update uv.lock ([95cb22a](https://github.com/llamastack/llama-stack-client-python/commit/95cb22ab14711e3c4220dcf9a83bc87ea2436efe))
+
+
+### Documentation
+
+* add more examples ([d24dff6](https://github.com/llamastack/llama-stack-client-python/commit/d24dff6000019c0091f13fecf63ac90e02122cae))
+
 ## 0.4.0-alpha.13 (2025-12-15)
 
 Full Changelog: [v0.4.0-alpha.12...v0.4.0-alpha.13](https://github.com/llamastack/llama-stack-client-python/compare/v0.4.0-alpha.12...v0.4.0-alpha.13)
