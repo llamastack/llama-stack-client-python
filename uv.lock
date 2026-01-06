@@ -518,7 +518,7 @@ wheels = [
 
 [[package]]
 name = "llama-stack-client"
-version = "0.4.0a14"
+version = "0.4.0a15"
 source = { editable = "." }
 dependencies = [
     { name = "anyio" },
