@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.4.0-alpha.15 (2026-01-06)
+
+Full Changelog: [v0.4.0-alpha.14...v0.4.0-alpha.15](https://github.com/llamastack/llama-stack-client-python/compare/v0.4.0-alpha.14...v0.4.0-alpha.15)
+
+### Bug Fixes
+
+* post training algorithm param ([#310](https://github.com/llamastack/llama-stack-client-python/issues/310)) ([43aabc5](https://github.com/llamastack/llama-stack-client-python/commit/43aabc519137199780e98fa01f6e4f553beeaba9))
+
 ## 0.4.0-alpha.14 (2025-12-22)
 
 Full Changelog: [v0.4.0-alpha.13...v0.4.0-alpha.14](https://github.com/llamastack/llama-stack-client-python/compare/v0.4.0-alpha.13...v0.4.0-alpha.14)
