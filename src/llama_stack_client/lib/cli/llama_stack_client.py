@@ -25,7 +25,7 @@ from .providers import providers
 from .scoring_functions import scoring_functions
 from .shields import shields
 from .toolgroups import toolgroups
-from .vector_dbs import vector_dbs
+from .vector_stores import vector_stores
 
 
 @click.group()
@@ -81,7 +81,7 @@ def llama_stack_client(ctx, endpoint: str, api_key: str, config: str | None):
 
 # Register all subcommands
 llama_stack_client.add_command(models, "models")
-llama_stack_client.add_command(vector_dbs, "vector_dbs")
+llama_stack_client.add_command(vector_stores, "vector_stores")
 llama_stack_client.add_command(shields, "shields")
 llama_stack_client.add_command(eval_tasks, "eval_tasks")
 llama_stack_client.add_command(providers, "providers")
