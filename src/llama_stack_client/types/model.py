@@ -33,3 +33,44 @@ class Model(BaseModel):
     custom_metadata: Optional[Dict[str, object]] = None
 
     object: Optional[Literal["model"]] = None
+
+    @property
+    def model_type(self) -> Optional[str]:
+        if not self.custom_metadata:
+            return None
+        value = self.custom_metadata.get("model_type")
+        return value if isinstance(value, str) else None
+
+    @property
+    def provider_id(self) -> Optional[str]:
+        if not self.custom_metadata:
+            return None
+        value = self.custom_metadata.get("provider_id")
+        return value if isinstance(value, str) else None
+
+    @property
+    def provider_resource_id(self) -> Optional[str]:
+        if not self.custom_metadata:
+            return None
+        value = self.custom_metadata.get("provider_resource_id")
+        return value if isinstance(value, str) else None
+
+    @property
+    def identifier(self) -> str:
+        return self.id
+
+    @property
+    def metadata(self) -> Optional[Dict[str, object]]:
+        if not self.custom_metadata:
+            return None
+        filtered = {
+            key: value
+            for key, value in self.custom_metadata.items()
+            if key
+            not in (
+                "model_type",
+                "provider_id",
+                "provider_resource_id",
+            )
+        }
+        return filtered or None
