@@ -21,7 +21,8 @@ You can find more example apps with client SDKs to talk with the Llama Stack ser
 ## Installation
 
 ```sh
-pip install llama-stack-client
+# install from PyPI
+pip install '--pre llama_stack_client'
 ```
 
 ## Usage
@@ -106,7 +107,7 @@ You can enable this by installing `aiohttp`:
 
 ```sh
 # install from PyPI
-pip install --pre llama_stack_client[aiohttp]
+pip install '--pre llama_stack_client[aiohttp]'
 ```
 
 Then you can enable it by instantiating the client with `http_client=DefaultAioHttpClient()`:

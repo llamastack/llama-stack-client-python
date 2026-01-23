@@ -1,5 +1,20 @@
 # Changelog
 
+## 0.4.0-alpha.16 (2026-01-23)
+
+Full Changelog: [v0.4.0-alpha.15...v0.4.0-alpha.16](https://github.com/llamastack/llama-stack-client-python/compare/v0.4.0-alpha.15...v0.4.0-alpha.16)
+
+### Features
+
+* **client:** add support for binary request streaming ([d17dede](https://github.com/llamastack/llama-stack-client-python/commit/d17dede18fa45e3433bea4923d4b280331257975))
+
+
+### Chores
+
+* **internal:** codegen related update ([a176b2e](https://github.com/llamastack/llama-stack-client-python/commit/a176b2e9501b6855ba31f420ea23f1e94170e7aa))
+* **internal:** codegen related update ([4cf153d](https://github.com/llamastack/llama-stack-client-python/commit/4cf153ddfbe68ce5966ec1d199e3c6fb69c1abe0))
+* **internal:** version bump ([580d0ff](https://github.com/llamastack/llama-stack-client-python/commit/580d0ffc4b0540294cf42bd28d6dd3254586133f))
+
 ## 0.4.0-alpha.15 (2026-01-06)
 
 Full Changelog: [v0.4.0-alpha.14...v0.4.0-alpha.15](https://github.com/llamastack/llama-stack-client-python/compare/v0.4.0-alpha.14...v0.4.0-alpha.15)
