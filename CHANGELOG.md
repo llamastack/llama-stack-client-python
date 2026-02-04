@@ -1,5 +1,23 @@
 # Changelog
 
+## 0.5.0-alpha.1 (2026-02-04)
+
+Full Changelog: [v0.4.0-alpha.15...v0.5.0-alpha.1](https://github.com/llamastack/llama-stack-client-python/compare/v0.4.0-alpha.15...v0.5.0-alpha.1)
+
+### Features
+
+* **client:** add custom JSON encoder for extended type support ([ab99ad0](https://github.com/llamastack/llama-stack-client-python/commit/ab99ad06208995a0c6b8424d03023f6045c57cab))
+* **client:** add support for binary request streaming ([d17dede](https://github.com/llamastack/llama-stack-client-python/commit/d17dede18fa45e3433bea4923d4b280331257975))
+
+
+### Chores
+
+* **ci:** upgrade `actions/github-script` ([b6d410f](https://github.com/llamastack/llama-stack-client-python/commit/b6d410fbaa61ade006142c755b8abff2639aa461))
+* **internal:** codegen related update ([a176b2e](https://github.com/llamastack/llama-stack-client-python/commit/a176b2e9501b6855ba31f420ea23f1e94170e7aa))
+* **internal:** codegen related update ([4cf153d](https://github.com/llamastack/llama-stack-client-python/commit/4cf153ddfbe68ce5966ec1d199e3c6fb69c1abe0))
+* **internal:** update `actions/checkout` version ([527e428](https://github.com/llamastack/llama-stack-client-python/commit/527e4289cbd3f696cfd3f4b288784683819317be))
+* **internal:** version bump ([580d0ff](https://github.com/llamastack/llama-stack-client-python/commit/580d0ffc4b0540294cf42bd28d6dd3254586133f))
+
 ## 0.4.0-alpha.15 (2026-01-06)
 
 Full Changelog: [v0.4.0-alpha.14...v0.4.0-alpha.15](https://github.com/llamastack/llama-stack-client-python/compare/v0.4.0-alpha.14...v0.4.0-alpha.15)
