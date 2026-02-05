@@ -44,12 +44,16 @@ class TestJob:
 
     @parametrize
     def test_method_artifacts(self, client: LlamaStackClient) -> None:
-        job = client.alpha.post_training.job.artifacts()
+        job = client.alpha.post_training.job.artifacts(
+            "job_uuid",
+        )
         assert_matches_type(JobArtifactsResponse, job, path=["response"])
 
     @parametrize
     def test_raw_response_artifacts(self, client: LlamaStackClient) -> None:
-        response = client.alpha.post_training.job.with_raw_response.artifacts()
+        response = client.alpha.post_training.job.with_raw_response.artifacts(
+            "job_uuid",
+        )
 
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -58,7 +62,9 @@ class TestJob:
 
     @parametrize
     def test_streaming_response_artifacts(self, client: LlamaStackClient) -> None:
-        with client.alpha.post_training.job.with_streaming_response.artifacts() as response:
+        with client.alpha.post_training.job.with_streaming_response.artifacts(
+            "job_uuid",
+        ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
@@ -68,13 +74,24 @@ class TestJob:
         assert cast(Any, response.is_closed) is True
 
     @parametrize
+    def test_path_params_artifacts(self, client: LlamaStackClient) -> None:
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `job_uuid` but received ''"):
+            client.alpha.post_training.job.with_raw_response.artifacts(
+                "",
+            )
+
+    @parametrize
     def test_method_cancel(self, client: LlamaStackClient) -> None:
-        job = client.alpha.post_training.job.cancel()
+        job = client.alpha.post_training.job.cancel(
+            "job_uuid",
+        )
         assert job is None
 
     @parametrize
     def test_raw_response_cancel(self, client: LlamaStackClient) -> None:
-        response = client.alpha.post_training.job.with_raw_response.cancel()
+        response = client.alpha.post_training.job.with_raw_response.cancel(
+            "job_uuid",
+        )
 
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -83,7 +100,9 @@ class TestJob:
 
     @parametrize
     def test_streaming_response_cancel(self, client: LlamaStackClient) -> None:
-        with client.alpha.post_training.job.with_streaming_response.cancel() as response:
+        with client.alpha.post_training.job.with_streaming_response.cancel(
+            "job_uuid",
+        ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
@@ -93,13 +112,24 @@ class TestJob:
         assert cast(Any, response.is_closed) is True
 
     @parametrize
+    def test_path_params_cancel(self, client: LlamaStackClient) -> None:
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `job_uuid` but received ''"):
+            client.alpha.post_training.job.with_raw_response.cancel(
+                "",
+            )
+
+    @parametrize
     def test_method_status(self, client: LlamaStackClient) -> None:
-        job = client.alpha.post_training.job.status()
+        job = client.alpha.post_training.job.status(
+            "job_uuid",
+        )
         assert_matches_type(JobStatusResponse, job, path=["response"])
 
     @parametrize
     def test_raw_response_status(self, client: LlamaStackClient) -> None:
-        response = client.alpha.post_training.job.with_raw_response.status()
+        response = client.alpha.post_training.job.with_raw_response.status(
+            "job_uuid",
+        )
 
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -108,7 +138,9 @@ class TestJob:
 
     @parametrize
     def test_streaming_response_status(self, client: LlamaStackClient) -> None:
-        with client.alpha.post_training.job.with_streaming_response.status() as response:
+        with client.alpha.post_training.job.with_streaming_response.status(
+            "job_uuid",
+        ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
@@ -116,6 +148,13 @@ class TestJob:
             assert_matches_type(JobStatusResponse, job, path=["response"])
 
         assert cast(Any, response.is_closed) is True
+
+    @parametrize
+    def test_path_params_status(self, client: LlamaStackClient) -> None:
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `job_uuid` but received ''"):
+            client.alpha.post_training.job.with_raw_response.status(
+                "",
+            )
 
 
 class TestAsyncJob:
@@ -150,12 +189,16 @@ class TestAsyncJob:
 
     @parametrize
     async def test_method_artifacts(self, async_client: AsyncLlamaStackClient) -> None:
-        job = await async_client.alpha.post_training.job.artifacts()
+        job = await async_client.alpha.post_training.job.artifacts(
+            "job_uuid",
+        )
         assert_matches_type(JobArtifactsResponse, job, path=["response"])
 
     @parametrize
     async def test_raw_response_artifacts(self, async_client: AsyncLlamaStackClient) -> None:
-        response = await async_client.alpha.post_training.job.with_raw_response.artifacts()
+        response = await async_client.alpha.post_training.job.with_raw_response.artifacts(
+            "job_uuid",
+        )
 
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -164,7 +207,9 @@ class TestAsyncJob:
 
     @parametrize
     async def test_streaming_response_artifacts(self, async_client: AsyncLlamaStackClient) -> None:
-        async with async_client.alpha.post_training.job.with_streaming_response.artifacts() as response:
+        async with async_client.alpha.post_training.job.with_streaming_response.artifacts(
+            "job_uuid",
+        ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
@@ -174,13 +219,24 @@ class TestAsyncJob:
         assert cast(Any, response.is_closed) is True
 
     @parametrize
+    async def test_path_params_artifacts(self, async_client: AsyncLlamaStackClient) -> None:
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `job_uuid` but received ''"):
+            await async_client.alpha.post_training.job.with_raw_response.artifacts(
+                "",
+            )
+
+    @parametrize
     async def test_method_cancel(self, async_client: AsyncLlamaStackClient) -> None:
-        job = await async_client.alpha.post_training.job.cancel()
+        job = await async_client.alpha.post_training.job.cancel(
+            "job_uuid",
+        )
         assert job is None
 
     @parametrize
     async def test_raw_response_cancel(self, async_client: AsyncLlamaStackClient) -> None:
-        response = await async_client.alpha.post_training.job.with_raw_response.cancel()
+        response = await async_client.alpha.post_training.job.with_raw_response.cancel(
+            "job_uuid",
+        )
 
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -189,7 +245,9 @@ class TestAsyncJob:
 
     @parametrize
     async def test_streaming_response_cancel(self, async_client: AsyncLlamaStackClient) -> None:
-        async with async_client.alpha.post_training.job.with_streaming_response.cancel() as response:
+        async with async_client.alpha.post_training.job.with_streaming_response.cancel(
+            "job_uuid",
+        ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
@@ -199,13 +257,24 @@ class TestAsyncJob:
         assert cast(Any, response.is_closed) is True
 
     @parametrize
+    async def test_path_params_cancel(self, async_client: AsyncLlamaStackClient) -> None:
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `job_uuid` but received ''"):
+            await async_client.alpha.post_training.job.with_raw_response.cancel(
+                "",
+            )
+
+    @parametrize
     async def test_method_status(self, async_client: AsyncLlamaStackClient) -> None:
-        job = await async_client.alpha.post_training.job.status()
+        job = await async_client.alpha.post_training.job.status(
+            "job_uuid",
+        )
         assert_matches_type(JobStatusResponse, job, path=["response"])
 
     @parametrize
     async def test_raw_response_status(self, async_client: AsyncLlamaStackClient) -> None:
-        response = await async_client.alpha.post_training.job.with_raw_response.status()
+        response = await async_client.alpha.post_training.job.with_raw_response.status(
+            "job_uuid",
+        )
 
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -214,7 +283,9 @@ class TestAsyncJob:
 
     @parametrize
     async def test_streaming_response_status(self, async_client: AsyncLlamaStackClient) -> None:
-        async with async_client.alpha.post_training.job.with_streaming_response.status() as response:
+        async with async_client.alpha.post_training.job.with_streaming_response.status(
+            "job_uuid",
+        ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
@@ -222,3 +293,10 @@ class TestAsyncJob:
             assert_matches_type(JobStatusResponse, job, path=["response"])
 
         assert cast(Any, response.is_closed) is True
+
+    @parametrize
+    async def test_path_params_status(self, async_client: AsyncLlamaStackClient) -> None:
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `job_uuid` but received ''"):
+            await async_client.alpha.post_training.job.with_raw_response.status(
+                "",
+            )
