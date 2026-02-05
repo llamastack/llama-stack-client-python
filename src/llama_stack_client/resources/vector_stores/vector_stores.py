@@ -91,9 +91,7 @@ class VectorStoresResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> VectorStore:
         """
-        Creates a vector store.
-
-        Generate an OpenAI-compatible vector store with the given parameters.
+        Create a vector store (OpenAI-compatible).
 
         Args:
           chunking_strategy: Automatic chunking strategy for vector store files.
@@ -136,9 +134,11 @@ class VectorStoresResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> VectorStore:
         """
-        Retrieves a vector store.
+        Retrieve a vector store (OpenAI-compatible).
 
         Args:
+          vector_store_id: The vector store identifier.
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -172,9 +172,17 @@ class VectorStoresResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> VectorStore:
         """
-        Updates a vector store.
+        Update a vector store (OpenAI-compatible).
 
         Args:
+          vector_store_id: The vector store identifier.
+
+          expires_after: Expiration policy for the vector store.
+
+          metadata: Metadata to associate with the vector store.
+
+          name: The new name for the vector store.
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -216,9 +224,17 @@ class VectorStoresResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> SyncOpenAICursorPage[VectorStore]:
         """
-        Returns a list of vector stores.
+        List vector stores (OpenAI-compatible).
 
         Args:
+          after: Pagination cursor (after).
+
+          before: Pagination cursor (before).
+
+          limit: Maximum number of vector stores to return.
+
+          order: Sort order by created_at: asc or desc.
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -260,9 +276,11 @@ class VectorStoresResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> VectorStoreDeleteResponse:
         """
-        Delete a vector store.
+        Delete a vector store (OpenAI-compatible).
 
         Args:
+          vector_store_id: The vector store identifier.
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -299,13 +317,38 @@ class VectorStoresResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> VectorStoreSearchResponse:
         """
-        Search for chunks in a vector store.
-
-        Searches a vector store for relevant chunks based on a query and optional file
-        attribute filters.
+        Search a vector store (OpenAI-compatible).
 
         Args:
+          vector_store_id: The vector store identifier.
+
+          query: The search query string or list of query strings.
+
+          filters: Filters to apply to the search.
+
+          max_num_results: Maximum number of results to return.
+
           ranking_options: Options for ranking and filtering search results.
+
+              This class configures how search results are ranked and filtered. You can use
+              algorithm-based rerankers (weighted, RRF) or neural rerankers. Defaults from
+              VectorStoresConfig are used when parameters are not provided.
+
+              Examples: # Weighted ranker with custom alpha
+              SearchRankingOptions(ranker="weighted", alpha=0.7)
+
+                  # RRF ranker with custom impact factor
+                  SearchRankingOptions(ranker="rrf", impact_factor=50.0)
+
+                  # Use config defaults (just specify ranker type)
+                  SearchRankingOptions(ranker="weighted")  # Uses alpha from VectorStoresConfig
+
+                  # Score threshold filtering
+                  SearchRankingOptions(ranker="weighted", score_threshold=0.5)
+
+          rewrite_query: Whether to rewrite the query for better results.
+
+          search_mode: The search mode to use (e.g., 'vector', 'keyword').
 
           extra_headers: Send extra headers
 
@@ -381,9 +424,7 @@ class AsyncVectorStoresResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> VectorStore:
         """
-        Creates a vector store.
-
-        Generate an OpenAI-compatible vector store with the given parameters.
+        Create a vector store (OpenAI-compatible).
 
         Args:
           chunking_strategy: Automatic chunking strategy for vector store files.
@@ -426,9 +467,11 @@ class AsyncVectorStoresResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> VectorStore:
         """
-        Retrieves a vector store.
+        Retrieve a vector store (OpenAI-compatible).
 
         Args:
+          vector_store_id: The vector store identifier.
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -462,9 +505,17 @@ class AsyncVectorStoresResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> VectorStore:
         """
-        Updates a vector store.
+        Update a vector store (OpenAI-compatible).
 
         Args:
+          vector_store_id: The vector store identifier.
+
+          expires_after: Expiration policy for the vector store.
+
+          metadata: Metadata to associate with the vector store.
+
+          name: The new name for the vector store.
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -506,9 +557,17 @@ class AsyncVectorStoresResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> AsyncPaginator[VectorStore, AsyncOpenAICursorPage[VectorStore]]:
         """
-        Returns a list of vector stores.
+        List vector stores (OpenAI-compatible).
 
         Args:
+          after: Pagination cursor (after).
+
+          before: Pagination cursor (before).
+
+          limit: Maximum number of vector stores to return.
+
+          order: Sort order by created_at: asc or desc.
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -550,9 +609,11 @@ class AsyncVectorStoresResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> VectorStoreDeleteResponse:
         """
-        Delete a vector store.
+        Delete a vector store (OpenAI-compatible).
 
         Args:
+          vector_store_id: The vector store identifier.
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -589,13 +650,38 @@ class AsyncVectorStoresResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> VectorStoreSearchResponse:
         """
-        Search for chunks in a vector store.
-
-        Searches a vector store for relevant chunks based on a query and optional file
-        attribute filters.
+        Search a vector store (OpenAI-compatible).
 
         Args:
+          vector_store_id: The vector store identifier.
+
+          query: The search query string or list of query strings.
+
+          filters: Filters to apply to the search.
+
+          max_num_results: Maximum number of results to return.
+
           ranking_options: Options for ranking and filtering search results.
+
+              This class configures how search results are ranked and filtered. You can use
+              algorithm-based rerankers (weighted, RRF) or neural rerankers. Defaults from
+              VectorStoresConfig are used when parameters are not provided.
+
+              Examples: # Weighted ranker with custom alpha
+              SearchRankingOptions(ranker="weighted", alpha=0.7)
+
+                  # RRF ranker with custom impact factor
+                  SearchRankingOptions(ranker="rrf", impact_factor=50.0)
+
+                  # Use config defaults (just specify ranker type)
+                  SearchRankingOptions(ranker="weighted")  # Uses alpha from VectorStoresConfig
+
+                  # Score threshold filtering
+                  SearchRankingOptions(ranker="weighted", score_threshold=0.5)
+
+          rewrite_query: Whether to rewrite the query for better results.
+
+          search_mode: The search mode to use (e.g., 'vector', 'keyword').
 
           extra_headers: Send extra headers
 

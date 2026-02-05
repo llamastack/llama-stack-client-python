@@ -50,12 +50,6 @@ from .post_training import (
 )
 
 __all__ = [
-    "InferenceResource",
-    "AsyncInferenceResource",
-    "InferenceResourceWithRawResponse",
-    "AsyncInferenceResourceWithRawResponse",
-    "InferenceResourceWithStreamingResponse",
-    "AsyncInferenceResourceWithStreamingResponse",
     "PostTrainingResource",
     "AsyncPostTrainingResource",
     "PostTrainingResourceWithRawResponse",
@@ -80,6 +74,12 @@ __all__ = [
     "AsyncAdminResourceWithRawResponse",
     "AdminResourceWithStreamingResponse",
     "AsyncAdminResourceWithStreamingResponse",
+    "InferenceResource",
+    "AsyncInferenceResource",
+    "InferenceResourceWithRawResponse",
+    "AsyncInferenceResourceWithRawResponse",
+    "InferenceResourceWithStreamingResponse",
+    "AsyncInferenceResourceWithStreamingResponse",
     "AlphaResource",
     "AsyncAlphaResource",
     "AlphaResourceWithRawResponse",

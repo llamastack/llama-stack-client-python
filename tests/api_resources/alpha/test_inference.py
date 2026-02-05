@@ -32,7 +32,7 @@ class TestInference:
             items=["string"],
             model="model",
             query="string",
-            max_num_results=0,
+            max_num_results=1,
         )
         assert_matches_type(InferenceRerankResponse, inference, path=["response"])
 
@@ -85,7 +85,7 @@ class TestAsyncInference:
             items=["string"],
             model="model",
             query="string",
-            max_num_results=0,
+            max_num_results=1,
         )
         assert_matches_type(InferenceRerankResponse, inference, path=["response"])
 

@@ -7,4 +7,7 @@ __all__ = ["ListScoringFunctionsResponse"]
 
 
 class ListScoringFunctionsResponse(BaseModel):
+    """Response containing a list of scoring function objects."""
+
     data: ScoringFunctionListResponse
+    """List of scoring function objects."""

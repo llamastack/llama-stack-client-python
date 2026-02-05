@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from typing import Dict, Iterable
+from typing import Iterable
 
 import httpx
 
@@ -47,7 +47,6 @@ class SafetyResource(SyncAPIResource):
         self,
         *,
         messages: Iterable[safety_run_shield_params.Message],
-        params: Dict[str, object],
         shield_id: str,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -57,11 +56,13 @@ class SafetyResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> RunShieldResponse:
         """
-        Run shield.
-
-        Run a shield.
+        Run a safety shield on messages to check for policy violations.
 
         Args:
+          messages: The messages to run the shield on
+
+          shield_id: The identifier of the shield to run
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -75,7 +76,6 @@ class SafetyResource(SyncAPIResource):
             body=maybe_transform(
                 {
                     "messages": messages,
-                    "params": params,
                     "shield_id": shield_id,
                 },
                 safety_run_shield_params.SafetyRunShieldParams,
@@ -111,7 +111,6 @@ class AsyncSafetyResource(AsyncAPIResource):
         self,
         *,
         messages: Iterable[safety_run_shield_params.Message],
-        params: Dict[str, object],
         shield_id: str,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -121,11 +120,13 @@ class AsyncSafetyResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> RunShieldResponse:
         """
-        Run shield.
-
-        Run a shield.
+        Run a safety shield on messages to check for policy violations.
 
         Args:
+          messages: The messages to run the shield on
+
+          shield_id: The identifier of the shield to run
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -139,7 +140,6 @@ class AsyncSafetyResource(AsyncAPIResource):
             body=await async_maybe_transform(
                 {
                     "messages": messages,
-                    "params": params,
                     "shield_id": shield_id,
                 },
                 safety_run_shield_params.SafetyRunShieldParams,

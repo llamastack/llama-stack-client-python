@@ -60,6 +60,10 @@ class ScoringResource(SyncAPIResource):
         Score a list of rows.
 
         Args:
+          input_rows: The rows to score.
+
+          scoring_functions: The scoring functions to use for the scoring.
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -100,6 +104,12 @@ class ScoringResource(SyncAPIResource):
         Score a batch of rows.
 
         Args:
+          dataset_id: The ID of the dataset to score.
+
+          scoring_functions: The scoring functions to use for the scoring.
+
+          save_results_dataset: Whether to save the results to a dataset.
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -161,6 +171,10 @@ class AsyncScoringResource(AsyncAPIResource):
         Score a list of rows.
 
         Args:
+          input_rows: The rows to score.
+
+          scoring_functions: The scoring functions to use for the scoring.
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -201,6 +215,12 @@ class AsyncScoringResource(AsyncAPIResource):
         Score a batch of rows.
 
         Args:
+          dataset_id: The ID of the dataset to score.
+
+          scoring_functions: The scoring functions to use for the scoring.
+
+          save_results_dataset: Whether to save the results to a dataset.
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request

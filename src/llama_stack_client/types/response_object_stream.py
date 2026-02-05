@@ -269,17 +269,16 @@ class OpenAIResponseObjectStreamResponseOutputItemAddedItemOpenAIResponseMessage
 ):
     """
     The top log probability for a token from an OpenAI-compatible chat completion response.
-
-    :token: The token
-    :bytes: (Optional) The bytes for the token
-    :logprob: The log probability of the token
     """
 
     token: str
+    """The token."""
 
     logprob: float
+    """The log probability of the token."""
 
     bytes: Optional[List[int]] = None
+    """The bytes for the token."""
 
 
 class OpenAIResponseObjectStreamResponseOutputItemAddedItemOpenAIResponseMessageContentListOpenAIResponseOutputMessageContentOutputTextOpenAIResponseContentPartRefusalOpenAIResponseOutputMessageContentOutputTextLogprob(
@@ -287,24 +286,23 @@ class OpenAIResponseObjectStreamResponseOutputItemAddedItemOpenAIResponseMessage
 ):
     """
     The log probability for a token from an OpenAI-compatible chat completion response.
-
-    :token: The token
-    :bytes: (Optional) The bytes for the token
-    :logprob: The log probability of the token
-    :top_logprobs: The top log probabilities for the token
     """
 
     token: str
+    """The token."""
 
     logprob: float
+    """The log probability of the token."""
 
     bytes: Optional[List[int]] = None
+    """The bytes for the token."""
 
     top_logprobs: Optional[
         List[
             OpenAIResponseObjectStreamResponseOutputItemAddedItemOpenAIResponseMessageContentListOpenAIResponseOutputMessageContentOutputTextOpenAIResponseContentPartRefusalOpenAIResponseOutputMessageContentOutputTextLogprobTopLogprob
         ]
     ] = None
+    """The top log probabilities for the token."""
 
 
 class OpenAIResponseObjectStreamResponseOutputItemAddedItemOpenAIResponseMessageContentListOpenAIResponseOutputMessageContentOutputTextOpenAIResponseContentPartRefusalOpenAIResponseOutputMessageContentOutputText(
@@ -640,17 +638,16 @@ class OpenAIResponseObjectStreamResponseOutputItemDoneItemOpenAIResponseMessageC
 ):
     """
     The top log probability for a token from an OpenAI-compatible chat completion response.
-
-    :token: The token
-    :bytes: (Optional) The bytes for the token
-    :logprob: The log probability of the token
     """
 
     token: str
+    """The token."""
 
     logprob: float
+    """The log probability of the token."""
 
     bytes: Optional[List[int]] = None
+    """The bytes for the token."""
 
 
 class OpenAIResponseObjectStreamResponseOutputItemDoneItemOpenAIResponseMessageContentListOpenAIResponseOutputMessageContentOutputTextOpenAIResponseContentPartRefusalOpenAIResponseOutputMessageContentOutputTextLogprob(
@@ -658,24 +655,23 @@ class OpenAIResponseObjectStreamResponseOutputItemDoneItemOpenAIResponseMessageC
 ):
     """
     The log probability for a token from an OpenAI-compatible chat completion response.
-
-    :token: The token
-    :bytes: (Optional) The bytes for the token
-    :logprob: The log probability of the token
-    :top_logprobs: The top log probabilities for the token
     """
 
     token: str
+    """The token."""
 
     logprob: float
+    """The log probability of the token."""
 
     bytes: Optional[List[int]] = None
+    """The bytes for the token."""
 
     top_logprobs: Optional[
         List[
             OpenAIResponseObjectStreamResponseOutputItemDoneItemOpenAIResponseMessageContentListOpenAIResponseOutputMessageContentOutputTextOpenAIResponseContentPartRefusalOpenAIResponseOutputMessageContentOutputTextLogprobTopLogprob
         ]
     ] = None
+    """The top log probabilities for the token."""
 
 
 class OpenAIResponseObjectStreamResponseOutputItemDoneItemOpenAIResponseMessageContentListOpenAIResponseOutputMessageContentOutputTextOpenAIResponseContentPartRefusalOpenAIResponseOutputMessageContentOutputText(
@@ -892,36 +888,34 @@ class OpenAIResponseObjectStreamResponseOutputItemDone(BaseModel):
 class OpenAIResponseObjectStreamResponseOutputTextDeltaLogprobTopLogprob(BaseModel):
     """
     The top log probability for a token from an OpenAI-compatible chat completion response.
-
-    :token: The token
-    :bytes: (Optional) The bytes for the token
-    :logprob: The log probability of the token
     """
 
     token: str
+    """The token."""
 
     logprob: float
+    """The log probability of the token."""
 
     bytes: Optional[List[int]] = None
+    """The bytes for the token."""
 
 
 class OpenAIResponseObjectStreamResponseOutputTextDeltaLogprob(BaseModel):
     """
     The log probability for a token from an OpenAI-compatible chat completion response.
-
-    :token: The token
-    :bytes: (Optional) The bytes for the token
-    :logprob: The log probability of the token
-    :top_logprobs: The top log probabilities for the token
     """
 
     token: str
+    """The token."""
 
     logprob: float
+    """The log probability of the token."""
 
     bytes: Optional[List[int]] = None
+    """The bytes for the token."""
 
     top_logprobs: Optional[List[OpenAIResponseObjectStreamResponseOutputTextDeltaLogprobTopLogprob]] = None
+    """The top log probabilities for the token."""
 
 
 class OpenAIResponseObjectStreamResponseOutputTextDelta(BaseModel):
@@ -1162,38 +1156,36 @@ class OpenAIResponseObjectStreamResponseContentPartAddedPartOpenAIResponseConten
 ):
     """
     The top log probability for a token from an OpenAI-compatible chat completion response.
-
-    :token: The token
-    :bytes: (Optional) The bytes for the token
-    :logprob: The log probability of the token
     """
 
     token: str
+    """The token."""
 
     logprob: float
+    """The log probability of the token."""
 
     bytes: Optional[List[int]] = None
+    """The bytes for the token."""
 
 
 class OpenAIResponseObjectStreamResponseContentPartAddedPartOpenAIResponseContentPartOutputTextLogprob(BaseModel):
     """
     The log probability for a token from an OpenAI-compatible chat completion response.
-
-    :token: The token
-    :bytes: (Optional) The bytes for the token
-    :logprob: The log probability of the token
-    :top_logprobs: The top log probabilities for the token
     """
 
     token: str
+    """The token."""
 
     logprob: float
+    """The log probability of the token."""
 
     bytes: Optional[List[int]] = None
+    """The bytes for the token."""
 
     top_logprobs: Optional[
         List[OpenAIResponseObjectStreamResponseContentPartAddedPartOpenAIResponseContentPartOutputTextLogprobTopLogprob]
     ] = None
+    """The top log probabilities for the token."""
 
 
 class OpenAIResponseObjectStreamResponseContentPartAddedPartOpenAIResponseContentPartOutputText(BaseModel):
@@ -1329,38 +1321,36 @@ class OpenAIResponseObjectStreamResponseContentPartDonePartOpenAIResponseContent
 ):
     """
     The top log probability for a token from an OpenAI-compatible chat completion response.
-
-    :token: The token
-    :bytes: (Optional) The bytes for the token
-    :logprob: The log probability of the token
     """
 
     token: str
+    """The token."""
 
     logprob: float
+    """The log probability of the token."""
 
     bytes: Optional[List[int]] = None
+    """The bytes for the token."""
 
 
 class OpenAIResponseObjectStreamResponseContentPartDonePartOpenAIResponseContentPartOutputTextLogprob(BaseModel):
     """
     The log probability for a token from an OpenAI-compatible chat completion response.
-
-    :token: The token
-    :bytes: (Optional) The bytes for the token
-    :logprob: The log probability of the token
-    :top_logprobs: The top log probabilities for the token
     """
 
     token: str
+    """The token."""
 
     logprob: float
+    """The log probability of the token."""
 
     bytes: Optional[List[int]] = None
+    """The bytes for the token."""
 
     top_logprobs: Optional[
         List[OpenAIResponseObjectStreamResponseContentPartDonePartOpenAIResponseContentPartOutputTextLogprobTopLogprob]
     ] = None
+    """The top log probabilities for the token."""
 
 
 class OpenAIResponseObjectStreamResponseContentPartDonePartOpenAIResponseContentPartOutputText(BaseModel):

@@ -61,6 +61,8 @@ class ScoringFunctionsResource(SyncAPIResource):
         Get a scoring function by its ID.
 
         Args:
+          scoring_fn_id: The ID of the scoring function to get.
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -123,7 +125,16 @@ class ScoringFunctionsResource(SyncAPIResource):
         Register a scoring function.
 
         Args:
-          params: Parameters for LLM-as-judge scoring function configuration.
+          description: The description of the scoring function.
+
+          scoring_fn_id: The ID of the scoring function to register.
+
+          params: The parameters for the scoring function for benchmark eval, these can be
+              overridden for app eval.
+
+          provider_id: The ID of the provider to use for the scoring function.
+
+          provider_scoring_fn_id: The ID of the provider scoring function to use for the scoring function.
 
           extra_headers: Send extra headers
 
@@ -169,6 +180,8 @@ class ScoringFunctionsResource(SyncAPIResource):
         Unregister a scoring function.
 
         Args:
+          scoring_fn_id: The ID of the scoring function to unregister.
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -224,6 +237,8 @@ class AsyncScoringFunctionsResource(AsyncAPIResource):
         Get a scoring function by its ID.
 
         Args:
+          scoring_fn_id: The ID of the scoring function to get.
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -286,7 +301,16 @@ class AsyncScoringFunctionsResource(AsyncAPIResource):
         Register a scoring function.
 
         Args:
-          params: Parameters for LLM-as-judge scoring function configuration.
+          description: The description of the scoring function.
+
+          scoring_fn_id: The ID of the scoring function to register.
+
+          params: The parameters for the scoring function for benchmark eval, these can be
+              overridden for app eval.
+
+          provider_id: The ID of the provider to use for the scoring function.
+
+          provider_scoring_fn_id: The ID of the provider scoring function to use for the scoring function.
 
           extra_headers: Send extra headers
 
@@ -332,6 +356,8 @@ class AsyncScoringFunctionsResource(AsyncAPIResource):
         Unregister a scoring function.
 
         Args:
+          scoring_fn_id: The ID of the scoring function to unregister.
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request

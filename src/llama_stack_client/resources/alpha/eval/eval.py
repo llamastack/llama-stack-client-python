@@ -80,7 +80,13 @@ class EvalResource(SyncAPIResource):
         Evaluate a list of rows on a benchmark.
 
         Args:
-          benchmark_config: A benchmark configuration for evaluation.
+          benchmark_id: The ID of the benchmark
+
+          benchmark_config: The configuration for the benchmark
+
+          input_rows: The rows to evaluate
+
+          scoring_functions: The scoring functions to use for the evaluation
 
           extra_headers: Send extra headers
 
@@ -126,7 +132,13 @@ class EvalResource(SyncAPIResource):
         Evaluate a list of rows on a benchmark.
 
         Args:
-          benchmark_config: A benchmark configuration for evaluation.
+          benchmark_id: The ID of the benchmark
+
+          benchmark_config: The configuration for the benchmark
+
+          input_rows: The rows to evaluate
+
+          scoring_functions: The scoring functions to use for the evaluation
 
           extra_headers: Send extra headers
 
@@ -170,7 +182,9 @@ class EvalResource(SyncAPIResource):
         Run an evaluation on a benchmark.
 
         Args:
-          benchmark_config: A benchmark configuration for evaluation.
+          benchmark_id: The ID of the benchmark
+
+          benchmark_config: The configuration for the benchmark
 
           extra_headers: Send extra headers
 
@@ -207,7 +221,9 @@ class EvalResource(SyncAPIResource):
         Run an evaluation on a benchmark.
 
         Args:
-          benchmark_config: A benchmark configuration for evaluation.
+          benchmark_id: The ID of the benchmark
+
+          benchmark_config: The configuration for the benchmark
 
           extra_headers: Send extra headers
 
@@ -273,7 +289,13 @@ class AsyncEvalResource(AsyncAPIResource):
         Evaluate a list of rows on a benchmark.
 
         Args:
-          benchmark_config: A benchmark configuration for evaluation.
+          benchmark_id: The ID of the benchmark
+
+          benchmark_config: The configuration for the benchmark
+
+          input_rows: The rows to evaluate
+
+          scoring_functions: The scoring functions to use for the evaluation
 
           extra_headers: Send extra headers
 
@@ -319,7 +341,13 @@ class AsyncEvalResource(AsyncAPIResource):
         Evaluate a list of rows on a benchmark.
 
         Args:
-          benchmark_config: A benchmark configuration for evaluation.
+          benchmark_id: The ID of the benchmark
+
+          benchmark_config: The configuration for the benchmark
+
+          input_rows: The rows to evaluate
+
+          scoring_functions: The scoring functions to use for the evaluation
 
           extra_headers: Send extra headers
 
@@ -363,7 +391,9 @@ class AsyncEvalResource(AsyncAPIResource):
         Run an evaluation on a benchmark.
 
         Args:
-          benchmark_config: A benchmark configuration for evaluation.
+          benchmark_id: The ID of the benchmark
+
+          benchmark_config: The configuration for the benchmark
 
           extra_headers: Send extra headers
 
@@ -402,7 +432,9 @@ class AsyncEvalResource(AsyncAPIResource):
         Run an evaluation on a benchmark.
 
         Args:
-          benchmark_config: A benchmark configuration for evaluation.
+          benchmark_id: The ID of the benchmark
+
+          benchmark_config: The configuration for the benchmark
 
           extra_headers: Send extra headers
 

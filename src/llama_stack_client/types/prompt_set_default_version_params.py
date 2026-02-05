@@ -9,3 +9,4 @@ __all__ = ["PromptSetDefaultVersionParams"]
 
 class PromptSetDefaultVersionParams(TypedDict, total=False):
     version: Required[int]
+    """The version to set as default."""

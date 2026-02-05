@@ -10,5 +10,7 @@ __all__ = ["FileUpdateParams"]
 
 class FileUpdateParams(TypedDict, total=False):
     vector_store_id: Required[str]
+    """The vector store identifier."""
 
     attributes: Required[Dict[str, object]]
+    """The new attributes for the file."""

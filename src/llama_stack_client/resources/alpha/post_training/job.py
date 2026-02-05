@@ -7,7 +7,6 @@ from typing import Type, cast
 import httpx
 
 from ...._types import Body, Query, Headers, NoneType, NotGiven, not_given
-from ...._utils import maybe_transform, async_maybe_transform
 from ...._compat import cached_property
 from ...._resource import SyncAPIResource, AsyncAPIResource
 from ...._response import (
@@ -18,7 +17,6 @@ from ...._response import (
 )
 from ...._wrappers import DataWrapper
 from ...._base_client import make_request_options
-from ....types.alpha.post_training import job_cancel_params, job_status_params, job_artifacts_params
 from ....types.alpha.post_training.job_list_response import JobListResponse
 from ....types.alpha.post_training.job_status_response import JobStatusResponse
 from ....types.alpha.post_training.job_artifacts_response import JobArtifactsResponse
@@ -72,7 +70,6 @@ class JobResource(SyncAPIResource):
     def artifacts(
         self,
         *,
-        job_uuid: str,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -80,26 +77,11 @@ class JobResource(SyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> JobArtifactsResponse:
-        """
-        Get the artifacts of a training job.
-
-        Args:
-          extra_headers: Send extra headers
-
-          extra_query: Add additional query parameters to the request
-
-          extra_body: Add additional JSON properties to the request
-
-          timeout: Override the client-level default timeout for this request, in seconds
-        """
+        """Get the artifacts of a training job."""
         return self._get(
             "/v1alpha/post-training/job/artifacts",
             options=make_request_options(
-                extra_headers=extra_headers,
-                extra_query=extra_query,
-                extra_body=extra_body,
-                timeout=timeout,
-                query=maybe_transform({"job_uuid": job_uuid}, job_artifacts_params.JobArtifactsParams),
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
             cast_to=JobArtifactsResponse,
         )
@@ -107,7 +89,6 @@ class JobResource(SyncAPIResource):
     def cancel(
         self,
         *,
-        job_uuid: str,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -115,22 +96,10 @@ class JobResource(SyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> None:
-        """
-        Cancel a training job.
-
-        Args:
-          extra_headers: Send extra headers
-
-          extra_query: Add additional query parameters to the request
-
-          extra_body: Add additional JSON properties to the request
-
-          timeout: Override the client-level default timeout for this request, in seconds
-        """
+        """Cancel a training job."""
         extra_headers = {"Accept": "*/*", **(extra_headers or {})}
         return self._post(
             "/v1alpha/post-training/job/cancel",
-            body=maybe_transform({"job_uuid": job_uuid}, job_cancel_params.JobCancelParams),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -140,7 +109,6 @@ class JobResource(SyncAPIResource):
     def status(
         self,
         *,
-        job_uuid: str,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -148,26 +116,11 @@ class JobResource(SyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> JobStatusResponse:
-        """
-        Get the status of a training job.
-
-        Args:
-          extra_headers: Send extra headers
-
-          extra_query: Add additional query parameters to the request
-
-          extra_body: Add additional JSON properties to the request
-
-          timeout: Override the client-level default timeout for this request, in seconds
-        """
+        """Get the status of a training job."""
         return self._get(
             "/v1alpha/post-training/job/status",
             options=make_request_options(
-                extra_headers=extra_headers,
-                extra_query=extra_query,
-                extra_body=extra_body,
-                timeout=timeout,
-                query=maybe_transform({"job_uuid": job_uuid}, job_status_params.JobStatusParams),
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
             cast_to=JobStatusResponse,
         )
@@ -219,7 +172,6 @@ class AsyncJobResource(AsyncAPIResource):
     async def artifacts(
         self,
         *,
-        job_uuid: str,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -227,26 +179,11 @@ class AsyncJobResource(AsyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> JobArtifactsResponse:
-        """
-        Get the artifacts of a training job.
-
-        Args:
-          extra_headers: Send extra headers
-
-          extra_query: Add additional query parameters to the request
-
-          extra_body: Add additional JSON properties to the request
-
-          timeout: Override the client-level default timeout for this request, in seconds
-        """
+        """Get the artifacts of a training job."""
         return await self._get(
             "/v1alpha/post-training/job/artifacts",
             options=make_request_options(
-                extra_headers=extra_headers,
-                extra_query=extra_query,
-                extra_body=extra_body,
-                timeout=timeout,
-                query=await async_maybe_transform({"job_uuid": job_uuid}, job_artifacts_params.JobArtifactsParams),
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
             cast_to=JobArtifactsResponse,
         )
@@ -254,7 +191,6 @@ class AsyncJobResource(AsyncAPIResource):
     async def cancel(
         self,
         *,
-        job_uuid: str,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -262,22 +198,10 @@ class AsyncJobResource(AsyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> None:
-        """
-        Cancel a training job.
-
-        Args:
-          extra_headers: Send extra headers
-
-          extra_query: Add additional query parameters to the request
-
-          extra_body: Add additional JSON properties to the request
-
-          timeout: Override the client-level default timeout for this request, in seconds
-        """
+        """Cancel a training job."""
         extra_headers = {"Accept": "*/*", **(extra_headers or {})}
         return await self._post(
             "/v1alpha/post-training/job/cancel",
-            body=await async_maybe_transform({"job_uuid": job_uuid}, job_cancel_params.JobCancelParams),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -287,7 +211,6 @@ class AsyncJobResource(AsyncAPIResource):
     async def status(
         self,
         *,
-        job_uuid: str,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -295,26 +218,11 @@ class AsyncJobResource(AsyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> JobStatusResponse:
-        """
-        Get the status of a training job.
-
-        Args:
-          extra_headers: Send extra headers
-
-          extra_query: Add additional query parameters to the request
-
-          extra_body: Add additional JSON properties to the request
-
-          timeout: Override the client-level default timeout for this request, in seconds
-        """
+        """Get the status of a training job."""
         return await self._get(
             "/v1alpha/post-training/job/status",
             options=make_request_options(
-                extra_headers=extra_headers,
-                extra_query=extra_query,
-                extra_body=extra_body,
-                timeout=timeout,
-                query=await async_maybe_transform({"job_uuid": job_uuid}, job_status_params.JobStatusParams),
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
             cast_to=JobStatusResponse,
         )

@@ -7,4 +7,7 @@ __all__ = ["ListModelsResponse"]
 
 
 class ListModelsResponse(BaseModel):
+    """Response containing a list of OpenAI model objects."""
+
     data: ModelListResponse
+    """List of OpenAI model objects."""

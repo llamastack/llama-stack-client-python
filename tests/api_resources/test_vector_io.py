@@ -23,7 +23,11 @@ class TestVectorIo:
             chunks=[
                 {
                     "chunk_id": "chunk_id",
+                    "chunk_metadata": {},
                     "content": "string",
+                    "embedding": [0],
+                    "embedding_dimension": 0,
+                    "embedding_model": "embedding_model",
                 }
             ],
             vector_store_id="vector_store_id",
@@ -36,10 +40,7 @@ class TestVectorIo:
             chunks=[
                 {
                     "chunk_id": "chunk_id",
-                    "content": "string",
                     "chunk_metadata": {
-                        "chunk_embedding_dimension": 0,
-                        "chunk_embedding_model": "chunk_embedding_model",
                         "chunk_id": "chunk_id",
                         "chunk_tokenizer": "chunk_tokenizer",
                         "chunk_window": "chunk_window",
@@ -50,7 +51,10 @@ class TestVectorIo:
                         "source": "source",
                         "updated_timestamp": 0,
                     },
+                    "content": "string",
                     "embedding": [0],
+                    "embedding_dimension": 0,
+                    "embedding_model": "embedding_model",
                     "metadata": {"foo": "bar"},
                 }
             ],
@@ -65,7 +69,11 @@ class TestVectorIo:
             chunks=[
                 {
                     "chunk_id": "chunk_id",
+                    "chunk_metadata": {},
                     "content": "string",
+                    "embedding": [0],
+                    "embedding_dimension": 0,
+                    "embedding_model": "embedding_model",
                 }
             ],
             vector_store_id="vector_store_id",
@@ -82,7 +90,11 @@ class TestVectorIo:
             chunks=[
                 {
                     "chunk_id": "chunk_id",
+                    "chunk_metadata": {},
                     "content": "string",
+                    "embedding": [0],
+                    "embedding_dimension": 0,
+                    "embedding_model": "embedding_model",
                 }
             ],
             vector_store_id="vector_store_id",
@@ -150,7 +162,11 @@ class TestAsyncVectorIo:
             chunks=[
                 {
                     "chunk_id": "chunk_id",
+                    "chunk_metadata": {},
                     "content": "string",
+                    "embedding": [0],
+                    "embedding_dimension": 0,
+                    "embedding_model": "embedding_model",
                 }
             ],
             vector_store_id="vector_store_id",
@@ -163,10 +179,7 @@ class TestAsyncVectorIo:
             chunks=[
                 {
                     "chunk_id": "chunk_id",
-                    "content": "string",
                     "chunk_metadata": {
-                        "chunk_embedding_dimension": 0,
-                        "chunk_embedding_model": "chunk_embedding_model",
                         "chunk_id": "chunk_id",
                         "chunk_tokenizer": "chunk_tokenizer",
                         "chunk_window": "chunk_window",
@@ -177,7 +190,10 @@ class TestAsyncVectorIo:
                         "source": "source",
                         "updated_timestamp": 0,
                     },
+                    "content": "string",
                     "embedding": [0],
+                    "embedding_dimension": 0,
+                    "embedding_model": "embedding_model",
                     "metadata": {"foo": "bar"},
                 }
             ],
@@ -192,7 +208,11 @@ class TestAsyncVectorIo:
             chunks=[
                 {
                     "chunk_id": "chunk_id",
+                    "chunk_metadata": {},
                     "content": "string",
+                    "embedding": [0],
+                    "embedding_dimension": 0,
+                    "embedding_model": "embedding_model",
                 }
             ],
             vector_store_id="vector_store_id",
@@ -209,7 +229,11 @@ class TestAsyncVectorIo:
             chunks=[
                 {
                     "chunk_id": "chunk_id",
+                    "chunk_metadata": {},
                     "content": "string",
+                    "embedding": [0],
+                    "embedding_dimension": 0,
+                    "embedding_model": "embedding_model",
                 }
             ],
             vector_store_id="vector_store_id",

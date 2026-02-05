@@ -12,3 +12,4 @@ class ScoringScoreResponse(BaseModel):
     """The response from scoring."""
 
     results: Dict[str, ScoringResult]
+    """A map of scoring function name to ScoringResult."""

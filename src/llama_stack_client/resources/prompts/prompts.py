@@ -75,11 +75,13 @@ class PromptsResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> Prompt:
         """
-        Create prompt.
-
         Create a new prompt.
 
         Args:
+          prompt: The prompt text content with variable placeholders.
+
+          variables: List of variable names that can be used in the prompt template.
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -116,11 +118,13 @@ class PromptsResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> Prompt:
         """
-        Get prompt.
-
         Get a prompt by its identifier and optional version.
 
         Args:
+          prompt_id: The identifier of the prompt to get.
+
+          version: The version of the prompt to get (defaults to latest).
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -159,11 +163,19 @@ class PromptsResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> Prompt:
         """
-        Update prompt.
-
         Update an existing prompt (increments version).
 
         Args:
+          prompt_id: The identifier of the prompt to update.
+
+          prompt: The updated prompt text content.
+
+          version: The current version of the prompt being updated.
+
+          set_as_default: Set the new version as the default (default=True).
+
+          variables: Updated list of variable names that can be used in the prompt template.
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -174,7 +186,7 @@ class PromptsResource(SyncAPIResource):
         """
         if not prompt_id:
             raise ValueError(f"Expected a non-empty value for `prompt_id` but received {prompt_id!r}")
-        return self._post(
+        return self._put(
             f"/v1/prompts/{prompt_id}",
             body=maybe_transform(
                 {
@@ -226,11 +238,11 @@ class PromptsResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> None:
         """
-        Delete prompt.
-
         Delete a prompt.
 
         Args:
+          prompt_id: The identifier of the prompt to delete.
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -263,11 +275,13 @@ class PromptsResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> Prompt:
         """
-        Set prompt version.
-
         Set which version of a prompt should be the default in get_prompt (latest).
 
         Args:
+          prompt_id: The identifier of the prompt.
+
+          version: The version to set as default.
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -278,7 +292,7 @@ class PromptsResource(SyncAPIResource):
         """
         if not prompt_id:
             raise ValueError(f"Expected a non-empty value for `prompt_id` but received {prompt_id!r}")
-        return self._post(
+        return self._put(
             f"/v1/prompts/{prompt_id}/set-default-version",
             body=maybe_transform({"version": version}, prompt_set_default_version_params.PromptSetDefaultVersionParams),
             options=make_request_options(
@@ -325,11 +339,13 @@ class AsyncPromptsResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> Prompt:
         """
-        Create prompt.
-
         Create a new prompt.
 
         Args:
+          prompt: The prompt text content with variable placeholders.
+
+          variables: List of variable names that can be used in the prompt template.
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -366,11 +382,13 @@ class AsyncPromptsResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> Prompt:
         """
-        Get prompt.
-
         Get a prompt by its identifier and optional version.
 
         Args:
+          prompt_id: The identifier of the prompt to get.
+
+          version: The version of the prompt to get (defaults to latest).
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -409,11 +427,19 @@ class AsyncPromptsResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> Prompt:
         """
-        Update prompt.
-
         Update an existing prompt (increments version).
 
         Args:
+          prompt_id: The identifier of the prompt to update.
+
+          prompt: The updated prompt text content.
+
+          version: The current version of the prompt being updated.
+
+          set_as_default: Set the new version as the default (default=True).
+
+          variables: Updated list of variable names that can be used in the prompt template.
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -424,7 +450,7 @@ class AsyncPromptsResource(AsyncAPIResource):
         """
         if not prompt_id:
             raise ValueError(f"Expected a non-empty value for `prompt_id` but received {prompt_id!r}")
-        return await self._post(
+        return await self._put(
             f"/v1/prompts/{prompt_id}",
             body=await async_maybe_transform(
                 {
@@ -476,11 +502,11 @@ class AsyncPromptsResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> None:
         """
-        Delete prompt.
-
         Delete a prompt.
 
         Args:
+          prompt_id: The identifier of the prompt to delete.
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -513,11 +539,13 @@ class AsyncPromptsResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> Prompt:
         """
-        Set prompt version.
-
         Set which version of a prompt should be the default in get_prompt (latest).
 
         Args:
+          prompt_id: The identifier of the prompt.
+
+          version: The version to set as default.
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -528,7 +556,7 @@ class AsyncPromptsResource(AsyncAPIResource):
         """
         if not prompt_id:
             raise ValueError(f"Expected a non-empty value for `prompt_id` but received {prompt_id!r}")
-        return await self._post(
+        return await self._put(
             f"/v1/prompts/{prompt_id}/set-default-version",
             body=await async_maybe_transform(
                 {"version": version}, prompt_set_default_version_params.PromptSetDefaultVersionParams

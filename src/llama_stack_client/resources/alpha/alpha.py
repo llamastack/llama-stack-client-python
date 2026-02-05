@@ -50,10 +50,6 @@ __all__ = ["AlphaResource", "AsyncAlphaResource"]
 
 class AlphaResource(SyncAPIResource):
     @cached_property
-    def inference(self) -> InferenceResource:
-        return InferenceResource(self._client)
-
-    @cached_property
     def post_training(self) -> PostTrainingResource:
         return PostTrainingResource(self._client)
 
@@ -68,6 +64,10 @@ class AlphaResource(SyncAPIResource):
     @cached_property
     def admin(self) -> AdminResource:
         return AdminResource(self._client)
+
+    @cached_property
+    def inference(self) -> InferenceResource:
+        return InferenceResource(self._client)
 
     @cached_property
     def with_raw_response(self) -> AlphaResourceWithRawResponse:
@@ -91,10 +91,6 @@ class AlphaResource(SyncAPIResource):
 
 class AsyncAlphaResource(AsyncAPIResource):
     @cached_property
-    def inference(self) -> AsyncInferenceResource:
-        return AsyncInferenceResource(self._client)
-
-    @cached_property
     def post_training(self) -> AsyncPostTrainingResource:
         return AsyncPostTrainingResource(self._client)
 
@@ -109,6 +105,10 @@ class AsyncAlphaResource(AsyncAPIResource):
     @cached_property
     def admin(self) -> AsyncAdminResource:
         return AsyncAdminResource(self._client)
+
+    @cached_property
+    def inference(self) -> AsyncInferenceResource:
+        return AsyncInferenceResource(self._client)
 
     @cached_property
     def with_raw_response(self) -> AsyncAlphaResourceWithRawResponse:
@@ -135,10 +135,6 @@ class AlphaResourceWithRawResponse:
         self._alpha = alpha
 
     @cached_property
-    def inference(self) -> InferenceResourceWithRawResponse:
-        return InferenceResourceWithRawResponse(self._alpha.inference)
-
-    @cached_property
     def post_training(self) -> PostTrainingResourceWithRawResponse:
         return PostTrainingResourceWithRawResponse(self._alpha.post_training)
 
@@ -154,14 +150,14 @@ class AlphaResourceWithRawResponse:
     def admin(self) -> AdminResourceWithRawResponse:
         return AdminResourceWithRawResponse(self._alpha.admin)
 
+    @cached_property
+    def inference(self) -> InferenceResourceWithRawResponse:
+        return InferenceResourceWithRawResponse(self._alpha.inference)
+
 
 class AsyncAlphaResourceWithRawResponse:
     def __init__(self, alpha: AsyncAlphaResource) -> None:
         self._alpha = alpha
-
-    @cached_property
-    def inference(self) -> AsyncInferenceResourceWithRawResponse:
-        return AsyncInferenceResourceWithRawResponse(self._alpha.inference)
 
     @cached_property
     def post_training(self) -> AsyncPostTrainingResourceWithRawResponse:
@@ -179,14 +175,14 @@ class AsyncAlphaResourceWithRawResponse:
     def admin(self) -> AsyncAdminResourceWithRawResponse:
         return AsyncAdminResourceWithRawResponse(self._alpha.admin)
 
+    @cached_property
+    def inference(self) -> AsyncInferenceResourceWithRawResponse:
+        return AsyncInferenceResourceWithRawResponse(self._alpha.inference)
+
 
 class AlphaResourceWithStreamingResponse:
     def __init__(self, alpha: AlphaResource) -> None:
         self._alpha = alpha
-
-    @cached_property
-    def inference(self) -> InferenceResourceWithStreamingResponse:
-        return InferenceResourceWithStreamingResponse(self._alpha.inference)
 
     @cached_property
     def post_training(self) -> PostTrainingResourceWithStreamingResponse:
@@ -204,14 +200,14 @@ class AlphaResourceWithStreamingResponse:
     def admin(self) -> AdminResourceWithStreamingResponse:
         return AdminResourceWithStreamingResponse(self._alpha.admin)
 
+    @cached_property
+    def inference(self) -> InferenceResourceWithStreamingResponse:
+        return InferenceResourceWithStreamingResponse(self._alpha.inference)
+
 
 class AsyncAlphaResourceWithStreamingResponse:
     def __init__(self, alpha: AsyncAlphaResource) -> None:
         self._alpha = alpha
-
-    @cached_property
-    def inference(self) -> AsyncInferenceResourceWithStreamingResponse:
-        return AsyncInferenceResourceWithStreamingResponse(self._alpha.inference)
 
     @cached_property
     def post_training(self) -> AsyncPostTrainingResourceWithStreamingResponse:
@@ -228,3 +224,7 @@ class AsyncAlphaResourceWithStreamingResponse:
     @cached_property
     def admin(self) -> AsyncAdminResourceWithStreamingResponse:
         return AsyncAdminResourceWithStreamingResponse(self._alpha.admin)
+
+    @cached_property
+    def inference(self) -> AsyncInferenceResourceWithStreamingResponse:
+        return AsyncInferenceResourceWithStreamingResponse(self._alpha.inference)
