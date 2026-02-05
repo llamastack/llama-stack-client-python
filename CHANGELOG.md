@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.5.0-alpha.2 (2026-02-05)
+
+Full Changelog: [v0.5.0-alpha.1...v0.5.0-alpha.2](https://github.com/llamastack/llama-stack-client-python/compare/v0.5.0-alpha.1...v0.5.0-alpha.2)
+
+### Features
+
+* Adds support for the `safety_identifier` parameter ([f20696b](https://github.com/llamastack/llama-stack-client-python/commit/f20696b6c1855c40e191980812ba3fd70b1f3577))
+
 ## 0.5.0-alpha.1 (2026-02-04)
 
 Full Changelog: [v0.4.0-alpha.15...v0.5.0-alpha.1](https://github.com/llamastack/llama-stack-client-python/compare/v0.4.0-alpha.15...v0.5.0-alpha.1)
