@@ -51,12 +51,13 @@ def list_models(ctx):
         table.add_column("provider_id", style="green", max_width=20)
 
         for item in response:
+            cm = item.custom_metadata or {}
             table.add_row(
-                item.model_type,
-                item.identifier,
-                item.provider_resource_id,
-                str(item.metadata or ""),
-                item.provider_id,
+                str(cm.get("model_type", "")),
+                item.id,
+                str(cm.get("provider_resource_id", "")),
+                str(cm.get("metadata", "")),
+                str(cm.get("provider_id", "")),
             )
 
         # Create a title for the table
