@@ -8,22 +8,39 @@
 
 from __future__ import annotations
 
-from typing import Optional
+from typing import List, Optional
 from typing_extensions import Literal, TypedDict
-
-from ..._types import SequenceNotStr
 
 __all__ = ["InputItemListParams"]
 
 
 class InputItemListParams(TypedDict, total=False):
     after: Optional[str]
+    """An item ID to list items after, used for pagination."""
 
     before: Optional[str]
+    """An item ID to list items before, used for pagination."""
 
-    include: Optional[SequenceNotStr[str]]
+    include: Optional[
+        List[
+            Literal[
+                "web_search_call.action.sources",
+                "code_interpreter_call.outputs",
+                "computer_call_output.output.image_url",
+                "file_search_call.results",
+                "message.input_image.image_url",
+                "message.output_text.logprobs",
+                "reasoning.encrypted_content",
+            ]
+        ]
+    ]
+    """Additional fields to include in the response."""
 
     limit: Optional[int]
+    """A limit on the number of objects to be returned.
+
+    Limit can range between 1 and 100, and the default is 20.
+    """
 
     order: Optional[Literal["asc", "desc"]]
     """Sort order for paginated responses."""

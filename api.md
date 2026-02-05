@@ -103,10 +103,10 @@ Methods:
 
 - <code title="post /v1/prompts">client.prompts.<a href="./src/llama_stack_client/resources/prompts/prompts.py">create</a>(\*\*<a href="src/llama_stack_client/types/prompt_create_params.py">params</a>) -> <a href="./src/llama_stack_client/types/prompt.py">Prompt</a></code>
 - <code title="get /v1/prompts/{prompt_id}">client.prompts.<a href="./src/llama_stack_client/resources/prompts/prompts.py">retrieve</a>(prompt_id, \*\*<a href="src/llama_stack_client/types/prompt_retrieve_params.py">params</a>) -> <a href="./src/llama_stack_client/types/prompt.py">Prompt</a></code>
-- <code title="post /v1/prompts/{prompt_id}">client.prompts.<a href="./src/llama_stack_client/resources/prompts/prompts.py">update</a>(prompt_id, \*\*<a href="src/llama_stack_client/types/prompt_update_params.py">params</a>) -> <a href="./src/llama_stack_client/types/prompt.py">Prompt</a></code>
+- <code title="put /v1/prompts/{prompt_id}">client.prompts.<a href="./src/llama_stack_client/resources/prompts/prompts.py">update</a>(prompt_id, \*\*<a href="src/llama_stack_client/types/prompt_update_params.py">params</a>) -> <a href="./src/llama_stack_client/types/prompt.py">Prompt</a></code>
 - <code title="get /v1/prompts">client.prompts.<a href="./src/llama_stack_client/resources/prompts/prompts.py">list</a>() -> <a href="./src/llama_stack_client/types/prompt_list_response.py">PromptListResponse</a></code>
 - <code title="delete /v1/prompts/{prompt_id}">client.prompts.<a href="./src/llama_stack_client/resources/prompts/prompts.py">delete</a>(prompt_id) -> None</code>
-- <code title="post /v1/prompts/{prompt_id}/set-default-version">client.prompts.<a href="./src/llama_stack_client/resources/prompts/prompts.py">set_default_version</a>(prompt_id, \*\*<a href="src/llama_stack_client/types/prompt_set_default_version_params.py">params</a>) -> <a href="./src/llama_stack_client/types/prompt.py">Prompt</a></code>
+- <code title="put /v1/prompts/{prompt_id}/set-default-version">client.prompts.<a href="./src/llama_stack_client/resources/prompts/prompts.py">set_default_version</a>(prompt_id, \*\*<a href="src/llama_stack_client/types/prompt_set_default_version_params.py">params</a>) -> <a href="./src/llama_stack_client/types/prompt.py">Prompt</a></code>
 
 ## Versions
 
@@ -442,18 +442,6 @@ Methods:
 
 # Alpha
 
-## Inference
-
-Types:
-
-```python
-from llama_stack_client.types.alpha import InferenceRerankResponse
-```
-
-Methods:
-
-- <code title="post /v1alpha/inference/rerank">client.alpha.inference.<a href="./src/llama_stack_client/resources/alpha/inference.py">rerank</a>(\*\*<a href="src/llama_stack_client/types/alpha/inference_rerank_params.py">params</a>) -> <a href="./src/llama_stack_client/types/alpha/inference_rerank_response.py">InferenceRerankResponse</a></code>
-
 ## PostTraining
 
 Types:
@@ -486,9 +474,9 @@ from llama_stack_client.types.alpha.post_training import (
 Methods:
 
 - <code title="get /v1alpha/post-training/jobs">client.alpha.post_training.job.<a href="./src/llama_stack_client/resources/alpha/post_training/job.py">list</a>() -> <a href="./src/llama_stack_client/types/alpha/post_training/job_list_response.py">JobListResponse</a></code>
-- <code title="get /v1alpha/post-training/job/artifacts">client.alpha.post_training.job.<a href="./src/llama_stack_client/resources/alpha/post_training/job.py">artifacts</a>(\*\*<a href="src/llama_stack_client/types/alpha/post_training/job_artifacts_params.py">params</a>) -> <a href="./src/llama_stack_client/types/alpha/post_training/job_artifacts_response.py">JobArtifactsResponse</a></code>
-- <code title="post /v1alpha/post-training/job/cancel">client.alpha.post_training.job.<a href="./src/llama_stack_client/resources/alpha/post_training/job.py">cancel</a>(\*\*<a href="src/llama_stack_client/types/alpha/post_training/job_cancel_params.py">params</a>) -> None</code>
-- <code title="get /v1alpha/post-training/job/status">client.alpha.post_training.job.<a href="./src/llama_stack_client/resources/alpha/post_training/job.py">status</a>(\*\*<a href="src/llama_stack_client/types/alpha/post_training/job_status_params.py">params</a>) -> <a href="./src/llama_stack_client/types/alpha/post_training/job_status_response.py">JobStatusResponse</a></code>
+- <code title="get /v1alpha/post-training/job/artifacts">client.alpha.post_training.job.<a href="./src/llama_stack_client/resources/alpha/post_training/job.py">artifacts</a>() -> <a href="./src/llama_stack_client/types/alpha/post_training/job_artifacts_response.py">JobArtifactsResponse</a></code>
+- <code title="post /v1alpha/post-training/job/cancel">client.alpha.post_training.job.<a href="./src/llama_stack_client/resources/alpha/post_training/job.py">cancel</a>() -> None</code>
+- <code title="get /v1alpha/post-training/job/status">client.alpha.post_training.job.<a href="./src/llama_stack_client/resources/alpha/post_training/job.py">status</a>() -> <a href="./src/llama_stack_client/types/alpha/post_training/job_status_response.py">JobStatusResponse</a></code>
 
 ## Benchmarks
 
@@ -538,6 +526,18 @@ Methods:
 - <code title="get /v1alpha/admin/inspect/routes">client.alpha.admin.<a href="./src/llama_stack_client/resources/alpha/admin.py">list_routes</a>(\*\*<a href="src/llama_stack_client/types/alpha/admin_list_routes_params.py">params</a>) -> <a href="./src/llama_stack_client/types/route_list_response.py">RouteListResponse</a></code>
 - <code title="get /v1alpha/admin/version">client.alpha.admin.<a href="./src/llama_stack_client/resources/alpha/admin.py">version</a>() -> <a href="./src/llama_stack_client/types/shared/version_info.py">VersionInfo</a></code>
 
+## Inference
+
+Types:
+
+```python
+from llama_stack_client.types.alpha import InferenceRerankResponse
+```
+
+Methods:
+
+- <code title="post /v1alpha/inference/rerank">client.alpha.inference.<a href="./src/llama_stack_client/resources/alpha/inference.py">rerank</a>(\*\*<a href="src/llama_stack_client/types/alpha/inference_rerank_params.py">params</a>) -> <a href="./src/llama_stack_client/types/alpha/inference_rerank_response.py">InferenceRerankResponse</a></code>
+
 # Beta
 
 ## Datasets
@@ -558,7 +558,7 @@ Methods:
 
 - <code title="get /v1beta/datasets/{dataset_id}">client.beta.datasets.<a href="./src/llama_stack_client/resources/beta/datasets.py">retrieve</a>(dataset_id) -> <a href="./src/llama_stack_client/types/beta/dataset_retrieve_response.py">DatasetRetrieveResponse</a></code>
 - <code title="get /v1beta/datasets">client.beta.datasets.<a href="./src/llama_stack_client/resources/beta/datasets.py">list</a>() -> <a href="./src/llama_stack_client/types/beta/dataset_list_response.py">DatasetListResponse</a></code>
-- <code title="post /v1beta/datasetio/append-rows/{dataset_id}">client.beta.datasets.<a href="./src/llama_stack_client/resources/beta/datasets.py">appendrows</a>(dataset_id, \*\*<a href="src/llama_stack_client/types/beta/dataset_appendrows_params.py">params</a>) -> None</code>
+- <code title="post /v1beta/datasetio/append-rows/{dataset_id}">client.beta.datasets.<a href="./src/llama_stack_client/resources/beta/datasets.py">appendrows</a>(path_dataset_id, \*\*<a href="src/llama_stack_client/types/beta/dataset_appendrows_params.py">params</a>) -> None</code>
 - <code title="get /v1beta/datasetio/iterrows/{dataset_id}">client.beta.datasets.<a href="./src/llama_stack_client/resources/beta/datasets.py">iterrows</a>(dataset_id, \*\*<a href="src/llama_stack_client/types/beta/dataset_iterrows_params.py">params</a>) -> <a href="./src/llama_stack_client/types/beta/dataset_iterrows_response.py">DatasetIterrowsResponse</a></code>
 - <code title="post /v1beta/datasets">client.beta.datasets.<a href="./src/llama_stack_client/resources/beta/datasets.py">register</a>(\*\*<a href="src/llama_stack_client/types/beta/dataset_register_params.py">params</a>) -> <a href="./src/llama_stack_client/types/beta/dataset_register_response.py">DatasetRegisterResponse</a></code>
 - <code title="delete /v1beta/datasets/{dataset_id}">client.beta.datasets.<a href="./src/llama_stack_client/resources/beta/datasets.py">unregister</a>(dataset_id) -> None</code>

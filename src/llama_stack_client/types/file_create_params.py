@@ -18,28 +18,20 @@ __all__ = ["FileCreateParams", "ExpiresAfter"]
 
 class FileCreateParams(TypedDict, total=False):
     file: Required[FileTypes]
+    """The file to upload."""
 
     purpose: Required[Literal["assistants", "batch"]]
-    """Valid purpose values for OpenAI Files API."""
+    """The intended purpose of the uploaded file."""
 
     expires_after: Optional[ExpiresAfter]
-    """Control expiration of uploaded files.
-
-    Params:
-
-    - anchor, must be "created_at"
-    - seconds, must be int between 3600 and 2592000 (1 hour to 30 days)
-    """
+    """Control expiration of uploaded files."""
 
 
 class ExpiresAfter(TypedDict, total=False):
-    """Control expiration of uploaded files.
-
-    Params:
-     - anchor, must be "created_at"
-     - seconds, must be int between 3600 and 2592000 (1 hour to 30 days)
-    """
+    """Control expiration of uploaded files."""
 
     anchor: Required[Literal["created_at"]]
+    """The anchor point for expiration, must be 'created_at'."""
 
     seconds: Required[int]
+    """Seconds until expiration, between 3600 (1 hour) and 2592000 (30 days)."""

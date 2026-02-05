@@ -46,8 +46,10 @@ __all__ = [
 
 class ConversationCreateParams(TypedDict, total=False):
     items: Optional[Iterable[Item]]
+    """Initial items to include in the conversation context."""
 
     metadata: Optional[Dict[str, str]]
+    """Set of key-value pairs that can be attached to an object."""
 
 
 class ItemOpenAIResponseMessageInputContentListOpenAIResponseInputMessageContentTextOpenAIResponseInputMessageContentImageOpenAIResponseInputMessageContentFileOpenAIResponseInputMessageContentText(
@@ -166,17 +168,16 @@ class ItemOpenAIResponseMessageInputContentListOpenAIResponseOutputMessageConten
 ):
     """
     The top log probability for a token from an OpenAI-compatible chat completion response.
-
-    :token: The token
-    :bytes: (Optional) The bytes for the token
-    :logprob: The log probability of the token
     """
 
     token: Required[str]
+    """The token."""
 
     logprob: Required[float]
+    """The log probability of the token."""
 
     bytes: Optional[Iterable[int]]
+    """The bytes for the token."""
 
 
 class ItemOpenAIResponseMessageInputContentListOpenAIResponseOutputMessageContentOutputTextInputOpenAIResponseContentPartRefusalOpenAIResponseOutputMessageContentOutputTextInputLogprob(
@@ -184,24 +185,23 @@ class ItemOpenAIResponseMessageInputContentListOpenAIResponseOutputMessageConten
 ):
     """
     The log probability for a token from an OpenAI-compatible chat completion response.
-
-    :token: The token
-    :bytes: (Optional) The bytes for the token
-    :logprob: The log probability of the token
-    :top_logprobs: The top log probabilities for the token
     """
 
     token: Required[str]
+    """The token."""
 
     logprob: Required[float]
+    """The log probability of the token."""
 
     bytes: Optional[Iterable[int]]
+    """The bytes for the token."""
 
     top_logprobs: Optional[
         Iterable[
             ItemOpenAIResponseMessageInputContentListOpenAIResponseOutputMessageContentOutputTextInputOpenAIResponseContentPartRefusalOpenAIResponseOutputMessageContentOutputTextInputLogprobTopLogprob
         ]
     ]
+    """The top log probabilities for the token."""
 
 
 class ItemOpenAIResponseMessageInputContentListOpenAIResponseOutputMessageContentOutputTextInputOpenAIResponseContentPartRefusalOpenAIResponseOutputMessageContentOutputTextInput(

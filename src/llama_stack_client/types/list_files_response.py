@@ -19,11 +19,16 @@ class ListFilesResponse(BaseModel):
     """Response for listing files in OpenAI Files API."""
 
     data: List[File]
+    """The list of files."""
 
     first_id: str
+    """The ID of the first file in the list for pagination."""
 
     has_more: bool
+    """Whether there are more files available beyond this page."""
 
     last_id: str
+    """The ID of the last file in the list for pagination."""
 
     object: Optional[Literal["list"]] = None
+    """The object type, which is always 'list'."""

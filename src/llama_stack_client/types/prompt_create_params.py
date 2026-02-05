@@ -18,5 +18,7 @@ __all__ = ["PromptCreateParams"]
 
 class PromptCreateParams(TypedDict, total=False):
     prompt: Required[str]
+    """The prompt text content with variable placeholders."""
 
     variables: Optional[SequenceNotStr[str]]
+    """List of variable names that can be used in the prompt template."""

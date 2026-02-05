@@ -68,10 +68,16 @@ class FilesResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> VectorStoreFile:
         """
-        Attach a file to a vector store.
+        Attach a file to a vector store (OpenAI-compatible).
 
         Args:
-          chunking_strategy: Automatic chunking strategy for vector store files.
+          vector_store_id: The vector store identifier.
+
+          file_id: The ID of the file to attach.
+
+          attributes: Attributes to associate with the file.
+
+          chunking_strategy: Strategy for chunking the file content.
 
           extra_headers: Send extra headers
 
@@ -112,9 +118,13 @@ class FilesResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> VectorStoreFile:
         """
-        Retrieves a vector store file.
+        Retrieve a vector store file (OpenAI-compatible).
 
         Args:
+          vector_store_id: The vector store identifier.
+
+          file_id: The file identifier.
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -149,9 +159,15 @@ class FilesResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> VectorStoreFile:
         """
-        Updates a vector store file.
+        Update a vector store file (OpenAI-compatible).
 
         Args:
+          vector_store_id: The vector store identifier.
+
+          file_id: The file identifier.
+
+          attributes: The new attributes for the file.
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -190,9 +206,21 @@ class FilesResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> SyncOpenAICursorPage[VectorStoreFile]:
         """
-        List files in a vector store.
+        List files in a vector store (OpenAI-compatible).
 
         Args:
+          vector_store_id: The vector store identifier.
+
+          after: Pagination cursor (after).
+
+          before: Pagination cursor (before).
+
+          filter: Filter by file status.
+
+          limit: Maximum number of files to return.
+
+          order: Sort order by created_at: asc or desc.
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -238,9 +266,13 @@ class FilesResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> FileDeleteResponse:
         """
-        Delete a vector store file.
+        Delete a vector store file (OpenAI-compatible).
 
         Args:
+          vector_store_id: The vector store identifier.
+
+          file_id: The file identifier.
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -276,9 +308,17 @@ class FilesResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> FileContentResponse:
         """
-        Retrieves the contents of a vector store file.
+        Retrieve vector store file contents (OpenAI-compatible).
 
         Args:
+          vector_store_id: The vector store identifier.
+
+          file_id: The file identifier.
+
+          include_embeddings: Include embedding vectors.
+
+          include_metadata: Include chunk metadata.
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -345,10 +385,16 @@ class AsyncFilesResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> VectorStoreFile:
         """
-        Attach a file to a vector store.
+        Attach a file to a vector store (OpenAI-compatible).
 
         Args:
-          chunking_strategy: Automatic chunking strategy for vector store files.
+          vector_store_id: The vector store identifier.
+
+          file_id: The ID of the file to attach.
+
+          attributes: Attributes to associate with the file.
+
+          chunking_strategy: Strategy for chunking the file content.
 
           extra_headers: Send extra headers
 
@@ -389,9 +435,13 @@ class AsyncFilesResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> VectorStoreFile:
         """
-        Retrieves a vector store file.
+        Retrieve a vector store file (OpenAI-compatible).
 
         Args:
+          vector_store_id: The vector store identifier.
+
+          file_id: The file identifier.
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -426,9 +476,15 @@ class AsyncFilesResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> VectorStoreFile:
         """
-        Updates a vector store file.
+        Update a vector store file (OpenAI-compatible).
 
         Args:
+          vector_store_id: The vector store identifier.
+
+          file_id: The file identifier.
+
+          attributes: The new attributes for the file.
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -467,9 +523,21 @@ class AsyncFilesResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> AsyncPaginator[VectorStoreFile, AsyncOpenAICursorPage[VectorStoreFile]]:
         """
-        List files in a vector store.
+        List files in a vector store (OpenAI-compatible).
 
         Args:
+          vector_store_id: The vector store identifier.
+
+          after: Pagination cursor (after).
+
+          before: Pagination cursor (before).
+
+          filter: Filter by file status.
+
+          limit: Maximum number of files to return.
+
+          order: Sort order by created_at: asc or desc.
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -515,9 +583,13 @@ class AsyncFilesResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> FileDeleteResponse:
         """
-        Delete a vector store file.
+        Delete a vector store file (OpenAI-compatible).
 
         Args:
+          vector_store_id: The vector store identifier.
+
+          file_id: The file identifier.
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -553,9 +625,17 @@ class AsyncFilesResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> FileContentResponse:
         """
-        Retrieves the contents of a vector store file.
+        Retrieve vector store file contents (OpenAI-compatible).
 
         Args:
+          vector_store_id: The vector store identifier.
+
+          file_id: The file identifier.
+
+          include_embeddings: Include embedding vectors.
+
+          include_metadata: Include chunk metadata.
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request

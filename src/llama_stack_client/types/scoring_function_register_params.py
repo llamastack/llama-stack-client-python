@@ -25,17 +25,24 @@ __all__ = [
 
 class ScoringFunctionRegisterParams(TypedDict, total=False):
     description: Required[str]
+    """The description of the scoring function."""
 
     return_type: Required[ReturnType]
 
     scoring_fn_id: Required[str]
+    """The ID of the scoring function to register."""
 
     params: Optional[Params]
-    """Parameters for LLM-as-judge scoring function configuration."""
+    """
+    The parameters for the scoring function for benchmark eval, these can be
+    overridden for app eval.
+    """
 
     provider_id: Optional[str]
+    """The ID of the provider to use for the scoring function."""
 
     provider_scoring_fn_id: Optional[str]
+    """The ID of the provider scoring function to use for the scoring function."""
 
 
 class ReturnType(TypedDict, total=False):

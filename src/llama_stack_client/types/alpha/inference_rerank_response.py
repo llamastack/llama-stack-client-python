@@ -18,8 +18,13 @@ class InferenceRerankResponseItem(BaseModel):
     """A single rerank result from a reranking response."""
 
     index: int
+    """The original index of the document in the input list."""
 
     relevance_score: float
+    """The relevance score from the model output.
+
+    Higher scores indicate greater relevance.
+    """
 
 
 InferenceRerankResponse: TypeAlias = List[InferenceRerankResponseItem]

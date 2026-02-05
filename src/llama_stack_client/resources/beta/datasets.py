@@ -115,8 +115,9 @@ class DatasetsResource(SyncAPIResource):
 
     def appendrows(
         self,
-        dataset_id: str,
+        path_dataset_id: str,
         *,
+        body_dataset_id: str,
         rows: Iterable[Dict[str, object]],
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -129,6 +130,12 @@ class DatasetsResource(SyncAPIResource):
         Append rows to a dataset.
 
         Args:
+          path_dataset_id: The ID of the dataset to append the rows to.
+
+          body_dataset_id: The ID of the dataset to append the rows to.
+
+          rows: The rows to append to the dataset.
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -137,12 +144,18 @@ class DatasetsResource(SyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        if not dataset_id:
-            raise ValueError(f"Expected a non-empty value for `dataset_id` but received {dataset_id!r}")
+        if not path_dataset_id:
+            raise ValueError(f"Expected a non-empty value for `path_dataset_id` but received {path_dataset_id!r}")
         extra_headers = {"Accept": "*/*", **(extra_headers or {})}
         return self._post(
-            f"/v1beta/datasetio/append-rows/{dataset_id}",
-            body=maybe_transform({"rows": rows}, dataset_appendrows_params.DatasetAppendrowsParams),
+            f"/v1beta/datasetio/append-rows/{path_dataset_id}",
+            body=maybe_transform(
+                {
+                    "body_dataset_id": body_dataset_id,
+                    "rows": rows,
+                },
+                dataset_appendrows_params.DatasetAppendrowsParams,
+            ),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -176,6 +189,12 @@ class DatasetsResource(SyncAPIResource):
         - has_more: Whether there are more items available after this set.
 
         Args:
+          dataset_id: The ID of the dataset to get the rows from.
+
+          limit: The number of rows to get.
+
+          start_index: Index into dataset for the first row to get. Get all rows if None.
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -374,8 +393,9 @@ class AsyncDatasetsResource(AsyncAPIResource):
 
     async def appendrows(
         self,
-        dataset_id: str,
+        path_dataset_id: str,
         *,
+        body_dataset_id: str,
         rows: Iterable[Dict[str, object]],
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -388,6 +408,12 @@ class AsyncDatasetsResource(AsyncAPIResource):
         Append rows to a dataset.
 
         Args:
+          path_dataset_id: The ID of the dataset to append the rows to.
+
+          body_dataset_id: The ID of the dataset to append the rows to.
+
+          rows: The rows to append to the dataset.
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -396,12 +422,18 @@ class AsyncDatasetsResource(AsyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        if not dataset_id:
-            raise ValueError(f"Expected a non-empty value for `dataset_id` but received {dataset_id!r}")
+        if not path_dataset_id:
+            raise ValueError(f"Expected a non-empty value for `path_dataset_id` but received {path_dataset_id!r}")
         extra_headers = {"Accept": "*/*", **(extra_headers or {})}
         return await self._post(
-            f"/v1beta/datasetio/append-rows/{dataset_id}",
-            body=await async_maybe_transform({"rows": rows}, dataset_appendrows_params.DatasetAppendrowsParams),
+            f"/v1beta/datasetio/append-rows/{path_dataset_id}",
+            body=await async_maybe_transform(
+                {
+                    "body_dataset_id": body_dataset_id,
+                    "rows": rows,
+                },
+                dataset_appendrows_params.DatasetAppendrowsParams,
+            ),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -435,6 +467,12 @@ class AsyncDatasetsResource(AsyncAPIResource):
         - has_more: Whether there are more items available after this set.
 
         Args:
+          dataset_id: The ID of the dataset to get the rows from.
+
+          limit: The number of rows to get.
+
+          start_index: Index into dataset for the first row to get. Get all rows if None.
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request

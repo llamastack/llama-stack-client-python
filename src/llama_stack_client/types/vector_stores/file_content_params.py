@@ -16,7 +16,10 @@ __all__ = ["FileContentParams"]
 
 class FileContentParams(TypedDict, total=False):
     vector_store_id: Required[str]
+    """The vector store identifier."""
 
     include_embeddings: Optional[bool]
+    """Include embedding vectors."""
 
     include_metadata: Optional[bool]
+    """Include chunk metadata."""

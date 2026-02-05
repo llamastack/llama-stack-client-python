@@ -26,12 +26,13 @@ __all__ = [
 
 
 class EvalCandidate(TypedDict, total=False):
-    """A model candidate for evaluation."""
+    """The candidate to evaluate"""
 
     model: Required[str]
+    """The model ID to evaluate"""
 
     sampling_params: Required[SamplingParams]
-    """Sampling parameters."""
+    """The sampling parameters for the model"""
 
     system_message: Optional[SystemMessage]
     """A system message providing instructions or context to the model."""
@@ -85,7 +86,7 @@ class BenchmarkConfigParam(TypedDict, total=False):
     """A benchmark configuration for evaluation."""
 
     eval_candidate: Required[EvalCandidate]
-    """A model candidate for evaluation."""
+    """The candidate to evaluate"""
 
     num_examples: Optional[int]
     """

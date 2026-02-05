@@ -22,10 +22,6 @@ class DataChunkMetadata(BaseModel):
         Use `Chunk.metadata` for metadata that will be used in the context during inference.
     """
 
-    chunk_embedding_dimension: Optional[int] = None
-
-    chunk_embedding_model: Optional[str] = None
-
     chunk_id: Optional[str] = None
 
     chunk_tokenizer: Optional[str] = None

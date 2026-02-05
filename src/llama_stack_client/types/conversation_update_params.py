@@ -16,3 +16,4 @@ __all__ = ["ConversationUpdateParams"]
 
 class ConversationUpdateParams(TypedDict, total=False):
     metadata: Required[Dict[str, str]]
+    """Set of key-value pairs that can be attached to an object."""

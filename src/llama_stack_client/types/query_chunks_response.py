@@ -15,6 +15,7 @@ from .._models import BaseModel
 __all__ = [
     "QueryChunksResponse",
     "Chunk",
+    "ChunkChunkMetadata",
     "ChunkContent",
     "ChunkContentImageContentItemOutput",
     "ChunkContentImageContentItemOutputImage",
@@ -25,8 +26,34 @@ __all__ = [
     "ChunkContentListImageContentItemOutputTextContentItemImageContentItemOutputImage",
     "ChunkContentListImageContentItemOutputTextContentItemImageContentItemOutputImageURL",
     "ChunkContentListImageContentItemOutputTextContentItemTextContentItem",
-    "ChunkChunkMetadata",
 ]
+
+
+class ChunkChunkMetadata(BaseModel):
+    """
+    `ChunkMetadata` is backend metadata for a `Chunk` that is used to store additional information about the chunk that
+        will not be used in the context during inference, but is required for backend functionality. The `ChunkMetadata`
+        is set during chunk creation in `MemoryToolRuntimeImpl().insert()`and is not expected to change after.
+        Use `Chunk.metadata` for metadata that will be used in the context during inference.
+    """
+
+    chunk_id: Optional[str] = None
+
+    chunk_tokenizer: Optional[str] = None
+
+    chunk_window: Optional[str] = None
+
+    content_token_count: Optional[int] = None
+
+    created_timestamp: Optional[int] = None
+
+    document_id: Optional[str] = None
+
+    metadata_token_count: Optional[int] = None
+
+    source: Optional[str] = None
+
+    updated_timestamp: Optional[int] = None
 
 
 class ChunkContentImageContentItemOutputImageURL(BaseModel):
@@ -109,46 +136,15 @@ ChunkContent: TypeAlias = Union[
 ]
 
 
-class ChunkChunkMetadata(BaseModel):
-    """
-    `ChunkMetadata` is backend metadata for a `Chunk` that is used to store additional information about the chunk that
-        will not be used in the context during inference, but is required for backend functionality. The `ChunkMetadata`
-        is set during chunk creation in `MemoryToolRuntimeImpl().insert()`and is not expected to change after.
-        Use `Chunk.metadata` for metadata that will be used in the context during inference.
-    """
-
-    chunk_embedding_dimension: Optional[int] = None
-
-    chunk_embedding_model: Optional[str] = None
-
-    chunk_id: Optional[str] = None
-
-    chunk_tokenizer: Optional[str] = None
-
-    chunk_window: Optional[str] = None
-
-    content_token_count: Optional[int] = None
-
-    created_timestamp: Optional[int] = None
-
-    document_id: Optional[str] = None
-
-    metadata_token_count: Optional[int] = None
-
-    source: Optional[str] = None
-
-    updated_timestamp: Optional[int] = None
-
-
 class Chunk(BaseModel):
-    """A chunk of content that can be inserted into a vector database."""
+    """
+    A chunk of content with its embedding vector for vector database operations.
+    Inherits all fields from Chunk and adds embedding-related fields.
+    """
 
     chunk_id: str
 
-    content: ChunkContent
-    """A image content item"""
-
-    chunk_metadata: Optional[ChunkChunkMetadata] = None
+    chunk_metadata: ChunkChunkMetadata
     """
     `ChunkMetadata` is backend metadata for a `Chunk` that is used to store
     additional information about the chunk that will not be used in the context
@@ -158,7 +154,14 @@ class Chunk(BaseModel):
     the context during inference.
     """
 
-    embedding: Optional[List[float]] = None
+    content: ChunkContent
+    """A image content item"""
+
+    embedding: List[float]
+
+    embedding_dimension: int
+
+    embedding_model: str
 
     metadata: Optional[Dict[str, object]] = None
 

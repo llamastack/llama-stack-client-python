@@ -16,7 +16,10 @@ __all__ = ["VectorStoreUpdateParams"]
 
 class VectorStoreUpdateParams(TypedDict, total=False):
     expires_after: Optional[Dict[str, object]]
+    """Expiration policy for the vector store."""
 
     metadata: Optional[Dict[str, object]]
+    """Metadata to associate with the vector store."""
 
     name: Optional[str]
+    """The new name for the vector store."""

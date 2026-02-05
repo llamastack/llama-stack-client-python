@@ -63,9 +63,15 @@ class VectorIoResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> None:
         """
-        Insert chunks into a vector database.
+        Insert embedded chunks into a vector database.
 
         Args:
+          chunks: The list of embedded chunks to insert.
+
+          vector_store_id: The ID of the vector store to insert chunks into.
+
+          ttl_seconds: Time-to-live in seconds for the inserted chunks.
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -108,7 +114,11 @@ class VectorIoResource(SyncAPIResource):
         Query chunks from a vector database.
 
         Args:
-          query: A image content item
+          query: The query content to search for.
+
+          vector_store_id: The ID of the vector store to query.
+
+          params: Additional query parameters.
 
           extra_headers: Send extra headers
 
@@ -169,9 +179,15 @@ class AsyncVectorIoResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> None:
         """
-        Insert chunks into a vector database.
+        Insert embedded chunks into a vector database.
 
         Args:
+          chunks: The list of embedded chunks to insert.
+
+          vector_store_id: The ID of the vector store to insert chunks into.
+
+          ttl_seconds: Time-to-live in seconds for the inserted chunks.
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -214,7 +230,11 @@ class AsyncVectorIoResource(AsyncAPIResource):
         Query chunks from a vector database.
 
         Args:
-          query: A image content item
+          query: The query content to search for.
+
+          vector_store_id: The ID of the vector store to query.
+
+          params: Additional query parameters.
 
           extra_headers: Send extra headers
 

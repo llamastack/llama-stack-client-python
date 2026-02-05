@@ -36,7 +36,7 @@ class TestInputItems:
             response_id="response_id",
             after="after",
             before="before",
-            include=["string"],
+            include=["web_search_call.action.sources"],
             limit=0,
             order="asc",
         )
@@ -92,7 +92,7 @@ class TestAsyncInputItems:
             response_id="response_id",
             after="after",
             before="before",
-            include=["string"],
+            include=["web_search_call.action.sources"],
             limit=0,
             order="asc",
         )

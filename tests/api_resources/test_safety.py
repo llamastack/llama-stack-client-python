@@ -32,8 +32,7 @@ class TestSafety:
                     "role": "user",
                 }
             ],
-            params={"foo": "bar"},
-            shield_id="shield_id",
+            shield_id="x",
         )
         assert_matches_type(RunShieldResponse, safety, path=["response"])
 
@@ -46,8 +45,7 @@ class TestSafety:
                     "role": "user",
                 }
             ],
-            params={"foo": "bar"},
-            shield_id="shield_id",
+            shield_id="x",
         )
 
         assert response.is_closed is True
@@ -64,8 +62,7 @@ class TestSafety:
                     "role": "user",
                 }
             ],
-            params={"foo": "bar"},
-            shield_id="shield_id",
+            shield_id="x",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -90,8 +87,7 @@ class TestAsyncSafety:
                     "role": "user",
                 }
             ],
-            params={"foo": "bar"},
-            shield_id="shield_id",
+            shield_id="x",
         )
         assert_matches_type(RunShieldResponse, safety, path=["response"])
 
@@ -104,8 +100,7 @@ class TestAsyncSafety:
                     "role": "user",
                 }
             ],
-            params={"foo": "bar"},
-            shield_id="shield_id",
+            shield_id="x",
         )
 
         assert response.is_closed is True
@@ -122,8 +117,7 @@ class TestAsyncSafety:
                     "role": "user",
                 }
             ],
-            params={"foo": "bar"},
-            shield_id="shield_id",
+            shield_id="x",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"

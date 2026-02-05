@@ -16,10 +16,13 @@ __all__ = ["CompletionListParams"]
 
 class CompletionListParams(TypedDict, total=False):
     after: Optional[str]
+    """The ID of the last chat completion to return."""
 
     limit: Optional[int]
+    """The maximum number of chat completions to return."""
 
     model: Optional[str]
+    """The model to filter by."""
 
     order: Optional[Literal["asc", "desc"]]
     """Sort order for paginated responses."""

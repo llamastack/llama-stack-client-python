@@ -67,11 +67,14 @@ class ItemsResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> ItemCreateResponse:
         """
-        Create items.
-
         Create items in the conversation.
 
         Args:
+          conversation_id: The conversation identifier.
+
+          items: Items to include in the conversation context. You may add up to 20 items at a
+              time.
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -120,11 +123,11 @@ class ItemsResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> SyncOpenAICursorPage[ItemListResponse]:
         """
-        List items.
-
         List items in the conversation.
 
         Args:
+          conversation_id: The conversation identifier.
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -169,11 +172,13 @@ class ItemsResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> ItemDeleteResponse:
         """
-        Delete an item.
-
         Delete a conversation item.
 
         Args:
+          conversation_id: The conversation identifier.
+
+          item_id: The item identifier.
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -207,11 +212,13 @@ class ItemsResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> ItemGetResponse:
         """
-        Retrieve an item.
-
         Retrieve a conversation item.
 
         Args:
+          conversation_id: The conversation identifier.
+
+          item_id: The item identifier.
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -224,12 +231,15 @@ class ItemsResource(SyncAPIResource):
             raise ValueError(f"Expected a non-empty value for `conversation_id` but received {conversation_id!r}")
         if not item_id:
             raise ValueError(f"Expected a non-empty value for `item_id` but received {item_id!r}")
-        return self._get(
-            f"/v1/conversations/{conversation_id}/items/{item_id}",
-            options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+        return cast(
+            ItemGetResponse,
+            self._get(
+                f"/v1/conversations/{conversation_id}/items/{item_id}",
+                options=make_request_options(
+                    extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+                ),
+                cast_to=cast(Any, ItemGetResponse),  # Union types cannot be passed in as arguments in the type system
             ),
-            cast_to=ItemGetResponse,
         )
 
 
@@ -266,11 +276,14 @@ class AsyncItemsResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> ItemCreateResponse:
         """
-        Create items.
-
         Create items in the conversation.
 
         Args:
+          conversation_id: The conversation identifier.
+
+          items: Items to include in the conversation context. You may add up to 20 items at a
+              time.
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -319,11 +332,11 @@ class AsyncItemsResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> AsyncPaginator[ItemListResponse, AsyncOpenAICursorPage[ItemListResponse]]:
         """
-        List items.
-
         List items in the conversation.
 
         Args:
+          conversation_id: The conversation identifier.
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -368,11 +381,13 @@ class AsyncItemsResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> ItemDeleteResponse:
         """
-        Delete an item.
-
         Delete a conversation item.
 
         Args:
+          conversation_id: The conversation identifier.
+
+          item_id: The item identifier.
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -406,11 +421,13 @@ class AsyncItemsResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> ItemGetResponse:
         """
-        Retrieve an item.
-
         Retrieve a conversation item.
 
         Args:
+          conversation_id: The conversation identifier.
+
+          item_id: The item identifier.
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -423,12 +440,15 @@ class AsyncItemsResource(AsyncAPIResource):
             raise ValueError(f"Expected a non-empty value for `conversation_id` but received {conversation_id!r}")
         if not item_id:
             raise ValueError(f"Expected a non-empty value for `item_id` but received {item_id!r}")
-        return await self._get(
-            f"/v1/conversations/{conversation_id}/items/{item_id}",
-            options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+        return cast(
+            ItemGetResponse,
+            await self._get(
+                f"/v1/conversations/{conversation_id}/items/{item_id}",
+                options=make_request_options(
+                    extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+                ),
+                cast_to=cast(Any, ItemGetResponse),  # Union types cannot be passed in as arguments in the type system
             ),
-            cast_to=ItemGetResponse,
         )
 
 

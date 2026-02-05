@@ -77,9 +77,11 @@ class ConversationsResource(SyncAPIResource):
         """
         Create a conversation.
 
-        Create a conversation.
-
         Args:
+          items: Initial items to include in the conversation context.
+
+          metadata: Set of key-value pairs that can be attached to an object.
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -115,11 +117,11 @@ class ConversationsResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> ConversationObject:
         """
-        Retrieve a conversation.
-
         Get a conversation with the given ID.
 
         Args:
+          conversation_id: The conversation identifier.
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -151,11 +153,13 @@ class ConversationsResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> ConversationObject:
         """
-        Update a conversation.
-
         Update a conversation's metadata with the given ID.
 
         Args:
+          conversation_id: The conversation identifier.
+
+          metadata: Set of key-value pairs that can be attached to an object.
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -187,11 +191,11 @@ class ConversationsResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> ConversationDeleteResponse:
         """
-        Delete a conversation.
-
         Delete a conversation with the given ID.
 
         Args:
+          conversation_id: The conversation identifier.
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -250,9 +254,11 @@ class AsyncConversationsResource(AsyncAPIResource):
         """
         Create a conversation.
 
-        Create a conversation.
-
         Args:
+          items: Initial items to include in the conversation context.
+
+          metadata: Set of key-value pairs that can be attached to an object.
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -288,11 +294,11 @@ class AsyncConversationsResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> ConversationObject:
         """
-        Retrieve a conversation.
-
         Get a conversation with the given ID.
 
         Args:
+          conversation_id: The conversation identifier.
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -324,11 +330,13 @@ class AsyncConversationsResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> ConversationObject:
         """
-        Update a conversation.
-
         Update a conversation's metadata with the given ID.
 
         Args:
+          conversation_id: The conversation identifier.
+
+          metadata: Set of key-value pairs that can be attached to an object.
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -362,11 +370,11 @@ class AsyncConversationsResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> ConversationDeleteResponse:
         """
-        Delete a conversation.
-
         Delete a conversation with the given ID.
 
         Args:
+          conversation_id: The conversation identifier.
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request

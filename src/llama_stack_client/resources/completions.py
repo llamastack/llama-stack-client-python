@@ -81,12 +81,46 @@ class CompletionsResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> CompletionCreateResponse:
         """
-        Create completion.
-
         Generate an OpenAI-compatible completion for the given prompt using the
         specified model.
 
         Args:
+          model: The identifier of the model to use.
+
+          prompt: The prompt to generate a completion for.
+
+          best_of: The number of completions to generate.
+
+          echo: Whether to echo the prompt.
+
+          frequency_penalty: The penalty for repeated tokens.
+
+          logit_bias: The logit bias to use.
+
+          logprobs: The log probabilities to use.
+
+          max_tokens: The maximum number of tokens to generate.
+
+          n: The number of completions to generate.
+
+          presence_penalty: The penalty for repeated tokens.
+
+          seed: The seed to use.
+
+          stop: The stop tokens to use.
+
+          stream: Whether to stream the response.
+
+          stream_options: The stream options to use.
+
+          suffix: The suffix that should be appended to the completion.
+
+          temperature: The temperature to use.
+
+          top_p: The top p to use.
+
+          user: The user to use.
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -127,12 +161,46 @@ class CompletionsResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> Stream[CompletionCreateResponse]:
         """
-        Create completion.
-
         Generate an OpenAI-compatible completion for the given prompt using the
         specified model.
 
         Args:
+          model: The identifier of the model to use.
+
+          prompt: The prompt to generate a completion for.
+
+          stream: Whether to stream the response.
+
+          best_of: The number of completions to generate.
+
+          echo: Whether to echo the prompt.
+
+          frequency_penalty: The penalty for repeated tokens.
+
+          logit_bias: The logit bias to use.
+
+          logprobs: The log probabilities to use.
+
+          max_tokens: The maximum number of tokens to generate.
+
+          n: The number of completions to generate.
+
+          presence_penalty: The penalty for repeated tokens.
+
+          seed: The seed to use.
+
+          stop: The stop tokens to use.
+
+          stream_options: The stream options to use.
+
+          suffix: The suffix that should be appended to the completion.
+
+          temperature: The temperature to use.
+
+          top_p: The top p to use.
+
+          user: The user to use.
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -173,12 +241,46 @@ class CompletionsResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> CompletionCreateResponse | Stream[CompletionCreateResponse]:
         """
-        Create completion.
-
         Generate an OpenAI-compatible completion for the given prompt using the
         specified model.
 
         Args:
+          model: The identifier of the model to use.
+
+          prompt: The prompt to generate a completion for.
+
+          stream: Whether to stream the response.
+
+          best_of: The number of completions to generate.
+
+          echo: Whether to echo the prompt.
+
+          frequency_penalty: The penalty for repeated tokens.
+
+          logit_bias: The logit bias to use.
+
+          logprobs: The log probabilities to use.
+
+          max_tokens: The maximum number of tokens to generate.
+
+          n: The number of completions to generate.
+
+          presence_penalty: The penalty for repeated tokens.
+
+          seed: The seed to use.
+
+          stop: The stop tokens to use.
+
+          stream_options: The stream options to use.
+
+          suffix: The suffix that should be appended to the completion.
+
+          temperature: The temperature to use.
+
+          top_p: The top p to use.
+
+          user: The user to use.
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -304,12 +406,46 @@ class AsyncCompletionsResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> CompletionCreateResponse:
         """
-        Create completion.
-
         Generate an OpenAI-compatible completion for the given prompt using the
         specified model.
 
         Args:
+          model: The identifier of the model to use.
+
+          prompt: The prompt to generate a completion for.
+
+          best_of: The number of completions to generate.
+
+          echo: Whether to echo the prompt.
+
+          frequency_penalty: The penalty for repeated tokens.
+
+          logit_bias: The logit bias to use.
+
+          logprobs: The log probabilities to use.
+
+          max_tokens: The maximum number of tokens to generate.
+
+          n: The number of completions to generate.
+
+          presence_penalty: The penalty for repeated tokens.
+
+          seed: The seed to use.
+
+          stop: The stop tokens to use.
+
+          stream: Whether to stream the response.
+
+          stream_options: The stream options to use.
+
+          suffix: The suffix that should be appended to the completion.
+
+          temperature: The temperature to use.
+
+          top_p: The top p to use.
+
+          user: The user to use.
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -350,12 +486,46 @@ class AsyncCompletionsResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> AsyncStream[CompletionCreateResponse]:
         """
-        Create completion.
-
         Generate an OpenAI-compatible completion for the given prompt using the
         specified model.
 
         Args:
+          model: The identifier of the model to use.
+
+          prompt: The prompt to generate a completion for.
+
+          stream: Whether to stream the response.
+
+          best_of: The number of completions to generate.
+
+          echo: Whether to echo the prompt.
+
+          frequency_penalty: The penalty for repeated tokens.
+
+          logit_bias: The logit bias to use.
+
+          logprobs: The log probabilities to use.
+
+          max_tokens: The maximum number of tokens to generate.
+
+          n: The number of completions to generate.
+
+          presence_penalty: The penalty for repeated tokens.
+
+          seed: The seed to use.
+
+          stop: The stop tokens to use.
+
+          stream_options: The stream options to use.
+
+          suffix: The suffix that should be appended to the completion.
+
+          temperature: The temperature to use.
+
+          top_p: The top p to use.
+
+          user: The user to use.
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -396,12 +566,46 @@ class AsyncCompletionsResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> CompletionCreateResponse | AsyncStream[CompletionCreateResponse]:
         """
-        Create completion.
-
         Generate an OpenAI-compatible completion for the given prompt using the
         specified model.
 
         Args:
+          model: The identifier of the model to use.
+
+          prompt: The prompt to generate a completion for.
+
+          stream: Whether to stream the response.
+
+          best_of: The number of completions to generate.
+
+          echo: Whether to echo the prompt.
+
+          frequency_penalty: The penalty for repeated tokens.
+
+          logit_bias: The logit bias to use.
+
+          logprobs: The log probabilities to use.
+
+          max_tokens: The maximum number of tokens to generate.
+
+          n: The number of completions to generate.
+
+          presence_penalty: The penalty for repeated tokens.
+
+          seed: The seed to use.
+
+          stop: The stop tokens to use.
+
+          stream_options: The stream options to use.
+
+          suffix: The suffix that should be appended to the completion.
+
+          temperature: The temperature to use.
+
+          top_p: The top p to use.
+
+          user: The user to use.
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request

@@ -16,5 +16,7 @@ __all__ = ["DatasetIterrowsParams"]
 
 class DatasetIterrowsParams(TypedDict, total=False):
     limit: Optional[int]
+    """The number of rows to get."""
 
     start_index: Optional[int]
+    """Index into dataset for the first row to get. Get all rows if None."""

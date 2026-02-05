@@ -14,6 +14,7 @@ from typing_extensions import Literal, Required, TypeAlias, TypedDict
 __all__ = [
     "VectorIoInsertParams",
     "Chunk",
+    "ChunkChunkMetadata",
     "ChunkContent",
     "ChunkContentImageContentItemInput",
     "ChunkContentImageContentItemInputImage",
@@ -24,16 +25,45 @@ __all__ = [
     "ChunkContentListImageContentItemInputTextContentItemImageContentItemInputImage",
     "ChunkContentListImageContentItemInputTextContentItemImageContentItemInputImageURL",
     "ChunkContentListImageContentItemInputTextContentItemTextContentItem",
-    "ChunkChunkMetadata",
 ]
 
 
 class VectorIoInsertParams(TypedDict, total=False):
     chunks: Required[Iterable[Chunk]]
+    """The list of embedded chunks to insert."""
 
     vector_store_id: Required[str]
+    """The ID of the vector store to insert chunks into."""
 
     ttl_seconds: Optional[int]
+    """Time-to-live in seconds for the inserted chunks."""
+
+
+class ChunkChunkMetadata(TypedDict, total=False):
+    """
+    `ChunkMetadata` is backend metadata for a `Chunk` that is used to store additional information about the chunk that
+        will not be used in the context during inference, but is required for backend functionality. The `ChunkMetadata`
+        is set during chunk creation in `MemoryToolRuntimeImpl().insert()`and is not expected to change after.
+        Use `Chunk.metadata` for metadata that will be used in the context during inference.
+    """
+
+    chunk_id: Optional[str]
+
+    chunk_tokenizer: Optional[str]
+
+    chunk_window: Optional[str]
+
+    content_token_count: Optional[int]
+
+    created_timestamp: Optional[int]
+
+    document_id: Optional[str]
+
+    metadata_token_count: Optional[int]
+
+    source: Optional[str]
+
+    updated_timestamp: Optional[int]
 
 
 class ChunkContentImageContentItemInputImageURL(TypedDict, total=False):
@@ -113,46 +143,15 @@ ChunkContent: TypeAlias = Union[
 ]
 
 
-class ChunkChunkMetadata(TypedDict, total=False):
-    """
-    `ChunkMetadata` is backend metadata for a `Chunk` that is used to store additional information about the chunk that
-        will not be used in the context during inference, but is required for backend functionality. The `ChunkMetadata`
-        is set during chunk creation in `MemoryToolRuntimeImpl().insert()`and is not expected to change after.
-        Use `Chunk.metadata` for metadata that will be used in the context during inference.
-    """
-
-    chunk_embedding_dimension: Optional[int]
-
-    chunk_embedding_model: Optional[str]
-
-    chunk_id: Optional[str]
-
-    chunk_tokenizer: Optional[str]
-
-    chunk_window: Optional[str]
-
-    content_token_count: Optional[int]
-
-    created_timestamp: Optional[int]
-
-    document_id: Optional[str]
-
-    metadata_token_count: Optional[int]
-
-    source: Optional[str]
-
-    updated_timestamp: Optional[int]
-
-
 class Chunk(TypedDict, total=False):
-    """A chunk of content that can be inserted into a vector database."""
+    """
+    A chunk of content with its embedding vector for vector database operations.
+    Inherits all fields from Chunk and adds embedding-related fields.
+    """
 
     chunk_id: Required[str]
 
-    content: Required[ChunkContent]
-    """A image content item"""
-
-    chunk_metadata: Optional[ChunkChunkMetadata]
+    chunk_metadata: Required[ChunkChunkMetadata]
     """
     `ChunkMetadata` is backend metadata for a `Chunk` that is used to store
     additional information about the chunk that will not be used in the context
@@ -162,6 +161,13 @@ class Chunk(TypedDict, total=False):
     the context during inference.
     """
 
-    embedding: Optional[Iterable[float]]
+    content: Required[ChunkContent]
+    """A image content item"""
+
+    embedding: Required[Iterable[float]]
+
+    embedding_dimension: Required[int]
+
+    embedding_model: Required[str]
 
     metadata: Dict[str, object]

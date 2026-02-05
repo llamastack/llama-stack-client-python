@@ -78,11 +78,11 @@ class ModelsResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> ModelRetrieveResponse:
         """
-        Get model.
-
         Get a model by its identifier.
 
         Args:
+          model_id: The ID of the model to get.
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -141,12 +141,18 @@ class ModelsResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> ModelRegisterResponse:
         """
-        Register model.
-
         Register a model.
 
         Args:
+          model_id: The identifier of the model to register.
+
+          metadata: Any additional metadata for this model.
+
           model_type: Enumeration of supported model types in Llama Stack.
+
+          provider_id: The identifier of the provider.
+
+          provider_model_id: The identifier of the model in the provider.
 
           extra_headers: Send extra headers
 
@@ -187,11 +193,11 @@ class ModelsResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> None:
         """
-        Unregister model.
-
         Unregister a model.
 
         Args:
+          model_id: The ID of the model to unregister.
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -248,11 +254,11 @@ class AsyncModelsResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> ModelRetrieveResponse:
         """
-        Get model.
-
         Get a model by its identifier.
 
         Args:
+          model_id: The ID of the model to get.
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -311,12 +317,18 @@ class AsyncModelsResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> ModelRegisterResponse:
         """
-        Register model.
-
         Register a model.
 
         Args:
+          model_id: The identifier of the model to register.
+
+          metadata: Any additional metadata for this model.
+
           model_type: Enumeration of supported model types in Llama Stack.
+
+          provider_id: The identifier of the provider.
+
+          provider_model_id: The identifier of the model in the provider.
 
           extra_headers: Send extra headers
 
@@ -357,11 +369,11 @@ class AsyncModelsResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> None:
         """
-        Unregister model.
-
         Unregister a model.
 
         Args:
+          model_id: The ID of the model to unregister.
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request

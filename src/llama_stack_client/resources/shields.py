@@ -67,6 +67,8 @@ class ShieldsResource(SyncAPIResource):
         Get a shield by its identifier.
 
         Args:
+          identifier: The identifier of the shield to get.
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -124,6 +126,8 @@ class ShieldsResource(SyncAPIResource):
         Unregister a shield.
 
         Args:
+          identifier: The identifier of the shield to unregister.
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -162,6 +166,14 @@ class ShieldsResource(SyncAPIResource):
         Register a shield.
 
         Args:
+          shield_id: The identifier of the shield to register.
+
+          params: The parameters of the shield.
+
+          provider_id: The identifier of the provider.
+
+          provider_shield_id: The identifier of the shield in the provider.
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -223,6 +235,8 @@ class AsyncShieldsResource(AsyncAPIResource):
         Get a shield by its identifier.
 
         Args:
+          identifier: The identifier of the shield to get.
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -280,6 +294,8 @@ class AsyncShieldsResource(AsyncAPIResource):
         Unregister a shield.
 
         Args:
+          identifier: The identifier of the shield to unregister.
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -318,6 +334,14 @@ class AsyncShieldsResource(AsyncAPIResource):
         Register a shield.
 
         Args:
+          shield_id: The identifier of the shield to register.
+
+          params: The parameters of the shield.
+
+          provider_id: The identifier of the provider.
+
+          provider_shield_id: The identifier of the shield in the provider.
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request

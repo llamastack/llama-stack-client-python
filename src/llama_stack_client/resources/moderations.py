@@ -61,12 +61,16 @@ class ModerationsResource(SyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> CreateResponse:
-        """
-        Create moderation.
+        """Classifies if text inputs are potentially harmful.
 
-        Classifies if text and/or image inputs are potentially harmful.
+        OpenAI-compatible endpoint.
 
         Args:
+          input: Input (or inputs) to classify. Can be a single string or an array of strings.
+
+          model: The content moderation model to use. If not specified, the default shield will
+              be used.
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -123,12 +127,16 @@ class AsyncModerationsResource(AsyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> CreateResponse:
-        """
-        Create moderation.
+        """Classifies if text inputs are potentially harmful.
 
-        Classifies if text and/or image inputs are potentially harmful.
+        OpenAI-compatible endpoint.
 
         Args:
+          input: Input (or inputs) to classify. Can be a single string or an array of strings.
+
+          model: The content moderation model to use. If not specified, the default shield will
+              be used.
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request

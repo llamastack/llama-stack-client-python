@@ -66,12 +66,11 @@ class FileBatchesResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> VectorStoreFileBatches:
         """
-        Create a vector store file batch.
-
-        Generate an OpenAI-compatible vector store file batch for the given vector
-        store.
+        Create a vector store file batch (OpenAI-compatible).
 
         Args:
+          vector_store_id: The vector store identifier.
+
           chunking_strategy: Automatic chunking strategy for vector store files.
 
           extra_headers: Send extra headers
@@ -113,9 +112,13 @@ class FileBatchesResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> VectorStoreFileBatches:
         """
-        Retrieve a vector store file batch.
+        Retrieve a vector store file batch (OpenAI-compatible).
 
         Args:
+          vector_store_id: The vector store identifier.
+
+          batch_id: The file batch identifier.
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -149,9 +152,13 @@ class FileBatchesResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> VectorStoreFileBatches:
         """
-        Cancels a vector store file batch.
+        Cancel a vector store file batch (OpenAI-compatible).
 
         Args:
+          vector_store_id: The vector store identifier.
+
+          batch_id: The file batch identifier.
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -190,9 +197,23 @@ class FileBatchesResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> SyncOpenAICursorPage[VectorStoreFile]:
         """
-        Returns a list of vector store files in a batch.
+        List files in a vector store file batch (OpenAI-compatible).
 
         Args:
+          vector_store_id: The vector store identifier.
+
+          batch_id: The file batch identifier.
+
+          after: Pagination cursor (after).
+
+          before: Pagination cursor (before).
+
+          filter: Filter by file status.
+
+          limit: Maximum number of files to return.
+
+          order: Sort order by created_at: asc or desc.
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -263,12 +284,11 @@ class AsyncFileBatchesResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> VectorStoreFileBatches:
         """
-        Create a vector store file batch.
-
-        Generate an OpenAI-compatible vector store file batch for the given vector
-        store.
+        Create a vector store file batch (OpenAI-compatible).
 
         Args:
+          vector_store_id: The vector store identifier.
+
           chunking_strategy: Automatic chunking strategy for vector store files.
 
           extra_headers: Send extra headers
@@ -310,9 +330,13 @@ class AsyncFileBatchesResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> VectorStoreFileBatches:
         """
-        Retrieve a vector store file batch.
+        Retrieve a vector store file batch (OpenAI-compatible).
 
         Args:
+          vector_store_id: The vector store identifier.
+
+          batch_id: The file batch identifier.
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -346,9 +370,13 @@ class AsyncFileBatchesResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> VectorStoreFileBatches:
         """
-        Cancels a vector store file batch.
+        Cancel a vector store file batch (OpenAI-compatible).
 
         Args:
+          vector_store_id: The vector store identifier.
+
+          batch_id: The file batch identifier.
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -387,9 +415,23 @@ class AsyncFileBatchesResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> AsyncPaginator[VectorStoreFile, AsyncOpenAICursorPage[VectorStoreFile]]:
         """
-        Returns a list of vector store files in a batch.
+        List files in a vector store file batch (OpenAI-compatible).
 
         Args:
+          vector_store_id: The vector store identifier.
+
+          batch_id: The file batch identifier.
+
+          after: Pagination cursor (after).
+
+          before: Pagination cursor (before).
+
+          filter: Filter by file status.
+
+          limit: Maximum number of files to return.
+
+          order: Sort order by created_at: asc or desc.
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request

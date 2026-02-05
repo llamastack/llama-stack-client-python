@@ -19,8 +19,10 @@ __all__ = ["EvalEvaluateRowsParams"]
 
 class EvalEvaluateRowsParams(TypedDict, total=False):
     benchmark_config: Required[BenchmarkConfigParam]
-    """A benchmark configuration for evaluation."""
+    """The configuration for the benchmark"""
 
     input_rows: Required[Iterable[Dict[str, object]]]
+    """The rows to evaluate"""
 
     scoring_functions: Required[SequenceNotStr[str]]
+    """The scoring functions to use for the evaluation"""

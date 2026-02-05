@@ -8,12 +8,12 @@
 
 from __future__ import annotations
 
-from typing import Optional
+from typing import List, Optional
 from typing_extensions import Literal
 
 import httpx
 
-from ..._types import Body, Omit, Query, Headers, NotGiven, SequenceNotStr, omit, not_given
+from ..._types import Body, Omit, Query, Headers, NotGiven, omit, not_given
 from ..._utils import maybe_transform, async_maybe_transform
 from ..._compat import cached_property
 from ..._resource import SyncAPIResource, AsyncAPIResource
@@ -56,7 +56,20 @@ class InputItemsResource(SyncAPIResource):
         *,
         after: Optional[str] | Omit = omit,
         before: Optional[str] | Omit = omit,
-        include: Optional[SequenceNotStr[str]] | Omit = omit,
+        include: Optional[
+            List[
+                Literal[
+                    "web_search_call.action.sources",
+                    "code_interpreter_call.outputs",
+                    "computer_call_output.output.image_url",
+                    "file_search_call.results",
+                    "message.input_image.image_url",
+                    "message.output_text.logprobs",
+                    "reasoning.encrypted_content",
+                ]
+            ]
+        ]
+        | Omit = omit,
         limit: Optional[int] | Omit = omit,
         order: Optional[Literal["asc", "desc"]] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -70,6 +83,17 @@ class InputItemsResource(SyncAPIResource):
         List input items.
 
         Args:
+          response_id: The ID of the response to retrieve input items for.
+
+          after: An item ID to list items after, used for pagination.
+
+          before: An item ID to list items before, used for pagination.
+
+          include: Additional fields to include in the response.
+
+          limit: A limit on the number of objects to be returned. Limit can range between 1 and
+              100, and the default is 20.
+
           order: Sort order for paginated responses.
 
           extra_headers: Send extra headers
@@ -130,7 +154,20 @@ class AsyncInputItemsResource(AsyncAPIResource):
         *,
         after: Optional[str] | Omit = omit,
         before: Optional[str] | Omit = omit,
-        include: Optional[SequenceNotStr[str]] | Omit = omit,
+        include: Optional[
+            List[
+                Literal[
+                    "web_search_call.action.sources",
+                    "code_interpreter_call.outputs",
+                    "computer_call_output.output.image_url",
+                    "file_search_call.results",
+                    "message.input_image.image_url",
+                    "message.output_text.logprobs",
+                    "reasoning.encrypted_content",
+                ]
+            ]
+        ]
+        | Omit = omit,
         limit: Optional[int] | Omit = omit,
         order: Optional[Literal["asc", "desc"]] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -144,6 +181,17 @@ class AsyncInputItemsResource(AsyncAPIResource):
         List input items.
 
         Args:
+          response_id: The ID of the response to retrieve input items for.
+
+          after: An item ID to list items after, used for pagination.
+
+          before: An item ID to list items before, used for pagination.
+
+          include: Additional fields to include in the response.
+
+          limit: A limit on the number of objects to be returned. Limit can range between 1 and
+              100, and the default is 20.
+
           order: Sort order for paginated responses.
 
           extra_headers: Send extra headers

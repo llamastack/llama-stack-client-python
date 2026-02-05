@@ -18,5 +18,10 @@ __all__ = ["ModerationCreateParams"]
 
 class ModerationCreateParams(TypedDict, total=False):
     input: Required[Union[str, SequenceNotStr[str]]]
+    """Input (or inputs) to classify. Can be a single string or an array of strings."""
 
     model: Optional[str]
+    """The content moderation model to use.
+
+    If not specified, the default shield will be used.
+    """

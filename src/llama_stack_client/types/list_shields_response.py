@@ -13,4 +13,7 @@ __all__ = ["ListShieldsResponse"]
 
 
 class ListShieldsResponse(BaseModel):
+    """Response containing a list of all shields."""
+
     data: ShieldListResponse
+    """List of shield objects"""

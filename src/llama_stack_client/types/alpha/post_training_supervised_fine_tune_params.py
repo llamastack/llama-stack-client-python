@@ -27,21 +27,25 @@ __all__ = [
 
 class PostTrainingSupervisedFineTuneParams(TypedDict, total=False):
     hyperparam_search_config: Required[Dict[str, object]]
+    """The hyperparam search configuration."""
 
     job_uuid: Required[str]
+    """The UUID of the job to create."""
 
     logger_config: Required[Dict[str, object]]
+    """The logger configuration."""
 
     training_config: Required[TrainingConfig]
-    """Comprehensive configuration for the training process."""
+    """The training configuration."""
 
     algorithm_config: Optional[AlgorithmConfig]
-    """Configuration for Low-Rank Adaptation (LoRA) fine-tuning."""
+    """The algorithm configuration."""
 
     checkpoint_dir: Optional[str]
+    """The directory to save checkpoint(s) to."""
 
     model: Optional[str]
-    """Model descriptor for training if not in provider config`"""
+    """Model descriptor for training if not in provider config"""
 
 
 class TrainingConfigDataConfig(TypedDict, total=False):
@@ -89,7 +93,7 @@ class TrainingConfigOptimizerConfig(TypedDict, total=False):
 
 
 class TrainingConfig(TypedDict, total=False):
-    """Comprehensive configuration for the training process."""
+    """The training configuration."""
 
     n_epochs: Required[int]
 

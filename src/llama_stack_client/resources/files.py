@@ -66,25 +66,14 @@ class FilesResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> File:
         """
-        Upload file.
-
-        Upload a file that can be used across various endpoints.
-
-        The file upload should be a multipart form request with:
-
-        - file: The File object (not file name) to be uploaded.
-        - purpose: The intended purpose of the uploaded file.
-        - expires_after: Optional form values describing expiration for the file.
+        Upload a file.
 
         Args:
-          purpose: Valid purpose values for OpenAI Files API.
+          file: The file to upload.
+
+          purpose: The intended purpose of the uploaded file.
 
           expires_after: Control expiration of uploaded files.
-
-              Params:
-
-              - anchor, must be "created_at"
-              - seconds, must be int between 3600 and 2592000 (1 hour to 30 days)
 
           extra_headers: Send extra headers
 
@@ -128,11 +117,11 @@ class FilesResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> File:
         """
-        Retrieve file.
-
-        Returns information about a specific file.
+        Get file
 
         Args:
+          file_id: The ID of the file to retrieve.
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -165,12 +154,15 @@ class FilesResource(SyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> SyncOpenAICursorPage[File]:
-        """
-        List files.
-
-        Returns a list of files that belong to the user's organization.
+        """List files
 
         Args:
+          after: A cursor for pagination.
+
+        Returns files after this ID.
+
+          limit: Maximum number of files to return (1-10,000).
+
           order: Sort order for paginated responses.
 
           purpose: Valid purpose values for OpenAI Files API.
@@ -216,9 +208,11 @@ class FilesResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> DeleteFileResponse:
         """
-        Delete file.
+        Delete file
 
         Args:
+          file_id: The ID of the file to delete.
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -249,11 +243,11 @@ class FilesResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> object:
         """
-        Retrieve file content.
-
-        Returns the contents of the specified file.
+        Retrieve file content
 
         Args:
+          file_id: The ID of the file to retrieve content from.
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -307,25 +301,14 @@ class AsyncFilesResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> File:
         """
-        Upload file.
-
-        Upload a file that can be used across various endpoints.
-
-        The file upload should be a multipart form request with:
-
-        - file: The File object (not file name) to be uploaded.
-        - purpose: The intended purpose of the uploaded file.
-        - expires_after: Optional form values describing expiration for the file.
+        Upload a file.
 
         Args:
-          purpose: Valid purpose values for OpenAI Files API.
+          file: The file to upload.
+
+          purpose: The intended purpose of the uploaded file.
 
           expires_after: Control expiration of uploaded files.
-
-              Params:
-
-              - anchor, must be "created_at"
-              - seconds, must be int between 3600 and 2592000 (1 hour to 30 days)
 
           extra_headers: Send extra headers
 
@@ -369,11 +352,11 @@ class AsyncFilesResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> File:
         """
-        Retrieve file.
-
-        Returns information about a specific file.
+        Get file
 
         Args:
+          file_id: The ID of the file to retrieve.
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -406,12 +389,15 @@ class AsyncFilesResource(AsyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> AsyncPaginator[File, AsyncOpenAICursorPage[File]]:
-        """
-        List files.
-
-        Returns a list of files that belong to the user's organization.
+        """List files
 
         Args:
+          after: A cursor for pagination.
+
+        Returns files after this ID.
+
+          limit: Maximum number of files to return (1-10,000).
+
           order: Sort order for paginated responses.
 
           purpose: Valid purpose values for OpenAI Files API.
@@ -457,9 +443,11 @@ class AsyncFilesResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> DeleteFileResponse:
         """
-        Delete file.
+        Delete file
 
         Args:
+          file_id: The ID of the file to delete.
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -490,11 +478,11 @@ class AsyncFilesResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> object:
         """
-        Retrieve file content.
-
-        Returns the contents of the specified file.
+        Retrieve file content
 
         Args:
+          file_id: The ID of the file to retrieve content from.
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request

@@ -8,7 +8,8 @@
 
 from __future__ import annotations
 
-from typing import Union, Optional
+from typing import Union, Iterable
+from typing_extensions import Literal
 
 import httpx
 
@@ -52,11 +53,11 @@ class EmbeddingsResource(SyncAPIResource):
     def create(
         self,
         *,
-        input: Union[str, SequenceNotStr[str]],
+        input: Union[str, SequenceNotStr[str], Iterable[int], Iterable[Iterable[int]]],
         model: str,
-        dimensions: Optional[int] | Omit = omit,
-        encoding_format: Optional[str] | Omit = omit,
-        user: Optional[str] | Omit = omit,
+        dimensions: int | Omit = omit,
+        encoding_format: Literal["float", "base64"] | Omit = omit,
+        user: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -65,12 +66,20 @@ class EmbeddingsResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> CreateEmbeddingsResponse:
         """
-        Create embeddings.
-
         Generate OpenAI-compatible embeddings for the given input using the specified
         model.
 
         Args:
+          input: Input text to embed, encoded as a string or array of tokens.
+
+          model: The identifier of the model to use.
+
+          dimensions: The number of dimensions for output embeddings.
+
+          encoding_format: The format to return the embeddings in.
+
+          user: A unique identifier representing your end-user.
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -121,11 +130,11 @@ class AsyncEmbeddingsResource(AsyncAPIResource):
     async def create(
         self,
         *,
-        input: Union[str, SequenceNotStr[str]],
+        input: Union[str, SequenceNotStr[str], Iterable[int], Iterable[Iterable[int]]],
         model: str,
-        dimensions: Optional[int] | Omit = omit,
-        encoding_format: Optional[str] | Omit = omit,
-        user: Optional[str] | Omit = omit,
+        dimensions: int | Omit = omit,
+        encoding_format: Literal["float", "base64"] | Omit = omit,
+        user: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -134,12 +143,20 @@ class AsyncEmbeddingsResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> CreateEmbeddingsResponse:
         """
-        Create embeddings.
-
         Generate OpenAI-compatible embeddings for the given input using the specified
         model.
 
         Args:
+          input: Input text to embed, encoded as a string or array of tokens.
+
+          model: The identifier of the model to use.
+
+          dimensions: The number of dimensions for output embeddings.
+
+          encoding_format: The format to return the embeddings in.
+
+          user: A unique identifier representing your end-user.
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request

@@ -18,5 +18,7 @@ class EvaluateResponse(BaseModel):
     """The response from an evaluation."""
 
     generations: List[Dict[str, object]]
+    """The generations from the evaluation"""
 
     scores: Dict[str, ScoringResult]
+    """The scores from the evaluation. Each key in the dict is a scoring function name"""

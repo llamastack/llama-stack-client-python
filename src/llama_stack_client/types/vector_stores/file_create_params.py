@@ -22,11 +22,13 @@ __all__ = [
 
 class FileCreateParams(TypedDict, total=False):
     file_id: Required[str]
+    """The ID of the file to attach."""
 
     attributes: Optional[Dict[str, object]]
+    """Attributes to associate with the file."""
 
     chunking_strategy: Optional[ChunkingStrategy]
-    """Automatic chunking strategy for vector store files."""
+    """Strategy for chunking the file content."""
 
 
 class ChunkingStrategyVectorStoreChunkingStrategyAuto(TypedDict, total=False):

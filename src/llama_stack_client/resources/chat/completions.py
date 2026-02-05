@@ -70,7 +70,9 @@ class CompletionsResource(SyncAPIResource):
         n: Optional[int] | Omit = omit,
         parallel_tool_calls: Optional[bool] | Omit = omit,
         presence_penalty: Optional[float] | Omit = omit,
+        reasoning_effort: Optional[Literal["none", "minimal", "low", "medium", "high", "xhigh"]] | Omit = omit,
         response_format: Optional[completion_create_params.ResponseFormat] | Omit = omit,
+        safety_identifier: Optional[str] | Omit = omit,
         seed: Optional[int] | Omit = omit,
         stop: Union[str, SequenceNotStr[str], None] | Omit = omit,
         stream: Optional[Literal[False]] | Omit = omit,
@@ -89,13 +91,59 @@ class CompletionsResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> CompletionCreateResponse:
         """
-        Create chat completions.
-
         Generate an OpenAI-compatible chat completion for the given messages using the
         specified model.
 
         Args:
-          response_format: Text response format for OpenAI-compatible chat completion requests.
+          messages: List of messages in the conversation.
+
+          model: The identifier of the model to use.
+
+          frequency_penalty: The penalty for repeated tokens.
+
+          function_call: The function call to use.
+
+          functions: List of functions to use.
+
+          logit_bias: The logit bias to use.
+
+          logprobs: The log probabilities to use.
+
+          max_completion_tokens: The maximum number of tokens to generate.
+
+          max_tokens: The maximum number of tokens to generate.
+
+          n: The number of completions to generate.
+
+          parallel_tool_calls: Whether to parallelize tool calls.
+
+          presence_penalty: The penalty for repeated tokens.
+
+          reasoning_effort: The effort level for reasoning models.
+
+          response_format: The response format to use.
+
+          safety_identifier: A stable identifier used for safety monitoring and abuse detection.
+
+          seed: The seed to use.
+
+          stop: The stop tokens to use.
+
+          stream: Whether to stream the response.
+
+          stream_options: The stream options to use.
+
+          temperature: The temperature to use.
+
+          tool_choice: The tool choice to use.
+
+          tools: The tools to use.
+
+          top_logprobs: The top log probabilities to use.
+
+          top_p: The top p to use.
+
+          user: The user to use.
 
           extra_headers: Send extra headers
 
@@ -124,7 +172,9 @@ class CompletionsResource(SyncAPIResource):
         n: Optional[int] | Omit = omit,
         parallel_tool_calls: Optional[bool] | Omit = omit,
         presence_penalty: Optional[float] | Omit = omit,
+        reasoning_effort: Optional[Literal["none", "minimal", "low", "medium", "high", "xhigh"]] | Omit = omit,
         response_format: Optional[completion_create_params.ResponseFormat] | Omit = omit,
+        safety_identifier: Optional[str] | Omit = omit,
         seed: Optional[int] | Omit = omit,
         stop: Union[str, SequenceNotStr[str], None] | Omit = omit,
         stream_options: Optional[Dict[str, object]] | Omit = omit,
@@ -142,13 +192,59 @@ class CompletionsResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> Stream[ChatCompletionChunk]:
         """
-        Create chat completions.
-
         Generate an OpenAI-compatible chat completion for the given messages using the
         specified model.
 
         Args:
-          response_format: Text response format for OpenAI-compatible chat completion requests.
+          messages: List of messages in the conversation.
+
+          model: The identifier of the model to use.
+
+          stream: Whether to stream the response.
+
+          frequency_penalty: The penalty for repeated tokens.
+
+          function_call: The function call to use.
+
+          functions: List of functions to use.
+
+          logit_bias: The logit bias to use.
+
+          logprobs: The log probabilities to use.
+
+          max_completion_tokens: The maximum number of tokens to generate.
+
+          max_tokens: The maximum number of tokens to generate.
+
+          n: The number of completions to generate.
+
+          parallel_tool_calls: Whether to parallelize tool calls.
+
+          presence_penalty: The penalty for repeated tokens.
+
+          reasoning_effort: The effort level for reasoning models.
+
+          response_format: The response format to use.
+
+          safety_identifier: A stable identifier used for safety monitoring and abuse detection.
+
+          seed: The seed to use.
+
+          stop: The stop tokens to use.
+
+          stream_options: The stream options to use.
+
+          temperature: The temperature to use.
+
+          tool_choice: The tool choice to use.
+
+          tools: The tools to use.
+
+          top_logprobs: The top log probabilities to use.
+
+          top_p: The top p to use.
+
+          user: The user to use.
 
           extra_headers: Send extra headers
 
@@ -177,7 +273,9 @@ class CompletionsResource(SyncAPIResource):
         n: Optional[int] | Omit = omit,
         parallel_tool_calls: Optional[bool] | Omit = omit,
         presence_penalty: Optional[float] | Omit = omit,
+        reasoning_effort: Optional[Literal["none", "minimal", "low", "medium", "high", "xhigh"]] | Omit = omit,
         response_format: Optional[completion_create_params.ResponseFormat] | Omit = omit,
+        safety_identifier: Optional[str] | Omit = omit,
         seed: Optional[int] | Omit = omit,
         stop: Union[str, SequenceNotStr[str], None] | Omit = omit,
         stream_options: Optional[Dict[str, object]] | Omit = omit,
@@ -195,13 +293,59 @@ class CompletionsResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> CompletionCreateResponse | Stream[ChatCompletionChunk]:
         """
-        Create chat completions.
-
         Generate an OpenAI-compatible chat completion for the given messages using the
         specified model.
 
         Args:
-          response_format: Text response format for OpenAI-compatible chat completion requests.
+          messages: List of messages in the conversation.
+
+          model: The identifier of the model to use.
+
+          stream: Whether to stream the response.
+
+          frequency_penalty: The penalty for repeated tokens.
+
+          function_call: The function call to use.
+
+          functions: List of functions to use.
+
+          logit_bias: The logit bias to use.
+
+          logprobs: The log probabilities to use.
+
+          max_completion_tokens: The maximum number of tokens to generate.
+
+          max_tokens: The maximum number of tokens to generate.
+
+          n: The number of completions to generate.
+
+          parallel_tool_calls: Whether to parallelize tool calls.
+
+          presence_penalty: The penalty for repeated tokens.
+
+          reasoning_effort: The effort level for reasoning models.
+
+          response_format: The response format to use.
+
+          safety_identifier: A stable identifier used for safety monitoring and abuse detection.
+
+          seed: The seed to use.
+
+          stop: The stop tokens to use.
+
+          stream_options: The stream options to use.
+
+          temperature: The temperature to use.
+
+          tool_choice: The tool choice to use.
+
+          tools: The tools to use.
+
+          top_logprobs: The top log probabilities to use.
+
+          top_p: The top p to use.
+
+          user: The user to use.
 
           extra_headers: Send extra headers
 
@@ -229,7 +373,9 @@ class CompletionsResource(SyncAPIResource):
         n: Optional[int] | Omit = omit,
         parallel_tool_calls: Optional[bool] | Omit = omit,
         presence_penalty: Optional[float] | Omit = omit,
+        reasoning_effort: Optional[Literal["none", "minimal", "low", "medium", "high", "xhigh"]] | Omit = omit,
         response_format: Optional[completion_create_params.ResponseFormat] | Omit = omit,
+        safety_identifier: Optional[str] | Omit = omit,
         seed: Optional[int] | Omit = omit,
         stop: Union[str, SequenceNotStr[str], None] | Omit = omit,
         stream: Optional[Literal[False]] | Literal[True] | Omit = omit,
@@ -263,7 +409,9 @@ class CompletionsResource(SyncAPIResource):
                     "n": n,
                     "parallel_tool_calls": parallel_tool_calls,
                     "presence_penalty": presence_penalty,
+                    "reasoning_effort": reasoning_effort,
                     "response_format": response_format,
+                    "safety_identifier": safety_identifier,
                     "seed": seed,
                     "stop": stop,
                     "stream": stream,
@@ -299,11 +447,11 @@ class CompletionsResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> CompletionRetrieveResponse:
         """
-        Get chat completion.
-
         Describe a chat completion by its ID.
 
         Args:
+          completion_id: ID of the chat completion.
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -340,6 +488,12 @@ class CompletionsResource(SyncAPIResource):
         List chat completions.
 
         Args:
+          after: The ID of the last chat completion to return.
+
+          limit: The maximum number of chat completions to return.
+
+          model: The model to filter by.
+
           order: Sort order for paginated responses.
 
           extra_headers: Send extra headers
@@ -407,7 +561,9 @@ class AsyncCompletionsResource(AsyncAPIResource):
         n: Optional[int] | Omit = omit,
         parallel_tool_calls: Optional[bool] | Omit = omit,
         presence_penalty: Optional[float] | Omit = omit,
+        reasoning_effort: Optional[Literal["none", "minimal", "low", "medium", "high", "xhigh"]] | Omit = omit,
         response_format: Optional[completion_create_params.ResponseFormat] | Omit = omit,
+        safety_identifier: Optional[str] | Omit = omit,
         seed: Optional[int] | Omit = omit,
         stop: Union[str, SequenceNotStr[str], None] | Omit = omit,
         stream: Optional[Literal[False]] | Omit = omit,
@@ -426,13 +582,59 @@ class AsyncCompletionsResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> CompletionCreateResponse:
         """
-        Create chat completions.
-
         Generate an OpenAI-compatible chat completion for the given messages using the
         specified model.
 
         Args:
-          response_format: Text response format for OpenAI-compatible chat completion requests.
+          messages: List of messages in the conversation.
+
+          model: The identifier of the model to use.
+
+          frequency_penalty: The penalty for repeated tokens.
+
+          function_call: The function call to use.
+
+          functions: List of functions to use.
+
+          logit_bias: The logit bias to use.
+
+          logprobs: The log probabilities to use.
+
+          max_completion_tokens: The maximum number of tokens to generate.
+
+          max_tokens: The maximum number of tokens to generate.
+
+          n: The number of completions to generate.
+
+          parallel_tool_calls: Whether to parallelize tool calls.
+
+          presence_penalty: The penalty for repeated tokens.
+
+          reasoning_effort: The effort level for reasoning models.
+
+          response_format: The response format to use.
+
+          safety_identifier: A stable identifier used for safety monitoring and abuse detection.
+
+          seed: The seed to use.
+
+          stop: The stop tokens to use.
+
+          stream: Whether to stream the response.
+
+          stream_options: The stream options to use.
+
+          temperature: The temperature to use.
+
+          tool_choice: The tool choice to use.
+
+          tools: The tools to use.
+
+          top_logprobs: The top log probabilities to use.
+
+          top_p: The top p to use.
+
+          user: The user to use.
 
           extra_headers: Send extra headers
 
@@ -461,7 +663,9 @@ class AsyncCompletionsResource(AsyncAPIResource):
         n: Optional[int] | Omit = omit,
         parallel_tool_calls: Optional[bool] | Omit = omit,
         presence_penalty: Optional[float] | Omit = omit,
+        reasoning_effort: Optional[Literal["none", "minimal", "low", "medium", "high", "xhigh"]] | Omit = omit,
         response_format: Optional[completion_create_params.ResponseFormat] | Omit = omit,
+        safety_identifier: Optional[str] | Omit = omit,
         seed: Optional[int] | Omit = omit,
         stop: Union[str, SequenceNotStr[str], None] | Omit = omit,
         stream_options: Optional[Dict[str, object]] | Omit = omit,
@@ -479,13 +683,59 @@ class AsyncCompletionsResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> AsyncStream[ChatCompletionChunk]:
         """
-        Create chat completions.
-
         Generate an OpenAI-compatible chat completion for the given messages using the
         specified model.
 
         Args:
-          response_format: Text response format for OpenAI-compatible chat completion requests.
+          messages: List of messages in the conversation.
+
+          model: The identifier of the model to use.
+
+          stream: Whether to stream the response.
+
+          frequency_penalty: The penalty for repeated tokens.
+
+          function_call: The function call to use.
+
+          functions: List of functions to use.
+
+          logit_bias: The logit bias to use.
+
+          logprobs: The log probabilities to use.
+
+          max_completion_tokens: The maximum number of tokens to generate.
+
+          max_tokens: The maximum number of tokens to generate.
+
+          n: The number of completions to generate.
+
+          parallel_tool_calls: Whether to parallelize tool calls.
+
+          presence_penalty: The penalty for repeated tokens.
+
+          reasoning_effort: The effort level for reasoning models.
+
+          response_format: The response format to use.
+
+          safety_identifier: A stable identifier used for safety monitoring and abuse detection.
+
+          seed: The seed to use.
+
+          stop: The stop tokens to use.
+
+          stream_options: The stream options to use.
+
+          temperature: The temperature to use.
+
+          tool_choice: The tool choice to use.
+
+          tools: The tools to use.
+
+          top_logprobs: The top log probabilities to use.
+
+          top_p: The top p to use.
+
+          user: The user to use.
 
           extra_headers: Send extra headers
 
@@ -514,7 +764,9 @@ class AsyncCompletionsResource(AsyncAPIResource):
         n: Optional[int] | Omit = omit,
         parallel_tool_calls: Optional[bool] | Omit = omit,
         presence_penalty: Optional[float] | Omit = omit,
+        reasoning_effort: Optional[Literal["none", "minimal", "low", "medium", "high", "xhigh"]] | Omit = omit,
         response_format: Optional[completion_create_params.ResponseFormat] | Omit = omit,
+        safety_identifier: Optional[str] | Omit = omit,
         seed: Optional[int] | Omit = omit,
         stop: Union[str, SequenceNotStr[str], None] | Omit = omit,
         stream_options: Optional[Dict[str, object]] | Omit = omit,
@@ -532,13 +784,59 @@ class AsyncCompletionsResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> CompletionCreateResponse | AsyncStream[ChatCompletionChunk]:
         """
-        Create chat completions.
-
         Generate an OpenAI-compatible chat completion for the given messages using the
         specified model.
 
         Args:
-          response_format: Text response format for OpenAI-compatible chat completion requests.
+          messages: List of messages in the conversation.
+
+          model: The identifier of the model to use.
+
+          stream: Whether to stream the response.
+
+          frequency_penalty: The penalty for repeated tokens.
+
+          function_call: The function call to use.
+
+          functions: List of functions to use.
+
+          logit_bias: The logit bias to use.
+
+          logprobs: The log probabilities to use.
+
+          max_completion_tokens: The maximum number of tokens to generate.
+
+          max_tokens: The maximum number of tokens to generate.
+
+          n: The number of completions to generate.
+
+          parallel_tool_calls: Whether to parallelize tool calls.
+
+          presence_penalty: The penalty for repeated tokens.
+
+          reasoning_effort: The effort level for reasoning models.
+
+          response_format: The response format to use.
+
+          safety_identifier: A stable identifier used for safety monitoring and abuse detection.
+
+          seed: The seed to use.
+
+          stop: The stop tokens to use.
+
+          stream_options: The stream options to use.
+
+          temperature: The temperature to use.
+
+          tool_choice: The tool choice to use.
+
+          tools: The tools to use.
+
+          top_logprobs: The top log probabilities to use.
+
+          top_p: The top p to use.
+
+          user: The user to use.
 
           extra_headers: Send extra headers
 
@@ -566,7 +864,9 @@ class AsyncCompletionsResource(AsyncAPIResource):
         n: Optional[int] | Omit = omit,
         parallel_tool_calls: Optional[bool] | Omit = omit,
         presence_penalty: Optional[float] | Omit = omit,
+        reasoning_effort: Optional[Literal["none", "minimal", "low", "medium", "high", "xhigh"]] | Omit = omit,
         response_format: Optional[completion_create_params.ResponseFormat] | Omit = omit,
+        safety_identifier: Optional[str] | Omit = omit,
         seed: Optional[int] | Omit = omit,
         stop: Union[str, SequenceNotStr[str], None] | Omit = omit,
         stream: Optional[Literal[False]] | Literal[True] | Omit = omit,
@@ -600,7 +900,9 @@ class AsyncCompletionsResource(AsyncAPIResource):
                     "n": n,
                     "parallel_tool_calls": parallel_tool_calls,
                     "presence_penalty": presence_penalty,
+                    "reasoning_effort": reasoning_effort,
                     "response_format": response_format,
+                    "safety_identifier": safety_identifier,
                     "seed": seed,
                     "stop": stop,
                     "stream": stream,
@@ -636,11 +938,11 @@ class AsyncCompletionsResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> CompletionRetrieveResponse:
         """
-        Get chat completion.
-
         Describe a chat completion by its ID.
 
         Args:
+          completion_id: ID of the chat completion.
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -677,6 +979,12 @@ class AsyncCompletionsResource(AsyncAPIResource):
         List chat completions.
 
         Args:
+          after: The ID of the last chat completion to return.
+
+          limit: The maximum number of chat completions to return.
+
+          model: The model to filter by.
+
           order: Sort order for paginated responses.
 
           extra_headers: Send extra headers

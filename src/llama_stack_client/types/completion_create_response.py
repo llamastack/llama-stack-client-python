@@ -25,71 +25,67 @@ __all__ = [
 class ChoiceLogprobsContentTopLogprob(BaseModel):
     """
     The top log probability for a token from an OpenAI-compatible chat completion response.
-
-    :token: The token
-    :bytes: (Optional) The bytes for the token
-    :logprob: The log probability of the token
     """
 
     token: str
+    """The token."""
 
     logprob: float
+    """The log probability of the token."""
 
     bytes: Optional[List[int]] = None
+    """The bytes for the token."""
 
 
 class ChoiceLogprobsContent(BaseModel):
     """
     The log probability for a token from an OpenAI-compatible chat completion response.
-
-    :token: The token
-    :bytes: (Optional) The bytes for the token
-    :logprob: The log probability of the token
-    :top_logprobs: The top log probabilities for the token
     """
 
     token: str
+    """The token."""
 
     logprob: float
+    """The log probability of the token."""
 
     bytes: Optional[List[int]] = None
+    """The bytes for the token."""
 
     top_logprobs: Optional[List[ChoiceLogprobsContentTopLogprob]] = None
+    """The top log probabilities for the token."""
 
 
 class ChoiceLogprobsRefusalTopLogprob(BaseModel):
     """
     The top log probability for a token from an OpenAI-compatible chat completion response.
-
-    :token: The token
-    :bytes: (Optional) The bytes for the token
-    :logprob: The log probability of the token
     """
 
     token: str
+    """The token."""
 
     logprob: float
+    """The log probability of the token."""
 
     bytes: Optional[List[int]] = None
+    """The bytes for the token."""
 
 
 class ChoiceLogprobsRefusal(BaseModel):
     """
     The log probability for a token from an OpenAI-compatible chat completion response.
-
-    :token: The token
-    :bytes: (Optional) The bytes for the token
-    :logprob: The log probability of the token
-    :top_logprobs: The top log probabilities for the token
     """
 
     token: str
+    """The token."""
 
     logprob: float
+    """The log probability of the token."""
 
     bytes: Optional[List[int]] = None
+    """The bytes for the token."""
 
     top_logprobs: Optional[List[ChoiceLogprobsRefusalTopLogprob]] = None
+    """The top log probabilities for the token."""
 
 
 class ChoiceLogprobs(BaseModel):
@@ -98,24 +94,23 @@ class ChoiceLogprobs(BaseModel):
     """
 
     content: Optional[List[ChoiceLogprobsContent]] = None
+    """The log probabilities for the tokens in the message."""
 
     refusal: Optional[List[ChoiceLogprobsRefusal]] = None
+    """The log probabilities for the refusal tokens."""
 
 
 class Choice(BaseModel):
-    """A choice from an OpenAI-compatible completion response.
+    """A choice from an OpenAI-compatible completion response."""
 
-    :finish_reason: The reason the model stopped generating
-    :text: The text of the choice
-    :index: The index of the choice
-    :logprobs: (Optional) The log probabilities for the tokens in the choice
-    """
-
-    finish_reason: str
+    finish_reason: Literal["stop", "length", "tool_calls", "content_filter", "function_call"]
+    """The reason the model stopped generating."""
 
     index: int
+    """The index of the choice."""
 
     text: str
+    """The text of the choice."""
 
     logprobs: Optional[ChoiceLogprobs] = None
     """
@@ -125,21 +120,19 @@ class Choice(BaseModel):
 
 
 class CompletionCreateResponse(BaseModel):
-    """Response from an OpenAI-compatible completion request.
-
-    :id: The ID of the completion
-    :choices: List of choices
-    :created: The Unix timestamp in seconds when the completion was created
-    :model: The model that was used to generate the completion
-    :object: The object type, which will be "text_completion"
-    """
+    """Response from an OpenAI-compatible completion request."""
 
     id: str
+    """The ID of the completion."""
 
     choices: List[Choice]
+    """List of choices."""
 
     created: int
+    """The Unix timestamp in seconds when the completion was created."""
 
     model: str
+    """The model that was used to generate the completion."""
 
     object: Optional[Literal["text_completion"]] = None
+    """The object type."""

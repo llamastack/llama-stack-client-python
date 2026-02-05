@@ -24,10 +24,13 @@ __all__ = [
 
 class ScoringScoreBatchParams(TypedDict, total=False):
     dataset_id: Required[str]
+    """The ID of the dataset to score."""
 
     scoring_functions: Required[Dict[str, Optional[ScoringFunctions]]]
+    """The scoring functions to use for the scoring."""
 
     save_results_dataset: bool
+    """Whether to save the results to a dataset."""
 
 
 class ScoringFunctionsLlmAsJudgeScoringFnParams(TypedDict, total=False):

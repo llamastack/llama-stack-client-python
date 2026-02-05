@@ -16,8 +16,10 @@ __all__ = ["FileListParams"]
 
 class FileListParams(TypedDict, total=False):
     after: Optional[str]
+    """A cursor for pagination. Returns files after this ID."""
 
     limit: Optional[int]
+    """Maximum number of files to return (1-10,000)."""
 
     order: Optional[Literal["asc", "desc"]]
     """Sort order for paginated responses."""

@@ -16,3 +16,4 @@ __all__ = ["PromptRetrieveParams"]
 
 class PromptRetrieveParams(TypedDict, total=False):
     version: Optional[int]
+    """The version of the prompt to get (defaults to latest)."""

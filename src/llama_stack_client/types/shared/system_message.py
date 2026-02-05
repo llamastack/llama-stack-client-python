@@ -108,6 +108,11 @@ class SystemMessage(BaseModel):
     """A system message providing instructions or context to the model."""
 
     content: Content
-    """A image content item"""
+    """The content of the 'system prompt'.
+
+    If multiple system messages are provided, they are concatenated. The underlying
+    Llama Stack code may also add other system messages.
+    """
 
     role: Optional[Literal["system"]] = None
+    """Must be 'system' to identify this as a system message."""

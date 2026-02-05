@@ -18,5 +18,7 @@ class ScoringScoreBatchResponse(BaseModel):
     """Response from batch scoring operations on datasets."""
 
     results: Dict[str, ScoringResult]
+    """A map of scoring function name to ScoringResult"""
 
     dataset_id: Optional[str] = None
+    """(Optional) The identifier of the dataset that was scored"""

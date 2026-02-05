@@ -28,11 +28,13 @@ __all__ = [
 
 class VectorIoQueryParams(TypedDict, total=False):
     query: Required[Query]
-    """A image content item"""
+    """The query content to search for."""
 
     vector_store_id: Required[str]
+    """The ID of the vector store to query."""
 
     params: Optional[Dict[str, object]]
+    """Additional query parameters."""
 
 
 class QueryImageContentItemInputImageURL(TypedDict, total=False):

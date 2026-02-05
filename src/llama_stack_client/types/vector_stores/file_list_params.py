@@ -16,11 +16,16 @@ __all__ = ["FileListParams"]
 
 class FileListParams(TypedDict, total=False):
     after: Optional[str]
+    """Pagination cursor (after)."""
 
     before: Optional[str]
+    """Pagination cursor (before)."""
 
     filter: Optional[Literal["completed", "in_progress", "cancelled", "failed"]]
+    """Filter by file status."""
 
     limit: Optional[int]
+    """Maximum number of files to return."""
 
     order: Optional[str]
+    """Sort order by created_at: asc or desc."""

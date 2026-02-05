@@ -16,10 +16,13 @@ __all__ = ["ResponseListParams"]
 
 class ResponseListParams(TypedDict, total=False):
     after: Optional[str]
+    """The ID of the last response to return."""
 
     limit: Optional[int]
+    """The number of responses to return."""
 
     model: Optional[str]
+    """The model to filter responses by."""
 
     order: Optional[Literal["asc", "desc"]]
     """Sort order for paginated responses."""

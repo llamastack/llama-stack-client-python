@@ -46,6 +46,7 @@ __all__ = [
     "PromptVariablesOpenAIResponseInputMessageContentText",
     "PromptVariablesOpenAIResponseInputMessageContentImage",
     "PromptVariablesOpenAIResponseInputMessageContentFile",
+    "Reasoning",
     "Text",
     "TextFormat",
     "ToolChoice",
@@ -191,17 +192,16 @@ class OutputOpenAIResponseMessageOutputContentListOpenAIResponseOutputMessageCon
 ):
     """
     The top log probability for a token from an OpenAI-compatible chat completion response.
-
-    :token: The token
-    :bytes: (Optional) The bytes for the token
-    :logprob: The log probability of the token
     """
 
     token: str
+    """The token."""
 
     logprob: float
+    """The log probability of the token."""
 
     bytes: Optional[List[int]] = None
+    """The bytes for the token."""
 
 
 class OutputOpenAIResponseMessageOutputContentListOpenAIResponseOutputMessageContentOutputTextOutputOpenAIResponseContentPartRefusalOpenAIResponseOutputMessageContentOutputTextOutputLogprob(
@@ -209,24 +209,23 @@ class OutputOpenAIResponseMessageOutputContentListOpenAIResponseOutputMessageCon
 ):
     """
     The log probability for a token from an OpenAI-compatible chat completion response.
-
-    :token: The token
-    :bytes: (Optional) The bytes for the token
-    :logprob: The log probability of the token
-    :top_logprobs: The top log probabilities for the token
     """
 
     token: str
+    """The token."""
 
     logprob: float
+    """The log probability of the token."""
 
     bytes: Optional[List[int]] = None
+    """The bytes for the token."""
 
     top_logprobs: Optional[
         List[
             OutputOpenAIResponseMessageOutputContentListOpenAIResponseOutputMessageContentOutputTextOutputOpenAIResponseContentPartRefusalOpenAIResponseOutputMessageContentOutputTextOutputLogprobTopLogprob
         ]
     ] = None
+    """The top log probabilities for the token."""
 
 
 class OutputOpenAIResponseMessageOutputContentListOpenAIResponseOutputMessageContentOutputTextOutputOpenAIResponseContentPartRefusalOpenAIResponseOutputMessageContentOutputTextOutput(
@@ -479,6 +478,15 @@ class Prompt(BaseModel):
     version: Optional[str] = None
 
 
+class Reasoning(BaseModel):
+    """Configuration for reasoning effort in OpenAI responses.
+
+    Controls how much reasoning the model performs before generating a response.
+    """
+
+    effort: Optional[Literal["none", "minimal", "low", "medium", "high", "xhigh"]] = None
+
+
 class TextFormat(BaseModel):
     """Configuration for Responses API text format."""
 
@@ -573,11 +581,44 @@ class ToolOpenAIResponseInputToolWebSearch(BaseModel):
 
 
 class ToolOpenAIResponseInputToolFileSearchRankingOptions(BaseModel):
-    """Options for ranking and filtering search results."""
+    """Options for ranking and filtering search results.
+
+    This class configures how search results are ranked and filtered. You can use algorithm-based
+    rerankers (weighted, RRF) or neural rerankers. Defaults from VectorStoresConfig are
+    used when parameters are not provided.
+
+    Examples:
+        # Weighted ranker with custom alpha
+        SearchRankingOptions(ranker="weighted", alpha=0.7)
+
+        # RRF ranker with custom impact factor
+        SearchRankingOptions(ranker="rrf", impact_factor=50.0)
+
+        # Use config defaults (just specify ranker type)
+        SearchRankingOptions(ranker="weighted")  # Uses alpha from VectorStoresConfig
+
+        # Score threshold filtering
+        SearchRankingOptions(ranker="weighted", score_threshold=0.5)
+    """
+
+    alpha: Optional[float] = None
+    """Weight factor for weighted ranker"""
+
+    impact_factor: Optional[float] = None
+    """Impact factor for RRF algorithm"""
+
+    model: Optional[str] = None
+    """Model identifier for neural reranker"""
 
     ranker: Optional[str] = None
 
     score_threshold: Optional[float] = None
+
+    weights: Optional[Dict[str, float]] = None
+    """Weights for combining vector, keyword, and neural scores.
+
+    Keys: 'vector', 'keyword', 'neural'
+    """
 
 
 class ToolOpenAIResponseInputToolFileSearch(BaseModel):
@@ -590,7 +631,24 @@ class ToolOpenAIResponseInputToolFileSearch(BaseModel):
     max_num_results: Optional[int] = None
 
     ranking_options: Optional[ToolOpenAIResponseInputToolFileSearchRankingOptions] = None
-    """Options for ranking and filtering search results."""
+    """Options for ranking and filtering search results.
+
+    This class configures how search results are ranked and filtered. You can use
+    algorithm-based rerankers (weighted, RRF) or neural rerankers. Defaults from
+    VectorStoresConfig are used when parameters are not provided.
+
+    Examples: # Weighted ranker with custom alpha
+    SearchRankingOptions(ranker="weighted", alpha=0.7)
+
+        # RRF ranker with custom impact factor
+        SearchRankingOptions(ranker="rrf", impact_factor=50.0)
+
+        # Use config defaults (just specify ranker type)
+        SearchRankingOptions(ranker="weighted")  # Uses alpha from VectorStoresConfig
+
+        # Score threshold filtering
+        SearchRankingOptions(ranker="weighted", score_threshold=0.5)
+    """
 
     type: Optional[Literal["file_search"]] = None
 
@@ -642,13 +700,13 @@ Tool: TypeAlias = Union[
 class UsageInputTokensDetails(BaseModel):
     """Token details for input tokens in OpenAI response usage."""
 
-    cached_tokens: Optional[int] = None
+    cached_tokens: int
 
 
 class UsageOutputTokensDetails(BaseModel):
     """Token details for output tokens in OpenAI response usage."""
 
-    reasoning_tokens: Optional[int] = None
+    reasoning_tokens: int
 
 
 class Usage(BaseModel):
@@ -656,15 +714,15 @@ class Usage(BaseModel):
 
     input_tokens: int
 
-    output_tokens: int
-
-    total_tokens: int
-
-    input_tokens_details: Optional[UsageInputTokensDetails] = None
+    input_tokens_details: UsageInputTokensDetails
     """Token details for input tokens in OpenAI response usage."""
 
-    output_tokens_details: Optional[UsageOutputTokensDetails] = None
+    output_tokens: int
+
+    output_tokens_details: UsageOutputTokensDetails
     """Token details for output tokens in OpenAI response usage."""
+
+    total_tokens: int
 
 
 class ResponseObject(BaseModel):
@@ -688,10 +746,16 @@ class ResponseObject(BaseModel):
 
     status: str
 
+    store: bool
+
+    completed_at: Optional[int] = None
+
     error: Optional[Error] = None
     """Error details for failed OpenAI response requests."""
 
     instructions: Optional[str] = None
+
+    max_output_tokens: Optional[int] = None
 
     max_tool_calls: Optional[int] = None
 
@@ -705,6 +769,14 @@ class ResponseObject(BaseModel):
 
     prompt: Optional[Prompt] = None
     """OpenAI compatible Prompt object that is used in OpenAI responses."""
+
+    reasoning: Optional[Reasoning] = None
+    """Configuration for reasoning effort in OpenAI responses.
+
+    Controls how much reasoning the model performs before generating a response.
+    """
+
+    safety_identifier: Optional[str] = None
 
     temperature: Optional[float] = None
 

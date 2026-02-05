@@ -14,7 +14,7 @@ from typing_extensions import Literal, overload
 import httpx
 
 from ...types import response_list_params, response_create_params
-from ..._types import Body, Omit, Query, Headers, NotGiven, omit, not_given
+from ..._types import Body, Omit, Query, Headers, NotGiven, SequenceNotStr, omit, not_given
 from ..._utils import required_args, maybe_transform, async_maybe_transform
 from ..._compat import cached_property
 from ..._resource import SyncAPIResource, AsyncAPIResource
@@ -74,11 +74,12 @@ class ResponsesResource(SyncAPIResource):
         input: Union[
             str,
             Iterable[
-                response_create_params.InputListOpenAIResponseMessageUnionOpenAIResponseInputFunctionToolCallOutput
+                response_create_params.InputListOpenAIResponseMessageUnionOpenAIResponseInputFunctionToolCallOutputOpenAIResponseMcpApprovalResponse
             ],
         ],
         model: str,
         conversation: Optional[str] | Omit = omit,
+        guardrails: Optional[SequenceNotStr[response_create_params.Guardrail]] | Omit = omit,
         include: Optional[
             List[
                 Literal[
@@ -95,11 +96,14 @@ class ResponsesResource(SyncAPIResource):
         | Omit = omit,
         instructions: Optional[str] | Omit = omit,
         max_infer_iters: Optional[int] | Omit = omit,
+        max_output_tokens: Optional[int] | Omit = omit,
         max_tool_calls: Optional[int] | Omit = omit,
         metadata: Optional[Dict[str, str]] | Omit = omit,
         parallel_tool_calls: Optional[bool] | Omit = omit,
         previous_response_id: Optional[str] | Omit = omit,
         prompt: Optional[response_create_params.Prompt] | Omit = omit,
+        reasoning: Optional[response_create_params.Reasoning] | Omit = omit,
+        safety_identifier: Optional[str] | Omit = omit,
         store: Optional[bool] | Omit = omit,
         stream: Optional[Literal[False]] | Omit = omit,
         temperature: Optional[float] | Omit = omit,
@@ -117,11 +121,49 @@ class ResponsesResource(SyncAPIResource):
         Create a model response.
 
         Args:
+          input: Input message(s) to create the response.
+
+          model: The underlying LLM used for completions.
+
+          conversation: Optional ID of a conversation to add the response to.
+
+          guardrails: List of guardrails to apply during response generation.
+
+          include: Additional fields to include in the response.
+
+          instructions: Instructions to guide the model's behavior.
+
+          max_infer_iters: Maximum number of inference iterations.
+
+          max_output_tokens: Upper bound for the number of tokens that can be generated for a response.
+
+          max_tool_calls: Max number of total calls to built-in tools that can be processed in a response.
+
+          metadata: Dictionary of metadata key-value pairs to attach to the response.
+
+          parallel_tool_calls: Whether to enable parallel tool calls.
+
+          previous_response_id: Optional ID of a previous response to continue from.
+
           prompt: OpenAI compatible Prompt object that is used in OpenAI responses.
+
+          reasoning: Configuration for reasoning effort in OpenAI responses.
+
+              Controls how much reasoning the model performs before generating a response.
+
+          safety_identifier: A stable identifier used for safety monitoring and abuse detection.
+
+          store: Whether to store the response in the database.
+
+          stream: Whether to stream the response.
+
+          temperature: Sampling temperature.
 
           text: Text response configuration for OpenAI responses.
 
-          tool_choice: Constrains the tools available to the model to a pre-defined set.
+          tool_choice: How the model should select which tool to call (if any).
+
+          tools: List of tools available to the model.
 
           extra_headers: Send extra headers
 
@@ -140,12 +182,13 @@ class ResponsesResource(SyncAPIResource):
         input: Union[
             str,
             Iterable[
-                response_create_params.InputListOpenAIResponseMessageUnionOpenAIResponseInputFunctionToolCallOutput
+                response_create_params.InputListOpenAIResponseMessageUnionOpenAIResponseInputFunctionToolCallOutputOpenAIResponseMcpApprovalResponse
             ],
         ],
         model: str,
         stream: Literal[True],
         conversation: Optional[str] | Omit = omit,
+        guardrails: Optional[SequenceNotStr[response_create_params.Guardrail]] | Omit = omit,
         include: Optional[
             List[
                 Literal[
@@ -162,11 +205,14 @@ class ResponsesResource(SyncAPIResource):
         | Omit = omit,
         instructions: Optional[str] | Omit = omit,
         max_infer_iters: Optional[int] | Omit = omit,
+        max_output_tokens: Optional[int] | Omit = omit,
         max_tool_calls: Optional[int] | Omit = omit,
         metadata: Optional[Dict[str, str]] | Omit = omit,
         parallel_tool_calls: Optional[bool] | Omit = omit,
         previous_response_id: Optional[str] | Omit = omit,
         prompt: Optional[response_create_params.Prompt] | Omit = omit,
+        reasoning: Optional[response_create_params.Reasoning] | Omit = omit,
+        safety_identifier: Optional[str] | Omit = omit,
         store: Optional[bool] | Omit = omit,
         temperature: Optional[float] | Omit = omit,
         text: Optional[response_create_params.Text] | Omit = omit,
@@ -183,11 +229,49 @@ class ResponsesResource(SyncAPIResource):
         Create a model response.
 
         Args:
+          input: Input message(s) to create the response.
+
+          model: The underlying LLM used for completions.
+
+          stream: Whether to stream the response.
+
+          conversation: Optional ID of a conversation to add the response to.
+
+          guardrails: List of guardrails to apply during response generation.
+
+          include: Additional fields to include in the response.
+
+          instructions: Instructions to guide the model's behavior.
+
+          max_infer_iters: Maximum number of inference iterations.
+
+          max_output_tokens: Upper bound for the number of tokens that can be generated for a response.
+
+          max_tool_calls: Max number of total calls to built-in tools that can be processed in a response.
+
+          metadata: Dictionary of metadata key-value pairs to attach to the response.
+
+          parallel_tool_calls: Whether to enable parallel tool calls.
+
+          previous_response_id: Optional ID of a previous response to continue from.
+
           prompt: OpenAI compatible Prompt object that is used in OpenAI responses.
+
+          reasoning: Configuration for reasoning effort in OpenAI responses.
+
+              Controls how much reasoning the model performs before generating a response.
+
+          safety_identifier: A stable identifier used for safety monitoring and abuse detection.
+
+          store: Whether to store the response in the database.
+
+          temperature: Sampling temperature.
 
           text: Text response configuration for OpenAI responses.
 
-          tool_choice: Constrains the tools available to the model to a pre-defined set.
+          tool_choice: How the model should select which tool to call (if any).
+
+          tools: List of tools available to the model.
 
           extra_headers: Send extra headers
 
@@ -206,12 +290,13 @@ class ResponsesResource(SyncAPIResource):
         input: Union[
             str,
             Iterable[
-                response_create_params.InputListOpenAIResponseMessageUnionOpenAIResponseInputFunctionToolCallOutput
+                response_create_params.InputListOpenAIResponseMessageUnionOpenAIResponseInputFunctionToolCallOutputOpenAIResponseMcpApprovalResponse
             ],
         ],
         model: str,
         stream: bool,
         conversation: Optional[str] | Omit = omit,
+        guardrails: Optional[SequenceNotStr[response_create_params.Guardrail]] | Omit = omit,
         include: Optional[
             List[
                 Literal[
@@ -228,11 +313,14 @@ class ResponsesResource(SyncAPIResource):
         | Omit = omit,
         instructions: Optional[str] | Omit = omit,
         max_infer_iters: Optional[int] | Omit = omit,
+        max_output_tokens: Optional[int] | Omit = omit,
         max_tool_calls: Optional[int] | Omit = omit,
         metadata: Optional[Dict[str, str]] | Omit = omit,
         parallel_tool_calls: Optional[bool] | Omit = omit,
         previous_response_id: Optional[str] | Omit = omit,
         prompt: Optional[response_create_params.Prompt] | Omit = omit,
+        reasoning: Optional[response_create_params.Reasoning] | Omit = omit,
+        safety_identifier: Optional[str] | Omit = omit,
         store: Optional[bool] | Omit = omit,
         temperature: Optional[float] | Omit = omit,
         text: Optional[response_create_params.Text] | Omit = omit,
@@ -249,11 +337,49 @@ class ResponsesResource(SyncAPIResource):
         Create a model response.
 
         Args:
+          input: Input message(s) to create the response.
+
+          model: The underlying LLM used for completions.
+
+          stream: Whether to stream the response.
+
+          conversation: Optional ID of a conversation to add the response to.
+
+          guardrails: List of guardrails to apply during response generation.
+
+          include: Additional fields to include in the response.
+
+          instructions: Instructions to guide the model's behavior.
+
+          max_infer_iters: Maximum number of inference iterations.
+
+          max_output_tokens: Upper bound for the number of tokens that can be generated for a response.
+
+          max_tool_calls: Max number of total calls to built-in tools that can be processed in a response.
+
+          metadata: Dictionary of metadata key-value pairs to attach to the response.
+
+          parallel_tool_calls: Whether to enable parallel tool calls.
+
+          previous_response_id: Optional ID of a previous response to continue from.
+
           prompt: OpenAI compatible Prompt object that is used in OpenAI responses.
+
+          reasoning: Configuration for reasoning effort in OpenAI responses.
+
+              Controls how much reasoning the model performs before generating a response.
+
+          safety_identifier: A stable identifier used for safety monitoring and abuse detection.
+
+          store: Whether to store the response in the database.
+
+          temperature: Sampling temperature.
 
           text: Text response configuration for OpenAI responses.
 
-          tool_choice: Constrains the tools available to the model to a pre-defined set.
+          tool_choice: How the model should select which tool to call (if any).
+
+          tools: List of tools available to the model.
 
           extra_headers: Send extra headers
 
@@ -272,11 +398,12 @@ class ResponsesResource(SyncAPIResource):
         input: Union[
             str,
             Iterable[
-                response_create_params.InputListOpenAIResponseMessageUnionOpenAIResponseInputFunctionToolCallOutput
+                response_create_params.InputListOpenAIResponseMessageUnionOpenAIResponseInputFunctionToolCallOutputOpenAIResponseMcpApprovalResponse
             ],
         ],
         model: str,
         conversation: Optional[str] | Omit = omit,
+        guardrails: Optional[SequenceNotStr[response_create_params.Guardrail]] | Omit = omit,
         include: Optional[
             List[
                 Literal[
@@ -293,11 +420,14 @@ class ResponsesResource(SyncAPIResource):
         | Omit = omit,
         instructions: Optional[str] | Omit = omit,
         max_infer_iters: Optional[int] | Omit = omit,
+        max_output_tokens: Optional[int] | Omit = omit,
         max_tool_calls: Optional[int] | Omit = omit,
         metadata: Optional[Dict[str, str]] | Omit = omit,
         parallel_tool_calls: Optional[bool] | Omit = omit,
         previous_response_id: Optional[str] | Omit = omit,
         prompt: Optional[response_create_params.Prompt] | Omit = omit,
+        reasoning: Optional[response_create_params.Reasoning] | Omit = omit,
+        safety_identifier: Optional[str] | Omit = omit,
         store: Optional[bool] | Omit = omit,
         stream: Optional[Literal[False]] | Literal[True] | Omit = omit,
         temperature: Optional[float] | Omit = omit,
@@ -318,14 +448,18 @@ class ResponsesResource(SyncAPIResource):
                     "input": input,
                     "model": model,
                     "conversation": conversation,
+                    "guardrails": guardrails,
                     "include": include,
                     "instructions": instructions,
                     "max_infer_iters": max_infer_iters,
+                    "max_output_tokens": max_output_tokens,
                     "max_tool_calls": max_tool_calls,
                     "metadata": metadata,
                     "parallel_tool_calls": parallel_tool_calls,
                     "previous_response_id": previous_response_id,
                     "prompt": prompt,
+                    "reasoning": reasoning,
+                    "safety_identifier": safety_identifier,
                     "store": store,
                     "stream": stream,
                     "temperature": temperature,
@@ -360,6 +494,8 @@ class ResponsesResource(SyncAPIResource):
         Get a model response.
 
         Args:
+          response_id: The ID of the OpenAI response to retrieve.
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -396,6 +532,12 @@ class ResponsesResource(SyncAPIResource):
         List all responses.
 
         Args:
+          after: The ID of the last response to return.
+
+          limit: The number of responses to return.
+
+          model: The model to filter responses by.
+
           order: Sort order for paginated responses.
 
           extra_headers: Send extra headers
@@ -442,6 +584,8 @@ class ResponsesResource(SyncAPIResource):
         Delete a response.
 
         Args:
+          response_id: The ID of the OpenAI response to delete.
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -492,11 +636,12 @@ class AsyncResponsesResource(AsyncAPIResource):
         input: Union[
             str,
             Iterable[
-                response_create_params.InputListOpenAIResponseMessageUnionOpenAIResponseInputFunctionToolCallOutput
+                response_create_params.InputListOpenAIResponseMessageUnionOpenAIResponseInputFunctionToolCallOutputOpenAIResponseMcpApprovalResponse
             ],
         ],
         model: str,
         conversation: Optional[str] | Omit = omit,
+        guardrails: Optional[SequenceNotStr[response_create_params.Guardrail]] | Omit = omit,
         include: Optional[
             List[
                 Literal[
@@ -513,11 +658,14 @@ class AsyncResponsesResource(AsyncAPIResource):
         | Omit = omit,
         instructions: Optional[str] | Omit = omit,
         max_infer_iters: Optional[int] | Omit = omit,
+        max_output_tokens: Optional[int] | Omit = omit,
         max_tool_calls: Optional[int] | Omit = omit,
         metadata: Optional[Dict[str, str]] | Omit = omit,
         parallel_tool_calls: Optional[bool] | Omit = omit,
         previous_response_id: Optional[str] | Omit = omit,
         prompt: Optional[response_create_params.Prompt] | Omit = omit,
+        reasoning: Optional[response_create_params.Reasoning] | Omit = omit,
+        safety_identifier: Optional[str] | Omit = omit,
         store: Optional[bool] | Omit = omit,
         stream: Optional[Literal[False]] | Omit = omit,
         temperature: Optional[float] | Omit = omit,
@@ -535,11 +683,49 @@ class AsyncResponsesResource(AsyncAPIResource):
         Create a model response.
 
         Args:
+          input: Input message(s) to create the response.
+
+          model: The underlying LLM used for completions.
+
+          conversation: Optional ID of a conversation to add the response to.
+
+          guardrails: List of guardrails to apply during response generation.
+
+          include: Additional fields to include in the response.
+
+          instructions: Instructions to guide the model's behavior.
+
+          max_infer_iters: Maximum number of inference iterations.
+
+          max_output_tokens: Upper bound for the number of tokens that can be generated for a response.
+
+          max_tool_calls: Max number of total calls to built-in tools that can be processed in a response.
+
+          metadata: Dictionary of metadata key-value pairs to attach to the response.
+
+          parallel_tool_calls: Whether to enable parallel tool calls.
+
+          previous_response_id: Optional ID of a previous response to continue from.
+
           prompt: OpenAI compatible Prompt object that is used in OpenAI responses.
+
+          reasoning: Configuration for reasoning effort in OpenAI responses.
+
+              Controls how much reasoning the model performs before generating a response.
+
+          safety_identifier: A stable identifier used for safety monitoring and abuse detection.
+
+          store: Whether to store the response in the database.
+
+          stream: Whether to stream the response.
+
+          temperature: Sampling temperature.
 
           text: Text response configuration for OpenAI responses.
 
-          tool_choice: Constrains the tools available to the model to a pre-defined set.
+          tool_choice: How the model should select which tool to call (if any).
+
+          tools: List of tools available to the model.
 
           extra_headers: Send extra headers
 
@@ -558,12 +744,13 @@ class AsyncResponsesResource(AsyncAPIResource):
         input: Union[
             str,
             Iterable[
-                response_create_params.InputListOpenAIResponseMessageUnionOpenAIResponseInputFunctionToolCallOutput
+                response_create_params.InputListOpenAIResponseMessageUnionOpenAIResponseInputFunctionToolCallOutputOpenAIResponseMcpApprovalResponse
             ],
         ],
         model: str,
         stream: Literal[True],
         conversation: Optional[str] | Omit = omit,
+        guardrails: Optional[SequenceNotStr[response_create_params.Guardrail]] | Omit = omit,
         include: Optional[
             List[
                 Literal[
@@ -580,11 +767,14 @@ class AsyncResponsesResource(AsyncAPIResource):
         | Omit = omit,
         instructions: Optional[str] | Omit = omit,
         max_infer_iters: Optional[int] | Omit = omit,
+        max_output_tokens: Optional[int] | Omit = omit,
         max_tool_calls: Optional[int] | Omit = omit,
         metadata: Optional[Dict[str, str]] | Omit = omit,
         parallel_tool_calls: Optional[bool] | Omit = omit,
         previous_response_id: Optional[str] | Omit = omit,
         prompt: Optional[response_create_params.Prompt] | Omit = omit,
+        reasoning: Optional[response_create_params.Reasoning] | Omit = omit,
+        safety_identifier: Optional[str] | Omit = omit,
         store: Optional[bool] | Omit = omit,
         temperature: Optional[float] | Omit = omit,
         text: Optional[response_create_params.Text] | Omit = omit,
@@ -601,11 +791,49 @@ class AsyncResponsesResource(AsyncAPIResource):
         Create a model response.
 
         Args:
+          input: Input message(s) to create the response.
+
+          model: The underlying LLM used for completions.
+
+          stream: Whether to stream the response.
+
+          conversation: Optional ID of a conversation to add the response to.
+
+          guardrails: List of guardrails to apply during response generation.
+
+          include: Additional fields to include in the response.
+
+          instructions: Instructions to guide the model's behavior.
+
+          max_infer_iters: Maximum number of inference iterations.
+
+          max_output_tokens: Upper bound for the number of tokens that can be generated for a response.
+
+          max_tool_calls: Max number of total calls to built-in tools that can be processed in a response.
+
+          metadata: Dictionary of metadata key-value pairs to attach to the response.
+
+          parallel_tool_calls: Whether to enable parallel tool calls.
+
+          previous_response_id: Optional ID of a previous response to continue from.
+
           prompt: OpenAI compatible Prompt object that is used in OpenAI responses.
+
+          reasoning: Configuration for reasoning effort in OpenAI responses.
+
+              Controls how much reasoning the model performs before generating a response.
+
+          safety_identifier: A stable identifier used for safety monitoring and abuse detection.
+
+          store: Whether to store the response in the database.
+
+          temperature: Sampling temperature.
 
           text: Text response configuration for OpenAI responses.
 
-          tool_choice: Constrains the tools available to the model to a pre-defined set.
+          tool_choice: How the model should select which tool to call (if any).
+
+          tools: List of tools available to the model.
 
           extra_headers: Send extra headers
 
@@ -624,12 +852,13 @@ class AsyncResponsesResource(AsyncAPIResource):
         input: Union[
             str,
             Iterable[
-                response_create_params.InputListOpenAIResponseMessageUnionOpenAIResponseInputFunctionToolCallOutput
+                response_create_params.InputListOpenAIResponseMessageUnionOpenAIResponseInputFunctionToolCallOutputOpenAIResponseMcpApprovalResponse
             ],
         ],
         model: str,
         stream: bool,
         conversation: Optional[str] | Omit = omit,
+        guardrails: Optional[SequenceNotStr[response_create_params.Guardrail]] | Omit = omit,
         include: Optional[
             List[
                 Literal[
@@ -646,11 +875,14 @@ class AsyncResponsesResource(AsyncAPIResource):
         | Omit = omit,
         instructions: Optional[str] | Omit = omit,
         max_infer_iters: Optional[int] | Omit = omit,
+        max_output_tokens: Optional[int] | Omit = omit,
         max_tool_calls: Optional[int] | Omit = omit,
         metadata: Optional[Dict[str, str]] | Omit = omit,
         parallel_tool_calls: Optional[bool] | Omit = omit,
         previous_response_id: Optional[str] | Omit = omit,
         prompt: Optional[response_create_params.Prompt] | Omit = omit,
+        reasoning: Optional[response_create_params.Reasoning] | Omit = omit,
+        safety_identifier: Optional[str] | Omit = omit,
         store: Optional[bool] | Omit = omit,
         temperature: Optional[float] | Omit = omit,
         text: Optional[response_create_params.Text] | Omit = omit,
@@ -667,11 +899,49 @@ class AsyncResponsesResource(AsyncAPIResource):
         Create a model response.
 
         Args:
+          input: Input message(s) to create the response.
+
+          model: The underlying LLM used for completions.
+
+          stream: Whether to stream the response.
+
+          conversation: Optional ID of a conversation to add the response to.
+
+          guardrails: List of guardrails to apply during response generation.
+
+          include: Additional fields to include in the response.
+
+          instructions: Instructions to guide the model's behavior.
+
+          max_infer_iters: Maximum number of inference iterations.
+
+          max_output_tokens: Upper bound for the number of tokens that can be generated for a response.
+
+          max_tool_calls: Max number of total calls to built-in tools that can be processed in a response.
+
+          metadata: Dictionary of metadata key-value pairs to attach to the response.
+
+          parallel_tool_calls: Whether to enable parallel tool calls.
+
+          previous_response_id: Optional ID of a previous response to continue from.
+
           prompt: OpenAI compatible Prompt object that is used in OpenAI responses.
+
+          reasoning: Configuration for reasoning effort in OpenAI responses.
+
+              Controls how much reasoning the model performs before generating a response.
+
+          safety_identifier: A stable identifier used for safety monitoring and abuse detection.
+
+          store: Whether to store the response in the database.
+
+          temperature: Sampling temperature.
 
           text: Text response configuration for OpenAI responses.
 
-          tool_choice: Constrains the tools available to the model to a pre-defined set.
+          tool_choice: How the model should select which tool to call (if any).
+
+          tools: List of tools available to the model.
 
           extra_headers: Send extra headers
 
@@ -690,11 +960,12 @@ class AsyncResponsesResource(AsyncAPIResource):
         input: Union[
             str,
             Iterable[
-                response_create_params.InputListOpenAIResponseMessageUnionOpenAIResponseInputFunctionToolCallOutput
+                response_create_params.InputListOpenAIResponseMessageUnionOpenAIResponseInputFunctionToolCallOutputOpenAIResponseMcpApprovalResponse
             ],
         ],
         model: str,
         conversation: Optional[str] | Omit = omit,
+        guardrails: Optional[SequenceNotStr[response_create_params.Guardrail]] | Omit = omit,
         include: Optional[
             List[
                 Literal[
@@ -711,11 +982,14 @@ class AsyncResponsesResource(AsyncAPIResource):
         | Omit = omit,
         instructions: Optional[str] | Omit = omit,
         max_infer_iters: Optional[int] | Omit = omit,
+        max_output_tokens: Optional[int] | Omit = omit,
         max_tool_calls: Optional[int] | Omit = omit,
         metadata: Optional[Dict[str, str]] | Omit = omit,
         parallel_tool_calls: Optional[bool] | Omit = omit,
         previous_response_id: Optional[str] | Omit = omit,
         prompt: Optional[response_create_params.Prompt] | Omit = omit,
+        reasoning: Optional[response_create_params.Reasoning] | Omit = omit,
+        safety_identifier: Optional[str] | Omit = omit,
         store: Optional[bool] | Omit = omit,
         stream: Optional[Literal[False]] | Literal[True] | Omit = omit,
         temperature: Optional[float] | Omit = omit,
@@ -736,14 +1010,18 @@ class AsyncResponsesResource(AsyncAPIResource):
                     "input": input,
                     "model": model,
                     "conversation": conversation,
+                    "guardrails": guardrails,
                     "include": include,
                     "instructions": instructions,
                     "max_infer_iters": max_infer_iters,
+                    "max_output_tokens": max_output_tokens,
                     "max_tool_calls": max_tool_calls,
                     "metadata": metadata,
                     "parallel_tool_calls": parallel_tool_calls,
                     "previous_response_id": previous_response_id,
                     "prompt": prompt,
+                    "reasoning": reasoning,
+                    "safety_identifier": safety_identifier,
                     "store": store,
                     "stream": stream,
                     "temperature": temperature,
@@ -778,6 +1056,8 @@ class AsyncResponsesResource(AsyncAPIResource):
         Get a model response.
 
         Args:
+          response_id: The ID of the OpenAI response to retrieve.
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -814,6 +1094,12 @@ class AsyncResponsesResource(AsyncAPIResource):
         List all responses.
 
         Args:
+          after: The ID of the last response to return.
+
+          limit: The number of responses to return.
+
+          model: The model to filter responses by.
+
           order: Sort order for paginated responses.
 
           extra_headers: Send extra headers
@@ -860,6 +1146,8 @@ class AsyncResponsesResource(AsyncAPIResource):
         Delete a response.
 
         Args:
+          response_id: The ID of the OpenAI response to delete.
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request

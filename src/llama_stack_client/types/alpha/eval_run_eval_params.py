@@ -17,4 +17,4 @@ __all__ = ["EvalRunEvalParams"]
 
 class EvalRunEvalParams(TypedDict, total=False):
     benchmark_config: Required[BenchmarkConfigParam]
-    """A benchmark configuration for evaluation."""
+    """The configuration for the benchmark"""

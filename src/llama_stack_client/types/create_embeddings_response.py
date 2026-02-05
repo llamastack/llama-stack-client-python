@@ -18,28 +18,39 @@ class Data(BaseModel):
     """A single embedding data object from an OpenAI-compatible embeddings response."""
 
     embedding: Union[List[float], str]
+    """
+    The embedding vector as a list of floats (when encoding_format='float') or as a
+    base64-encoded string.
+    """
 
     index: int
+    """The index of the embedding in the input list."""
 
     object: Optional[Literal["embedding"]] = None
+    """The object type."""
 
 
 class Usage(BaseModel):
-    """Usage information for an OpenAI-compatible embeddings response."""
+    """Usage information."""
 
     prompt_tokens: int
+    """The number of tokens in the input."""
 
     total_tokens: int
+    """The total number of tokens used."""
 
 
 class CreateEmbeddingsResponse(BaseModel):
     """Response from an OpenAI-compatible embeddings request."""
 
     data: List[Data]
+    """List of embedding data objects."""
 
     model: str
+    """The model that was used to generate the embeddings."""
 
     usage: Usage
-    """Usage information for an OpenAI-compatible embeddings response."""
+    """Usage information."""
 
     object: Optional[Literal["list"]] = None
+    """The object type."""

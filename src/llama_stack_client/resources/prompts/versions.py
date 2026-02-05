@@ -60,11 +60,11 @@ class VersionsResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> PromptListResponse:
         """
-        List prompt versions.
-
         List all versions of a specific prompt.
 
         Args:
+          prompt_id: The identifier of the prompt to list versions for.
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -120,11 +120,11 @@ class AsyncVersionsResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> PromptListResponse:
         """
-        List prompt versions.
-
         List all versions of a specific prompt.
 
         Args:
+          prompt_id: The identifier of the prompt to list versions for.
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request

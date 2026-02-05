@@ -68,7 +68,15 @@ class InferenceResource(SyncAPIResource):
         Rerank a list of documents based on their relevance to a query.
 
         Args:
-          query: Text content part for OpenAI-compatible chat completion messages.
+          items: List of items to rerank. Each item can be a string, text content part, or image
+              content part.
+
+          model: The identifier of the reranking model to use.
+
+          query: The search query to rank items against. Can be a string, text content part, or
+              image content part.
+
+          max_num_results: Maximum number of results to return. Default: returns all.
 
           extra_headers: Send extra headers
 
@@ -138,7 +146,15 @@ class AsyncInferenceResource(AsyncAPIResource):
         Rerank a list of documents based on their relevance to a query.
 
         Args:
-          query: Text content part for OpenAI-compatible chat completion messages.
+          items: List of items to rerank. Each item can be a string, text content part, or image
+              content part.
+
+          model: The identifier of the reranking model to use.
+
+          query: The search query to rank items against. Can be a string, text content part, or
+              image content part.
+
+          max_num_results: Maximum number of results to return. Default: returns all.
 
           extra_headers: Send extra headers
 

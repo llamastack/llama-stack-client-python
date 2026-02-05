@@ -32,7 +32,7 @@ class TestEval:
             benchmark_id="benchmark_id",
             benchmark_config={
                 "eval_candidate": {
-                    "model": "model",
+                    "model": "x",
                     "sampling_params": {},
                 }
             },
@@ -47,10 +47,10 @@ class TestEval:
             benchmark_id="benchmark_id",
             benchmark_config={
                 "eval_candidate": {
-                    "model": "model",
+                    "model": "x",
                     "sampling_params": {
-                        "max_tokens": 0,
-                        "repetition_penalty": 0,
+                        "max_tokens": 1,
+                        "repetition_penalty": -2,
                         "stop": ["string"],
                         "strategy": {"type": "greedy"},
                     },
@@ -60,7 +60,7 @@ class TestEval:
                     },
                     "type": "model",
                 },
-                "num_examples": 0,
+                "num_examples": 1,
                 "scoring_params": {
                     "foo": {
                         "judge_model": "judge_model",
@@ -82,7 +82,7 @@ class TestEval:
             benchmark_id="benchmark_id",
             benchmark_config={
                 "eval_candidate": {
-                    "model": "model",
+                    "model": "x",
                     "sampling_params": {},
                 }
             },
@@ -101,7 +101,7 @@ class TestEval:
             benchmark_id="benchmark_id",
             benchmark_config={
                 "eval_candidate": {
-                    "model": "model",
+                    "model": "x",
                     "sampling_params": {},
                 }
             },
@@ -123,7 +123,7 @@ class TestEval:
                 benchmark_id="",
                 benchmark_config={
                     "eval_candidate": {
-                        "model": "model",
+                        "model": "x",
                         "sampling_params": {},
                     }
                 },
@@ -137,7 +137,7 @@ class TestEval:
             benchmark_id="benchmark_id",
             benchmark_config={
                 "eval_candidate": {
-                    "model": "model",
+                    "model": "x",
                     "sampling_params": {},
                 }
             },
@@ -152,10 +152,10 @@ class TestEval:
             benchmark_id="benchmark_id",
             benchmark_config={
                 "eval_candidate": {
-                    "model": "model",
+                    "model": "x",
                     "sampling_params": {
-                        "max_tokens": 0,
-                        "repetition_penalty": 0,
+                        "max_tokens": 1,
+                        "repetition_penalty": -2,
                         "stop": ["string"],
                         "strategy": {"type": "greedy"},
                     },
@@ -165,7 +165,7 @@ class TestEval:
                     },
                     "type": "model",
                 },
-                "num_examples": 0,
+                "num_examples": 1,
                 "scoring_params": {
                     "foo": {
                         "judge_model": "judge_model",
@@ -187,7 +187,7 @@ class TestEval:
             benchmark_id="benchmark_id",
             benchmark_config={
                 "eval_candidate": {
-                    "model": "model",
+                    "model": "x",
                     "sampling_params": {},
                 }
             },
@@ -206,7 +206,7 @@ class TestEval:
             benchmark_id="benchmark_id",
             benchmark_config={
                 "eval_candidate": {
-                    "model": "model",
+                    "model": "x",
                     "sampling_params": {},
                 }
             },
@@ -228,7 +228,7 @@ class TestEval:
                 benchmark_id="",
                 benchmark_config={
                     "eval_candidate": {
-                        "model": "model",
+                        "model": "x",
                         "sampling_params": {},
                     }
                 },
@@ -242,7 +242,7 @@ class TestEval:
             benchmark_id="benchmark_id",
             benchmark_config={
                 "eval_candidate": {
-                    "model": "model",
+                    "model": "x",
                     "sampling_params": {},
                 }
             },
@@ -255,10 +255,10 @@ class TestEval:
             benchmark_id="benchmark_id",
             benchmark_config={
                 "eval_candidate": {
-                    "model": "model",
+                    "model": "x",
                     "sampling_params": {
-                        "max_tokens": 0,
-                        "repetition_penalty": 0,
+                        "max_tokens": 1,
+                        "repetition_penalty": -2,
                         "stop": ["string"],
                         "strategy": {"type": "greedy"},
                     },
@@ -268,7 +268,7 @@ class TestEval:
                     },
                     "type": "model",
                 },
-                "num_examples": 0,
+                "num_examples": 1,
                 "scoring_params": {
                     "foo": {
                         "judge_model": "judge_model",
@@ -288,7 +288,7 @@ class TestEval:
             benchmark_id="benchmark_id",
             benchmark_config={
                 "eval_candidate": {
-                    "model": "model",
+                    "model": "x",
                     "sampling_params": {},
                 }
             },
@@ -305,7 +305,7 @@ class TestEval:
             benchmark_id="benchmark_id",
             benchmark_config={
                 "eval_candidate": {
-                    "model": "model",
+                    "model": "x",
                     "sampling_params": {},
                 }
             },
@@ -325,7 +325,7 @@ class TestEval:
                 benchmark_id="",
                 benchmark_config={
                     "eval_candidate": {
-                        "model": "model",
+                        "model": "x",
                         "sampling_params": {},
                     }
                 },
@@ -337,7 +337,7 @@ class TestEval:
             benchmark_id="benchmark_id",
             benchmark_config={
                 "eval_candidate": {
-                    "model": "model",
+                    "model": "x",
                     "sampling_params": {},
                 }
             },
@@ -350,10 +350,10 @@ class TestEval:
             benchmark_id="benchmark_id",
             benchmark_config={
                 "eval_candidate": {
-                    "model": "model",
+                    "model": "x",
                     "sampling_params": {
-                        "max_tokens": 0,
-                        "repetition_penalty": 0,
+                        "max_tokens": 1,
+                        "repetition_penalty": -2,
                         "stop": ["string"],
                         "strategy": {"type": "greedy"},
                     },
@@ -363,7 +363,7 @@ class TestEval:
                     },
                     "type": "model",
                 },
-                "num_examples": 0,
+                "num_examples": 1,
                 "scoring_params": {
                     "foo": {
                         "judge_model": "judge_model",
@@ -383,7 +383,7 @@ class TestEval:
             benchmark_id="benchmark_id",
             benchmark_config={
                 "eval_candidate": {
-                    "model": "model",
+                    "model": "x",
                     "sampling_params": {},
                 }
             },
@@ -400,7 +400,7 @@ class TestEval:
             benchmark_id="benchmark_id",
             benchmark_config={
                 "eval_candidate": {
-                    "model": "model",
+                    "model": "x",
                     "sampling_params": {},
                 }
             },
@@ -420,7 +420,7 @@ class TestEval:
                 benchmark_id="",
                 benchmark_config={
                     "eval_candidate": {
-                        "model": "model",
+                        "model": "x",
                         "sampling_params": {},
                     }
                 },
@@ -438,7 +438,7 @@ class TestAsyncEval:
             benchmark_id="benchmark_id",
             benchmark_config={
                 "eval_candidate": {
-                    "model": "model",
+                    "model": "x",
                     "sampling_params": {},
                 }
             },
@@ -453,10 +453,10 @@ class TestAsyncEval:
             benchmark_id="benchmark_id",
             benchmark_config={
                 "eval_candidate": {
-                    "model": "model",
+                    "model": "x",
                     "sampling_params": {
-                        "max_tokens": 0,
-                        "repetition_penalty": 0,
+                        "max_tokens": 1,
+                        "repetition_penalty": -2,
                         "stop": ["string"],
                         "strategy": {"type": "greedy"},
                     },
@@ -466,7 +466,7 @@ class TestAsyncEval:
                     },
                     "type": "model",
                 },
-                "num_examples": 0,
+                "num_examples": 1,
                 "scoring_params": {
                     "foo": {
                         "judge_model": "judge_model",
@@ -488,7 +488,7 @@ class TestAsyncEval:
             benchmark_id="benchmark_id",
             benchmark_config={
                 "eval_candidate": {
-                    "model": "model",
+                    "model": "x",
                     "sampling_params": {},
                 }
             },
@@ -507,7 +507,7 @@ class TestAsyncEval:
             benchmark_id="benchmark_id",
             benchmark_config={
                 "eval_candidate": {
-                    "model": "model",
+                    "model": "x",
                     "sampling_params": {},
                 }
             },
@@ -529,7 +529,7 @@ class TestAsyncEval:
                 benchmark_id="",
                 benchmark_config={
                     "eval_candidate": {
-                        "model": "model",
+                        "model": "x",
                         "sampling_params": {},
                     }
                 },
@@ -543,7 +543,7 @@ class TestAsyncEval:
             benchmark_id="benchmark_id",
             benchmark_config={
                 "eval_candidate": {
-                    "model": "model",
+                    "model": "x",
                     "sampling_params": {},
                 }
             },
@@ -558,10 +558,10 @@ class TestAsyncEval:
             benchmark_id="benchmark_id",
             benchmark_config={
                 "eval_candidate": {
-                    "model": "model",
+                    "model": "x",
                     "sampling_params": {
-                        "max_tokens": 0,
-                        "repetition_penalty": 0,
+                        "max_tokens": 1,
+                        "repetition_penalty": -2,
                         "stop": ["string"],
                         "strategy": {"type": "greedy"},
                     },
@@ -571,7 +571,7 @@ class TestAsyncEval:
                     },
                     "type": "model",
                 },
-                "num_examples": 0,
+                "num_examples": 1,
                 "scoring_params": {
                     "foo": {
                         "judge_model": "judge_model",
@@ -593,7 +593,7 @@ class TestAsyncEval:
             benchmark_id="benchmark_id",
             benchmark_config={
                 "eval_candidate": {
-                    "model": "model",
+                    "model": "x",
                     "sampling_params": {},
                 }
             },
@@ -612,7 +612,7 @@ class TestAsyncEval:
             benchmark_id="benchmark_id",
             benchmark_config={
                 "eval_candidate": {
-                    "model": "model",
+                    "model": "x",
                     "sampling_params": {},
                 }
             },
@@ -634,7 +634,7 @@ class TestAsyncEval:
                 benchmark_id="",
                 benchmark_config={
                     "eval_candidate": {
-                        "model": "model",
+                        "model": "x",
                         "sampling_params": {},
                     }
                 },
@@ -648,7 +648,7 @@ class TestAsyncEval:
             benchmark_id="benchmark_id",
             benchmark_config={
                 "eval_candidate": {
-                    "model": "model",
+                    "model": "x",
                     "sampling_params": {},
                 }
             },
@@ -661,10 +661,10 @@ class TestAsyncEval:
             benchmark_id="benchmark_id",
             benchmark_config={
                 "eval_candidate": {
-                    "model": "model",
+                    "model": "x",
                     "sampling_params": {
-                        "max_tokens": 0,
-                        "repetition_penalty": 0,
+                        "max_tokens": 1,
+                        "repetition_penalty": -2,
                         "stop": ["string"],
                         "strategy": {"type": "greedy"},
                     },
@@ -674,7 +674,7 @@ class TestAsyncEval:
                     },
                     "type": "model",
                 },
-                "num_examples": 0,
+                "num_examples": 1,
                 "scoring_params": {
                     "foo": {
                         "judge_model": "judge_model",
@@ -694,7 +694,7 @@ class TestAsyncEval:
             benchmark_id="benchmark_id",
             benchmark_config={
                 "eval_candidate": {
-                    "model": "model",
+                    "model": "x",
                     "sampling_params": {},
                 }
             },
@@ -711,7 +711,7 @@ class TestAsyncEval:
             benchmark_id="benchmark_id",
             benchmark_config={
                 "eval_candidate": {
-                    "model": "model",
+                    "model": "x",
                     "sampling_params": {},
                 }
             },
@@ -731,7 +731,7 @@ class TestAsyncEval:
                 benchmark_id="",
                 benchmark_config={
                     "eval_candidate": {
-                        "model": "model",
+                        "model": "x",
                         "sampling_params": {},
                     }
                 },
@@ -743,7 +743,7 @@ class TestAsyncEval:
             benchmark_id="benchmark_id",
             benchmark_config={
                 "eval_candidate": {
-                    "model": "model",
+                    "model": "x",
                     "sampling_params": {},
                 }
             },
@@ -756,10 +756,10 @@ class TestAsyncEval:
             benchmark_id="benchmark_id",
             benchmark_config={
                 "eval_candidate": {
-                    "model": "model",
+                    "model": "x",
                     "sampling_params": {
-                        "max_tokens": 0,
-                        "repetition_penalty": 0,
+                        "max_tokens": 1,
+                        "repetition_penalty": -2,
                         "stop": ["string"],
                         "strategy": {"type": "greedy"},
                     },
@@ -769,7 +769,7 @@ class TestAsyncEval:
                     },
                     "type": "model",
                 },
-                "num_examples": 0,
+                "num_examples": 1,
                 "scoring_params": {
                     "foo": {
                         "judge_model": "judge_model",
@@ -789,7 +789,7 @@ class TestAsyncEval:
             benchmark_id="benchmark_id",
             benchmark_config={
                 "eval_candidate": {
-                    "model": "model",
+                    "model": "x",
                     "sampling_params": {},
                 }
             },
@@ -806,7 +806,7 @@ class TestAsyncEval:
             benchmark_id="benchmark_id",
             benchmark_config={
                 "eval_candidate": {
-                    "model": "model",
+                    "model": "x",
                     "sampling_params": {},
                 }
             },
@@ -826,7 +826,7 @@ class TestAsyncEval:
                 benchmark_id="",
                 benchmark_config={
                     "eval_candidate": {
-                        "model": "model",
+                        "model": "x",
                         "sampling_params": {},
                     }
                 },

@@ -24,8 +24,10 @@ __all__ = [
 
 class ScoringScoreParams(TypedDict, total=False):
     input_rows: Required[Iterable[Dict[str, object]]]
+    """The rows to score."""
 
     scoring_functions: Required[Dict[str, Optional[ScoringFunctions]]]
+    """The scoring functions to use for the scoring."""
 
 
 class ScoringFunctionsLlmAsJudgeScoringFnParams(TypedDict, total=False):
