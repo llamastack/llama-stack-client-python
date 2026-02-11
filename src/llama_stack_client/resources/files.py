@@ -157,9 +157,9 @@ class FilesResource(SyncAPIResource):
 
           limit: Maximum number of files to return (1-10,000).
 
-          order: Sort order for paginated responses.
+          order: Sort order by created_at timestamp ('asc' or 'desc').
 
-          purpose: Valid purpose values for OpenAI Files API.
+          purpose: Filter files by purpose.
 
           extra_headers: Send extra headers
 
@@ -392,9 +392,9 @@ class AsyncFilesResource(AsyncAPIResource):
 
           limit: Maximum number of files to return (1-10,000).
 
-          order: Sort order for paginated responses.
+          order: Sort order by created_at timestamp ('asc' or 'desc').
 
-          purpose: Valid purpose values for OpenAI Files API.
+          purpose: Filter files by purpose.
 
           extra_headers: Send extra headers
 

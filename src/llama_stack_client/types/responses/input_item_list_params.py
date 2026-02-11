@@ -37,4 +37,4 @@ class InputItemListParams(TypedDict, total=False):
     """
 
     order: Optional[Literal["asc", "desc"]]
-    """Sort order for paginated responses."""
+    """The order to return the input items in."""

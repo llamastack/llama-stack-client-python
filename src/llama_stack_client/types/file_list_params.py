@@ -16,7 +16,7 @@ class FileListParams(TypedDict, total=False):
     """Maximum number of files to return (1-10,000)."""
 
     order: Optional[Literal["asc", "desc"]]
-    """Sort order for paginated responses."""
+    """Sort order by created_at timestamp ('asc' or 'desc')."""
 
     purpose: Optional[Literal["assistants", "batch"]]
-    """Valid purpose values for OpenAI Files API."""
+    """Filter files by purpose."""

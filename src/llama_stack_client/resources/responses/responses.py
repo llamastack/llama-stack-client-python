@@ -532,7 +532,7 @@ class ResponsesResource(SyncAPIResource):
 
           model: The model to filter responses by.
 
-          order: Sort order for paginated responses.
+          order: The order to sort responses by when sorted by created_at ('asc' or 'desc').
 
           extra_headers: Send extra headers
 
@@ -1094,7 +1094,7 @@ class AsyncResponsesResource(AsyncAPIResource):
 
           model: The model to filter responses by.
 
-          order: Sort order for paginated responses.
+          order: The order to sort responses by when sorted by created_at ('asc' or 'desc').
 
           extra_headers: Send extra headers
 

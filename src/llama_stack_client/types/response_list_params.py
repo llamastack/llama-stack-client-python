@@ -19,4 +19,4 @@ class ResponseListParams(TypedDict, total=False):
     """The model to filter responses by."""
 
     order: Optional[Literal["asc", "desc"]]
-    """Sort order for paginated responses."""
+    """The order to sort responses by when sorted by created_at ('asc' or 'desc')."""
