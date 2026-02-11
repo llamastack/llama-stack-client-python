@@ -195,7 +195,7 @@ class TestFiles:
             after="after",
             before="before",
             filter="completed",
-            limit=0,
+            limit=1,
             order="order",
         )
         assert_matches_type(SyncOpenAICursorPage[VectorStoreFile], file, path=["response"])
@@ -510,7 +510,7 @@ class TestAsyncFiles:
             after="after",
             before="before",
             filter="completed",
-            limit=0,
+            limit=1,
             order="order",
         )
         assert_matches_type(AsyncOpenAICursorPage[VectorStoreFile], file, path=["response"])

@@ -160,7 +160,7 @@ class TestVectorStores:
         vector_store = client.vector_stores.list(
             after="after",
             before="before",
-            limit=0,
+            limit=1,
             order="order",
         )
         assert_matches_type(SyncOpenAICursorPage[VectorStore], vector_store, path=["response"])
@@ -423,7 +423,7 @@ class TestAsyncVectorStores:
         vector_store = await async_client.vector_stores.list(
             after="after",
             before="before",
-            limit=0,
+            limit=1,
             order="order",
         )
         assert_matches_type(AsyncOpenAICursorPage[VectorStore], vector_store, path=["response"])
