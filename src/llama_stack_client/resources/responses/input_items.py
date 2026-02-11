@@ -94,7 +94,7 @@ class InputItemsResource(SyncAPIResource):
           limit: A limit on the number of objects to be returned. Limit can range between 1 and
               100, and the default is 20.
 
-          order: Sort order for paginated responses.
+          order: The order to return the input items in.
 
           extra_headers: Send extra headers
 
@@ -192,7 +192,7 @@ class AsyncInputItemsResource(AsyncAPIResource):
           limit: A limit on the number of objects to be returned. Limit can range between 1 and
               100, and the default is 20.
 
-          order: Sort order for paginated responses.
+          order: The order to return the input items in.
 
           extra_headers: Send extra headers
 

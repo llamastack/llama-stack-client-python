@@ -494,7 +494,7 @@ class CompletionsResource(SyncAPIResource):
 
           model: The model to filter by.
 
-          order: Sort order for paginated responses.
+          order: The order to sort the chat completions by: "asc" or "desc". Defaults to "desc".
 
           extra_headers: Send extra headers
 
@@ -985,7 +985,7 @@ class AsyncCompletionsResource(AsyncAPIResource):
 
           model: The model to filter by.
 
-          order: Sort order for paginated responses.
+          order: The order to sort the chat completions by: "asc" or "desc". Defaults to "desc".
 
           extra_headers: Send extra headers
 

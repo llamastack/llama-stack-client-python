@@ -25,4 +25,4 @@ class CompletionListParams(TypedDict, total=False):
     """The model to filter by."""
 
     order: Optional[Literal["asc", "desc"]]
-    """Sort order for paginated responses."""
+    """The order to sort the chat completions by: "asc" or "desc". Defaults to "desc"."""
