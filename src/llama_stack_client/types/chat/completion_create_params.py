@@ -74,6 +74,9 @@ class CompletionCreateParamsBase(TypedDict, total=False):
     presence_penalty: Optional[float]
     """The penalty for repeated tokens."""
 
+    prompt_cache_key: Optional[str]
+    """A key to use when reading from or writing to the prompt cache."""
+
     reasoning_effort: Optional[Literal["none", "minimal", "low", "medium", "high", "xhigh"]]
     """The effort level for reasoning models."""
 

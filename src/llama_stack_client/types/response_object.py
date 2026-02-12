@@ -756,6 +756,8 @@ class ResponseObject(BaseModel):
     prompt: Optional[Prompt] = None
     """OpenAI compatible Prompt object that is used in OpenAI responses."""
 
+    prompt_cache_key: Optional[str] = None
+
     reasoning: Optional[Reasoning] = None
     """Configuration for reasoning effort in OpenAI responses.
 

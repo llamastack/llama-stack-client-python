@@ -96,6 +96,7 @@ class ResponsesResource(SyncAPIResource):
         parallel_tool_calls: Optional[bool] | Omit = omit,
         previous_response_id: Optional[str] | Omit = omit,
         prompt: Optional[response_create_params.Prompt] | Omit = omit,
+        prompt_cache_key: Optional[str] | Omit = omit,
         reasoning: Optional[response_create_params.Reasoning] | Omit = omit,
         safety_identifier: Optional[str] | Omit = omit,
         store: Optional[bool] | Omit = omit,
@@ -141,6 +142,8 @@ class ResponsesResource(SyncAPIResource):
           previous_response_id: Optional ID of a previous response to continue from.
 
           prompt: OpenAI compatible Prompt object that is used in OpenAI responses.
+
+          prompt_cache_key: A key to use when reading from or writing to the prompt cache.
 
           reasoning: Configuration for reasoning effort in OpenAI responses.
 
@@ -209,6 +212,7 @@ class ResponsesResource(SyncAPIResource):
         parallel_tool_calls: Optional[bool] | Omit = omit,
         previous_response_id: Optional[str] | Omit = omit,
         prompt: Optional[response_create_params.Prompt] | Omit = omit,
+        prompt_cache_key: Optional[str] | Omit = omit,
         reasoning: Optional[response_create_params.Reasoning] | Omit = omit,
         safety_identifier: Optional[str] | Omit = omit,
         store: Optional[bool] | Omit = omit,
@@ -255,6 +259,8 @@ class ResponsesResource(SyncAPIResource):
           previous_response_id: Optional ID of a previous response to continue from.
 
           prompt: OpenAI compatible Prompt object that is used in OpenAI responses.
+
+          prompt_cache_key: A key to use when reading from or writing to the prompt cache.
 
           reasoning: Configuration for reasoning effort in OpenAI responses.
 
@@ -321,6 +327,7 @@ class ResponsesResource(SyncAPIResource):
         parallel_tool_calls: Optional[bool] | Omit = omit,
         previous_response_id: Optional[str] | Omit = omit,
         prompt: Optional[response_create_params.Prompt] | Omit = omit,
+        prompt_cache_key: Optional[str] | Omit = omit,
         reasoning: Optional[response_create_params.Reasoning] | Omit = omit,
         safety_identifier: Optional[str] | Omit = omit,
         store: Optional[bool] | Omit = omit,
@@ -367,6 +374,8 @@ class ResponsesResource(SyncAPIResource):
           previous_response_id: Optional ID of a previous response to continue from.
 
           prompt: OpenAI compatible Prompt object that is used in OpenAI responses.
+
+          prompt_cache_key: A key to use when reading from or writing to the prompt cache.
 
           reasoning: Configuration for reasoning effort in OpenAI responses.
 
@@ -432,6 +441,7 @@ class ResponsesResource(SyncAPIResource):
         parallel_tool_calls: Optional[bool] | Omit = omit,
         previous_response_id: Optional[str] | Omit = omit,
         prompt: Optional[response_create_params.Prompt] | Omit = omit,
+        prompt_cache_key: Optional[str] | Omit = omit,
         reasoning: Optional[response_create_params.Reasoning] | Omit = omit,
         safety_identifier: Optional[str] | Omit = omit,
         store: Optional[bool] | Omit = omit,
@@ -465,6 +475,7 @@ class ResponsesResource(SyncAPIResource):
                     "parallel_tool_calls": parallel_tool_calls,
                     "previous_response_id": previous_response_id,
                     "prompt": prompt,
+                    "prompt_cache_key": prompt_cache_key,
                     "reasoning": reasoning,
                     "safety_identifier": safety_identifier,
                     "store": store,
@@ -672,6 +683,7 @@ class AsyncResponsesResource(AsyncAPIResource):
         parallel_tool_calls: Optional[bool] | Omit = omit,
         previous_response_id: Optional[str] | Omit = omit,
         prompt: Optional[response_create_params.Prompt] | Omit = omit,
+        prompt_cache_key: Optional[str] | Omit = omit,
         reasoning: Optional[response_create_params.Reasoning] | Omit = omit,
         safety_identifier: Optional[str] | Omit = omit,
         store: Optional[bool] | Omit = omit,
@@ -717,6 +729,8 @@ class AsyncResponsesResource(AsyncAPIResource):
           previous_response_id: Optional ID of a previous response to continue from.
 
           prompt: OpenAI compatible Prompt object that is used in OpenAI responses.
+
+          prompt_cache_key: A key to use when reading from or writing to the prompt cache.
 
           reasoning: Configuration for reasoning effort in OpenAI responses.
 
@@ -785,6 +799,7 @@ class AsyncResponsesResource(AsyncAPIResource):
         parallel_tool_calls: Optional[bool] | Omit = omit,
         previous_response_id: Optional[str] | Omit = omit,
         prompt: Optional[response_create_params.Prompt] | Omit = omit,
+        prompt_cache_key: Optional[str] | Omit = omit,
         reasoning: Optional[response_create_params.Reasoning] | Omit = omit,
         safety_identifier: Optional[str] | Omit = omit,
         store: Optional[bool] | Omit = omit,
@@ -831,6 +846,8 @@ class AsyncResponsesResource(AsyncAPIResource):
           previous_response_id: Optional ID of a previous response to continue from.
 
           prompt: OpenAI compatible Prompt object that is used in OpenAI responses.
+
+          prompt_cache_key: A key to use when reading from or writing to the prompt cache.
 
           reasoning: Configuration for reasoning effort in OpenAI responses.
 
@@ -897,6 +914,7 @@ class AsyncResponsesResource(AsyncAPIResource):
         parallel_tool_calls: Optional[bool] | Omit = omit,
         previous_response_id: Optional[str] | Omit = omit,
         prompt: Optional[response_create_params.Prompt] | Omit = omit,
+        prompt_cache_key: Optional[str] | Omit = omit,
         reasoning: Optional[response_create_params.Reasoning] | Omit = omit,
         safety_identifier: Optional[str] | Omit = omit,
         store: Optional[bool] | Omit = omit,
@@ -943,6 +961,8 @@ class AsyncResponsesResource(AsyncAPIResource):
           previous_response_id: Optional ID of a previous response to continue from.
 
           prompt: OpenAI compatible Prompt object that is used in OpenAI responses.
+
+          prompt_cache_key: A key to use when reading from or writing to the prompt cache.
 
           reasoning: Configuration for reasoning effort in OpenAI responses.
 
@@ -1008,6 +1028,7 @@ class AsyncResponsesResource(AsyncAPIResource):
         parallel_tool_calls: Optional[bool] | Omit = omit,
         previous_response_id: Optional[str] | Omit = omit,
         prompt: Optional[response_create_params.Prompt] | Omit = omit,
+        prompt_cache_key: Optional[str] | Omit = omit,
         reasoning: Optional[response_create_params.Reasoning] | Omit = omit,
         safety_identifier: Optional[str] | Omit = omit,
         store: Optional[bool] | Omit = omit,
@@ -1041,6 +1062,7 @@ class AsyncResponsesResource(AsyncAPIResource):
                     "parallel_tool_calls": parallel_tool_calls,
                     "previous_response_id": previous_response_id,
                     "prompt": prompt,
+                    "prompt_cache_key": prompt_cache_key,
                     "reasoning": reasoning,
                     "safety_identifier": safety_identifier,
                     "store": store,
