@@ -110,6 +110,7 @@ class ResponsesResource(SyncAPIResource):
         text: Optional[response_create_params.Text] | Omit = omit,
         tool_choice: Optional[response_create_params.ToolChoice] | Omit = omit,
         tools: Optional[Iterable[response_create_params.Tool]] | Omit = omit,
+        truncation: Optional[Literal["auto", "disabled"]] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -165,6 +166,9 @@ class ResponsesResource(SyncAPIResource):
 
           tools: List of tools available to the model.
 
+          truncation: Controls how the service truncates input when it exceeds the model context
+              window.
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -218,6 +222,7 @@ class ResponsesResource(SyncAPIResource):
         text: Optional[response_create_params.Text] | Omit = omit,
         tool_choice: Optional[response_create_params.ToolChoice] | Omit = omit,
         tools: Optional[Iterable[response_create_params.Tool]] | Omit = omit,
+        truncation: Optional[Literal["auto", "disabled"]] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -273,6 +278,9 @@ class ResponsesResource(SyncAPIResource):
 
           tools: List of tools available to the model.
 
+          truncation: Controls how the service truncates input when it exceeds the model context
+              window.
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -326,6 +334,7 @@ class ResponsesResource(SyncAPIResource):
         text: Optional[response_create_params.Text] | Omit = omit,
         tool_choice: Optional[response_create_params.ToolChoice] | Omit = omit,
         tools: Optional[Iterable[response_create_params.Tool]] | Omit = omit,
+        truncation: Optional[Literal["auto", "disabled"]] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -381,6 +390,9 @@ class ResponsesResource(SyncAPIResource):
 
           tools: List of tools available to the model.
 
+          truncation: Controls how the service truncates input when it exceeds the model context
+              window.
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -434,6 +446,7 @@ class ResponsesResource(SyncAPIResource):
         text: Optional[response_create_params.Text] | Omit = omit,
         tool_choice: Optional[response_create_params.ToolChoice] | Omit = omit,
         tools: Optional[Iterable[response_create_params.Tool]] | Omit = omit,
+        truncation: Optional[Literal["auto", "disabled"]] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -466,6 +479,7 @@ class ResponsesResource(SyncAPIResource):
                     "text": text,
                     "tool_choice": tool_choice,
                     "tools": tools,
+                    "truncation": truncation,
                 },
                 response_create_params.ResponseCreateParamsStreaming
                 if stream
@@ -672,6 +686,7 @@ class AsyncResponsesResource(AsyncAPIResource):
         text: Optional[response_create_params.Text] | Omit = omit,
         tool_choice: Optional[response_create_params.ToolChoice] | Omit = omit,
         tools: Optional[Iterable[response_create_params.Tool]] | Omit = omit,
+        truncation: Optional[Literal["auto", "disabled"]] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -727,6 +742,9 @@ class AsyncResponsesResource(AsyncAPIResource):
 
           tools: List of tools available to the model.
 
+          truncation: Controls how the service truncates input when it exceeds the model context
+              window.
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -780,6 +798,7 @@ class AsyncResponsesResource(AsyncAPIResource):
         text: Optional[response_create_params.Text] | Omit = omit,
         tool_choice: Optional[response_create_params.ToolChoice] | Omit = omit,
         tools: Optional[Iterable[response_create_params.Tool]] | Omit = omit,
+        truncation: Optional[Literal["auto", "disabled"]] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -835,6 +854,9 @@ class AsyncResponsesResource(AsyncAPIResource):
 
           tools: List of tools available to the model.
 
+          truncation: Controls how the service truncates input when it exceeds the model context
+              window.
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -888,6 +910,7 @@ class AsyncResponsesResource(AsyncAPIResource):
         text: Optional[response_create_params.Text] | Omit = omit,
         tool_choice: Optional[response_create_params.ToolChoice] | Omit = omit,
         tools: Optional[Iterable[response_create_params.Tool]] | Omit = omit,
+        truncation: Optional[Literal["auto", "disabled"]] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -943,6 +966,9 @@ class AsyncResponsesResource(AsyncAPIResource):
 
           tools: List of tools available to the model.
 
+          truncation: Controls how the service truncates input when it exceeds the model context
+              window.
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -996,6 +1022,7 @@ class AsyncResponsesResource(AsyncAPIResource):
         text: Optional[response_create_params.Text] | Omit = omit,
         tool_choice: Optional[response_create_params.ToolChoice] | Omit = omit,
         tools: Optional[Iterable[response_create_params.Tool]] | Omit = omit,
+        truncation: Optional[Literal["auto", "disabled"]] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -1028,6 +1055,7 @@ class AsyncResponsesResource(AsyncAPIResource):
                     "text": text,
                     "tool_choice": tool_choice,
                     "tools": tools,
+                    "truncation": truncation,
                 },
                 response_create_params.ResponseCreateParamsStreaming
                 if stream

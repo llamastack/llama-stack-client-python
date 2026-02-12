@@ -158,6 +158,12 @@ class ResponseCreateParamsBase(TypedDict, total=False):
     tools: Optional[Iterable[Tool]]
     """List of tools available to the model."""
 
+    truncation: Optional[Literal["auto", "disabled"]]
+    """
+    Controls how the service truncates input when it exceeds the model context
+    window.
+    """
+
 
 class InputListOpenAIResponseMessageUnionOpenAIResponseInputFunctionToolCallOutputOpenAIResponseMcpApprovalResponseOpenAIResponseMessageInputContentListOpenAIResponseInputMessageContentTextOpenAIResponseInputMessageContentImageOpenAIResponseInputMessageContentFileOpenAIResponseInputMessageContentText(
     TypedDict, total=False

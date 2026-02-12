@@ -82,6 +82,7 @@ class TestResponses:
                     "type": "web_search",
                 }
             ],
+            truncation="auto",
         )
         assert_matches_type(ResponseObject, response, path=["response"])
 
@@ -166,6 +167,7 @@ class TestResponses:
                     "type": "web_search",
                 }
             ],
+            truncation="auto",
         )
         response_stream.response.close()
 
@@ -367,6 +369,7 @@ class TestAsyncResponses:
                     "type": "web_search",
                 }
             ],
+            truncation="auto",
         )
         assert_matches_type(ResponseObject, response, path=["response"])
 
@@ -451,6 +454,7 @@ class TestAsyncResponses:
                     "type": "web_search",
                 }
             ],
+            truncation="auto",
         )
         await response_stream.response.aclose()
 
