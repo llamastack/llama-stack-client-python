@@ -70,6 +70,7 @@ class CompletionsResource(SyncAPIResource):
         n: Optional[int] | Omit = omit,
         parallel_tool_calls: Optional[bool] | Omit = omit,
         presence_penalty: Optional[float] | Omit = omit,
+        prompt_cache_key: Optional[str] | Omit = omit,
         reasoning_effort: Optional[Literal["none", "minimal", "low", "medium", "high", "xhigh"]] | Omit = omit,
         response_format: Optional[completion_create_params.ResponseFormat] | Omit = omit,
         safety_identifier: Optional[str] | Omit = omit,
@@ -118,6 +119,8 @@ class CompletionsResource(SyncAPIResource):
           parallel_tool_calls: Whether to parallelize tool calls.
 
           presence_penalty: The penalty for repeated tokens.
+
+          prompt_cache_key: A key to use when reading from or writing to the prompt cache.
 
           reasoning_effort: The effort level for reasoning models.
 
@@ -172,6 +175,7 @@ class CompletionsResource(SyncAPIResource):
         n: Optional[int] | Omit = omit,
         parallel_tool_calls: Optional[bool] | Omit = omit,
         presence_penalty: Optional[float] | Omit = omit,
+        prompt_cache_key: Optional[str] | Omit = omit,
         reasoning_effort: Optional[Literal["none", "minimal", "low", "medium", "high", "xhigh"]] | Omit = omit,
         response_format: Optional[completion_create_params.ResponseFormat] | Omit = omit,
         safety_identifier: Optional[str] | Omit = omit,
@@ -221,6 +225,8 @@ class CompletionsResource(SyncAPIResource):
           parallel_tool_calls: Whether to parallelize tool calls.
 
           presence_penalty: The penalty for repeated tokens.
+
+          prompt_cache_key: A key to use when reading from or writing to the prompt cache.
 
           reasoning_effort: The effort level for reasoning models.
 
@@ -273,6 +279,7 @@ class CompletionsResource(SyncAPIResource):
         n: Optional[int] | Omit = omit,
         parallel_tool_calls: Optional[bool] | Omit = omit,
         presence_penalty: Optional[float] | Omit = omit,
+        prompt_cache_key: Optional[str] | Omit = omit,
         reasoning_effort: Optional[Literal["none", "minimal", "low", "medium", "high", "xhigh"]] | Omit = omit,
         response_format: Optional[completion_create_params.ResponseFormat] | Omit = omit,
         safety_identifier: Optional[str] | Omit = omit,
@@ -322,6 +329,8 @@ class CompletionsResource(SyncAPIResource):
           parallel_tool_calls: Whether to parallelize tool calls.
 
           presence_penalty: The penalty for repeated tokens.
+
+          prompt_cache_key: A key to use when reading from or writing to the prompt cache.
 
           reasoning_effort: The effort level for reasoning models.
 
@@ -373,6 +382,7 @@ class CompletionsResource(SyncAPIResource):
         n: Optional[int] | Omit = omit,
         parallel_tool_calls: Optional[bool] | Omit = omit,
         presence_penalty: Optional[float] | Omit = omit,
+        prompt_cache_key: Optional[str] | Omit = omit,
         reasoning_effort: Optional[Literal["none", "minimal", "low", "medium", "high", "xhigh"]] | Omit = omit,
         response_format: Optional[completion_create_params.ResponseFormat] | Omit = omit,
         safety_identifier: Optional[str] | Omit = omit,
@@ -409,6 +419,7 @@ class CompletionsResource(SyncAPIResource):
                     "n": n,
                     "parallel_tool_calls": parallel_tool_calls,
                     "presence_penalty": presence_penalty,
+                    "prompt_cache_key": prompt_cache_key,
                     "reasoning_effort": reasoning_effort,
                     "response_format": response_format,
                     "safety_identifier": safety_identifier,
@@ -561,6 +572,7 @@ class AsyncCompletionsResource(AsyncAPIResource):
         n: Optional[int] | Omit = omit,
         parallel_tool_calls: Optional[bool] | Omit = omit,
         presence_penalty: Optional[float] | Omit = omit,
+        prompt_cache_key: Optional[str] | Omit = omit,
         reasoning_effort: Optional[Literal["none", "minimal", "low", "medium", "high", "xhigh"]] | Omit = omit,
         response_format: Optional[completion_create_params.ResponseFormat] | Omit = omit,
         safety_identifier: Optional[str] | Omit = omit,
@@ -609,6 +621,8 @@ class AsyncCompletionsResource(AsyncAPIResource):
           parallel_tool_calls: Whether to parallelize tool calls.
 
           presence_penalty: The penalty for repeated tokens.
+
+          prompt_cache_key: A key to use when reading from or writing to the prompt cache.
 
           reasoning_effort: The effort level for reasoning models.
 
@@ -663,6 +677,7 @@ class AsyncCompletionsResource(AsyncAPIResource):
         n: Optional[int] | Omit = omit,
         parallel_tool_calls: Optional[bool] | Omit = omit,
         presence_penalty: Optional[float] | Omit = omit,
+        prompt_cache_key: Optional[str] | Omit = omit,
         reasoning_effort: Optional[Literal["none", "minimal", "low", "medium", "high", "xhigh"]] | Omit = omit,
         response_format: Optional[completion_create_params.ResponseFormat] | Omit = omit,
         safety_identifier: Optional[str] | Omit = omit,
@@ -712,6 +727,8 @@ class AsyncCompletionsResource(AsyncAPIResource):
           parallel_tool_calls: Whether to parallelize tool calls.
 
           presence_penalty: The penalty for repeated tokens.
+
+          prompt_cache_key: A key to use when reading from or writing to the prompt cache.
 
           reasoning_effort: The effort level for reasoning models.
 
@@ -764,6 +781,7 @@ class AsyncCompletionsResource(AsyncAPIResource):
         n: Optional[int] | Omit = omit,
         parallel_tool_calls: Optional[bool] | Omit = omit,
         presence_penalty: Optional[float] | Omit = omit,
+        prompt_cache_key: Optional[str] | Omit = omit,
         reasoning_effort: Optional[Literal["none", "minimal", "low", "medium", "high", "xhigh"]] | Omit = omit,
         response_format: Optional[completion_create_params.ResponseFormat] | Omit = omit,
         safety_identifier: Optional[str] | Omit = omit,
@@ -813,6 +831,8 @@ class AsyncCompletionsResource(AsyncAPIResource):
           parallel_tool_calls: Whether to parallelize tool calls.
 
           presence_penalty: The penalty for repeated tokens.
+
+          prompt_cache_key: A key to use when reading from or writing to the prompt cache.
 
           reasoning_effort: The effort level for reasoning models.
 
@@ -864,6 +884,7 @@ class AsyncCompletionsResource(AsyncAPIResource):
         n: Optional[int] | Omit = omit,
         parallel_tool_calls: Optional[bool] | Omit = omit,
         presence_penalty: Optional[float] | Omit = omit,
+        prompt_cache_key: Optional[str] | Omit = omit,
         reasoning_effort: Optional[Literal["none", "minimal", "low", "medium", "high", "xhigh"]] | Omit = omit,
         response_format: Optional[completion_create_params.ResponseFormat] | Omit = omit,
         safety_identifier: Optional[str] | Omit = omit,
@@ -900,6 +921,7 @@ class AsyncCompletionsResource(AsyncAPIResource):
                     "n": n,
                     "parallel_tool_calls": parallel_tool_calls,
                     "presence_penalty": presence_penalty,
+                    "prompt_cache_key": prompt_cache_key,
                     "reasoning_effort": reasoning_effort,
                     "response_format": response_format,
                     "safety_identifier": safety_identifier,

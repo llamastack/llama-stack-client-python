@@ -134,6 +134,9 @@ class ResponseCreateParamsBase(TypedDict, total=False):
     prompt: Optional[Prompt]
     """OpenAI compatible Prompt object that is used in OpenAI responses."""
 
+    prompt_cache_key: Optional[str]
+    """A key to use when reading from or writing to the prompt cache."""
+
     reasoning: Optional[Reasoning]
     """Configuration for reasoning effort in OpenAI responses.
 
