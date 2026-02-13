@@ -1,6 +1,6 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-from typing import List, Union, Optional
+from typing import Dict, List, Union, Optional
 from typing_extensions import Literal, Annotated, TypeAlias
 
 from ..._utils import PropertyInfo
@@ -11,23 +11,9 @@ __all__ = [
     "Data",
     "DataChoice",
     "DataChoiceMessage",
-    "DataChoiceMessageOpenAIUserMessageParamOutput",
-    "DataChoiceMessageOpenAIUserMessageParamOutputContentListOpenAIChatCompletionContentPartTextParamOpenAIChatCompletionContentPartImageParamOpenAIFile",
-    "DataChoiceMessageOpenAIUserMessageParamOutputContentListOpenAIChatCompletionContentPartTextParamOpenAIChatCompletionContentPartImageParamOpenAIFileOpenAIChatCompletionContentPartTextParam",
-    "DataChoiceMessageOpenAIUserMessageParamOutputContentListOpenAIChatCompletionContentPartTextParamOpenAIChatCompletionContentPartImageParamOpenAIFileOpenAIChatCompletionContentPartImageParam",
-    "DataChoiceMessageOpenAIUserMessageParamOutputContentListOpenAIChatCompletionContentPartTextParamOpenAIChatCompletionContentPartImageParamOpenAIFileOpenAIChatCompletionContentPartImageParamImageURL",
-    "DataChoiceMessageOpenAIUserMessageParamOutputContentListOpenAIChatCompletionContentPartTextParamOpenAIChatCompletionContentPartImageParamOpenAIFileOpenAIFile",
-    "DataChoiceMessageOpenAIUserMessageParamOutputContentListOpenAIChatCompletionContentPartTextParamOpenAIChatCompletionContentPartImageParamOpenAIFileOpenAIFileFile",
-    "DataChoiceMessageOpenAISystemMessageParam",
-    "DataChoiceMessageOpenAISystemMessageParamContentListOpenAIChatCompletionContentPartTextParam",
-    "DataChoiceMessageOpenAIAssistantMessageParamOutput",
-    "DataChoiceMessageOpenAIAssistantMessageParamOutputContentListOpenAIChatCompletionContentPartTextParam",
-    "DataChoiceMessageOpenAIAssistantMessageParamOutputToolCall",
-    "DataChoiceMessageOpenAIAssistantMessageParamOutputToolCallFunction",
-    "DataChoiceMessageOpenAIToolMessageParam",
-    "DataChoiceMessageOpenAIToolMessageParamContentListOpenAIChatCompletionContentPartTextParam",
-    "DataChoiceMessageOpenAIDeveloperMessageParam",
-    "DataChoiceMessageOpenAIDeveloperMessageParamContentListOpenAIChatCompletionContentPartTextParam",
+    "DataChoiceMessageFunctionCall",
+    "DataChoiceMessageToolCall",
+    "DataChoiceMessageToolCallFunction",
     "DataChoiceLogprobs",
     "DataChoiceLogprobsContent",
     "DataChoiceLogprobsContentTopLogprob",
@@ -57,134 +43,17 @@ __all__ = [
 ]
 
 
-class DataChoiceMessageOpenAIUserMessageParamOutputContentListOpenAIChatCompletionContentPartTextParamOpenAIChatCompletionContentPartImageParamOpenAIFileOpenAIChatCompletionContentPartTextParam(
-    BaseModel
-):
-    """Text content part for OpenAI-compatible chat completion messages."""
+class DataChoiceMessageFunctionCall(BaseModel):
+    """Deprecated: the name and arguments of a function that should be called."""
 
-    text: str
-    """The text content of the message."""
-
-    type: Optional[Literal["text"]] = None
-    """Must be 'text' to identify this as text content."""
-
-
-class DataChoiceMessageOpenAIUserMessageParamOutputContentListOpenAIChatCompletionContentPartTextParamOpenAIChatCompletionContentPartImageParamOpenAIFileOpenAIChatCompletionContentPartImageParamImageURL(
-    BaseModel
-):
-    """Image URL specification and processing details."""
-
-    url: str
-    """URL of the image to include in the message."""
-
-    detail: Optional[Literal["low", "high", "auto"]] = None
-    """Level of detail for image processing. Can be 'low', 'high', or 'auto'."""
-
-
-class DataChoiceMessageOpenAIUserMessageParamOutputContentListOpenAIChatCompletionContentPartTextParamOpenAIChatCompletionContentPartImageParamOpenAIFileOpenAIChatCompletionContentPartImageParam(
-    BaseModel
-):
-    """Image content part for OpenAI-compatible chat completion messages."""
-
-    image_url: DataChoiceMessageOpenAIUserMessageParamOutputContentListOpenAIChatCompletionContentPartTextParamOpenAIChatCompletionContentPartImageParamOpenAIFileOpenAIChatCompletionContentPartImageParamImageURL
-    """Image URL specification and processing details."""
-
-    type: Optional[Literal["image_url"]] = None
-    """Must be 'image_url' to identify this as image content."""
-
-
-class DataChoiceMessageOpenAIUserMessageParamOutputContentListOpenAIChatCompletionContentPartTextParamOpenAIChatCompletionContentPartImageParamOpenAIFileOpenAIFileFile(
-    BaseModel
-):
-    """File specification."""
-
-    file_data: Optional[str] = None
-    """Base64-encoded file data."""
-
-    file_id: Optional[str] = None
-    """ID of an uploaded file."""
-
-    filename: Optional[str] = None
-    """Name of the file."""
-
-
-class DataChoiceMessageOpenAIUserMessageParamOutputContentListOpenAIChatCompletionContentPartTextParamOpenAIChatCompletionContentPartImageParamOpenAIFileOpenAIFile(
-    BaseModel
-):
-    file: DataChoiceMessageOpenAIUserMessageParamOutputContentListOpenAIChatCompletionContentPartTextParamOpenAIChatCompletionContentPartImageParamOpenAIFileOpenAIFileFile
-    """File specification."""
-
-    type: Optional[Literal["file"]] = None
-    """Must be 'file' to identify this as file content."""
-
-
-DataChoiceMessageOpenAIUserMessageParamOutputContentListOpenAIChatCompletionContentPartTextParamOpenAIChatCompletionContentPartImageParamOpenAIFile: TypeAlias = Annotated[
-    Union[
-        DataChoiceMessageOpenAIUserMessageParamOutputContentListOpenAIChatCompletionContentPartTextParamOpenAIChatCompletionContentPartImageParamOpenAIFileOpenAIChatCompletionContentPartTextParam,
-        DataChoiceMessageOpenAIUserMessageParamOutputContentListOpenAIChatCompletionContentPartTextParamOpenAIChatCompletionContentPartImageParamOpenAIFileOpenAIChatCompletionContentPartImageParam,
-        DataChoiceMessageOpenAIUserMessageParamOutputContentListOpenAIChatCompletionContentPartTextParamOpenAIChatCompletionContentPartImageParamOpenAIFileOpenAIFile,
-    ],
-    PropertyInfo(discriminator="type"),
-]
-
-
-class DataChoiceMessageOpenAIUserMessageParamOutput(BaseModel):
-    """A message from the user in an OpenAI-compatible chat completion request."""
-
-    content: Union[
-        str,
-        List[
-            DataChoiceMessageOpenAIUserMessageParamOutputContentListOpenAIChatCompletionContentPartTextParamOpenAIChatCompletionContentPartImageParamOpenAIFile
-        ],
-    ]
-    """The content of the message, which can include text and other media."""
+    arguments: Optional[str] = None
+    """Arguments to pass to the function as a JSON string."""
 
     name: Optional[str] = None
-    """The name of the user message participant."""
-
-    role: Optional[Literal["user"]] = None
-    """Must be 'user' to identify this as a user message."""
+    """Name of the function to call."""
 
 
-class DataChoiceMessageOpenAISystemMessageParamContentListOpenAIChatCompletionContentPartTextParam(BaseModel):
-    """Text content part for OpenAI-compatible chat completion messages."""
-
-    text: str
-    """The text content of the message."""
-
-    type: Optional[Literal["text"]] = None
-    """Must be 'text' to identify this as text content."""
-
-
-class DataChoiceMessageOpenAISystemMessageParam(BaseModel):
-    """A system message providing instructions or context to the model."""
-
-    content: Union[
-        str, List[DataChoiceMessageOpenAISystemMessageParamContentListOpenAIChatCompletionContentPartTextParam]
-    ]
-    """The content of the 'system prompt'.
-
-    If multiple system messages are provided, they are concatenated.
-    """
-
-    name: Optional[str] = None
-    """The name of the system message participant."""
-
-    role: Optional[Literal["system"]] = None
-    """Must be 'system' to identify this as a system message."""
-
-
-class DataChoiceMessageOpenAIAssistantMessageParamOutputContentListOpenAIChatCompletionContentPartTextParam(BaseModel):
-    """Text content part for OpenAI-compatible chat completion messages."""
-
-    text: str
-    """The text content of the message."""
-
-    type: Optional[Literal["text"]] = None
-    """Must be 'text' to identify this as text content."""
-
-
-class DataChoiceMessageOpenAIAssistantMessageParamOutputToolCallFunction(BaseModel):
+class DataChoiceMessageToolCallFunction(BaseModel):
     """Function call details for OpenAI-compatible tool calls."""
 
     arguments: Optional[str] = None
@@ -194,13 +63,13 @@ class DataChoiceMessageOpenAIAssistantMessageParamOutputToolCallFunction(BaseMod
     """Name of the function to call."""
 
 
-class DataChoiceMessageOpenAIAssistantMessageParamOutputToolCall(BaseModel):
+class DataChoiceMessageToolCall(BaseModel):
     """Tool call specification for OpenAI-compatible chat completion responses."""
 
     id: Optional[str] = None
     """Unique identifier for the tool call."""
 
-    function: Optional[DataChoiceMessageOpenAIAssistantMessageParamOutputToolCallFunction] = None
+    function: Optional[DataChoiceMessageToolCallFunction] = None
     """Function call details for OpenAI-compatible tool calls."""
 
     index: Optional[int] = None
@@ -210,90 +79,29 @@ class DataChoiceMessageOpenAIAssistantMessageParamOutputToolCall(BaseModel):
     """Must be 'function' to identify this as a function call."""
 
 
-class DataChoiceMessageOpenAIAssistantMessageParamOutput(BaseModel):
-    """
-    A message containing the model's (assistant) response in an OpenAI-compatible chat completion request.
-    """
+class DataChoiceMessage(BaseModel):
+    """The message from the model."""
 
-    content: Union[
-        str,
-        List[DataChoiceMessageOpenAIAssistantMessageParamOutputContentListOpenAIChatCompletionContentPartTextParam],
-        None,
-    ] = None
-    """The content of the model's response."""
+    annotations: Optional[List[Dict[str, object]]] = None
+    """Annotations for the message, when applicable."""
 
-    name: Optional[str] = None
-    """The name of the assistant message participant."""
+    audio: Optional[Dict[str, object]] = None
+    """Audio response data when using audio output modality."""
+
+    content: Optional[str] = None
+    """The content of the message."""
+
+    function_call: Optional[DataChoiceMessageFunctionCall] = None
+    """Deprecated: the name and arguments of a function that should be called."""
+
+    refusal: Optional[str] = None
+    """The refusal message generated by the model."""
 
     role: Optional[Literal["assistant"]] = None
-    """Must be 'assistant' to identify this as the model's response."""
+    """The role of the message author, always 'assistant' in responses."""
 
-    tool_calls: Optional[List[DataChoiceMessageOpenAIAssistantMessageParamOutputToolCall]] = None
-    """List of tool calls. Each tool call is an OpenAIChatCompletionToolCall object."""
-
-
-class DataChoiceMessageOpenAIToolMessageParamContentListOpenAIChatCompletionContentPartTextParam(BaseModel):
-    """Text content part for OpenAI-compatible chat completion messages."""
-
-    text: str
-    """The text content of the message."""
-
-    type: Optional[Literal["text"]] = None
-    """Must be 'text' to identify this as text content."""
-
-
-class DataChoiceMessageOpenAIToolMessageParam(BaseModel):
-    """
-    A message representing the result of a tool invocation in an OpenAI-compatible chat completion request.
-    """
-
-    content: Union[
-        str, List[DataChoiceMessageOpenAIToolMessageParamContentListOpenAIChatCompletionContentPartTextParam]
-    ]
-    """The response content from the tool."""
-
-    tool_call_id: str
-    """Unique identifier for the tool call this response is for."""
-
-    role: Optional[Literal["tool"]] = None
-    """Must be 'tool' to identify this as a tool response."""
-
-
-class DataChoiceMessageOpenAIDeveloperMessageParamContentListOpenAIChatCompletionContentPartTextParam(BaseModel):
-    """Text content part for OpenAI-compatible chat completion messages."""
-
-    text: str
-    """The text content of the message."""
-
-    type: Optional[Literal["text"]] = None
-    """Must be 'text' to identify this as text content."""
-
-
-class DataChoiceMessageOpenAIDeveloperMessageParam(BaseModel):
-    """A message from the developer in an OpenAI-compatible chat completion request."""
-
-    content: Union[
-        str, List[DataChoiceMessageOpenAIDeveloperMessageParamContentListOpenAIChatCompletionContentPartTextParam]
-    ]
-    """The content of the developer message."""
-
-    name: Optional[str] = None
-    """The name of the developer message participant."""
-
-    role: Optional[Literal["developer"]] = None
-    """Must be 'developer' to identify this as a developer message."""
-
-
-DataChoiceMessage: TypeAlias = Annotated[
-    Union[
-        DataChoiceMessageOpenAIUserMessageParamOutput,
-        DataChoiceMessageOpenAISystemMessageParam,
-        DataChoiceMessageOpenAIAssistantMessageParamOutput,
-        DataChoiceMessageOpenAIToolMessageParam,
-        DataChoiceMessageOpenAIDeveloperMessageParam,
-    ],
-    PropertyInfo(discriminator="role"),
-]
+    tool_calls: Optional[List[DataChoiceMessageToolCall]] = None
+    """The tool calls generated by the model."""
 
 
 class DataChoiceLogprobsContentTopLogprob(BaseModel):
