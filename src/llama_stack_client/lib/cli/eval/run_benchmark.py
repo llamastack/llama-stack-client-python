@@ -100,7 +100,9 @@ def run_benchmark(
         scoring_functions = benchmark.scoring_functions
         dataset_id = benchmark.dataset_id
 
-        results = client.beta.datasets.iterrows(dataset_id=dataset_id, limit=-1 if num_examples is None else num_examples)
+        results = client.beta.datasets.iterrows(
+            dataset_id=dataset_id, limit=-1 if num_examples is None else num_examples
+        )
 
         output_res = {}
 
