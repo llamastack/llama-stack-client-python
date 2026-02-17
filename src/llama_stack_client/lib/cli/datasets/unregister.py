@@ -16,5 +16,5 @@ from ..common.utils import handle_client_errors
 def unregister(ctx, dataset_id: str):
     """Remove a dataset"""
     client = ctx.obj["client"]
-    client.datasets.unregister(dataset_id=dataset_id)
+    client.beta.datasets.unregister(dataset_id=dataset_id)
     click.echo(f"Dataset '{dataset_id}' unregistered successfully")

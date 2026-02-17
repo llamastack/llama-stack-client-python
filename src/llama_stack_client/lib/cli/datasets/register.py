@@ -68,7 +68,7 @@ def register(
         if not url:
             raise click.BadParameter("URL is required when dataset path is not specified")
 
-    response = client.datasets.register(
+    response = client.beta.datasets.register(
         dataset_id=dataset_id,
         source={"uri": url},
         metadata=metadata,

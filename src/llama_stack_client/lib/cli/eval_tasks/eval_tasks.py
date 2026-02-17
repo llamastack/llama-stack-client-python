@@ -49,12 +49,12 @@ def register(
         except json.JSONDecodeError as err:
             raise click.BadParameter("Metadata must be valid JSON") from err
 
-    response = client.eval_tasks.register(
-        eval_task_id=eval_task_id,
+    response = client.alpha.benchmarks.register(
+        benchmark_id=eval_task_id,
         dataset_id=dataset_id,
         scoring_functions=scoring_functions,
         provider_id=provider_id,
-        provider_eval_task_id=provider_eval_task_id,
+        provider_benchmark_id=provider_eval_task_id,
         metadata=metadata,
     )
     if response:
