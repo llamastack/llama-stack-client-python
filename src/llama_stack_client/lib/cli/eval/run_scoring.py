@@ -77,7 +77,7 @@ def run_scoring(
     output_res = {}
 
     if dataset_id is not None:
-        dataset = client.datasets.retrieve(dataset_id=dataset_id)
+        dataset = client.beta.datasets.retrieve(dataset_id=dataset_id)
         if not dataset:
             click.BadParameter(
                 f"Dataset {dataset_id} not found. Please register using llama-stack-client datasets register"
@@ -85,7 +85,7 @@ def run_scoring(
 
         # TODO: this will eventually be replaced with jobs polling from server vis score_bath
         # For now, get all datasets rows via datasets API
-        results = client.datasets.iterrows(dataset_id=dataset_id, limit=-1 if num_examples is None else num_examples)
+        results = client.beta.datasets.iterrows(dataset_id=dataset_id, limit=-1 if num_examples is None else num_examples)
         rows = results.rows
 
     if dataset_path is not None:

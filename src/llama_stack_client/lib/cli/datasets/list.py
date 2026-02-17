@@ -21,7 +21,7 @@ def list_datasets(ctx):
     console = Console()
     headers = ["identifier", "provider_id", "metadata", "type", "purpose"]
 
-    datasets_list_response = client.datasets.list()
+    datasets_list_response = client.beta.datasets.list()
     if datasets_list_response:
         table = Table()
         for header in headers:

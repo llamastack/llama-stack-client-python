@@ -96,16 +96,16 @@ def run_benchmark(
     client = ctx.obj["client"]
 
     for benchmark_id in benchmark_ids:
-        benchmark = client.benchmarks.retrieve(benchmark_id=benchmark_id)
+        benchmark = client.alpha.benchmarks.retrieve(benchmark_id=benchmark_id)
         scoring_functions = benchmark.scoring_functions
         dataset_id = benchmark.dataset_id
 
-        results = client.datasets.iterrows(dataset_id=dataset_id, limit=-1 if num_examples is None else num_examples)
+        results = client.beta.datasets.iterrows(dataset_id=dataset_id, limit=-1 if num_examples is None else num_examples)
 
         output_res = {}
 
         for i, r in enumerate(tqdm(results.data)):
-            eval_res = client.eval.evaluate_rows(
+            eval_res = client.alpha.eval.evaluate_rows(
                 benchmark_id=benchmark_id,
                 input_rows=[r],
                 scoring_functions=scoring_functions,
