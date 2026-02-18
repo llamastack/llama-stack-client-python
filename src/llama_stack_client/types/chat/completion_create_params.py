@@ -95,6 +95,9 @@ class CompletionCreateParamsBase(TypedDict, total=False):
     seed: Optional[int]
     """The seed to use."""
 
+    service_tier: Optional[Literal["auto", "default", "flex", "priority"]]
+    """The service tier for the request."""
+
     stop: Union[str, SequenceNotStr[str], None]
     """The stop tokens to use."""
 

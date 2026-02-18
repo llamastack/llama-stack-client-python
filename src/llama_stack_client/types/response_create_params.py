@@ -146,6 +146,9 @@ class ResponseCreateParamsBase(TypedDict, total=False):
     safety_identifier: Optional[str]
     """A stable identifier used for safety monitoring and abuse detection."""
 
+    service_tier: Optional[Literal["auto", "default", "flex", "priority"]]
+    """The service tier for the request."""
+
     store: Optional[bool]
     """Whether to store the response in the database."""
 

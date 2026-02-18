@@ -445,36 +445,36 @@ DataInputMessage: TypeAlias = Annotated[
 
 
 class DataUsageCompletionTokensDetails(BaseModel):
-    """Token details for output tokens in OpenAI chat completion usage."""
+    """Detailed breakdown of output token usage."""
 
     reasoning_tokens: Optional[int] = None
     """Number of tokens used for reasoning (o1/o3 models)."""
 
 
 class DataUsagePromptTokensDetails(BaseModel):
-    """Token details for prompt tokens in OpenAI chat completion usage."""
+    """Detailed breakdown of input token usage."""
 
     cached_tokens: Optional[int] = None
     """Number of tokens retrieved from cache."""
 
 
 class DataUsage(BaseModel):
-    """Usage information for OpenAI chat completion."""
+    """Token usage information for the completion."""
 
-    completion_tokens: int
+    completion_tokens: Optional[int] = None
     """Number of tokens in the completion."""
 
-    prompt_tokens: int
+    completion_tokens_details: Optional[DataUsageCompletionTokensDetails] = None
+    """Detailed breakdown of output token usage."""
+
+    prompt_tokens: Optional[int] = None
     """Number of tokens in the prompt."""
 
-    total_tokens: int
-    """Total tokens used (prompt + completion)."""
-
-    completion_tokens_details: Optional[DataUsageCompletionTokensDetails] = None
-    """Token details for output tokens in OpenAI chat completion usage."""
-
     prompt_tokens_details: Optional[DataUsagePromptTokensDetails] = None
-    """Token details for prompt tokens in OpenAI chat completion usage."""
+    """Detailed breakdown of input token usage."""
+
+    total_tokens: Optional[int] = None
+    """Total tokens used (prompt + completion)."""
 
 
 class Data(BaseModel):
@@ -496,8 +496,11 @@ class Data(BaseModel):
     object: Optional[Literal["chat.completion"]] = None
     """The object type."""
 
+    service_tier: Optional[str] = None
+    """The service tier that was used for this response."""
+
     usage: Optional[DataUsage] = None
-    """Usage information for OpenAI chat completion."""
+    """Token usage information for the completion."""
 
 
 class CompletionListResponse(BaseModel):
