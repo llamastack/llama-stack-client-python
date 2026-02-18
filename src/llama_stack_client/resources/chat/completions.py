@@ -69,6 +69,7 @@ class CompletionsResource(SyncAPIResource):
         response_format: Optional[completion_create_params.ResponseFormat] | Omit = omit,
         safety_identifier: Optional[str] | Omit = omit,
         seed: Optional[int] | Omit = omit,
+        service_tier: Optional[Literal["auto", "default", "flex", "priority"]] | Omit = omit,
         stop: Union[str, SequenceNotStr[str], None] | Omit = omit,
         stream: Optional[Literal[False]] | Omit = omit,
         stream_options: Optional[Dict[str, object]] | Omit = omit,
@@ -124,6 +125,8 @@ class CompletionsResource(SyncAPIResource):
 
           seed: The seed to use.
 
+          service_tier: The service tier for the request.
+
           stop: The stop tokens to use.
 
           stream: Whether to stream the response.
@@ -174,6 +177,7 @@ class CompletionsResource(SyncAPIResource):
         response_format: Optional[completion_create_params.ResponseFormat] | Omit = omit,
         safety_identifier: Optional[str] | Omit = omit,
         seed: Optional[int] | Omit = omit,
+        service_tier: Optional[Literal["auto", "default", "flex", "priority"]] | Omit = omit,
         stop: Union[str, SequenceNotStr[str], None] | Omit = omit,
         stream_options: Optional[Dict[str, object]] | Omit = omit,
         temperature: Optional[float] | Omit = omit,
@@ -230,6 +234,8 @@ class CompletionsResource(SyncAPIResource):
 
           seed: The seed to use.
 
+          service_tier: The service tier for the request.
+
           stop: The stop tokens to use.
 
           stream_options: The stream options to use.
@@ -278,6 +284,7 @@ class CompletionsResource(SyncAPIResource):
         response_format: Optional[completion_create_params.ResponseFormat] | Omit = omit,
         safety_identifier: Optional[str] | Omit = omit,
         seed: Optional[int] | Omit = omit,
+        service_tier: Optional[Literal["auto", "default", "flex", "priority"]] | Omit = omit,
         stop: Union[str, SequenceNotStr[str], None] | Omit = omit,
         stream_options: Optional[Dict[str, object]] | Omit = omit,
         temperature: Optional[float] | Omit = omit,
@@ -334,6 +341,8 @@ class CompletionsResource(SyncAPIResource):
 
           seed: The seed to use.
 
+          service_tier: The service tier for the request.
+
           stop: The stop tokens to use.
 
           stream_options: The stream options to use.
@@ -381,6 +390,7 @@ class CompletionsResource(SyncAPIResource):
         response_format: Optional[completion_create_params.ResponseFormat] | Omit = omit,
         safety_identifier: Optional[str] | Omit = omit,
         seed: Optional[int] | Omit = omit,
+        service_tier: Optional[Literal["auto", "default", "flex", "priority"]] | Omit = omit,
         stop: Union[str, SequenceNotStr[str], None] | Omit = omit,
         stream: Optional[Literal[False]] | Literal[True] | Omit = omit,
         stream_options: Optional[Dict[str, object]] | Omit = omit,
@@ -418,6 +428,7 @@ class CompletionsResource(SyncAPIResource):
                     "response_format": response_format,
                     "safety_identifier": safety_identifier,
                     "seed": seed,
+                    "service_tier": service_tier,
                     "stop": stop,
                     "stream": stream,
                     "stream_options": stream_options,
@@ -571,6 +582,7 @@ class AsyncCompletionsResource(AsyncAPIResource):
         response_format: Optional[completion_create_params.ResponseFormat] | Omit = omit,
         safety_identifier: Optional[str] | Omit = omit,
         seed: Optional[int] | Omit = omit,
+        service_tier: Optional[Literal["auto", "default", "flex", "priority"]] | Omit = omit,
         stop: Union[str, SequenceNotStr[str], None] | Omit = omit,
         stream: Optional[Literal[False]] | Omit = omit,
         stream_options: Optional[Dict[str, object]] | Omit = omit,
@@ -626,6 +638,8 @@ class AsyncCompletionsResource(AsyncAPIResource):
 
           seed: The seed to use.
 
+          service_tier: The service tier for the request.
+
           stop: The stop tokens to use.
 
           stream: Whether to stream the response.
@@ -676,6 +690,7 @@ class AsyncCompletionsResource(AsyncAPIResource):
         response_format: Optional[completion_create_params.ResponseFormat] | Omit = omit,
         safety_identifier: Optional[str] | Omit = omit,
         seed: Optional[int] | Omit = omit,
+        service_tier: Optional[Literal["auto", "default", "flex", "priority"]] | Omit = omit,
         stop: Union[str, SequenceNotStr[str], None] | Omit = omit,
         stream_options: Optional[Dict[str, object]] | Omit = omit,
         temperature: Optional[float] | Omit = omit,
@@ -732,6 +747,8 @@ class AsyncCompletionsResource(AsyncAPIResource):
 
           seed: The seed to use.
 
+          service_tier: The service tier for the request.
+
           stop: The stop tokens to use.
 
           stream_options: The stream options to use.
@@ -780,6 +797,7 @@ class AsyncCompletionsResource(AsyncAPIResource):
         response_format: Optional[completion_create_params.ResponseFormat] | Omit = omit,
         safety_identifier: Optional[str] | Omit = omit,
         seed: Optional[int] | Omit = omit,
+        service_tier: Optional[Literal["auto", "default", "flex", "priority"]] | Omit = omit,
         stop: Union[str, SequenceNotStr[str], None] | Omit = omit,
         stream_options: Optional[Dict[str, object]] | Omit = omit,
         temperature: Optional[float] | Omit = omit,
@@ -836,6 +854,8 @@ class AsyncCompletionsResource(AsyncAPIResource):
 
           seed: The seed to use.
 
+          service_tier: The service tier for the request.
+
           stop: The stop tokens to use.
 
           stream_options: The stream options to use.
@@ -883,6 +903,7 @@ class AsyncCompletionsResource(AsyncAPIResource):
         response_format: Optional[completion_create_params.ResponseFormat] | Omit = omit,
         safety_identifier: Optional[str] | Omit = omit,
         seed: Optional[int] | Omit = omit,
+        service_tier: Optional[Literal["auto", "default", "flex", "priority"]] | Omit = omit,
         stop: Union[str, SequenceNotStr[str], None] | Omit = omit,
         stream: Optional[Literal[False]] | Literal[True] | Omit = omit,
         stream_options: Optional[Dict[str, object]] | Omit = omit,
@@ -920,6 +941,7 @@ class AsyncCompletionsResource(AsyncAPIResource):
                     "response_format": response_format,
                     "safety_identifier": safety_identifier,
                     "seed": seed,
+                    "service_tier": service_tier,
                     "stop": stop,
                     "stream": stream,
                     "stream_options": stream_options,

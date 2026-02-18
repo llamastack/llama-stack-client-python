@@ -182,36 +182,36 @@ class Choice(BaseModel):
 
 
 class UsageCompletionTokensDetails(BaseModel):
-    """Token details for output tokens in OpenAI chat completion usage."""
+    """Detailed breakdown of output token usage."""
 
     reasoning_tokens: Optional[int] = None
     """Number of tokens used for reasoning (o1/o3 models)."""
 
 
 class UsagePromptTokensDetails(BaseModel):
-    """Token details for prompt tokens in OpenAI chat completion usage."""
+    """Detailed breakdown of input token usage."""
 
     cached_tokens: Optional[int] = None
     """Number of tokens retrieved from cache."""
 
 
 class Usage(BaseModel):
-    """Usage information for OpenAI chat completion."""
+    """Token usage information for the completion."""
 
-    completion_tokens: int
+    completion_tokens: Optional[int] = None
     """Number of tokens in the completion."""
 
-    prompt_tokens: int
+    completion_tokens_details: Optional[UsageCompletionTokensDetails] = None
+    """Detailed breakdown of output token usage."""
+
+    prompt_tokens: Optional[int] = None
     """Number of tokens in the prompt."""
 
-    total_tokens: int
-    """Total tokens used (prompt + completion)."""
-
-    completion_tokens_details: Optional[UsageCompletionTokensDetails] = None
-    """Token details for output tokens in OpenAI chat completion usage."""
-
     prompt_tokens_details: Optional[UsagePromptTokensDetails] = None
-    """Token details for prompt tokens in OpenAI chat completion usage."""
+    """Detailed breakdown of input token usage."""
+
+    total_tokens: Optional[int] = None
+    """Total tokens used (prompt + completion)."""
 
 
 class CompletionCreateResponse(BaseModel):
@@ -232,5 +232,8 @@ class CompletionCreateResponse(BaseModel):
     object: Optional[Literal["chat.completion"]] = None
     """The object type."""
 
+    service_tier: Optional[str] = None
+    """The service tier that was used for this response."""
+
     usage: Optional[Usage] = None
-    """Usage information for OpenAI chat completion."""
+    """Token usage information for the completion."""

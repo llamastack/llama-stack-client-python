@@ -99,6 +99,7 @@ class ResponsesResource(SyncAPIResource):
         prompt_cache_key: Optional[str] | Omit = omit,
         reasoning: Optional[response_create_params.Reasoning] | Omit = omit,
         safety_identifier: Optional[str] | Omit = omit,
+        service_tier: Optional[Literal["auto", "default", "flex", "priority"]] | Omit = omit,
         store: Optional[bool] | Omit = omit,
         stream: Optional[Literal[False]] | Omit = omit,
         temperature: Optional[float] | Omit = omit,
@@ -150,6 +151,8 @@ class ResponsesResource(SyncAPIResource):
               Controls how much reasoning the model performs before generating a response.
 
           safety_identifier: A stable identifier used for safety monitoring and abuse detection.
+
+          service_tier: The service tier for the request.
 
           store: Whether to store the response in the database.
 
@@ -215,6 +218,7 @@ class ResponsesResource(SyncAPIResource):
         prompt_cache_key: Optional[str] | Omit = omit,
         reasoning: Optional[response_create_params.Reasoning] | Omit = omit,
         safety_identifier: Optional[str] | Omit = omit,
+        service_tier: Optional[Literal["auto", "default", "flex", "priority"]] | Omit = omit,
         store: Optional[bool] | Omit = omit,
         temperature: Optional[float] | Omit = omit,
         text: Optional[response_create_params.Text] | Omit = omit,
@@ -267,6 +271,8 @@ class ResponsesResource(SyncAPIResource):
               Controls how much reasoning the model performs before generating a response.
 
           safety_identifier: A stable identifier used for safety monitoring and abuse detection.
+
+          service_tier: The service tier for the request.
 
           store: Whether to store the response in the database.
 
@@ -330,6 +336,7 @@ class ResponsesResource(SyncAPIResource):
         prompt_cache_key: Optional[str] | Omit = omit,
         reasoning: Optional[response_create_params.Reasoning] | Omit = omit,
         safety_identifier: Optional[str] | Omit = omit,
+        service_tier: Optional[Literal["auto", "default", "flex", "priority"]] | Omit = omit,
         store: Optional[bool] | Omit = omit,
         temperature: Optional[float] | Omit = omit,
         text: Optional[response_create_params.Text] | Omit = omit,
@@ -382,6 +389,8 @@ class ResponsesResource(SyncAPIResource):
               Controls how much reasoning the model performs before generating a response.
 
           safety_identifier: A stable identifier used for safety monitoring and abuse detection.
+
+          service_tier: The service tier for the request.
 
           store: Whether to store the response in the database.
 
@@ -444,6 +453,7 @@ class ResponsesResource(SyncAPIResource):
         prompt_cache_key: Optional[str] | Omit = omit,
         reasoning: Optional[response_create_params.Reasoning] | Omit = omit,
         safety_identifier: Optional[str] | Omit = omit,
+        service_tier: Optional[Literal["auto", "default", "flex", "priority"]] | Omit = omit,
         store: Optional[bool] | Omit = omit,
         stream: Optional[Literal[False]] | Literal[True] | Omit = omit,
         temperature: Optional[float] | Omit = omit,
@@ -478,6 +488,7 @@ class ResponsesResource(SyncAPIResource):
                     "prompt_cache_key": prompt_cache_key,
                     "reasoning": reasoning,
                     "safety_identifier": safety_identifier,
+                    "service_tier": service_tier,
                     "store": store,
                     "stream": stream,
                     "temperature": temperature,
@@ -686,6 +697,7 @@ class AsyncResponsesResource(AsyncAPIResource):
         prompt_cache_key: Optional[str] | Omit = omit,
         reasoning: Optional[response_create_params.Reasoning] | Omit = omit,
         safety_identifier: Optional[str] | Omit = omit,
+        service_tier: Optional[Literal["auto", "default", "flex", "priority"]] | Omit = omit,
         store: Optional[bool] | Omit = omit,
         stream: Optional[Literal[False]] | Omit = omit,
         temperature: Optional[float] | Omit = omit,
@@ -737,6 +749,8 @@ class AsyncResponsesResource(AsyncAPIResource):
               Controls how much reasoning the model performs before generating a response.
 
           safety_identifier: A stable identifier used for safety monitoring and abuse detection.
+
+          service_tier: The service tier for the request.
 
           store: Whether to store the response in the database.
 
@@ -802,6 +816,7 @@ class AsyncResponsesResource(AsyncAPIResource):
         prompt_cache_key: Optional[str] | Omit = omit,
         reasoning: Optional[response_create_params.Reasoning] | Omit = omit,
         safety_identifier: Optional[str] | Omit = omit,
+        service_tier: Optional[Literal["auto", "default", "flex", "priority"]] | Omit = omit,
         store: Optional[bool] | Omit = omit,
         temperature: Optional[float] | Omit = omit,
         text: Optional[response_create_params.Text] | Omit = omit,
@@ -854,6 +869,8 @@ class AsyncResponsesResource(AsyncAPIResource):
               Controls how much reasoning the model performs before generating a response.
 
           safety_identifier: A stable identifier used for safety monitoring and abuse detection.
+
+          service_tier: The service tier for the request.
 
           store: Whether to store the response in the database.
 
@@ -917,6 +934,7 @@ class AsyncResponsesResource(AsyncAPIResource):
         prompt_cache_key: Optional[str] | Omit = omit,
         reasoning: Optional[response_create_params.Reasoning] | Omit = omit,
         safety_identifier: Optional[str] | Omit = omit,
+        service_tier: Optional[Literal["auto", "default", "flex", "priority"]] | Omit = omit,
         store: Optional[bool] | Omit = omit,
         temperature: Optional[float] | Omit = omit,
         text: Optional[response_create_params.Text] | Omit = omit,
@@ -969,6 +987,8 @@ class AsyncResponsesResource(AsyncAPIResource):
               Controls how much reasoning the model performs before generating a response.
 
           safety_identifier: A stable identifier used for safety monitoring and abuse detection.
+
+          service_tier: The service tier for the request.
 
           store: Whether to store the response in the database.
 
@@ -1031,6 +1051,7 @@ class AsyncResponsesResource(AsyncAPIResource):
         prompt_cache_key: Optional[str] | Omit = omit,
         reasoning: Optional[response_create_params.Reasoning] | Omit = omit,
         safety_identifier: Optional[str] | Omit = omit,
+        service_tier: Optional[Literal["auto", "default", "flex", "priority"]] | Omit = omit,
         store: Optional[bool] | Omit = omit,
         stream: Optional[Literal[False]] | Literal[True] | Omit = omit,
         temperature: Optional[float] | Omit = omit,
@@ -1065,6 +1086,7 @@ class AsyncResponsesResource(AsyncAPIResource):
                     "prompt_cache_key": prompt_cache_key,
                     "reasoning": reasoning,
                     "safety_identifier": safety_identifier,
+                    "service_tier": service_tier,
                     "store": store,
                     "stream": stream,
                     "temperature": temperature,

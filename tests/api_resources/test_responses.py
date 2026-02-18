@@ -58,6 +58,7 @@ class TestResponses:
             prompt_cache_key="prompt_cache_key",
             reasoning={"effort": "none"},
             safety_identifier="safety_identifier",
+            service_tier="auto",
             store=True,
             stream=False,
             temperature=0,
@@ -145,6 +146,7 @@ class TestResponses:
             prompt_cache_key="prompt_cache_key",
             reasoning={"effort": "none"},
             safety_identifier="safety_identifier",
+            service_tier="auto",
             store=True,
             temperature=0,
             text={
@@ -347,6 +349,7 @@ class TestAsyncResponses:
             prompt_cache_key="prompt_cache_key",
             reasoning={"effort": "none"},
             safety_identifier="safety_identifier",
+            service_tier="auto",
             store=True,
             stream=False,
             temperature=0,
@@ -434,6 +437,7 @@ class TestAsyncResponses:
             prompt_cache_key="prompt_cache_key",
             reasoning={"effort": "none"},
             safety_identifier="safety_identifier",
+            service_tier="auto",
             store=True,
             temperature=0,
             text={

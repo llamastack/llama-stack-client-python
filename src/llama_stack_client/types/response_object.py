@@ -35,6 +35,7 @@ __all__ = [
     "OutputOpenAIResponseOutputMessageMcpListToolsTool",
     "OutputOpenAIResponseMcpApprovalRequest",
     "Error",
+    "IncompleteDetails",
     "Prompt",
     "PromptVariables",
     "PromptVariablesOpenAIResponseInputMessageContentText",
@@ -418,6 +419,12 @@ class Error(BaseModel):
     message: str
 
 
+class IncompleteDetails(BaseModel):
+    """Details explaining why a response was incomplete."""
+
+    reason: str
+
+
 class PromptVariablesOpenAIResponseInputMessageContentText(BaseModel):
     """Text content for input messages in OpenAI response format."""
 
@@ -739,6 +746,9 @@ class ResponseObject(BaseModel):
     error: Optional[Error] = None
     """Error details for failed OpenAI response requests."""
 
+    incomplete_details: Optional[IncompleteDetails] = None
+    """Details explaining why a response was incomplete."""
+
     instructions: Optional[str] = None
 
     max_output_tokens: Optional[int] = None
@@ -765,6 +775,8 @@ class ResponseObject(BaseModel):
     """
 
     safety_identifier: Optional[str] = None
+
+    service_tier: Optional[str] = None
 
     temperature: Optional[float] = None
 
