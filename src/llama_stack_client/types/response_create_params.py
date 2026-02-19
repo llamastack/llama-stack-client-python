@@ -87,6 +87,12 @@ class ResponseCreateParamsBase(TypedDict, total=False):
     model: Required[str]
     """The underlying LLM used for completions."""
 
+    background: bool
+    """Whether to run the model response in the background.
+
+    When true, returns immediately with status 'queued'.
+    """
+
     conversation: Optional[str]
     """Optional ID of a conversation to add the response to."""
 

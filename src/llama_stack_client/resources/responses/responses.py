@@ -78,6 +78,7 @@ class ResponsesResource(SyncAPIResource):
             ],
         ],
         model: str,
+        background: bool | Omit = omit,
         conversation: Optional[str] | Omit = omit,
         guardrails: Optional[SequenceNotStr[response_create_params.Guardrail]] | Omit = omit,
         include: Optional[
@@ -127,6 +128,9 @@ class ResponsesResource(SyncAPIResource):
           input: Input message(s) to create the response.
 
           model: The underlying LLM used for completions.
+
+          background: Whether to run the model response in the background. When true, returns
+              immediately with status 'queued'.
 
           conversation: Optional ID of a conversation to add the response to.
 
@@ -197,6 +201,7 @@ class ResponsesResource(SyncAPIResource):
         ],
         model: str,
         stream: Literal[True],
+        background: bool | Omit = omit,
         conversation: Optional[str] | Omit = omit,
         guardrails: Optional[SequenceNotStr[response_create_params.Guardrail]] | Omit = omit,
         include: Optional[
@@ -247,6 +252,9 @@ class ResponsesResource(SyncAPIResource):
           model: The underlying LLM used for completions.
 
           stream: Whether to stream the response.
+
+          background: Whether to run the model response in the background. When true, returns
+              immediately with status 'queued'.
 
           conversation: Optional ID of a conversation to add the response to.
 
@@ -315,6 +323,7 @@ class ResponsesResource(SyncAPIResource):
         ],
         model: str,
         stream: bool,
+        background: bool | Omit = omit,
         conversation: Optional[str] | Omit = omit,
         guardrails: Optional[SequenceNotStr[response_create_params.Guardrail]] | Omit = omit,
         include: Optional[
@@ -365,6 +374,9 @@ class ResponsesResource(SyncAPIResource):
           model: The underlying LLM used for completions.
 
           stream: Whether to stream the response.
+
+          background: Whether to run the model response in the background. When true, returns
+              immediately with status 'queued'.
 
           conversation: Optional ID of a conversation to add the response to.
 
@@ -432,6 +444,7 @@ class ResponsesResource(SyncAPIResource):
             ],
         ],
         model: str,
+        background: bool | Omit = omit,
         conversation: Optional[str] | Omit = omit,
         guardrails: Optional[SequenceNotStr[response_create_params.Guardrail]] | Omit = omit,
         include: Optional[
@@ -480,6 +493,7 @@ class ResponsesResource(SyncAPIResource):
                 {
                     "input": input,
                     "model": model,
+                    "background": background,
                     "conversation": conversation,
                     "guardrails": guardrails,
                     "include": include,
@@ -676,6 +690,7 @@ class AsyncResponsesResource(AsyncAPIResource):
             ],
         ],
         model: str,
+        background: bool | Omit = omit,
         conversation: Optional[str] | Omit = omit,
         guardrails: Optional[SequenceNotStr[response_create_params.Guardrail]] | Omit = omit,
         include: Optional[
@@ -725,6 +740,9 @@ class AsyncResponsesResource(AsyncAPIResource):
           input: Input message(s) to create the response.
 
           model: The underlying LLM used for completions.
+
+          background: Whether to run the model response in the background. When true, returns
+              immediately with status 'queued'.
 
           conversation: Optional ID of a conversation to add the response to.
 
@@ -795,6 +813,7 @@ class AsyncResponsesResource(AsyncAPIResource):
         ],
         model: str,
         stream: Literal[True],
+        background: bool | Omit = omit,
         conversation: Optional[str] | Omit = omit,
         guardrails: Optional[SequenceNotStr[response_create_params.Guardrail]] | Omit = omit,
         include: Optional[
@@ -845,6 +864,9 @@ class AsyncResponsesResource(AsyncAPIResource):
           model: The underlying LLM used for completions.
 
           stream: Whether to stream the response.
+
+          background: Whether to run the model response in the background. When true, returns
+              immediately with status 'queued'.
 
           conversation: Optional ID of a conversation to add the response to.
 
@@ -913,6 +935,7 @@ class AsyncResponsesResource(AsyncAPIResource):
         ],
         model: str,
         stream: bool,
+        background: bool | Omit = omit,
         conversation: Optional[str] | Omit = omit,
         guardrails: Optional[SequenceNotStr[response_create_params.Guardrail]] | Omit = omit,
         include: Optional[
@@ -963,6 +986,9 @@ class AsyncResponsesResource(AsyncAPIResource):
           model: The underlying LLM used for completions.
 
           stream: Whether to stream the response.
+
+          background: Whether to run the model response in the background. When true, returns
+              immediately with status 'queued'.
 
           conversation: Optional ID of a conversation to add the response to.
 
@@ -1030,6 +1056,7 @@ class AsyncResponsesResource(AsyncAPIResource):
             ],
         ],
         model: str,
+        background: bool | Omit = omit,
         conversation: Optional[str] | Omit = omit,
         guardrails: Optional[SequenceNotStr[response_create_params.Guardrail]] | Omit = omit,
         include: Optional[
@@ -1078,6 +1105,7 @@ class AsyncResponsesResource(AsyncAPIResource):
                 {
                     "input": input,
                     "model": model,
+                    "background": background,
                     "conversation": conversation,
                     "guardrails": guardrails,
                     "include": include,

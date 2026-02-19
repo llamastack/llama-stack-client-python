@@ -41,6 +41,7 @@ class TestResponses:
         response = client.responses.create(
             input="string",
             model="model",
+            background=True,
             conversation="conversation",
             guardrails=["string"],
             include=["web_search_call.action.sources"],
@@ -129,6 +130,7 @@ class TestResponses:
             input="string",
             model="model",
             stream=True,
+            background=True,
             conversation="conversation",
             guardrails=["string"],
             include=["web_search_call.action.sources"],
@@ -332,6 +334,7 @@ class TestAsyncResponses:
         response = await async_client.responses.create(
             input="string",
             model="model",
+            background=True,
             conversation="conversation",
             guardrails=["string"],
             include=["web_search_call.action.sources"],
@@ -420,6 +423,7 @@ class TestAsyncResponses:
             input="string",
             model="model",
             stream=True,
+            background=True,
             conversation="conversation",
             guardrails=["string"],
             include=["web_search_call.action.sources"],
