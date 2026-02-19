@@ -741,6 +741,8 @@ class ResponseObject(BaseModel):
 
     store: bool
 
+    background: Optional[bool] = None
+
     completed_at: Optional[int] = None
 
     error: Optional[Error] = None
