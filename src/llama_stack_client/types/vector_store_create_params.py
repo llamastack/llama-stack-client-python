@@ -13,6 +13,8 @@ __all__ = [
     "ChunkingStrategyVectorStoreChunkingStrategyAuto",
     "ChunkingStrategyVectorStoreChunkingStrategyStatic",
     "ChunkingStrategyVectorStoreChunkingStrategyStaticStatic",
+    "ChunkingStrategyVectorStoreChunkingStrategyContextual",
+    "ChunkingStrategyVectorStoreChunkingStrategyContextualContextual",
 ]
 
 
@@ -52,6 +54,53 @@ class ChunkingStrategyVectorStoreChunkingStrategyStatic(TypedDict, total=False):
     type: Literal["static"]
 
 
+class ChunkingStrategyVectorStoreChunkingStrategyContextualContextual(TypedDict, total=False):
+    """Configuration for contextual chunking."""
+
+    chunk_overlap_tokens: int
+    """Tokens to overlap between adjacent chunks.
+
+    Must be less than max_chunk_size_tokens.
+    """
+
+    context_prompt: str
+    """Prompt template for contextual retrieval.
+
+    Uses WHOLE_DOCUMENT and CHUNK_CONTENT placeholders wrapped in double curly
+    braces.
+    """
+
+    max_chunk_size_tokens: int
+    """Maximum tokens per chunk. Suggested ~700 to allow room for prepended context."""
+
+    max_concurrency: Optional[int]
+    """Maximum concurrent LLM calls. Falls back to config default if not provided."""
+
+    model_id: Optional[str]
+    """LLM model for generating context.
+
+    Falls back to VectorStoresConfig.contextual_retrieval_params.model if not
+    provided.
+    """
+
+    timeout_seconds: Optional[int]
+    """Timeout per LLM call in seconds. Falls back to config default if not provided."""
+
+
+class ChunkingStrategyVectorStoreChunkingStrategyContextual(TypedDict, total=False):
+    """
+    Contextual chunking strategy that uses an LLM to situate chunks within the document.
+    """
+
+    contextual: Required[ChunkingStrategyVectorStoreChunkingStrategyContextualContextual]
+    """Configuration for contextual chunking."""
+
+    type: Literal["contextual"]
+    """Strategy type identifier."""
+
+
 ChunkingStrategy: TypeAlias = Union[
-    ChunkingStrategyVectorStoreChunkingStrategyAuto, ChunkingStrategyVectorStoreChunkingStrategyStatic
+    ChunkingStrategyVectorStoreChunkingStrategyAuto,
+    ChunkingStrategyVectorStoreChunkingStrategyStatic,
+    ChunkingStrategyVectorStoreChunkingStrategyContextual,
 ]
