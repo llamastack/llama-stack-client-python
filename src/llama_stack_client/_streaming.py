@@ -10,7 +10,7 @@ from __future__ import annotations
 import json
 import inspect
 from types import TracebackType
-from typing import TYPE_CHECKING, Any, Generic, TypeVar, Iterator, AsyncIterator, cast
+from typing import TYPE_CHECKING, Any, Generic, TypeVar, Iterator, Optional, AsyncIterator, cast
 from typing_extensions import Self, Protocol, TypeGuard, override, get_origin, runtime_checkable
 
 import httpx
@@ -19,6 +19,7 @@ from ._utils import extract_type_var_from_base
 
 if TYPE_CHECKING:
     from ._client import LlamaStackClient, AsyncLlamaStackClient
+    from ._models import FinalRequestOptions
 
 
 _T = TypeVar("_T")
@@ -28,7 +29,7 @@ class Stream(Generic[_T]):
     """Provides the core interface to iterate over a synchronous stream response."""
 
     response: httpx.Response
-
+    _options: Optional[FinalRequestOptions] = None
     _decoder: SSEBytesDecoder
 
     def __init__(
@@ -37,10 +38,12 @@ class Stream(Generic[_T]):
         cast_to: type[_T],
         response: httpx.Response,
         client: LlamaStackClient,
+        options: Optional[FinalRequestOptions] = None,
     ) -> None:
         self.response = response
         self._cast_to = cast_to
         self._client = client
+        self._options = options
         self._decoder = client._make_sse_decoder()
         self._iterator = self.__stream__()
 
@@ -91,7 +94,7 @@ class AsyncStream(Generic[_T]):
     """Provides the core interface to iterate over an asynchronous stream response."""
 
     response: httpx.Response
-
+    _options: Optional[FinalRequestOptions] = None
     _decoder: SSEDecoder | SSEBytesDecoder
 
     def __init__(
@@ -100,10 +103,12 @@ class AsyncStream(Generic[_T]):
         cast_to: type[_T],
         response: httpx.Response,
         client: AsyncLlamaStackClient,
+        options: Optional[FinalRequestOptions] = None,
     ) -> None:
         self.response = response
         self._cast_to = cast_to
         self._client = client
+        self._options = options
         self._decoder = client._make_sse_decoder()
         self._iterator = self.__stream__()
 
