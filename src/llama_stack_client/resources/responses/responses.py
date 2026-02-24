@@ -113,6 +113,7 @@ class ResponsesResource(SyncAPIResource):
         text: Optional[response_create_params.Text] | Omit = omit,
         tool_choice: Optional[response_create_params.ToolChoice] | Omit = omit,
         tools: Optional[Iterable[response_create_params.Tool]] | Omit = omit,
+        top_p: Optional[float] | Omit = omit,
         truncation: Optional[Literal["auto", "disabled"]] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -176,6 +177,9 @@ class ResponsesResource(SyncAPIResource):
 
           tools: List of tools available to the model.
 
+          top_p: Nucleus sampling parameter that controls response diversity (lower values
+              increase focus).
+
           truncation: Controls how the service truncates input when it exceeds the model context
               window.
 
@@ -235,6 +239,7 @@ class ResponsesResource(SyncAPIResource):
         text: Optional[response_create_params.Text] | Omit = omit,
         tool_choice: Optional[response_create_params.ToolChoice] | Omit = omit,
         tools: Optional[Iterable[response_create_params.Tool]] | Omit = omit,
+        top_p: Optional[float] | Omit = omit,
         truncation: Optional[Literal["auto", "disabled"]] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -298,6 +303,9 @@ class ResponsesResource(SyncAPIResource):
 
           tools: List of tools available to the model.
 
+          top_p: Nucleus sampling parameter that controls response diversity (lower values
+              increase focus).
+
           truncation: Controls how the service truncates input when it exceeds the model context
               window.
 
@@ -357,6 +365,7 @@ class ResponsesResource(SyncAPIResource):
         text: Optional[response_create_params.Text] | Omit = omit,
         tool_choice: Optional[response_create_params.ToolChoice] | Omit = omit,
         tools: Optional[Iterable[response_create_params.Tool]] | Omit = omit,
+        top_p: Optional[float] | Omit = omit,
         truncation: Optional[Literal["auto", "disabled"]] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -420,6 +429,9 @@ class ResponsesResource(SyncAPIResource):
 
           tools: List of tools available to the model.
 
+          top_p: Nucleus sampling parameter that controls response diversity (lower values
+              increase focus).
+
           truncation: Controls how the service truncates input when it exceeds the model context
               window.
 
@@ -479,6 +491,7 @@ class ResponsesResource(SyncAPIResource):
         text: Optional[response_create_params.Text] | Omit = omit,
         tool_choice: Optional[response_create_params.ToolChoice] | Omit = omit,
         tools: Optional[Iterable[response_create_params.Tool]] | Omit = omit,
+        top_p: Optional[float] | Omit = omit,
         truncation: Optional[Literal["auto", "disabled"]] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -515,6 +528,7 @@ class ResponsesResource(SyncAPIResource):
                     "text": text,
                     "tool_choice": tool_choice,
                     "tools": tools,
+                    "top_p": top_p,
                     "truncation": truncation,
                 },
                 response_create_params.ResponseCreateParamsStreaming
@@ -725,6 +739,7 @@ class AsyncResponsesResource(AsyncAPIResource):
         text: Optional[response_create_params.Text] | Omit = omit,
         tool_choice: Optional[response_create_params.ToolChoice] | Omit = omit,
         tools: Optional[Iterable[response_create_params.Tool]] | Omit = omit,
+        top_p: Optional[float] | Omit = omit,
         truncation: Optional[Literal["auto", "disabled"]] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -788,6 +803,9 @@ class AsyncResponsesResource(AsyncAPIResource):
 
           tools: List of tools available to the model.
 
+          top_p: Nucleus sampling parameter that controls response diversity (lower values
+              increase focus).
+
           truncation: Controls how the service truncates input when it exceeds the model context
               window.
 
@@ -847,6 +865,7 @@ class AsyncResponsesResource(AsyncAPIResource):
         text: Optional[response_create_params.Text] | Omit = omit,
         tool_choice: Optional[response_create_params.ToolChoice] | Omit = omit,
         tools: Optional[Iterable[response_create_params.Tool]] | Omit = omit,
+        top_p: Optional[float] | Omit = omit,
         truncation: Optional[Literal["auto", "disabled"]] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -910,6 +929,9 @@ class AsyncResponsesResource(AsyncAPIResource):
 
           tools: List of tools available to the model.
 
+          top_p: Nucleus sampling parameter that controls response diversity (lower values
+              increase focus).
+
           truncation: Controls how the service truncates input when it exceeds the model context
               window.
 
@@ -969,6 +991,7 @@ class AsyncResponsesResource(AsyncAPIResource):
         text: Optional[response_create_params.Text] | Omit = omit,
         tool_choice: Optional[response_create_params.ToolChoice] | Omit = omit,
         tools: Optional[Iterable[response_create_params.Tool]] | Omit = omit,
+        top_p: Optional[float] | Omit = omit,
         truncation: Optional[Literal["auto", "disabled"]] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -1032,6 +1055,9 @@ class AsyncResponsesResource(AsyncAPIResource):
 
           tools: List of tools available to the model.
 
+          top_p: Nucleus sampling parameter that controls response diversity (lower values
+              increase focus).
+
           truncation: Controls how the service truncates input when it exceeds the model context
               window.
 
@@ -1091,6 +1117,7 @@ class AsyncResponsesResource(AsyncAPIResource):
         text: Optional[response_create_params.Text] | Omit = omit,
         tool_choice: Optional[response_create_params.ToolChoice] | Omit = omit,
         tools: Optional[Iterable[response_create_params.Tool]] | Omit = omit,
+        top_p: Optional[float] | Omit = omit,
         truncation: Optional[Literal["auto", "disabled"]] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -1127,6 +1154,7 @@ class AsyncResponsesResource(AsyncAPIResource):
                     "text": text,
                     "tool_choice": tool_choice,
                     "tools": tools,
+                    "top_p": top_p,
                     "truncation": truncation,
                 },
                 response_create_params.ResponseCreateParamsStreaming
