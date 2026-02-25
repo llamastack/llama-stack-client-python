@@ -96,6 +96,9 @@ class ResponseCreateParamsBase(TypedDict, total=False):
     conversation: Optional[str]
     """Optional ID of a conversation to add the response to."""
 
+    frequency_penalty: Optional[float]
+    """Penalizes new tokens based on their frequency in the text so far."""
+
     guardrails: Optional[SequenceNotStr[Guardrail]]
     """List of guardrails to apply during response generation."""
 
