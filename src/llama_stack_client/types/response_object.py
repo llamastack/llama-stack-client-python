@@ -790,6 +790,8 @@ class ResponseObject(BaseModel):
 
     tools: Optional[List[Tool]] = None
 
+    top_logprobs: Optional[int] = None
+
     top_p: Optional[float] = None
 
     truncation: Optional[str] = None

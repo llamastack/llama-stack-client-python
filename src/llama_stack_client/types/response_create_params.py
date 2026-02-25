@@ -164,6 +164,12 @@ class ResponseCreateParamsBase(TypedDict, total=False):
     tools: Optional[Iterable[Tool]]
     """List of tools available to the model."""
 
+    top_logprobs: Optional[int]
+    """
+    The number of most likely tokens to return at each position, along with their
+    log probabilities.
+    """
+
     top_p: Optional[float]
     """
     Nucleus sampling parameter that controls response diversity (lower values
