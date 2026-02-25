@@ -85,6 +85,7 @@ class TestResponses:
                     "type": "web_search",
                 }
             ],
+            top_logprobs=0,
             top_p=0,
             truncation="auto",
         )
@@ -174,6 +175,7 @@ class TestResponses:
                     "type": "web_search",
                 }
             ],
+            top_logprobs=0,
             top_p=0,
             truncation="auto",
         )
@@ -380,6 +382,7 @@ class TestAsyncResponses:
                     "type": "web_search",
                 }
             ],
+            top_logprobs=0,
             top_p=0,
             truncation="auto",
         )
@@ -469,6 +472,7 @@ class TestAsyncResponses:
                     "type": "web_search",
                 }
             ],
+            top_logprobs=0,
             top_p=0,
             truncation="auto",
         )

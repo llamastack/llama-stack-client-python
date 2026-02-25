@@ -113,6 +113,7 @@ class ResponsesResource(SyncAPIResource):
         text: Optional[response_create_params.Text] | Omit = omit,
         tool_choice: Optional[response_create_params.ToolChoice] | Omit = omit,
         tools: Optional[Iterable[response_create_params.Tool]] | Omit = omit,
+        top_logprobs: Optional[int] | Omit = omit,
         top_p: Optional[float] | Omit = omit,
         truncation: Optional[Literal["auto", "disabled"]] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -177,6 +178,9 @@ class ResponsesResource(SyncAPIResource):
 
           tools: List of tools available to the model.
 
+          top_logprobs: The number of most likely tokens to return at each position, along with their
+              log probabilities.
+
           top_p: Nucleus sampling parameter that controls response diversity (lower values
               increase focus).
 
@@ -239,6 +243,7 @@ class ResponsesResource(SyncAPIResource):
         text: Optional[response_create_params.Text] | Omit = omit,
         tool_choice: Optional[response_create_params.ToolChoice] | Omit = omit,
         tools: Optional[Iterable[response_create_params.Tool]] | Omit = omit,
+        top_logprobs: Optional[int] | Omit = omit,
         top_p: Optional[float] | Omit = omit,
         truncation: Optional[Literal["auto", "disabled"]] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -303,6 +308,9 @@ class ResponsesResource(SyncAPIResource):
 
           tools: List of tools available to the model.
 
+          top_logprobs: The number of most likely tokens to return at each position, along with their
+              log probabilities.
+
           top_p: Nucleus sampling parameter that controls response diversity (lower values
               increase focus).
 
@@ -365,6 +373,7 @@ class ResponsesResource(SyncAPIResource):
         text: Optional[response_create_params.Text] | Omit = omit,
         tool_choice: Optional[response_create_params.ToolChoice] | Omit = omit,
         tools: Optional[Iterable[response_create_params.Tool]] | Omit = omit,
+        top_logprobs: Optional[int] | Omit = omit,
         top_p: Optional[float] | Omit = omit,
         truncation: Optional[Literal["auto", "disabled"]] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -429,6 +438,9 @@ class ResponsesResource(SyncAPIResource):
 
           tools: List of tools available to the model.
 
+          top_logprobs: The number of most likely tokens to return at each position, along with their
+              log probabilities.
+
           top_p: Nucleus sampling parameter that controls response diversity (lower values
               increase focus).
 
@@ -491,6 +503,7 @@ class ResponsesResource(SyncAPIResource):
         text: Optional[response_create_params.Text] | Omit = omit,
         tool_choice: Optional[response_create_params.ToolChoice] | Omit = omit,
         tools: Optional[Iterable[response_create_params.Tool]] | Omit = omit,
+        top_logprobs: Optional[int] | Omit = omit,
         top_p: Optional[float] | Omit = omit,
         truncation: Optional[Literal["auto", "disabled"]] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -528,6 +541,7 @@ class ResponsesResource(SyncAPIResource):
                     "text": text,
                     "tool_choice": tool_choice,
                     "tools": tools,
+                    "top_logprobs": top_logprobs,
                     "top_p": top_p,
                     "truncation": truncation,
                 },
@@ -739,6 +753,7 @@ class AsyncResponsesResource(AsyncAPIResource):
         text: Optional[response_create_params.Text] | Omit = omit,
         tool_choice: Optional[response_create_params.ToolChoice] | Omit = omit,
         tools: Optional[Iterable[response_create_params.Tool]] | Omit = omit,
+        top_logprobs: Optional[int] | Omit = omit,
         top_p: Optional[float] | Omit = omit,
         truncation: Optional[Literal["auto", "disabled"]] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -803,6 +818,9 @@ class AsyncResponsesResource(AsyncAPIResource):
 
           tools: List of tools available to the model.
 
+          top_logprobs: The number of most likely tokens to return at each position, along with their
+              log probabilities.
+
           top_p: Nucleus sampling parameter that controls response diversity (lower values
               increase focus).
 
@@ -865,6 +883,7 @@ class AsyncResponsesResource(AsyncAPIResource):
         text: Optional[response_create_params.Text] | Omit = omit,
         tool_choice: Optional[response_create_params.ToolChoice] | Omit = omit,
         tools: Optional[Iterable[response_create_params.Tool]] | Omit = omit,
+        top_logprobs: Optional[int] | Omit = omit,
         top_p: Optional[float] | Omit = omit,
         truncation: Optional[Literal["auto", "disabled"]] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -929,6 +948,9 @@ class AsyncResponsesResource(AsyncAPIResource):
 
           tools: List of tools available to the model.
 
+          top_logprobs: The number of most likely tokens to return at each position, along with their
+              log probabilities.
+
           top_p: Nucleus sampling parameter that controls response diversity (lower values
               increase focus).
 
@@ -991,6 +1013,7 @@ class AsyncResponsesResource(AsyncAPIResource):
         text: Optional[response_create_params.Text] | Omit = omit,
         tool_choice: Optional[response_create_params.ToolChoice] | Omit = omit,
         tools: Optional[Iterable[response_create_params.Tool]] | Omit = omit,
+        top_logprobs: Optional[int] | Omit = omit,
         top_p: Optional[float] | Omit = omit,
         truncation: Optional[Literal["auto", "disabled"]] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -1055,6 +1078,9 @@ class AsyncResponsesResource(AsyncAPIResource):
 
           tools: List of tools available to the model.
 
+          top_logprobs: The number of most likely tokens to return at each position, along with their
+              log probabilities.
+
           top_p: Nucleus sampling parameter that controls response diversity (lower values
               increase focus).
 
@@ -1117,6 +1143,7 @@ class AsyncResponsesResource(AsyncAPIResource):
         text: Optional[response_create_params.Text] | Omit = omit,
         tool_choice: Optional[response_create_params.ToolChoice] | Omit = omit,
         tools: Optional[Iterable[response_create_params.Tool]] | Omit = omit,
+        top_logprobs: Optional[int] | Omit = omit,
         top_p: Optional[float] | Omit = omit,
         truncation: Optional[Literal["auto", "disabled"]] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -1154,6 +1181,7 @@ class AsyncResponsesResource(AsyncAPIResource):
                     "text": text,
                     "tool_choice": tool_choice,
                     "tools": tools,
+                    "top_logprobs": top_logprobs,
                     "top_p": top_p,
                     "truncation": truncation,
                 },

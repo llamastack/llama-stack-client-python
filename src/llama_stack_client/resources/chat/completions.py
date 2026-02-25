@@ -145,7 +145,7 @@ class CompletionsResource(SyncAPIResource):
 
           tools: The tools to use.
 
-          top_logprobs: The top log probabilities to use.
+          top_logprobs: The number of most likely tokens to return at each position.
 
           top_p: The top p to use.
 
@@ -252,7 +252,7 @@ class CompletionsResource(SyncAPIResource):
 
           tools: The tools to use.
 
-          top_logprobs: The top log probabilities to use.
+          top_logprobs: The number of most likely tokens to return at each position.
 
           top_p: The top p to use.
 
@@ -359,7 +359,7 @@ class CompletionsResource(SyncAPIResource):
 
           tools: The tools to use.
 
-          top_logprobs: The top log probabilities to use.
+          top_logprobs: The number of most likely tokens to return at each position.
 
           top_p: The top p to use.
 
@@ -658,7 +658,7 @@ class AsyncCompletionsResource(AsyncAPIResource):
 
           tools: The tools to use.
 
-          top_logprobs: The top log probabilities to use.
+          top_logprobs: The number of most likely tokens to return at each position.
 
           top_p: The top p to use.
 
@@ -765,7 +765,7 @@ class AsyncCompletionsResource(AsyncAPIResource):
 
           tools: The tools to use.
 
-          top_logprobs: The top log probabilities to use.
+          top_logprobs: The number of most likely tokens to return at each position.
 
           top_p: The top p to use.
 
@@ -872,7 +872,7 @@ class AsyncCompletionsResource(AsyncAPIResource):
 
           tools: The tools to use.
 
-          top_logprobs: The top log probabilities to use.
+          top_logprobs: The number of most likely tokens to return at each position.
 
           top_p: The top p to use.
 
