@@ -1175,6 +1175,8 @@ class ResponseListResponse(BaseModel):
 
     parallel_tool_calls: Optional[bool] = None
 
+    presence_penalty: Optional[float] = None
+
     previous_response_id: Optional[str] = None
 
     prompt: Optional[Prompt] = None
