@@ -1152,6 +1152,8 @@ class ResponseListResponse(BaseModel):
     error: Optional[Error] = None
     """Error details for failed OpenAI response requests."""
 
+    frequency_penalty: Optional[float] = None
+
     incomplete_details: Optional[IncompleteDetails] = None
     """Details explaining why a response was incomplete."""
 

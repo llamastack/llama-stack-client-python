@@ -74,6 +74,7 @@ class ResponsesResource(SyncAPIResource):
         model: str,
         background: bool | Omit = omit,
         conversation: Optional[str] | Omit = omit,
+        frequency_penalty: Optional[float] | Omit = omit,
         guardrails: Optional[SequenceNotStr[response_create_params.Guardrail]] | Omit = omit,
         include: Optional[
             List[
@@ -129,6 +130,8 @@ class ResponsesResource(SyncAPIResource):
               immediately with status 'queued'.
 
           conversation: Optional ID of a conversation to add the response to.
+
+          frequency_penalty: Penalizes new tokens based on their frequency in the text so far.
 
           guardrails: List of guardrails to apply during response generation.
 
@@ -205,6 +208,7 @@ class ResponsesResource(SyncAPIResource):
         stream: Literal[True],
         background: bool | Omit = omit,
         conversation: Optional[str] | Omit = omit,
+        frequency_penalty: Optional[float] | Omit = omit,
         guardrails: Optional[SequenceNotStr[response_create_params.Guardrail]] | Omit = omit,
         include: Optional[
             List[
@@ -261,6 +265,8 @@ class ResponsesResource(SyncAPIResource):
               immediately with status 'queued'.
 
           conversation: Optional ID of a conversation to add the response to.
+
+          frequency_penalty: Penalizes new tokens based on their frequency in the text so far.
 
           guardrails: List of guardrails to apply during response generation.
 
@@ -335,6 +341,7 @@ class ResponsesResource(SyncAPIResource):
         stream: bool,
         background: bool | Omit = omit,
         conversation: Optional[str] | Omit = omit,
+        frequency_penalty: Optional[float] | Omit = omit,
         guardrails: Optional[SequenceNotStr[response_create_params.Guardrail]] | Omit = omit,
         include: Optional[
             List[
@@ -391,6 +398,8 @@ class ResponsesResource(SyncAPIResource):
               immediately with status 'queued'.
 
           conversation: Optional ID of a conversation to add the response to.
+
+          frequency_penalty: Penalizes new tokens based on their frequency in the text so far.
 
           guardrails: List of guardrails to apply during response generation.
 
@@ -464,6 +473,7 @@ class ResponsesResource(SyncAPIResource):
         model: str,
         background: bool | Omit = omit,
         conversation: Optional[str] | Omit = omit,
+        frequency_penalty: Optional[float] | Omit = omit,
         guardrails: Optional[SequenceNotStr[response_create_params.Guardrail]] | Omit = omit,
         include: Optional[
             List[
@@ -515,6 +525,7 @@ class ResponsesResource(SyncAPIResource):
                     "model": model,
                     "background": background,
                     "conversation": conversation,
+                    "frequency_penalty": frequency_penalty,
                     "guardrails": guardrails,
                     "include": include,
                     "instructions": instructions,
@@ -714,6 +725,7 @@ class AsyncResponsesResource(AsyncAPIResource):
         model: str,
         background: bool | Omit = omit,
         conversation: Optional[str] | Omit = omit,
+        frequency_penalty: Optional[float] | Omit = omit,
         guardrails: Optional[SequenceNotStr[response_create_params.Guardrail]] | Omit = omit,
         include: Optional[
             List[
@@ -769,6 +781,8 @@ class AsyncResponsesResource(AsyncAPIResource):
               immediately with status 'queued'.
 
           conversation: Optional ID of a conversation to add the response to.
+
+          frequency_penalty: Penalizes new tokens based on their frequency in the text so far.
 
           guardrails: List of guardrails to apply during response generation.
 
@@ -845,6 +859,7 @@ class AsyncResponsesResource(AsyncAPIResource):
         stream: Literal[True],
         background: bool | Omit = omit,
         conversation: Optional[str] | Omit = omit,
+        frequency_penalty: Optional[float] | Omit = omit,
         guardrails: Optional[SequenceNotStr[response_create_params.Guardrail]] | Omit = omit,
         include: Optional[
             List[
@@ -901,6 +916,8 @@ class AsyncResponsesResource(AsyncAPIResource):
               immediately with status 'queued'.
 
           conversation: Optional ID of a conversation to add the response to.
+
+          frequency_penalty: Penalizes new tokens based on their frequency in the text so far.
 
           guardrails: List of guardrails to apply during response generation.
 
@@ -975,6 +992,7 @@ class AsyncResponsesResource(AsyncAPIResource):
         stream: bool,
         background: bool | Omit = omit,
         conversation: Optional[str] | Omit = omit,
+        frequency_penalty: Optional[float] | Omit = omit,
         guardrails: Optional[SequenceNotStr[response_create_params.Guardrail]] | Omit = omit,
         include: Optional[
             List[
@@ -1031,6 +1049,8 @@ class AsyncResponsesResource(AsyncAPIResource):
               immediately with status 'queued'.
 
           conversation: Optional ID of a conversation to add the response to.
+
+          frequency_penalty: Penalizes new tokens based on their frequency in the text so far.
 
           guardrails: List of guardrails to apply during response generation.
 
@@ -1104,6 +1124,7 @@ class AsyncResponsesResource(AsyncAPIResource):
         model: str,
         background: bool | Omit = omit,
         conversation: Optional[str] | Omit = omit,
+        frequency_penalty: Optional[float] | Omit = omit,
         guardrails: Optional[SequenceNotStr[response_create_params.Guardrail]] | Omit = omit,
         include: Optional[
             List[
@@ -1155,6 +1176,7 @@ class AsyncResponsesResource(AsyncAPIResource):
                     "model": model,
                     "background": background,
                     "conversation": conversation,
+                    "frequency_penalty": frequency_penalty,
                     "guardrails": guardrails,
                     "include": include,
                     "instructions": instructions,
