@@ -46,6 +46,7 @@ class TestResponses:
             max_tool_calls=1,
             metadata={"foo": "string"},
             parallel_tool_calls=True,
+            presence_penalty=-2,
             previous_response_id="previous_response_id",
             prompt={
                 "id": "id",
@@ -138,6 +139,7 @@ class TestResponses:
             max_tool_calls=1,
             metadata={"foo": "string"},
             parallel_tool_calls=True,
+            presence_penalty=-2,
             previous_response_id="previous_response_id",
             prompt={
                 "id": "id",
@@ -345,6 +347,7 @@ class TestAsyncResponses:
             max_tool_calls=1,
             metadata={"foo": "string"},
             parallel_tool_calls=True,
+            presence_penalty=-2,
             previous_response_id="previous_response_id",
             prompt={
                 "id": "id",
@@ -437,6 +440,7 @@ class TestAsyncResponses:
             max_tool_calls=1,
             metadata={"foo": "string"},
             parallel_tool_calls=True,
+            presence_penalty=-2,
             previous_response_id="previous_response_id",
             prompt={
                 "id": "id",

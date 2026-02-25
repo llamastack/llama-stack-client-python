@@ -131,6 +131,9 @@ class ResponseCreateParamsBase(TypedDict, total=False):
     parallel_tool_calls: Optional[bool]
     """Whether to enable parallel tool calls."""
 
+    presence_penalty: Optional[float]
+    """Penalizes new tokens based on whether they appear in the text so far."""
+
     previous_response_id: Optional[str]
     """Optional ID of a previous response to continue from."""
 

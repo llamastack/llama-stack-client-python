@@ -96,6 +96,7 @@ class ResponsesResource(SyncAPIResource):
         max_tool_calls: Optional[int] | Omit = omit,
         metadata: Optional[Dict[str, str]] | Omit = omit,
         parallel_tool_calls: Optional[bool] | Omit = omit,
+        presence_penalty: Optional[float] | Omit = omit,
         previous_response_id: Optional[str] | Omit = omit,
         prompt: Optional[response_create_params.Prompt] | Omit = omit,
         prompt_cache_key: Optional[str] | Omit = omit,
@@ -148,6 +149,8 @@ class ResponsesResource(SyncAPIResource):
           metadata: Dictionary of metadata key-value pairs to attach to the response.
 
           parallel_tool_calls: Whether to enable parallel tool calls.
+
+          presence_penalty: Penalizes new tokens based on whether they appear in the text so far.
 
           previous_response_id: Optional ID of a previous response to continue from.
 
@@ -230,6 +233,7 @@ class ResponsesResource(SyncAPIResource):
         max_tool_calls: Optional[int] | Omit = omit,
         metadata: Optional[Dict[str, str]] | Omit = omit,
         parallel_tool_calls: Optional[bool] | Omit = omit,
+        presence_penalty: Optional[float] | Omit = omit,
         previous_response_id: Optional[str] | Omit = omit,
         prompt: Optional[response_create_params.Prompt] | Omit = omit,
         prompt_cache_key: Optional[str] | Omit = omit,
@@ -283,6 +287,8 @@ class ResponsesResource(SyncAPIResource):
           metadata: Dictionary of metadata key-value pairs to attach to the response.
 
           parallel_tool_calls: Whether to enable parallel tool calls.
+
+          presence_penalty: Penalizes new tokens based on whether they appear in the text so far.
 
           previous_response_id: Optional ID of a previous response to continue from.
 
@@ -363,6 +369,7 @@ class ResponsesResource(SyncAPIResource):
         max_tool_calls: Optional[int] | Omit = omit,
         metadata: Optional[Dict[str, str]] | Omit = omit,
         parallel_tool_calls: Optional[bool] | Omit = omit,
+        presence_penalty: Optional[float] | Omit = omit,
         previous_response_id: Optional[str] | Omit = omit,
         prompt: Optional[response_create_params.Prompt] | Omit = omit,
         prompt_cache_key: Optional[str] | Omit = omit,
@@ -416,6 +423,8 @@ class ResponsesResource(SyncAPIResource):
           metadata: Dictionary of metadata key-value pairs to attach to the response.
 
           parallel_tool_calls: Whether to enable parallel tool calls.
+
+          presence_penalty: Penalizes new tokens based on whether they appear in the text so far.
 
           previous_response_id: Optional ID of a previous response to continue from.
 
@@ -495,6 +504,7 @@ class ResponsesResource(SyncAPIResource):
         max_tool_calls: Optional[int] | Omit = omit,
         metadata: Optional[Dict[str, str]] | Omit = omit,
         parallel_tool_calls: Optional[bool] | Omit = omit,
+        presence_penalty: Optional[float] | Omit = omit,
         previous_response_id: Optional[str] | Omit = omit,
         prompt: Optional[response_create_params.Prompt] | Omit = omit,
         prompt_cache_key: Optional[str] | Omit = omit,
@@ -534,6 +544,7 @@ class ResponsesResource(SyncAPIResource):
                     "max_tool_calls": max_tool_calls,
                     "metadata": metadata,
                     "parallel_tool_calls": parallel_tool_calls,
+                    "presence_penalty": presence_penalty,
                     "previous_response_id": previous_response_id,
                     "prompt": prompt,
                     "prompt_cache_key": prompt_cache_key,
@@ -747,6 +758,7 @@ class AsyncResponsesResource(AsyncAPIResource):
         max_tool_calls: Optional[int] | Omit = omit,
         metadata: Optional[Dict[str, str]] | Omit = omit,
         parallel_tool_calls: Optional[bool] | Omit = omit,
+        presence_penalty: Optional[float] | Omit = omit,
         previous_response_id: Optional[str] | Omit = omit,
         prompt: Optional[response_create_params.Prompt] | Omit = omit,
         prompt_cache_key: Optional[str] | Omit = omit,
@@ -799,6 +811,8 @@ class AsyncResponsesResource(AsyncAPIResource):
           metadata: Dictionary of metadata key-value pairs to attach to the response.
 
           parallel_tool_calls: Whether to enable parallel tool calls.
+
+          presence_penalty: Penalizes new tokens based on whether they appear in the text so far.
 
           previous_response_id: Optional ID of a previous response to continue from.
 
@@ -881,6 +895,7 @@ class AsyncResponsesResource(AsyncAPIResource):
         max_tool_calls: Optional[int] | Omit = omit,
         metadata: Optional[Dict[str, str]] | Omit = omit,
         parallel_tool_calls: Optional[bool] | Omit = omit,
+        presence_penalty: Optional[float] | Omit = omit,
         previous_response_id: Optional[str] | Omit = omit,
         prompt: Optional[response_create_params.Prompt] | Omit = omit,
         prompt_cache_key: Optional[str] | Omit = omit,
@@ -934,6 +949,8 @@ class AsyncResponsesResource(AsyncAPIResource):
           metadata: Dictionary of metadata key-value pairs to attach to the response.
 
           parallel_tool_calls: Whether to enable parallel tool calls.
+
+          presence_penalty: Penalizes new tokens based on whether they appear in the text so far.
 
           previous_response_id: Optional ID of a previous response to continue from.
 
@@ -1014,6 +1031,7 @@ class AsyncResponsesResource(AsyncAPIResource):
         max_tool_calls: Optional[int] | Omit = omit,
         metadata: Optional[Dict[str, str]] | Omit = omit,
         parallel_tool_calls: Optional[bool] | Omit = omit,
+        presence_penalty: Optional[float] | Omit = omit,
         previous_response_id: Optional[str] | Omit = omit,
         prompt: Optional[response_create_params.Prompt] | Omit = omit,
         prompt_cache_key: Optional[str] | Omit = omit,
@@ -1067,6 +1085,8 @@ class AsyncResponsesResource(AsyncAPIResource):
           metadata: Dictionary of metadata key-value pairs to attach to the response.
 
           parallel_tool_calls: Whether to enable parallel tool calls.
+
+          presence_penalty: Penalizes new tokens based on whether they appear in the text so far.
 
           previous_response_id: Optional ID of a previous response to continue from.
 
@@ -1146,6 +1166,7 @@ class AsyncResponsesResource(AsyncAPIResource):
         max_tool_calls: Optional[int] | Omit = omit,
         metadata: Optional[Dict[str, str]] | Omit = omit,
         parallel_tool_calls: Optional[bool] | Omit = omit,
+        presence_penalty: Optional[float] | Omit = omit,
         previous_response_id: Optional[str] | Omit = omit,
         prompt: Optional[response_create_params.Prompt] | Omit = omit,
         prompt_cache_key: Optional[str] | Omit = omit,
@@ -1185,6 +1206,7 @@ class AsyncResponsesResource(AsyncAPIResource):
                     "max_tool_calls": max_tool_calls,
                     "metadata": metadata,
                     "parallel_tool_calls": parallel_tool_calls,
+                    "presence_penalty": presence_penalty,
                     "previous_response_id": previous_response_id,
                     "prompt": prompt,
                     "prompt_cache_key": prompt_cache_key,
