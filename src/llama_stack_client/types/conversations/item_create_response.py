@@ -29,6 +29,10 @@ __all__ = [
     "DataOpenAIResponseOutputMessageFileSearchToolCallResult",
     "DataOpenAIResponseOutputMessageFunctionToolCall",
     "DataOpenAIResponseInputFunctionToolCallOutput",
+    "DataOpenAIResponseInputFunctionToolCallOutputOutputListOpenAIResponseInputMessageContentTextOpenAIResponseInputMessageContentImageOpenAIResponseInputMessageContentFile",
+    "DataOpenAIResponseInputFunctionToolCallOutputOutputListOpenAIResponseInputMessageContentTextOpenAIResponseInputMessageContentImageOpenAIResponseInputMessageContentFileOpenAIResponseInputMessageContentText",
+    "DataOpenAIResponseInputFunctionToolCallOutputOutputListOpenAIResponseInputMessageContentTextOpenAIResponseInputMessageContentImageOpenAIResponseInputMessageContentFileOpenAIResponseInputMessageContentImage",
+    "DataOpenAIResponseInputFunctionToolCallOutputOutputListOpenAIResponseInputMessageContentTextOpenAIResponseInputMessageContentImageOpenAIResponseInputMessageContentFileOpenAIResponseInputMessageContentFile",
     "DataOpenAIResponseMcpApprovalRequest",
     "DataOpenAIResponseMcpApprovalResponse",
     "DataOpenAIResponseOutputMessageMcpCall",
@@ -315,6 +319,56 @@ class DataOpenAIResponseOutputMessageFunctionToolCall(BaseModel):
     type: Optional[Literal["function_call"]] = None
 
 
+class DataOpenAIResponseInputFunctionToolCallOutputOutputListOpenAIResponseInputMessageContentTextOpenAIResponseInputMessageContentImageOpenAIResponseInputMessageContentFileOpenAIResponseInputMessageContentText(
+    BaseModel
+):
+    """Text content for input messages in OpenAI response format."""
+
+    text: str
+
+    type: Optional[Literal["input_text"]] = None
+
+
+class DataOpenAIResponseInputFunctionToolCallOutputOutputListOpenAIResponseInputMessageContentTextOpenAIResponseInputMessageContentImageOpenAIResponseInputMessageContentFileOpenAIResponseInputMessageContentImage(
+    BaseModel
+):
+    """Image content for input messages in OpenAI response format."""
+
+    detail: Optional[Literal["low", "high", "auto"]] = None
+
+    file_id: Optional[str] = None
+
+    image_url: Optional[str] = None
+
+    type: Optional[Literal["input_image"]] = None
+
+
+class DataOpenAIResponseInputFunctionToolCallOutputOutputListOpenAIResponseInputMessageContentTextOpenAIResponseInputMessageContentImageOpenAIResponseInputMessageContentFileOpenAIResponseInputMessageContentFile(
+    BaseModel
+):
+    """File content for input messages in OpenAI response format."""
+
+    file_data: Optional[str] = None
+
+    file_id: Optional[str] = None
+
+    file_url: Optional[str] = None
+
+    filename: Optional[str] = None
+
+    type: Optional[Literal["input_file"]] = None
+
+
+DataOpenAIResponseInputFunctionToolCallOutputOutputListOpenAIResponseInputMessageContentTextOpenAIResponseInputMessageContentImageOpenAIResponseInputMessageContentFile: TypeAlias = Annotated[
+    Union[
+        DataOpenAIResponseInputFunctionToolCallOutputOutputListOpenAIResponseInputMessageContentTextOpenAIResponseInputMessageContentImageOpenAIResponseInputMessageContentFileOpenAIResponseInputMessageContentText,
+        DataOpenAIResponseInputFunctionToolCallOutputOutputListOpenAIResponseInputMessageContentTextOpenAIResponseInputMessageContentImageOpenAIResponseInputMessageContentFileOpenAIResponseInputMessageContentImage,
+        DataOpenAIResponseInputFunctionToolCallOutputOutputListOpenAIResponseInputMessageContentTextOpenAIResponseInputMessageContentImageOpenAIResponseInputMessageContentFileOpenAIResponseInputMessageContentFile,
+    ],
+    PropertyInfo(discriminator="type"),
+]
+
+
 class DataOpenAIResponseInputFunctionToolCallOutput(BaseModel):
     """
     This represents the output of a function call that gets passed back to the model.
@@ -322,7 +376,12 @@ class DataOpenAIResponseInputFunctionToolCallOutput(BaseModel):
 
     call_id: str
 
-    output: str
+    output: Union[
+        str,
+        List[
+            DataOpenAIResponseInputFunctionToolCallOutputOutputListOpenAIResponseInputMessageContentTextOpenAIResponseInputMessageContentImageOpenAIResponseInputMessageContentFile
+        ],
+    ]
 
     id: Optional[str] = None
 
