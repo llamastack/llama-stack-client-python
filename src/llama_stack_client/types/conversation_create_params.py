@@ -36,6 +36,10 @@ __all__ = [
     "ItemOpenAIResponseOutputMessageFileSearchToolCallResult",
     "ItemOpenAIResponseOutputMessageFunctionToolCall",
     "ItemOpenAIResponseInputFunctionToolCallOutput",
+    "ItemOpenAIResponseInputFunctionToolCallOutputOutputListOpenAIResponseInputMessageContentTextOpenAIResponseInputMessageContentImageOpenAIResponseInputMessageContentFile",
+    "ItemOpenAIResponseInputFunctionToolCallOutputOutputListOpenAIResponseInputMessageContentTextOpenAIResponseInputMessageContentImageOpenAIResponseInputMessageContentFileOpenAIResponseInputMessageContentText",
+    "ItemOpenAIResponseInputFunctionToolCallOutputOutputListOpenAIResponseInputMessageContentTextOpenAIResponseInputMessageContentImageOpenAIResponseInputMessageContentFileOpenAIResponseInputMessageContentImage",
+    "ItemOpenAIResponseInputFunctionToolCallOutputOutputListOpenAIResponseInputMessageContentTextOpenAIResponseInputMessageContentImageOpenAIResponseInputMessageContentFileOpenAIResponseInputMessageContentFile",
     "ItemOpenAIResponseMcpApprovalRequest",
     "ItemOpenAIResponseMcpApprovalResponse",
     "ItemOpenAIResponseOutputMessageMcpCall",
@@ -321,6 +325,53 @@ class ItemOpenAIResponseOutputMessageFunctionToolCall(TypedDict, total=False):
     type: Literal["function_call"]
 
 
+class ItemOpenAIResponseInputFunctionToolCallOutputOutputListOpenAIResponseInputMessageContentTextOpenAIResponseInputMessageContentImageOpenAIResponseInputMessageContentFileOpenAIResponseInputMessageContentText(
+    TypedDict, total=False
+):
+    """Text content for input messages in OpenAI response format."""
+
+    text: Required[str]
+
+    type: Literal["input_text"]
+
+
+class ItemOpenAIResponseInputFunctionToolCallOutputOutputListOpenAIResponseInputMessageContentTextOpenAIResponseInputMessageContentImageOpenAIResponseInputMessageContentFileOpenAIResponseInputMessageContentImage(
+    TypedDict, total=False
+):
+    """Image content for input messages in OpenAI response format."""
+
+    detail: Literal["low", "high", "auto"]
+
+    file_id: Optional[str]
+
+    image_url: Optional[str]
+
+    type: Literal["input_image"]
+
+
+class ItemOpenAIResponseInputFunctionToolCallOutputOutputListOpenAIResponseInputMessageContentTextOpenAIResponseInputMessageContentImageOpenAIResponseInputMessageContentFileOpenAIResponseInputMessageContentFile(
+    TypedDict, total=False
+):
+    """File content for input messages in OpenAI response format."""
+
+    file_data: Optional[str]
+
+    file_id: Optional[str]
+
+    file_url: Optional[str]
+
+    filename: Optional[str]
+
+    type: Literal["input_file"]
+
+
+ItemOpenAIResponseInputFunctionToolCallOutputOutputListOpenAIResponseInputMessageContentTextOpenAIResponseInputMessageContentImageOpenAIResponseInputMessageContentFile: TypeAlias = Union[
+    ItemOpenAIResponseInputFunctionToolCallOutputOutputListOpenAIResponseInputMessageContentTextOpenAIResponseInputMessageContentImageOpenAIResponseInputMessageContentFileOpenAIResponseInputMessageContentText,
+    ItemOpenAIResponseInputFunctionToolCallOutputOutputListOpenAIResponseInputMessageContentTextOpenAIResponseInputMessageContentImageOpenAIResponseInputMessageContentFileOpenAIResponseInputMessageContentImage,
+    ItemOpenAIResponseInputFunctionToolCallOutputOutputListOpenAIResponseInputMessageContentTextOpenAIResponseInputMessageContentImageOpenAIResponseInputMessageContentFileOpenAIResponseInputMessageContentFile,
+]
+
+
 class ItemOpenAIResponseInputFunctionToolCallOutput(TypedDict, total=False):
     """
     This represents the output of a function call that gets passed back to the model.
@@ -328,7 +379,14 @@ class ItemOpenAIResponseInputFunctionToolCallOutput(TypedDict, total=False):
 
     call_id: Required[str]
 
-    output: Required[str]
+    output: Required[
+        Union[
+            str,
+            Iterable[
+                ItemOpenAIResponseInputFunctionToolCallOutputOutputListOpenAIResponseInputMessageContentTextOpenAIResponseInputMessageContentImageOpenAIResponseInputMessageContentFile
+            ],
+        ]
+    ]
 
     id: Optional[str]
 

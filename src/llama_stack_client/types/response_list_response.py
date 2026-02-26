@@ -41,6 +41,10 @@ __all__ = [
     "InputOpenAIResponseOutputMessageMcpListToolsTool",
     "InputOpenAIResponseMcpApprovalRequest",
     "InputOpenAIResponseInputFunctionToolCallOutput",
+    "InputOpenAIResponseInputFunctionToolCallOutputOutputListOpenAIResponseInputMessageContentTextOpenAIResponseInputMessageContentImageOpenAIResponseInputMessageContentFile",
+    "InputOpenAIResponseInputFunctionToolCallOutputOutputListOpenAIResponseInputMessageContentTextOpenAIResponseInputMessageContentImageOpenAIResponseInputMessageContentFileOpenAIResponseInputMessageContentText",
+    "InputOpenAIResponseInputFunctionToolCallOutputOutputListOpenAIResponseInputMessageContentTextOpenAIResponseInputMessageContentImageOpenAIResponseInputMessageContentFileOpenAIResponseInputMessageContentImage",
+    "InputOpenAIResponseInputFunctionToolCallOutputOutputListOpenAIResponseInputMessageContentTextOpenAIResponseInputMessageContentImageOpenAIResponseInputMessageContentFileOpenAIResponseInputMessageContentFile",
     "InputOpenAIResponseMcpApprovalResponse",
     "Output",
     "OutputOpenAIResponseMessageOutput",
@@ -429,6 +433,56 @@ class InputOpenAIResponseMcpApprovalRequest(BaseModel):
     type: Optional[Literal["mcp_approval_request"]] = None
 
 
+class InputOpenAIResponseInputFunctionToolCallOutputOutputListOpenAIResponseInputMessageContentTextOpenAIResponseInputMessageContentImageOpenAIResponseInputMessageContentFileOpenAIResponseInputMessageContentText(
+    BaseModel
+):
+    """Text content for input messages in OpenAI response format."""
+
+    text: str
+
+    type: Optional[Literal["input_text"]] = None
+
+
+class InputOpenAIResponseInputFunctionToolCallOutputOutputListOpenAIResponseInputMessageContentTextOpenAIResponseInputMessageContentImageOpenAIResponseInputMessageContentFileOpenAIResponseInputMessageContentImage(
+    BaseModel
+):
+    """Image content for input messages in OpenAI response format."""
+
+    detail: Optional[Literal["low", "high", "auto"]] = None
+
+    file_id: Optional[str] = None
+
+    image_url: Optional[str] = None
+
+    type: Optional[Literal["input_image"]] = None
+
+
+class InputOpenAIResponseInputFunctionToolCallOutputOutputListOpenAIResponseInputMessageContentTextOpenAIResponseInputMessageContentImageOpenAIResponseInputMessageContentFileOpenAIResponseInputMessageContentFile(
+    BaseModel
+):
+    """File content for input messages in OpenAI response format."""
+
+    file_data: Optional[str] = None
+
+    file_id: Optional[str] = None
+
+    file_url: Optional[str] = None
+
+    filename: Optional[str] = None
+
+    type: Optional[Literal["input_file"]] = None
+
+
+InputOpenAIResponseInputFunctionToolCallOutputOutputListOpenAIResponseInputMessageContentTextOpenAIResponseInputMessageContentImageOpenAIResponseInputMessageContentFile: TypeAlias = Annotated[
+    Union[
+        InputOpenAIResponseInputFunctionToolCallOutputOutputListOpenAIResponseInputMessageContentTextOpenAIResponseInputMessageContentImageOpenAIResponseInputMessageContentFileOpenAIResponseInputMessageContentText,
+        InputOpenAIResponseInputFunctionToolCallOutputOutputListOpenAIResponseInputMessageContentTextOpenAIResponseInputMessageContentImageOpenAIResponseInputMessageContentFileOpenAIResponseInputMessageContentImage,
+        InputOpenAIResponseInputFunctionToolCallOutputOutputListOpenAIResponseInputMessageContentTextOpenAIResponseInputMessageContentImageOpenAIResponseInputMessageContentFileOpenAIResponseInputMessageContentFile,
+    ],
+    PropertyInfo(discriminator="type"),
+]
+
+
 class InputOpenAIResponseInputFunctionToolCallOutput(BaseModel):
     """
     This represents the output of a function call that gets passed back to the model.
@@ -436,7 +490,12 @@ class InputOpenAIResponseInputFunctionToolCallOutput(BaseModel):
 
     call_id: str
 
-    output: str
+    output: Union[
+        str,
+        List[
+            InputOpenAIResponseInputFunctionToolCallOutputOutputListOpenAIResponseInputMessageContentTextOpenAIResponseInputMessageContentImageOpenAIResponseInputMessageContentFile
+        ],
+    ]
 
     id: Optional[str] = None
 
