@@ -24,6 +24,10 @@ __all__ = ["ProvidersResource", "AsyncProvidersResource"]
 
 
 class ProvidersResource(SyncAPIResource):
+    """
+    Providers API for inspecting, listing, and modifying providers and their configurations.
+    """
+
     @cached_property
     def with_raw_response(self) -> ProvidersResourceWithRawResponse:
         """
@@ -103,6 +107,10 @@ class ProvidersResource(SyncAPIResource):
 
 
 class AsyncProvidersResource(AsyncAPIResource):
+    """
+    Providers API for inspecting, listing, and modifying providers and their configurations.
+    """
+
     @cached_property
     def with_raw_response(self) -> AsyncProvidersResourceWithRawResponse:
         """

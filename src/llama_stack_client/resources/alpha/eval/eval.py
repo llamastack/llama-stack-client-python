@@ -39,8 +39,15 @@ __all__ = ["EvalResource", "AsyncEvalResource"]
 
 
 class EvalResource(SyncAPIResource):
+    """
+    Llama Stack Evaluation API for running evaluations on model and agent candidates.
+    """
+
     @cached_property
     def jobs(self) -> JobsResource:
+        """
+        Llama Stack Evaluation API for running evaluations on model and agent candidates.
+        """
         return JobsResource(self._client)
 
     @cached_property
@@ -248,8 +255,15 @@ class EvalResource(SyncAPIResource):
 
 
 class AsyncEvalResource(AsyncAPIResource):
+    """
+    Llama Stack Evaluation API for running evaluations on model and agent candidates.
+    """
+
     @cached_property
     def jobs(self) -> AsyncJobsResource:
+        """
+        Llama Stack Evaluation API for running evaluations on model and agent candidates.
+        """
         return AsyncJobsResource(self._client)
 
     @cached_property
@@ -477,6 +491,9 @@ class EvalResourceWithRawResponse:
 
     @cached_property
     def jobs(self) -> JobsResourceWithRawResponse:
+        """
+        Llama Stack Evaluation API for running evaluations on model and agent candidates.
+        """
         return JobsResourceWithRawResponse(self._eval.jobs)
 
 
@@ -499,6 +516,9 @@ class AsyncEvalResourceWithRawResponse:
 
     @cached_property
     def jobs(self) -> AsyncJobsResourceWithRawResponse:
+        """
+        Llama Stack Evaluation API for running evaluations on model and agent candidates.
+        """
         return AsyncJobsResourceWithRawResponse(self._eval.jobs)
 
 
@@ -521,6 +541,9 @@ class EvalResourceWithStreamingResponse:
 
     @cached_property
     def jobs(self) -> JobsResourceWithStreamingResponse:
+        """
+        Llama Stack Evaluation API for running evaluations on model and agent candidates.
+        """
         return JobsResourceWithStreamingResponse(self._eval.jobs)
 
 
@@ -543,4 +566,7 @@ class AsyncEvalResourceWithStreamingResponse:
 
     @cached_property
     def jobs(self) -> AsyncJobsResourceWithStreamingResponse:
+        """
+        Llama Stack Evaluation API for running evaluations on model and agent candidates.
+        """
         return AsyncJobsResourceWithStreamingResponse(self._eval.jobs)

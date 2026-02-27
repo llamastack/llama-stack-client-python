@@ -165,30 +165,44 @@ class LlamaStackClient(SyncAPIClient):
 
     @cached_property
     def responses(self) -> ResponsesResource:
+        """APIs for creating and interacting with agentic systems."""
         from .resources.responses import ResponsesResource
 
         return ResponsesResource(self)
 
     @cached_property
     def prompts(self) -> PromptsResource:
+        """Protocol for prompt management operations."""
         from .resources.prompts import PromptsResource
 
         return PromptsResource(self)
 
     @cached_property
     def conversations(self) -> ConversationsResource:
+        """Protocol for conversation management operations."""
         from .resources.conversations import ConversationsResource
 
         return ConversationsResource(self)
 
     @cached_property
     def inspect(self) -> InspectResource:
+        """
+        APIs for inspecting the Llama Stack service, including health status, available API routes with methods and implementing providers.
+        """
         from .resources.inspect import InspectResource
 
         return InspectResource(self)
 
     @cached_property
     def embeddings(self) -> EmbeddingsResource:
+        """
+        Llama Stack Inference API for generating completions, chat completions, and embeddings.
+
+        This API provides the raw interface to the underlying models. Three kinds of models are supported:
+        - LLM models: these models generate "raw" and "chat" (conversational) completions.
+        - Embedding models: these models generate embeddings to be used for semantic search.
+        - Rerank models: these models reorder the documents based on their relevance to a query.
+        """
         from .resources.embeddings import EmbeddingsResource
 
         return EmbeddingsResource(self)
@@ -201,6 +215,14 @@ class LlamaStackClient(SyncAPIClient):
 
     @cached_property
     def completions(self) -> CompletionsResource:
+        """
+        Llama Stack Inference API for generating completions, chat completions, and embeddings.
+
+        This API provides the raw interface to the underlying models. Three kinds of models are supported:
+        - LLM models: these models generate "raw" and "chat" (conversational) completions.
+        - Embedding models: these models generate embeddings to be used for semantic search.
+        - Rerank models: these models reorder the documents based on their relevance to a query.
+        """
         from .resources.completions import CompletionsResource
 
         return CompletionsResource(self)
@@ -225,24 +247,32 @@ class LlamaStackClient(SyncAPIClient):
 
     @cached_property
     def providers(self) -> ProvidersResource:
+        """
+        Providers API for inspecting, listing, and modifying providers and their configurations.
+        """
         from .resources.providers import ProvidersResource
 
         return ProvidersResource(self)
 
     @cached_property
     def routes(self) -> RoutesResource:
+        """
+        APIs for inspecting the Llama Stack service, including health status, available API routes with methods and implementing providers.
+        """
         from .resources.routes import RoutesResource
 
         return RoutesResource(self)
 
     @cached_property
     def moderations(self) -> ModerationsResource:
+        """OpenAI-compatible Moderations API."""
         from .resources.moderations import ModerationsResource
 
         return ModerationsResource(self)
 
     @cached_property
     def safety(self) -> SafetyResource:
+        """OpenAI-compatible Moderations API."""
         from .resources.safety import SafetyResource
 
         return SafetyResource(self)
@@ -267,12 +297,23 @@ class LlamaStackClient(SyncAPIClient):
 
     @cached_property
     def files(self) -> FilesResource:
+        """
+        This API is used to upload documents that can be used with other Llama Stack APIs.
+        """
         from .resources.files import FilesResource
 
         return FilesResource(self)
 
     @cached_property
     def batches(self) -> BatchesResource:
+        """
+        The API is designed to allow use of openai client libraries for seamless integration.
+
+        This API provides the following extensions:
+         - idempotent batch creation
+
+        Note: This API is currently under active development and may undergo changes.
+        """
         from .resources.batches import BatchesResource
 
         return BatchesResource(self)
@@ -475,30 +516,44 @@ class AsyncLlamaStackClient(AsyncAPIClient):
 
     @cached_property
     def responses(self) -> AsyncResponsesResource:
+        """APIs for creating and interacting with agentic systems."""
         from .resources.responses import AsyncResponsesResource
 
         return AsyncResponsesResource(self)
 
     @cached_property
     def prompts(self) -> AsyncPromptsResource:
+        """Protocol for prompt management operations."""
         from .resources.prompts import AsyncPromptsResource
 
         return AsyncPromptsResource(self)
 
     @cached_property
     def conversations(self) -> AsyncConversationsResource:
+        """Protocol for conversation management operations."""
         from .resources.conversations import AsyncConversationsResource
 
         return AsyncConversationsResource(self)
 
     @cached_property
     def inspect(self) -> AsyncInspectResource:
+        """
+        APIs for inspecting the Llama Stack service, including health status, available API routes with methods and implementing providers.
+        """
         from .resources.inspect import AsyncInspectResource
 
         return AsyncInspectResource(self)
 
     @cached_property
     def embeddings(self) -> AsyncEmbeddingsResource:
+        """
+        Llama Stack Inference API for generating completions, chat completions, and embeddings.
+
+        This API provides the raw interface to the underlying models. Three kinds of models are supported:
+        - LLM models: these models generate "raw" and "chat" (conversational) completions.
+        - Embedding models: these models generate embeddings to be used for semantic search.
+        - Rerank models: these models reorder the documents based on their relevance to a query.
+        """
         from .resources.embeddings import AsyncEmbeddingsResource
 
         return AsyncEmbeddingsResource(self)
@@ -511,6 +566,14 @@ class AsyncLlamaStackClient(AsyncAPIClient):
 
     @cached_property
     def completions(self) -> AsyncCompletionsResource:
+        """
+        Llama Stack Inference API for generating completions, chat completions, and embeddings.
+
+        This API provides the raw interface to the underlying models. Three kinds of models are supported:
+        - LLM models: these models generate "raw" and "chat" (conversational) completions.
+        - Embedding models: these models generate embeddings to be used for semantic search.
+        - Rerank models: these models reorder the documents based on their relevance to a query.
+        """
         from .resources.completions import AsyncCompletionsResource
 
         return AsyncCompletionsResource(self)
@@ -535,24 +598,32 @@ class AsyncLlamaStackClient(AsyncAPIClient):
 
     @cached_property
     def providers(self) -> AsyncProvidersResource:
+        """
+        Providers API for inspecting, listing, and modifying providers and their configurations.
+        """
         from .resources.providers import AsyncProvidersResource
 
         return AsyncProvidersResource(self)
 
     @cached_property
     def routes(self) -> AsyncRoutesResource:
+        """
+        APIs for inspecting the Llama Stack service, including health status, available API routes with methods and implementing providers.
+        """
         from .resources.routes import AsyncRoutesResource
 
         return AsyncRoutesResource(self)
 
     @cached_property
     def moderations(self) -> AsyncModerationsResource:
+        """OpenAI-compatible Moderations API."""
         from .resources.moderations import AsyncModerationsResource
 
         return AsyncModerationsResource(self)
 
     @cached_property
     def safety(self) -> AsyncSafetyResource:
+        """OpenAI-compatible Moderations API."""
         from .resources.safety import AsyncSafetyResource
 
         return AsyncSafetyResource(self)
@@ -577,12 +648,23 @@ class AsyncLlamaStackClient(AsyncAPIClient):
 
     @cached_property
     def files(self) -> AsyncFilesResource:
+        """
+        This API is used to upload documents that can be used with other Llama Stack APIs.
+        """
         from .resources.files import AsyncFilesResource
 
         return AsyncFilesResource(self)
 
     @cached_property
     def batches(self) -> AsyncBatchesResource:
+        """
+        The API is designed to allow use of openai client libraries for seamless integration.
+
+        This API provides the following extensions:
+         - idempotent batch creation
+
+        Note: This API is currently under active development and may undergo changes.
+        """
         from .resources.batches import AsyncBatchesResource
 
         return AsyncBatchesResource(self)
@@ -740,30 +822,44 @@ class LlamaStackClientWithRawResponse:
 
     @cached_property
     def responses(self) -> responses.ResponsesResourceWithRawResponse:
+        """APIs for creating and interacting with agentic systems."""
         from .resources.responses import ResponsesResourceWithRawResponse
 
         return ResponsesResourceWithRawResponse(self._client.responses)
 
     @cached_property
     def prompts(self) -> prompts.PromptsResourceWithRawResponse:
+        """Protocol for prompt management operations."""
         from .resources.prompts import PromptsResourceWithRawResponse
 
         return PromptsResourceWithRawResponse(self._client.prompts)
 
     @cached_property
     def conversations(self) -> conversations.ConversationsResourceWithRawResponse:
+        """Protocol for conversation management operations."""
         from .resources.conversations import ConversationsResourceWithRawResponse
 
         return ConversationsResourceWithRawResponse(self._client.conversations)
 
     @cached_property
     def inspect(self) -> inspect.InspectResourceWithRawResponse:
+        """
+        APIs for inspecting the Llama Stack service, including health status, available API routes with methods and implementing providers.
+        """
         from .resources.inspect import InspectResourceWithRawResponse
 
         return InspectResourceWithRawResponse(self._client.inspect)
 
     @cached_property
     def embeddings(self) -> embeddings.EmbeddingsResourceWithRawResponse:
+        """
+        Llama Stack Inference API for generating completions, chat completions, and embeddings.
+
+        This API provides the raw interface to the underlying models. Three kinds of models are supported:
+        - LLM models: these models generate "raw" and "chat" (conversational) completions.
+        - Embedding models: these models generate embeddings to be used for semantic search.
+        - Rerank models: these models reorder the documents based on their relevance to a query.
+        """
         from .resources.embeddings import EmbeddingsResourceWithRawResponse
 
         return EmbeddingsResourceWithRawResponse(self._client.embeddings)
@@ -776,6 +872,14 @@ class LlamaStackClientWithRawResponse:
 
     @cached_property
     def completions(self) -> completions.CompletionsResourceWithRawResponse:
+        """
+        Llama Stack Inference API for generating completions, chat completions, and embeddings.
+
+        This API provides the raw interface to the underlying models. Three kinds of models are supported:
+        - LLM models: these models generate "raw" and "chat" (conversational) completions.
+        - Embedding models: these models generate embeddings to be used for semantic search.
+        - Rerank models: these models reorder the documents based on their relevance to a query.
+        """
         from .resources.completions import CompletionsResourceWithRawResponse
 
         return CompletionsResourceWithRawResponse(self._client.completions)
@@ -800,24 +904,32 @@ class LlamaStackClientWithRawResponse:
 
     @cached_property
     def providers(self) -> providers.ProvidersResourceWithRawResponse:
+        """
+        Providers API for inspecting, listing, and modifying providers and their configurations.
+        """
         from .resources.providers import ProvidersResourceWithRawResponse
 
         return ProvidersResourceWithRawResponse(self._client.providers)
 
     @cached_property
     def routes(self) -> routes.RoutesResourceWithRawResponse:
+        """
+        APIs for inspecting the Llama Stack service, including health status, available API routes with methods and implementing providers.
+        """
         from .resources.routes import RoutesResourceWithRawResponse
 
         return RoutesResourceWithRawResponse(self._client.routes)
 
     @cached_property
     def moderations(self) -> moderations.ModerationsResourceWithRawResponse:
+        """OpenAI-compatible Moderations API."""
         from .resources.moderations import ModerationsResourceWithRawResponse
 
         return ModerationsResourceWithRawResponse(self._client.moderations)
 
     @cached_property
     def safety(self) -> safety.SafetyResourceWithRawResponse:
+        """OpenAI-compatible Moderations API."""
         from .resources.safety import SafetyResourceWithRawResponse
 
         return SafetyResourceWithRawResponse(self._client.safety)
@@ -842,12 +954,23 @@ class LlamaStackClientWithRawResponse:
 
     @cached_property
     def files(self) -> files.FilesResourceWithRawResponse:
+        """
+        This API is used to upload documents that can be used with other Llama Stack APIs.
+        """
         from .resources.files import FilesResourceWithRawResponse
 
         return FilesResourceWithRawResponse(self._client.files)
 
     @cached_property
     def batches(self) -> batches.BatchesResourceWithRawResponse:
+        """
+        The API is designed to allow use of openai client libraries for seamless integration.
+
+        This API provides the following extensions:
+         - idempotent batch creation
+
+        Note: This API is currently under active development and may undergo changes.
+        """
         from .resources.batches import BatchesResourceWithRawResponse
 
         return BatchesResourceWithRawResponse(self._client.batches)
@@ -891,30 +1014,44 @@ class AsyncLlamaStackClientWithRawResponse:
 
     @cached_property
     def responses(self) -> responses.AsyncResponsesResourceWithRawResponse:
+        """APIs for creating and interacting with agentic systems."""
         from .resources.responses import AsyncResponsesResourceWithRawResponse
 
         return AsyncResponsesResourceWithRawResponse(self._client.responses)
 
     @cached_property
     def prompts(self) -> prompts.AsyncPromptsResourceWithRawResponse:
+        """Protocol for prompt management operations."""
         from .resources.prompts import AsyncPromptsResourceWithRawResponse
 
         return AsyncPromptsResourceWithRawResponse(self._client.prompts)
 
     @cached_property
     def conversations(self) -> conversations.AsyncConversationsResourceWithRawResponse:
+        """Protocol for conversation management operations."""
         from .resources.conversations import AsyncConversationsResourceWithRawResponse
 
         return AsyncConversationsResourceWithRawResponse(self._client.conversations)
 
     @cached_property
     def inspect(self) -> inspect.AsyncInspectResourceWithRawResponse:
+        """
+        APIs for inspecting the Llama Stack service, including health status, available API routes with methods and implementing providers.
+        """
         from .resources.inspect import AsyncInspectResourceWithRawResponse
 
         return AsyncInspectResourceWithRawResponse(self._client.inspect)
 
     @cached_property
     def embeddings(self) -> embeddings.AsyncEmbeddingsResourceWithRawResponse:
+        """
+        Llama Stack Inference API for generating completions, chat completions, and embeddings.
+
+        This API provides the raw interface to the underlying models. Three kinds of models are supported:
+        - LLM models: these models generate "raw" and "chat" (conversational) completions.
+        - Embedding models: these models generate embeddings to be used for semantic search.
+        - Rerank models: these models reorder the documents based on their relevance to a query.
+        """
         from .resources.embeddings import AsyncEmbeddingsResourceWithRawResponse
 
         return AsyncEmbeddingsResourceWithRawResponse(self._client.embeddings)
@@ -927,6 +1064,14 @@ class AsyncLlamaStackClientWithRawResponse:
 
     @cached_property
     def completions(self) -> completions.AsyncCompletionsResourceWithRawResponse:
+        """
+        Llama Stack Inference API for generating completions, chat completions, and embeddings.
+
+        This API provides the raw interface to the underlying models. Three kinds of models are supported:
+        - LLM models: these models generate "raw" and "chat" (conversational) completions.
+        - Embedding models: these models generate embeddings to be used for semantic search.
+        - Rerank models: these models reorder the documents based on their relevance to a query.
+        """
         from .resources.completions import AsyncCompletionsResourceWithRawResponse
 
         return AsyncCompletionsResourceWithRawResponse(self._client.completions)
@@ -951,24 +1096,32 @@ class AsyncLlamaStackClientWithRawResponse:
 
     @cached_property
     def providers(self) -> providers.AsyncProvidersResourceWithRawResponse:
+        """
+        Providers API for inspecting, listing, and modifying providers and their configurations.
+        """
         from .resources.providers import AsyncProvidersResourceWithRawResponse
 
         return AsyncProvidersResourceWithRawResponse(self._client.providers)
 
     @cached_property
     def routes(self) -> routes.AsyncRoutesResourceWithRawResponse:
+        """
+        APIs for inspecting the Llama Stack service, including health status, available API routes with methods and implementing providers.
+        """
         from .resources.routes import AsyncRoutesResourceWithRawResponse
 
         return AsyncRoutesResourceWithRawResponse(self._client.routes)
 
     @cached_property
     def moderations(self) -> moderations.AsyncModerationsResourceWithRawResponse:
+        """OpenAI-compatible Moderations API."""
         from .resources.moderations import AsyncModerationsResourceWithRawResponse
 
         return AsyncModerationsResourceWithRawResponse(self._client.moderations)
 
     @cached_property
     def safety(self) -> safety.AsyncSafetyResourceWithRawResponse:
+        """OpenAI-compatible Moderations API."""
         from .resources.safety import AsyncSafetyResourceWithRawResponse
 
         return AsyncSafetyResourceWithRawResponse(self._client.safety)
@@ -993,12 +1146,23 @@ class AsyncLlamaStackClientWithRawResponse:
 
     @cached_property
     def files(self) -> files.AsyncFilesResourceWithRawResponse:
+        """
+        This API is used to upload documents that can be used with other Llama Stack APIs.
+        """
         from .resources.files import AsyncFilesResourceWithRawResponse
 
         return AsyncFilesResourceWithRawResponse(self._client.files)
 
     @cached_property
     def batches(self) -> batches.AsyncBatchesResourceWithRawResponse:
+        """
+        The API is designed to allow use of openai client libraries for seamless integration.
+
+        This API provides the following extensions:
+         - idempotent batch creation
+
+        Note: This API is currently under active development and may undergo changes.
+        """
         from .resources.batches import AsyncBatchesResourceWithRawResponse
 
         return AsyncBatchesResourceWithRawResponse(self._client.batches)
@@ -1042,30 +1206,44 @@ class LlamaStackClientWithStreamedResponse:
 
     @cached_property
     def responses(self) -> responses.ResponsesResourceWithStreamingResponse:
+        """APIs for creating and interacting with agentic systems."""
         from .resources.responses import ResponsesResourceWithStreamingResponse
 
         return ResponsesResourceWithStreamingResponse(self._client.responses)
 
     @cached_property
     def prompts(self) -> prompts.PromptsResourceWithStreamingResponse:
+        """Protocol for prompt management operations."""
         from .resources.prompts import PromptsResourceWithStreamingResponse
 
         return PromptsResourceWithStreamingResponse(self._client.prompts)
 
     @cached_property
     def conversations(self) -> conversations.ConversationsResourceWithStreamingResponse:
+        """Protocol for conversation management operations."""
         from .resources.conversations import ConversationsResourceWithStreamingResponse
 
         return ConversationsResourceWithStreamingResponse(self._client.conversations)
 
     @cached_property
     def inspect(self) -> inspect.InspectResourceWithStreamingResponse:
+        """
+        APIs for inspecting the Llama Stack service, including health status, available API routes with methods and implementing providers.
+        """
         from .resources.inspect import InspectResourceWithStreamingResponse
 
         return InspectResourceWithStreamingResponse(self._client.inspect)
 
     @cached_property
     def embeddings(self) -> embeddings.EmbeddingsResourceWithStreamingResponse:
+        """
+        Llama Stack Inference API for generating completions, chat completions, and embeddings.
+
+        This API provides the raw interface to the underlying models. Three kinds of models are supported:
+        - LLM models: these models generate "raw" and "chat" (conversational) completions.
+        - Embedding models: these models generate embeddings to be used for semantic search.
+        - Rerank models: these models reorder the documents based on their relevance to a query.
+        """
         from .resources.embeddings import EmbeddingsResourceWithStreamingResponse
 
         return EmbeddingsResourceWithStreamingResponse(self._client.embeddings)
@@ -1078,6 +1256,14 @@ class LlamaStackClientWithStreamedResponse:
 
     @cached_property
     def completions(self) -> completions.CompletionsResourceWithStreamingResponse:
+        """
+        Llama Stack Inference API for generating completions, chat completions, and embeddings.
+
+        This API provides the raw interface to the underlying models. Three kinds of models are supported:
+        - LLM models: these models generate "raw" and "chat" (conversational) completions.
+        - Embedding models: these models generate embeddings to be used for semantic search.
+        - Rerank models: these models reorder the documents based on their relevance to a query.
+        """
         from .resources.completions import CompletionsResourceWithStreamingResponse
 
         return CompletionsResourceWithStreamingResponse(self._client.completions)
@@ -1102,24 +1288,32 @@ class LlamaStackClientWithStreamedResponse:
 
     @cached_property
     def providers(self) -> providers.ProvidersResourceWithStreamingResponse:
+        """
+        Providers API for inspecting, listing, and modifying providers and their configurations.
+        """
         from .resources.providers import ProvidersResourceWithStreamingResponse
 
         return ProvidersResourceWithStreamingResponse(self._client.providers)
 
     @cached_property
     def routes(self) -> routes.RoutesResourceWithStreamingResponse:
+        """
+        APIs for inspecting the Llama Stack service, including health status, available API routes with methods and implementing providers.
+        """
         from .resources.routes import RoutesResourceWithStreamingResponse
 
         return RoutesResourceWithStreamingResponse(self._client.routes)
 
     @cached_property
     def moderations(self) -> moderations.ModerationsResourceWithStreamingResponse:
+        """OpenAI-compatible Moderations API."""
         from .resources.moderations import ModerationsResourceWithStreamingResponse
 
         return ModerationsResourceWithStreamingResponse(self._client.moderations)
 
     @cached_property
     def safety(self) -> safety.SafetyResourceWithStreamingResponse:
+        """OpenAI-compatible Moderations API."""
         from .resources.safety import SafetyResourceWithStreamingResponse
 
         return SafetyResourceWithStreamingResponse(self._client.safety)
@@ -1144,12 +1338,23 @@ class LlamaStackClientWithStreamedResponse:
 
     @cached_property
     def files(self) -> files.FilesResourceWithStreamingResponse:
+        """
+        This API is used to upload documents that can be used with other Llama Stack APIs.
+        """
         from .resources.files import FilesResourceWithStreamingResponse
 
         return FilesResourceWithStreamingResponse(self._client.files)
 
     @cached_property
     def batches(self) -> batches.BatchesResourceWithStreamingResponse:
+        """
+        The API is designed to allow use of openai client libraries for seamless integration.
+
+        This API provides the following extensions:
+         - idempotent batch creation
+
+        Note: This API is currently under active development and may undergo changes.
+        """
         from .resources.batches import BatchesResourceWithStreamingResponse
 
         return BatchesResourceWithStreamingResponse(self._client.batches)
@@ -1193,30 +1398,44 @@ class AsyncLlamaStackClientWithStreamedResponse:
 
     @cached_property
     def responses(self) -> responses.AsyncResponsesResourceWithStreamingResponse:
+        """APIs for creating and interacting with agentic systems."""
         from .resources.responses import AsyncResponsesResourceWithStreamingResponse
 
         return AsyncResponsesResourceWithStreamingResponse(self._client.responses)
 
     @cached_property
     def prompts(self) -> prompts.AsyncPromptsResourceWithStreamingResponse:
+        """Protocol for prompt management operations."""
         from .resources.prompts import AsyncPromptsResourceWithStreamingResponse
 
         return AsyncPromptsResourceWithStreamingResponse(self._client.prompts)
 
     @cached_property
     def conversations(self) -> conversations.AsyncConversationsResourceWithStreamingResponse:
+        """Protocol for conversation management operations."""
         from .resources.conversations import AsyncConversationsResourceWithStreamingResponse
 
         return AsyncConversationsResourceWithStreamingResponse(self._client.conversations)
 
     @cached_property
     def inspect(self) -> inspect.AsyncInspectResourceWithStreamingResponse:
+        """
+        APIs for inspecting the Llama Stack service, including health status, available API routes with methods and implementing providers.
+        """
         from .resources.inspect import AsyncInspectResourceWithStreamingResponse
 
         return AsyncInspectResourceWithStreamingResponse(self._client.inspect)
 
     @cached_property
     def embeddings(self) -> embeddings.AsyncEmbeddingsResourceWithStreamingResponse:
+        """
+        Llama Stack Inference API for generating completions, chat completions, and embeddings.
+
+        This API provides the raw interface to the underlying models. Three kinds of models are supported:
+        - LLM models: these models generate "raw" and "chat" (conversational) completions.
+        - Embedding models: these models generate embeddings to be used for semantic search.
+        - Rerank models: these models reorder the documents based on their relevance to a query.
+        """
         from .resources.embeddings import AsyncEmbeddingsResourceWithStreamingResponse
 
         return AsyncEmbeddingsResourceWithStreamingResponse(self._client.embeddings)
@@ -1229,6 +1448,14 @@ class AsyncLlamaStackClientWithStreamedResponse:
 
     @cached_property
     def completions(self) -> completions.AsyncCompletionsResourceWithStreamingResponse:
+        """
+        Llama Stack Inference API for generating completions, chat completions, and embeddings.
+
+        This API provides the raw interface to the underlying models. Three kinds of models are supported:
+        - LLM models: these models generate "raw" and "chat" (conversational) completions.
+        - Embedding models: these models generate embeddings to be used for semantic search.
+        - Rerank models: these models reorder the documents based on their relevance to a query.
+        """
         from .resources.completions import AsyncCompletionsResourceWithStreamingResponse
 
         return AsyncCompletionsResourceWithStreamingResponse(self._client.completions)
@@ -1253,24 +1480,32 @@ class AsyncLlamaStackClientWithStreamedResponse:
 
     @cached_property
     def providers(self) -> providers.AsyncProvidersResourceWithStreamingResponse:
+        """
+        Providers API for inspecting, listing, and modifying providers and their configurations.
+        """
         from .resources.providers import AsyncProvidersResourceWithStreamingResponse
 
         return AsyncProvidersResourceWithStreamingResponse(self._client.providers)
 
     @cached_property
     def routes(self) -> routes.AsyncRoutesResourceWithStreamingResponse:
+        """
+        APIs for inspecting the Llama Stack service, including health status, available API routes with methods and implementing providers.
+        """
         from .resources.routes import AsyncRoutesResourceWithStreamingResponse
 
         return AsyncRoutesResourceWithStreamingResponse(self._client.routes)
 
     @cached_property
     def moderations(self) -> moderations.AsyncModerationsResourceWithStreamingResponse:
+        """OpenAI-compatible Moderations API."""
         from .resources.moderations import AsyncModerationsResourceWithStreamingResponse
 
         return AsyncModerationsResourceWithStreamingResponse(self._client.moderations)
 
     @cached_property
     def safety(self) -> safety.AsyncSafetyResourceWithStreamingResponse:
+        """OpenAI-compatible Moderations API."""
         from .resources.safety import AsyncSafetyResourceWithStreamingResponse
 
         return AsyncSafetyResourceWithStreamingResponse(self._client.safety)
@@ -1295,12 +1530,23 @@ class AsyncLlamaStackClientWithStreamedResponse:
 
     @cached_property
     def files(self) -> files.AsyncFilesResourceWithStreamingResponse:
+        """
+        This API is used to upload documents that can be used with other Llama Stack APIs.
+        """
         from .resources.files import AsyncFilesResourceWithStreamingResponse
 
         return AsyncFilesResourceWithStreamingResponse(self._client.files)
 
     @cached_property
     def batches(self) -> batches.AsyncBatchesResourceWithStreamingResponse:
+        """
+        The API is designed to allow use of openai client libraries for seamless integration.
+
+        This API provides the following extensions:
+         - idempotent batch creation
+
+        Note: This API is currently under active development and may undergo changes.
+        """
         from .resources.batches import AsyncBatchesResourceWithStreamingResponse
 
         return AsyncBatchesResourceWithStreamingResponse(self._client.batches)

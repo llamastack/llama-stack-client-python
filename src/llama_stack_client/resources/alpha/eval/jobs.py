@@ -21,6 +21,10 @@ __all__ = ["JobsResource", "AsyncJobsResource"]
 
 
 class JobsResource(SyncAPIResource):
+    """
+    Llama Stack Evaluation API for running evaluations on model and agent candidates.
+    """
+
     @cached_property
     def with_raw_response(self) -> JobsResourceWithRawResponse:
         """
@@ -151,6 +155,10 @@ class JobsResource(SyncAPIResource):
 
 
 class AsyncJobsResource(AsyncAPIResource):
+    """
+    Llama Stack Evaluation API for running evaluations on model and agent candidates.
+    """
+
     @cached_property
     def with_raw_response(self) -> AsyncJobsResourceWithRawResponse:
         """

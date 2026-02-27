@@ -38,8 +38,11 @@ __all__ = ["ResponsesResource", "AsyncResponsesResource"]
 
 
 class ResponsesResource(SyncAPIResource):
+    """APIs for creating and interacting with agentic systems."""
+
     @cached_property
     def input_items(self) -> InputItemsResource:
+        """APIs for creating and interacting with agentic systems."""
         return InputItemsResource(self._client)
 
     @cached_property
@@ -700,8 +703,11 @@ class ResponsesResource(SyncAPIResource):
 
 
 class AsyncResponsesResource(AsyncAPIResource):
+    """APIs for creating and interacting with agentic systems."""
+
     @cached_property
     def input_items(self) -> AsyncInputItemsResource:
+        """APIs for creating and interacting with agentic systems."""
         return AsyncInputItemsResource(self._client)
 
     @cached_property
@@ -1380,6 +1386,7 @@ class ResponsesResourceWithRawResponse:
 
     @cached_property
     def input_items(self) -> InputItemsResourceWithRawResponse:
+        """APIs for creating and interacting with agentic systems."""
         return InputItemsResourceWithRawResponse(self._responses.input_items)
 
 
@@ -1402,6 +1409,7 @@ class AsyncResponsesResourceWithRawResponse:
 
     @cached_property
     def input_items(self) -> AsyncInputItemsResourceWithRawResponse:
+        """APIs for creating and interacting with agentic systems."""
         return AsyncInputItemsResourceWithRawResponse(self._responses.input_items)
 
 
@@ -1424,6 +1432,7 @@ class ResponsesResourceWithStreamingResponse:
 
     @cached_property
     def input_items(self) -> InputItemsResourceWithStreamingResponse:
+        """APIs for creating and interacting with agentic systems."""
         return InputItemsResourceWithStreamingResponse(self._responses.input_items)
 
 
@@ -1446,4 +1455,5 @@ class AsyncResponsesResourceWithStreamingResponse:
 
     @cached_property
     def input_items(self) -> AsyncInputItemsResourceWithStreamingResponse:
+        """APIs for creating and interacting with agentic systems."""
         return AsyncInputItemsResourceWithStreamingResponse(self._responses.input_items)

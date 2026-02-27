@@ -29,6 +29,8 @@ __all__ = ["ItemsResource", "AsyncItemsResource"]
 
 
 class ItemsResource(SyncAPIResource):
+    """Protocol for conversation management operations."""
+
     @cached_property
     def with_raw_response(self) -> ItemsResourceWithRawResponse:
         """
@@ -238,6 +240,8 @@ class ItemsResource(SyncAPIResource):
 
 
 class AsyncItemsResource(AsyncAPIResource):
+    """Protocol for conversation management operations."""
+
     @cached_property
     def with_raw_response(self) -> AsyncItemsResourceWithRawResponse:
         """
