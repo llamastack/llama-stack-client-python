@@ -45,8 +45,11 @@ __all__ = ["PromptsResource", "AsyncPromptsResource"]
 
 
 class PromptsResource(SyncAPIResource):
+    """Protocol for prompt management operations."""
+
     @cached_property
     def versions(self) -> VersionsResource:
+        """Protocol for prompt management operations."""
         return VersionsResource(self._client)
 
     @cached_property
@@ -309,8 +312,11 @@ class PromptsResource(SyncAPIResource):
 
 
 class AsyncPromptsResource(AsyncAPIResource):
+    """Protocol for prompt management operations."""
+
     @cached_property
     def versions(self) -> AsyncVersionsResource:
+        """Protocol for prompt management operations."""
         return AsyncVersionsResource(self._client)
 
     @cached_property
@@ -599,6 +605,7 @@ class PromptsResourceWithRawResponse:
 
     @cached_property
     def versions(self) -> VersionsResourceWithRawResponse:
+        """Protocol for prompt management operations."""
         return VersionsResourceWithRawResponse(self._prompts.versions)
 
 
@@ -627,6 +634,7 @@ class AsyncPromptsResourceWithRawResponse:
 
     @cached_property
     def versions(self) -> AsyncVersionsResourceWithRawResponse:
+        """Protocol for prompt management operations."""
         return AsyncVersionsResourceWithRawResponse(self._prompts.versions)
 
 
@@ -655,6 +663,7 @@ class PromptsResourceWithStreamingResponse:
 
     @cached_property
     def versions(self) -> VersionsResourceWithStreamingResponse:
+        """Protocol for prompt management operations."""
         return VersionsResourceWithStreamingResponse(self._prompts.versions)
 
 
@@ -683,4 +692,5 @@ class AsyncPromptsResourceWithStreamingResponse:
 
     @cached_property
     def versions(self) -> AsyncVersionsResourceWithStreamingResponse:
+        """Protocol for prompt management operations."""
         return AsyncVersionsResourceWithStreamingResponse(self._prompts.versions)

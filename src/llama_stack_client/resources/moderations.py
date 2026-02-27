@@ -30,6 +30,8 @@ __all__ = ["ModerationsResource", "AsyncModerationsResource"]
 
 
 class ModerationsResource(SyncAPIResource):
+    """OpenAI-compatible Moderations API."""
+
     @cached_property
     def with_raw_response(self) -> ModerationsResourceWithRawResponse:
         """
@@ -96,6 +98,8 @@ class ModerationsResource(SyncAPIResource):
 
 
 class AsyncModerationsResource(AsyncAPIResource):
+    """OpenAI-compatible Moderations API."""
+
     @cached_property
     def with_raw_response(self) -> AsyncModerationsResourceWithRawResponse:
         """

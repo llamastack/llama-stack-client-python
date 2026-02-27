@@ -30,6 +30,8 @@ __all__ = ["SafetyResource", "AsyncSafetyResource"]
 
 
 class SafetyResource(SyncAPIResource):
+    """OpenAI-compatible Moderations API."""
+
     @cached_property
     def with_raw_response(self) -> SafetyResourceWithRawResponse:
         """
@@ -94,6 +96,8 @@ class SafetyResource(SyncAPIResource):
 
 
 class AsyncSafetyResource(AsyncAPIResource):
+    """OpenAI-compatible Moderations API."""
+
     @cached_property
     def with_raw_response(self) -> AsyncSafetyResourceWithRawResponse:
         """

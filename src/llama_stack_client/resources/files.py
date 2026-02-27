@@ -33,6 +33,10 @@ __all__ = ["FilesResource", "AsyncFilesResource"]
 
 
 class FilesResource(SyncAPIResource):
+    """
+    This API is used to upload documents that can be used with other Llama Stack APIs.
+    """
+
     @cached_property
     def with_raw_response(self) -> FilesResourceWithRawResponse:
         """
@@ -268,6 +272,10 @@ class FilesResource(SyncAPIResource):
 
 
 class AsyncFilesResource(AsyncAPIResource):
+    """
+    This API is used to upload documents that can be used with other Llama Stack APIs.
+    """
+
     @cached_property
     def with_raw_response(self) -> AsyncFilesResourceWithRawResponse:
         """

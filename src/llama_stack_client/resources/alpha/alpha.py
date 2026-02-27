@@ -65,6 +65,9 @@ class AlphaResource(SyncAPIResource):
 
     @cached_property
     def eval(self) -> EvalResource:
+        """
+        Llama Stack Evaluation API for running evaluations on model and agent candidates.
+        """
         return EvalResource(self._client)
 
     @cached_property
@@ -73,6 +76,14 @@ class AlphaResource(SyncAPIResource):
 
     @cached_property
     def inference(self) -> InferenceResource:
+        """
+        Llama Stack Inference API for generating completions, chat completions, and embeddings.
+
+        This API provides the raw interface to the underlying models. Three kinds of models are supported:
+        - LLM models: these models generate "raw" and "chat" (conversational) completions.
+        - Embedding models: these models generate embeddings to be used for semantic search.
+        - Rerank models: these models reorder the documents based on their relevance to a query.
+        """
         return InferenceResource(self._client)
 
     @cached_property
@@ -106,6 +117,9 @@ class AsyncAlphaResource(AsyncAPIResource):
 
     @cached_property
     def eval(self) -> AsyncEvalResource:
+        """
+        Llama Stack Evaluation API for running evaluations on model and agent candidates.
+        """
         return AsyncEvalResource(self._client)
 
     @cached_property
@@ -114,6 +128,14 @@ class AsyncAlphaResource(AsyncAPIResource):
 
     @cached_property
     def inference(self) -> AsyncInferenceResource:
+        """
+        Llama Stack Inference API for generating completions, chat completions, and embeddings.
+
+        This API provides the raw interface to the underlying models. Three kinds of models are supported:
+        - LLM models: these models generate "raw" and "chat" (conversational) completions.
+        - Embedding models: these models generate embeddings to be used for semantic search.
+        - Rerank models: these models reorder the documents based on their relevance to a query.
+        """
         return AsyncInferenceResource(self._client)
 
     @cached_property
@@ -150,6 +172,9 @@ class AlphaResourceWithRawResponse:
 
     @cached_property
     def eval(self) -> EvalResourceWithRawResponse:
+        """
+        Llama Stack Evaluation API for running evaluations on model and agent candidates.
+        """
         return EvalResourceWithRawResponse(self._alpha.eval)
 
     @cached_property
@@ -158,6 +183,14 @@ class AlphaResourceWithRawResponse:
 
     @cached_property
     def inference(self) -> InferenceResourceWithRawResponse:
+        """
+        Llama Stack Inference API for generating completions, chat completions, and embeddings.
+
+        This API provides the raw interface to the underlying models. Three kinds of models are supported:
+        - LLM models: these models generate "raw" and "chat" (conversational) completions.
+        - Embedding models: these models generate embeddings to be used for semantic search.
+        - Rerank models: these models reorder the documents based on their relevance to a query.
+        """
         return InferenceResourceWithRawResponse(self._alpha.inference)
 
 
@@ -175,6 +208,9 @@ class AsyncAlphaResourceWithRawResponse:
 
     @cached_property
     def eval(self) -> AsyncEvalResourceWithRawResponse:
+        """
+        Llama Stack Evaluation API for running evaluations on model and agent candidates.
+        """
         return AsyncEvalResourceWithRawResponse(self._alpha.eval)
 
     @cached_property
@@ -183,6 +219,14 @@ class AsyncAlphaResourceWithRawResponse:
 
     @cached_property
     def inference(self) -> AsyncInferenceResourceWithRawResponse:
+        """
+        Llama Stack Inference API for generating completions, chat completions, and embeddings.
+
+        This API provides the raw interface to the underlying models. Three kinds of models are supported:
+        - LLM models: these models generate "raw" and "chat" (conversational) completions.
+        - Embedding models: these models generate embeddings to be used for semantic search.
+        - Rerank models: these models reorder the documents based on their relevance to a query.
+        """
         return AsyncInferenceResourceWithRawResponse(self._alpha.inference)
 
 
@@ -200,6 +244,9 @@ class AlphaResourceWithStreamingResponse:
 
     @cached_property
     def eval(self) -> EvalResourceWithStreamingResponse:
+        """
+        Llama Stack Evaluation API for running evaluations on model and agent candidates.
+        """
         return EvalResourceWithStreamingResponse(self._alpha.eval)
 
     @cached_property
@@ -208,6 +255,14 @@ class AlphaResourceWithStreamingResponse:
 
     @cached_property
     def inference(self) -> InferenceResourceWithStreamingResponse:
+        """
+        Llama Stack Inference API for generating completions, chat completions, and embeddings.
+
+        This API provides the raw interface to the underlying models. Three kinds of models are supported:
+        - LLM models: these models generate "raw" and "chat" (conversational) completions.
+        - Embedding models: these models generate embeddings to be used for semantic search.
+        - Rerank models: these models reorder the documents based on their relevance to a query.
+        """
         return InferenceResourceWithStreamingResponse(self._alpha.inference)
 
 
@@ -225,6 +280,9 @@ class AsyncAlphaResourceWithStreamingResponse:
 
     @cached_property
     def eval(self) -> AsyncEvalResourceWithStreamingResponse:
+        """
+        Llama Stack Evaluation API for running evaluations on model and agent candidates.
+        """
         return AsyncEvalResourceWithStreamingResponse(self._alpha.eval)
 
     @cached_property
@@ -233,4 +291,12 @@ class AsyncAlphaResourceWithStreamingResponse:
 
     @cached_property
     def inference(self) -> AsyncInferenceResourceWithStreamingResponse:
+        """
+        Llama Stack Inference API for generating completions, chat completions, and embeddings.
+
+        This API provides the raw interface to the underlying models. Three kinds of models are supported:
+        - LLM models: these models generate "raw" and "chat" (conversational) completions.
+        - Embedding models: these models generate embeddings to be used for semantic search.
+        - Rerank models: these models reorder the documents based on their relevance to a query.
+        """
         return AsyncInferenceResourceWithStreamingResponse(self._alpha.inference)

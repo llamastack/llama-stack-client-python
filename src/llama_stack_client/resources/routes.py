@@ -32,6 +32,10 @@ __all__ = ["RoutesResource", "AsyncRoutesResource"]
 
 
 class RoutesResource(SyncAPIResource):
+    """
+    APIs for inspecting the Llama Stack service, including health status, available API routes with methods and implementing providers.
+    """
+
     @cached_property
     def with_raw_response(self) -> RoutesResourceWithRawResponse:
         """
@@ -94,6 +98,10 @@ class RoutesResource(SyncAPIResource):
 
 
 class AsyncRoutesResource(AsyncAPIResource):
+    """
+    APIs for inspecting the Llama Stack service, including health status, available API routes with methods and implementing providers.
+    """
+
     @cached_property
     def with_raw_response(self) -> AsyncRoutesResourceWithRawResponse:
         """
