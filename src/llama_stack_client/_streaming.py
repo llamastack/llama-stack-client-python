@@ -9,7 +9,8 @@ from typing_extensions import Self, Protocol, TypeGuard, override, get_origin, r
 
 import httpx
 
-from ._utils import extract_type_var_from_base
+from ._utils import is_mapping, extract_type_var_from_base
+from ._exceptions import APIError
 
 if TYPE_CHECKING:
     from ._client import LlamaStackClient, AsyncLlamaStackClient
@@ -59,7 +60,25 @@ class Stream(Generic[_T]):
 
         try:
             for sse in iterator:
-                yield process_data(data=sse.json(), cast_to=cast_to, response=response)
+                if sse.data.startswith("[DONE]"):
+                    break
+
+                data = sse.json()
+                if is_mapping(data) and data.get("error"):
+                    message = None
+                    error = data.get("error")
+                    if is_mapping(error):
+                        message = error.get("message")
+                    if not message or not isinstance(message, str):
+                        message = "An error occurred during streaming"
+
+                    raise APIError(
+                        message=message,
+                        request=self.response.request,
+                        body=data["error"],
+                    )
+
+                yield process_data(data=data, cast_to=cast_to, response=response)
         finally:
             # Ensure the response is closed even if the consumer doesn't read all data
             response.close()
@@ -125,7 +144,25 @@ class AsyncStream(Generic[_T]):
 
         try:
             async for sse in iterator:
-                yield process_data(data=sse.json(), cast_to=cast_to, response=response)
+                if sse.data.startswith("[DONE]"):
+                    break
+
+                data = sse.json()
+                if is_mapping(data) and data.get("error"):
+                    message = None
+                    error = data.get("error")
+                    if is_mapping(error):
+                        message = error.get("message")
+                    if not message or not isinstance(message, str):
+                        message = "An error occurred during streaming"
+
+                    raise APIError(
+                        message=message,
+                        request=self.response.request,
+                        body=data["error"],
+                    )
+
+                yield process_data(data=data, cast_to=cast_to, response=response)
         finally:
             # Ensure the response is closed even if the consumer doesn't read all data
             await response.aclose()
