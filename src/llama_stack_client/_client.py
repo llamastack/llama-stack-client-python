@@ -158,6 +158,8 @@ class LlamaStackClient(SyncAPIClient):
             _strict_response_validation=_strict_response_validation,
         )
 
+        self._default_stream_cls = Stream
+
     @cached_property
     def toolgroups(self) -> ToolgroupsResource:
         from .resources.toolgroups import ToolgroupsResource
@@ -514,6 +516,8 @@ class AsyncLlamaStackClient(AsyncAPIClient):
             custom_query=default_query,
             _strict_response_validation=_strict_response_validation,
         )
+
+        self._default_stream_cls = AsyncStream
 
     @cached_property
     def toolgroups(self) -> AsyncToolgroupsResource:
