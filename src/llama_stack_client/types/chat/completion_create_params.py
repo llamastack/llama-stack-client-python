@@ -281,7 +281,7 @@ class MessageOpenAIAssistantMessageParamInputToolCall(TypedDict, total=False):
     """Must be 'function' to identify this as a function call."""
 
 
-class MessageOpenAIAssistantMessageParamInputTyped(TypedDict, total=False):
+class MessageOpenAIAssistantMessageParamInput(TypedDict, total=False, extra_items=object):  # type: ignore[call-arg]
     """
     A message containing the model's (assistant) response in an OpenAI-compatible chat completion request.
     """
@@ -299,11 +299,6 @@ class MessageOpenAIAssistantMessageParamInputTyped(TypedDict, total=False):
 
     tool_calls: Optional[Iterable[MessageOpenAIAssistantMessageParamInputToolCall]]
     """List of tool calls. Each tool call is an OpenAIChatCompletionToolCall object."""
-
-
-MessageOpenAIAssistantMessageParamInput: TypeAlias = Union[
-    MessageOpenAIAssistantMessageParamInputTyped, Dict[str, object]
-]
 
 
 class MessageOpenAIToolMessageParamContentListOpenAIChatCompletionContentPartTextParam(TypedDict, total=False):

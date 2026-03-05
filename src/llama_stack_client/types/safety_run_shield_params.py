@@ -8,7 +8,7 @@
 
 from __future__ import annotations
 
-from typing import Dict, Union, Iterable, Optional
+from typing import Union, Iterable, Optional
 from typing_extensions import Literal, Required, TypeAlias, TypedDict
 
 __all__ = [
@@ -200,7 +200,7 @@ class MessageOpenAIAssistantMessageParamInputToolCall(TypedDict, total=False):
     """Must be 'function' to identify this as a function call."""
 
 
-class MessageOpenAIAssistantMessageParamInputTyped(TypedDict, total=False):
+class MessageOpenAIAssistantMessageParamInput(TypedDict, total=False, extra_items=object):  # type: ignore[call-arg]
     """
     A message containing the model's (assistant) response in an OpenAI-compatible chat completion request.
     """
@@ -218,11 +218,6 @@ class MessageOpenAIAssistantMessageParamInputTyped(TypedDict, total=False):
 
     tool_calls: Optional[Iterable[MessageOpenAIAssistantMessageParamInputToolCall]]
     """List of tool calls. Each tool call is an OpenAIChatCompletionToolCall object."""
-
-
-MessageOpenAIAssistantMessageParamInput: TypeAlias = Union[
-    MessageOpenAIAssistantMessageParamInputTyped, Dict[str, object]
-]
 
 
 class MessageOpenAIToolMessageParamContentListOpenAIChatCompletionContentPartTextParam(TypedDict, total=False):
