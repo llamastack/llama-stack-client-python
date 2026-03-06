@@ -31,6 +31,13 @@ class ModelRetrieveResponse(BaseModel):
     api_model_type: Optional[Literal["llm", "embedding", "rerank"]] = FieldInfo(alias="model_type", default=None)
     """Enumeration of supported model types in Llama Stack."""
 
+    api_model_validation: Optional[bool] = FieldInfo(alias="model_validation", default=None)
+    """Enable model availability check during registration.
+
+    When false (default), validation is deferred to runtime and model is preserved
+    during provider refresh.
+    """
+
     provider_resource_id: Optional[str] = None
     """Unique identifier for this resource in the provider"""
 

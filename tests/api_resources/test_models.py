@@ -108,6 +108,7 @@ class TestModels:
                 model_id="model_id",
                 metadata={"foo": "bar"},
                 model_type="llm",
+                model_validation=True,
                 provider_id="provider_id",
                 provider_model_id="provider_model_id",
             )
@@ -268,6 +269,7 @@ class TestAsyncModels:
                 model_id="model_id",
                 metadata={"foo": "bar"},
                 model_type="llm",
+                model_validation=True,
                 provider_id="provider_id",
                 provider_model_id="provider_model_id",
             )

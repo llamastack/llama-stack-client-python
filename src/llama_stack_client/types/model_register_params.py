@@ -24,6 +24,13 @@ class ModelRegisterParams(TypedDict, total=False):
     model_type: Optional[Literal["llm", "embedding", "rerank"]]
     """Enumeration of supported model types in Llama Stack."""
 
+    model_validation: Optional[bool]
+    """Enable model availability check during registration.
+
+    When false (default), validation is deferred to runtime and model is preserved
+    during provider refresh.
+    """
+
     provider_id: Optional[str]
     """The identifier of the provider."""
 
