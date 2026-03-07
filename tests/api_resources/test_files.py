@@ -21,7 +21,7 @@ class TestFiles:
     @parametrize
     def test_method_create(self, client: LlamaStackClient) -> None:
         file = client.files.create(
-            file=b"raw file contents",
+            file=b"Example data",
             purpose="assistants",
         )
         assert_matches_type(File, file, path=["response"])
@@ -29,7 +29,7 @@ class TestFiles:
     @parametrize
     def test_method_create_with_all_params(self, client: LlamaStackClient) -> None:
         file = client.files.create(
-            file=b"raw file contents",
+            file=b"Example data",
             purpose="assistants",
             expires_after={
                 "anchor": "created_at",
@@ -41,7 +41,7 @@ class TestFiles:
     @parametrize
     def test_raw_response_create(self, client: LlamaStackClient) -> None:
         response = client.files.with_raw_response.create(
-            file=b"raw file contents",
+            file=b"Example data",
             purpose="assistants",
         )
 
@@ -53,7 +53,7 @@ class TestFiles:
     @parametrize
     def test_streaming_response_create(self, client: LlamaStackClient) -> None:
         with client.files.with_streaming_response.create(
-            file=b"raw file contents",
+            file=b"Example data",
             purpose="assistants",
         ) as response:
             assert not response.is_closed
@@ -222,7 +222,7 @@ class TestAsyncFiles:
     @parametrize
     async def test_method_create(self, async_client: AsyncLlamaStackClient) -> None:
         file = await async_client.files.create(
-            file=b"raw file contents",
+            file=b"Example data",
             purpose="assistants",
         )
         assert_matches_type(File, file, path=["response"])
@@ -230,7 +230,7 @@ class TestAsyncFiles:
     @parametrize
     async def test_method_create_with_all_params(self, async_client: AsyncLlamaStackClient) -> None:
         file = await async_client.files.create(
-            file=b"raw file contents",
+            file=b"Example data",
             purpose="assistants",
             expires_after={
                 "anchor": "created_at",
@@ -242,7 +242,7 @@ class TestAsyncFiles:
     @parametrize
     async def test_raw_response_create(self, async_client: AsyncLlamaStackClient) -> None:
         response = await async_client.files.with_raw_response.create(
-            file=b"raw file contents",
+            file=b"Example data",
             purpose="assistants",
         )
 
@@ -254,7 +254,7 @@ class TestAsyncFiles:
     @parametrize
     async def test_streaming_response_create(self, async_client: AsyncLlamaStackClient) -> None:
         async with async_client.files.with_streaming_response.create(
-            file=b"raw file contents",
+            file=b"Example data",
             purpose="assistants",
         ) as response:
             assert not response.is_closed
