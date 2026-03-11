@@ -40,22 +40,8 @@ from .benchmarks import (
     BenchmarksResourceWithStreamingResponse,
     AsyncBenchmarksResourceWithStreamingResponse,
 )
-from .post_training import (
-    PostTrainingResource,
-    AsyncPostTrainingResource,
-    PostTrainingResourceWithRawResponse,
-    AsyncPostTrainingResourceWithRawResponse,
-    PostTrainingResourceWithStreamingResponse,
-    AsyncPostTrainingResourceWithStreamingResponse,
-)
 
 __all__ = [
-    "PostTrainingResource",
-    "AsyncPostTrainingResource",
-    "PostTrainingResourceWithRawResponse",
-    "AsyncPostTrainingResourceWithRawResponse",
-    "PostTrainingResourceWithStreamingResponse",
-    "AsyncPostTrainingResourceWithStreamingResponse",
     "BenchmarksResource",
     "AsyncBenchmarksResource",
     "BenchmarksResourceWithRawResponse",

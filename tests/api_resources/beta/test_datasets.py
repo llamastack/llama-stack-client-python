@@ -184,7 +184,7 @@ class TestDatasets:
     def test_method_register(self, client: LlamaStackClient) -> None:
         with pytest.warns(DeprecationWarning):
             dataset = client.beta.datasets.register(
-                purpose="post-training/messages",
+                purpose="eval/question-answer",
                 source={
                     "uri": "uri",
                     "type": "uri",
@@ -197,7 +197,7 @@ class TestDatasets:
     def test_method_register_with_all_params(self, client: LlamaStackClient) -> None:
         with pytest.warns(DeprecationWarning):
             dataset = client.beta.datasets.register(
-                purpose="post-training/messages",
+                purpose="eval/question-answer",
                 source={
                     "uri": "uri",
                     "type": "uri",
@@ -212,7 +212,7 @@ class TestDatasets:
     def test_raw_response_register(self, client: LlamaStackClient) -> None:
         with pytest.warns(DeprecationWarning):
             response = client.beta.datasets.with_raw_response.register(
-                purpose="post-training/messages",
+                purpose="eval/question-answer",
                 source={
                     "uri": "uri",
                     "type": "uri",
@@ -228,7 +228,7 @@ class TestDatasets:
     def test_streaming_response_register(self, client: LlamaStackClient) -> None:
         with pytest.warns(DeprecationWarning):
             with client.beta.datasets.with_streaming_response.register(
-                purpose="post-training/messages",
+                purpose="eval/question-answer",
                 source={
                     "uri": "uri",
                     "type": "uri",
@@ -451,7 +451,7 @@ class TestAsyncDatasets:
     async def test_method_register(self, async_client: AsyncLlamaStackClient) -> None:
         with pytest.warns(DeprecationWarning):
             dataset = await async_client.beta.datasets.register(
-                purpose="post-training/messages",
+                purpose="eval/question-answer",
                 source={
                     "uri": "uri",
                     "type": "uri",
@@ -464,7 +464,7 @@ class TestAsyncDatasets:
     async def test_method_register_with_all_params(self, async_client: AsyncLlamaStackClient) -> None:
         with pytest.warns(DeprecationWarning):
             dataset = await async_client.beta.datasets.register(
-                purpose="post-training/messages",
+                purpose="eval/question-answer",
                 source={
                     "uri": "uri",
                     "type": "uri",
@@ -479,7 +479,7 @@ class TestAsyncDatasets:
     async def test_raw_response_register(self, async_client: AsyncLlamaStackClient) -> None:
         with pytest.warns(DeprecationWarning):
             response = await async_client.beta.datasets.with_raw_response.register(
-                purpose="post-training/messages",
+                purpose="eval/question-answer",
                 source={
                     "uri": "uri",
                     "type": "uri",
@@ -495,7 +495,7 @@ class TestAsyncDatasets:
     async def test_streaming_response_register(self, async_client: AsyncLlamaStackClient) -> None:
         with pytest.warns(DeprecationWarning):
             async with async_client.beta.datasets.with_streaming_response.register(
-                purpose="post-training/messages",
+                purpose="eval/question-answer",
                 source={
                     "uri": "uri",
                     "type": "uri",

@@ -221,7 +221,7 @@ class DatasetsResource(SyncAPIResource):
     def register(
         self,
         *,
-        purpose: Literal["post-training/messages", "eval/question-answer", "eval/messages-answer"],
+        purpose: Literal["eval/question-answer", "eval/messages-answer"],
         source: dataset_register_params.Source,
         dataset_id: Optional[str] | Omit = omit,
         metadata: Optional[Dict[str, object]] | Omit = omit,
@@ -499,7 +499,7 @@ class AsyncDatasetsResource(AsyncAPIResource):
     async def register(
         self,
         *,
-        purpose: Literal["post-training/messages", "eval/question-answer", "eval/messages-answer"],
+        purpose: Literal["eval/question-answer", "eval/messages-answer"],
         source: dataset_register_params.Source,
         dataset_id: Optional[str] | Omit = omit,
         metadata: Optional[Dict[str, object]] | Omit = omit,
