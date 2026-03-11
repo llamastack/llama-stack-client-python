@@ -96,8 +96,7 @@ class TestDatasets:
     @parametrize
     def test_method_appendrows(self, client: LlamaStackClient) -> None:
         dataset = client.beta.datasets.appendrows(
-            path_dataset_id="dataset_id",
-            body_dataset_id="dataset_id",
+            dataset_id="dataset_id",
             rows=[{"foo": "bar"}],
         )
         assert dataset is None
@@ -105,8 +104,7 @@ class TestDatasets:
     @parametrize
     def test_raw_response_appendrows(self, client: LlamaStackClient) -> None:
         response = client.beta.datasets.with_raw_response.appendrows(
-            path_dataset_id="dataset_id",
-            body_dataset_id="dataset_id",
+            dataset_id="dataset_id",
             rows=[{"foo": "bar"}],
         )
 
@@ -118,8 +116,7 @@ class TestDatasets:
     @parametrize
     def test_streaming_response_appendrows(self, client: LlamaStackClient) -> None:
         with client.beta.datasets.with_streaming_response.appendrows(
-            path_dataset_id="dataset_id",
-            body_dataset_id="dataset_id",
+            dataset_id="dataset_id",
             rows=[{"foo": "bar"}],
         ) as response:
             assert not response.is_closed
@@ -132,10 +129,9 @@ class TestDatasets:
 
     @parametrize
     def test_path_params_appendrows(self, client: LlamaStackClient) -> None:
-        with pytest.raises(ValueError, match=r"Expected a non-empty value for `path_dataset_id` but received ''"):
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `dataset_id` but received ''"):
             client.beta.datasets.with_raw_response.appendrows(
-                path_dataset_id="",
-                body_dataset_id="dataset_id",
+                dataset_id="",
                 rows=[{"foo": "bar"}],
             )
 
@@ -363,8 +359,7 @@ class TestAsyncDatasets:
     @parametrize
     async def test_method_appendrows(self, async_client: AsyncLlamaStackClient) -> None:
         dataset = await async_client.beta.datasets.appendrows(
-            path_dataset_id="dataset_id",
-            body_dataset_id="dataset_id",
+            dataset_id="dataset_id",
             rows=[{"foo": "bar"}],
         )
         assert dataset is None
@@ -372,8 +367,7 @@ class TestAsyncDatasets:
     @parametrize
     async def test_raw_response_appendrows(self, async_client: AsyncLlamaStackClient) -> None:
         response = await async_client.beta.datasets.with_raw_response.appendrows(
-            path_dataset_id="dataset_id",
-            body_dataset_id="dataset_id",
+            dataset_id="dataset_id",
             rows=[{"foo": "bar"}],
         )
 
@@ -385,8 +379,7 @@ class TestAsyncDatasets:
     @parametrize
     async def test_streaming_response_appendrows(self, async_client: AsyncLlamaStackClient) -> None:
         async with async_client.beta.datasets.with_streaming_response.appendrows(
-            path_dataset_id="dataset_id",
-            body_dataset_id="dataset_id",
+            dataset_id="dataset_id",
             rows=[{"foo": "bar"}],
         ) as response:
             assert not response.is_closed
@@ -399,10 +392,9 @@ class TestAsyncDatasets:
 
     @parametrize
     async def test_path_params_appendrows(self, async_client: AsyncLlamaStackClient) -> None:
-        with pytest.raises(ValueError, match=r"Expected a non-empty value for `path_dataset_id` but received ''"):
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `dataset_id` but received ''"):
             await async_client.beta.datasets.with_raw_response.appendrows(
-                path_dataset_id="",
-                body_dataset_id="dataset_id",
+                dataset_id="",
                 rows=[{"foo": "bar"}],
             )
 
