@@ -25,10 +25,10 @@ __all__ = [
 class ChoiceDeltaToolCallFunction(BaseModel):
     """Function call details for OpenAI-compatible tool calls."""
 
-    arguments: Optional[str] = None
+    arguments: str
     """Arguments to pass to the function as a JSON string."""
 
-    name: Optional[str] = None
+    name: str
     """Name of the function to call."""
 
 
@@ -60,7 +60,7 @@ class ChoiceDelta(BaseModel):
     refusal: Optional[str] = None
     """The refusal of the delta."""
 
-    role: Optional[str] = None
+    role: Optional[Literal["developer", "system", "user", "assistant", "tool"]] = None
     """The role of the delta."""
 
     tool_calls: Optional[List[ChoiceDeltaToolCall]] = None
@@ -134,9 +134,7 @@ class ChoiceLogprobsRefusal(BaseModel):
 
 
 class ChoiceLogprobs(BaseModel):
-    """
-    The log probabilities for the tokens in the message from an OpenAI-compatible chat completion response.
-    """
+    """The log probabilities for the tokens in the message."""
 
     content: Optional[List[ChoiceLogprobsContent]] = None
     """The log probabilities for the tokens in the message."""
@@ -158,10 +156,7 @@ class Choice(BaseModel):
     """The reason the model stopped generating."""
 
     logprobs: Optional[ChoiceLogprobs] = None
-    """
-    The log probabilities for the tokens in the message from an OpenAI-compatible
-    chat completion response.
-    """
+    """The log probabilities for the tokens in the message."""
 
 
 class UsageCompletionTokensDetails(BaseModel):
@@ -221,6 +216,9 @@ class ChatCompletionChunk(BaseModel):
 
     service_tier: Optional[str] = None
     """The service tier that was used for this response."""
+
+    system_fingerprint: Optional[str] = None
+    """System fingerprint for this completion chunk."""
 
     usage: Optional[Usage] = None
     """

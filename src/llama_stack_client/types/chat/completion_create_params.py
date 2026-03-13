@@ -252,10 +252,10 @@ class MessageOpenAIAssistantMessageParamInputContentListOpenAIChatCompletionCont
 class MessageOpenAIAssistantMessageParamInputToolCallFunction(TypedDict, total=False):
     """Function call details for OpenAI-compatible tool calls."""
 
-    arguments: Optional[str]
+    arguments: Required[str]
     """Arguments to pass to the function as a JSON string."""
 
-    name: Optional[str]
+    name: Required[str]
     """Name of the function to call."""
 
 
