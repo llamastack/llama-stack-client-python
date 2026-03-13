@@ -3,12 +3,12 @@
 -e .
 annotated-types==0.7.0
     # via pydantic
-anyio==4.12.0
+anyio==4.12.1
     # via
     #   httpx
     #   llama-stack-client
 black==26.1.0
-certifi==2025.11.12
+certifi==2026.1.4
     # via
     #   httpcore
     #   httpx
@@ -52,7 +52,7 @@ idna==3.11
     #   anyio
     #   httpx
     #   requests
-importlib-metadata==8.7.0
+importlib-metadata==8.7.1
 iniconfig==2.3.0
     # via pytest
 markdown-it-py==4.0.0
@@ -64,11 +64,11 @@ mypy-extensions==1.1.0
     # via
     #   black
     #   mypy
-nodeenv==1.9.1
+nodeenv==1.10.0
     # via
     #   pre-commit
     #   pyright
-numpy==2.4.1
+numpy==2.4.2
     # via pandas
 packaging==25.0
     # via
@@ -89,7 +89,7 @@ pluggy==1.6.0
 pre-commit==4.5.1
 prompt-toolkit==3.0.52
     # via llama-stack-client
-pyaml==25.7.0
+pyaml==26.2.1
     # via llama-stack-client
 pydantic==2.12.5
     # via llama-stack-client
@@ -100,7 +100,7 @@ pygments==2.19.2
     #   pytest
     #   rich
 pyright==1.1.399
-pytest==9.0.1
+pytest==9.0.2
     # via
     #   pytest-asyncio
     #   pytest-xdist
@@ -108,7 +108,7 @@ pytest-asyncio==1.3.0
 pytest-xdist==3.8.0
 python-dateutil==2.9.0.post0
     # via pandas
-pytokens==0.4.0
+pytokens==0.4.1
     # via black
 pyyaml==6.0.3
     # via
@@ -119,7 +119,7 @@ requests==2.32.5
 respx==0.22.0
 rich==14.2.0
     # via llama-stack-client
-ruff==0.14.7
+ruff==0.14.13
 six==1.17.0
     # via python-dateutil
 sniffio==1.3.1
@@ -128,8 +128,8 @@ termcolor==3.3.0
     # via
     #   fire
     #   llama-stack-client
-time-machine==3.1.0
-tqdm==4.67.1
+time-machine==3.2.0
+tqdm==4.67.3
     # via llama-stack-client
 typing-extensions==4.15.0
     # via
@@ -149,7 +149,7 @@ urllib3==2.6.3
     # via requests
 virtualenv==20.36.1
     # via pre-commit
-wcwidth==0.3.1
+wcwidth==0.6.0
     # via prompt-toolkit
 zipp==3.23.0
     # via importlib-metadata

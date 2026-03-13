@@ -191,7 +191,7 @@ class TestFileBatches:
             after="after",
             before="before",
             filter="filter",
-            limit=0,
+            limit=1,
             order="order",
         )
         assert_matches_type(SyncOpenAICursorPage[VectorStoreFile], file_batch, path=["response"])
@@ -406,7 +406,7 @@ class TestAsyncFileBatches:
             after="after",
             before="before",
             filter="filter",
-            limit=0,
+            limit=1,
             order="order",
         )
         assert_matches_type(AsyncOpenAICursorPage[VectorStoreFile], file_batch, path=["response"])

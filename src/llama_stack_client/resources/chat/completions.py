@@ -35,6 +35,15 @@ __all__ = ["CompletionsResource", "AsyncCompletionsResource"]
 
 
 class CompletionsResource(SyncAPIResource):
+    """
+    Llama Stack Inference API for generating completions, chat completions, and embeddings.
+
+    This API provides the raw interface to the underlying models. Three kinds of models are supported:
+    - LLM models: these models generate "raw" and "chat" (conversational) completions.
+    - Embedding models: these models generate embeddings to be used for semantic search.
+    - Rerank models: these models reorder the documents based on their relevance to a query.
+    """
+
     @cached_property
     def with_raw_response(self) -> CompletionsResourceWithRawResponse:
         """
@@ -70,10 +79,12 @@ class CompletionsResource(SyncAPIResource):
         n: Optional[int] | Omit = omit,
         parallel_tool_calls: Optional[bool] | Omit = omit,
         presence_penalty: Optional[float] | Omit = omit,
+        prompt_cache_key: Optional[str] | Omit = omit,
         reasoning_effort: Optional[Literal["none", "minimal", "low", "medium", "high", "xhigh"]] | Omit = omit,
         response_format: Optional[completion_create_params.ResponseFormat] | Omit = omit,
         safety_identifier: Optional[str] | Omit = omit,
         seed: Optional[int] | Omit = omit,
+        service_tier: Optional[Literal["auto", "default", "flex", "priority"]] | Omit = omit,
         stop: Union[str, SequenceNotStr[str], None] | Omit = omit,
         stream: Optional[Literal[False]] | Omit = omit,
         stream_options: Optional[Dict[str, object]] | Omit = omit,
@@ -119,6 +130,8 @@ class CompletionsResource(SyncAPIResource):
 
           presence_penalty: The penalty for repeated tokens.
 
+          prompt_cache_key: A key to use when reading from or writing to the prompt cache.
+
           reasoning_effort: The effort level for reasoning models.
 
           response_format: The response format to use.
@@ -126,6 +139,8 @@ class CompletionsResource(SyncAPIResource):
           safety_identifier: A stable identifier used for safety monitoring and abuse detection.
 
           seed: The seed to use.
+
+          service_tier: The service tier for the request.
 
           stop: The stop tokens to use.
 
@@ -139,7 +154,7 @@ class CompletionsResource(SyncAPIResource):
 
           tools: The tools to use.
 
-          top_logprobs: The top log probabilities to use.
+          top_logprobs: The number of most likely tokens to return at each position.
 
           top_p: The top p to use.
 
@@ -172,10 +187,12 @@ class CompletionsResource(SyncAPIResource):
         n: Optional[int] | Omit = omit,
         parallel_tool_calls: Optional[bool] | Omit = omit,
         presence_penalty: Optional[float] | Omit = omit,
+        prompt_cache_key: Optional[str] | Omit = omit,
         reasoning_effort: Optional[Literal["none", "minimal", "low", "medium", "high", "xhigh"]] | Omit = omit,
         response_format: Optional[completion_create_params.ResponseFormat] | Omit = omit,
         safety_identifier: Optional[str] | Omit = omit,
         seed: Optional[int] | Omit = omit,
+        service_tier: Optional[Literal["auto", "default", "flex", "priority"]] | Omit = omit,
         stop: Union[str, SequenceNotStr[str], None] | Omit = omit,
         stream_options: Optional[Dict[str, object]] | Omit = omit,
         temperature: Optional[float] | Omit = omit,
@@ -222,6 +239,8 @@ class CompletionsResource(SyncAPIResource):
 
           presence_penalty: The penalty for repeated tokens.
 
+          prompt_cache_key: A key to use when reading from or writing to the prompt cache.
+
           reasoning_effort: The effort level for reasoning models.
 
           response_format: The response format to use.
@@ -229,6 +248,8 @@ class CompletionsResource(SyncAPIResource):
           safety_identifier: A stable identifier used for safety monitoring and abuse detection.
 
           seed: The seed to use.
+
+          service_tier: The service tier for the request.
 
           stop: The stop tokens to use.
 
@@ -240,7 +261,7 @@ class CompletionsResource(SyncAPIResource):
 
           tools: The tools to use.
 
-          top_logprobs: The top log probabilities to use.
+          top_logprobs: The number of most likely tokens to return at each position.
 
           top_p: The top p to use.
 
@@ -273,10 +294,12 @@ class CompletionsResource(SyncAPIResource):
         n: Optional[int] | Omit = omit,
         parallel_tool_calls: Optional[bool] | Omit = omit,
         presence_penalty: Optional[float] | Omit = omit,
+        prompt_cache_key: Optional[str] | Omit = omit,
         reasoning_effort: Optional[Literal["none", "minimal", "low", "medium", "high", "xhigh"]] | Omit = omit,
         response_format: Optional[completion_create_params.ResponseFormat] | Omit = omit,
         safety_identifier: Optional[str] | Omit = omit,
         seed: Optional[int] | Omit = omit,
+        service_tier: Optional[Literal["auto", "default", "flex", "priority"]] | Omit = omit,
         stop: Union[str, SequenceNotStr[str], None] | Omit = omit,
         stream_options: Optional[Dict[str, object]] | Omit = omit,
         temperature: Optional[float] | Omit = omit,
@@ -323,6 +346,8 @@ class CompletionsResource(SyncAPIResource):
 
           presence_penalty: The penalty for repeated tokens.
 
+          prompt_cache_key: A key to use when reading from or writing to the prompt cache.
+
           reasoning_effort: The effort level for reasoning models.
 
           response_format: The response format to use.
@@ -330,6 +355,8 @@ class CompletionsResource(SyncAPIResource):
           safety_identifier: A stable identifier used for safety monitoring and abuse detection.
 
           seed: The seed to use.
+
+          service_tier: The service tier for the request.
 
           stop: The stop tokens to use.
 
@@ -341,7 +368,7 @@ class CompletionsResource(SyncAPIResource):
 
           tools: The tools to use.
 
-          top_logprobs: The top log probabilities to use.
+          top_logprobs: The number of most likely tokens to return at each position.
 
           top_p: The top p to use.
 
@@ -373,10 +400,12 @@ class CompletionsResource(SyncAPIResource):
         n: Optional[int] | Omit = omit,
         parallel_tool_calls: Optional[bool] | Omit = omit,
         presence_penalty: Optional[float] | Omit = omit,
+        prompt_cache_key: Optional[str] | Omit = omit,
         reasoning_effort: Optional[Literal["none", "minimal", "low", "medium", "high", "xhigh"]] | Omit = omit,
         response_format: Optional[completion_create_params.ResponseFormat] | Omit = omit,
         safety_identifier: Optional[str] | Omit = omit,
         seed: Optional[int] | Omit = omit,
+        service_tier: Optional[Literal["auto", "default", "flex", "priority"]] | Omit = omit,
         stop: Union[str, SequenceNotStr[str], None] | Omit = omit,
         stream: Optional[Literal[False]] | Literal[True] | Omit = omit,
         stream_options: Optional[Dict[str, object]] | Omit = omit,
@@ -409,10 +438,12 @@ class CompletionsResource(SyncAPIResource):
                     "n": n,
                     "parallel_tool_calls": parallel_tool_calls,
                     "presence_penalty": presence_penalty,
+                    "prompt_cache_key": prompt_cache_key,
                     "reasoning_effort": reasoning_effort,
                     "response_format": response_format,
                     "safety_identifier": safety_identifier,
                     "seed": seed,
+                    "service_tier": service_tier,
                     "stop": stop,
                     "stream": stream,
                     "stream_options": stream_options,
@@ -494,7 +525,7 @@ class CompletionsResource(SyncAPIResource):
 
           model: The model to filter by.
 
-          order: Sort order for paginated responses.
+          order: The order to sort the chat completions by: "asc" or "desc". Defaults to "desc".
 
           extra_headers: Send extra headers
 
@@ -526,6 +557,15 @@ class CompletionsResource(SyncAPIResource):
 
 
 class AsyncCompletionsResource(AsyncAPIResource):
+    """
+    Llama Stack Inference API for generating completions, chat completions, and embeddings.
+
+    This API provides the raw interface to the underlying models. Three kinds of models are supported:
+    - LLM models: these models generate "raw" and "chat" (conversational) completions.
+    - Embedding models: these models generate embeddings to be used for semantic search.
+    - Rerank models: these models reorder the documents based on their relevance to a query.
+    """
+
     @cached_property
     def with_raw_response(self) -> AsyncCompletionsResourceWithRawResponse:
         """
@@ -561,10 +601,12 @@ class AsyncCompletionsResource(AsyncAPIResource):
         n: Optional[int] | Omit = omit,
         parallel_tool_calls: Optional[bool] | Omit = omit,
         presence_penalty: Optional[float] | Omit = omit,
+        prompt_cache_key: Optional[str] | Omit = omit,
         reasoning_effort: Optional[Literal["none", "minimal", "low", "medium", "high", "xhigh"]] | Omit = omit,
         response_format: Optional[completion_create_params.ResponseFormat] | Omit = omit,
         safety_identifier: Optional[str] | Omit = omit,
         seed: Optional[int] | Omit = omit,
+        service_tier: Optional[Literal["auto", "default", "flex", "priority"]] | Omit = omit,
         stop: Union[str, SequenceNotStr[str], None] | Omit = omit,
         stream: Optional[Literal[False]] | Omit = omit,
         stream_options: Optional[Dict[str, object]] | Omit = omit,
@@ -610,6 +652,8 @@ class AsyncCompletionsResource(AsyncAPIResource):
 
           presence_penalty: The penalty for repeated tokens.
 
+          prompt_cache_key: A key to use when reading from or writing to the prompt cache.
+
           reasoning_effort: The effort level for reasoning models.
 
           response_format: The response format to use.
@@ -617,6 +661,8 @@ class AsyncCompletionsResource(AsyncAPIResource):
           safety_identifier: A stable identifier used for safety monitoring and abuse detection.
 
           seed: The seed to use.
+
+          service_tier: The service tier for the request.
 
           stop: The stop tokens to use.
 
@@ -630,7 +676,7 @@ class AsyncCompletionsResource(AsyncAPIResource):
 
           tools: The tools to use.
 
-          top_logprobs: The top log probabilities to use.
+          top_logprobs: The number of most likely tokens to return at each position.
 
           top_p: The top p to use.
 
@@ -663,10 +709,12 @@ class AsyncCompletionsResource(AsyncAPIResource):
         n: Optional[int] | Omit = omit,
         parallel_tool_calls: Optional[bool] | Omit = omit,
         presence_penalty: Optional[float] | Omit = omit,
+        prompt_cache_key: Optional[str] | Omit = omit,
         reasoning_effort: Optional[Literal["none", "minimal", "low", "medium", "high", "xhigh"]] | Omit = omit,
         response_format: Optional[completion_create_params.ResponseFormat] | Omit = omit,
         safety_identifier: Optional[str] | Omit = omit,
         seed: Optional[int] | Omit = omit,
+        service_tier: Optional[Literal["auto", "default", "flex", "priority"]] | Omit = omit,
         stop: Union[str, SequenceNotStr[str], None] | Omit = omit,
         stream_options: Optional[Dict[str, object]] | Omit = omit,
         temperature: Optional[float] | Omit = omit,
@@ -713,6 +761,8 @@ class AsyncCompletionsResource(AsyncAPIResource):
 
           presence_penalty: The penalty for repeated tokens.
 
+          prompt_cache_key: A key to use when reading from or writing to the prompt cache.
+
           reasoning_effort: The effort level for reasoning models.
 
           response_format: The response format to use.
@@ -720,6 +770,8 @@ class AsyncCompletionsResource(AsyncAPIResource):
           safety_identifier: A stable identifier used for safety monitoring and abuse detection.
 
           seed: The seed to use.
+
+          service_tier: The service tier for the request.
 
           stop: The stop tokens to use.
 
@@ -731,7 +783,7 @@ class AsyncCompletionsResource(AsyncAPIResource):
 
           tools: The tools to use.
 
-          top_logprobs: The top log probabilities to use.
+          top_logprobs: The number of most likely tokens to return at each position.
 
           top_p: The top p to use.
 
@@ -764,10 +816,12 @@ class AsyncCompletionsResource(AsyncAPIResource):
         n: Optional[int] | Omit = omit,
         parallel_tool_calls: Optional[bool] | Omit = omit,
         presence_penalty: Optional[float] | Omit = omit,
+        prompt_cache_key: Optional[str] | Omit = omit,
         reasoning_effort: Optional[Literal["none", "minimal", "low", "medium", "high", "xhigh"]] | Omit = omit,
         response_format: Optional[completion_create_params.ResponseFormat] | Omit = omit,
         safety_identifier: Optional[str] | Omit = omit,
         seed: Optional[int] | Omit = omit,
+        service_tier: Optional[Literal["auto", "default", "flex", "priority"]] | Omit = omit,
         stop: Union[str, SequenceNotStr[str], None] | Omit = omit,
         stream_options: Optional[Dict[str, object]] | Omit = omit,
         temperature: Optional[float] | Omit = omit,
@@ -814,6 +868,8 @@ class AsyncCompletionsResource(AsyncAPIResource):
 
           presence_penalty: The penalty for repeated tokens.
 
+          prompt_cache_key: A key to use when reading from or writing to the prompt cache.
+
           reasoning_effort: The effort level for reasoning models.
 
           response_format: The response format to use.
@@ -821,6 +877,8 @@ class AsyncCompletionsResource(AsyncAPIResource):
           safety_identifier: A stable identifier used for safety monitoring and abuse detection.
 
           seed: The seed to use.
+
+          service_tier: The service tier for the request.
 
           stop: The stop tokens to use.
 
@@ -832,7 +890,7 @@ class AsyncCompletionsResource(AsyncAPIResource):
 
           tools: The tools to use.
 
-          top_logprobs: The top log probabilities to use.
+          top_logprobs: The number of most likely tokens to return at each position.
 
           top_p: The top p to use.
 
@@ -864,10 +922,12 @@ class AsyncCompletionsResource(AsyncAPIResource):
         n: Optional[int] | Omit = omit,
         parallel_tool_calls: Optional[bool] | Omit = omit,
         presence_penalty: Optional[float] | Omit = omit,
+        prompt_cache_key: Optional[str] | Omit = omit,
         reasoning_effort: Optional[Literal["none", "minimal", "low", "medium", "high", "xhigh"]] | Omit = omit,
         response_format: Optional[completion_create_params.ResponseFormat] | Omit = omit,
         safety_identifier: Optional[str] | Omit = omit,
         seed: Optional[int] | Omit = omit,
+        service_tier: Optional[Literal["auto", "default", "flex", "priority"]] | Omit = omit,
         stop: Union[str, SequenceNotStr[str], None] | Omit = omit,
         stream: Optional[Literal[False]] | Literal[True] | Omit = omit,
         stream_options: Optional[Dict[str, object]] | Omit = omit,
@@ -900,10 +960,12 @@ class AsyncCompletionsResource(AsyncAPIResource):
                     "n": n,
                     "parallel_tool_calls": parallel_tool_calls,
                     "presence_penalty": presence_penalty,
+                    "prompt_cache_key": prompt_cache_key,
                     "reasoning_effort": reasoning_effort,
                     "response_format": response_format,
                     "safety_identifier": safety_identifier,
                     "seed": seed,
+                    "service_tier": service_tier,
                     "stop": stop,
                     "stream": stream,
                     "stream_options": stream_options,
@@ -985,7 +1047,7 @@ class AsyncCompletionsResource(AsyncAPIResource):
 
           model: The model to filter by.
 
-          order: Sort order for paginated responses.
+          order: The order to sort the chat completions by: "asc" or "desc". Defaults to "desc".
 
           extra_headers: Send extra headers
 

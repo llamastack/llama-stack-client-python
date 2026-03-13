@@ -9,6 +9,8 @@
 from typing import Dict, Union, Optional
 from typing_extensions import Literal, Annotated, TypeAlias
 
+from pydantic import Field as FieldInfo
+
 from ..._utils import PropertyInfo
 from ..._models import BaseModel
 
@@ -18,6 +20,8 @@ __all__ = [
     "ChunkingStrategyVectorStoreChunkingStrategyAuto",
     "ChunkingStrategyVectorStoreChunkingStrategyStatic",
     "ChunkingStrategyVectorStoreChunkingStrategyStaticStatic",
+    "ChunkingStrategyVectorStoreChunkingStrategyContextual",
+    "ChunkingStrategyVectorStoreChunkingStrategyContextualContextual",
     "LastError",
 ]
 
@@ -45,8 +49,57 @@ class ChunkingStrategyVectorStoreChunkingStrategyStatic(BaseModel):
     type: Optional[Literal["static"]] = None
 
 
+class ChunkingStrategyVectorStoreChunkingStrategyContextualContextual(BaseModel):
+    """Configuration for contextual chunking."""
+
+    chunk_overlap_tokens: Optional[int] = None
+    """Tokens to overlap between adjacent chunks.
+
+    Must be less than max_chunk_size_tokens.
+    """
+
+    context_prompt: Optional[str] = None
+    """Prompt template for contextual retrieval.
+
+    Uses WHOLE_DOCUMENT and CHUNK_CONTENT placeholders wrapped in double curly
+    braces.
+    """
+
+    max_chunk_size_tokens: Optional[int] = None
+    """Maximum tokens per chunk. Suggested ~700 to allow room for prepended context."""
+
+    max_concurrency: Optional[int] = None
+    """Maximum concurrent LLM calls. Falls back to config default if not provided."""
+
+    api_model_id: Optional[str] = FieldInfo(alias="model_id", default=None)
+    """LLM model for generating context.
+
+    Falls back to VectorStoresConfig.contextual_retrieval_params.model if not
+    provided.
+    """
+
+    timeout_seconds: Optional[int] = None
+    """Timeout per LLM call in seconds. Falls back to config default if not provided."""
+
+
+class ChunkingStrategyVectorStoreChunkingStrategyContextual(BaseModel):
+    """
+    Contextual chunking strategy that uses an LLM to situate chunks within the document.
+    """
+
+    contextual: ChunkingStrategyVectorStoreChunkingStrategyContextualContextual
+    """Configuration for contextual chunking."""
+
+    type: Optional[Literal["contextual"]] = None
+    """Strategy type identifier."""
+
+
 ChunkingStrategy: TypeAlias = Annotated[
-    Union[ChunkingStrategyVectorStoreChunkingStrategyAuto, ChunkingStrategyVectorStoreChunkingStrategyStatic],
+    Union[
+        ChunkingStrategyVectorStoreChunkingStrategyAuto,
+        ChunkingStrategyVectorStoreChunkingStrategyStatic,
+        ChunkingStrategyVectorStoreChunkingStrategyContextual,
+    ],
     PropertyInfo(discriminator="type"),
 ]
 

@@ -33,6 +33,10 @@ __all__ = ["FilesResource", "AsyncFilesResource"]
 
 
 class FilesResource(SyncAPIResource):
+    """
+    This API is used to upload documents that can be used with other Llama Stack APIs.
+    """
+
     @cached_property
     def with_raw_response(self) -> FilesResourceWithRawResponse:
         """
@@ -163,9 +167,9 @@ class FilesResource(SyncAPIResource):
 
           limit: Maximum number of files to return (1-10,000).
 
-          order: Sort order for paginated responses.
+          order: Sort order by created_at timestamp ('asc' or 'desc').
 
-          purpose: Valid purpose values for OpenAI Files API.
+          purpose: Filter files by purpose.
 
           extra_headers: Send extra headers
 
@@ -268,6 +272,10 @@ class FilesResource(SyncAPIResource):
 
 
 class AsyncFilesResource(AsyncAPIResource):
+    """
+    This API is used to upload documents that can be used with other Llama Stack APIs.
+    """
+
     @cached_property
     def with_raw_response(self) -> AsyncFilesResourceWithRawResponse:
         """
@@ -398,9 +406,9 @@ class AsyncFilesResource(AsyncAPIResource):
 
           limit: Maximum number of files to return (1-10,000).
 
-          order: Sort order for paginated responses.
+          order: Sort order by created_at timestamp ('asc' or 'desc').
 
-          purpose: Valid purpose values for OpenAI Files API.
+          purpose: Filter files by purpose.
 
           extra_headers: Send extra headers
 

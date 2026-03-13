@@ -80,6 +80,9 @@ class CompletionCreateParamsBase(TypedDict, total=False):
     presence_penalty: Optional[float]
     """The penalty for repeated tokens."""
 
+    prompt_cache_key: Optional[str]
+    """A key to use when reading from or writing to the prompt cache."""
+
     reasoning_effort: Optional[Literal["none", "minimal", "low", "medium", "high", "xhigh"]]
     """The effort level for reasoning models."""
 
@@ -91,6 +94,9 @@ class CompletionCreateParamsBase(TypedDict, total=False):
 
     seed: Optional[int]
     """The seed to use."""
+
+    service_tier: Optional[Literal["auto", "default", "flex", "priority"]]
+    """The service tier for the request."""
 
     stop: Union[str, SequenceNotStr[str], None]
     """The stop tokens to use."""
@@ -108,7 +114,7 @@ class CompletionCreateParamsBase(TypedDict, total=False):
     """The tools to use."""
 
     top_logprobs: Optional[int]
-    """The top log probabilities to use."""
+    """The number of most likely tokens to return at each position."""
 
     top_p: Optional[float]
     """The top p to use."""
@@ -275,7 +281,7 @@ class MessageOpenAIAssistantMessageParamInputToolCall(TypedDict, total=False):
     """Must be 'function' to identify this as a function call."""
 
 
-class MessageOpenAIAssistantMessageParamInput(TypedDict, total=False):
+class MessageOpenAIAssistantMessageParamInput(TypedDict, total=False, extra_items=object):  # type: ignore[call-arg]
     """
     A message containing the model's (assistant) response in an OpenAI-compatible chat completion request.
     """

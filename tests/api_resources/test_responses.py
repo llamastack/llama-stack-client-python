@@ -41,7 +41,9 @@ class TestResponses:
         response = client.responses.create(
             input="string",
             model="model",
+            background=True,
             conversation="conversation",
+            frequency_penalty=-2,
             guardrails=["string"],
             include=["web_search_call.action.sources"],
             instructions="instructions",
@@ -50,6 +52,7 @@ class TestResponses:
             max_tool_calls=1,
             metadata={"foo": "string"},
             parallel_tool_calls=True,
+            presence_penalty=-2,
             previous_response_id="previous_response_id",
             prompt={
                 "id": "id",
@@ -61,8 +64,10 @@ class TestResponses:
                 },
                 "version": "version",
             },
+            prompt_cache_key="prompt_cache_key",
             reasoning={"effort": "none"},
             safety_identifier="safety_identifier",
+            service_tier="auto",
             store=True,
             stream=False,
             temperature=0,
@@ -82,6 +87,9 @@ class TestResponses:
                     "type": "web_search",
                 }
             ],
+            top_logprobs=0,
+            top_p=0,
+            truncation="auto",
         )
         assert_matches_type(ResponseObject, response, path=["response"])
 
@@ -126,7 +134,9 @@ class TestResponses:
             input="string",
             model="model",
             stream=True,
+            background=True,
             conversation="conversation",
+            frequency_penalty=-2,
             guardrails=["string"],
             include=["web_search_call.action.sources"],
             instructions="instructions",
@@ -135,6 +145,7 @@ class TestResponses:
             max_tool_calls=1,
             metadata={"foo": "string"},
             parallel_tool_calls=True,
+            presence_penalty=-2,
             previous_response_id="previous_response_id",
             prompt={
                 "id": "id",
@@ -146,8 +157,10 @@ class TestResponses:
                 },
                 "version": "version",
             },
+            prompt_cache_key="prompt_cache_key",
             reasoning={"effort": "none"},
             safety_identifier="safety_identifier",
+            service_tier="auto",
             store=True,
             temperature=0,
             text={
@@ -166,6 +179,9 @@ class TestResponses:
                     "type": "web_search",
                 }
             ],
+            top_logprobs=0,
+            top_p=0,
+            truncation="auto",
         )
         response_stream.response.close()
 
@@ -326,7 +342,9 @@ class TestAsyncResponses:
         response = await async_client.responses.create(
             input="string",
             model="model",
+            background=True,
             conversation="conversation",
+            frequency_penalty=-2,
             guardrails=["string"],
             include=["web_search_call.action.sources"],
             instructions="instructions",
@@ -335,6 +353,7 @@ class TestAsyncResponses:
             max_tool_calls=1,
             metadata={"foo": "string"},
             parallel_tool_calls=True,
+            presence_penalty=-2,
             previous_response_id="previous_response_id",
             prompt={
                 "id": "id",
@@ -346,8 +365,10 @@ class TestAsyncResponses:
                 },
                 "version": "version",
             },
+            prompt_cache_key="prompt_cache_key",
             reasoning={"effort": "none"},
             safety_identifier="safety_identifier",
+            service_tier="auto",
             store=True,
             stream=False,
             temperature=0,
@@ -367,6 +388,9 @@ class TestAsyncResponses:
                     "type": "web_search",
                 }
             ],
+            top_logprobs=0,
+            top_p=0,
+            truncation="auto",
         )
         assert_matches_type(ResponseObject, response, path=["response"])
 
@@ -411,7 +435,9 @@ class TestAsyncResponses:
             input="string",
             model="model",
             stream=True,
+            background=True,
             conversation="conversation",
+            frequency_penalty=-2,
             guardrails=["string"],
             include=["web_search_call.action.sources"],
             instructions="instructions",
@@ -420,6 +446,7 @@ class TestAsyncResponses:
             max_tool_calls=1,
             metadata={"foo": "string"},
             parallel_tool_calls=True,
+            presence_penalty=-2,
             previous_response_id="previous_response_id",
             prompt={
                 "id": "id",
@@ -431,8 +458,10 @@ class TestAsyncResponses:
                 },
                 "version": "version",
             },
+            prompt_cache_key="prompt_cache_key",
             reasoning={"effort": "none"},
             safety_identifier="safety_identifier",
+            service_tier="auto",
             store=True,
             temperature=0,
             text={
@@ -451,6 +480,9 @@ class TestAsyncResponses:
                     "type": "web_search",
                 }
             ],
+            top_logprobs=0,
+            top_p=0,
+            truncation="auto",
         )
         await response_stream.response.aclose()
 

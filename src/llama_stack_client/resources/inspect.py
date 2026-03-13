@@ -27,6 +27,10 @@ __all__ = ["InspectResource", "AsyncInspectResource"]
 
 
 class InspectResource(SyncAPIResource):
+    """
+    APIs for inspecting the Llama Stack service, including health status, available API routes with methods and implementing providers.
+    """
+
     @cached_property
     def with_raw_response(self) -> InspectResourceWithRawResponse:
         """
@@ -86,6 +90,10 @@ class InspectResource(SyncAPIResource):
 
 
 class AsyncInspectResource(AsyncAPIResource):
+    """
+    APIs for inspecting the Llama Stack service, including health status, available API routes with methods and implementing providers.
+    """
+
     @cached_property
     def with_raw_response(self) -> AsyncInspectResourceWithRawResponse:
         """

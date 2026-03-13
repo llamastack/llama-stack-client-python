@@ -474,9 +474,9 @@ from llama_stack_client.types.alpha.post_training import (
 Methods:
 
 - <code title="get /v1alpha/post-training/jobs">client.alpha.post_training.job.<a href="./src/llama_stack_client/resources/alpha/post_training/job.py">list</a>() -> <a href="./src/llama_stack_client/types/alpha/post_training/job_list_response.py">JobListResponse</a></code>
-- <code title="get /v1alpha/post-training/job/artifacts">client.alpha.post_training.job.<a href="./src/llama_stack_client/resources/alpha/post_training/job.py">artifacts</a>() -> <a href="./src/llama_stack_client/types/alpha/post_training/job_artifacts_response.py">JobArtifactsResponse</a></code>
-- <code title="post /v1alpha/post-training/job/cancel">client.alpha.post_training.job.<a href="./src/llama_stack_client/resources/alpha/post_training/job.py">cancel</a>() -> None</code>
-- <code title="get /v1alpha/post-training/job/status">client.alpha.post_training.job.<a href="./src/llama_stack_client/resources/alpha/post_training/job.py">status</a>() -> <a href="./src/llama_stack_client/types/alpha/post_training/job_status_response.py">JobStatusResponse</a></code>
+- <code title="get /v1alpha/post-training/jobs/{job_uuid}/artifacts">client.alpha.post_training.job.<a href="./src/llama_stack_client/resources/alpha/post_training/job.py">artifacts</a>(job_uuid) -> <a href="./src/llama_stack_client/types/alpha/post_training/job_artifacts_response.py">JobArtifactsResponse</a></code>
+- <code title="post /v1alpha/post-training/jobs/{job_uuid}/cancel">client.alpha.post_training.job.<a href="./src/llama_stack_client/resources/alpha/post_training/job.py">cancel</a>(job_uuid) -> None</code>
+- <code title="get /v1alpha/post-training/jobs/{job_uuid}/status">client.alpha.post_training.job.<a href="./src/llama_stack_client/resources/alpha/post_training/job.py">status</a>(job_uuid) -> <a href="./src/llama_stack_client/types/alpha/post_training/job_status_response.py">JobStatusResponse</a></code>
 
 ## Benchmarks
 

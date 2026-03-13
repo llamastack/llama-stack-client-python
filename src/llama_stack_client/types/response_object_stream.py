@@ -139,6 +139,8 @@ class OpenAIResponseObjectStreamResponseCreated(BaseModel):
     response: ResponseObject
     """Complete OpenAI response object containing generation results and metadata."""
 
+    sequence_number: int
+
     type: Optional[Literal["response.created"]] = None
 
 
@@ -1711,6 +1713,8 @@ class OpenAIResponseObjectStreamResponseCompleted(BaseModel):
 
     response: ResponseObject
     """Complete OpenAI response object containing generation results and metadata."""
+
+    sequence_number: int
 
     type: Optional[Literal["response.completed"]] = None
 

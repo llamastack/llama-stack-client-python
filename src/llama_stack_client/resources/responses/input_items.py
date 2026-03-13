@@ -31,6 +31,8 @@ __all__ = ["InputItemsResource", "AsyncInputItemsResource"]
 
 
 class InputItemsResource(SyncAPIResource):
+    """APIs for creating and interacting with agentic systems."""
+
     @cached_property
     def with_raw_response(self) -> InputItemsResourceWithRawResponse:
         """
@@ -94,7 +96,7 @@ class InputItemsResource(SyncAPIResource):
           limit: A limit on the number of objects to be returned. Limit can range between 1 and
               100, and the default is 20.
 
-          order: Sort order for paginated responses.
+          order: The order to return the input items in.
 
           extra_headers: Send extra headers
 
@@ -129,6 +131,8 @@ class InputItemsResource(SyncAPIResource):
 
 
 class AsyncInputItemsResource(AsyncAPIResource):
+    """APIs for creating and interacting with agentic systems."""
+
     @cached_property
     def with_raw_response(self) -> AsyncInputItemsResourceWithRawResponse:
         """
@@ -192,7 +196,7 @@ class AsyncInputItemsResource(AsyncAPIResource):
           limit: A limit on the number of objects to be returned. Limit can range between 1 and
               100, and the default is 20.
 
-          order: Sort order for paginated responses.
+          order: The order to return the input items in.
 
           extra_headers: Send extra headers
 

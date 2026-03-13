@@ -29,6 +29,7 @@ from llama_stack_client import LlamaStackClient, AsyncLlamaStackClient, APIRespo
 from llama_stack_client._types import Omit
 from llama_stack_client._utils import asyncify
 from llama_stack_client._models import BaseModel, FinalRequestOptions
+from llama_stack_client._streaming import Stream, AsyncStream
 from llama_stack_client._exceptions import APIStatusError, APITimeoutError, APIResponseValidationError
 from llama_stack_client._base_client import (
     DEFAULT_TIMEOUT,
@@ -774,6 +775,17 @@ class TestLlamaStackClient:
             LlamaStackClient(base_url=base_url, _strict_response_validation=True, max_retries=cast(Any, None))
 
     @pytest.mark.respx(base_url=base_url)
+    def test_default_stream_cls(self, respx_mock: MockRouter, client: LlamaStackClient) -> None:
+        class Model(BaseModel):
+            name: str
+
+        respx_mock.post("/foo").mock(return_value=httpx.Response(200, json={"foo": "bar"}))
+
+        stream = client.post("/foo", cast_to=Model, stream=True, stream_cls=Stream[Model])
+        assert isinstance(stream, Stream)
+        stream.response.close()
+
+    @pytest.mark.respx(base_url=base_url)
     def test_received_text_for_expected_json(self, respx_mock: MockRouter) -> None:
         class Model(BaseModel):
             name: str
@@ -964,6 +976,14 @@ class TestLlamaStackClient:
     def test_proxy_environment_variables(self, monkeypatch: pytest.MonkeyPatch) -> None:
         # Test that the proxy environment variables are set correctly
         monkeypatch.setenv("HTTPS_PROXY", "https://example.org")
+        # Delete in case our environment has any proxy env vars set
+        monkeypatch.delenv("HTTP_PROXY", raising=False)
+        monkeypatch.delenv("ALL_PROXY", raising=False)
+        monkeypatch.delenv("NO_PROXY", raising=False)
+        monkeypatch.delenv("http_proxy", raising=False)
+        monkeypatch.delenv("https_proxy", raising=False)
+        monkeypatch.delenv("all_proxy", raising=False)
+        monkeypatch.delenv("no_proxy", raising=False)
 
         client = DefaultHttpxClient()
 
@@ -1678,6 +1698,17 @@ class TestAsyncLlamaStackClient:
             AsyncLlamaStackClient(base_url=base_url, _strict_response_validation=True, max_retries=cast(Any, None))
 
     @pytest.mark.respx(base_url=base_url)
+    async def test_default_stream_cls(self, respx_mock: MockRouter, async_client: AsyncLlamaStackClient) -> None:
+        class Model(BaseModel):
+            name: str
+
+        respx_mock.post("/foo").mock(return_value=httpx.Response(200, json={"foo": "bar"}))
+
+        stream = await async_client.post("/foo", cast_to=Model, stream=True, stream_cls=AsyncStream[Model])
+        assert isinstance(stream, AsyncStream)
+        await stream.response.aclose()
+
+    @pytest.mark.respx(base_url=base_url)
     async def test_received_text_for_expected_json(self, respx_mock: MockRouter) -> None:
         class Model(BaseModel):
             name: str
@@ -1876,6 +1907,14 @@ class TestAsyncLlamaStackClient:
     async def test_proxy_environment_variables(self, monkeypatch: pytest.MonkeyPatch) -> None:
         # Test that the proxy environment variables are set correctly
         monkeypatch.setenv("HTTPS_PROXY", "https://example.org")
+        # Delete in case our environment has any proxy env vars set
+        monkeypatch.delenv("HTTP_PROXY", raising=False)
+        monkeypatch.delenv("ALL_PROXY", raising=False)
+        monkeypatch.delenv("NO_PROXY", raising=False)
+        monkeypatch.delenv("http_proxy", raising=False)
+        monkeypatch.delenv("https_proxy", raising=False)
+        monkeypatch.delenv("all_proxy", raising=False)
+        monkeypatch.delenv("no_proxy", raising=False)
 
         client = DefaultAsyncHttpxClient()
 

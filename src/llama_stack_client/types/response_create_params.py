@@ -40,6 +40,10 @@ __all__ = [
     "InputListOpenAIResponseMessageUnionOpenAIResponseInputFunctionToolCallOutputOpenAIResponseMcpApprovalResponseOpenAIResponseOutputMessageMcpListToolsTool",
     "InputListOpenAIResponseMessageUnionOpenAIResponseInputFunctionToolCallOutputOpenAIResponseMcpApprovalResponseOpenAIResponseMcpApprovalRequest",
     "InputListOpenAIResponseMessageUnionOpenAIResponseInputFunctionToolCallOutputOpenAIResponseMcpApprovalResponseOpenAIResponseInputFunctionToolCallOutput",
+    "InputListOpenAIResponseMessageUnionOpenAIResponseInputFunctionToolCallOutputOpenAIResponseMcpApprovalResponseOpenAIResponseInputFunctionToolCallOutputOutputListOpenAIResponseInputMessageContentTextOpenAIResponseInputMessageContentImageOpenAIResponseInputMessageContentFile",
+    "InputListOpenAIResponseMessageUnionOpenAIResponseInputFunctionToolCallOutputOpenAIResponseMcpApprovalResponseOpenAIResponseInputFunctionToolCallOutputOutputListOpenAIResponseInputMessageContentTextOpenAIResponseInputMessageContentImageOpenAIResponseInputMessageContentFileOpenAIResponseInputMessageContentText",
+    "InputListOpenAIResponseMessageUnionOpenAIResponseInputFunctionToolCallOutputOpenAIResponseMcpApprovalResponseOpenAIResponseInputFunctionToolCallOutputOutputListOpenAIResponseInputMessageContentTextOpenAIResponseInputMessageContentImageOpenAIResponseInputMessageContentFileOpenAIResponseInputMessageContentImage",
+    "InputListOpenAIResponseMessageUnionOpenAIResponseInputFunctionToolCallOutputOpenAIResponseMcpApprovalResponseOpenAIResponseInputFunctionToolCallOutputOutputListOpenAIResponseInputMessageContentTextOpenAIResponseInputMessageContentImageOpenAIResponseInputMessageContentFileOpenAIResponseInputMessageContentFile",
     "InputListOpenAIResponseMessageUnionOpenAIResponseInputFunctionToolCallOutputOpenAIResponseMcpApprovalResponseOpenAIResponseMcpApprovalResponse",
     "Guardrail",
     "GuardrailResponseGuardrailSpec",
@@ -87,8 +91,17 @@ class ResponseCreateParamsBase(TypedDict, total=False):
     model: Required[str]
     """The underlying LLM used for completions."""
 
+    background: bool
+    """Whether to run the model response in the background.
+
+    When true, returns immediately with status 'queued'.
+    """
+
     conversation: Optional[str]
     """Optional ID of a conversation to add the response to."""
+
+    frequency_penalty: Optional[float]
+    """Penalizes new tokens based on their frequency in the text so far."""
 
     guardrails: Optional[SequenceNotStr[Guardrail]]
     """List of guardrails to apply during response generation."""
@@ -128,11 +141,17 @@ class ResponseCreateParamsBase(TypedDict, total=False):
     parallel_tool_calls: Optional[bool]
     """Whether to enable parallel tool calls."""
 
+    presence_penalty: Optional[float]
+    """Penalizes new tokens based on whether they appear in the text so far."""
+
     previous_response_id: Optional[str]
     """Optional ID of a previous response to continue from."""
 
     prompt: Optional[Prompt]
     """OpenAI compatible Prompt object that is used in OpenAI responses."""
+
+    prompt_cache_key: Optional[str]
+    """A key to use when reading from or writing to the prompt cache."""
 
     reasoning: Optional[Reasoning]
     """Configuration for reasoning effort in OpenAI responses.
@@ -142,6 +161,9 @@ class ResponseCreateParamsBase(TypedDict, total=False):
 
     safety_identifier: Optional[str]
     """A stable identifier used for safety monitoring and abuse detection."""
+
+    service_tier: Optional[Literal["auto", "default", "flex", "priority"]]
+    """The service tier for the request."""
 
     store: Optional[bool]
     """Whether to store the response in the database."""
@@ -157,6 +179,24 @@ class ResponseCreateParamsBase(TypedDict, total=False):
 
     tools: Optional[Iterable[Tool]]
     """List of tools available to the model."""
+
+    top_logprobs: Optional[int]
+    """
+    The number of most likely tokens to return at each position, along with their
+    log probabilities.
+    """
+
+    top_p: Optional[float]
+    """
+    Nucleus sampling parameter that controls response diversity (lower values
+    increase focus).
+    """
+
+    truncation: Optional[Literal["auto", "disabled"]]
+    """
+    Controls how the service truncates input when it exceeds the model context
+    window.
+    """
 
 
 class InputListOpenAIResponseMessageUnionOpenAIResponseInputFunctionToolCallOutputOpenAIResponseMcpApprovalResponseOpenAIResponseMessageInputContentListOpenAIResponseInputMessageContentTextOpenAIResponseInputMessageContentImageOpenAIResponseInputMessageContentFileOpenAIResponseInputMessageContentText(
@@ -508,6 +548,53 @@ class InputListOpenAIResponseMessageUnionOpenAIResponseInputFunctionToolCallOutp
     type: Literal["mcp_approval_request"]
 
 
+class InputListOpenAIResponseMessageUnionOpenAIResponseInputFunctionToolCallOutputOpenAIResponseMcpApprovalResponseOpenAIResponseInputFunctionToolCallOutputOutputListOpenAIResponseInputMessageContentTextOpenAIResponseInputMessageContentImageOpenAIResponseInputMessageContentFileOpenAIResponseInputMessageContentText(
+    TypedDict, total=False
+):
+    """Text content for input messages in OpenAI response format."""
+
+    text: Required[str]
+
+    type: Literal["input_text"]
+
+
+class InputListOpenAIResponseMessageUnionOpenAIResponseInputFunctionToolCallOutputOpenAIResponseMcpApprovalResponseOpenAIResponseInputFunctionToolCallOutputOutputListOpenAIResponseInputMessageContentTextOpenAIResponseInputMessageContentImageOpenAIResponseInputMessageContentFileOpenAIResponseInputMessageContentImage(
+    TypedDict, total=False
+):
+    """Image content for input messages in OpenAI response format."""
+
+    detail: Literal["low", "high", "auto"]
+
+    file_id: Optional[str]
+
+    image_url: Optional[str]
+
+    type: Literal["input_image"]
+
+
+class InputListOpenAIResponseMessageUnionOpenAIResponseInputFunctionToolCallOutputOpenAIResponseMcpApprovalResponseOpenAIResponseInputFunctionToolCallOutputOutputListOpenAIResponseInputMessageContentTextOpenAIResponseInputMessageContentImageOpenAIResponseInputMessageContentFileOpenAIResponseInputMessageContentFile(
+    TypedDict, total=False
+):
+    """File content for input messages in OpenAI response format."""
+
+    file_data: Optional[str]
+
+    file_id: Optional[str]
+
+    file_url: Optional[str]
+
+    filename: Optional[str]
+
+    type: Literal["input_file"]
+
+
+InputListOpenAIResponseMessageUnionOpenAIResponseInputFunctionToolCallOutputOpenAIResponseMcpApprovalResponseOpenAIResponseInputFunctionToolCallOutputOutputListOpenAIResponseInputMessageContentTextOpenAIResponseInputMessageContentImageOpenAIResponseInputMessageContentFile: TypeAlias = Union[
+    InputListOpenAIResponseMessageUnionOpenAIResponseInputFunctionToolCallOutputOpenAIResponseMcpApprovalResponseOpenAIResponseInputFunctionToolCallOutputOutputListOpenAIResponseInputMessageContentTextOpenAIResponseInputMessageContentImageOpenAIResponseInputMessageContentFileOpenAIResponseInputMessageContentText,
+    InputListOpenAIResponseMessageUnionOpenAIResponseInputFunctionToolCallOutputOpenAIResponseMcpApprovalResponseOpenAIResponseInputFunctionToolCallOutputOutputListOpenAIResponseInputMessageContentTextOpenAIResponseInputMessageContentImageOpenAIResponseInputMessageContentFileOpenAIResponseInputMessageContentImage,
+    InputListOpenAIResponseMessageUnionOpenAIResponseInputFunctionToolCallOutputOpenAIResponseMcpApprovalResponseOpenAIResponseInputFunctionToolCallOutputOutputListOpenAIResponseInputMessageContentTextOpenAIResponseInputMessageContentImageOpenAIResponseInputMessageContentFileOpenAIResponseInputMessageContentFile,
+]
+
+
 class InputListOpenAIResponseMessageUnionOpenAIResponseInputFunctionToolCallOutputOpenAIResponseMcpApprovalResponseOpenAIResponseInputFunctionToolCallOutput(
     TypedDict, total=False
 ):
@@ -517,7 +604,14 @@ class InputListOpenAIResponseMessageUnionOpenAIResponseInputFunctionToolCallOutp
 
     call_id: Required[str]
 
-    output: Required[str]
+    output: Required[
+        Union[
+            str,
+            Iterable[
+                InputListOpenAIResponseMessageUnionOpenAIResponseInputFunctionToolCallOutputOpenAIResponseMcpApprovalResponseOpenAIResponseInputFunctionToolCallOutputOutputListOpenAIResponseInputMessageContentTextOpenAIResponseInputMessageContentImageOpenAIResponseInputMessageContentFile
+            ],
+        ]
+    ]
 
     id: Optional[str]
 

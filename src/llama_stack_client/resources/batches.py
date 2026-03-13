@@ -35,6 +35,15 @@ __all__ = ["BatchesResource", "AsyncBatchesResource"]
 
 
 class BatchesResource(SyncAPIResource):
+    """
+    The API is designed to allow use of openai client libraries for seamless integration.
+
+    This API provides the following extensions:
+     - idempotent batch creation
+
+    Note: This API is currently under active development and may undergo changes.
+    """
+
     @cached_property
     def with_raw_response(self) -> BatchesResourceWithRawResponse:
         """
@@ -228,6 +237,15 @@ class BatchesResource(SyncAPIResource):
 
 
 class AsyncBatchesResource(AsyncAPIResource):
+    """
+    The API is designed to allow use of openai client libraries for seamless integration.
+
+    This API provides the following extensions:
+     - idempotent batch creation
+
+    Note: This API is currently under active development and may undergo changes.
+    """
+
     @cached_property
     def with_raw_response(self) -> AsyncBatchesResourceWithRawResponse:
         """

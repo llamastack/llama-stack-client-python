@@ -131,6 +131,7 @@ class ModelsResource(SyncAPIResource):
         model_id: str,
         metadata: Optional[Dict[str, object]] | Omit = omit,
         model_type: Optional[Literal["llm", "embedding", "rerank"]] | Omit = omit,
+        model_validation: Optional[bool] | Omit = omit,
         provider_id: Optional[str] | Omit = omit,
         provider_model_id: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -149,6 +150,10 @@ class ModelsResource(SyncAPIResource):
           metadata: Any additional metadata for this model.
 
           model_type: Enumeration of supported model types in Llama Stack.
+
+          model_validation: Enable model availability check during registration. When false (default),
+              validation is deferred to runtime and model is preserved during provider
+              refresh.
 
           provider_id: The identifier of the provider.
 
@@ -169,6 +174,7 @@ class ModelsResource(SyncAPIResource):
                     "model_id": model_id,
                     "metadata": metadata,
                     "model_type": model_type,
+                    "model_validation": model_validation,
                     "provider_id": provider_id,
                     "provider_model_id": provider_model_id,
                 },
@@ -307,6 +313,7 @@ class AsyncModelsResource(AsyncAPIResource):
         model_id: str,
         metadata: Optional[Dict[str, object]] | Omit = omit,
         model_type: Optional[Literal["llm", "embedding", "rerank"]] | Omit = omit,
+        model_validation: Optional[bool] | Omit = omit,
         provider_id: Optional[str] | Omit = omit,
         provider_model_id: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -325,6 +332,10 @@ class AsyncModelsResource(AsyncAPIResource):
           metadata: Any additional metadata for this model.
 
           model_type: Enumeration of supported model types in Llama Stack.
+
+          model_validation: Enable model availability check during registration. When false (default),
+              validation is deferred to runtime and model is preserved during provider
+              refresh.
 
           provider_id: The identifier of the provider.
 
@@ -345,6 +356,7 @@ class AsyncModelsResource(AsyncAPIResource):
                     "model_id": model_id,
                     "metadata": metadata,
                     "model_type": model_type,
+                    "model_validation": model_validation,
                     "provider_id": provider_id,
                     "provider_model_id": provider_model_id,
                 },

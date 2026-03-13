@@ -44,8 +44,11 @@ __all__ = ["ResponsesResource", "AsyncResponsesResource"]
 
 
 class ResponsesResource(SyncAPIResource):
+    """APIs for creating and interacting with agentic systems."""
+
     @cached_property
     def input_items(self) -> InputItemsResource:
+        """APIs for creating and interacting with agentic systems."""
         return InputItemsResource(self._client)
 
     @cached_property
@@ -78,7 +81,9 @@ class ResponsesResource(SyncAPIResource):
             ],
         ],
         model: str,
+        background: bool | Omit = omit,
         conversation: Optional[str] | Omit = omit,
+        frequency_penalty: Optional[float] | Omit = omit,
         guardrails: Optional[SequenceNotStr[response_create_params.Guardrail]] | Omit = omit,
         include: Optional[
             List[
@@ -100,16 +105,22 @@ class ResponsesResource(SyncAPIResource):
         max_tool_calls: Optional[int] | Omit = omit,
         metadata: Optional[Dict[str, str]] | Omit = omit,
         parallel_tool_calls: Optional[bool] | Omit = omit,
+        presence_penalty: Optional[float] | Omit = omit,
         previous_response_id: Optional[str] | Omit = omit,
         prompt: Optional[response_create_params.Prompt] | Omit = omit,
+        prompt_cache_key: Optional[str] | Omit = omit,
         reasoning: Optional[response_create_params.Reasoning] | Omit = omit,
         safety_identifier: Optional[str] | Omit = omit,
+        service_tier: Optional[Literal["auto", "default", "flex", "priority"]] | Omit = omit,
         store: Optional[bool] | Omit = omit,
         stream: Optional[Literal[False]] | Omit = omit,
         temperature: Optional[float] | Omit = omit,
         text: Optional[response_create_params.Text] | Omit = omit,
         tool_choice: Optional[response_create_params.ToolChoice] | Omit = omit,
         tools: Optional[Iterable[response_create_params.Tool]] | Omit = omit,
+        top_logprobs: Optional[int] | Omit = omit,
+        top_p: Optional[float] | Omit = omit,
+        truncation: Optional[Literal["auto", "disabled"]] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -125,7 +136,12 @@ class ResponsesResource(SyncAPIResource):
 
           model: The underlying LLM used for completions.
 
+          background: Whether to run the model response in the background. When true, returns
+              immediately with status 'queued'.
+
           conversation: Optional ID of a conversation to add the response to.
+
+          frequency_penalty: Penalizes new tokens based on their frequency in the text so far.
 
           guardrails: List of guardrails to apply during response generation.
 
@@ -143,15 +159,21 @@ class ResponsesResource(SyncAPIResource):
 
           parallel_tool_calls: Whether to enable parallel tool calls.
 
+          presence_penalty: Penalizes new tokens based on whether they appear in the text so far.
+
           previous_response_id: Optional ID of a previous response to continue from.
 
           prompt: OpenAI compatible Prompt object that is used in OpenAI responses.
+
+          prompt_cache_key: A key to use when reading from or writing to the prompt cache.
 
           reasoning: Configuration for reasoning effort in OpenAI responses.
 
               Controls how much reasoning the model performs before generating a response.
 
           safety_identifier: A stable identifier used for safety monitoring and abuse detection.
+
+          service_tier: The service tier for the request.
 
           store: Whether to store the response in the database.
 
@@ -164,6 +186,15 @@ class ResponsesResource(SyncAPIResource):
           tool_choice: How the model should select which tool to call (if any).
 
           tools: List of tools available to the model.
+
+          top_logprobs: The number of most likely tokens to return at each position, along with their
+              log probabilities.
+
+          top_p: Nucleus sampling parameter that controls response diversity (lower values
+              increase focus).
+
+          truncation: Controls how the service truncates input when it exceeds the model context
+              window.
 
           extra_headers: Send extra headers
 
@@ -187,7 +218,9 @@ class ResponsesResource(SyncAPIResource):
         ],
         model: str,
         stream: Literal[True],
+        background: bool | Omit = omit,
         conversation: Optional[str] | Omit = omit,
+        frequency_penalty: Optional[float] | Omit = omit,
         guardrails: Optional[SequenceNotStr[response_create_params.Guardrail]] | Omit = omit,
         include: Optional[
             List[
@@ -209,15 +242,21 @@ class ResponsesResource(SyncAPIResource):
         max_tool_calls: Optional[int] | Omit = omit,
         metadata: Optional[Dict[str, str]] | Omit = omit,
         parallel_tool_calls: Optional[bool] | Omit = omit,
+        presence_penalty: Optional[float] | Omit = omit,
         previous_response_id: Optional[str] | Omit = omit,
         prompt: Optional[response_create_params.Prompt] | Omit = omit,
+        prompt_cache_key: Optional[str] | Omit = omit,
         reasoning: Optional[response_create_params.Reasoning] | Omit = omit,
         safety_identifier: Optional[str] | Omit = omit,
+        service_tier: Optional[Literal["auto", "default", "flex", "priority"]] | Omit = omit,
         store: Optional[bool] | Omit = omit,
         temperature: Optional[float] | Omit = omit,
         text: Optional[response_create_params.Text] | Omit = omit,
         tool_choice: Optional[response_create_params.ToolChoice] | Omit = omit,
         tools: Optional[Iterable[response_create_params.Tool]] | Omit = omit,
+        top_logprobs: Optional[int] | Omit = omit,
+        top_p: Optional[float] | Omit = omit,
+        truncation: Optional[Literal["auto", "disabled"]] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -235,7 +274,12 @@ class ResponsesResource(SyncAPIResource):
 
           stream: Whether to stream the response.
 
+          background: Whether to run the model response in the background. When true, returns
+              immediately with status 'queued'.
+
           conversation: Optional ID of a conversation to add the response to.
+
+          frequency_penalty: Penalizes new tokens based on their frequency in the text so far.
 
           guardrails: List of guardrails to apply during response generation.
 
@@ -253,15 +297,21 @@ class ResponsesResource(SyncAPIResource):
 
           parallel_tool_calls: Whether to enable parallel tool calls.
 
+          presence_penalty: Penalizes new tokens based on whether they appear in the text so far.
+
           previous_response_id: Optional ID of a previous response to continue from.
 
           prompt: OpenAI compatible Prompt object that is used in OpenAI responses.
+
+          prompt_cache_key: A key to use when reading from or writing to the prompt cache.
 
           reasoning: Configuration for reasoning effort in OpenAI responses.
 
               Controls how much reasoning the model performs before generating a response.
 
           safety_identifier: A stable identifier used for safety monitoring and abuse detection.
+
+          service_tier: The service tier for the request.
 
           store: Whether to store the response in the database.
 
@@ -272,6 +322,15 @@ class ResponsesResource(SyncAPIResource):
           tool_choice: How the model should select which tool to call (if any).
 
           tools: List of tools available to the model.
+
+          top_logprobs: The number of most likely tokens to return at each position, along with their
+              log probabilities.
+
+          top_p: Nucleus sampling parameter that controls response diversity (lower values
+              increase focus).
+
+          truncation: Controls how the service truncates input when it exceeds the model context
+              window.
 
           extra_headers: Send extra headers
 
@@ -295,7 +354,9 @@ class ResponsesResource(SyncAPIResource):
         ],
         model: str,
         stream: bool,
+        background: bool | Omit = omit,
         conversation: Optional[str] | Omit = omit,
+        frequency_penalty: Optional[float] | Omit = omit,
         guardrails: Optional[SequenceNotStr[response_create_params.Guardrail]] | Omit = omit,
         include: Optional[
             List[
@@ -317,15 +378,21 @@ class ResponsesResource(SyncAPIResource):
         max_tool_calls: Optional[int] | Omit = omit,
         metadata: Optional[Dict[str, str]] | Omit = omit,
         parallel_tool_calls: Optional[bool] | Omit = omit,
+        presence_penalty: Optional[float] | Omit = omit,
         previous_response_id: Optional[str] | Omit = omit,
         prompt: Optional[response_create_params.Prompt] | Omit = omit,
+        prompt_cache_key: Optional[str] | Omit = omit,
         reasoning: Optional[response_create_params.Reasoning] | Omit = omit,
         safety_identifier: Optional[str] | Omit = omit,
+        service_tier: Optional[Literal["auto", "default", "flex", "priority"]] | Omit = omit,
         store: Optional[bool] | Omit = omit,
         temperature: Optional[float] | Omit = omit,
         text: Optional[response_create_params.Text] | Omit = omit,
         tool_choice: Optional[response_create_params.ToolChoice] | Omit = omit,
         tools: Optional[Iterable[response_create_params.Tool]] | Omit = omit,
+        top_logprobs: Optional[int] | Omit = omit,
+        top_p: Optional[float] | Omit = omit,
+        truncation: Optional[Literal["auto", "disabled"]] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -343,7 +410,12 @@ class ResponsesResource(SyncAPIResource):
 
           stream: Whether to stream the response.
 
+          background: Whether to run the model response in the background. When true, returns
+              immediately with status 'queued'.
+
           conversation: Optional ID of a conversation to add the response to.
+
+          frequency_penalty: Penalizes new tokens based on their frequency in the text so far.
 
           guardrails: List of guardrails to apply during response generation.
 
@@ -361,15 +433,21 @@ class ResponsesResource(SyncAPIResource):
 
           parallel_tool_calls: Whether to enable parallel tool calls.
 
+          presence_penalty: Penalizes new tokens based on whether they appear in the text so far.
+
           previous_response_id: Optional ID of a previous response to continue from.
 
           prompt: OpenAI compatible Prompt object that is used in OpenAI responses.
+
+          prompt_cache_key: A key to use when reading from or writing to the prompt cache.
 
           reasoning: Configuration for reasoning effort in OpenAI responses.
 
               Controls how much reasoning the model performs before generating a response.
 
           safety_identifier: A stable identifier used for safety monitoring and abuse detection.
+
+          service_tier: The service tier for the request.
 
           store: Whether to store the response in the database.
 
@@ -380,6 +458,15 @@ class ResponsesResource(SyncAPIResource):
           tool_choice: How the model should select which tool to call (if any).
 
           tools: List of tools available to the model.
+
+          top_logprobs: The number of most likely tokens to return at each position, along with their
+              log probabilities.
+
+          top_p: Nucleus sampling parameter that controls response diversity (lower values
+              increase focus).
+
+          truncation: Controls how the service truncates input when it exceeds the model context
+              window.
 
           extra_headers: Send extra headers
 
@@ -402,7 +489,9 @@ class ResponsesResource(SyncAPIResource):
             ],
         ],
         model: str,
+        background: bool | Omit = omit,
         conversation: Optional[str] | Omit = omit,
+        frequency_penalty: Optional[float] | Omit = omit,
         guardrails: Optional[SequenceNotStr[response_create_params.Guardrail]] | Omit = omit,
         include: Optional[
             List[
@@ -424,16 +513,22 @@ class ResponsesResource(SyncAPIResource):
         max_tool_calls: Optional[int] | Omit = omit,
         metadata: Optional[Dict[str, str]] | Omit = omit,
         parallel_tool_calls: Optional[bool] | Omit = omit,
+        presence_penalty: Optional[float] | Omit = omit,
         previous_response_id: Optional[str] | Omit = omit,
         prompt: Optional[response_create_params.Prompt] | Omit = omit,
+        prompt_cache_key: Optional[str] | Omit = omit,
         reasoning: Optional[response_create_params.Reasoning] | Omit = omit,
         safety_identifier: Optional[str] | Omit = omit,
+        service_tier: Optional[Literal["auto", "default", "flex", "priority"]] | Omit = omit,
         store: Optional[bool] | Omit = omit,
         stream: Optional[Literal[False]] | Literal[True] | Omit = omit,
         temperature: Optional[float] | Omit = omit,
         text: Optional[response_create_params.Text] | Omit = omit,
         tool_choice: Optional[response_create_params.ToolChoice] | Omit = omit,
         tools: Optional[Iterable[response_create_params.Tool]] | Omit = omit,
+        top_logprobs: Optional[int] | Omit = omit,
+        top_p: Optional[float] | Omit = omit,
+        truncation: Optional[Literal["auto", "disabled"]] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -447,7 +542,9 @@ class ResponsesResource(SyncAPIResource):
                 {
                     "input": input,
                     "model": model,
+                    "background": background,
                     "conversation": conversation,
+                    "frequency_penalty": frequency_penalty,
                     "guardrails": guardrails,
                     "include": include,
                     "instructions": instructions,
@@ -456,16 +553,22 @@ class ResponsesResource(SyncAPIResource):
                     "max_tool_calls": max_tool_calls,
                     "metadata": metadata,
                     "parallel_tool_calls": parallel_tool_calls,
+                    "presence_penalty": presence_penalty,
                     "previous_response_id": previous_response_id,
                     "prompt": prompt,
+                    "prompt_cache_key": prompt_cache_key,
                     "reasoning": reasoning,
                     "safety_identifier": safety_identifier,
+                    "service_tier": service_tier,
                     "store": store,
                     "stream": stream,
                     "temperature": temperature,
                     "text": text,
                     "tool_choice": tool_choice,
                     "tools": tools,
+                    "top_logprobs": top_logprobs,
+                    "top_p": top_p,
+                    "truncation": truncation,
                 },
                 response_create_params.ResponseCreateParamsStreaming
                 if stream
@@ -538,7 +641,7 @@ class ResponsesResource(SyncAPIResource):
 
           model: The model to filter responses by.
 
-          order: Sort order for paginated responses.
+          order: The order to sort responses by when sorted by created_at ('asc' or 'desc').
 
           extra_headers: Send extra headers
 
@@ -606,8 +709,11 @@ class ResponsesResource(SyncAPIResource):
 
 
 class AsyncResponsesResource(AsyncAPIResource):
+    """APIs for creating and interacting with agentic systems."""
+
     @cached_property
     def input_items(self) -> AsyncInputItemsResource:
+        """APIs for creating and interacting with agentic systems."""
         return AsyncInputItemsResource(self._client)
 
     @cached_property
@@ -640,7 +746,9 @@ class AsyncResponsesResource(AsyncAPIResource):
             ],
         ],
         model: str,
+        background: bool | Omit = omit,
         conversation: Optional[str] | Omit = omit,
+        frequency_penalty: Optional[float] | Omit = omit,
         guardrails: Optional[SequenceNotStr[response_create_params.Guardrail]] | Omit = omit,
         include: Optional[
             List[
@@ -662,16 +770,22 @@ class AsyncResponsesResource(AsyncAPIResource):
         max_tool_calls: Optional[int] | Omit = omit,
         metadata: Optional[Dict[str, str]] | Omit = omit,
         parallel_tool_calls: Optional[bool] | Omit = omit,
+        presence_penalty: Optional[float] | Omit = omit,
         previous_response_id: Optional[str] | Omit = omit,
         prompt: Optional[response_create_params.Prompt] | Omit = omit,
+        prompt_cache_key: Optional[str] | Omit = omit,
         reasoning: Optional[response_create_params.Reasoning] | Omit = omit,
         safety_identifier: Optional[str] | Omit = omit,
+        service_tier: Optional[Literal["auto", "default", "flex", "priority"]] | Omit = omit,
         store: Optional[bool] | Omit = omit,
         stream: Optional[Literal[False]] | Omit = omit,
         temperature: Optional[float] | Omit = omit,
         text: Optional[response_create_params.Text] | Omit = omit,
         tool_choice: Optional[response_create_params.ToolChoice] | Omit = omit,
         tools: Optional[Iterable[response_create_params.Tool]] | Omit = omit,
+        top_logprobs: Optional[int] | Omit = omit,
+        top_p: Optional[float] | Omit = omit,
+        truncation: Optional[Literal["auto", "disabled"]] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -687,7 +801,12 @@ class AsyncResponsesResource(AsyncAPIResource):
 
           model: The underlying LLM used for completions.
 
+          background: Whether to run the model response in the background. When true, returns
+              immediately with status 'queued'.
+
           conversation: Optional ID of a conversation to add the response to.
+
+          frequency_penalty: Penalizes new tokens based on their frequency in the text so far.
 
           guardrails: List of guardrails to apply during response generation.
 
@@ -705,15 +824,21 @@ class AsyncResponsesResource(AsyncAPIResource):
 
           parallel_tool_calls: Whether to enable parallel tool calls.
 
+          presence_penalty: Penalizes new tokens based on whether they appear in the text so far.
+
           previous_response_id: Optional ID of a previous response to continue from.
 
           prompt: OpenAI compatible Prompt object that is used in OpenAI responses.
+
+          prompt_cache_key: A key to use when reading from or writing to the prompt cache.
 
           reasoning: Configuration for reasoning effort in OpenAI responses.
 
               Controls how much reasoning the model performs before generating a response.
 
           safety_identifier: A stable identifier used for safety monitoring and abuse detection.
+
+          service_tier: The service tier for the request.
 
           store: Whether to store the response in the database.
 
@@ -726,6 +851,15 @@ class AsyncResponsesResource(AsyncAPIResource):
           tool_choice: How the model should select which tool to call (if any).
 
           tools: List of tools available to the model.
+
+          top_logprobs: The number of most likely tokens to return at each position, along with their
+              log probabilities.
+
+          top_p: Nucleus sampling parameter that controls response diversity (lower values
+              increase focus).
+
+          truncation: Controls how the service truncates input when it exceeds the model context
+              window.
 
           extra_headers: Send extra headers
 
@@ -749,7 +883,9 @@ class AsyncResponsesResource(AsyncAPIResource):
         ],
         model: str,
         stream: Literal[True],
+        background: bool | Omit = omit,
         conversation: Optional[str] | Omit = omit,
+        frequency_penalty: Optional[float] | Omit = omit,
         guardrails: Optional[SequenceNotStr[response_create_params.Guardrail]] | Omit = omit,
         include: Optional[
             List[
@@ -771,15 +907,21 @@ class AsyncResponsesResource(AsyncAPIResource):
         max_tool_calls: Optional[int] | Omit = omit,
         metadata: Optional[Dict[str, str]] | Omit = omit,
         parallel_tool_calls: Optional[bool] | Omit = omit,
+        presence_penalty: Optional[float] | Omit = omit,
         previous_response_id: Optional[str] | Omit = omit,
         prompt: Optional[response_create_params.Prompt] | Omit = omit,
+        prompt_cache_key: Optional[str] | Omit = omit,
         reasoning: Optional[response_create_params.Reasoning] | Omit = omit,
         safety_identifier: Optional[str] | Omit = omit,
+        service_tier: Optional[Literal["auto", "default", "flex", "priority"]] | Omit = omit,
         store: Optional[bool] | Omit = omit,
         temperature: Optional[float] | Omit = omit,
         text: Optional[response_create_params.Text] | Omit = omit,
         tool_choice: Optional[response_create_params.ToolChoice] | Omit = omit,
         tools: Optional[Iterable[response_create_params.Tool]] | Omit = omit,
+        top_logprobs: Optional[int] | Omit = omit,
+        top_p: Optional[float] | Omit = omit,
+        truncation: Optional[Literal["auto", "disabled"]] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -797,7 +939,12 @@ class AsyncResponsesResource(AsyncAPIResource):
 
           stream: Whether to stream the response.
 
+          background: Whether to run the model response in the background. When true, returns
+              immediately with status 'queued'.
+
           conversation: Optional ID of a conversation to add the response to.
+
+          frequency_penalty: Penalizes new tokens based on their frequency in the text so far.
 
           guardrails: List of guardrails to apply during response generation.
 
@@ -815,15 +962,21 @@ class AsyncResponsesResource(AsyncAPIResource):
 
           parallel_tool_calls: Whether to enable parallel tool calls.
 
+          presence_penalty: Penalizes new tokens based on whether they appear in the text so far.
+
           previous_response_id: Optional ID of a previous response to continue from.
 
           prompt: OpenAI compatible Prompt object that is used in OpenAI responses.
+
+          prompt_cache_key: A key to use when reading from or writing to the prompt cache.
 
           reasoning: Configuration for reasoning effort in OpenAI responses.
 
               Controls how much reasoning the model performs before generating a response.
 
           safety_identifier: A stable identifier used for safety monitoring and abuse detection.
+
+          service_tier: The service tier for the request.
 
           store: Whether to store the response in the database.
 
@@ -834,6 +987,15 @@ class AsyncResponsesResource(AsyncAPIResource):
           tool_choice: How the model should select which tool to call (if any).
 
           tools: List of tools available to the model.
+
+          top_logprobs: The number of most likely tokens to return at each position, along with their
+              log probabilities.
+
+          top_p: Nucleus sampling parameter that controls response diversity (lower values
+              increase focus).
+
+          truncation: Controls how the service truncates input when it exceeds the model context
+              window.
 
           extra_headers: Send extra headers
 
@@ -857,7 +1019,9 @@ class AsyncResponsesResource(AsyncAPIResource):
         ],
         model: str,
         stream: bool,
+        background: bool | Omit = omit,
         conversation: Optional[str] | Omit = omit,
+        frequency_penalty: Optional[float] | Omit = omit,
         guardrails: Optional[SequenceNotStr[response_create_params.Guardrail]] | Omit = omit,
         include: Optional[
             List[
@@ -879,15 +1043,21 @@ class AsyncResponsesResource(AsyncAPIResource):
         max_tool_calls: Optional[int] | Omit = omit,
         metadata: Optional[Dict[str, str]] | Omit = omit,
         parallel_tool_calls: Optional[bool] | Omit = omit,
+        presence_penalty: Optional[float] | Omit = omit,
         previous_response_id: Optional[str] | Omit = omit,
         prompt: Optional[response_create_params.Prompt] | Omit = omit,
+        prompt_cache_key: Optional[str] | Omit = omit,
         reasoning: Optional[response_create_params.Reasoning] | Omit = omit,
         safety_identifier: Optional[str] | Omit = omit,
+        service_tier: Optional[Literal["auto", "default", "flex", "priority"]] | Omit = omit,
         store: Optional[bool] | Omit = omit,
         temperature: Optional[float] | Omit = omit,
         text: Optional[response_create_params.Text] | Omit = omit,
         tool_choice: Optional[response_create_params.ToolChoice] | Omit = omit,
         tools: Optional[Iterable[response_create_params.Tool]] | Omit = omit,
+        top_logprobs: Optional[int] | Omit = omit,
+        top_p: Optional[float] | Omit = omit,
+        truncation: Optional[Literal["auto", "disabled"]] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -905,7 +1075,12 @@ class AsyncResponsesResource(AsyncAPIResource):
 
           stream: Whether to stream the response.
 
+          background: Whether to run the model response in the background. When true, returns
+              immediately with status 'queued'.
+
           conversation: Optional ID of a conversation to add the response to.
+
+          frequency_penalty: Penalizes new tokens based on their frequency in the text so far.
 
           guardrails: List of guardrails to apply during response generation.
 
@@ -923,15 +1098,21 @@ class AsyncResponsesResource(AsyncAPIResource):
 
           parallel_tool_calls: Whether to enable parallel tool calls.
 
+          presence_penalty: Penalizes new tokens based on whether they appear in the text so far.
+
           previous_response_id: Optional ID of a previous response to continue from.
 
           prompt: OpenAI compatible Prompt object that is used in OpenAI responses.
+
+          prompt_cache_key: A key to use when reading from or writing to the prompt cache.
 
           reasoning: Configuration for reasoning effort in OpenAI responses.
 
               Controls how much reasoning the model performs before generating a response.
 
           safety_identifier: A stable identifier used for safety monitoring and abuse detection.
+
+          service_tier: The service tier for the request.
 
           store: Whether to store the response in the database.
 
@@ -942,6 +1123,15 @@ class AsyncResponsesResource(AsyncAPIResource):
           tool_choice: How the model should select which tool to call (if any).
 
           tools: List of tools available to the model.
+
+          top_logprobs: The number of most likely tokens to return at each position, along with their
+              log probabilities.
+
+          top_p: Nucleus sampling parameter that controls response diversity (lower values
+              increase focus).
+
+          truncation: Controls how the service truncates input when it exceeds the model context
+              window.
 
           extra_headers: Send extra headers
 
@@ -964,7 +1154,9 @@ class AsyncResponsesResource(AsyncAPIResource):
             ],
         ],
         model: str,
+        background: bool | Omit = omit,
         conversation: Optional[str] | Omit = omit,
+        frequency_penalty: Optional[float] | Omit = omit,
         guardrails: Optional[SequenceNotStr[response_create_params.Guardrail]] | Omit = omit,
         include: Optional[
             List[
@@ -986,16 +1178,22 @@ class AsyncResponsesResource(AsyncAPIResource):
         max_tool_calls: Optional[int] | Omit = omit,
         metadata: Optional[Dict[str, str]] | Omit = omit,
         parallel_tool_calls: Optional[bool] | Omit = omit,
+        presence_penalty: Optional[float] | Omit = omit,
         previous_response_id: Optional[str] | Omit = omit,
         prompt: Optional[response_create_params.Prompt] | Omit = omit,
+        prompt_cache_key: Optional[str] | Omit = omit,
         reasoning: Optional[response_create_params.Reasoning] | Omit = omit,
         safety_identifier: Optional[str] | Omit = omit,
+        service_tier: Optional[Literal["auto", "default", "flex", "priority"]] | Omit = omit,
         store: Optional[bool] | Omit = omit,
         stream: Optional[Literal[False]] | Literal[True] | Omit = omit,
         temperature: Optional[float] | Omit = omit,
         text: Optional[response_create_params.Text] | Omit = omit,
         tool_choice: Optional[response_create_params.ToolChoice] | Omit = omit,
         tools: Optional[Iterable[response_create_params.Tool]] | Omit = omit,
+        top_logprobs: Optional[int] | Omit = omit,
+        top_p: Optional[float] | Omit = omit,
+        truncation: Optional[Literal["auto", "disabled"]] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -1009,7 +1207,9 @@ class AsyncResponsesResource(AsyncAPIResource):
                 {
                     "input": input,
                     "model": model,
+                    "background": background,
                     "conversation": conversation,
+                    "frequency_penalty": frequency_penalty,
                     "guardrails": guardrails,
                     "include": include,
                     "instructions": instructions,
@@ -1018,16 +1218,22 @@ class AsyncResponsesResource(AsyncAPIResource):
                     "max_tool_calls": max_tool_calls,
                     "metadata": metadata,
                     "parallel_tool_calls": parallel_tool_calls,
+                    "presence_penalty": presence_penalty,
                     "previous_response_id": previous_response_id,
                     "prompt": prompt,
+                    "prompt_cache_key": prompt_cache_key,
                     "reasoning": reasoning,
                     "safety_identifier": safety_identifier,
+                    "service_tier": service_tier,
                     "store": store,
                     "stream": stream,
                     "temperature": temperature,
                     "text": text,
                     "tool_choice": tool_choice,
                     "tools": tools,
+                    "top_logprobs": top_logprobs,
+                    "top_p": top_p,
+                    "truncation": truncation,
                 },
                 response_create_params.ResponseCreateParamsStreaming
                 if stream
@@ -1100,7 +1306,7 @@ class AsyncResponsesResource(AsyncAPIResource):
 
           model: The model to filter responses by.
 
-          order: Sort order for paginated responses.
+          order: The order to sort responses by when sorted by created_at ('asc' or 'desc').
 
           extra_headers: Send extra headers
 
@@ -1186,6 +1392,7 @@ class ResponsesResourceWithRawResponse:
 
     @cached_property
     def input_items(self) -> InputItemsResourceWithRawResponse:
+        """APIs for creating and interacting with agentic systems."""
         return InputItemsResourceWithRawResponse(self._responses.input_items)
 
 
@@ -1208,6 +1415,7 @@ class AsyncResponsesResourceWithRawResponse:
 
     @cached_property
     def input_items(self) -> AsyncInputItemsResourceWithRawResponse:
+        """APIs for creating and interacting with agentic systems."""
         return AsyncInputItemsResourceWithRawResponse(self._responses.input_items)
 
 
@@ -1230,6 +1438,7 @@ class ResponsesResourceWithStreamingResponse:
 
     @cached_property
     def input_items(self) -> InputItemsResourceWithStreamingResponse:
+        """APIs for creating and interacting with agentic systems."""
         return InputItemsResourceWithStreamingResponse(self._responses.input_items)
 
 
@@ -1252,4 +1461,5 @@ class AsyncResponsesResourceWithStreamingResponse:
 
     @cached_property
     def input_items(self) -> AsyncInputItemsResourceWithStreamingResponse:
+        """APIs for creating and interacting with agentic systems."""
         return AsyncInputItemsResourceWithStreamingResponse(self._responses.input_items)

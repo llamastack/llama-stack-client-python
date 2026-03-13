@@ -31,6 +31,15 @@ __all__ = ["EmbeddingsResource", "AsyncEmbeddingsResource"]
 
 
 class EmbeddingsResource(SyncAPIResource):
+    """
+    Llama Stack Inference API for generating completions, chat completions, and embeddings.
+
+    This API provides the raw interface to the underlying models. Three kinds of models are supported:
+    - LLM models: these models generate "raw" and "chat" (conversational) completions.
+    - Embedding models: these models generate embeddings to be used for semantic search.
+    - Rerank models: these models reorder the documents based on their relevance to a query.
+    """
+
     @cached_property
     def with_raw_response(self) -> EmbeddingsResourceWithRawResponse:
         """
@@ -108,6 +117,15 @@ class EmbeddingsResource(SyncAPIResource):
 
 
 class AsyncEmbeddingsResource(AsyncAPIResource):
+    """
+    Llama Stack Inference API for generating completions, chat completions, and embeddings.
+
+    This API provides the raw interface to the underlying models. Three kinds of models are supported:
+    - LLM models: these models generate "raw" and "chat" (conversational) completions.
+    - Embedding models: these models generate embeddings to be used for semantic search.
+    - Rerank models: these models reorder the documents based on their relevance to a query.
+    """
+
     @cached_property
     def with_raw_response(self) -> AsyncEmbeddingsResourceWithRawResponse:
         """

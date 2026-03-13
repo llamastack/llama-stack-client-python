@@ -41,6 +41,10 @@ __all__ = [
     "InputOpenAIResponseOutputMessageMcpListToolsTool",
     "InputOpenAIResponseMcpApprovalRequest",
     "InputOpenAIResponseInputFunctionToolCallOutput",
+    "InputOpenAIResponseInputFunctionToolCallOutputOutputListOpenAIResponseInputMessageContentTextOpenAIResponseInputMessageContentImageOpenAIResponseInputMessageContentFile",
+    "InputOpenAIResponseInputFunctionToolCallOutputOutputListOpenAIResponseInputMessageContentTextOpenAIResponseInputMessageContentImageOpenAIResponseInputMessageContentFileOpenAIResponseInputMessageContentText",
+    "InputOpenAIResponseInputFunctionToolCallOutputOutputListOpenAIResponseInputMessageContentTextOpenAIResponseInputMessageContentImageOpenAIResponseInputMessageContentFileOpenAIResponseInputMessageContentImage",
+    "InputOpenAIResponseInputFunctionToolCallOutputOutputListOpenAIResponseInputMessageContentTextOpenAIResponseInputMessageContentImageOpenAIResponseInputMessageContentFileOpenAIResponseInputMessageContentFile",
     "InputOpenAIResponseMcpApprovalResponse",
     "Output",
     "OutputOpenAIResponseMessageOutput",
@@ -67,6 +71,7 @@ __all__ = [
     "OutputOpenAIResponseOutputMessageMcpListToolsTool",
     "OutputOpenAIResponseMcpApprovalRequest",
     "Error",
+    "IncompleteDetails",
     "Prompt",
     "PromptVariables",
     "PromptVariablesOpenAIResponseInputMessageContentText",
@@ -428,6 +433,56 @@ class InputOpenAIResponseMcpApprovalRequest(BaseModel):
     type: Optional[Literal["mcp_approval_request"]] = None
 
 
+class InputOpenAIResponseInputFunctionToolCallOutputOutputListOpenAIResponseInputMessageContentTextOpenAIResponseInputMessageContentImageOpenAIResponseInputMessageContentFileOpenAIResponseInputMessageContentText(
+    BaseModel
+):
+    """Text content for input messages in OpenAI response format."""
+
+    text: str
+
+    type: Optional[Literal["input_text"]] = None
+
+
+class InputOpenAIResponseInputFunctionToolCallOutputOutputListOpenAIResponseInputMessageContentTextOpenAIResponseInputMessageContentImageOpenAIResponseInputMessageContentFileOpenAIResponseInputMessageContentImage(
+    BaseModel
+):
+    """Image content for input messages in OpenAI response format."""
+
+    detail: Optional[Literal["low", "high", "auto"]] = None
+
+    file_id: Optional[str] = None
+
+    image_url: Optional[str] = None
+
+    type: Optional[Literal["input_image"]] = None
+
+
+class InputOpenAIResponseInputFunctionToolCallOutputOutputListOpenAIResponseInputMessageContentTextOpenAIResponseInputMessageContentImageOpenAIResponseInputMessageContentFileOpenAIResponseInputMessageContentFile(
+    BaseModel
+):
+    """File content for input messages in OpenAI response format."""
+
+    file_data: Optional[str] = None
+
+    file_id: Optional[str] = None
+
+    file_url: Optional[str] = None
+
+    filename: Optional[str] = None
+
+    type: Optional[Literal["input_file"]] = None
+
+
+InputOpenAIResponseInputFunctionToolCallOutputOutputListOpenAIResponseInputMessageContentTextOpenAIResponseInputMessageContentImageOpenAIResponseInputMessageContentFile: TypeAlias = Annotated[
+    Union[
+        InputOpenAIResponseInputFunctionToolCallOutputOutputListOpenAIResponseInputMessageContentTextOpenAIResponseInputMessageContentImageOpenAIResponseInputMessageContentFileOpenAIResponseInputMessageContentText,
+        InputOpenAIResponseInputFunctionToolCallOutputOutputListOpenAIResponseInputMessageContentTextOpenAIResponseInputMessageContentImageOpenAIResponseInputMessageContentFileOpenAIResponseInputMessageContentImage,
+        InputOpenAIResponseInputFunctionToolCallOutputOutputListOpenAIResponseInputMessageContentTextOpenAIResponseInputMessageContentImageOpenAIResponseInputMessageContentFileOpenAIResponseInputMessageContentFile,
+    ],
+    PropertyInfo(discriminator="type"),
+]
+
+
 class InputOpenAIResponseInputFunctionToolCallOutput(BaseModel):
     """
     This represents the output of a function call that gets passed back to the model.
@@ -435,7 +490,12 @@ class InputOpenAIResponseInputFunctionToolCallOutput(BaseModel):
 
     call_id: str
 
-    output: str
+    output: Union[
+        str,
+        List[
+            InputOpenAIResponseInputFunctionToolCallOutputOutputListOpenAIResponseInputMessageContentTextOpenAIResponseInputMessageContentImageOpenAIResponseInputMessageContentFile
+        ],
+    ]
 
     id: Optional[str] = None
 
@@ -826,6 +886,12 @@ class Error(BaseModel):
     message: str
 
 
+class IncompleteDetails(BaseModel):
+    """Details explaining why a response was incomplete."""
+
+    reason: str
+
+
 class PromptVariablesOpenAIResponseInputMessageContentText(BaseModel):
     """Text content for input messages in OpenAI response format."""
 
@@ -1144,10 +1210,17 @@ class ResponseListResponse(BaseModel):
 
     store: bool
 
+    background: Optional[bool] = None
+
     completed_at: Optional[int] = None
 
     error: Optional[Error] = None
     """Error details for failed OpenAI response requests."""
+
+    frequency_penalty: Optional[float] = None
+
+    incomplete_details: Optional[IncompleteDetails] = None
+    """Details explaining why a response was incomplete."""
 
     instructions: Optional[str] = None
 
@@ -1161,10 +1234,14 @@ class ResponseListResponse(BaseModel):
 
     parallel_tool_calls: Optional[bool] = None
 
+    presence_penalty: Optional[float] = None
+
     previous_response_id: Optional[str] = None
 
     prompt: Optional[Prompt] = None
     """OpenAI compatible Prompt object that is used in OpenAI responses."""
+
+    prompt_cache_key: Optional[str] = None
 
     reasoning: Optional[Reasoning] = None
     """Configuration for reasoning effort in OpenAI responses.
@@ -1173,6 +1250,8 @@ class ResponseListResponse(BaseModel):
     """
 
     safety_identifier: Optional[str] = None
+
+    service_tier: Optional[str] = None
 
     temperature: Optional[float] = None
 
@@ -1183,6 +1262,8 @@ class ResponseListResponse(BaseModel):
     """Constrains the tools available to the model to a pre-defined set."""
 
     tools: Optional[List[Tool]] = None
+
+    top_logprobs: Optional[int] = None
 
     top_p: Optional[float] = None
 

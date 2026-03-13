@@ -30,7 +30,7 @@ echo "==> Starting mock server with file ${SPEC_PATH}"
 if [ "$1" == "--daemon" ]; then
   npm exec --package=@mockoon/cli@9.3.0 -- mockoon-cli start --data "$SPEC_PATH" --port 4010 &>.mockoon.log &
 
-  # Wait for server to come online
+  # Wait for server to come online (max 30s)
   echo -n "Waiting for server"
   while ! grep -q "Error: \|Server started on port 4010" ".mockoon.log"; do
     echo -n "."

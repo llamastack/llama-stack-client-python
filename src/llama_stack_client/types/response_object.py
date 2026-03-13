@@ -41,6 +41,7 @@ __all__ = [
     "OutputOpenAIResponseOutputMessageMcpListToolsTool",
     "OutputOpenAIResponseMcpApprovalRequest",
     "Error",
+    "IncompleteDetails",
     "Prompt",
     "PromptVariables",
     "PromptVariablesOpenAIResponseInputMessageContentText",
@@ -424,6 +425,12 @@ class Error(BaseModel):
     message: str
 
 
+class IncompleteDetails(BaseModel):
+    """Details explaining why a response was incomplete."""
+
+    reason: str
+
+
 class PromptVariablesOpenAIResponseInputMessageContentText(BaseModel):
     """Text content for input messages in OpenAI response format."""
 
@@ -748,10 +755,17 @@ class ResponseObject(BaseModel):
 
     store: bool
 
+    background: Optional[bool] = None
+
     completed_at: Optional[int] = None
 
     error: Optional[Error] = None
     """Error details for failed OpenAI response requests."""
+
+    frequency_penalty: Optional[float] = None
+
+    incomplete_details: Optional[IncompleteDetails] = None
+    """Details explaining why a response was incomplete."""
 
     instructions: Optional[str] = None
 
@@ -765,10 +779,14 @@ class ResponseObject(BaseModel):
 
     parallel_tool_calls: Optional[bool] = None
 
+    presence_penalty: Optional[float] = None
+
     previous_response_id: Optional[str] = None
 
     prompt: Optional[Prompt] = None
     """OpenAI compatible Prompt object that is used in OpenAI responses."""
+
+    prompt_cache_key: Optional[str] = None
 
     reasoning: Optional[Reasoning] = None
     """Configuration for reasoning effort in OpenAI responses.
@@ -777,6 +795,8 @@ class ResponseObject(BaseModel):
     """
 
     safety_identifier: Optional[str] = None
+
+    service_tier: Optional[str] = None
 
     temperature: Optional[float] = None
 
@@ -787,6 +807,8 @@ class ResponseObject(BaseModel):
     """Constrains the tools available to the model to a pre-defined set."""
 
     tools: Optional[List[Tool]] = None
+
+    top_logprobs: Optional[int] = None
 
     top_p: Optional[float] = None
 
