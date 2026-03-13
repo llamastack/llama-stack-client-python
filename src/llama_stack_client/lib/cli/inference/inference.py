@@ -41,9 +41,7 @@ def chat_completion(ctx, message: str, stream: bool, session: bool, model_id: Op
 
     if not model_id:
         available_models = [
-            model.id
-            for model in client.models.list()
-            if (model.custom_metadata or {}).get("model_type") == "llm"
+            model.id for model in client.models.list() if (model.custom_metadata or {}).get("model_type") == "llm"
         ]
         model_id = available_models[0]
 
