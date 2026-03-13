@@ -54,20 +54,20 @@ __all__ = [
 class DataChoiceMessageFunctionCall(BaseModel):
     """Deprecated: the name and arguments of a function that should be called."""
 
-    arguments: Optional[str] = None
+    arguments: str
     """Arguments to pass to the function as a JSON string."""
 
-    name: Optional[str] = None
+    name: str
     """Name of the function to call."""
 
 
 class DataChoiceMessageToolCallFunction(BaseModel):
     """Function call details for OpenAI-compatible tool calls."""
 
-    arguments: Optional[str] = None
+    arguments: str
     """Arguments to pass to the function as a JSON string."""
 
-    name: Optional[str] = None
+    name: str
     """Name of the function to call."""
 
 
@@ -179,9 +179,7 @@ class DataChoiceLogprobsRefusal(BaseModel):
 
 
 class DataChoiceLogprobs(BaseModel):
-    """
-    The log probabilities for the tokens in the message from an OpenAI-compatible chat completion response.
-    """
+    """The log probabilities for the tokens in the message."""
 
     content: Optional[List[DataChoiceLogprobsContent]] = None
     """The log probabilities for the tokens in the message."""
@@ -203,10 +201,7 @@ class DataChoice(BaseModel):
     """The message from the model."""
 
     logprobs: Optional[DataChoiceLogprobs] = None
-    """
-    The log probabilities for the tokens in the message from an OpenAI-compatible
-    chat completion response.
-    """
+    """The log probabilities for the tokens in the message."""
 
 
 class DataInputMessageOpenAIUserMessageParamOutputContentListOpenAIChatCompletionContentPartTextParamOpenAIChatCompletionContentPartImageParamOpenAIFileOpenAIChatCompletionContentPartTextParam(
@@ -339,10 +334,10 @@ class DataInputMessageOpenAIAssistantMessageParamOutputContentListOpenAIChatComp
 class DataInputMessageOpenAIAssistantMessageParamOutputToolCallFunction(BaseModel):
     """Function call details for OpenAI-compatible tool calls."""
 
-    arguments: Optional[str] = None
+    arguments: str
     """Arguments to pass to the function as a JSON string."""
 
-    name: Optional[str] = None
+    name: str
     """Name of the function to call."""
 
 
@@ -512,6 +507,9 @@ class Data(BaseModel):
 
     service_tier: Optional[str] = None
     """The service tier that was used for this response."""
+
+    system_fingerprint: Optional[str] = None
+    """System fingerprint for this completion."""
 
     usage: Optional[DataUsage] = None
     """Token usage information for the completion."""
