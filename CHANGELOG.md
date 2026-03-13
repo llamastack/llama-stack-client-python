@@ -1,5 +1,60 @@
 # Changelog
 
+## 0.6.1-alpha.1 (2026-03-13)
+
+Full Changelog: [v0.5.0-alpha.2...v0.6.1-alpha.1](https://github.com/llamastack/llama-stack-client-python/compare/v0.5.0-alpha.2...v0.6.1-alpha.1)
+
+### ⚠ BREAKING CHANGES
+
+* improve consistency of post-training API endpoints
+
+### Features
+
+* accept list content blocks in Responses API function_call_output ([f6f1fc3](https://github.com/llamastack/llama-stack-client-python/commit/f6f1fc36008f4fdb7af19aa2aabfcd2482d4a1bc))
+* Add prompt_cache_key parameter support ([6b45699](https://github.com/llamastack/llama-stack-client-python/commit/6b45699185d934a5f8395c5cc3046f6c5aceb770))
+* add skip_model_availability to openai_mixin for remote models ([7ef952b](https://github.com/llamastack/llama-stack-client-python/commit/7ef952b78a5c1b8bd49509c9be7ba8781dfb7462))
+* add support for 'frequency_penalty' param to Responses API ([56d39cc](https://github.com/llamastack/llama-stack-client-python/commit/56d39cc9ff9d6f54e303fc377d605ae17bac9584))
+* add support for 'presence_penalty' param to Responses API ([4f57d15](https://github.com/llamastack/llama-stack-client-python/commit/4f57d159caba431676dced864f8f0871c3692f7b))
+* add support for /responses background parameter ([4f8bf45](https://github.com/llamastack/llama-stack-client-python/commit/4f8bf4526e529a74b9c53cac6df8e4beb2808d60))
+* Add top_logprobs parameter support ([2196986](https://github.com/llamastack/llama-stack-client-python/commit/21969867a82596e8be0aeeddbb6d8ccedf3e0f8b))
+* add top_p parameter support to responses API ([23e3b9f](https://github.com/llamastack/llama-stack-client-python/commit/23e3b9fcf7a23378c200604d0f57dc5a9e6a8527))
+* Add truncation parameter support ([7501365](https://github.com/llamastack/llama-stack-client-python/commit/7501365fe89795e87accfb6b1f2329da25d0efeb))
+* improve consistency of post-training API endpoints ([99057fd](https://github.com/llamastack/llama-stack-client-python/commit/99057fdc74bafdf54479674ba75b447cd4681cb6))
+* **inference:** bidirectional reasoning token passthrough for chat completions ([c314639](https://github.com/llamastack/llama-stack-client-python/commit/c314639b35a234ca340a08b5615a38ec838ab4f4))
+* **vector_io:** Implement Contextual Retrieval for improved RAG search quality ([89ec5a7](https://github.com/llamastack/llama-stack-client-python/commit/89ec5a7bf405e688bd404877e49ab1ee9b49bf7e))
+
+
+### Bug Fixes
+
+* align chat completion usage schema with OpenAI spec ([3974d5d](https://github.com/llamastack/llama-stack-client-python/commit/3974d5db8270e2548d0cdd54204c1603ca7a84a8))
+* Enabled models list works ([#314](https://github.com/llamastack/llama-stack-client-python/issues/314)) ([acd5e64](https://github.com/llamastack/llama-stack-client-python/commit/acd5e64a9e82083192a31f85f9c810291cabcadb))
+* **inference:** use flat response message model for chat/completions ([e58e2e4](https://github.com/llamastack/llama-stack-client-python/commit/e58e2e4dee9c9bbb72e4903e30f169991d10e545))
+* **responses:** achieve full OpenResponses conformance — 6/6 tests passing ([631ab2c](https://github.com/llamastack/llama-stack-client-python/commit/631ab2c19c7cd33ac81598a795ae8be93bdd5a4b))
+* **stainless:** handle [DONE] SSE terminator in streaming responses ([17f0029](https://github.com/llamastack/llama-stack-client-python/commit/17f0029a3bd6719c4f71ab7b14af8cac23f9e7f1))
+* **vector_io:** align Protocol signatures with request models ([ea58fd8](https://github.com/llamastack/llama-stack-client-python/commit/ea58fd88201ef59e580443688100cafe45f305c0))
+
+
+### Chores
+
+* **api:** minor updates ([17a2705](https://github.com/llamastack/llama-stack-client-python/commit/17a270528b503591de15f9e9fcbc378007b75eda))
+* **ci:** bump uv version ([f014d4c](https://github.com/llamastack/llama-stack-client-python/commit/f014d4ca0301a48078c4692cfa828016cb92c52e))
+* **ci:** skip uploading artifacts on stainless-internal branches ([dbddad9](https://github.com/llamastack/llama-stack-client-python/commit/dbddad9711a0ba0d2396a654e5b5220537acfc6b))
+* **docs:** add missing descriptions ([f1a093b](https://github.com/llamastack/llama-stack-client-python/commit/f1a093b71b5ae56f23143268ab68d851b6336ae9))
+* format all `api.md` files ([0e3e262](https://github.com/llamastack/llama-stack-client-python/commit/0e3e2626081ca9268297742990368c7ed6493b40))
+* **internal:** add request options to SSE classes ([2ecc682](https://github.com/llamastack/llama-stack-client-python/commit/2ecc682c1fccc86c643ad3da40e5134352745525))
+* **internal:** bump dependencies ([612291e](https://github.com/llamastack/llama-stack-client-python/commit/612291e2142b710cdd643af16bbe83e514f7a44e))
+* **internal:** fix lint error on Python 3.14 ([a0f6975](https://github.com/llamastack/llama-stack-client-python/commit/a0f69750827b016bb27a52bdd77fcbbacd311020))
+* **internal:** make `test_proxy_environment_variables` more resilient ([6bc2bb4](https://github.com/llamastack/llama-stack-client-python/commit/6bc2bb4e81b16d23e20090f45dbd8a53a63c158d))
+* **internal:** make `test_proxy_environment_variables` more resilient to env ([44bbae1](https://github.com/llamastack/llama-stack-client-python/commit/44bbae12bb8b4f72d1fb50db29bedd69f30340b7))
+* **test:** do not count install time for mock server timeout ([185de33](https://github.com/llamastack/llama-stack-client-python/commit/185de33c3b15256972df173610aa2d0d2fcb5f87))
+* update mock server docs ([92cb087](https://github.com/llamastack/llama-stack-client-python/commit/92cb087355ffa1fd50e3a35b8e888853784c9fe9))
+* update placeholder string ([406b9bb](https://github.com/llamastack/llama-stack-client-python/commit/406b9bbd327d9ce4c2423a553c15d4a7889025f9))
+
+
+### Refactors
+
+* **types:** use `extra_items` from PEP 728 ([629ca09](https://github.com/llamastack/llama-stack-client-python/commit/629ca09b3c8ca32dc95082900e41df21c9dd4855))
+
 ## 0.5.0-alpha.2 (2026-02-05)
 
 Full Changelog: [v0.5.0-alpha.1...v0.5.0-alpha.2](https://github.com/llamastack/llama-stack-client-python/compare/v0.5.0-alpha.1...v0.5.0-alpha.2)
