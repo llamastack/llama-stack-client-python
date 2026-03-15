@@ -21,7 +21,7 @@ def list_eval_tasks(ctx):
     client = ctx.obj["client"]
     console = Console()
     headers = []
-    eval_tasks_list_response = client.eval_tasks.list()
+    eval_tasks_list_response = client.alpha.benchmarks.list()
     if eval_tasks_list_response and len(eval_tasks_list_response) > 0:
         headers = sorted(eval_tasks_list_response[0].__dict__.keys())
 

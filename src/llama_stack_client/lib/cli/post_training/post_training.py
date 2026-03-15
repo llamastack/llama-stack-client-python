@@ -44,7 +44,7 @@ def supervised_fine_tune(
     client = ctx.obj["client"]
     console = Console()
 
-    post_training_job = client.post_training.supervised_fine_tune(
+    post_training_job = client.alpha.post_training.supervised_fine_tune(
         job_uuid=job_uuid,
         model=model,
         algorithm_config=algorithm_config,
@@ -66,7 +66,7 @@ def get_training_jobs(ctx):
     client = ctx.obj["client"]
     console = Console()
 
-    post_training_jobs = client.post_training.job.list()
+    post_training_jobs = client.alpha.post_training.job.list()
     console.print([post_training_job.job_uuid for post_training_job in post_training_jobs])
 
 
@@ -80,7 +80,7 @@ def get_training_job_status(ctx, job_uuid: str):
     client = ctx.obj["client"]
     console = Console()
 
-    job_status_reponse = client.post_training.job.status(job_uuid=job_uuid)
+    job_status_reponse = client.alpha.post_training.job.status(job_uuid=job_uuid)
     console.print(job_status_reponse)
 
 
@@ -94,7 +94,7 @@ def get_training_job_artifacts(ctx, job_uuid: str):
     client = ctx.obj["client"]
     console = Console()
 
-    job_artifacts = client.post_training.job.artifacts(job_uuid=job_uuid)
+    job_artifacts = client.alpha.post_training.job.artifacts(job_uuid=job_uuid)
     console.print(job_artifacts)
 
 
@@ -107,7 +107,7 @@ def cancel_training_job(ctx, job_uuid: str):
     """Cancel the training job"""
     client = ctx.obj["client"]
 
-    client.post_training.job.cancel(job_uuid=job_uuid)
+    client.alpha.post_training.job.cancel(job_uuid=job_uuid)
 
 
 # Register subcommands
