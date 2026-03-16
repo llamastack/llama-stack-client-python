@@ -108,6 +108,7 @@ class ResponsesResource(SyncAPIResource):
         service_tier: Optional[Literal["auto", "default", "flex", "priority"]] | Omit = omit,
         store: Optional[bool] | Omit = omit,
         stream: Optional[Literal[False]] | Omit = omit,
+        stream_options: Optional[response_create_params.StreamOptions] | Omit = omit,
         temperature: Optional[float] | Omit = omit,
         text: Optional[response_create_params.Text] | Omit = omit,
         tool_choice: Optional[response_create_params.ToolChoice] | Omit = omit,
@@ -172,6 +173,8 @@ class ResponsesResource(SyncAPIResource):
           store: Whether to store the response in the database.
 
           stream: Whether to stream the response.
+
+          stream_options: Options that control streamed response behavior.
 
           temperature: Sampling temperature.
 
@@ -244,6 +247,7 @@ class ResponsesResource(SyncAPIResource):
         safety_identifier: Optional[str] | Omit = omit,
         service_tier: Optional[Literal["auto", "default", "flex", "priority"]] | Omit = omit,
         store: Optional[bool] | Omit = omit,
+        stream_options: Optional[response_create_params.StreamOptions] | Omit = omit,
         temperature: Optional[float] | Omit = omit,
         text: Optional[response_create_params.Text] | Omit = omit,
         tool_choice: Optional[response_create_params.ToolChoice] | Omit = omit,
@@ -308,6 +312,8 @@ class ResponsesResource(SyncAPIResource):
           service_tier: The service tier for the request.
 
           store: Whether to store the response in the database.
+
+          stream_options: Options that control streamed response behavior.
 
           temperature: Sampling temperature.
 
@@ -380,6 +386,7 @@ class ResponsesResource(SyncAPIResource):
         safety_identifier: Optional[str] | Omit = omit,
         service_tier: Optional[Literal["auto", "default", "flex", "priority"]] | Omit = omit,
         store: Optional[bool] | Omit = omit,
+        stream_options: Optional[response_create_params.StreamOptions] | Omit = omit,
         temperature: Optional[float] | Omit = omit,
         text: Optional[response_create_params.Text] | Omit = omit,
         tool_choice: Optional[response_create_params.ToolChoice] | Omit = omit,
@@ -444,6 +451,8 @@ class ResponsesResource(SyncAPIResource):
           service_tier: The service tier for the request.
 
           store: Whether to store the response in the database.
+
+          stream_options: Options that control streamed response behavior.
 
           temperature: Sampling temperature.
 
@@ -516,6 +525,7 @@ class ResponsesResource(SyncAPIResource):
         service_tier: Optional[Literal["auto", "default", "flex", "priority"]] | Omit = omit,
         store: Optional[bool] | Omit = omit,
         stream: Optional[Literal[False]] | Literal[True] | Omit = omit,
+        stream_options: Optional[response_create_params.StreamOptions] | Omit = omit,
         temperature: Optional[float] | Omit = omit,
         text: Optional[response_create_params.Text] | Omit = omit,
         tool_choice: Optional[response_create_params.ToolChoice] | Omit = omit,
@@ -556,6 +566,7 @@ class ResponsesResource(SyncAPIResource):
                     "service_tier": service_tier,
                     "store": store,
                     "stream": stream,
+                    "stream_options": stream_options,
                     "temperature": temperature,
                     "text": text,
                     "tool_choice": tool_choice,
@@ -773,6 +784,7 @@ class AsyncResponsesResource(AsyncAPIResource):
         service_tier: Optional[Literal["auto", "default", "flex", "priority"]] | Omit = omit,
         store: Optional[bool] | Omit = omit,
         stream: Optional[Literal[False]] | Omit = omit,
+        stream_options: Optional[response_create_params.StreamOptions] | Omit = omit,
         temperature: Optional[float] | Omit = omit,
         text: Optional[response_create_params.Text] | Omit = omit,
         tool_choice: Optional[response_create_params.ToolChoice] | Omit = omit,
@@ -837,6 +849,8 @@ class AsyncResponsesResource(AsyncAPIResource):
           store: Whether to store the response in the database.
 
           stream: Whether to stream the response.
+
+          stream_options: Options that control streamed response behavior.
 
           temperature: Sampling temperature.
 
@@ -909,6 +923,7 @@ class AsyncResponsesResource(AsyncAPIResource):
         safety_identifier: Optional[str] | Omit = omit,
         service_tier: Optional[Literal["auto", "default", "flex", "priority"]] | Omit = omit,
         store: Optional[bool] | Omit = omit,
+        stream_options: Optional[response_create_params.StreamOptions] | Omit = omit,
         temperature: Optional[float] | Omit = omit,
         text: Optional[response_create_params.Text] | Omit = omit,
         tool_choice: Optional[response_create_params.ToolChoice] | Omit = omit,
@@ -973,6 +988,8 @@ class AsyncResponsesResource(AsyncAPIResource):
           service_tier: The service tier for the request.
 
           store: Whether to store the response in the database.
+
+          stream_options: Options that control streamed response behavior.
 
           temperature: Sampling temperature.
 
@@ -1045,6 +1062,7 @@ class AsyncResponsesResource(AsyncAPIResource):
         safety_identifier: Optional[str] | Omit = omit,
         service_tier: Optional[Literal["auto", "default", "flex", "priority"]] | Omit = omit,
         store: Optional[bool] | Omit = omit,
+        stream_options: Optional[response_create_params.StreamOptions] | Omit = omit,
         temperature: Optional[float] | Omit = omit,
         text: Optional[response_create_params.Text] | Omit = omit,
         tool_choice: Optional[response_create_params.ToolChoice] | Omit = omit,
@@ -1109,6 +1127,8 @@ class AsyncResponsesResource(AsyncAPIResource):
           service_tier: The service tier for the request.
 
           store: Whether to store the response in the database.
+
+          stream_options: Options that control streamed response behavior.
 
           temperature: Sampling temperature.
 
@@ -1181,6 +1201,7 @@ class AsyncResponsesResource(AsyncAPIResource):
         service_tier: Optional[Literal["auto", "default", "flex", "priority"]] | Omit = omit,
         store: Optional[bool] | Omit = omit,
         stream: Optional[Literal[False]] | Literal[True] | Omit = omit,
+        stream_options: Optional[response_create_params.StreamOptions] | Omit = omit,
         temperature: Optional[float] | Omit = omit,
         text: Optional[response_create_params.Text] | Omit = omit,
         tool_choice: Optional[response_create_params.ToolChoice] | Omit = omit,
@@ -1221,6 +1242,7 @@ class AsyncResponsesResource(AsyncAPIResource):
                     "service_tier": service_tier,
                     "store": store,
                     "stream": stream,
+                    "stream_options": stream_options,
                     "temperature": temperature,
                     "text": text,
                     "tool_choice": tool_choice,

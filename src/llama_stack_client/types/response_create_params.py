@@ -47,6 +47,7 @@ __all__ = [
     "PromptVariablesOpenAIResponseInputMessageContentImage",
     "PromptVariablesOpenAIResponseInputMessageContentFile",
     "Reasoning",
+    "StreamOptions",
     "Text",
     "TextFormat",
     "ToolChoice",
@@ -161,6 +162,9 @@ class ResponseCreateParamsBase(TypedDict, total=False):
 
     store: Optional[bool]
     """Whether to store the response in the database."""
+
+    stream_options: Optional[StreamOptions]
+    """Options that control streamed response behavior."""
 
     temperature: Optional[float]
     """Sampling temperature."""
@@ -710,6 +714,13 @@ class Reasoning(TypedDict, total=False):
     """
 
     effort: Optional[Literal["none", "minimal", "low", "medium", "high", "xhigh"]]
+
+
+class StreamOptions(TypedDict, total=False):
+    """Options that control streamed response behavior."""
+
+    include_obfuscation: bool
+    """Whether to obfuscate sensitive information in streamed output."""
 
 
 class TextFormat(TypedDict, total=False):
