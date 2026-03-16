@@ -57,6 +57,7 @@ from .shield_list_response import ShieldListResponse as ShieldListResponse
 from .batch_cancel_response import BatchCancelResponse as BatchCancelResponse
 from .batch_create_response import BatchCreateResponse as BatchCreateResponse
 from .chat_completion_chunk import ChatCompletionChunk as ChatCompletionChunk
+from .file_content_response import FileContentResponse as FileContentResponse
 from .list_prompts_response import ListPromptsResponse as ListPromptsResponse
 from .list_shields_response import ListShieldsResponse as ListShieldsResponse
 from .model_register_params import ModelRegisterParams as ModelRegisterParams

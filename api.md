@@ -409,7 +409,12 @@ Methods:
 Types:
 
 ```python
-from llama_stack_client.types import DeleteFileResponse, File, ListFilesResponse
+from llama_stack_client.types import (
+    DeleteFileResponse,
+    File,
+    ListFilesResponse,
+    FileContentResponse,
+)
 ```
 
 Methods:
@@ -418,7 +423,7 @@ Methods:
 - <code title="get /v1/files/{file_id}">client.files.<a href="./src/llama_stack_client/resources/files.py">retrieve</a>(file_id) -> <a href="./src/llama_stack_client/types/file.py">File</a></code>
 - <code title="get /v1/files">client.files.<a href="./src/llama_stack_client/resources/files.py">list</a>(\*\*<a href="src/llama_stack_client/types/file_list_params.py">params</a>) -> <a href="./src/llama_stack_client/types/file.py">SyncOpenAICursorPage[File]</a></code>
 - <code title="delete /v1/files/{file_id}">client.files.<a href="./src/llama_stack_client/resources/files.py">delete</a>(file_id) -> <a href="./src/llama_stack_client/types/delete_file_response.py">DeleteFileResponse</a></code>
-- <code title="get /v1/files/{file_id}/content">client.files.<a href="./src/llama_stack_client/resources/files.py">content</a>(file_id) -> object</code>
+- <code title="get /v1/files/{file_id}/content">client.files.<a href="./src/llama_stack_client/resources/files.py">content</a>(file_id) -> str</code>
 
 # Batches
 
