@@ -180,7 +180,7 @@ class TestFiles:
         file = client.files.content(
             "file_id",
         )
-        assert_matches_type(object, file, path=["response"])
+        assert_matches_type(str, file, path=["response"])
 
     @parametrize
     def test_raw_response_content(self, client: LlamaStackClient) -> None:
@@ -191,7 +191,7 @@ class TestFiles:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         file = response.parse()
-        assert_matches_type(object, file, path=["response"])
+        assert_matches_type(str, file, path=["response"])
 
     @parametrize
     def test_streaming_response_content(self, client: LlamaStackClient) -> None:
@@ -202,7 +202,7 @@ class TestFiles:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             file = response.parse()
-            assert_matches_type(object, file, path=["response"])
+            assert_matches_type(str, file, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -381,7 +381,7 @@ class TestAsyncFiles:
         file = await async_client.files.content(
             "file_id",
         )
-        assert_matches_type(object, file, path=["response"])
+        assert_matches_type(str, file, path=["response"])
 
     @parametrize
     async def test_raw_response_content(self, async_client: AsyncLlamaStackClient) -> None:
@@ -392,7 +392,7 @@ class TestAsyncFiles:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         file = await response.parse()
-        assert_matches_type(object, file, path=["response"])
+        assert_matches_type(str, file, path=["response"])
 
     @parametrize
     async def test_streaming_response_content(self, async_client: AsyncLlamaStackClient) -> None:
@@ -403,7 +403,7 @@ class TestAsyncFiles:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             file = await response.parse()
-            assert_matches_type(object, file, path=["response"])
+            assert_matches_type(str, file, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
