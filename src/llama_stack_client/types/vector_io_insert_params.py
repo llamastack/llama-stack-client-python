@@ -37,7 +37,7 @@ class ChunkChunkMetadata(TypedDict, total=False):
     """
     `ChunkMetadata` is backend metadata for a `Chunk` that is used to store additional information about the chunk that
         will not be used in the context during inference, but is required for backend functionality. The `ChunkMetadata`
-        is set during chunk creation in `MemoryToolRuntimeImpl().insert()`and is not expected to change after.
+        is set during chunk creation in `FileSearchToolRuntimeImpl().insert()`and is not expected to change after.
         Use `Chunk.metadata` for metadata that will be used in the context during inference.
     """
 
@@ -150,7 +150,7 @@ class Chunk(TypedDict, total=False):
     `ChunkMetadata` is backend metadata for a `Chunk` that is used to store
     additional information about the chunk that will not be used in the context
     during inference, but is required for backend functionality. The `ChunkMetadata`
-    is set during chunk creation in `MemoryToolRuntimeImpl().insert()`and is not
+    is set during chunk creation in `FileSearchToolRuntimeImpl().insert()`and is not
     expected to change after. Use `Chunk.metadata` for metadata that will be used in
     the context during inference.
     """
