@@ -18,7 +18,7 @@ from .openai import (
 )
 from ...types import model_register_params
 from ..._types import Body, Omit, Query, Headers, NoneType, NotGiven, omit, not_given
-from ..._utils import maybe_transform, async_maybe_transform
+from ..._utils import path_template, maybe_transform, async_maybe_transform
 from ..._compat import cached_property
 from ..._resource import SyncAPIResource, AsyncAPIResource
 from ..._response import (
@@ -88,7 +88,7 @@ class ModelsResource(SyncAPIResource):
         if not model_id:
             raise ValueError(f"Expected a non-empty value for `model_id` but received {model_id!r}")
         return self._get(
-            f"/v1/models/{model_id}",
+            path_template("/v1/models/{model_id}", model_id=model_id),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -210,7 +210,7 @@ class ModelsResource(SyncAPIResource):
             raise ValueError(f"Expected a non-empty value for `model_id` but received {model_id!r}")
         extra_headers = {"Accept": "*/*", **(extra_headers or {})}
         return self._delete(
-            f"/v1/models/{model_id}",
+            path_template("/v1/models/{model_id}", model_id=model_id),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -270,7 +270,7 @@ class AsyncModelsResource(AsyncAPIResource):
         if not model_id:
             raise ValueError(f"Expected a non-empty value for `model_id` but received {model_id!r}")
         return await self._get(
-            f"/v1/models/{model_id}",
+            path_template("/v1/models/{model_id}", model_id=model_id),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -392,7 +392,7 @@ class AsyncModelsResource(AsyncAPIResource):
             raise ValueError(f"Expected a non-empty value for `model_id` but received {model_id!r}")
         extra_headers = {"Accept": "*/*", **(extra_headers or {})}
         return await self._delete(
-            f"/v1/models/{model_id}",
+            path_template("/v1/models/{model_id}", model_id=model_id),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),

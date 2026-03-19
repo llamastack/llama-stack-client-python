@@ -7,6 +7,7 @@ from typing import Type, cast
 import httpx
 
 from .._types import Body, Query, Headers, NotGiven, not_given
+from .._utils import path_template
 from .._compat import cached_property
 from .._resource import SyncAPIResource, AsyncAPIResource
 from .._response import (
@@ -75,7 +76,7 @@ class ProvidersResource(SyncAPIResource):
         if not provider_id:
             raise ValueError(f"Expected a non-empty value for `provider_id` but received {provider_id!r}")
         return self._get(
-            f"/v1/providers/{provider_id}",
+            path_template("/v1/providers/{provider_id}", provider_id=provider_id),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -158,7 +159,7 @@ class AsyncProvidersResource(AsyncAPIResource):
         if not provider_id:
             raise ValueError(f"Expected a non-empty value for `provider_id` but received {provider_id!r}")
         return await self._get(
-            f"/v1/providers/{provider_id}",
+            path_template("/v1/providers/{provider_id}", provider_id=provider_id),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),

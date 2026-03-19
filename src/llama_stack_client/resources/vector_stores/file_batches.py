@@ -7,7 +7,7 @@ from typing import Dict, Optional
 import httpx
 
 from ..._types import Body, Omit, Query, Headers, NotGiven, SequenceNotStr, omit, not_given
-from ..._utils import maybe_transform, async_maybe_transform
+from ..._utils import path_template, maybe_transform, async_maybe_transform
 from ..._compat import cached_property
 from ..._resource import SyncAPIResource, AsyncAPIResource
 from ..._response import (
@@ -78,7 +78,7 @@ class FileBatchesResource(SyncAPIResource):
         if not vector_store_id:
             raise ValueError(f"Expected a non-empty value for `vector_store_id` but received {vector_store_id!r}")
         return self._post(
-            f"/v1/vector_stores/{vector_store_id}/file_batches",
+            path_template("/v1/vector_stores/{vector_store_id}/file_batches", vector_store_id=vector_store_id),
             body=maybe_transform(
                 {
                     "file_ids": file_ids,
@@ -126,7 +126,11 @@ class FileBatchesResource(SyncAPIResource):
         if not batch_id:
             raise ValueError(f"Expected a non-empty value for `batch_id` but received {batch_id!r}")
         return self._get(
-            f"/v1/vector_stores/{vector_store_id}/file_batches/{batch_id}",
+            path_template(
+                "/v1/vector_stores/{vector_store_id}/file_batches/{batch_id}",
+                vector_store_id=vector_store_id,
+                batch_id=batch_id,
+            ),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -166,7 +170,11 @@ class FileBatchesResource(SyncAPIResource):
         if not batch_id:
             raise ValueError(f"Expected a non-empty value for `batch_id` but received {batch_id!r}")
         return self._post(
-            f"/v1/vector_stores/{vector_store_id}/file_batches/{batch_id}/cancel",
+            path_template(
+                "/v1/vector_stores/{vector_store_id}/file_batches/{batch_id}/cancel",
+                vector_store_id=vector_store_id,
+                batch_id=batch_id,
+            ),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -221,7 +229,11 @@ class FileBatchesResource(SyncAPIResource):
         if not batch_id:
             raise ValueError(f"Expected a non-empty value for `batch_id` but received {batch_id!r}")
         return self._get_api_list(
-            f"/v1/vector_stores/{vector_store_id}/file_batches/{batch_id}/files",
+            path_template(
+                "/v1/vector_stores/{vector_store_id}/file_batches/{batch_id}/files",
+                vector_store_id=vector_store_id,
+                batch_id=batch_id,
+            ),
             page=SyncOpenAICursorPage[VectorStoreFile],
             options=make_request_options(
                 extra_headers=extra_headers,
@@ -296,7 +308,7 @@ class AsyncFileBatchesResource(AsyncAPIResource):
         if not vector_store_id:
             raise ValueError(f"Expected a non-empty value for `vector_store_id` but received {vector_store_id!r}")
         return await self._post(
-            f"/v1/vector_stores/{vector_store_id}/file_batches",
+            path_template("/v1/vector_stores/{vector_store_id}/file_batches", vector_store_id=vector_store_id),
             body=await async_maybe_transform(
                 {
                     "file_ids": file_ids,
@@ -344,7 +356,11 @@ class AsyncFileBatchesResource(AsyncAPIResource):
         if not batch_id:
             raise ValueError(f"Expected a non-empty value for `batch_id` but received {batch_id!r}")
         return await self._get(
-            f"/v1/vector_stores/{vector_store_id}/file_batches/{batch_id}",
+            path_template(
+                "/v1/vector_stores/{vector_store_id}/file_batches/{batch_id}",
+                vector_store_id=vector_store_id,
+                batch_id=batch_id,
+            ),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -384,7 +400,11 @@ class AsyncFileBatchesResource(AsyncAPIResource):
         if not batch_id:
             raise ValueError(f"Expected a non-empty value for `batch_id` but received {batch_id!r}")
         return await self._post(
-            f"/v1/vector_stores/{vector_store_id}/file_batches/{batch_id}/cancel",
+            path_template(
+                "/v1/vector_stores/{vector_store_id}/file_batches/{batch_id}/cancel",
+                vector_store_id=vector_store_id,
+                batch_id=batch_id,
+            ),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -439,7 +459,11 @@ class AsyncFileBatchesResource(AsyncAPIResource):
         if not batch_id:
             raise ValueError(f"Expected a non-empty value for `batch_id` but received {batch_id!r}")
         return self._get_api_list(
-            f"/v1/vector_stores/{vector_store_id}/file_batches/{batch_id}/files",
+            path_template(
+                "/v1/vector_stores/{vector_store_id}/file_batches/{batch_id}/files",
+                vector_store_id=vector_store_id,
+                batch_id=batch_id,
+            ),
             page=AsyncOpenAICursorPage[VectorStoreFile],
             options=make_request_options(
                 extra_headers=extra_headers,
