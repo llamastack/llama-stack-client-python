@@ -36,7 +36,6 @@ if TYPE_CHECKING:
         chat,
         alpha,
         files,
-        tools,
         models,
         routes,
         safety,
@@ -49,16 +48,13 @@ if TYPE_CHECKING:
         responses,
         vector_io,
         embeddings,
-        toolgroups,
         completions,
         moderations,
-        tool_runtime,
         conversations,
         vector_stores,
         scoring_functions,
     )
     from .resources.files import FilesResource, AsyncFilesResource
-    from .resources.tools import ToolsResource, AsyncToolsResource
     from .resources.routes import RoutesResource, AsyncRoutesResource
     from .resources.safety import SafetyResource, AsyncSafetyResource
     from .resources.batches import BatchesResource, AsyncBatchesResource
@@ -70,11 +66,9 @@ if TYPE_CHECKING:
     from .resources.providers import ProvidersResource, AsyncProvidersResource
     from .resources.vector_io import VectorIoResource, AsyncVectorIoResource
     from .resources.embeddings import EmbeddingsResource, AsyncEmbeddingsResource
-    from .resources.toolgroups import ToolgroupsResource, AsyncToolgroupsResource
     from .resources.alpha.alpha import AlphaResource, AsyncAlphaResource
     from .resources.completions import CompletionsResource, AsyncCompletionsResource
     from .resources.moderations import ModerationsResource, AsyncModerationsResource
-    from .resources.tool_runtime import ToolRuntimeResource, AsyncToolRuntimeResource
     from .resources.models.models import ModelsResource, AsyncModelsResource
     from .resources.prompts.prompts import PromptsResource, AsyncPromptsResource
     from .resources.scoring_functions import ScoringFunctionsResource, AsyncScoringFunctionsResource
@@ -146,24 +140,6 @@ class LlamaStackClient(SyncAPIClient):
         )
 
         self._default_stream_cls = Stream
-
-    @cached_property
-    def toolgroups(self) -> ToolgroupsResource:
-        from .resources.toolgroups import ToolgroupsResource
-
-        return ToolgroupsResource(self)
-
-    @cached_property
-    def tools(self) -> ToolsResource:
-        from .resources.tools import ToolsResource
-
-        return ToolsResource(self)
-
-    @cached_property
-    def tool_runtime(self) -> ToolRuntimeResource:
-        from .resources.tool_runtime import ToolRuntimeResource
-
-        return ToolRuntimeResource(self)
 
     @cached_property
     def responses(self) -> ResponsesResource:
@@ -501,24 +477,6 @@ class AsyncLlamaStackClient(AsyncAPIClient):
         self._default_stream_cls = AsyncStream
 
     @cached_property
-    def toolgroups(self) -> AsyncToolgroupsResource:
-        from .resources.toolgroups import AsyncToolgroupsResource
-
-        return AsyncToolgroupsResource(self)
-
-    @cached_property
-    def tools(self) -> AsyncToolsResource:
-        from .resources.tools import AsyncToolsResource
-
-        return AsyncToolsResource(self)
-
-    @cached_property
-    def tool_runtime(self) -> AsyncToolRuntimeResource:
-        from .resources.tool_runtime import AsyncToolRuntimeResource
-
-        return AsyncToolRuntimeResource(self)
-
-    @cached_property
     def responses(self) -> AsyncResponsesResource:
         """APIs for creating and interacting with agentic systems."""
         from .resources.responses import AsyncResponsesResource
@@ -807,24 +765,6 @@ class LlamaStackClientWithRawResponse:
         self._client = client
 
     @cached_property
-    def toolgroups(self) -> toolgroups.ToolgroupsResourceWithRawResponse:
-        from .resources.toolgroups import ToolgroupsResourceWithRawResponse
-
-        return ToolgroupsResourceWithRawResponse(self._client.toolgroups)
-
-    @cached_property
-    def tools(self) -> tools.ToolsResourceWithRawResponse:
-        from .resources.tools import ToolsResourceWithRawResponse
-
-        return ToolsResourceWithRawResponse(self._client.tools)
-
-    @cached_property
-    def tool_runtime(self) -> tool_runtime.ToolRuntimeResourceWithRawResponse:
-        from .resources.tool_runtime import ToolRuntimeResourceWithRawResponse
-
-        return ToolRuntimeResourceWithRawResponse(self._client.tool_runtime)
-
-    @cached_property
     def responses(self) -> responses.ResponsesResourceWithRawResponse:
         """APIs for creating and interacting with agentic systems."""
         from .resources.responses import ResponsesResourceWithRawResponse
@@ -997,24 +937,6 @@ class AsyncLlamaStackClientWithRawResponse:
 
     def __init__(self, client: AsyncLlamaStackClient) -> None:
         self._client = client
-
-    @cached_property
-    def toolgroups(self) -> toolgroups.AsyncToolgroupsResourceWithRawResponse:
-        from .resources.toolgroups import AsyncToolgroupsResourceWithRawResponse
-
-        return AsyncToolgroupsResourceWithRawResponse(self._client.toolgroups)
-
-    @cached_property
-    def tools(self) -> tools.AsyncToolsResourceWithRawResponse:
-        from .resources.tools import AsyncToolsResourceWithRawResponse
-
-        return AsyncToolsResourceWithRawResponse(self._client.tools)
-
-    @cached_property
-    def tool_runtime(self) -> tool_runtime.AsyncToolRuntimeResourceWithRawResponse:
-        from .resources.tool_runtime import AsyncToolRuntimeResourceWithRawResponse
-
-        return AsyncToolRuntimeResourceWithRawResponse(self._client.tool_runtime)
 
     @cached_property
     def responses(self) -> responses.AsyncResponsesResourceWithRawResponse:
@@ -1191,24 +1113,6 @@ class LlamaStackClientWithStreamedResponse:
         self._client = client
 
     @cached_property
-    def toolgroups(self) -> toolgroups.ToolgroupsResourceWithStreamingResponse:
-        from .resources.toolgroups import ToolgroupsResourceWithStreamingResponse
-
-        return ToolgroupsResourceWithStreamingResponse(self._client.toolgroups)
-
-    @cached_property
-    def tools(self) -> tools.ToolsResourceWithStreamingResponse:
-        from .resources.tools import ToolsResourceWithStreamingResponse
-
-        return ToolsResourceWithStreamingResponse(self._client.tools)
-
-    @cached_property
-    def tool_runtime(self) -> tool_runtime.ToolRuntimeResourceWithStreamingResponse:
-        from .resources.tool_runtime import ToolRuntimeResourceWithStreamingResponse
-
-        return ToolRuntimeResourceWithStreamingResponse(self._client.tool_runtime)
-
-    @cached_property
     def responses(self) -> responses.ResponsesResourceWithStreamingResponse:
         """APIs for creating and interacting with agentic systems."""
         from .resources.responses import ResponsesResourceWithStreamingResponse
@@ -1381,24 +1285,6 @@ class AsyncLlamaStackClientWithStreamedResponse:
 
     def __init__(self, client: AsyncLlamaStackClient) -> None:
         self._client = client
-
-    @cached_property
-    def toolgroups(self) -> toolgroups.AsyncToolgroupsResourceWithStreamingResponse:
-        from .resources.toolgroups import AsyncToolgroupsResourceWithStreamingResponse
-
-        return AsyncToolgroupsResourceWithStreamingResponse(self._client.toolgroups)
-
-    @cached_property
-    def tools(self) -> tools.AsyncToolsResourceWithStreamingResponse:
-        from .resources.tools import AsyncToolsResourceWithStreamingResponse
-
-        return AsyncToolsResourceWithStreamingResponse(self._client.tools)
-
-    @cached_property
-    def tool_runtime(self) -> tool_runtime.AsyncToolRuntimeResourceWithStreamingResponse:
-        from .resources.tool_runtime import AsyncToolRuntimeResourceWithStreamingResponse
-
-        return AsyncToolRuntimeResourceWithStreamingResponse(self._client.tool_runtime)
 
     @cached_property
     def responses(self) -> responses.AsyncResponsesResourceWithStreamingResponse:
