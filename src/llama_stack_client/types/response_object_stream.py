@@ -520,7 +520,9 @@ class OpenAIResponseObjectStreamResponseOutputItemAddedItemOpenAIResponseReasoni
 
     summary: List[OpenAIResponseObjectStreamResponseOutputItemAddedItemOpenAIResponseReasoningItemSummary]
 
-    content: Optional[List[OpenAIResponseObjectStreamResponseOutputItemAddedItemOpenAIResponseReasoningItemContent]] = None
+    content: Optional[List[OpenAIResponseObjectStreamResponseOutputItemAddedItemOpenAIResponseReasoningItemContent]] = (
+        None
+    )
 
     encrypted_content: Optional[str] = None
 
@@ -922,7 +924,9 @@ class OpenAIResponseObjectStreamResponseOutputItemDoneItemOpenAIResponseReasonin
 
     summary: List[OpenAIResponseObjectStreamResponseOutputItemDoneItemOpenAIResponseReasoningItemSummary]
 
-    content: Optional[List[OpenAIResponseObjectStreamResponseOutputItemDoneItemOpenAIResponseReasoningItemContent]] = None
+    content: Optional[List[OpenAIResponseObjectStreamResponseOutputItemDoneItemOpenAIResponseReasoningItemContent]] = (
+        None
+    )
 
     encrypted_content: Optional[str] = None
 
