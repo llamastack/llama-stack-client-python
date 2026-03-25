@@ -40,6 +40,9 @@ __all__ = [
     "OutputOpenAIResponseOutputMessageMcpListTools",
     "OutputOpenAIResponseOutputMessageMcpListToolsTool",
     "OutputOpenAIResponseMcpApprovalRequest",
+    "OutputOpenAIResponseReasoningItem",
+    "OutputOpenAIResponseReasoningItemContent",
+    "OutputOpenAIResponseReasoningItemSummary",
     "Error",
     "IncompleteDetails",
     "Prompt",
@@ -403,12 +406,49 @@ class OutputOpenAIResponseMcpApprovalRequest(BaseModel):
     type: Optional[Literal["mcp_approval_request"]] = None
 
 
+class OutputOpenAIResponseReasoningItemContent(BaseModel):
+    """Reasoning text content from the model's chain-of-thought."""
+
+    text: str
+
+    type: Optional[Literal["reasoning_text"]] = None
+
+
+class OutputOpenAIResponseReasoningItemSummary(BaseModel):
+    """Summary of the model's reasoning output."""
+
+    text: str
+
+    type: Optional[Literal["summary_text"]] = None
+
+
+class OutputOpenAIResponseReasoningItem(BaseModel):
+    """Reasoning output item for OpenAI responses.
+
+    Contains the model's chain-of-thought reasoning, either as raw content
+    (open-source models) or as a summary (closed-source models).
+    """
+
+    id: str
+
+    summary: List[OutputOpenAIResponseReasoningItemSummary]
+
+    content: Optional[List[OutputOpenAIResponseReasoningItemContent]] = None
+
+    encrypted_content: Optional[str] = None
+
+    status: Optional[Literal["in_progress", "completed", "incomplete"]] = None
+
+    type: Optional[Literal["reasoning"]] = None
+
+
 Output: TypeAlias = Annotated[
     Union[
         OutputOpenAIResponseMessageOutput,
         OutputOpenAIResponseOutputMessageWebSearchToolCall,
         OutputOpenAIResponseOutputMessageFileSearchToolCall,
         OutputOpenAIResponseOutputMessageFunctionToolCall,
+        OutputOpenAIResponseReasoningItem,
         OutputOpenAIResponseOutputMessageMcpCall,
         OutputOpenAIResponseOutputMessageMcpListTools,
         OutputOpenAIResponseMcpApprovalRequest,

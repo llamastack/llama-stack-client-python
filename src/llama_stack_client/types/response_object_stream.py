@@ -42,6 +42,9 @@ __all__ = [
     "OpenAIResponseObjectStreamResponseOutputItemAddedItemOpenAIResponseOutputMessageMcpListTools",
     "OpenAIResponseObjectStreamResponseOutputItemAddedItemOpenAIResponseOutputMessageMcpListToolsTool",
     "OpenAIResponseObjectStreamResponseOutputItemAddedItemOpenAIResponseMcpApprovalRequest",
+    "OpenAIResponseObjectStreamResponseOutputItemAddedItemOpenAIResponseReasoningItem",
+    "OpenAIResponseObjectStreamResponseOutputItemAddedItemOpenAIResponseReasoningItemContent",
+    "OpenAIResponseObjectStreamResponseOutputItemAddedItemOpenAIResponseReasoningItemSummary",
     "OpenAIResponseObjectStreamResponseOutputItemDone",
     "OpenAIResponseObjectStreamResponseOutputItemDoneItem",
     "OpenAIResponseObjectStreamResponseOutputItemDoneItemOpenAIResponseMessage",
@@ -67,6 +70,9 @@ __all__ = [
     "OpenAIResponseObjectStreamResponseOutputItemDoneItemOpenAIResponseOutputMessageMcpListTools",
     "OpenAIResponseObjectStreamResponseOutputItemDoneItemOpenAIResponseOutputMessageMcpListToolsTool",
     "OpenAIResponseObjectStreamResponseOutputItemDoneItemOpenAIResponseMcpApprovalRequest",
+    "OpenAIResponseObjectStreamResponseOutputItemDoneItemOpenAIResponseReasoningItem",
+    "OpenAIResponseObjectStreamResponseOutputItemDoneItemOpenAIResponseReasoningItemContent",
+    "OpenAIResponseObjectStreamResponseOutputItemDoneItemOpenAIResponseReasoningItemSummary",
     "OpenAIResponseObjectStreamResponseOutputTextDelta",
     "OpenAIResponseObjectStreamResponseOutputTextDeltaLogprob",
     "OpenAIResponseObjectStreamResponseOutputTextDeltaLogprobTopLogprob",
@@ -491,12 +497,45 @@ class OpenAIResponseObjectStreamResponseOutputItemAddedItemOpenAIResponseMcpAppr
     type: Optional[Literal["mcp_approval_request"]] = None
 
 
+class OpenAIResponseObjectStreamResponseOutputItemAddedItemOpenAIResponseReasoningItemContent(BaseModel):
+    """Reasoning text content from the model's chain-of-thought."""
+
+    text: str
+
+    type: Optional[Literal["reasoning_text"]] = None
+
+
+class OpenAIResponseObjectStreamResponseOutputItemAddedItemOpenAIResponseReasoningItemSummary(BaseModel):
+    """Summary of the model's reasoning output."""
+
+    text: str
+
+    type: Optional[Literal["summary_text"]] = None
+
+
+class OpenAIResponseObjectStreamResponseOutputItemAddedItemOpenAIResponseReasoningItem(BaseModel):
+    """Reasoning output item for OpenAI responses."""
+
+    id: str
+
+    summary: List[OpenAIResponseObjectStreamResponseOutputItemAddedItemOpenAIResponseReasoningItemSummary]
+
+    content: Optional[List[OpenAIResponseObjectStreamResponseOutputItemAddedItemOpenAIResponseReasoningItemContent]] = None
+
+    encrypted_content: Optional[str] = None
+
+    status: Optional[str] = None
+
+    type: Optional[Literal["reasoning"]] = None
+
+
 OpenAIResponseObjectStreamResponseOutputItemAddedItem: TypeAlias = Annotated[
     Union[
         OpenAIResponseObjectStreamResponseOutputItemAddedItemOpenAIResponseMessage,
         OpenAIResponseObjectStreamResponseOutputItemAddedItemOpenAIResponseOutputMessageWebSearchToolCall,
         OpenAIResponseObjectStreamResponseOutputItemAddedItemOpenAIResponseOutputMessageFileSearchToolCall,
         OpenAIResponseObjectStreamResponseOutputItemAddedItemOpenAIResponseOutputMessageFunctionToolCall,
+        OpenAIResponseObjectStreamResponseOutputItemAddedItemOpenAIResponseReasoningItem,
         OpenAIResponseObjectStreamResponseOutputItemAddedItemOpenAIResponseOutputMessageMcpCall,
         OpenAIResponseObjectStreamResponseOutputItemAddedItemOpenAIResponseOutputMessageMcpListTools,
         OpenAIResponseObjectStreamResponseOutputItemAddedItemOpenAIResponseMcpApprovalRequest,
@@ -860,12 +899,45 @@ class OpenAIResponseObjectStreamResponseOutputItemDoneItemOpenAIResponseMcpAppro
     type: Optional[Literal["mcp_approval_request"]] = None
 
 
+class OpenAIResponseObjectStreamResponseOutputItemDoneItemOpenAIResponseReasoningItemContent(BaseModel):
+    """Reasoning text content from the model's chain-of-thought."""
+
+    text: str
+
+    type: Optional[Literal["reasoning_text"]] = None
+
+
+class OpenAIResponseObjectStreamResponseOutputItemDoneItemOpenAIResponseReasoningItemSummary(BaseModel):
+    """Summary of the model's reasoning output."""
+
+    text: str
+
+    type: Optional[Literal["summary_text"]] = None
+
+
+class OpenAIResponseObjectStreamResponseOutputItemDoneItemOpenAIResponseReasoningItem(BaseModel):
+    """Reasoning output item for OpenAI responses."""
+
+    id: str
+
+    summary: List[OpenAIResponseObjectStreamResponseOutputItemDoneItemOpenAIResponseReasoningItemSummary]
+
+    content: Optional[List[OpenAIResponseObjectStreamResponseOutputItemDoneItemOpenAIResponseReasoningItemContent]] = None
+
+    encrypted_content: Optional[str] = None
+
+    status: Optional[str] = None
+
+    type: Optional[Literal["reasoning"]] = None
+
+
 OpenAIResponseObjectStreamResponseOutputItemDoneItem: TypeAlias = Annotated[
     Union[
         OpenAIResponseObjectStreamResponseOutputItemDoneItemOpenAIResponseMessage,
         OpenAIResponseObjectStreamResponseOutputItemDoneItemOpenAIResponseOutputMessageWebSearchToolCall,
         OpenAIResponseObjectStreamResponseOutputItemDoneItemOpenAIResponseOutputMessageFileSearchToolCall,
         OpenAIResponseObjectStreamResponseOutputItemDoneItemOpenAIResponseOutputMessageFunctionToolCall,
+        OpenAIResponseObjectStreamResponseOutputItemDoneItemOpenAIResponseReasoningItem,
         OpenAIResponseObjectStreamResponseOutputItemDoneItemOpenAIResponseOutputMessageMcpCall,
         OpenAIResponseObjectStreamResponseOutputItemDoneItemOpenAIResponseOutputMessageMcpListTools,
         OpenAIResponseObjectStreamResponseOutputItemDoneItemOpenAIResponseMcpApprovalRequest,
