@@ -156,7 +156,6 @@ class LlamaStackClient(SyncAPIClient):
 
     @cached_property
     def responses(self) -> ResponsesResource:
-        """APIs for creating and interacting with agentic systems."""
         from .resources.responses import ResponsesResource
 
         return ResponsesResource(self)
@@ -497,7 +496,6 @@ class AsyncLlamaStackClient(AsyncAPIClient):
 
     @cached_property
     def responses(self) -> AsyncResponsesResource:
-        """APIs for creating and interacting with agentic systems."""
         from .resources.responses import AsyncResponsesResource
 
         return AsyncResponsesResource(self)
@@ -785,7 +783,6 @@ class LlamaStackClientWithRawResponse:
 
     @cached_property
     def responses(self) -> responses.ResponsesResourceWithRawResponse:
-        """APIs for creating and interacting with agentic systems."""
         from .resources.responses import ResponsesResourceWithRawResponse
 
         return ResponsesResourceWithRawResponse(self._client.responses)
@@ -959,7 +956,6 @@ class AsyncLlamaStackClientWithRawResponse:
 
     @cached_property
     def responses(self) -> responses.AsyncResponsesResourceWithRawResponse:
-        """APIs for creating and interacting with agentic systems."""
         from .resources.responses import AsyncResponsesResourceWithRawResponse
 
         return AsyncResponsesResourceWithRawResponse(self._client.responses)
@@ -1133,7 +1129,6 @@ class LlamaStackClientWithStreamedResponse:
 
     @cached_property
     def responses(self) -> responses.ResponsesResourceWithStreamingResponse:
-        """APIs for creating and interacting with agentic systems."""
         from .resources.responses import ResponsesResourceWithStreamingResponse
 
         return ResponsesResourceWithStreamingResponse(self._client.responses)
@@ -1307,7 +1302,6 @@ class AsyncLlamaStackClientWithStreamedResponse:
 
     @cached_property
     def responses(self) -> responses.AsyncResponsesResourceWithStreamingResponse:
-        """APIs for creating and interacting with agentic systems."""
         from .resources.responses import AsyncResponsesResourceWithStreamingResponse
 
         return AsyncResponsesResourceWithStreamingResponse(self._client.responses)

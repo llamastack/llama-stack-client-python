@@ -31,8 +31,6 @@ __all__ = ["InputItemsResource", "AsyncInputItemsResource"]
 
 
 class InputItemsResource(SyncAPIResource):
-    """APIs for creating and interacting with agentic systems."""
-
     @cached_property
     def with_raw_response(self) -> InputItemsResourceWithRawResponse:
         """
@@ -131,8 +129,6 @@ class InputItemsResource(SyncAPIResource):
 
 
 class AsyncInputItemsResource(AsyncAPIResource):
-    """APIs for creating and interacting with agentic systems."""
-
     @cached_property
     def with_raw_response(self) -> AsyncInputItemsResourceWithRawResponse:
         """
