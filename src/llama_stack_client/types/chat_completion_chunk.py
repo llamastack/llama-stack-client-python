@@ -29,7 +29,7 @@ __all__ = [
 
 
 class ChoiceDeltaToolCallFunction(BaseModel):
-    """Function call details for OpenAI-compatible tool calls."""
+    """Function call details."""
 
     arguments: str
     """Arguments to pass to the function as a JSON string."""
@@ -41,16 +41,13 @@ class ChoiceDeltaToolCallFunction(BaseModel):
 class ChoiceDeltaToolCall(BaseModel):
     """Tool call specification for OpenAI-compatible chat completion responses."""
 
-    id: Optional[str] = None
+    id: str
     """Unique identifier for the tool call."""
 
-    function: Optional[ChoiceDeltaToolCallFunction] = None
-    """Function call details for OpenAI-compatible tool calls."""
+    function: ChoiceDeltaToolCallFunction
+    """Function call details."""
 
-    index: Optional[int] = None
-    """Index of the tool call in the list."""
-
-    type: Optional[Literal["function"]] = None
+    type: Literal["function"]
     """Must be 'function' to identify this as a function call."""
 
 

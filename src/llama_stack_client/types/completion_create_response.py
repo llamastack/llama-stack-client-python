@@ -89,9 +89,7 @@ class ChoiceLogprobsRefusal(BaseModel):
 
 
 class ChoiceLogprobs(BaseModel):
-    """
-    The log probabilities for the tokens in the message from an OpenAI-compatible chat completion response.
-    """
+    """The log probabilities for the tokens in the choice."""
 
     content: Optional[List[ChoiceLogprobsContent]] = None
     """The log probabilities for the tokens in the message."""
@@ -113,10 +111,7 @@ class Choice(BaseModel):
     """The text of the choice."""
 
     logprobs: Optional[ChoiceLogprobs] = None
-    """
-    The log probabilities for the tokens in the message from an OpenAI-compatible
-    chat completion response.
-    """
+    """The log probabilities for the tokens in the choice."""
 
 
 class CompletionCreateResponse(BaseModel):
