@@ -279,6 +279,8 @@ class InputMessageOpenAIUserMessageParamOutputContentListOpenAIChatCompletionCon
 class InputMessageOpenAIUserMessageParamOutputContentListOpenAIChatCompletionContentPartTextParamOpenAIChatCompletionContentPartImageParamOpenAIFileOpenAIFile(
     BaseModel
 ):
+    """File content part for OpenAI-compatible chat completion messages."""
+
     file: InputMessageOpenAIUserMessageParamOutputContentListOpenAIChatCompletionContentPartTextParamOpenAIChatCompletionContentPartImageParamOpenAIFileOpenAIFileFile
     """File specification."""
 
@@ -503,6 +505,8 @@ class Usage(BaseModel):
 
 
 class CompletionRetrieveResponse(BaseModel):
+    """Chat completion response extended with the original input messages."""
+
     id: str
     """The ID of the chat completion."""
 

@@ -280,6 +280,8 @@ class DataInputMessageOpenAIUserMessageParamOutputContentListOpenAIChatCompletio
 class DataInputMessageOpenAIUserMessageParamOutputContentListOpenAIChatCompletionContentPartTextParamOpenAIChatCompletionContentPartImageParamOpenAIFileOpenAIFile(
     BaseModel
 ):
+    """File content part for OpenAI-compatible chat completion messages."""
+
     file: DataInputMessageOpenAIUserMessageParamOutputContentListOpenAIChatCompletionContentPartTextParamOpenAIChatCompletionContentPartImageParamOpenAIFileOpenAIFileFile
     """File specification."""
 
@@ -506,6 +508,8 @@ class DataUsage(BaseModel):
 
 
 class Data(BaseModel):
+    """Chat completion response extended with the original input messages."""
+
     id: str
     """The ID of the chat completion."""
 
