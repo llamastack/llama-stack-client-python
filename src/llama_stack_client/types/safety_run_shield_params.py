@@ -98,6 +98,8 @@ class MessageOpenAIUserMessageParamInputContentListOpenAIChatCompletionContentPa
 class MessageOpenAIUserMessageParamInputContentListOpenAIChatCompletionContentPartTextParamOpenAIChatCompletionContentPartImageParamOpenAIFileOpenAIFile(
     TypedDict, total=False
 ):
+    """File content part for OpenAI-compatible chat completion messages."""
+
     file: Required[
         MessageOpenAIUserMessageParamInputContentListOpenAIChatCompletionContentPartTextParamOpenAIChatCompletionContentPartImageParamOpenAIFileOpenAIFileFile
     ]
