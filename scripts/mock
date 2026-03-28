@@ -26,11 +26,11 @@ echo "==> Modifying SSE schemas for the mock server"
 yq -i '(.. | select(has("text/event-stream")).["text/event-stream"].schema) = {"type": "string"}' "$SPEC_PATH"
 echo "==> Starting mock server with file ${SPEC_PATH}"
 
-# Run prism mock on the given spec
+# Run steady mock on the given spec
 if [ "$1" == "--daemon" ]; then
   npm exec --package=@mockoon/cli@9.3.0 -- mockoon-cli start --data "$SPEC_PATH" --port 4010 &>.mockoon.log &
 
-  # Wait for server to come online (max 30s)
+  # Wait for server to come online via health endpoint (max 30s)
   echo -n "Waiting for server"
   while ! grep -q "Error: \|Server started on port 4010" ".mockoon.log"; do
     echo -n "."
