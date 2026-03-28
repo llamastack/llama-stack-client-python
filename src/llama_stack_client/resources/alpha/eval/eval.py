@@ -21,7 +21,7 @@ from .jobs import (
     AsyncJobsResourceWithStreamingResponse,
 )
 from ...._types import Body, Query, Headers, NotGiven, SequenceNotStr, not_given
-from ...._utils import maybe_transform, async_maybe_transform
+from ...._utils import path_template, maybe_transform, async_maybe_transform
 from ...._compat import cached_property
 from ...._resource import SyncAPIResource, AsyncAPIResource
 from ...._response import (
@@ -112,7 +112,7 @@ class EvalResource(SyncAPIResource):
         if not benchmark_id:
             raise ValueError(f"Expected a non-empty value for `benchmark_id` but received {benchmark_id!r}")
         return self._post(
-            f"/v1alpha/eval/benchmarks/{benchmark_id}/evaluations",
+            path_template("/v1alpha/eval/benchmarks/{benchmark_id}/evaluations", benchmark_id=benchmark_id),
             body=maybe_transform(
                 {
                     "benchmark_config": benchmark_config,
@@ -164,7 +164,7 @@ class EvalResource(SyncAPIResource):
         if not benchmark_id:
             raise ValueError(f"Expected a non-empty value for `benchmark_id` but received {benchmark_id!r}")
         return self._post(
-            f"/v1alpha/eval/benchmarks/{benchmark_id}/evaluations",
+            path_template("/v1alpha/eval/benchmarks/{benchmark_id}/evaluations", benchmark_id=benchmark_id),
             body=maybe_transform(
                 {
                     "benchmark_config": benchmark_config,
@@ -210,7 +210,7 @@ class EvalResource(SyncAPIResource):
         if not benchmark_id:
             raise ValueError(f"Expected a non-empty value for `benchmark_id` but received {benchmark_id!r}")
         return self._post(
-            f"/v1alpha/eval/benchmarks/{benchmark_id}/jobs",
+            path_template("/v1alpha/eval/benchmarks/{benchmark_id}/jobs", benchmark_id=benchmark_id),
             body=maybe_transform({"benchmark_config": benchmark_config}, eval_run_eval_params.EvalRunEvalParams),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
@@ -249,7 +249,7 @@ class EvalResource(SyncAPIResource):
         if not benchmark_id:
             raise ValueError(f"Expected a non-empty value for `benchmark_id` but received {benchmark_id!r}")
         return self._post(
-            f"/v1alpha/eval/benchmarks/{benchmark_id}/jobs",
+            path_template("/v1alpha/eval/benchmarks/{benchmark_id}/jobs", benchmark_id=benchmark_id),
             body=maybe_transform(
                 {"benchmark_config": benchmark_config}, eval_run_eval_alpha_params.EvalRunEvalAlphaParams
             ),
@@ -328,7 +328,7 @@ class AsyncEvalResource(AsyncAPIResource):
         if not benchmark_id:
             raise ValueError(f"Expected a non-empty value for `benchmark_id` but received {benchmark_id!r}")
         return await self._post(
-            f"/v1alpha/eval/benchmarks/{benchmark_id}/evaluations",
+            path_template("/v1alpha/eval/benchmarks/{benchmark_id}/evaluations", benchmark_id=benchmark_id),
             body=await async_maybe_transform(
                 {
                     "benchmark_config": benchmark_config,
@@ -380,7 +380,7 @@ class AsyncEvalResource(AsyncAPIResource):
         if not benchmark_id:
             raise ValueError(f"Expected a non-empty value for `benchmark_id` but received {benchmark_id!r}")
         return await self._post(
-            f"/v1alpha/eval/benchmarks/{benchmark_id}/evaluations",
+            path_template("/v1alpha/eval/benchmarks/{benchmark_id}/evaluations", benchmark_id=benchmark_id),
             body=await async_maybe_transform(
                 {
                     "benchmark_config": benchmark_config,
@@ -426,7 +426,7 @@ class AsyncEvalResource(AsyncAPIResource):
         if not benchmark_id:
             raise ValueError(f"Expected a non-empty value for `benchmark_id` but received {benchmark_id!r}")
         return await self._post(
-            f"/v1alpha/eval/benchmarks/{benchmark_id}/jobs",
+            path_template("/v1alpha/eval/benchmarks/{benchmark_id}/jobs", benchmark_id=benchmark_id),
             body=await async_maybe_transform(
                 {"benchmark_config": benchmark_config}, eval_run_eval_params.EvalRunEvalParams
             ),
@@ -467,7 +467,7 @@ class AsyncEvalResource(AsyncAPIResource):
         if not benchmark_id:
             raise ValueError(f"Expected a non-empty value for `benchmark_id` but received {benchmark_id!r}")
         return await self._post(
-            f"/v1alpha/eval/benchmarks/{benchmark_id}/jobs",
+            path_template("/v1alpha/eval/benchmarks/{benchmark_id}/jobs", benchmark_id=benchmark_id),
             body=await async_maybe_transform(
                 {"benchmark_config": benchmark_config}, eval_run_eval_alpha_params.EvalRunEvalAlphaParams
             ),

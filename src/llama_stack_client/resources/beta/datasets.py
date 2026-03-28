@@ -15,7 +15,7 @@ from typing_extensions import Literal
 import httpx
 
 from ..._types import Body, Omit, Query, Headers, NoneType, NotGiven, omit, not_given
-from ..._utils import maybe_transform, async_maybe_transform
+from ..._utils import path_template, maybe_transform, async_maybe_transform
 from ..._compat import cached_property
 from ..._resource import SyncAPIResource, AsyncAPIResource
 from ..._response import (
@@ -83,7 +83,7 @@ class DatasetsResource(SyncAPIResource):
         if not dataset_id:
             raise ValueError(f"Expected a non-empty value for `dataset_id` but received {dataset_id!r}")
         return self._get(
-            f"/v1beta/datasets/{dataset_id}",
+            path_template("/v1beta/datasets/{dataset_id}", dataset_id=dataset_id),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -145,7 +145,7 @@ class DatasetsResource(SyncAPIResource):
             raise ValueError(f"Expected a non-empty value for `dataset_id` but received {dataset_id!r}")
         extra_headers = {"Accept": "*/*", **(extra_headers or {})}
         return self._post(
-            f"/v1beta/datasetio/append-rows/{dataset_id}",
+            path_template("/v1beta/datasetio/append-rows/{dataset_id}", dataset_id=dataset_id),
             body=maybe_transform({"rows": rows}, dataset_appendrows_params.DatasetAppendrowsParams),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
@@ -197,7 +197,7 @@ class DatasetsResource(SyncAPIResource):
         if not dataset_id:
             raise ValueError(f"Expected a non-empty value for `dataset_id` but received {dataset_id!r}")
         return self._get(
-            f"/v1beta/datasetio/iterrows/{dataset_id}",
+            path_template("/v1beta/datasetio/iterrows/{dataset_id}", dataset_id=dataset_id),
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
@@ -296,7 +296,7 @@ class DatasetsResource(SyncAPIResource):
             raise ValueError(f"Expected a non-empty value for `dataset_id` but received {dataset_id!r}")
         extra_headers = {"Accept": "*/*", **(extra_headers or {})}
         return self._delete(
-            f"/v1beta/datasets/{dataset_id}",
+            path_template("/v1beta/datasets/{dataset_id}", dataset_id=dataset_id),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -352,7 +352,7 @@ class AsyncDatasetsResource(AsyncAPIResource):
         if not dataset_id:
             raise ValueError(f"Expected a non-empty value for `dataset_id` but received {dataset_id!r}")
         return await self._get(
-            f"/v1beta/datasets/{dataset_id}",
+            path_template("/v1beta/datasets/{dataset_id}", dataset_id=dataset_id),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -414,7 +414,7 @@ class AsyncDatasetsResource(AsyncAPIResource):
             raise ValueError(f"Expected a non-empty value for `dataset_id` but received {dataset_id!r}")
         extra_headers = {"Accept": "*/*", **(extra_headers or {})}
         return await self._post(
-            f"/v1beta/datasetio/append-rows/{dataset_id}",
+            path_template("/v1beta/datasetio/append-rows/{dataset_id}", dataset_id=dataset_id),
             body=await async_maybe_transform({"rows": rows}, dataset_appendrows_params.DatasetAppendrowsParams),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
@@ -466,7 +466,7 @@ class AsyncDatasetsResource(AsyncAPIResource):
         if not dataset_id:
             raise ValueError(f"Expected a non-empty value for `dataset_id` but received {dataset_id!r}")
         return await self._get(
-            f"/v1beta/datasetio/iterrows/{dataset_id}",
+            path_template("/v1beta/datasetio/iterrows/{dataset_id}", dataset_id=dataset_id),
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
@@ -565,7 +565,7 @@ class AsyncDatasetsResource(AsyncAPIResource):
             raise ValueError(f"Expected a non-empty value for `dataset_id` but received {dataset_id!r}")
         extra_headers = {"Accept": "*/*", **(extra_headers or {})}
         return await self._delete(
-            f"/v1beta/datasets/{dataset_id}",
+            path_template("/v1beta/datasets/{dataset_id}", dataset_id=dataset_id),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
