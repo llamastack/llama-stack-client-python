@@ -50,7 +50,6 @@ from .chat_completion_chunk import ChatCompletionChunk as ChatCompletionChunk
 from .file_content_response import FileContentResponse as FileContentResponse
 from .list_prompts_response import ListPromptsResponse as ListPromptsResponse
 from .list_shields_response import ListShieldsResponse as ListShieldsResponse
-from .model_register_params import ModelRegisterParams as ModelRegisterParams
 from .query_chunks_response import QueryChunksResponse as QueryChunksResponse
 from .prompt_retrieve_params import PromptRetrieveParams as PromptRetrieveParams
 from .provider_list_response import ProviderListResponse as ProviderListResponse
@@ -62,7 +61,6 @@ from .shield_register_params import ShieldRegisterParams as ShieldRegisterParams
 from .vector_io_query_params import VectorIoQueryParams as VectorIoQueryParams
 from .batch_retrieve_response import BatchRetrieveResponse as BatchRetrieveResponse
 from .embedding_create_params import EmbeddingCreateParams as EmbeddingCreateParams
-from .model_register_response import ModelRegisterResponse as ModelRegisterResponse
 from .model_retrieve_response import ModelRetrieveResponse as ModelRetrieveResponse
 from .vector_io_insert_params import VectorIoInsertParams as VectorIoInsertParams
 from .completion_create_params import CompletionCreateParams as CompletionCreateParams
