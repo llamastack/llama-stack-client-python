@@ -34,6 +34,9 @@ __all__ = [
     "OutputOpenAIResponseOutputMessageMcpListTools",
     "OutputOpenAIResponseOutputMessageMcpListToolsTool",
     "OutputOpenAIResponseMcpApprovalRequest",
+    "OutputOpenAIResponseOutputMessageReasoningItem",
+    "OutputOpenAIResponseOutputMessageReasoningItemSummary",
+    "OutputOpenAIResponseOutputMessageReasoningItemContent",
     "Error",
     "IncompleteDetails",
     "Prompt",
@@ -403,6 +406,45 @@ class OutputOpenAIResponseMcpApprovalRequest(BaseModel):
     type: Optional[Literal["mcp_approval_request"]] = None
 
 
+class OutputOpenAIResponseOutputMessageReasoningItemSummary(BaseModel):
+    """A summary of reasoning output from the model."""
+
+    text: str
+    """The summary text of the reasoning output."""
+
+    type: Optional[Literal["summary_text"]] = None
+    """The type identifier, always 'summary_text'."""
+
+
+class OutputOpenAIResponseOutputMessageReasoningItemContent(BaseModel):
+    """Reasoning text from the model."""
+
+    text: str
+    """The reasoning text content from the model."""
+
+    type: Optional[Literal["reasoning_text"]] = None
+    """The type identifier, always 'reasoning_text'."""
+
+
+class OutputOpenAIResponseOutputMessageReasoningItem(BaseModel):
+    """Reasoning output from the model, representing the model's thinking process."""
+
+    id: str
+    """Unique identifier for the reasoning output item."""
+
+    summary: List[OutputOpenAIResponseOutputMessageReasoningItemSummary]
+    """Summary of the reasoning output."""
+
+    content: Optional[List[OutputOpenAIResponseOutputMessageReasoningItemContent]] = None
+    """The reasoning content from the model."""
+
+    status: Optional[Literal["in_progress", "completed", "incomplete"]] = None
+    """The status of the reasoning output."""
+
+    type: Optional[Literal["reasoning"]] = None
+    """The type identifier, always 'reasoning'."""
+
+
 Output: TypeAlias = Annotated[
     Union[
         OutputOpenAIResponseMessageOutput,
@@ -412,6 +454,7 @@ Output: TypeAlias = Annotated[
         OutputOpenAIResponseOutputMessageMcpCall,
         OutputOpenAIResponseOutputMessageMcpListTools,
         OutputOpenAIResponseMcpApprovalRequest,
+        OutputOpenAIResponseOutputMessageReasoningItem,
     ],
     PropertyInfo(discriminator="type"),
 ]
@@ -492,6 +535,9 @@ class Reasoning(BaseModel):
     """
 
     effort: Optional[Literal["none", "minimal", "low", "medium", "high", "xhigh"]] = None
+
+    summary: Optional[Literal["auto", "concise", "detailed"]] = None
+    """Summary mode for reasoning output. One of 'auto', 'concise', or 'detailed'."""
 
 
 class TextFormat(BaseModel):
