@@ -39,6 +39,9 @@ __all__ = [
     "InputListOpenAIResponseMessageUnionOpenAIResponseInputFunctionToolCallOutputOpenAIResponseMcpApprovalResponseOpenAIResponseOutputMessageMcpListTools",
     "InputListOpenAIResponseMessageUnionOpenAIResponseInputFunctionToolCallOutputOpenAIResponseMcpApprovalResponseOpenAIResponseOutputMessageMcpListToolsTool",
     "InputListOpenAIResponseMessageUnionOpenAIResponseInputFunctionToolCallOutputOpenAIResponseMcpApprovalResponseOpenAIResponseMcpApprovalRequest",
+    "InputListOpenAIResponseMessageUnionOpenAIResponseInputFunctionToolCallOutputOpenAIResponseMcpApprovalResponseOpenAIResponseOutputMessageReasoningItem",
+    "InputListOpenAIResponseMessageUnionOpenAIResponseInputFunctionToolCallOutputOpenAIResponseMcpApprovalResponseOpenAIResponseOutputMessageReasoningItemSummary",
+    "InputListOpenAIResponseMessageUnionOpenAIResponseInputFunctionToolCallOutputOpenAIResponseMcpApprovalResponseOpenAIResponseOutputMessageReasoningItemContent",
     "InputListOpenAIResponseMessageUnionOpenAIResponseInputFunctionToolCallOutputOpenAIResponseMcpApprovalResponseOpenAIResponseInputFunctionToolCallOutput",
     "InputListOpenAIResponseMessageUnionOpenAIResponseInputFunctionToolCallOutputOpenAIResponseMcpApprovalResponseOpenAIResponseInputFunctionToolCallOutputOutputListOpenAIResponseInputMessageContentTextOpenAIResponseInputMessageContentImageOpenAIResponseInputMessageContentFile",
     "InputListOpenAIResponseMessageUnionOpenAIResponseInputFunctionToolCallOutputOpenAIResponseMcpApprovalResponseOpenAIResponseInputFunctionToolCallOutputOutputListOpenAIResponseInputMessageContentTextOpenAIResponseInputMessageContentImageOpenAIResponseInputMessageContentFileOpenAIResponseInputMessageContentText",
@@ -558,6 +561,59 @@ class InputListOpenAIResponseMessageUnionOpenAIResponseInputFunctionToolCallOutp
     type: Literal["mcp_approval_request"]
 
 
+class InputListOpenAIResponseMessageUnionOpenAIResponseInputFunctionToolCallOutputOpenAIResponseMcpApprovalResponseOpenAIResponseOutputMessageReasoningItemSummary(
+    TypedDict, total=False
+):
+    """A summary of reasoning output from the model."""
+
+    text: Required[str]
+    """The summary text of the reasoning output."""
+
+    type: Literal["summary_text"]
+    """The type identifier, always 'summary_text'."""
+
+
+class InputListOpenAIResponseMessageUnionOpenAIResponseInputFunctionToolCallOutputOpenAIResponseMcpApprovalResponseOpenAIResponseOutputMessageReasoningItemContent(
+    TypedDict, total=False
+):
+    """Reasoning text from the model."""
+
+    text: Required[str]
+    """The reasoning text content from the model."""
+
+    type: Literal["reasoning_text"]
+    """The type identifier, always 'reasoning_text'."""
+
+
+class InputListOpenAIResponseMessageUnionOpenAIResponseInputFunctionToolCallOutputOpenAIResponseMcpApprovalResponseOpenAIResponseOutputMessageReasoningItem(
+    TypedDict, total=False
+):
+    """Reasoning output from the model, representing the model's thinking process."""
+
+    id: Required[str]
+    """Unique identifier for the reasoning output item."""
+
+    summary: Required[
+        Iterable[
+            InputListOpenAIResponseMessageUnionOpenAIResponseInputFunctionToolCallOutputOpenAIResponseMcpApprovalResponseOpenAIResponseOutputMessageReasoningItemSummary
+        ]
+    ]
+    """Summary of the reasoning output."""
+
+    content: Optional[
+        Iterable[
+            InputListOpenAIResponseMessageUnionOpenAIResponseInputFunctionToolCallOutputOpenAIResponseMcpApprovalResponseOpenAIResponseOutputMessageReasoningItemContent
+        ]
+    ]
+    """The reasoning content from the model."""
+
+    status: Optional[Literal["in_progress", "completed", "incomplete"]]
+    """The status of the reasoning output."""
+
+    type: Literal["reasoning"]
+    """The type identifier, always 'reasoning'."""
+
+
 class InputListOpenAIResponseMessageUnionOpenAIResponseInputFunctionToolCallOutputOpenAIResponseMcpApprovalResponseOpenAIResponseInputFunctionToolCallOutputOutputListOpenAIResponseInputMessageContentTextOpenAIResponseInputMessageContentImageOpenAIResponseInputMessageContentFileOpenAIResponseInputMessageContentText(
     TypedDict, total=False
 ):
@@ -654,6 +710,7 @@ InputListOpenAIResponseMessageUnionOpenAIResponseInputFunctionToolCallOutputOpen
     InputListOpenAIResponseMessageUnionOpenAIResponseInputFunctionToolCallOutputOpenAIResponseMcpApprovalResponseOpenAIResponseOutputMessageMcpCall,
     InputListOpenAIResponseMessageUnionOpenAIResponseInputFunctionToolCallOutputOpenAIResponseMcpApprovalResponseOpenAIResponseOutputMessageMcpListTools,
     InputListOpenAIResponseMessageUnionOpenAIResponseInputFunctionToolCallOutputOpenAIResponseMcpApprovalResponseOpenAIResponseMcpApprovalRequest,
+    InputListOpenAIResponseMessageUnionOpenAIResponseInputFunctionToolCallOutputOpenAIResponseMcpApprovalResponseOpenAIResponseOutputMessageReasoningItem,
     InputListOpenAIResponseMessageUnionOpenAIResponseInputFunctionToolCallOutputOpenAIResponseMcpApprovalResponseOpenAIResponseInputFunctionToolCallOutput,
     InputListOpenAIResponseMessageUnionOpenAIResponseInputFunctionToolCallOutputOpenAIResponseMcpApprovalResponseOpenAIResponseMcpApprovalResponse,
 ]
@@ -726,6 +783,9 @@ class Reasoning(TypedDict, total=False):
     """
 
     effort: Optional[Literal["none", "minimal", "low", "medium", "high", "xhigh"]]
+
+    summary: Optional[Literal["auto", "concise", "detailed"]]
+    """Summary mode for reasoning output. One of 'auto', 'concise', or 'detailed'."""
 
 
 class StreamOptions(TypedDict, total=False):

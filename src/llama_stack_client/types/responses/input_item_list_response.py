@@ -38,6 +38,9 @@ __all__ = [
     "DataOpenAIResponseOutputMessageMcpListTools",
     "DataOpenAIResponseOutputMessageMcpListToolsTool",
     "DataOpenAIResponseMcpApprovalRequest",
+    "DataOpenAIResponseOutputMessageReasoningItem",
+    "DataOpenAIResponseOutputMessageReasoningItemSummary",
+    "DataOpenAIResponseOutputMessageReasoningItemContent",
     "DataOpenAIResponseInputFunctionToolCallOutput",
     "DataOpenAIResponseInputFunctionToolCallOutputOutputListOpenAIResponseInputMessageContentTextOpenAIResponseInputMessageContentImageOpenAIResponseInputMessageContentFile",
     "DataOpenAIResponseInputFunctionToolCallOutputOutputListOpenAIResponseInputMessageContentTextOpenAIResponseInputMessageContentImageOpenAIResponseInputMessageContentFileOpenAIResponseInputMessageContentText",
@@ -385,6 +388,45 @@ class DataOpenAIResponseMcpApprovalRequest(BaseModel):
     type: Optional[Literal["mcp_approval_request"]] = None
 
 
+class DataOpenAIResponseOutputMessageReasoningItemSummary(BaseModel):
+    """A summary of reasoning output from the model."""
+
+    text: str
+    """The summary text of the reasoning output."""
+
+    type: Optional[Literal["summary_text"]] = None
+    """The type identifier, always 'summary_text'."""
+
+
+class DataOpenAIResponseOutputMessageReasoningItemContent(BaseModel):
+    """Reasoning text from the model."""
+
+    text: str
+    """The reasoning text content from the model."""
+
+    type: Optional[Literal["reasoning_text"]] = None
+    """The type identifier, always 'reasoning_text'."""
+
+
+class DataOpenAIResponseOutputMessageReasoningItem(BaseModel):
+    """Reasoning output from the model, representing the model's thinking process."""
+
+    id: str
+    """Unique identifier for the reasoning output item."""
+
+    summary: List[DataOpenAIResponseOutputMessageReasoningItemSummary]
+    """Summary of the reasoning output."""
+
+    content: Optional[List[DataOpenAIResponseOutputMessageReasoningItemContent]] = None
+    """The reasoning content from the model."""
+
+    status: Optional[Literal["in_progress", "completed", "incomplete"]] = None
+    """The status of the reasoning output."""
+
+    type: Optional[Literal["reasoning"]] = None
+    """The type identifier, always 'reasoning'."""
+
+
 class DataOpenAIResponseInputFunctionToolCallOutputOutputListOpenAIResponseInputMessageContentTextOpenAIResponseInputMessageContentImageOpenAIResponseInputMessageContentFileOpenAIResponseInputMessageContentText(
     BaseModel
 ):
@@ -478,6 +520,7 @@ Data: TypeAlias = Union[
     DataOpenAIResponseOutputMessageMcpCall,
     DataOpenAIResponseOutputMessageMcpListTools,
     DataOpenAIResponseMcpApprovalRequest,
+    DataOpenAIResponseOutputMessageReasoningItem,
     DataOpenAIResponseInputFunctionToolCallOutput,
     DataOpenAIResponseMcpApprovalResponse,
     DataOpenAIResponseMessageOutput,

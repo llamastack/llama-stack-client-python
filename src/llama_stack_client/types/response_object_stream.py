@@ -42,6 +42,9 @@ __all__ = [
     "OpenAIResponseObjectStreamResponseOutputItemAddedItemOpenAIResponseOutputMessageMcpListTools",
     "OpenAIResponseObjectStreamResponseOutputItemAddedItemOpenAIResponseOutputMessageMcpListToolsTool",
     "OpenAIResponseObjectStreamResponseOutputItemAddedItemOpenAIResponseMcpApprovalRequest",
+    "OpenAIResponseObjectStreamResponseOutputItemAddedItemOpenAIResponseOutputMessageReasoningItem",
+    "OpenAIResponseObjectStreamResponseOutputItemAddedItemOpenAIResponseOutputMessageReasoningItemSummary",
+    "OpenAIResponseObjectStreamResponseOutputItemAddedItemOpenAIResponseOutputMessageReasoningItemContent",
     "OpenAIResponseObjectStreamResponseOutputItemDone",
     "OpenAIResponseObjectStreamResponseOutputItemDoneItem",
     "OpenAIResponseObjectStreamResponseOutputItemDoneItemOpenAIResponseMessage",
@@ -67,6 +70,9 @@ __all__ = [
     "OpenAIResponseObjectStreamResponseOutputItemDoneItemOpenAIResponseOutputMessageMcpListTools",
     "OpenAIResponseObjectStreamResponseOutputItemDoneItemOpenAIResponseOutputMessageMcpListToolsTool",
     "OpenAIResponseObjectStreamResponseOutputItemDoneItemOpenAIResponseMcpApprovalRequest",
+    "OpenAIResponseObjectStreamResponseOutputItemDoneItemOpenAIResponseOutputMessageReasoningItem",
+    "OpenAIResponseObjectStreamResponseOutputItemDoneItemOpenAIResponseOutputMessageReasoningItemSummary",
+    "OpenAIResponseObjectStreamResponseOutputItemDoneItemOpenAIResponseOutputMessageReasoningItemContent",
     "OpenAIResponseObjectStreamResponseOutputTextDelta",
     "OpenAIResponseObjectStreamResponseOutputTextDeltaLogprob",
     "OpenAIResponseObjectStreamResponseOutputTextDeltaLogprobTopLogprob",
@@ -497,6 +503,47 @@ class OpenAIResponseObjectStreamResponseOutputItemAddedItemOpenAIResponseMcpAppr
     type: Optional[Literal["mcp_approval_request"]] = None
 
 
+class OpenAIResponseObjectStreamResponseOutputItemAddedItemOpenAIResponseOutputMessageReasoningItemSummary(BaseModel):
+    """A summary of reasoning output from the model."""
+
+    text: str
+    """The summary text of the reasoning output."""
+
+    type: Optional[Literal["summary_text"]] = None
+    """The type identifier, always 'summary_text'."""
+
+
+class OpenAIResponseObjectStreamResponseOutputItemAddedItemOpenAIResponseOutputMessageReasoningItemContent(BaseModel):
+    """Reasoning text from the model."""
+
+    text: str
+    """The reasoning text content from the model."""
+
+    type: Optional[Literal["reasoning_text"]] = None
+    """The type identifier, always 'reasoning_text'."""
+
+
+class OpenAIResponseObjectStreamResponseOutputItemAddedItemOpenAIResponseOutputMessageReasoningItem(BaseModel):
+    """Reasoning output from the model, representing the model's thinking process."""
+
+    id: str
+    """Unique identifier for the reasoning output item."""
+
+    summary: List[OpenAIResponseObjectStreamResponseOutputItemAddedItemOpenAIResponseOutputMessageReasoningItemSummary]
+    """Summary of the reasoning output."""
+
+    content: Optional[
+        List[OpenAIResponseObjectStreamResponseOutputItemAddedItemOpenAIResponseOutputMessageReasoningItemContent]
+    ] = None
+    """The reasoning content from the model."""
+
+    status: Optional[Literal["in_progress", "completed", "incomplete"]] = None
+    """The status of the reasoning output."""
+
+    type: Optional[Literal["reasoning"]] = None
+    """The type identifier, always 'reasoning'."""
+
+
 OpenAIResponseObjectStreamResponseOutputItemAddedItem: TypeAlias = Annotated[
     Union[
         OpenAIResponseObjectStreamResponseOutputItemAddedItemOpenAIResponseMessage,
@@ -506,6 +553,7 @@ OpenAIResponseObjectStreamResponseOutputItemAddedItem: TypeAlias = Annotated[
         OpenAIResponseObjectStreamResponseOutputItemAddedItemOpenAIResponseOutputMessageMcpCall,
         OpenAIResponseObjectStreamResponseOutputItemAddedItemOpenAIResponseOutputMessageMcpListTools,
         OpenAIResponseObjectStreamResponseOutputItemAddedItemOpenAIResponseMcpApprovalRequest,
+        OpenAIResponseObjectStreamResponseOutputItemAddedItemOpenAIResponseOutputMessageReasoningItem,
     ],
     PropertyInfo(discriminator="type"),
 ]
@@ -872,6 +920,47 @@ class OpenAIResponseObjectStreamResponseOutputItemDoneItemOpenAIResponseMcpAppro
     type: Optional[Literal["mcp_approval_request"]] = None
 
 
+class OpenAIResponseObjectStreamResponseOutputItemDoneItemOpenAIResponseOutputMessageReasoningItemSummary(BaseModel):
+    """A summary of reasoning output from the model."""
+
+    text: str
+    """The summary text of the reasoning output."""
+
+    type: Optional[Literal["summary_text"]] = None
+    """The type identifier, always 'summary_text'."""
+
+
+class OpenAIResponseObjectStreamResponseOutputItemDoneItemOpenAIResponseOutputMessageReasoningItemContent(BaseModel):
+    """Reasoning text from the model."""
+
+    text: str
+    """The reasoning text content from the model."""
+
+    type: Optional[Literal["reasoning_text"]] = None
+    """The type identifier, always 'reasoning_text'."""
+
+
+class OpenAIResponseObjectStreamResponseOutputItemDoneItemOpenAIResponseOutputMessageReasoningItem(BaseModel):
+    """Reasoning output from the model, representing the model's thinking process."""
+
+    id: str
+    """Unique identifier for the reasoning output item."""
+
+    summary: List[OpenAIResponseObjectStreamResponseOutputItemDoneItemOpenAIResponseOutputMessageReasoningItemSummary]
+    """Summary of the reasoning output."""
+
+    content: Optional[
+        List[OpenAIResponseObjectStreamResponseOutputItemDoneItemOpenAIResponseOutputMessageReasoningItemContent]
+    ] = None
+    """The reasoning content from the model."""
+
+    status: Optional[Literal["in_progress", "completed", "incomplete"]] = None
+    """The status of the reasoning output."""
+
+    type: Optional[Literal["reasoning"]] = None
+    """The type identifier, always 'reasoning'."""
+
+
 OpenAIResponseObjectStreamResponseOutputItemDoneItem: TypeAlias = Annotated[
     Union[
         OpenAIResponseObjectStreamResponseOutputItemDoneItemOpenAIResponseMessage,
@@ -881,6 +970,7 @@ OpenAIResponseObjectStreamResponseOutputItemDoneItem: TypeAlias = Annotated[
         OpenAIResponseObjectStreamResponseOutputItemDoneItemOpenAIResponseOutputMessageMcpCall,
         OpenAIResponseObjectStreamResponseOutputItemDoneItemOpenAIResponseOutputMessageMcpListTools,
         OpenAIResponseObjectStreamResponseOutputItemDoneItemOpenAIResponseMcpApprovalRequest,
+        OpenAIResponseObjectStreamResponseOutputItemDoneItemOpenAIResponseOutputMessageReasoningItem,
     ],
     PropertyInfo(discriminator="type"),
 ]
