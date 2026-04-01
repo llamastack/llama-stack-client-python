@@ -28,21 +28,24 @@ echo "==> Starting mock server with file ${SPEC_PATH}"
 
 # Run steady mock on the given spec
 if [ "$1" == "--daemon" ]; then
-  npm exec --package=@mockoon/cli@9.3.0 -- mockoon-cli start --data "$SPEC_PATH" --port 4010 &>.mockoon.log &
+  # Pre-install the package so the download doesn't eat into the startup timeout
+  npm exec --package=@stdy/cli@0.20.1 -- steady --version
+
+  npm exec --package=@stdy/cli@0.20.1 -- steady --host 127.0.0.1 -p 4010 --validator-query-array-format=comma --validator-form-array-format=comma --validator-query-object-format=brackets --validator-form-object-format=brackets "$URL" &> .stdy.log &
 
   # Wait for server to come online via health endpoint (max 30s)
   echo -n "Waiting for server"
-  while ! grep -q "Error: \|Server started on port 4010" ".mockoon.log"; do
+  while ! grep -q "Error: \|Server started on port 4010" ".stdy.log"; do
     echo -n "."
     sleep 0.1
   done
 
-  if grep -q "Error: " ".mockoon.log"; then
-    cat .mockoon.log
+  if grep -q "Error: " ".stdy.log"; then
+    cat .stdy.log
     exit 1
   fi
 
   echo
 else
-  npm exec --package=@mockoon/cli@9.3.0 -- mockoon-cli start --data "$SPEC_PATH" --port 4010
+  npm exec --package=@stdy/cli@0.20.1 -- steady --host 127.0.0.1 -p 4010 --validator-query-array-format=comma --validator-form-array-format=comma --validator-query-object-format=brackets --validator-form-object-format=brackets "$URL"
 fi
