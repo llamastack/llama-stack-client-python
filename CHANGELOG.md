@@ -1,5 +1,53 @@
 # Changelog
 
+## 0.7.0-alpha.1 (2026-03-28)
+
+Full Changelog: [v0.6.1-alpha.1...v0.7.0-alpha.1](https://github.com/llamastack/llama-stack-client-python/compare/v0.6.1-alpha.1...v0.7.0-alpha.1)
+
+### ⚠ BREAKING CHANGES
+
+* eliminate GET /chat/completions/{completion_id} conformance issues
+* rename agents API to responses API
+* eliminate /files/{file_id} GET differences
+
+### Features
+
+* Add stream_options parameter support ([b4c2f15](https://github.com/llamastack/llama-stack-client-python/commit/b4c2f15b16872730a9c254b1b2dfc02aba223a71))
+* eliminate /files/{file_id} GET differences ([1f28d73](https://github.com/llamastack/llama-stack-client-python/commit/1f28d730824b6cb721415985194c5f4567e42ea7))
+* eliminate GET /chat/completions/{completion_id} conformance issues ([dad9f54](https://github.com/llamastack/llama-stack-client-python/commit/dad9f546400133d34a0cd650a227800be78b0d1f))
+* **internal:** implement indices array format for query and form serialization ([6694121](https://github.com/llamastack/llama-stack-client-python/commit/6694121eee689fb7033704bad2b698a4640e2431))
+* **responses:** add cancel endpoint for background responses ([d9bc91a](https://github.com/llamastack/llama-stack-client-python/commit/d9bc91afecb64ec27b97d37699d5ff6c1222d369))
+
+
+### Bug Fixes
+
+* **deps:** bump minimum typing-extensions version ([50ea4d7](https://github.com/llamastack/llama-stack-client-python/commit/50ea4d7fd98a86726f6825d911507b7fc96e2e60))
+* **inference:** improve chat completions OpenAI conformance ([147b88b](https://github.com/llamastack/llama-stack-client-python/commit/147b88b44eb83bceb7cd6204cd79d8dafe8f8e7a))
+* **pydantic:** do not pass `by_alias` unless set ([f6836f9](https://github.com/llamastack/llama-stack-client-python/commit/f6836f9dacef1b9b26774fcfaf82689ae00f374a))
+* remove duplicate dataset_id parameter in append-rows endpoint ([d6a79d0](https://github.com/llamastack/llama-stack-client-python/commit/d6a79d0a830bad4e82b70d7ab9e007ebc16e0f05))
+* sanitize endpoint path params ([9b288d5](https://github.com/llamastack/llama-stack-client-python/commit/9b288d553ae83860fbe1d8ee9352532ed04ddd9b))
+
+
+### Chores
+
+* **ci:** skip lint on metadata-only changes ([b096c2c](https://github.com/llamastack/llama-stack-client-python/commit/b096c2ce513a5d2de9a17e7841609feb30d1b0b2))
+* **internal:** tweak CI branches ([1df7e26](https://github.com/llamastack/llama-stack-client-python/commit/1df7e2605e78572eccc53aa8db1e44d987106a9b))
+* **internal:** update gitignore ([0e98cfd](https://github.com/llamastack/llama-stack-client-python/commit/0e98cfdcf7779ca24ef4dbd7e9e8d9c75fa2a751))
+* **internal:** version bump ([f468096](https://github.com/llamastack/llama-stack-client-python/commit/f46809696ddf1f179cc26984facfcbb7f9264730))
+* **tests:** bump steady to v0.19.4 ([f5ad8f8](https://github.com/llamastack/llama-stack-client-python/commit/f5ad8f801078d79c03ec7723cd64b1c9895def2d))
+* **tests:** bump steady to v0.19.5 ([55689e1](https://github.com/llamastack/llama-stack-client-python/commit/55689e1ddee55d81efff681dbb3523b0ed09d658))
+* **tests:** bump steady to v0.19.6 ([87cb87e](https://github.com/llamastack/llama-stack-client-python/commit/87cb87e8ecd52d95b5a375f8b4c00f5837e4feeb))
+* **tests:** bump steady to v0.19.7 ([10f6ed7](https://github.com/llamastack/llama-stack-client-python/commit/10f6ed745b38d89be2d6a5eb007427b015e84e23))
+
+
+### Refactors
+
+* remove fine_tuning API ([021bd5e](https://github.com/llamastack/llama-stack-client-python/commit/021bd5e6138574884befe6f20ba86ceeefee1767))
+* remove tool_groups from public API and auto-register from provider specs ([c0df2dc](https://github.com/llamastack/llama-stack-client-python/commit/c0df2dcf9bb38600f73db746dc38d3277e74e7b9))
+* rename agents API to responses API ([f5c27db](https://github.com/llamastack/llama-stack-client-python/commit/f5c27db9d2716098a116d516cc5ad673ee621988))
+* rename rag-runtime provider to file-search ([94a14da](https://github.com/llamastack/llama-stack-client-python/commit/94a14dad88ed55d3f2baf1de8eb30ba529fb9818))
+* **tests:** switch from prism to steady ([23d591c](https://github.com/llamastack/llama-stack-client-python/commit/23d591c70549c7f00b7be136a19893dbdd65f43c))
+
 ## 0.6.1-alpha.1 (2026-03-13)
 
 Full Changelog: [v0.5.0-alpha.2...v0.6.1-alpha.1](https://github.com/llamastack/llama-stack-client-python/compare/v0.5.0-alpha.2...v0.6.1-alpha.1)

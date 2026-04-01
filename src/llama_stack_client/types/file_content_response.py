@@ -6,13 +6,8 @@
 
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-from .._models import BaseModel
-from .toolgroup_list_response import ToolgroupListResponse
+from typing_extensions import TypeAlias
 
-__all__ = ["ListToolGroupsResponse"]
+__all__ = ["FileContentResponse"]
 
-
-class ListToolGroupsResponse(BaseModel):
-    """Response containing a list of tool groups."""
-
-    data: ToolgroupListResponse
+FileContentResponse: TypeAlias = str

@@ -53,6 +53,7 @@ __all__ = [
     "PromptVariablesOpenAIResponseInputMessageContentImage",
     "PromptVariablesOpenAIResponseInputMessageContentFile",
     "Reasoning",
+    "StreamOptions",
     "Text",
     "TextFormat",
     "ToolChoice",
@@ -168,6 +169,9 @@ class ResponseCreateParamsBase(TypedDict, total=False):
     store: Optional[bool]
     """Whether to store the response in the database."""
 
+    stream_options: Optional[StreamOptions]
+    """Options that control streamed response behavior."""
+
     temperature: Optional[float]
     """Sampling temperature."""
 
@@ -279,6 +283,8 @@ class InputListOpenAIResponseMessageUnionOpenAIResponseInputFunctionToolCallOutp
 class InputListOpenAIResponseMessageUnionOpenAIResponseInputFunctionToolCallOutputOpenAIResponseMcpApprovalResponseOpenAIResponseMessageInputContentListOpenAIResponseOutputMessageContentOutputTextInputOpenAIResponseContentPartRefusalOpenAIResponseOutputMessageContentOutputTextInputAnnotationOpenAIResponseAnnotationContainerFileCitation(
     TypedDict, total=False
 ):
+    """Container file citation annotation referencing a file within a container."""
+
     container_id: Required[str]
 
     end_index: Required[int]
@@ -295,6 +301,8 @@ class InputListOpenAIResponseMessageUnionOpenAIResponseInputFunctionToolCallOutp
 class InputListOpenAIResponseMessageUnionOpenAIResponseInputFunctionToolCallOutputOpenAIResponseMcpApprovalResponseOpenAIResponseMessageInputContentListOpenAIResponseOutputMessageContentOutputTextInputOpenAIResponseContentPartRefusalOpenAIResponseOutputMessageContentOutputTextInputAnnotationOpenAIResponseAnnotationFilePath(
     TypedDict, total=False
 ):
+    """File path annotation referencing a generated file in response content."""
+
     file_id: Required[str]
 
     index: Required[int]
@@ -354,6 +362,8 @@ class InputListOpenAIResponseMessageUnionOpenAIResponseInputFunctionToolCallOutp
 class InputListOpenAIResponseMessageUnionOpenAIResponseInputFunctionToolCallOutputOpenAIResponseMcpApprovalResponseOpenAIResponseMessageInputContentListOpenAIResponseOutputMessageContentOutputTextInputOpenAIResponseContentPartRefusalOpenAIResponseOutputMessageContentOutputTextInput(
     TypedDict, total=False
 ):
+    """Text content within an output message of an OpenAI response."""
+
     text: Required[str]
 
     annotations: Iterable[
@@ -716,6 +726,13 @@ class Reasoning(TypedDict, total=False):
     """
 
     effort: Optional[Literal["none", "minimal", "low", "medium", "high", "xhigh"]]
+
+
+class StreamOptions(TypedDict, total=False):
+    """Options that control streamed response behavior."""
+
+    include_obfuscation: bool
+    """Whether to obfuscate sensitive information in streamed output."""
 
 
 class TextFormat(TypedDict, total=False):

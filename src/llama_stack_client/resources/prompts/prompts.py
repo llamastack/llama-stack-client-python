@@ -19,7 +19,7 @@ from ...types import (
     prompt_set_default_version_params,
 )
 from ..._types import Body, Omit, Query, Headers, NoneType, NotGiven, SequenceNotStr, omit, not_given
-from ..._utils import maybe_transform, async_maybe_transform
+from ..._utils import path_template, maybe_transform, async_maybe_transform
 from .versions import (
     VersionsResource,
     AsyncVersionsResource,
@@ -145,7 +145,7 @@ class PromptsResource(SyncAPIResource):
         if not prompt_id:
             raise ValueError(f"Expected a non-empty value for `prompt_id` but received {prompt_id!r}")
         return self._get(
-            f"/v1/prompts/{prompt_id}",
+            path_template("/v1/prompts/{prompt_id}", prompt_id=prompt_id),
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
@@ -196,7 +196,7 @@ class PromptsResource(SyncAPIResource):
         if not prompt_id:
             raise ValueError(f"Expected a non-empty value for `prompt_id` but received {prompt_id!r}")
         return self._put(
-            f"/v1/prompts/{prompt_id}",
+            path_template("/v1/prompts/{prompt_id}", prompt_id=prompt_id),
             body=maybe_transform(
                 {
                     "prompt": prompt,
@@ -264,7 +264,7 @@ class PromptsResource(SyncAPIResource):
             raise ValueError(f"Expected a non-empty value for `prompt_id` but received {prompt_id!r}")
         extra_headers = {"Accept": "*/*", **(extra_headers or {})}
         return self._delete(
-            f"/v1/prompts/{prompt_id}",
+            path_template("/v1/prompts/{prompt_id}", prompt_id=prompt_id),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -302,7 +302,7 @@ class PromptsResource(SyncAPIResource):
         if not prompt_id:
             raise ValueError(f"Expected a non-empty value for `prompt_id` but received {prompt_id!r}")
         return self._put(
-            f"/v1/prompts/{prompt_id}/set-default-version",
+            path_template("/v1/prompts/{prompt_id}/set-default-version", prompt_id=prompt_id),
             body=maybe_transform({"version": version}, prompt_set_default_version_params.PromptSetDefaultVersionParams),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
@@ -412,7 +412,7 @@ class AsyncPromptsResource(AsyncAPIResource):
         if not prompt_id:
             raise ValueError(f"Expected a non-empty value for `prompt_id` but received {prompt_id!r}")
         return await self._get(
-            f"/v1/prompts/{prompt_id}",
+            path_template("/v1/prompts/{prompt_id}", prompt_id=prompt_id),
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
@@ -463,7 +463,7 @@ class AsyncPromptsResource(AsyncAPIResource):
         if not prompt_id:
             raise ValueError(f"Expected a non-empty value for `prompt_id` but received {prompt_id!r}")
         return await self._put(
-            f"/v1/prompts/{prompt_id}",
+            path_template("/v1/prompts/{prompt_id}", prompt_id=prompt_id),
             body=await async_maybe_transform(
                 {
                     "prompt": prompt,
@@ -531,7 +531,7 @@ class AsyncPromptsResource(AsyncAPIResource):
             raise ValueError(f"Expected a non-empty value for `prompt_id` but received {prompt_id!r}")
         extra_headers = {"Accept": "*/*", **(extra_headers or {})}
         return await self._delete(
-            f"/v1/prompts/{prompt_id}",
+            path_template("/v1/prompts/{prompt_id}", prompt_id=prompt_id),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -569,7 +569,7 @@ class AsyncPromptsResource(AsyncAPIResource):
         if not prompt_id:
             raise ValueError(f"Expected a non-empty value for `prompt_id` but received {prompt_id!r}")
         return await self._put(
-            f"/v1/prompts/{prompt_id}/set-default-version",
+            path_template("/v1/prompts/{prompt_id}/set-default-version", prompt_id=prompt_id),
             body=await async_maybe_transform(
                 {"version": version}, prompt_set_default_version_params.PromptSetDefaultVersionParams
             ),

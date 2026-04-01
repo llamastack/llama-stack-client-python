@@ -26,14 +26,14 @@ class File(BaseModel):
     created_at: int
     """The Unix timestamp (in seconds) for when the file was created."""
 
-    expires_at: int
-    """The Unix timestamp (in seconds) for when the file expires."""
-
     filename: str
     """The name of the file."""
 
     purpose: Literal["assistants", "batch"]
     """The intended purpose of the file."""
+
+    expires_at: Optional[int] = None
+    """The Unix timestamp (in seconds) for when the file expires."""
 
     object: Optional[Literal["file"]] = None
     """The object type, which is always 'file'."""

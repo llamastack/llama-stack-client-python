@@ -64,7 +64,7 @@ class DatasetListResponseItem(BaseModel):
     provider_id: str
     """ID of the provider that owns this resource"""
 
-    purpose: Literal["post-training/messages", "eval/question-answer", "eval/messages-answer"]
+    purpose: Literal["eval/question-answer", "eval/messages-answer"]
     """Purpose of the dataset indicating its intended use"""
 
     source: DatasetListResponseItemSource

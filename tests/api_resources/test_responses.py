@@ -70,6 +70,7 @@ class TestResponses:
             service_tier="auto",
             store=True,
             stream=False,
+            stream_options={"include_obfuscation": True},
             temperature=0,
             text={
                 "format": {
@@ -162,6 +163,7 @@ class TestResponses:
             safety_identifier="safety_identifier",
             service_tier="auto",
             store=True,
+            stream_options={"include_obfuscation": True},
             temperature=0,
             text={
                 "format": {
@@ -371,6 +373,7 @@ class TestAsyncResponses:
             service_tier="auto",
             store=True,
             stream=False,
+            stream_options={"include_obfuscation": True},
             temperature=0,
             text={
                 "format": {
@@ -463,6 +466,7 @@ class TestAsyncResponses:
             safety_identifier="safety_identifier",
             service_tier="auto",
             store=True,
+            stream_options={"include_obfuscation": True},
             temperature=0,
             text={
                 "format": {

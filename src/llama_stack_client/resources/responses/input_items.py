@@ -14,7 +14,7 @@ from typing_extensions import Literal
 import httpx
 
 from ..._types import Body, Omit, Query, Headers, NotGiven, omit, not_given
-from ..._utils import maybe_transform, async_maybe_transform
+from ..._utils import path_template, maybe_transform, async_maybe_transform
 from ..._compat import cached_property
 from ..._resource import SyncAPIResource, AsyncAPIResource
 from ..._response import (
@@ -31,8 +31,6 @@ __all__ = ["InputItemsResource", "AsyncInputItemsResource"]
 
 
 class InputItemsResource(SyncAPIResource):
-    """APIs for creating and interacting with agentic systems."""
-
     @cached_property
     def with_raw_response(self) -> InputItemsResourceWithRawResponse:
         """
@@ -109,7 +107,7 @@ class InputItemsResource(SyncAPIResource):
         if not response_id:
             raise ValueError(f"Expected a non-empty value for `response_id` but received {response_id!r}")
         return self._get(
-            f"/v1/responses/{response_id}/input_items",
+            path_template("/v1/responses/{response_id}/input_items", response_id=response_id),
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
@@ -131,8 +129,6 @@ class InputItemsResource(SyncAPIResource):
 
 
 class AsyncInputItemsResource(AsyncAPIResource):
-    """APIs for creating and interacting with agentic systems."""
-
     @cached_property
     def with_raw_response(self) -> AsyncInputItemsResourceWithRawResponse:
         """
@@ -209,7 +205,7 @@ class AsyncInputItemsResource(AsyncAPIResource):
         if not response_id:
             raise ValueError(f"Expected a non-empty value for `response_id` but received {response_id!r}")
         return await self._get(
-            f"/v1/responses/{response_id}/input_items",
+            path_template("/v1/responses/{response_id}/input_items", response_id=response_id),
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,

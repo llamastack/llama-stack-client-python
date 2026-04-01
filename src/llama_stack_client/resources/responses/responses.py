@@ -15,7 +15,7 @@ import httpx
 
 from ...types import response_list_params, response_create_params
 from ..._types import Body, Omit, Query, Headers, NotGiven, SequenceNotStr, omit, not_given
-from ..._utils import required_args, maybe_transform, async_maybe_transform
+from ..._utils import path_template, required_args, maybe_transform, async_maybe_transform
 from ..._compat import cached_property
 from ..._resource import SyncAPIResource, AsyncAPIResource
 from ..._response import (
@@ -44,11 +44,8 @@ __all__ = ["ResponsesResource", "AsyncResponsesResource"]
 
 
 class ResponsesResource(SyncAPIResource):
-    """APIs for creating and interacting with agentic systems."""
-
     @cached_property
     def input_items(self) -> InputItemsResource:
-        """APIs for creating and interacting with agentic systems."""
         return InputItemsResource(self._client)
 
     @cached_property
@@ -114,6 +111,7 @@ class ResponsesResource(SyncAPIResource):
         service_tier: Optional[Literal["auto", "default", "flex", "priority"]] | Omit = omit,
         store: Optional[bool] | Omit = omit,
         stream: Optional[Literal[False]] | Omit = omit,
+        stream_options: Optional[response_create_params.StreamOptions] | Omit = omit,
         temperature: Optional[float] | Omit = omit,
         text: Optional[response_create_params.Text] | Omit = omit,
         tool_choice: Optional[response_create_params.ToolChoice] | Omit = omit,
@@ -178,6 +176,8 @@ class ResponsesResource(SyncAPIResource):
           store: Whether to store the response in the database.
 
           stream: Whether to stream the response.
+
+          stream_options: Options that control streamed response behavior.
 
           temperature: Sampling temperature.
 
@@ -250,6 +250,7 @@ class ResponsesResource(SyncAPIResource):
         safety_identifier: Optional[str] | Omit = omit,
         service_tier: Optional[Literal["auto", "default", "flex", "priority"]] | Omit = omit,
         store: Optional[bool] | Omit = omit,
+        stream_options: Optional[response_create_params.StreamOptions] | Omit = omit,
         temperature: Optional[float] | Omit = omit,
         text: Optional[response_create_params.Text] | Omit = omit,
         tool_choice: Optional[response_create_params.ToolChoice] | Omit = omit,
@@ -314,6 +315,8 @@ class ResponsesResource(SyncAPIResource):
           service_tier: The service tier for the request.
 
           store: Whether to store the response in the database.
+
+          stream_options: Options that control streamed response behavior.
 
           temperature: Sampling temperature.
 
@@ -386,6 +389,7 @@ class ResponsesResource(SyncAPIResource):
         safety_identifier: Optional[str] | Omit = omit,
         service_tier: Optional[Literal["auto", "default", "flex", "priority"]] | Omit = omit,
         store: Optional[bool] | Omit = omit,
+        stream_options: Optional[response_create_params.StreamOptions] | Omit = omit,
         temperature: Optional[float] | Omit = omit,
         text: Optional[response_create_params.Text] | Omit = omit,
         tool_choice: Optional[response_create_params.ToolChoice] | Omit = omit,
@@ -450,6 +454,8 @@ class ResponsesResource(SyncAPIResource):
           service_tier: The service tier for the request.
 
           store: Whether to store the response in the database.
+
+          stream_options: Options that control streamed response behavior.
 
           temperature: Sampling temperature.
 
@@ -522,6 +528,7 @@ class ResponsesResource(SyncAPIResource):
         service_tier: Optional[Literal["auto", "default", "flex", "priority"]] | Omit = omit,
         store: Optional[bool] | Omit = omit,
         stream: Optional[Literal[False]] | Literal[True] | Omit = omit,
+        stream_options: Optional[response_create_params.StreamOptions] | Omit = omit,
         temperature: Optional[float] | Omit = omit,
         text: Optional[response_create_params.Text] | Omit = omit,
         tool_choice: Optional[response_create_params.ToolChoice] | Omit = omit,
@@ -562,6 +569,7 @@ class ResponsesResource(SyncAPIResource):
                     "service_tier": service_tier,
                     "store": store,
                     "stream": stream,
+                    "stream_options": stream_options,
                     "temperature": temperature,
                     "text": text,
                     "tool_choice": tool_choice,
@@ -610,7 +618,7 @@ class ResponsesResource(SyncAPIResource):
         if not response_id:
             raise ValueError(f"Expected a non-empty value for `response_id` but received {response_id!r}")
         return self._get(
-            f"/v1/responses/{response_id}",
+            path_template("/v1/responses/{response_id}", response_id=response_id),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -700,7 +708,7 @@ class ResponsesResource(SyncAPIResource):
         if not response_id:
             raise ValueError(f"Expected a non-empty value for `response_id` but received {response_id!r}")
         return self._delete(
-            f"/v1/responses/{response_id}",
+            path_template("/v1/responses/{response_id}", response_id=response_id),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -709,11 +717,8 @@ class ResponsesResource(SyncAPIResource):
 
 
 class AsyncResponsesResource(AsyncAPIResource):
-    """APIs for creating and interacting with agentic systems."""
-
     @cached_property
     def input_items(self) -> AsyncInputItemsResource:
-        """APIs for creating and interacting with agentic systems."""
         return AsyncInputItemsResource(self._client)
 
     @cached_property
@@ -779,6 +784,7 @@ class AsyncResponsesResource(AsyncAPIResource):
         service_tier: Optional[Literal["auto", "default", "flex", "priority"]] | Omit = omit,
         store: Optional[bool] | Omit = omit,
         stream: Optional[Literal[False]] | Omit = omit,
+        stream_options: Optional[response_create_params.StreamOptions] | Omit = omit,
         temperature: Optional[float] | Omit = omit,
         text: Optional[response_create_params.Text] | Omit = omit,
         tool_choice: Optional[response_create_params.ToolChoice] | Omit = omit,
@@ -843,6 +849,8 @@ class AsyncResponsesResource(AsyncAPIResource):
           store: Whether to store the response in the database.
 
           stream: Whether to stream the response.
+
+          stream_options: Options that control streamed response behavior.
 
           temperature: Sampling temperature.
 
@@ -915,6 +923,7 @@ class AsyncResponsesResource(AsyncAPIResource):
         safety_identifier: Optional[str] | Omit = omit,
         service_tier: Optional[Literal["auto", "default", "flex", "priority"]] | Omit = omit,
         store: Optional[bool] | Omit = omit,
+        stream_options: Optional[response_create_params.StreamOptions] | Omit = omit,
         temperature: Optional[float] | Omit = omit,
         text: Optional[response_create_params.Text] | Omit = omit,
         tool_choice: Optional[response_create_params.ToolChoice] | Omit = omit,
@@ -979,6 +988,8 @@ class AsyncResponsesResource(AsyncAPIResource):
           service_tier: The service tier for the request.
 
           store: Whether to store the response in the database.
+
+          stream_options: Options that control streamed response behavior.
 
           temperature: Sampling temperature.
 
@@ -1051,6 +1062,7 @@ class AsyncResponsesResource(AsyncAPIResource):
         safety_identifier: Optional[str] | Omit = omit,
         service_tier: Optional[Literal["auto", "default", "flex", "priority"]] | Omit = omit,
         store: Optional[bool] | Omit = omit,
+        stream_options: Optional[response_create_params.StreamOptions] | Omit = omit,
         temperature: Optional[float] | Omit = omit,
         text: Optional[response_create_params.Text] | Omit = omit,
         tool_choice: Optional[response_create_params.ToolChoice] | Omit = omit,
@@ -1115,6 +1127,8 @@ class AsyncResponsesResource(AsyncAPIResource):
           service_tier: The service tier for the request.
 
           store: Whether to store the response in the database.
+
+          stream_options: Options that control streamed response behavior.
 
           temperature: Sampling temperature.
 
@@ -1187,6 +1201,7 @@ class AsyncResponsesResource(AsyncAPIResource):
         service_tier: Optional[Literal["auto", "default", "flex", "priority"]] | Omit = omit,
         store: Optional[bool] | Omit = omit,
         stream: Optional[Literal[False]] | Literal[True] | Omit = omit,
+        stream_options: Optional[response_create_params.StreamOptions] | Omit = omit,
         temperature: Optional[float] | Omit = omit,
         text: Optional[response_create_params.Text] | Omit = omit,
         tool_choice: Optional[response_create_params.ToolChoice] | Omit = omit,
@@ -1227,6 +1242,7 @@ class AsyncResponsesResource(AsyncAPIResource):
                     "service_tier": service_tier,
                     "store": store,
                     "stream": stream,
+                    "stream_options": stream_options,
                     "temperature": temperature,
                     "text": text,
                     "tool_choice": tool_choice,
@@ -1275,7 +1291,7 @@ class AsyncResponsesResource(AsyncAPIResource):
         if not response_id:
             raise ValueError(f"Expected a non-empty value for `response_id` but received {response_id!r}")
         return await self._get(
-            f"/v1/responses/{response_id}",
+            path_template("/v1/responses/{response_id}", response_id=response_id),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -1365,7 +1381,7 @@ class AsyncResponsesResource(AsyncAPIResource):
         if not response_id:
             raise ValueError(f"Expected a non-empty value for `response_id` but received {response_id!r}")
         return await self._delete(
-            f"/v1/responses/{response_id}",
+            path_template("/v1/responses/{response_id}", response_id=response_id),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -1392,7 +1408,6 @@ class ResponsesResourceWithRawResponse:
 
     @cached_property
     def input_items(self) -> InputItemsResourceWithRawResponse:
-        """APIs for creating and interacting with agentic systems."""
         return InputItemsResourceWithRawResponse(self._responses.input_items)
 
 
@@ -1415,7 +1430,6 @@ class AsyncResponsesResourceWithRawResponse:
 
     @cached_property
     def input_items(self) -> AsyncInputItemsResourceWithRawResponse:
-        """APIs for creating and interacting with agentic systems."""
         return AsyncInputItemsResourceWithRawResponse(self._responses.input_items)
 
 
@@ -1438,7 +1452,6 @@ class ResponsesResourceWithStreamingResponse:
 
     @cached_property
     def input_items(self) -> InputItemsResourceWithStreamingResponse:
-        """APIs for creating and interacting with agentic systems."""
         return InputItemsResourceWithStreamingResponse(self._responses.input_items)
 
 
@@ -1461,5 +1474,4 @@ class AsyncResponsesResourceWithStreamingResponse:
 
     @cached_property
     def input_items(self) -> AsyncInputItemsResourceWithStreamingResponse:
-        """APIs for creating and interacting with agentic systems."""
         return AsyncInputItemsResourceWithStreamingResponse(self._responses.input_items)

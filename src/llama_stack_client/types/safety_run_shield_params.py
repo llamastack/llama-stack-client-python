@@ -98,6 +98,8 @@ class MessageOpenAIUserMessageParamInputContentListOpenAIChatCompletionContentPa
 class MessageOpenAIUserMessageParamInputContentListOpenAIChatCompletionContentPartTextParamOpenAIChatCompletionContentPartImageParamOpenAIFileOpenAIFile(
     TypedDict, total=False
 ):
+    """File content part for OpenAI-compatible chat completion messages."""
+
     file: Required[
         MessageOpenAIUserMessageParamInputContentListOpenAIChatCompletionContentPartTextParamOpenAIChatCompletionContentPartImageParamOpenAIFileOpenAIFileFile
     ]
@@ -175,28 +177,25 @@ class MessageOpenAIAssistantMessageParamInputContentListOpenAIChatCompletionCont
 
 
 class MessageOpenAIAssistantMessageParamInputToolCallFunction(TypedDict, total=False):
-    """Function call details for OpenAI-compatible tool calls."""
+    """Function call details."""
 
-    arguments: Optional[str]
+    arguments: Required[str]
     """Arguments to pass to the function as a JSON string."""
 
-    name: Optional[str]
+    name: Required[str]
     """Name of the function to call."""
 
 
 class MessageOpenAIAssistantMessageParamInputToolCall(TypedDict, total=False):
     """Tool call specification for OpenAI-compatible chat completion responses."""
 
-    id: Optional[str]
+    id: Required[str]
     """Unique identifier for the tool call."""
 
-    function: Optional[MessageOpenAIAssistantMessageParamInputToolCallFunction]
-    """Function call details for OpenAI-compatible tool calls."""
+    function: Required[MessageOpenAIAssistantMessageParamInputToolCallFunction]
+    """Function call details."""
 
-    index: Optional[int]
-    """Index of the tool call in the list."""
-
-    type: Literal["function"]
+    type: Required[Literal["function"]]
     """Must be 'function' to identify this as a function call."""
 
 

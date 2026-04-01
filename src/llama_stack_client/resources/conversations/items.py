@@ -14,7 +14,7 @@ from typing_extensions import Literal
 import httpx
 
 from ..._types import Body, Omit, Query, Headers, NotGiven, omit, not_given
-from ..._utils import maybe_transform, async_maybe_transform
+from ..._utils import path_template, maybe_transform, async_maybe_transform
 from ..._compat import cached_property
 from ..._resource import SyncAPIResource, AsyncAPIResource
 from ..._response import (
@@ -88,7 +88,7 @@ class ItemsResource(SyncAPIResource):
         if not conversation_id:
             raise ValueError(f"Expected a non-empty value for `conversation_id` but received {conversation_id!r}")
         return self._post(
-            f"/v1/conversations/{conversation_id}/items",
+            path_template("/v1/conversations/{conversation_id}/items", conversation_id=conversation_id),
             body=maybe_transform({"items": items}, item_create_params.ItemCreateParams),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
@@ -141,7 +141,7 @@ class ItemsResource(SyncAPIResource):
         if not conversation_id:
             raise ValueError(f"Expected a non-empty value for `conversation_id` but received {conversation_id!r}")
         return self._get_api_list(
-            f"/v1/conversations/{conversation_id}/items",
+            path_template("/v1/conversations/{conversation_id}/items", conversation_id=conversation_id),
             page=SyncOpenAICursorPage[ItemListResponse],
             options=make_request_options(
                 extra_headers=extra_headers,
@@ -194,7 +194,9 @@ class ItemsResource(SyncAPIResource):
         if not item_id:
             raise ValueError(f"Expected a non-empty value for `item_id` but received {item_id!r}")
         return self._delete(
-            f"/v1/conversations/{conversation_id}/items/{item_id}",
+            path_template(
+                "/v1/conversations/{conversation_id}/items/{item_id}", conversation_id=conversation_id, item_id=item_id
+            ),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -236,7 +238,11 @@ class ItemsResource(SyncAPIResource):
         return cast(
             ItemGetResponse,
             self._get(
-                f"/v1/conversations/{conversation_id}/items/{item_id}",
+                path_template(
+                    "/v1/conversations/{conversation_id}/items/{item_id}",
+                    conversation_id=conversation_id,
+                    item_id=item_id,
+                ),
                 options=make_request_options(
                     extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
                 ),
@@ -299,7 +305,7 @@ class AsyncItemsResource(AsyncAPIResource):
         if not conversation_id:
             raise ValueError(f"Expected a non-empty value for `conversation_id` but received {conversation_id!r}")
         return await self._post(
-            f"/v1/conversations/{conversation_id}/items",
+            path_template("/v1/conversations/{conversation_id}/items", conversation_id=conversation_id),
             body=await async_maybe_transform({"items": items}, item_create_params.ItemCreateParams),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
@@ -352,7 +358,7 @@ class AsyncItemsResource(AsyncAPIResource):
         if not conversation_id:
             raise ValueError(f"Expected a non-empty value for `conversation_id` but received {conversation_id!r}")
         return self._get_api_list(
-            f"/v1/conversations/{conversation_id}/items",
+            path_template("/v1/conversations/{conversation_id}/items", conversation_id=conversation_id),
             page=AsyncOpenAICursorPage[ItemListResponse],
             options=make_request_options(
                 extra_headers=extra_headers,
@@ -405,7 +411,9 @@ class AsyncItemsResource(AsyncAPIResource):
         if not item_id:
             raise ValueError(f"Expected a non-empty value for `item_id` but received {item_id!r}")
         return await self._delete(
-            f"/v1/conversations/{conversation_id}/items/{item_id}",
+            path_template(
+                "/v1/conversations/{conversation_id}/items/{item_id}", conversation_id=conversation_id, item_id=item_id
+            ),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -447,7 +455,11 @@ class AsyncItemsResource(AsyncAPIResource):
         return cast(
             ItemGetResponse,
             await self._get(
-                f"/v1/conversations/{conversation_id}/items/{item_id}",
+                path_template(
+                    "/v1/conversations/{conversation_id}/items/{item_id}",
+                    conversation_id=conversation_id,
+                    item_id=item_id,
+                ),
                 options=make_request_options(
                     extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
                 ),

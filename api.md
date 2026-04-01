@@ -18,47 +18,6 @@ from llama_stack_client.types import (
 )
 ```
 
-# Toolgroups
-
-Types:
-
-```python
-from llama_stack_client.types import ListToolGroupsResponse, ToolGroup, ToolgroupListResponse
-```
-
-Methods:
-
-- <code title="get /v1/toolgroups">client.toolgroups.<a href="./src/llama_stack_client/resources/toolgroups.py">list</a>() -> <a href="./src/llama_stack_client/types/toolgroup_list_response.py">ToolgroupListResponse</a></code>
-- <code title="get /v1/toolgroups/{toolgroup_id}">client.toolgroups.<a href="./src/llama_stack_client/resources/toolgroups.py">get</a>(toolgroup_id) -> <a href="./src/llama_stack_client/types/tool_group.py">ToolGroup</a></code>
-- <code title="post /v1/toolgroups">client.toolgroups.<a href="./src/llama_stack_client/resources/toolgroups.py">register</a>(\*\*<a href="src/llama_stack_client/types/toolgroup_register_params.py">params</a>) -> None</code>
-- <code title="delete /v1/toolgroups/{toolgroup_id}">client.toolgroups.<a href="./src/llama_stack_client/resources/toolgroups.py">unregister</a>(toolgroup_id) -> None</code>
-
-# Tools
-
-Types:
-
-```python
-from llama_stack_client.types import ToolListResponse
-```
-
-Methods:
-
-- <code title="get /v1/tools">client.tools.<a href="./src/llama_stack_client/resources/tools.py">list</a>(\*\*<a href="src/llama_stack_client/types/tool_list_params.py">params</a>) -> <a href="./src/llama_stack_client/types/tool_list_response.py">ToolListResponse</a></code>
-- <code title="get /v1/tools/{tool_name}">client.tools.<a href="./src/llama_stack_client/resources/tools.py">get</a>(tool_name) -> <a href="./src/llama_stack_client/types/tool_def.py">ToolDef</a></code>
-
-# ToolRuntime
-
-Types:
-
-```python
-from llama_stack_client.types import ToolDef, ToolInvocationResult, ToolRuntimeListToolsResponse
-```
-
-Methods:
-
-- <code title="post /v1/tool-runtime/invoke">client.tool_runtime.<a href="./src/llama_stack_client/resources/tool_runtime.py">invoke_tool</a>(\*\*<a href="src/llama_stack_client/types/tool_runtime_invoke_tool_params.py">params</a>) -> <a href="./src/llama_stack_client/types/tool_invocation_result.py">ToolInvocationResult</a></code>
-- <code title="get /v1/tool-runtime/list-tools">client.tool_runtime.<a href="./src/llama_stack_client/resources/tool_runtime.py">list_tools</a>(\*\*<a href="src/llama_stack_client/types/tool_runtime_list_tools_params.py">params</a>) -> <a href="./src/llama_stack_client/types/tool_runtime_list_tools_response.py">ToolRuntimeListToolsResponse</a></code>
-
 # Responses
 
 Types:
@@ -409,7 +368,12 @@ Methods:
 Types:
 
 ```python
-from llama_stack_client.types import DeleteFileResponse, File, ListFilesResponse
+from llama_stack_client.types import (
+    DeleteFileResponse,
+    File,
+    ListFilesResponse,
+    FileContentResponse,
+)
 ```
 
 Methods:
@@ -418,7 +382,7 @@ Methods:
 - <code title="get /v1/files/{file_id}">client.files.<a href="./src/llama_stack_client/resources/files.py">retrieve</a>(file_id) -> <a href="./src/llama_stack_client/types/file.py">File</a></code>
 - <code title="get /v1/files">client.files.<a href="./src/llama_stack_client/resources/files.py">list</a>(\*\*<a href="src/llama_stack_client/types/file_list_params.py">params</a>) -> <a href="./src/llama_stack_client/types/file.py">SyncOpenAICursorPage[File]</a></code>
 - <code title="delete /v1/files/{file_id}">client.files.<a href="./src/llama_stack_client/resources/files.py">delete</a>(file_id) -> <a href="./src/llama_stack_client/types/delete_file_response.py">DeleteFileResponse</a></code>
-- <code title="get /v1/files/{file_id}/content">client.files.<a href="./src/llama_stack_client/resources/files.py">content</a>(file_id) -> object</code>
+- <code title="get /v1/files/{file_id}/content">client.files.<a href="./src/llama_stack_client/resources/files.py">content</a>(file_id) -> str</code>
 
 # Batches
 
@@ -441,42 +405,6 @@ Methods:
 - <code title="post /v1/batches/{batch_id}/cancel">client.batches.<a href="./src/llama_stack_client/resources/batches.py">cancel</a>(batch_id) -> <a href="./src/llama_stack_client/types/batch_cancel_response.py">BatchCancelResponse</a></code>
 
 # Alpha
-
-## PostTraining
-
-Types:
-
-```python
-from llama_stack_client.types.alpha import (
-    AlgorithmConfig,
-    ListPostTrainingJobsResponse,
-    PostTrainingJob,
-)
-```
-
-Methods:
-
-- <code title="post /v1alpha/post-training/preference-optimize">client.alpha.post_training.<a href="./src/llama_stack_client/resources/alpha/post_training/post_training.py">preference_optimize</a>(\*\*<a href="src/llama_stack_client/types/alpha/post_training_preference_optimize_params.py">params</a>) -> <a href="./src/llama_stack_client/types/alpha/post_training_job.py">PostTrainingJob</a></code>
-- <code title="post /v1alpha/post-training/supervised-fine-tune">client.alpha.post_training.<a href="./src/llama_stack_client/resources/alpha/post_training/post_training.py">supervised_fine_tune</a>(\*\*<a href="src/llama_stack_client/types/alpha/post_training_supervised_fine_tune_params.py">params</a>) -> <a href="./src/llama_stack_client/types/alpha/post_training_job.py">PostTrainingJob</a></code>
-
-### Job
-
-Types:
-
-```python
-from llama_stack_client.types.alpha.post_training import (
-    JobListResponse,
-    JobArtifactsResponse,
-    JobStatusResponse,
-)
-```
-
-Methods:
-
-- <code title="get /v1alpha/post-training/jobs">client.alpha.post_training.job.<a href="./src/llama_stack_client/resources/alpha/post_training/job.py">list</a>() -> <a href="./src/llama_stack_client/types/alpha/post_training/job_list_response.py">JobListResponse</a></code>
-- <code title="get /v1alpha/post-training/jobs/{job_uuid}/artifacts">client.alpha.post_training.job.<a href="./src/llama_stack_client/resources/alpha/post_training/job.py">artifacts</a>(job_uuid) -> <a href="./src/llama_stack_client/types/alpha/post_training/job_artifacts_response.py">JobArtifactsResponse</a></code>
-- <code title="post /v1alpha/post-training/jobs/{job_uuid}/cancel">client.alpha.post_training.job.<a href="./src/llama_stack_client/resources/alpha/post_training/job.py">cancel</a>(job_uuid) -> None</code>
-- <code title="get /v1alpha/post-training/jobs/{job_uuid}/status">client.alpha.post_training.job.<a href="./src/llama_stack_client/resources/alpha/post_training/job.py">status</a>(job_uuid) -> <a href="./src/llama_stack_client/types/alpha/post_training/job_status_response.py">JobStatusResponse</a></code>
 
 ## Benchmarks
 
@@ -558,7 +486,7 @@ Methods:
 
 - <code title="get /v1beta/datasets/{dataset_id}">client.beta.datasets.<a href="./src/llama_stack_client/resources/beta/datasets.py">retrieve</a>(dataset_id) -> <a href="./src/llama_stack_client/types/beta/dataset_retrieve_response.py">DatasetRetrieveResponse</a></code>
 - <code title="get /v1beta/datasets">client.beta.datasets.<a href="./src/llama_stack_client/resources/beta/datasets.py">list</a>() -> <a href="./src/llama_stack_client/types/beta/dataset_list_response.py">DatasetListResponse</a></code>
-- <code title="post /v1beta/datasetio/append-rows/{dataset_id}">client.beta.datasets.<a href="./src/llama_stack_client/resources/beta/datasets.py">appendrows</a>(path_dataset_id, \*\*<a href="src/llama_stack_client/types/beta/dataset_appendrows_params.py">params</a>) -> None</code>
+- <code title="post /v1beta/datasetio/append-rows/{dataset_id}">client.beta.datasets.<a href="./src/llama_stack_client/resources/beta/datasets.py">appendrows</a>(dataset_id, \*\*<a href="src/llama_stack_client/types/beta/dataset_appendrows_params.py">params</a>) -> None</code>
 - <code title="get /v1beta/datasetio/iterrows/{dataset_id}">client.beta.datasets.<a href="./src/llama_stack_client/resources/beta/datasets.py">iterrows</a>(dataset_id, \*\*<a href="src/llama_stack_client/types/beta/dataset_iterrows_params.py">params</a>) -> <a href="./src/llama_stack_client/types/beta/dataset_iterrows_response.py">DatasetIterrowsResponse</a></code>
 - <code title="post /v1beta/datasets">client.beta.datasets.<a href="./src/llama_stack_client/resources/beta/datasets.py">register</a>(\*\*<a href="src/llama_stack_client/types/beta/dataset_register_params.py">params</a>) -> <a href="./src/llama_stack_client/types/beta/dataset_register_response.py">DatasetRegisterResponse</a></code>
 - <code title="delete /v1beta/datasets/{dataset_id}">client.beta.datasets.<a href="./src/llama_stack_client/resources/beta/datasets.py">unregister</a>(dataset_id) -> None</code>

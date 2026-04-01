@@ -11,7 +11,6 @@ from __future__ import annotations
 from .job import Job as Job
 from .benchmark import Benchmark as Benchmark
 from .evaluate_response import EvaluateResponse as EvaluateResponse
-from .post_training_job import PostTrainingJob as PostTrainingJob
 from .eval_run_eval_params import EvalRunEvalParams as EvalRunEvalParams
 from .benchmark_config_param import BenchmarkConfigParam as BenchmarkConfigParam
 from .benchmark_list_response import BenchmarkListResponse as BenchmarkListResponse
@@ -23,10 +22,3 @@ from .eval_evaluate_rows_params import EvalEvaluateRowsParams as EvalEvaluateRow
 from .inference_rerank_response import InferenceRerankResponse as InferenceRerankResponse
 from .eval_run_eval_alpha_params import EvalRunEvalAlphaParams as EvalRunEvalAlphaParams
 from .eval_evaluate_rows_alpha_params import EvalEvaluateRowsAlphaParams as EvalEvaluateRowsAlphaParams
-from .list_post_training_jobs_response import ListPostTrainingJobsResponse as ListPostTrainingJobsResponse
-from .post_training_preference_optimize_params import (
-    PostTrainingPreferenceOptimizeParams as PostTrainingPreferenceOptimizeParams,
-)
-from .post_training_supervised_fine_tune_params import (
-    PostTrainingSupervisedFineTuneParams as PostTrainingSupervisedFineTuneParams,
-)

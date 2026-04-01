@@ -253,11 +253,12 @@ from llama_stack_client import LlamaStackClient
 
 client = LlamaStackClient()
 
-client.toolgroups.register(
-    provider_id="provider_id",
-    toolgroup_id="toolgroup_id",
-    mcp_endpoint={"uri": "uri"},
+response_object = client.responses.create(
+    input="string",
+    model="model",
+    prompt={"id": "id"},
 )
+print(response_object.prompt)
 ```
 
 ## File uploads

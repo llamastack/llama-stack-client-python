@@ -15,7 +15,7 @@ __all__ = ["DatasetRegisterParams", "Source", "SourceUriDataSource", "SourceRows
 
 
 class DatasetRegisterParams(TypedDict, total=False):
-    purpose: Required[Literal["post-training/messages", "eval/question-answer", "eval/messages-answer"]]
+    purpose: Required[Literal["eval/question-answer", "eval/messages-answer"]]
     """The purpose of the dataset."""
 
     source: Required[Source]

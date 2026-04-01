@@ -42,23 +42,11 @@ from .benchmarks import (
     AsyncBenchmarksResourceWithStreamingResponse,
 )
 from ..._resource import SyncAPIResource, AsyncAPIResource
-from .post_training.post_training import (
-    PostTrainingResource,
-    AsyncPostTrainingResource,
-    PostTrainingResourceWithRawResponse,
-    AsyncPostTrainingResourceWithRawResponse,
-    PostTrainingResourceWithStreamingResponse,
-    AsyncPostTrainingResourceWithStreamingResponse,
-)
 
 __all__ = ["AlphaResource", "AsyncAlphaResource"]
 
 
 class AlphaResource(SyncAPIResource):
-    @cached_property
-    def post_training(self) -> PostTrainingResource:
-        return PostTrainingResource(self._client)
-
     @cached_property
     def benchmarks(self) -> BenchmarksResource:
         return BenchmarksResource(self._client)
@@ -107,10 +95,6 @@ class AlphaResource(SyncAPIResource):
 
 
 class AsyncAlphaResource(AsyncAPIResource):
-    @cached_property
-    def post_training(self) -> AsyncPostTrainingResource:
-        return AsyncPostTrainingResource(self._client)
-
     @cached_property
     def benchmarks(self) -> AsyncBenchmarksResource:
         return AsyncBenchmarksResource(self._client)
@@ -163,10 +147,6 @@ class AlphaResourceWithRawResponse:
         self._alpha = alpha
 
     @cached_property
-    def post_training(self) -> PostTrainingResourceWithRawResponse:
-        return PostTrainingResourceWithRawResponse(self._alpha.post_training)
-
-    @cached_property
     def benchmarks(self) -> BenchmarksResourceWithRawResponse:
         return BenchmarksResourceWithRawResponse(self._alpha.benchmarks)
 
@@ -197,10 +177,6 @@ class AlphaResourceWithRawResponse:
 class AsyncAlphaResourceWithRawResponse:
     def __init__(self, alpha: AsyncAlphaResource) -> None:
         self._alpha = alpha
-
-    @cached_property
-    def post_training(self) -> AsyncPostTrainingResourceWithRawResponse:
-        return AsyncPostTrainingResourceWithRawResponse(self._alpha.post_training)
 
     @cached_property
     def benchmarks(self) -> AsyncBenchmarksResourceWithRawResponse:
@@ -235,10 +211,6 @@ class AlphaResourceWithStreamingResponse:
         self._alpha = alpha
 
     @cached_property
-    def post_training(self) -> PostTrainingResourceWithStreamingResponse:
-        return PostTrainingResourceWithStreamingResponse(self._alpha.post_training)
-
-    @cached_property
     def benchmarks(self) -> BenchmarksResourceWithStreamingResponse:
         return BenchmarksResourceWithStreamingResponse(self._alpha.benchmarks)
 
@@ -269,10 +241,6 @@ class AlphaResourceWithStreamingResponse:
 class AsyncAlphaResourceWithStreamingResponse:
     def __init__(self, alpha: AsyncAlphaResource) -> None:
         self._alpha = alpha
-
-    @cached_property
-    def post_training(self) -> AsyncPostTrainingResourceWithStreamingResponse:
-        return AsyncPostTrainingResourceWithStreamingResponse(self._alpha.post_training)
 
     @cached_property
     def benchmarks(self) -> AsyncBenchmarksResourceWithStreamingResponse:

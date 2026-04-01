@@ -27,7 +27,7 @@ from ...types import (
     vector_store_update_params,
 )
 from ..._types import Body, Omit, Query, Headers, NotGiven, SequenceNotStr, omit, not_given
-from ..._utils import maybe_transform, async_maybe_transform
+from ..._utils import path_template, maybe_transform, async_maybe_transform
 from ..._compat import cached_property
 from ..._resource import SyncAPIResource, AsyncAPIResource
 from ..._response import (
@@ -156,7 +156,7 @@ class VectorStoresResource(SyncAPIResource):
         if not vector_store_id:
             raise ValueError(f"Expected a non-empty value for `vector_store_id` but received {vector_store_id!r}")
         return self._get(
-            f"/v1/vector_stores/{vector_store_id}",
+            path_template("/v1/vector_stores/{vector_store_id}", vector_store_id=vector_store_id),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -200,7 +200,7 @@ class VectorStoresResource(SyncAPIResource):
         if not vector_store_id:
             raise ValueError(f"Expected a non-empty value for `vector_store_id` but received {vector_store_id!r}")
         return self._post(
-            f"/v1/vector_stores/{vector_store_id}",
+            path_template("/v1/vector_stores/{vector_store_id}", vector_store_id=vector_store_id),
             body=maybe_transform(
                 {
                     "expires_after": expires_after,
@@ -298,7 +298,7 @@ class VectorStoresResource(SyncAPIResource):
         if not vector_store_id:
             raise ValueError(f"Expected a non-empty value for `vector_store_id` but received {vector_store_id!r}")
         return self._delete(
-            f"/v1/vector_stores/{vector_store_id}",
+            path_template("/v1/vector_stores/{vector_store_id}", vector_store_id=vector_store_id),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -367,7 +367,7 @@ class VectorStoresResource(SyncAPIResource):
         if not vector_store_id:
             raise ValueError(f"Expected a non-empty value for `vector_store_id` but received {vector_store_id!r}")
         return self._post(
-            f"/v1/vector_stores/{vector_store_id}/search",
+            path_template("/v1/vector_stores/{vector_store_id}/search", vector_store_id=vector_store_id),
             body=maybe_transform(
                 {
                     "query": query,
@@ -489,7 +489,7 @@ class AsyncVectorStoresResource(AsyncAPIResource):
         if not vector_store_id:
             raise ValueError(f"Expected a non-empty value for `vector_store_id` but received {vector_store_id!r}")
         return await self._get(
-            f"/v1/vector_stores/{vector_store_id}",
+            path_template("/v1/vector_stores/{vector_store_id}", vector_store_id=vector_store_id),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -533,7 +533,7 @@ class AsyncVectorStoresResource(AsyncAPIResource):
         if not vector_store_id:
             raise ValueError(f"Expected a non-empty value for `vector_store_id` but received {vector_store_id!r}")
         return await self._post(
-            f"/v1/vector_stores/{vector_store_id}",
+            path_template("/v1/vector_stores/{vector_store_id}", vector_store_id=vector_store_id),
             body=await async_maybe_transform(
                 {
                     "expires_after": expires_after,
@@ -631,7 +631,7 @@ class AsyncVectorStoresResource(AsyncAPIResource):
         if not vector_store_id:
             raise ValueError(f"Expected a non-empty value for `vector_store_id` but received {vector_store_id!r}")
         return await self._delete(
-            f"/v1/vector_stores/{vector_store_id}",
+            path_template("/v1/vector_stores/{vector_store_id}", vector_store_id=vector_store_id),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -700,7 +700,7 @@ class AsyncVectorStoresResource(AsyncAPIResource):
         if not vector_store_id:
             raise ValueError(f"Expected a non-empty value for `vector_store_id` but received {vector_store_id!r}")
         return await self._post(
-            f"/v1/vector_stores/{vector_store_id}/search",
+            path_template("/v1/vector_stores/{vector_store_id}/search", vector_store_id=vector_store_id),
             body=await async_maybe_transform(
                 {
                     "query": query,

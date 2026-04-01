@@ -129,6 +129,8 @@ class OpenAIResponseMessageOutputContentListOpenAIResponseOutputMessageContentOu
 class OpenAIResponseMessageOutputContentListOpenAIResponseOutputMessageContentOutputTextOutputOpenAIResponseContentPartRefusalOpenAIResponseOutputMessageContentOutputTextOutputAnnotationOpenAIResponseAnnotationContainerFileCitation(
     BaseModel
 ):
+    """Container file citation annotation referencing a file within a container."""
+
     container_id: str
 
     end_index: int
@@ -145,6 +147,8 @@ class OpenAIResponseMessageOutputContentListOpenAIResponseOutputMessageContentOu
 class OpenAIResponseMessageOutputContentListOpenAIResponseOutputMessageContentOutputTextOutputOpenAIResponseContentPartRefusalOpenAIResponseOutputMessageContentOutputTextOutputAnnotationOpenAIResponseAnnotationFilePath(
     BaseModel
 ):
+    """File path annotation referencing a generated file in response content."""
+
     file_id: str
 
     index: int
@@ -207,6 +211,8 @@ class OpenAIResponseMessageOutputContentListOpenAIResponseOutputMessageContentOu
 class OpenAIResponseMessageOutputContentListOpenAIResponseOutputMessageContentOutputTextOutputOpenAIResponseContentPartRefusalOpenAIResponseOutputMessageContentOutputTextOutput(
     BaseModel
 ):
+    """Text content within an output message of an OpenAI response."""
+
     text: str
 
     annotations: Optional[
