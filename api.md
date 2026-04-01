@@ -249,7 +249,6 @@ from llama_stack_client.types import (
     Model,
     ModelRetrieveResponse,
     ModelListResponse,
-    ModelRegisterResponse,
 )
 ```
 
@@ -257,8 +256,6 @@ Methods:
 
 - <code title="get /v1/models/{model_id}">client.models.<a href="./src/llama_stack_client/resources/models/models.py">retrieve</a>(model_id) -> <a href="./src/llama_stack_client/types/model_retrieve_response.py">ModelRetrieveResponse</a></code>
 - <code title="get /v1/models">client.models.<a href="./src/llama_stack_client/resources/models/models.py">list</a>() -> <a href="./src/llama_stack_client/types/model_list_response.py">ModelListResponse</a></code>
-- <code title="post /v1/models">client.models.<a href="./src/llama_stack_client/resources/models/models.py">register</a>(\*\*<a href="src/llama_stack_client/types/model_register_params.py">params</a>) -> <a href="./src/llama_stack_client/types/model_register_response.py">ModelRegisterResponse</a></code>
-- <code title="delete /v1/models/{model_id}">client.models.<a href="./src/llama_stack_client/resources/models/models.py">unregister</a>(model_id) -> None</code>
 
 ## OpenAI
 

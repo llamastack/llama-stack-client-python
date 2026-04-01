@@ -8,9 +8,7 @@
 
 from __future__ import annotations
 
-import typing_extensions
-from typing import Dict, Type, Optional, cast
-from typing_extensions import Literal
+from typing import Type, cast
 
 import httpx
 
@@ -22,9 +20,8 @@ from .openai import (
     OpenAIResourceWithStreamingResponse,
     AsyncOpenAIResourceWithStreamingResponse,
 )
-from ...types import model_register_params
-from ..._types import Body, Omit, Query, Headers, NoneType, NotGiven, omit, not_given
-from ..._utils import path_template, maybe_transform, async_maybe_transform
+from ..._types import Body, Query, Headers, NotGiven, not_given
+from ..._utils import path_template
 from ..._compat import cached_property
 from ..._resource import SyncAPIResource, AsyncAPIResource
 from ..._response import (
@@ -36,7 +33,6 @@ from ..._response import (
 from ..._wrappers import DataWrapper
 from ..._base_client import make_request_options
 from ...types.model_list_response import ModelListResponse
-from ...types.model_register_response import ModelRegisterResponse
 from ...types.model_retrieve_response import ModelRetrieveResponse
 
 __all__ = ["ModelsResource", "AsyncModelsResource"]
@@ -124,105 +120,6 @@ class ModelsResource(SyncAPIResource):
             cast_to=cast(Type[ModelListResponse], DataWrapper[ModelListResponse]),
         )
 
-    @typing_extensions.deprecated("deprecated")
-    def register(
-        self,
-        *,
-        model_id: str,
-        metadata: Optional[Dict[str, object]] | Omit = omit,
-        model_type: Optional[Literal["llm", "embedding", "rerank"]] | Omit = omit,
-        model_validation: Optional[bool] | Omit = omit,
-        provider_id: Optional[str] | Omit = omit,
-        provider_model_id: Optional[str] | Omit = omit,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> ModelRegisterResponse:
-        """
-        Register a model.
-
-        Args:
-          model_id: The identifier of the model to register.
-
-          metadata: Any additional metadata for this model.
-
-          model_type: Enumeration of supported model types in Llama Stack.
-
-          model_validation: Enable model availability check during registration. When false (default),
-              validation is deferred to runtime and model is preserved during provider
-              refresh.
-
-          provider_id: The identifier of the provider.
-
-          provider_model_id: The identifier of the model in the provider.
-
-          extra_headers: Send extra headers
-
-          extra_query: Add additional query parameters to the request
-
-          extra_body: Add additional JSON properties to the request
-
-          timeout: Override the client-level default timeout for this request, in seconds
-        """
-        return self._post(
-            "/v1/models",
-            body=maybe_transform(
-                {
-                    "model_id": model_id,
-                    "metadata": metadata,
-                    "model_type": model_type,
-                    "model_validation": model_validation,
-                    "provider_id": provider_id,
-                    "provider_model_id": provider_model_id,
-                },
-                model_register_params.ModelRegisterParams,
-            ),
-            options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
-            ),
-            cast_to=ModelRegisterResponse,
-        )
-
-    @typing_extensions.deprecated("deprecated")
-    def unregister(
-        self,
-        model_id: str,
-        *,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> None:
-        """
-        Unregister a model.
-
-        Args:
-          model_id: The ID of the model to unregister.
-
-          extra_headers: Send extra headers
-
-          extra_query: Add additional query parameters to the request
-
-          extra_body: Add additional JSON properties to the request
-
-          timeout: Override the client-level default timeout for this request, in seconds
-        """
-        if not model_id:
-            raise ValueError(f"Expected a non-empty value for `model_id` but received {model_id!r}")
-        extra_headers = {"Accept": "*/*", **(extra_headers or {})}
-        return self._delete(
-            path_template("/v1/models/{model_id}", model_id=model_id),
-            options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
-            ),
-            cast_to=NoneType,
-        )
-
 
 class AsyncModelsResource(AsyncAPIResource):
     @cached_property
@@ -306,105 +203,6 @@ class AsyncModelsResource(AsyncAPIResource):
             cast_to=cast(Type[ModelListResponse], DataWrapper[ModelListResponse]),
         )
 
-    @typing_extensions.deprecated("deprecated")
-    async def register(
-        self,
-        *,
-        model_id: str,
-        metadata: Optional[Dict[str, object]] | Omit = omit,
-        model_type: Optional[Literal["llm", "embedding", "rerank"]] | Omit = omit,
-        model_validation: Optional[bool] | Omit = omit,
-        provider_id: Optional[str] | Omit = omit,
-        provider_model_id: Optional[str] | Omit = omit,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> ModelRegisterResponse:
-        """
-        Register a model.
-
-        Args:
-          model_id: The identifier of the model to register.
-
-          metadata: Any additional metadata for this model.
-
-          model_type: Enumeration of supported model types in Llama Stack.
-
-          model_validation: Enable model availability check during registration. When false (default),
-              validation is deferred to runtime and model is preserved during provider
-              refresh.
-
-          provider_id: The identifier of the provider.
-
-          provider_model_id: The identifier of the model in the provider.
-
-          extra_headers: Send extra headers
-
-          extra_query: Add additional query parameters to the request
-
-          extra_body: Add additional JSON properties to the request
-
-          timeout: Override the client-level default timeout for this request, in seconds
-        """
-        return await self._post(
-            "/v1/models",
-            body=await async_maybe_transform(
-                {
-                    "model_id": model_id,
-                    "metadata": metadata,
-                    "model_type": model_type,
-                    "model_validation": model_validation,
-                    "provider_id": provider_id,
-                    "provider_model_id": provider_model_id,
-                },
-                model_register_params.ModelRegisterParams,
-            ),
-            options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
-            ),
-            cast_to=ModelRegisterResponse,
-        )
-
-    @typing_extensions.deprecated("deprecated")
-    async def unregister(
-        self,
-        model_id: str,
-        *,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> None:
-        """
-        Unregister a model.
-
-        Args:
-          model_id: The ID of the model to unregister.
-
-          extra_headers: Send extra headers
-
-          extra_query: Add additional query parameters to the request
-
-          extra_body: Add additional JSON properties to the request
-
-          timeout: Override the client-level default timeout for this request, in seconds
-        """
-        if not model_id:
-            raise ValueError(f"Expected a non-empty value for `model_id` but received {model_id!r}")
-        extra_headers = {"Accept": "*/*", **(extra_headers or {})}
-        return await self._delete(
-            path_template("/v1/models/{model_id}", model_id=model_id),
-            options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
-            ),
-            cast_to=NoneType,
-        )
-
 
 class ModelsResourceWithRawResponse:
     def __init__(self, models: ModelsResource) -> None:
@@ -415,16 +213,6 @@ class ModelsResourceWithRawResponse:
         )
         self.list = to_raw_response_wrapper(
             models.list,
-        )
-        self.register = (  # pyright: ignore[reportDeprecated]
-            to_raw_response_wrapper(
-                models.register,  # pyright: ignore[reportDeprecated],
-            )
-        )
-        self.unregister = (  # pyright: ignore[reportDeprecated]
-            to_raw_response_wrapper(
-                models.unregister,  # pyright: ignore[reportDeprecated],
-            )
         )
 
     @cached_property
@@ -442,16 +230,6 @@ class AsyncModelsResourceWithRawResponse:
         self.list = async_to_raw_response_wrapper(
             models.list,
         )
-        self.register = (  # pyright: ignore[reportDeprecated]
-            async_to_raw_response_wrapper(
-                models.register,  # pyright: ignore[reportDeprecated],
-            )
-        )
-        self.unregister = (  # pyright: ignore[reportDeprecated]
-            async_to_raw_response_wrapper(
-                models.unregister,  # pyright: ignore[reportDeprecated],
-            )
-        )
 
     @cached_property
     def openai(self) -> AsyncOpenAIResourceWithRawResponse:
@@ -468,16 +246,6 @@ class ModelsResourceWithStreamingResponse:
         self.list = to_streamed_response_wrapper(
             models.list,
         )
-        self.register = (  # pyright: ignore[reportDeprecated]
-            to_streamed_response_wrapper(
-                models.register,  # pyright: ignore[reportDeprecated],
-            )
-        )
-        self.unregister = (  # pyright: ignore[reportDeprecated]
-            to_streamed_response_wrapper(
-                models.unregister,  # pyright: ignore[reportDeprecated],
-            )
-        )
 
     @cached_property
     def openai(self) -> OpenAIResourceWithStreamingResponse:
@@ -493,16 +261,6 @@ class AsyncModelsResourceWithStreamingResponse:
         )
         self.list = async_to_streamed_response_wrapper(
             models.list,
-        )
-        self.register = (  # pyright: ignore[reportDeprecated]
-            async_to_streamed_response_wrapper(
-                models.register,  # pyright: ignore[reportDeprecated],
-            )
-        )
-        self.unregister = (  # pyright: ignore[reportDeprecated]
-            async_to_streamed_response_wrapper(
-                models.unregister,  # pyright: ignore[reportDeprecated],
-            )
         )
 
     @cached_property
