@@ -1,5 +1,25 @@
 # Changelog
 
+## 0.7.0-alpha.2 (2026-04-01)
+
+Full Changelog: [v0.7.0-alpha.1...v0.7.0-alpha.2](https://github.com/llamastack/llama-stack-client-python/compare/v0.7.0-alpha.1...v0.7.0-alpha.2)
+
+### Features
+
+* add reasoning as valid conversation item ([029da3f](https://github.com/llamastack/llama-stack-client-python/commit/029da3fb41d13b6419e7d49b5b04f525818cf731))
+* add reasoning output types to OpenAI Responses API spec ([3bb043e](https://github.com/llamastack/llama-stack-client-python/commit/3bb043e2859ae601cd69c380e1749a1ff18a2a00))
+
+
+### Chores
+
+* **tests:** bump steady to v0.20.1 ([82edffa](https://github.com/llamastack/llama-stack-client-python/commit/82edffaebfa5d36d9494bee945a64b64d4453414))
+* **tests:** bump steady to v0.20.2 ([8aab687](https://github.com/llamastack/llama-stack-client-python/commit/8aab6875d8eac1a9aea91b80ab29d2cfe596d4e0))
+
+
+### Refactors
+
+* remove deprecated register/unregister model endpoints ([6c82145](https://github.com/llamastack/llama-stack-client-python/commit/6c82145f77a9b461a5d2e36492d995d23114eed3))
+
 ## 0.7.0-alpha.1 (2026-03-28)
 
 Full Changelog: [v0.6.1-alpha.1...v0.7.0-alpha.1](https://github.com/llamastack/llama-stack-client-python/compare/v0.6.1-alpha.1...v0.7.0-alpha.1)
