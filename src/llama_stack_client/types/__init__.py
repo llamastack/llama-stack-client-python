@@ -11,7 +11,6 @@ from .shared import (
     HealthInfo as HealthInfo,
     VersionInfo as VersionInfo,
     ProviderInfo as ProviderInfo,
-    ScoringResult as ScoringResult,
     SystemMessage as SystemMessage,
     SamplingParams as SamplingParams,
     SafetyViolation as SafetyViolation,
@@ -21,7 +20,6 @@ from .shared import (
     InterleavedContentItem as InterleavedContentItem,
 )
 from .shield import Shield as Shield
-from .scoring_fn import ScoringFn as ScoringFn
 from .vector_store import VectorStore as VectorStore
 from .create_response import CreateResponse as CreateResponse
 from .response_object import ResponseObject as ResponseObject
@@ -42,7 +40,6 @@ from .prompt_create_params import PromptCreateParams as PromptCreateParams
 from .prompt_list_response import PromptListResponse as PromptListResponse
 from .prompt_update_params import PromptUpdateParams as PromptUpdateParams
 from .response_list_params import ResponseListParams as ResponseListParams
-from .scoring_score_params import ScoringScoreParams as ScoringScoreParams
 from .shield_list_response import ShieldListResponse as ShieldListResponse
 from .batch_cancel_response import BatchCancelResponse as BatchCancelResponse
 from .batch_create_response import BatchCreateResponse as BatchCreateResponse
@@ -56,7 +53,6 @@ from .provider_list_response import ProviderListResponse as ProviderListResponse
 from .response_create_params import ResponseCreateParams as ResponseCreateParams
 from .response_list_response import ResponseListResponse as ResponseListResponse
 from .response_object_stream import ResponseObjectStream as ResponseObjectStream
-from .scoring_score_response import ScoringScoreResponse as ScoringScoreResponse
 from .shield_register_params import ShieldRegisterParams as ShieldRegisterParams
 from .vector_io_query_params import VectorIoQueryParams as VectorIoQueryParams
 from .batch_retrieve_response import BatchRetrieveResponse as BatchRetrieveResponse
@@ -72,16 +68,11 @@ from .completion_create_response import CompletionCreateResponse as CompletionCr
 from .conversation_create_params import ConversationCreateParams as ConversationCreateParams
 from .conversation_update_params import ConversationUpdateParams as ConversationUpdateParams
 from .create_embeddings_response import CreateEmbeddingsResponse as CreateEmbeddingsResponse
-from .scoring_score_batch_params import ScoringScoreBatchParams as ScoringScoreBatchParams
 from .vector_store_create_params import VectorStoreCreateParams as VectorStoreCreateParams
 from .vector_store_search_params import VectorStoreSearchParams as VectorStoreSearchParams
 from .vector_store_update_params import VectorStoreUpdateParams as VectorStoreUpdateParams
 from .list_vector_stores_response import ListVectorStoresResponse as ListVectorStoresResponse
 from .conversation_delete_response import ConversationDeleteResponse as ConversationDeleteResponse
-from .scoring_score_batch_response import ScoringScoreBatchResponse as ScoringScoreBatchResponse
 from .vector_store_delete_response import VectorStoreDeleteResponse as VectorStoreDeleteResponse
 from .vector_store_search_response import VectorStoreSearchResponse as VectorStoreSearchResponse
-from .scoring_function_list_response import ScoringFunctionListResponse as ScoringFunctionListResponse
-from .list_scoring_functions_response import ListScoringFunctionsResponse as ListScoringFunctionsResponse
-from .scoring_function_register_params import ScoringFunctionRegisterParams as ScoringFunctionRegisterParams
 from .prompt_set_default_version_params import PromptSetDefaultVersionParams as PromptSetDefaultVersionParams

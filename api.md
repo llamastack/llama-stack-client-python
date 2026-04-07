@@ -12,7 +12,6 @@ from llama_stack_client.types import (
     RouteInfo,
     SafetyViolation,
     SamplingParams,
-    ScoringResult,
     SystemMessage,
     VersionInfo,
 )
@@ -327,39 +326,6 @@ Methods:
 - <code title="delete /v1/shields/{identifier}">client.shields.<a href="./src/llama_stack_client/resources/shields.py">delete</a>(identifier) -> None</code>
 - <code title="post /v1/shields">client.shields.<a href="./src/llama_stack_client/resources/shields.py">register</a>(\*\*<a href="src/llama_stack_client/types/shield_register_params.py">params</a>) -> <a href="./src/llama_stack_client/types/shield.py">Shield</a></code>
 
-# Scoring
-
-Types:
-
-```python
-from llama_stack_client.types import ScoringScoreResponse, ScoringScoreBatchResponse
-```
-
-Methods:
-
-- <code title="post /v1/scoring/score">client.scoring.<a href="./src/llama_stack_client/resources/scoring.py">score</a>(\*\*<a href="src/llama_stack_client/types/scoring_score_params.py">params</a>) -> <a href="./src/llama_stack_client/types/scoring_score_response.py">ScoringScoreResponse</a></code>
-- <code title="post /v1/scoring/score-batch">client.scoring.<a href="./src/llama_stack_client/resources/scoring.py">score_batch</a>(\*\*<a href="src/llama_stack_client/types/scoring_score_batch_params.py">params</a>) -> <a href="./src/llama_stack_client/types/scoring_score_batch_response.py">ScoringScoreBatchResponse</a></code>
-
-# ScoringFunctions
-
-Types:
-
-```python
-from llama_stack_client.types import (
-    ListScoringFunctionsResponse,
-    ScoringFn,
-    ScoringFnParams,
-    ScoringFunctionListResponse,
-)
-```
-
-Methods:
-
-- <code title="get /v1/scoring-functions/{scoring_fn_id}">client.scoring_functions.<a href="./src/llama_stack_client/resources/scoring_functions.py">retrieve</a>(scoring_fn_id) -> <a href="./src/llama_stack_client/types/scoring_fn.py">ScoringFn</a></code>
-- <code title="get /v1/scoring-functions">client.scoring_functions.<a href="./src/llama_stack_client/resources/scoring_functions.py">list</a>() -> <a href="./src/llama_stack_client/types/scoring_function_list_response.py">ScoringFunctionListResponse</a></code>
-- <code title="post /v1/scoring-functions">client.scoring_functions.<a href="./src/llama_stack_client/resources/scoring_functions.py">register</a>(\*\*<a href="src/llama_stack_client/types/scoring_function_register_params.py">params</a>) -> None</code>
-- <code title="delete /v1/scoring-functions/{scoring_fn_id}">client.scoring_functions.<a href="./src/llama_stack_client/resources/scoring_functions.py">unregister</a>(scoring_fn_id) -> None</code>
-
 # Files
 
 Types:
@@ -403,44 +369,6 @@ Methods:
 
 # Alpha
 
-## Benchmarks
-
-Types:
-
-```python
-from llama_stack_client.types.alpha import Benchmark, ListBenchmarksResponse, BenchmarkListResponse
-```
-
-Methods:
-
-- <code title="get /v1alpha/eval/benchmarks/{benchmark_id}">client.alpha.benchmarks.<a href="./src/llama_stack_client/resources/alpha/benchmarks.py">retrieve</a>(benchmark_id) -> <a href="./src/llama_stack_client/types/alpha/benchmark.py">Benchmark</a></code>
-- <code title="get /v1alpha/eval/benchmarks">client.alpha.benchmarks.<a href="./src/llama_stack_client/resources/alpha/benchmarks.py">list</a>() -> <a href="./src/llama_stack_client/types/alpha/benchmark_list_response.py">BenchmarkListResponse</a></code>
-- <code title="post /v1alpha/eval/benchmarks">client.alpha.benchmarks.<a href="./src/llama_stack_client/resources/alpha/benchmarks.py">register</a>(\*\*<a href="src/llama_stack_client/types/alpha/benchmark_register_params.py">params</a>) -> None</code>
-- <code title="delete /v1alpha/eval/benchmarks/{benchmark_id}">client.alpha.benchmarks.<a href="./src/llama_stack_client/resources/alpha/benchmarks.py">unregister</a>(benchmark_id) -> None</code>
-
-## Eval
-
-Types:
-
-```python
-from llama_stack_client.types.alpha import BenchmarkConfig, EvaluateResponse, Job
-```
-
-Methods:
-
-- <code title="post /v1alpha/eval/benchmarks/{benchmark_id}/evaluations">client.alpha.eval.<a href="./src/llama_stack_client/resources/alpha/eval/eval.py">evaluate_rows</a>(benchmark_id, \*\*<a href="src/llama_stack_client/types/alpha/eval_evaluate_rows_params.py">params</a>) -> <a href="./src/llama_stack_client/types/alpha/evaluate_response.py">EvaluateResponse</a></code>
-- <code title="post /v1alpha/eval/benchmarks/{benchmark_id}/evaluations">client.alpha.eval.<a href="./src/llama_stack_client/resources/alpha/eval/eval.py">evaluate_rows_alpha</a>(benchmark_id, \*\*<a href="src/llama_stack_client/types/alpha/eval_evaluate_rows_alpha_params.py">params</a>) -> <a href="./src/llama_stack_client/types/alpha/evaluate_response.py">EvaluateResponse</a></code>
-- <code title="post /v1alpha/eval/benchmarks/{benchmark_id}/jobs">client.alpha.eval.<a href="./src/llama_stack_client/resources/alpha/eval/eval.py">run_eval</a>(benchmark_id, \*\*<a href="src/llama_stack_client/types/alpha/eval_run_eval_params.py">params</a>) -> <a href="./src/llama_stack_client/types/alpha/job.py">Job</a></code>
-- <code title="post /v1alpha/eval/benchmarks/{benchmark_id}/jobs">client.alpha.eval.<a href="./src/llama_stack_client/resources/alpha/eval/eval.py">run_eval_alpha</a>(benchmark_id, \*\*<a href="src/llama_stack_client/types/alpha/eval_run_eval_alpha_params.py">params</a>) -> <a href="./src/llama_stack_client/types/alpha/job.py">Job</a></code>
-
-### Jobs
-
-Methods:
-
-- <code title="get /v1alpha/eval/benchmarks/{benchmark_id}/jobs/{job_id}/result">client.alpha.eval.jobs.<a href="./src/llama_stack_client/resources/alpha/eval/jobs.py">retrieve</a>(job_id, \*, benchmark_id) -> <a href="./src/llama_stack_client/types/alpha/evaluate_response.py">EvaluateResponse</a></code>
-- <code title="delete /v1alpha/eval/benchmarks/{benchmark_id}/jobs/{job_id}">client.alpha.eval.jobs.<a href="./src/llama_stack_client/resources/alpha/eval/jobs.py">cancel</a>(job_id, \*, benchmark_id) -> None</code>
-- <code title="get /v1alpha/eval/benchmarks/{benchmark_id}/jobs/{job_id}">client.alpha.eval.jobs.<a href="./src/llama_stack_client/resources/alpha/eval/jobs.py">status</a>(job_id, \*, benchmark_id) -> <a href="./src/llama_stack_client/types/alpha/job.py">Job</a></code>
-
 ## Admin
 
 Methods:
@@ -462,28 +390,3 @@ from llama_stack_client.types.alpha import InferenceRerankResponse
 Methods:
 
 - <code title="post /v1alpha/inference/rerank">client.alpha.inference.<a href="./src/llama_stack_client/resources/alpha/inference.py">rerank</a>(\*\*<a href="src/llama_stack_client/types/alpha/inference_rerank_params.py">params</a>) -> <a href="./src/llama_stack_client/types/alpha/inference_rerank_response.py">InferenceRerankResponse</a></code>
-
-# Beta
-
-## Datasets
-
-Types:
-
-```python
-from llama_stack_client.types.beta import (
-    ListDatasetsResponse,
-    DatasetRetrieveResponse,
-    DatasetListResponse,
-    DatasetIterrowsResponse,
-    DatasetRegisterResponse,
-)
-```
-
-Methods:
-
-- <code title="get /v1beta/datasets/{dataset_id}">client.beta.datasets.<a href="./src/llama_stack_client/resources/beta/datasets.py">retrieve</a>(dataset_id) -> <a href="./src/llama_stack_client/types/beta/dataset_retrieve_response.py">DatasetRetrieveResponse</a></code>
-- <code title="get /v1beta/datasets">client.beta.datasets.<a href="./src/llama_stack_client/resources/beta/datasets.py">list</a>() -> <a href="./src/llama_stack_client/types/beta/dataset_list_response.py">DatasetListResponse</a></code>
-- <code title="post /v1beta/datasetio/append-rows/{dataset_id}">client.beta.datasets.<a href="./src/llama_stack_client/resources/beta/datasets.py">appendrows</a>(dataset_id, \*\*<a href="src/llama_stack_client/types/beta/dataset_appendrows_params.py">params</a>) -> None</code>
-- <code title="get /v1beta/datasetio/iterrows/{dataset_id}">client.beta.datasets.<a href="./src/llama_stack_client/resources/beta/datasets.py">iterrows</a>(dataset_id, \*\*<a href="src/llama_stack_client/types/beta/dataset_iterrows_params.py">params</a>) -> <a href="./src/llama_stack_client/types/beta/dataset_iterrows_response.py">DatasetIterrowsResponse</a></code>
-- <code title="post /v1beta/datasets">client.beta.datasets.<a href="./src/llama_stack_client/resources/beta/datasets.py">register</a>(\*\*<a href="src/llama_stack_client/types/beta/dataset_register_params.py">params</a>) -> <a href="./src/llama_stack_client/types/beta/dataset_register_response.py">DatasetRegisterResponse</a></code>
-- <code title="delete /v1beta/datasets/{dataset_id}">client.beta.datasets.<a href="./src/llama_stack_client/resources/beta/datasets.py">unregister</a>(dataset_id) -> None</code>

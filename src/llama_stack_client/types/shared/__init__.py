@@ -5,7 +5,6 @@ from .route_info import RouteInfo as RouteInfo
 from .health_info import HealthInfo as HealthInfo
 from .version_info import VersionInfo as VersionInfo
 from .provider_info import ProviderInfo as ProviderInfo
-from .scoring_result import ScoringResult as ScoringResult
 from .system_message import SystemMessage as SystemMessage
 from .sampling_params import SamplingParams as SamplingParams
 from .safety_violation import SafetyViolation as SafetyViolation

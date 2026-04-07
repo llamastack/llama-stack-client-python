@@ -1,13 +1,5 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-from .beta import (
-    BetaResource,
-    AsyncBetaResource,
-    BetaResourceWithRawResponse,
-    AsyncBetaResourceWithRawResponse,
-    BetaResourceWithStreamingResponse,
-    AsyncBetaResourceWithStreamingResponse,
-)
 from .chat import (
     ChatResource,
     AsyncChatResource,
@@ -80,14 +72,6 @@ from .prompts import (
     PromptsResourceWithStreamingResponse,
     AsyncPromptsResourceWithStreamingResponse,
 )
-from .scoring import (
-    ScoringResource,
-    AsyncScoringResource,
-    ScoringResourceWithRawResponse,
-    AsyncScoringResourceWithRawResponse,
-    ScoringResourceWithStreamingResponse,
-    AsyncScoringResourceWithStreamingResponse,
-)
 from .shields import (
     ShieldsResource,
     AsyncShieldsResource,
@@ -159,14 +143,6 @@ from .vector_stores import (
     AsyncVectorStoresResourceWithRawResponse,
     VectorStoresResourceWithStreamingResponse,
     AsyncVectorStoresResourceWithStreamingResponse,
-)
-from .scoring_functions import (
-    ScoringFunctionsResource,
-    AsyncScoringFunctionsResource,
-    ScoringFunctionsResourceWithRawResponse,
-    AsyncScoringFunctionsResourceWithRawResponse,
-    ScoringFunctionsResourceWithStreamingResponse,
-    AsyncScoringFunctionsResourceWithStreamingResponse,
 )
 
 __all__ = [
@@ -260,18 +236,6 @@ __all__ = [
     "AsyncShieldsResourceWithRawResponse",
     "ShieldsResourceWithStreamingResponse",
     "AsyncShieldsResourceWithStreamingResponse",
-    "ScoringResource",
-    "AsyncScoringResource",
-    "ScoringResourceWithRawResponse",
-    "AsyncScoringResourceWithRawResponse",
-    "ScoringResourceWithStreamingResponse",
-    "AsyncScoringResourceWithStreamingResponse",
-    "ScoringFunctionsResource",
-    "AsyncScoringFunctionsResource",
-    "ScoringFunctionsResourceWithRawResponse",
-    "AsyncScoringFunctionsResourceWithRawResponse",
-    "ScoringFunctionsResourceWithStreamingResponse",
-    "AsyncScoringFunctionsResourceWithStreamingResponse",
     "FilesResource",
     "AsyncFilesResource",
     "FilesResourceWithRawResponse",
@@ -290,10 +254,4 @@ __all__ = [
     "AsyncAlphaResourceWithRawResponse",
     "AlphaResourceWithStreamingResponse",
     "AsyncAlphaResourceWithStreamingResponse",
-    "BetaResource",
-    "AsyncBetaResource",
-    "BetaResourceWithRawResponse",
-    "AsyncBetaResourceWithRawResponse",
-    "BetaResourceWithStreamingResponse",
-    "AsyncBetaResourceWithStreamingResponse",
 ]

@@ -11,14 +11,6 @@ from .admin import (
     AsyncAdminResourceWithStreamingResponse,
 )
 from ..._compat import cached_property
-from .eval.eval import (
-    EvalResource,
-    AsyncEvalResource,
-    EvalResourceWithRawResponse,
-    AsyncEvalResourceWithRawResponse,
-    EvalResourceWithStreamingResponse,
-    AsyncEvalResourceWithStreamingResponse,
-)
 from .inference import (
     InferenceResource,
     AsyncInferenceResource,
@@ -27,31 +19,12 @@ from .inference import (
     InferenceResourceWithStreamingResponse,
     AsyncInferenceResourceWithStreamingResponse,
 )
-from .benchmarks import (
-    BenchmarksResource,
-    AsyncBenchmarksResource,
-    BenchmarksResourceWithRawResponse,
-    AsyncBenchmarksResourceWithRawResponse,
-    BenchmarksResourceWithStreamingResponse,
-    AsyncBenchmarksResourceWithStreamingResponse,
-)
 from ..._resource import SyncAPIResource, AsyncAPIResource
 
 __all__ = ["AlphaResource", "AsyncAlphaResource"]
 
 
 class AlphaResource(SyncAPIResource):
-    @cached_property
-    def benchmarks(self) -> BenchmarksResource:
-        return BenchmarksResource(self._client)
-
-    @cached_property
-    def eval(self) -> EvalResource:
-        """
-        Llama Stack Evaluation API for running evaluations on model and agent candidates.
-        """
-        return EvalResource(self._client)
-
     @cached_property
     def admin(self) -> AdminResource:
         return AdminResource(self._client)
@@ -89,17 +62,6 @@ class AlphaResource(SyncAPIResource):
 
 
 class AsyncAlphaResource(AsyncAPIResource):
-    @cached_property
-    def benchmarks(self) -> AsyncBenchmarksResource:
-        return AsyncBenchmarksResource(self._client)
-
-    @cached_property
-    def eval(self) -> AsyncEvalResource:
-        """
-        Llama Stack Evaluation API for running evaluations on model and agent candidates.
-        """
-        return AsyncEvalResource(self._client)
-
     @cached_property
     def admin(self) -> AsyncAdminResource:
         return AsyncAdminResource(self._client)
@@ -141,17 +103,6 @@ class AlphaResourceWithRawResponse:
         self._alpha = alpha
 
     @cached_property
-    def benchmarks(self) -> BenchmarksResourceWithRawResponse:
-        return BenchmarksResourceWithRawResponse(self._alpha.benchmarks)
-
-    @cached_property
-    def eval(self) -> EvalResourceWithRawResponse:
-        """
-        Llama Stack Evaluation API for running evaluations on model and agent candidates.
-        """
-        return EvalResourceWithRawResponse(self._alpha.eval)
-
-    @cached_property
     def admin(self) -> AdminResourceWithRawResponse:
         return AdminResourceWithRawResponse(self._alpha.admin)
 
@@ -171,17 +122,6 @@ class AlphaResourceWithRawResponse:
 class AsyncAlphaResourceWithRawResponse:
     def __init__(self, alpha: AsyncAlphaResource) -> None:
         self._alpha = alpha
-
-    @cached_property
-    def benchmarks(self) -> AsyncBenchmarksResourceWithRawResponse:
-        return AsyncBenchmarksResourceWithRawResponse(self._alpha.benchmarks)
-
-    @cached_property
-    def eval(self) -> AsyncEvalResourceWithRawResponse:
-        """
-        Llama Stack Evaluation API for running evaluations on model and agent candidates.
-        """
-        return AsyncEvalResourceWithRawResponse(self._alpha.eval)
 
     @cached_property
     def admin(self) -> AsyncAdminResourceWithRawResponse:
@@ -205,17 +145,6 @@ class AlphaResourceWithStreamingResponse:
         self._alpha = alpha
 
     @cached_property
-    def benchmarks(self) -> BenchmarksResourceWithStreamingResponse:
-        return BenchmarksResourceWithStreamingResponse(self._alpha.benchmarks)
-
-    @cached_property
-    def eval(self) -> EvalResourceWithStreamingResponse:
-        """
-        Llama Stack Evaluation API for running evaluations on model and agent candidates.
-        """
-        return EvalResourceWithStreamingResponse(self._alpha.eval)
-
-    @cached_property
     def admin(self) -> AdminResourceWithStreamingResponse:
         return AdminResourceWithStreamingResponse(self._alpha.admin)
 
@@ -235,17 +164,6 @@ class AlphaResourceWithStreamingResponse:
 class AsyncAlphaResourceWithStreamingResponse:
     def __init__(self, alpha: AsyncAlphaResource) -> None:
         self._alpha = alpha
-
-    @cached_property
-    def benchmarks(self) -> AsyncBenchmarksResourceWithStreamingResponse:
-        return AsyncBenchmarksResourceWithStreamingResponse(self._alpha.benchmarks)
-
-    @cached_property
-    def eval(self) -> AsyncEvalResourceWithStreamingResponse:
-        """
-        Llama Stack Evaluation API for running evaluations on model and agent candidates.
-        """
-        return AsyncEvalResourceWithStreamingResponse(self._alpha.eval)
 
     @cached_property
     def admin(self) -> AsyncAdminResourceWithStreamingResponse:

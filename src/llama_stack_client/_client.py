@@ -32,7 +32,6 @@ from ._base_client import (
 
 if TYPE_CHECKING:
     from .resources import (
-        beta,
         chat,
         alpha,
         files,
@@ -42,7 +41,6 @@ if TYPE_CHECKING:
         batches,
         inspect,
         prompts,
-        scoring,
         shields,
         providers,
         responses,
@@ -52,16 +50,13 @@ if TYPE_CHECKING:
         moderations,
         conversations,
         vector_stores,
-        scoring_functions,
     )
     from .resources.files import FilesResource, AsyncFilesResource
     from .resources.routes import RoutesResource, AsyncRoutesResource
     from .resources.safety import SafetyResource, AsyncSafetyResource
     from .resources.batches import BatchesResource, AsyncBatchesResource
     from .resources.inspect import InspectResource, AsyncInspectResource
-    from .resources.scoring import ScoringResource, AsyncScoringResource
     from .resources.shields import ShieldsResource, AsyncShieldsResource
-    from .resources.beta.beta import BetaResource, AsyncBetaResource
     from .resources.chat.chat import ChatResource, AsyncChatResource
     from .resources.providers import ProvidersResource, AsyncProvidersResource
     from .resources.vector_io import VectorIoResource, AsyncVectorIoResource
@@ -71,7 +66,6 @@ if TYPE_CHECKING:
     from .resources.moderations import ModerationsResource, AsyncModerationsResource
     from .resources.models.models import ModelsResource, AsyncModelsResource
     from .resources.prompts.prompts import PromptsResource, AsyncPromptsResource
-    from .resources.scoring_functions import ScoringFunctionsResource, AsyncScoringFunctionsResource
     from .resources.responses.responses import ResponsesResource, AsyncResponsesResource
     from .resources.conversations.conversations import ConversationsResource, AsyncConversationsResource
     from .resources.vector_stores.vector_stores import VectorStoresResource, AsyncVectorStoresResource
@@ -261,18 +255,6 @@ class LlamaStackClient(SyncAPIClient):
         return ShieldsResource(self)
 
     @cached_property
-    def scoring(self) -> ScoringResource:
-        from .resources.scoring import ScoringResource
-
-        return ScoringResource(self)
-
-    @cached_property
-    def scoring_functions(self) -> ScoringFunctionsResource:
-        from .resources.scoring_functions import ScoringFunctionsResource
-
-        return ScoringFunctionsResource(self)
-
-    @cached_property
     def files(self) -> FilesResource:
         """
         This API is used to upload documents that can be used with other Llama Stack APIs.
@@ -300,12 +282,6 @@ class LlamaStackClient(SyncAPIClient):
         from .resources.alpha import AlphaResource
 
         return AlphaResource(self)
-
-    @cached_property
-    def beta(self) -> BetaResource:
-        from .resources.beta import BetaResource
-
-        return BetaResource(self)
 
     @cached_property
     def with_raw_response(self) -> LlamaStackClientWithRawResponse:
@@ -595,18 +571,6 @@ class AsyncLlamaStackClient(AsyncAPIClient):
         return AsyncShieldsResource(self)
 
     @cached_property
-    def scoring(self) -> AsyncScoringResource:
-        from .resources.scoring import AsyncScoringResource
-
-        return AsyncScoringResource(self)
-
-    @cached_property
-    def scoring_functions(self) -> AsyncScoringFunctionsResource:
-        from .resources.scoring_functions import AsyncScoringFunctionsResource
-
-        return AsyncScoringFunctionsResource(self)
-
-    @cached_property
     def files(self) -> AsyncFilesResource:
         """
         This API is used to upload documents that can be used with other Llama Stack APIs.
@@ -634,12 +598,6 @@ class AsyncLlamaStackClient(AsyncAPIClient):
         from .resources.alpha import AsyncAlphaResource
 
         return AsyncAlphaResource(self)
-
-    @cached_property
-    def beta(self) -> AsyncBetaResource:
-        from .resources.beta import AsyncBetaResource
-
-        return AsyncBetaResource(self)
 
     @cached_property
     def with_raw_response(self) -> AsyncLlamaStackClientWithRawResponse:
@@ -882,18 +840,6 @@ class LlamaStackClientWithRawResponse:
         return ShieldsResourceWithRawResponse(self._client.shields)
 
     @cached_property
-    def scoring(self) -> scoring.ScoringResourceWithRawResponse:
-        from .resources.scoring import ScoringResourceWithRawResponse
-
-        return ScoringResourceWithRawResponse(self._client.scoring)
-
-    @cached_property
-    def scoring_functions(self) -> scoring_functions.ScoringFunctionsResourceWithRawResponse:
-        from .resources.scoring_functions import ScoringFunctionsResourceWithRawResponse
-
-        return ScoringFunctionsResourceWithRawResponse(self._client.scoring_functions)
-
-    @cached_property
     def files(self) -> files.FilesResourceWithRawResponse:
         """
         This API is used to upload documents that can be used with other Llama Stack APIs.
@@ -921,12 +867,6 @@ class LlamaStackClientWithRawResponse:
         from .resources.alpha import AlphaResourceWithRawResponse
 
         return AlphaResourceWithRawResponse(self._client.alpha)
-
-    @cached_property
-    def beta(self) -> beta.BetaResourceWithRawResponse:
-        from .resources.beta import BetaResourceWithRawResponse
-
-        return BetaResourceWithRawResponse(self._client.beta)
 
 
 class AsyncLlamaStackClientWithRawResponse:
@@ -1055,18 +995,6 @@ class AsyncLlamaStackClientWithRawResponse:
         return AsyncShieldsResourceWithRawResponse(self._client.shields)
 
     @cached_property
-    def scoring(self) -> scoring.AsyncScoringResourceWithRawResponse:
-        from .resources.scoring import AsyncScoringResourceWithRawResponse
-
-        return AsyncScoringResourceWithRawResponse(self._client.scoring)
-
-    @cached_property
-    def scoring_functions(self) -> scoring_functions.AsyncScoringFunctionsResourceWithRawResponse:
-        from .resources.scoring_functions import AsyncScoringFunctionsResourceWithRawResponse
-
-        return AsyncScoringFunctionsResourceWithRawResponse(self._client.scoring_functions)
-
-    @cached_property
     def files(self) -> files.AsyncFilesResourceWithRawResponse:
         """
         This API is used to upload documents that can be used with other Llama Stack APIs.
@@ -1094,12 +1022,6 @@ class AsyncLlamaStackClientWithRawResponse:
         from .resources.alpha import AsyncAlphaResourceWithRawResponse
 
         return AsyncAlphaResourceWithRawResponse(self._client.alpha)
-
-    @cached_property
-    def beta(self) -> beta.AsyncBetaResourceWithRawResponse:
-        from .resources.beta import AsyncBetaResourceWithRawResponse
-
-        return AsyncBetaResourceWithRawResponse(self._client.beta)
 
 
 class LlamaStackClientWithStreamedResponse:
@@ -1228,18 +1150,6 @@ class LlamaStackClientWithStreamedResponse:
         return ShieldsResourceWithStreamingResponse(self._client.shields)
 
     @cached_property
-    def scoring(self) -> scoring.ScoringResourceWithStreamingResponse:
-        from .resources.scoring import ScoringResourceWithStreamingResponse
-
-        return ScoringResourceWithStreamingResponse(self._client.scoring)
-
-    @cached_property
-    def scoring_functions(self) -> scoring_functions.ScoringFunctionsResourceWithStreamingResponse:
-        from .resources.scoring_functions import ScoringFunctionsResourceWithStreamingResponse
-
-        return ScoringFunctionsResourceWithStreamingResponse(self._client.scoring_functions)
-
-    @cached_property
     def files(self) -> files.FilesResourceWithStreamingResponse:
         """
         This API is used to upload documents that can be used with other Llama Stack APIs.
@@ -1267,12 +1177,6 @@ class LlamaStackClientWithStreamedResponse:
         from .resources.alpha import AlphaResourceWithStreamingResponse
 
         return AlphaResourceWithStreamingResponse(self._client.alpha)
-
-    @cached_property
-    def beta(self) -> beta.BetaResourceWithStreamingResponse:
-        from .resources.beta import BetaResourceWithStreamingResponse
-
-        return BetaResourceWithStreamingResponse(self._client.beta)
 
 
 class AsyncLlamaStackClientWithStreamedResponse:
@@ -1401,18 +1305,6 @@ class AsyncLlamaStackClientWithStreamedResponse:
         return AsyncShieldsResourceWithStreamingResponse(self._client.shields)
 
     @cached_property
-    def scoring(self) -> scoring.AsyncScoringResourceWithStreamingResponse:
-        from .resources.scoring import AsyncScoringResourceWithStreamingResponse
-
-        return AsyncScoringResourceWithStreamingResponse(self._client.scoring)
-
-    @cached_property
-    def scoring_functions(self) -> scoring_functions.AsyncScoringFunctionsResourceWithStreamingResponse:
-        from .resources.scoring_functions import AsyncScoringFunctionsResourceWithStreamingResponse
-
-        return AsyncScoringFunctionsResourceWithStreamingResponse(self._client.scoring_functions)
-
-    @cached_property
     def files(self) -> files.AsyncFilesResourceWithStreamingResponse:
         """
         This API is used to upload documents that can be used with other Llama Stack APIs.
@@ -1440,12 +1332,6 @@ class AsyncLlamaStackClientWithStreamedResponse:
         from .resources.alpha import AsyncAlphaResourceWithStreamingResponse
 
         return AsyncAlphaResourceWithStreamingResponse(self._client.alpha)
-
-    @cached_property
-    def beta(self) -> beta.AsyncBetaResourceWithStreamingResponse:
-        from .resources.beta import AsyncBetaResourceWithStreamingResponse
-
-        return AsyncBetaResourceWithStreamingResponse(self._client.beta)
 
 
 Client = LlamaStackClient

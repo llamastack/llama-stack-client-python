@@ -9,37 +9,37 @@ from ..._models import BaseModel
 __all__ = [
     "SystemMessage",
     "Content",
-    "ContentImageContentItemInput",
-    "ContentImageContentItemInputImage",
-    "ContentImageContentItemInputImageURL",
+    "ContentImageContentItem",
+    "ContentImageContentItemImage",
+    "ContentImageContentItemImageURL",
     "ContentTextContentItem",
-    "ContentListImageContentItemInputTextContentItem",
-    "ContentListImageContentItemInputTextContentItemImageContentItemInput",
-    "ContentListImageContentItemInputTextContentItemImageContentItemInputImage",
-    "ContentListImageContentItemInputTextContentItemImageContentItemInputImageURL",
-    "ContentListImageContentItemInputTextContentItemTextContentItem",
+    "ContentListImageContentItemTextContentItem",
+    "ContentListImageContentItemTextContentItemImageContentItem",
+    "ContentListImageContentItemTextContentItemImageContentItemImage",
+    "ContentListImageContentItemTextContentItemImageContentItemImageURL",
+    "ContentListImageContentItemTextContentItemTextContentItem",
 ]
 
 
-class ContentImageContentItemInputImageURL(BaseModel):
+class ContentImageContentItemImageURL(BaseModel):
     """A URL reference to external content."""
 
     uri: str
 
 
-class ContentImageContentItemInputImage(BaseModel):
+class ContentImageContentItemImage(BaseModel):
     """A URL or a base64 encoded string"""
 
     data: Optional[str] = None
 
-    url: Optional[ContentImageContentItemInputImageURL] = None
+    url: Optional[ContentImageContentItemImageURL] = None
     """A URL reference to external content."""
 
 
-class ContentImageContentItemInput(BaseModel):
+class ContentImageContentItem(BaseModel):
     """A image content item"""
 
-    image: ContentImageContentItemInputImage
+    image: ContentImageContentItemImage
     """A URL or a base64 encoded string"""
 
     type: Optional[Literal["image"]] = None
@@ -53,31 +53,31 @@ class ContentTextContentItem(BaseModel):
     type: Optional[Literal["text"]] = None
 
 
-class ContentListImageContentItemInputTextContentItemImageContentItemInputImageURL(BaseModel):
+class ContentListImageContentItemTextContentItemImageContentItemImageURL(BaseModel):
     """A URL reference to external content."""
 
     uri: str
 
 
-class ContentListImageContentItemInputTextContentItemImageContentItemInputImage(BaseModel):
+class ContentListImageContentItemTextContentItemImageContentItemImage(BaseModel):
     """A URL or a base64 encoded string"""
 
     data: Optional[str] = None
 
-    url: Optional[ContentListImageContentItemInputTextContentItemImageContentItemInputImageURL] = None
+    url: Optional[ContentListImageContentItemTextContentItemImageContentItemImageURL] = None
     """A URL reference to external content."""
 
 
-class ContentListImageContentItemInputTextContentItemImageContentItemInput(BaseModel):
+class ContentListImageContentItemTextContentItemImageContentItem(BaseModel):
     """A image content item"""
 
-    image: ContentListImageContentItemInputTextContentItemImageContentItemInputImage
+    image: ContentListImageContentItemTextContentItemImageContentItemImage
     """A URL or a base64 encoded string"""
 
     type: Optional[Literal["image"]] = None
 
 
-class ContentListImageContentItemInputTextContentItemTextContentItem(BaseModel):
+class ContentListImageContentItemTextContentItemTextContentItem(BaseModel):
     """A text content item"""
 
     text: str
@@ -85,16 +85,16 @@ class ContentListImageContentItemInputTextContentItemTextContentItem(BaseModel):
     type: Optional[Literal["text"]] = None
 
 
-ContentListImageContentItemInputTextContentItem: TypeAlias = Annotated[
+ContentListImageContentItemTextContentItem: TypeAlias = Annotated[
     Union[
-        ContentListImageContentItemInputTextContentItemImageContentItemInput,
-        ContentListImageContentItemInputTextContentItemTextContentItem,
+        ContentListImageContentItemTextContentItemImageContentItem,
+        ContentListImageContentItemTextContentItemTextContentItem,
     ],
     PropertyInfo(discriminator="type"),
 ]
 
 Content: TypeAlias = Union[
-    str, ContentImageContentItemInput, ContentTextContentItem, List[ContentListImageContentItemInputTextContentItem]
+    str, ContentImageContentItem, ContentTextContentItem, List[ContentListImageContentItemTextContentItem]
 ]
 
 
