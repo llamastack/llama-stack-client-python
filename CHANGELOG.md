@@ -1,5 +1,14 @@
 # Changelog
 
+## 0.7.0-alpha.3 (2026-04-07)
+
+Full Changelog: [v0.7.0-alpha.2...v0.7.0-alpha.3](https://github.com/llamastack/llama-stack-client-python/compare/v0.7.0-alpha.2...v0.7.0-alpha.3)
+
+### Bug Fixes
+
+* export path_template from _utils ([#330](https://github.com/llamastack/llama-stack-client-python/issues/330)) ([02b3604](https://github.com/llamastack/llama-stack-client-python/commit/02b36047634beb2fc5810d6697762ad2db247250))
+* remove leftover post_training and toolgroups CLI commands ([#333](https://github.com/llamastack/llama-stack-client-python/issues/333)) ([aab810c](https://github.com/llamastack/llama-stack-client-python/commit/aab810ca664b2968770780cec909c5501c508998))
+
 ## 0.7.0-alpha.2 (2026-04-01)
 
 Full Changelog: [v0.7.0-alpha.1...v0.7.0-alpha.2](https://github.com/llamastack/llama-stack-client-python/compare/v0.7.0-alpha.1...v0.7.0-alpha.2)
