@@ -20,11 +20,9 @@ from .eval_tasks import eval_tasks
 from .inference import inference
 from .inspect import inspect
 from .models import models
-from .post_training import post_training
 from .providers import providers
 from .scoring_functions import scoring_functions
 from .shields import shields
-from .toolgroups import toolgroups
 from .vector_stores import vector_stores
 
 
@@ -90,9 +88,7 @@ llama_stack_client.add_command(configure, "configure")
 llama_stack_client.add_command(scoring_functions, "scoring_functions")
 llama_stack_client.add_command(eval, "eval")
 llama_stack_client.add_command(inference, "inference")
-llama_stack_client.add_command(post_training, "post_training")
 llama_stack_client.add_command(inspect, "inspect")
-llama_stack_client.add_command(toolgroups, "toolgroups")
 
 
 def main():
