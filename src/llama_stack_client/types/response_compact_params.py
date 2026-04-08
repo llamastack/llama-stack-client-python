@@ -2,13 +2,13 @@
 
 from __future__ import annotations
 
-from typing import Dict, List, Union, Iterable, Optional
+from typing import Dict, Union, Iterable, Optional
 from typing_extensions import Literal, Required, TypeAlias, TypedDict
 
 from .._types import SequenceNotStr
 
 __all__ = [
-    "ResponseCreateParamsBase",
+    "ResponseCompactParams",
     "InputListOpenAIResponseMessageUnionOpenAIResponseInputFunctionToolCallOutput",
     "InputListOpenAIResponseMessageUnionOpenAIResponseInputFunctionToolCallOutputOpenAIResponseMessageInput",
     "InputListOpenAIResponseMessageUnionOpenAIResponseInputFunctionToolCallOutputOpenAIResponseMessageInputContentListOpenAIResponseInputMessageContentTextOpenAIResponseInputMessageContentImageOpenAIResponseInputMessageContentFile",
@@ -43,25 +43,9 @@ __all__ = [
     "InputListOpenAIResponseMessageUnionOpenAIResponseInputFunctionToolCallOutputOpenAIResponseInputFunctionToolCallOutputOutputListOpenAIResponseInputMessageContentTextOpenAIResponseInputMessageContentImageOpenAIResponseInputMessageContentFileOpenAIResponseInputMessageContentFile",
     "InputListOpenAIResponseMessageUnionOpenAIResponseInputFunctionToolCallOutputOpenAIResponseMcpApprovalResponse",
     "InputListOpenAIResponseMessageUnionOpenAIResponseInputFunctionToolCallOutputOpenAIResponseCompaction",
-    "ContextManagement",
-    "Guardrail",
-    "GuardrailResponseGuardrailSpec",
-    "Prompt",
-    "PromptVariables",
-    "PromptVariablesOpenAIResponseInputMessageContentText",
-    "PromptVariablesOpenAIResponseInputMessageContentImage",
-    "PromptVariablesOpenAIResponseInputMessageContentFile",
     "Reasoning",
-    "StreamOptions",
     "Text",
     "TextFormat",
-    "ToolChoice",
-    "ToolChoiceOpenAIResponseInputToolChoiceAllowedTools",
-    "ToolChoiceOpenAIResponseInputToolChoiceFileSearch",
-    "ToolChoiceOpenAIResponseInputToolChoiceWebSearch",
-    "ToolChoiceOpenAIResponseInputToolChoiceFunctionTool",
-    "ToolChoiceOpenAIResponseInputToolChoiceMcpTool",
-    "ToolChoiceOpenAIResponseInputToolChoiceCustomTool",
     "Tool",
     "ToolOpenAIResponseInputToolWebSearch",
     "ToolOpenAIResponseInputToolFileSearch",
@@ -72,83 +56,27 @@ __all__ = [
     "ToolOpenAIResponseInputToolMcpAllowedToolsAllowedToolsFilter",
     "ToolOpenAIResponseInputToolMcpRequireApproval",
     "ToolOpenAIResponseInputToolMcpRequireApprovalApprovalFilter",
-    "ResponseCreateParamsNonStreaming",
-    "ResponseCreateParamsStreaming",
 ]
 
 
-class ResponseCreateParamsBase(TypedDict, total=False):
-    input: Required[Union[str, Iterable[InputListOpenAIResponseMessageUnionOpenAIResponseInputFunctionToolCallOutput]]]
-    """Input message(s) to create the response."""
-
+class ResponseCompactParams(TypedDict, total=False):
     model: Required[str]
-    """The underlying LLM used for completions."""
+    """The model to use for generating the compacted summary."""
 
-    background: bool
-    """Whether to run the model response in the background.
-
-    When true, returns immediately with status 'queued'.
-    """
-
-    context_management: Optional[Iterable[ContextManagement]]
-    """Context management configuration.
-
-    When set with type 'compaction', automatically compacts conversation history
-    when token count exceeds the compact_threshold.
-    """
-
-    conversation: Optional[str]
-    """Optional ID of a conversation to add the response to."""
-
-    frequency_penalty: Optional[float]
-    """Penalizes new tokens based on their frequency in the text so far."""
-
-    guardrails: Optional[SequenceNotStr[Guardrail]]
-    """List of guardrails to apply during response generation."""
-
-    include: Optional[
-        List[
-            Literal[
-                "web_search_call.action.sources",
-                "code_interpreter_call.outputs",
-                "computer_call_output.output.image_url",
-                "file_search_call.results",
-                "message.input_image.image_url",
-                "message.output_text.logprobs",
-                "reasoning.encrypted_content",
-            ]
-        ]
-    ]
-    """Additional fields to include in the response."""
+    input: Union[str, Iterable[InputListOpenAIResponseMessageUnionOpenAIResponseInputFunctionToolCallOutput], None]
+    """Input message(s) to compact."""
 
     instructions: Optional[str]
-    """Instructions to guide the model's behavior."""
-
-    max_infer_iters: Optional[int]
-    """Maximum number of inference iterations."""
-
-    max_output_tokens: Optional[int]
-    """Upper bound for the number of tokens that can be generated for a response."""
-
-    max_tool_calls: Optional[int]
-    """
-    Max number of total calls to built-in tools that can be processed in a response.
-    """
-
-    metadata: Optional[Dict[str, str]]
-    """Dictionary of metadata key-value pairs to attach to the response."""
+    """Instructions to guide the compaction."""
 
     parallel_tool_calls: Optional[bool]
-    """Whether to enable parallel tool calls."""
+    """Whether to enable parallel tool calls.
 
-    presence_penalty: Optional[float]
-    """Penalizes new tokens based on whether they appear in the text so far."""
+    Accepted for compatibility but not used during compaction.
+    """
 
     previous_response_id: Optional[str]
-    """Optional ID of a previous response to continue from."""
-
-    prompt: Optional[Prompt]
-    """OpenAI compatible Prompt object that is used in OpenAI responses."""
+    """ID of a previous response whose history to compact."""
 
     prompt_cache_key: Optional[str]
     """A key to use when reading from or writing to the prompt cache."""
@@ -159,46 +87,13 @@ class ResponseCreateParamsBase(TypedDict, total=False):
     Controls how much reasoning the model performs before generating a response.
     """
 
-    safety_identifier: Optional[str]
-    """A stable identifier used for safety monitoring and abuse detection."""
-
-    service_tier: Optional[Literal["auto", "default", "flex", "priority"]]
-    """The service tier for the request."""
-
-    store: Optional[bool]
-    """Whether to store the response in the database."""
-
-    stream_options: Optional[StreamOptions]
-    """Options that control streamed response behavior."""
-
-    temperature: Optional[float]
-    """Sampling temperature."""
-
     text: Optional[Text]
     """Text response configuration for OpenAI responses."""
 
-    tool_choice: Optional[ToolChoice]
-    """How the model should select which tool to call (if any)."""
-
     tools: Optional[Iterable[Tool]]
-    """List of tools available to the model."""
+    """List of tools available to the model.
 
-    top_logprobs: Optional[int]
-    """
-    The number of most likely tokens to return at each position, along with their
-    log probabilities.
-    """
-
-    top_p: Optional[float]
-    """
-    Nucleus sampling parameter that controls response diversity (lower values
-    increase focus).
-    """
-
-    truncation: Optional[Literal["auto", "disabled"]]
-    """
-    Controls how the service truncates input when it exceeds the model context
-    window.
+    Accepted for compatibility but not used during compaction.
     """
 
 
@@ -725,76 +620,6 @@ InputListOpenAIResponseMessageUnionOpenAIResponseInputFunctionToolCallOutput: Ty
 ]
 
 
-class ContextManagement(TypedDict, total=False):
-    """Configuration for automatic context management during response generation."""
-
-    type: Required[Literal["compaction"]]
-    """The context management entry type. Currently only 'compaction' is supported."""
-
-    compact_threshold: Optional[int]
-    """Token threshold at which compaction should be triggered."""
-
-
-class GuardrailResponseGuardrailSpec(TypedDict, total=False):
-    """Specification for a guardrail to apply during response generation."""
-
-    type: Required[str]
-
-
-Guardrail: TypeAlias = Union[str, GuardrailResponseGuardrailSpec]
-
-
-class PromptVariablesOpenAIResponseInputMessageContentText(TypedDict, total=False):
-    """Text content for input messages in OpenAI response format."""
-
-    text: Required[str]
-
-    type: Literal["input_text"]
-
-
-class PromptVariablesOpenAIResponseInputMessageContentImage(TypedDict, total=False):
-    """Image content for input messages in OpenAI response format."""
-
-    detail: Literal["low", "high", "auto"]
-
-    file_id: Optional[str]
-
-    image_url: Optional[str]
-
-    type: Literal["input_image"]
-
-
-class PromptVariablesOpenAIResponseInputMessageContentFile(TypedDict, total=False):
-    """File content for input messages in OpenAI response format."""
-
-    file_data: Optional[str]
-
-    file_id: Optional[str]
-
-    file_url: Optional[str]
-
-    filename: Optional[str]
-
-    type: Literal["input_file"]
-
-
-PromptVariables: TypeAlias = Union[
-    PromptVariablesOpenAIResponseInputMessageContentText,
-    PromptVariablesOpenAIResponseInputMessageContentImage,
-    PromptVariablesOpenAIResponseInputMessageContentFile,
-]
-
-
-class Prompt(TypedDict, total=False):
-    """OpenAI compatible Prompt object that is used in OpenAI responses."""
-
-    id: Required[str]
-
-    variables: Optional[Dict[str, PromptVariables]]
-
-    version: Optional[str]
-
-
 class Reasoning(TypedDict, total=False):
     """Configuration for reasoning effort in OpenAI responses.
 
@@ -805,13 +630,6 @@ class Reasoning(TypedDict, total=False):
 
     summary: Optional[Literal["auto", "concise", "detailed"]]
     """Summary mode for reasoning output. One of 'auto', 'concise', or 'detailed'."""
-
-
-class StreamOptions(TypedDict, total=False):
-    """Options that control streamed response behavior."""
-
-    include_obfuscation: bool
-    """Whether to obfuscate sensitive information in streamed output."""
 
 
 class TextFormat(TypedDict, total=False):
@@ -835,65 +653,6 @@ class Text(TypedDict, total=False):
     """Configuration for Responses API text format."""
 
     verbosity: Optional[Literal["low", "medium", "high"]]
-
-
-class ToolChoiceOpenAIResponseInputToolChoiceAllowedTools(TypedDict, total=False):
-    """Constrains the tools available to the model to a pre-defined set."""
-
-    tools: Required[Iterable[Dict[str, str]]]
-
-    mode: Literal["auto", "required"]
-
-    type: Literal["allowed_tools"]
-
-
-class ToolChoiceOpenAIResponseInputToolChoiceFileSearch(TypedDict, total=False):
-    """Indicates that the model should use file search to generate a response."""
-
-    type: Literal["file_search"]
-
-
-class ToolChoiceOpenAIResponseInputToolChoiceWebSearch(TypedDict, total=False):
-    """Indicates that the model should use web search to generate a response"""
-
-    type: Literal["web_search", "web_search_preview", "web_search_preview_2025_03_11", "web_search_2025_08_26"]
-
-
-class ToolChoiceOpenAIResponseInputToolChoiceFunctionTool(TypedDict, total=False):
-    """Forces the model to call a specific function."""
-
-    name: Required[str]
-
-    type: Literal["function"]
-
-
-class ToolChoiceOpenAIResponseInputToolChoiceMcpTool(TypedDict, total=False):
-    """Forces the model to call a specific tool on a remote MCP server"""
-
-    server_label: Required[str]
-
-    name: Optional[str]
-
-    type: Literal["mcp"]
-
-
-class ToolChoiceOpenAIResponseInputToolChoiceCustomTool(TypedDict, total=False):
-    """Forces the model to call a custom tool."""
-
-    name: Required[str]
-
-    type: Literal["custom"]
-
-
-ToolChoice: TypeAlias = Union[
-    Literal["auto", "required", "none"],
-    ToolChoiceOpenAIResponseInputToolChoiceAllowedTools,
-    ToolChoiceOpenAIResponseInputToolChoiceFileSearch,
-    ToolChoiceOpenAIResponseInputToolChoiceWebSearch,
-    ToolChoiceOpenAIResponseInputToolChoiceFunctionTool,
-    ToolChoiceOpenAIResponseInputToolChoiceMcpTool,
-    ToolChoiceOpenAIResponseInputToolChoiceCustomTool,
-]
 
 
 class ToolOpenAIResponseInputToolWebSearch(TypedDict, total=False):
@@ -1043,16 +802,3 @@ Tool: TypeAlias = Union[
     ToolOpenAIResponseInputToolFunction,
     ToolOpenAIResponseInputToolMcp,
 ]
-
-
-class ResponseCreateParamsNonStreaming(ResponseCreateParamsBase, total=False):
-    stream: Optional[Literal[False]]
-    """Whether to stream the response."""
-
-
-class ResponseCreateParamsStreaming(ResponseCreateParamsBase):
-    stream: Required[Literal[True]]
-    """Whether to stream the response."""
-
-
-ResponseCreateParams = Union[ResponseCreateParamsNonStreaming, ResponseCreateParamsStreaming]

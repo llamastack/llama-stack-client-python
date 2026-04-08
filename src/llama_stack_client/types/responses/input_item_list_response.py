@@ -41,6 +41,7 @@ __all__ = [
     "DataOpenAIResponseInputFunctionToolCallOutputOutputListOpenAIResponseInputMessageContentTextOpenAIResponseInputMessageContentImageOpenAIResponseInputMessageContentFileOpenAIResponseInputMessageContentImage",
     "DataOpenAIResponseInputFunctionToolCallOutputOutputListOpenAIResponseInputMessageContentTextOpenAIResponseInputMessageContentImageOpenAIResponseInputMessageContentFileOpenAIResponseInputMessageContentFile",
     "DataOpenAIResponseMcpApprovalResponse",
+    "DataOpenAIResponseCompaction",
 ]
 
 
@@ -506,6 +507,16 @@ class DataOpenAIResponseMcpApprovalResponse(BaseModel):
     type: Optional[Literal["mcp_approval_response"]] = None
 
 
+class DataOpenAIResponseCompaction(BaseModel):
+    """A compaction item that summarizes prior conversation context."""
+
+    encrypted_content: str
+
+    id: Optional[str] = None
+
+    type: Optional[Literal["compaction"]] = None
+
+
 Data: TypeAlias = Union[
     DataOpenAIResponseMessageOutput,
     DataOpenAIResponseOutputMessageWebSearchToolCall,
@@ -517,7 +528,7 @@ Data: TypeAlias = Union[
     DataOpenAIResponseOutputMessageReasoningItem,
     DataOpenAIResponseInputFunctionToolCallOutput,
     DataOpenAIResponseMcpApprovalResponse,
-    DataOpenAIResponseMessageOutput,
+    DataOpenAIResponseCompaction,
 ]
 
 

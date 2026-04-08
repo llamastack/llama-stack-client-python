@@ -7,7 +7,7 @@ from typing_extensions import Literal, overload
 
 import httpx
 
-from ...types import response_list_params, response_create_params
+from ...types import response_list_params, response_create_params, response_compact_params
 from ..._types import Body, Omit, Query, Headers, NotGiven, SequenceNotStr, omit, not_given
 from ..._utils import path_template, required_args, maybe_transform, async_maybe_transform
 from ..._compat import cached_property
@@ -30,6 +30,7 @@ from ..._streaming import Stream, AsyncStream
 from ...pagination import SyncOpenAICursorPage, AsyncOpenAICursorPage
 from ..._base_client import AsyncPaginator, make_request_options
 from ...types.response_object import ResponseObject
+from ...types.compacted_response import CompactedResponse
 from ...types.response_list_response import ResponseListResponse
 from ...types.response_object_stream import ResponseObjectStream
 from ...types.response_delete_response import ResponseDeleteResponse
@@ -68,11 +69,12 @@ class ResponsesResource(SyncAPIResource):
         input: Union[
             str,
             Iterable[
-                response_create_params.InputListOpenAIResponseMessageUnionOpenAIResponseInputFunctionToolCallOutputOpenAIResponseMcpApprovalResponse
+                response_create_params.InputListOpenAIResponseMessageUnionOpenAIResponseInputFunctionToolCallOutput
             ],
         ],
         model: str,
         background: bool | Omit = omit,
+        context_management: Optional[Iterable[response_create_params.ContextManagement]] | Omit = omit,
         conversation: Optional[str] | Omit = omit,
         frequency_penalty: Optional[float] | Omit = omit,
         guardrails: Optional[SequenceNotStr[response_create_params.Guardrail]] | Omit = omit,
@@ -130,6 +132,9 @@ class ResponsesResource(SyncAPIResource):
 
           background: Whether to run the model response in the background. When true, returns
               immediately with status 'queued'.
+
+          context_management: Context management configuration. When set with type 'compaction', automatically
+              compacts conversation history when token count exceeds the compact_threshold.
 
           conversation: Optional ID of a conversation to add the response to.
 
@@ -207,12 +212,13 @@ class ResponsesResource(SyncAPIResource):
         input: Union[
             str,
             Iterable[
-                response_create_params.InputListOpenAIResponseMessageUnionOpenAIResponseInputFunctionToolCallOutputOpenAIResponseMcpApprovalResponse
+                response_create_params.InputListOpenAIResponseMessageUnionOpenAIResponseInputFunctionToolCallOutput
             ],
         ],
         model: str,
         stream: Literal[True],
         background: bool | Omit = omit,
+        context_management: Optional[Iterable[response_create_params.ContextManagement]] | Omit = omit,
         conversation: Optional[str] | Omit = omit,
         frequency_penalty: Optional[float] | Omit = omit,
         guardrails: Optional[SequenceNotStr[response_create_params.Guardrail]] | Omit = omit,
@@ -272,6 +278,9 @@ class ResponsesResource(SyncAPIResource):
           background: Whether to run the model response in the background. When true, returns
               immediately with status 'queued'.
 
+          context_management: Context management configuration. When set with type 'compaction', automatically
+              compacts conversation history when token count exceeds the compact_threshold.
+
           conversation: Optional ID of a conversation to add the response to.
 
           frequency_penalty: Penalizes new tokens based on their frequency in the text so far.
@@ -346,12 +355,13 @@ class ResponsesResource(SyncAPIResource):
         input: Union[
             str,
             Iterable[
-                response_create_params.InputListOpenAIResponseMessageUnionOpenAIResponseInputFunctionToolCallOutputOpenAIResponseMcpApprovalResponse
+                response_create_params.InputListOpenAIResponseMessageUnionOpenAIResponseInputFunctionToolCallOutput
             ],
         ],
         model: str,
         stream: bool,
         background: bool | Omit = omit,
+        context_management: Optional[Iterable[response_create_params.ContextManagement]] | Omit = omit,
         conversation: Optional[str] | Omit = omit,
         frequency_penalty: Optional[float] | Omit = omit,
         guardrails: Optional[SequenceNotStr[response_create_params.Guardrail]] | Omit = omit,
@@ -410,6 +420,9 @@ class ResponsesResource(SyncAPIResource):
 
           background: Whether to run the model response in the background. When true, returns
               immediately with status 'queued'.
+
+          context_management: Context management configuration. When set with type 'compaction', automatically
+              compacts conversation history when token count exceeds the compact_threshold.
 
           conversation: Optional ID of a conversation to add the response to.
 
@@ -485,11 +498,12 @@ class ResponsesResource(SyncAPIResource):
         input: Union[
             str,
             Iterable[
-                response_create_params.InputListOpenAIResponseMessageUnionOpenAIResponseInputFunctionToolCallOutputOpenAIResponseMcpApprovalResponse
+                response_create_params.InputListOpenAIResponseMessageUnionOpenAIResponseInputFunctionToolCallOutput
             ],
         ],
         model: str,
         background: bool | Omit = omit,
+        context_management: Optional[Iterable[response_create_params.ContextManagement]] | Omit = omit,
         conversation: Optional[str] | Omit = omit,
         frequency_penalty: Optional[float] | Omit = omit,
         guardrails: Optional[SequenceNotStr[response_create_params.Guardrail]] | Omit = omit,
@@ -544,6 +558,7 @@ class ResponsesResource(SyncAPIResource):
                     "input": input,
                     "model": model,
                     "background": background,
+                    "context_management": context_management,
                     "conversation": conversation,
                     "frequency_penalty": frequency_penalty,
                     "guardrails": guardrails,
@@ -709,6 +724,89 @@ class ResponsesResource(SyncAPIResource):
             cast_to=ResponseDeleteResponse,
         )
 
+    def compact(
+        self,
+        *,
+        model: str,
+        input: Union[
+            str,
+            Iterable[
+                response_compact_params.InputListOpenAIResponseMessageUnionOpenAIResponseInputFunctionToolCallOutput
+            ],
+            None,
+        ]
+        | Omit = omit,
+        instructions: Optional[str] | Omit = omit,
+        parallel_tool_calls: Optional[bool] | Omit = omit,
+        previous_response_id: Optional[str] | Omit = omit,
+        prompt_cache_key: Optional[str] | Omit = omit,
+        reasoning: Optional[response_compact_params.Reasoning] | Omit = omit,
+        text: Optional[response_compact_params.Text] | Omit = omit,
+        tools: Optional[Iterable[response_compact_params.Tool]] | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> CompactedResponse:
+        """
+        **[alpha]** Compresses conversation history into a smaller representation while
+        preserving context. This endpoint is in alpha and may change without notice.
+
+        Args:
+          model: The model to use for generating the compacted summary.
+
+          input: Input message(s) to compact.
+
+          instructions: Instructions to guide the compaction.
+
+          parallel_tool_calls: Whether to enable parallel tool calls. Accepted for compatibility but not used
+              during compaction.
+
+          previous_response_id: ID of a previous response whose history to compact.
+
+          prompt_cache_key: A key to use when reading from or writing to the prompt cache.
+
+          reasoning: Configuration for reasoning effort in OpenAI responses.
+
+              Controls how much reasoning the model performs before generating a response.
+
+          text: Text response configuration for OpenAI responses.
+
+          tools: List of tools available to the model. Accepted for compatibility but not used
+              during compaction.
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        return self._post(
+            "/v1/responses/compact",
+            body=maybe_transform(
+                {
+                    "model": model,
+                    "input": input,
+                    "instructions": instructions,
+                    "parallel_tool_calls": parallel_tool_calls,
+                    "previous_response_id": previous_response_id,
+                    "prompt_cache_key": prompt_cache_key,
+                    "reasoning": reasoning,
+                    "text": text,
+                    "tools": tools,
+                },
+                response_compact_params.ResponseCompactParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=CompactedResponse,
+        )
+
 
 class AsyncResponsesResource(AsyncAPIResource):
     @cached_property
@@ -741,11 +839,12 @@ class AsyncResponsesResource(AsyncAPIResource):
         input: Union[
             str,
             Iterable[
-                response_create_params.InputListOpenAIResponseMessageUnionOpenAIResponseInputFunctionToolCallOutputOpenAIResponseMcpApprovalResponse
+                response_create_params.InputListOpenAIResponseMessageUnionOpenAIResponseInputFunctionToolCallOutput
             ],
         ],
         model: str,
         background: bool | Omit = omit,
+        context_management: Optional[Iterable[response_create_params.ContextManagement]] | Omit = omit,
         conversation: Optional[str] | Omit = omit,
         frequency_penalty: Optional[float] | Omit = omit,
         guardrails: Optional[SequenceNotStr[response_create_params.Guardrail]] | Omit = omit,
@@ -803,6 +902,9 @@ class AsyncResponsesResource(AsyncAPIResource):
 
           background: Whether to run the model response in the background. When true, returns
               immediately with status 'queued'.
+
+          context_management: Context management configuration. When set with type 'compaction', automatically
+              compacts conversation history when token count exceeds the compact_threshold.
 
           conversation: Optional ID of a conversation to add the response to.
 
@@ -880,12 +982,13 @@ class AsyncResponsesResource(AsyncAPIResource):
         input: Union[
             str,
             Iterable[
-                response_create_params.InputListOpenAIResponseMessageUnionOpenAIResponseInputFunctionToolCallOutputOpenAIResponseMcpApprovalResponse
+                response_create_params.InputListOpenAIResponseMessageUnionOpenAIResponseInputFunctionToolCallOutput
             ],
         ],
         model: str,
         stream: Literal[True],
         background: bool | Omit = omit,
+        context_management: Optional[Iterable[response_create_params.ContextManagement]] | Omit = omit,
         conversation: Optional[str] | Omit = omit,
         frequency_penalty: Optional[float] | Omit = omit,
         guardrails: Optional[SequenceNotStr[response_create_params.Guardrail]] | Omit = omit,
@@ -945,6 +1048,9 @@ class AsyncResponsesResource(AsyncAPIResource):
           background: Whether to run the model response in the background. When true, returns
               immediately with status 'queued'.
 
+          context_management: Context management configuration. When set with type 'compaction', automatically
+              compacts conversation history when token count exceeds the compact_threshold.
+
           conversation: Optional ID of a conversation to add the response to.
 
           frequency_penalty: Penalizes new tokens based on their frequency in the text so far.
@@ -1019,12 +1125,13 @@ class AsyncResponsesResource(AsyncAPIResource):
         input: Union[
             str,
             Iterable[
-                response_create_params.InputListOpenAIResponseMessageUnionOpenAIResponseInputFunctionToolCallOutputOpenAIResponseMcpApprovalResponse
+                response_create_params.InputListOpenAIResponseMessageUnionOpenAIResponseInputFunctionToolCallOutput
             ],
         ],
         model: str,
         stream: bool,
         background: bool | Omit = omit,
+        context_management: Optional[Iterable[response_create_params.ContextManagement]] | Omit = omit,
         conversation: Optional[str] | Omit = omit,
         frequency_penalty: Optional[float] | Omit = omit,
         guardrails: Optional[SequenceNotStr[response_create_params.Guardrail]] | Omit = omit,
@@ -1083,6 +1190,9 @@ class AsyncResponsesResource(AsyncAPIResource):
 
           background: Whether to run the model response in the background. When true, returns
               immediately with status 'queued'.
+
+          context_management: Context management configuration. When set with type 'compaction', automatically
+              compacts conversation history when token count exceeds the compact_threshold.
 
           conversation: Optional ID of a conversation to add the response to.
 
@@ -1158,11 +1268,12 @@ class AsyncResponsesResource(AsyncAPIResource):
         input: Union[
             str,
             Iterable[
-                response_create_params.InputListOpenAIResponseMessageUnionOpenAIResponseInputFunctionToolCallOutputOpenAIResponseMcpApprovalResponse
+                response_create_params.InputListOpenAIResponseMessageUnionOpenAIResponseInputFunctionToolCallOutput
             ],
         ],
         model: str,
         background: bool | Omit = omit,
+        context_management: Optional[Iterable[response_create_params.ContextManagement]] | Omit = omit,
         conversation: Optional[str] | Omit = omit,
         frequency_penalty: Optional[float] | Omit = omit,
         guardrails: Optional[SequenceNotStr[response_create_params.Guardrail]] | Omit = omit,
@@ -1217,6 +1328,7 @@ class AsyncResponsesResource(AsyncAPIResource):
                     "input": input,
                     "model": model,
                     "background": background,
+                    "context_management": context_management,
                     "conversation": conversation,
                     "frequency_penalty": frequency_penalty,
                     "guardrails": guardrails,
@@ -1382,6 +1494,89 @@ class AsyncResponsesResource(AsyncAPIResource):
             cast_to=ResponseDeleteResponse,
         )
 
+    async def compact(
+        self,
+        *,
+        model: str,
+        input: Union[
+            str,
+            Iterable[
+                response_compact_params.InputListOpenAIResponseMessageUnionOpenAIResponseInputFunctionToolCallOutput
+            ],
+            None,
+        ]
+        | Omit = omit,
+        instructions: Optional[str] | Omit = omit,
+        parallel_tool_calls: Optional[bool] | Omit = omit,
+        previous_response_id: Optional[str] | Omit = omit,
+        prompt_cache_key: Optional[str] | Omit = omit,
+        reasoning: Optional[response_compact_params.Reasoning] | Omit = omit,
+        text: Optional[response_compact_params.Text] | Omit = omit,
+        tools: Optional[Iterable[response_compact_params.Tool]] | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> CompactedResponse:
+        """
+        **[alpha]** Compresses conversation history into a smaller representation while
+        preserving context. This endpoint is in alpha and may change without notice.
+
+        Args:
+          model: The model to use for generating the compacted summary.
+
+          input: Input message(s) to compact.
+
+          instructions: Instructions to guide the compaction.
+
+          parallel_tool_calls: Whether to enable parallel tool calls. Accepted for compatibility but not used
+              during compaction.
+
+          previous_response_id: ID of a previous response whose history to compact.
+
+          prompt_cache_key: A key to use when reading from or writing to the prompt cache.
+
+          reasoning: Configuration for reasoning effort in OpenAI responses.
+
+              Controls how much reasoning the model performs before generating a response.
+
+          text: Text response configuration for OpenAI responses.
+
+          tools: List of tools available to the model. Accepted for compatibility but not used
+              during compaction.
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        return await self._post(
+            "/v1/responses/compact",
+            body=await async_maybe_transform(
+                {
+                    "model": model,
+                    "input": input,
+                    "instructions": instructions,
+                    "parallel_tool_calls": parallel_tool_calls,
+                    "previous_response_id": previous_response_id,
+                    "prompt_cache_key": prompt_cache_key,
+                    "reasoning": reasoning,
+                    "text": text,
+                    "tools": tools,
+                },
+                response_compact_params.ResponseCompactParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=CompactedResponse,
+        )
+
 
 class ResponsesResourceWithRawResponse:
     def __init__(self, responses: ResponsesResource) -> None:
@@ -1398,6 +1593,9 @@ class ResponsesResourceWithRawResponse:
         )
         self.delete = to_raw_response_wrapper(
             responses.delete,
+        )
+        self.compact = to_raw_response_wrapper(
+            responses.compact,
         )
 
     @cached_property
@@ -1421,6 +1619,9 @@ class AsyncResponsesResourceWithRawResponse:
         self.delete = async_to_raw_response_wrapper(
             responses.delete,
         )
+        self.compact = async_to_raw_response_wrapper(
+            responses.compact,
+        )
 
     @cached_property
     def input_items(self) -> AsyncInputItemsResourceWithRawResponse:
@@ -1443,6 +1644,9 @@ class ResponsesResourceWithStreamingResponse:
         self.delete = to_streamed_response_wrapper(
             responses.delete,
         )
+        self.compact = to_streamed_response_wrapper(
+            responses.compact,
+        )
 
     @cached_property
     def input_items(self) -> InputItemsResourceWithStreamingResponse:
@@ -1464,6 +1668,9 @@ class AsyncResponsesResourceWithStreamingResponse:
         )
         self.delete = async_to_streamed_response_wrapper(
             responses.delete,
+        )
+        self.compact = async_to_streamed_response_wrapper(
+            responses.compact,
         )
 
     @cached_property

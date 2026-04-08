@@ -3,13 +3,11 @@
 from typing import Dict, List, Union, Optional
 from typing_extensions import Literal, Annotated, TypeAlias
 
-from pydantic import Field as FieldInfo
-
 from .._utils import PropertyInfo
 from .._models import BaseModel
 
 __all__ = [
-    "ResponseObject",
+    "CompactedResponse",
     "Output",
     "OutputOpenAIResponseMessageOutput",
     "OutputOpenAIResponseMessageOutputContentListOpenAIResponseInputMessageContentTextOpenAIResponseInputMessageContentImageOpenAIResponseInputMessageContentFile",
@@ -37,31 +35,13 @@ __all__ = [
     "OutputOpenAIResponseOutputMessageReasoningItem",
     "OutputOpenAIResponseOutputMessageReasoningItemSummary",
     "OutputOpenAIResponseOutputMessageReasoningItemContent",
-    "Error",
-    "IncompleteDetails",
-    "Prompt",
-    "PromptVariables",
-    "PromptVariablesOpenAIResponseInputMessageContentText",
-    "PromptVariablesOpenAIResponseInputMessageContentImage",
-    "PromptVariablesOpenAIResponseInputMessageContentFile",
-    "Reasoning",
-    "Text",
-    "TextFormat",
-    "ToolChoice",
-    "ToolChoiceOpenAIResponseInputToolChoiceAllowedTools",
-    "ToolChoiceOpenAIResponseInputToolChoiceFileSearch",
-    "ToolChoiceOpenAIResponseInputToolChoiceWebSearch",
-    "ToolChoiceOpenAIResponseInputToolChoiceFunctionTool",
-    "ToolChoiceOpenAIResponseInputToolChoiceMcpTool",
-    "ToolChoiceOpenAIResponseInputToolChoiceCustomTool",
-    "Tool",
-    "ToolOpenAIResponseInputToolWebSearch",
-    "ToolOpenAIResponseInputToolFileSearch",
-    "ToolOpenAIResponseInputToolFileSearchRankingOptions",
-    "ToolOpenAIResponseInputToolFunction",
-    "ToolOpenAIResponseToolMcp",
-    "ToolOpenAIResponseToolMcpAllowedTools",
-    "ToolOpenAIResponseToolMcpAllowedToolsAllowedToolsFilter",
+    "OutputOpenAIResponseInputFunctionToolCallOutput",
+    "OutputOpenAIResponseInputFunctionToolCallOutputOutputListOpenAIResponseInputMessageContentTextOpenAIResponseInputMessageContentImageOpenAIResponseInputMessageContentFile",
+    "OutputOpenAIResponseInputFunctionToolCallOutputOutputListOpenAIResponseInputMessageContentTextOpenAIResponseInputMessageContentImageOpenAIResponseInputMessageContentFileOpenAIResponseInputMessageContentText",
+    "OutputOpenAIResponseInputFunctionToolCallOutputOutputListOpenAIResponseInputMessageContentTextOpenAIResponseInputMessageContentImageOpenAIResponseInputMessageContentFileOpenAIResponseInputMessageContentImage",
+    "OutputOpenAIResponseInputFunctionToolCallOutputOutputListOpenAIResponseInputMessageContentTextOpenAIResponseInputMessageContentImageOpenAIResponseInputMessageContentFileOpenAIResponseInputMessageContentFile",
+    "OutputOpenAIResponseMcpApprovalResponse",
+    "OutputOpenAIResponseCompaction",
     "Usage",
     "UsageInputTokensDetails",
     "UsageOutputTokensDetails",
@@ -445,36 +425,9 @@ class OutputOpenAIResponseOutputMessageReasoningItem(BaseModel):
     """The type identifier, always 'reasoning'."""
 
 
-Output: TypeAlias = Annotated[
-    Union[
-        OutputOpenAIResponseMessageOutput,
-        OutputOpenAIResponseOutputMessageWebSearchToolCall,
-        OutputOpenAIResponseOutputMessageFileSearchToolCall,
-        OutputOpenAIResponseOutputMessageFunctionToolCall,
-        OutputOpenAIResponseOutputMessageMcpCall,
-        OutputOpenAIResponseOutputMessageMcpListTools,
-        OutputOpenAIResponseMcpApprovalRequest,
-        OutputOpenAIResponseOutputMessageReasoningItem,
-    ],
-    PropertyInfo(discriminator="type"),
-]
-
-
-class Error(BaseModel):
-    """Error details for failed OpenAI response requests."""
-
-    code: str
-
-    message: str
-
-
-class IncompleteDetails(BaseModel):
-    """Details explaining why a response was incomplete."""
-
-    reason: str
-
-
-class PromptVariablesOpenAIResponseInputMessageContentText(BaseModel):
+class OutputOpenAIResponseInputFunctionToolCallOutputOutputListOpenAIResponseInputMessageContentTextOpenAIResponseInputMessageContentImageOpenAIResponseInputMessageContentFileOpenAIResponseInputMessageContentText(
+    BaseModel
+):
     """Text content for input messages in OpenAI response format."""
 
     text: str
@@ -482,7 +435,9 @@ class PromptVariablesOpenAIResponseInputMessageContentText(BaseModel):
     type: Optional[Literal["input_text"]] = None
 
 
-class PromptVariablesOpenAIResponseInputMessageContentImage(BaseModel):
+class OutputOpenAIResponseInputFunctionToolCallOutputOutputListOpenAIResponseInputMessageContentTextOpenAIResponseInputMessageContentImageOpenAIResponseInputMessageContentFileOpenAIResponseInputMessageContentImage(
+    BaseModel
+):
     """Image content for input messages in OpenAI response format."""
 
     detail: Optional[Literal["low", "high", "auto"]] = None
@@ -494,7 +449,9 @@ class PromptVariablesOpenAIResponseInputMessageContentImage(BaseModel):
     type: Optional[Literal["input_image"]] = None
 
 
-class PromptVariablesOpenAIResponseInputMessageContentFile(BaseModel):
+class OutputOpenAIResponseInputFunctionToolCallOutputOutputListOpenAIResponseInputMessageContentTextOpenAIResponseInputMessageContentImageOpenAIResponseInputMessageContentFileOpenAIResponseInputMessageContentFile(
+    BaseModel
+):
     """File content for input messages in OpenAI response format."""
 
     file_data: Optional[str] = None
@@ -508,247 +465,73 @@ class PromptVariablesOpenAIResponseInputMessageContentFile(BaseModel):
     type: Optional[Literal["input_file"]] = None
 
 
-PromptVariables: TypeAlias = Annotated[
+OutputOpenAIResponseInputFunctionToolCallOutputOutputListOpenAIResponseInputMessageContentTextOpenAIResponseInputMessageContentImageOpenAIResponseInputMessageContentFile: TypeAlias = Annotated[
     Union[
-        PromptVariablesOpenAIResponseInputMessageContentText,
-        PromptVariablesOpenAIResponseInputMessageContentImage,
-        PromptVariablesOpenAIResponseInputMessageContentFile,
+        OutputOpenAIResponseInputFunctionToolCallOutputOutputListOpenAIResponseInputMessageContentTextOpenAIResponseInputMessageContentImageOpenAIResponseInputMessageContentFileOpenAIResponseInputMessageContentText,
+        OutputOpenAIResponseInputFunctionToolCallOutputOutputListOpenAIResponseInputMessageContentTextOpenAIResponseInputMessageContentImageOpenAIResponseInputMessageContentFileOpenAIResponseInputMessageContentImage,
+        OutputOpenAIResponseInputFunctionToolCallOutputOutputListOpenAIResponseInputMessageContentTextOpenAIResponseInputMessageContentImageOpenAIResponseInputMessageContentFileOpenAIResponseInputMessageContentFile,
     ],
     PropertyInfo(discriminator="type"),
 ]
 
 
-class Prompt(BaseModel):
-    """OpenAI compatible Prompt object that is used in OpenAI responses."""
-
-    id: str
-
-    variables: Optional[Dict[str, PromptVariables]] = None
-
-    version: Optional[str] = None
-
-
-class Reasoning(BaseModel):
-    """Configuration for reasoning effort in OpenAI responses.
-
-    Controls how much reasoning the model performs before generating a response.
+class OutputOpenAIResponseInputFunctionToolCallOutput(BaseModel):
+    """
+    This represents the output of a function call that gets passed back to the model.
     """
 
-    effort: Optional[Literal["none", "minimal", "low", "medium", "high", "xhigh"]] = None
+    call_id: str
 
-    summary: Optional[Literal["auto", "concise", "detailed"]] = None
-    """Summary mode for reasoning output. One of 'auto', 'concise', or 'detailed'."""
+    output: Union[
+        str,
+        List[
+            OutputOpenAIResponseInputFunctionToolCallOutputOutputListOpenAIResponseInputMessageContentTextOpenAIResponseInputMessageContentImageOpenAIResponseInputMessageContentFile
+        ],
+    ]
 
+    id: Optional[str] = None
 
-class TextFormat(BaseModel):
-    """Configuration for Responses API text format."""
+    status: Optional[str] = None
 
-    description: Optional[str] = None
+    type: Optional[Literal["function_call_output"]] = None
 
-    name: Optional[str] = None
 
-    schema_: Optional[Dict[str, object]] = FieldInfo(alias="schema", default=None)
+class OutputOpenAIResponseMcpApprovalResponse(BaseModel):
+    """A response to an MCP approval request."""
 
-    strict: Optional[bool] = None
+    approval_request_id: str
 
-    type: Optional[Literal["text", "json_schema", "json_object"]] = None
+    approve: bool
 
+    id: Optional[str] = None
 
-class Text(BaseModel):
-    """Text response configuration for OpenAI responses."""
+    reason: Optional[str] = None
 
-    format: Optional[TextFormat] = None
-    """Configuration for Responses API text format."""
+    type: Optional[Literal["mcp_approval_response"]] = None
 
-    verbosity: Optional[Literal["low", "medium", "high"]] = None
 
+class OutputOpenAIResponseCompaction(BaseModel):
+    """A compaction item that summarizes prior conversation context."""
 
-class ToolChoiceOpenAIResponseInputToolChoiceAllowedTools(BaseModel):
-    """Constrains the tools available to the model to a pre-defined set."""
+    encrypted_content: str
 
-    tools: List[Dict[str, str]]
+    id: Optional[str] = None
 
-    mode: Optional[Literal["auto", "required"]] = None
+    type: Optional[Literal["compaction"]] = None
 
-    type: Optional[Literal["allowed_tools"]] = None
 
-
-class ToolChoiceOpenAIResponseInputToolChoiceFileSearch(BaseModel):
-    """Indicates that the model should use file search to generate a response."""
-
-    type: Optional[Literal["file_search"]] = None
-
-
-class ToolChoiceOpenAIResponseInputToolChoiceWebSearch(BaseModel):
-    """Indicates that the model should use web search to generate a response"""
-
-    type: Optional[
-        Literal["web_search", "web_search_preview", "web_search_preview_2025_03_11", "web_search_2025_08_26"]
-    ] = None
-
-
-class ToolChoiceOpenAIResponseInputToolChoiceFunctionTool(BaseModel):
-    """Forces the model to call a specific function."""
-
-    name: str
-
-    type: Optional[Literal["function"]] = None
-
-
-class ToolChoiceOpenAIResponseInputToolChoiceMcpTool(BaseModel):
-    """Forces the model to call a specific tool on a remote MCP server"""
-
-    server_label: str
-
-    name: Optional[str] = None
-
-    type: Optional[Literal["mcp"]] = None
-
-
-class ToolChoiceOpenAIResponseInputToolChoiceCustomTool(BaseModel):
-    """Forces the model to call a custom tool."""
-
-    name: str
-
-    type: Optional[Literal["custom"]] = None
-
-
-ToolChoice: TypeAlias = Union[
-    Literal["auto", "required", "none"],
-    ToolChoiceOpenAIResponseInputToolChoiceAllowedTools,
-    ToolChoiceOpenAIResponseInputToolChoiceFileSearch,
-    ToolChoiceOpenAIResponseInputToolChoiceWebSearch,
-    ToolChoiceOpenAIResponseInputToolChoiceFunctionTool,
-    ToolChoiceOpenAIResponseInputToolChoiceMcpTool,
-    ToolChoiceOpenAIResponseInputToolChoiceCustomTool,
-    None,
-]
-
-
-class ToolOpenAIResponseInputToolWebSearch(BaseModel):
-    """Web search tool configuration for OpenAI response inputs."""
-
-    search_context_size: Optional[str] = None
-
-    type: Optional[
-        Literal["web_search", "web_search_preview", "web_search_preview_2025_03_11", "web_search_2025_08_26"]
-    ] = None
-
-
-class ToolOpenAIResponseInputToolFileSearchRankingOptions(BaseModel):
-    """Options for ranking and filtering search results.
-
-    This class configures how search results are ranked and filtered. You can use algorithm-based
-    rerankers (weighted, RRF) or neural rerankers. Defaults from VectorStoresConfig are
-    used when parameters are not provided.
-
-    Examples:
-        # Weighted ranker with custom alpha
-        SearchRankingOptions(ranker="weighted", alpha=0.7)
-
-        # RRF ranker with custom impact factor
-        SearchRankingOptions(ranker="rrf", impact_factor=50.0)
-
-        # Use config defaults (just specify ranker type)
-        SearchRankingOptions(ranker="weighted")  # Uses alpha from VectorStoresConfig
-
-        # Score threshold filtering
-        SearchRankingOptions(ranker="weighted", score_threshold=0.5)
-    """
-
-    alpha: Optional[float] = None
-    """Weight factor for weighted ranker"""
-
-    impact_factor: Optional[float] = None
-    """Impact factor for RRF algorithm"""
-
-    model: Optional[str] = None
-    """Model identifier for neural reranker"""
-
-    ranker: Optional[str] = None
-
-    score_threshold: Optional[float] = None
-
-    weights: Optional[Dict[str, float]] = None
-    """Weights for combining vector, keyword, and neural scores.
-
-    Keys: 'vector', 'keyword', 'neural'
-    """
-
-
-class ToolOpenAIResponseInputToolFileSearch(BaseModel):
-    """File search tool configuration for OpenAI response inputs."""
-
-    vector_store_ids: List[str]
-
-    filters: Optional[Dict[str, object]] = None
-
-    max_num_results: Optional[int] = None
-
-    ranking_options: Optional[ToolOpenAIResponseInputToolFileSearchRankingOptions] = None
-    """Options for ranking and filtering search results.
-
-    This class configures how search results are ranked and filtered. You can use
-    algorithm-based rerankers (weighted, RRF) or neural rerankers. Defaults from
-    VectorStoresConfig are used when parameters are not provided.
-
-    Examples: # Weighted ranker with custom alpha
-    SearchRankingOptions(ranker="weighted", alpha=0.7)
-
-        # RRF ranker with custom impact factor
-        SearchRankingOptions(ranker="rrf", impact_factor=50.0)
-
-        # Use config defaults (just specify ranker type)
-        SearchRankingOptions(ranker="weighted")  # Uses alpha from VectorStoresConfig
-
-        # Score threshold filtering
-        SearchRankingOptions(ranker="weighted", score_threshold=0.5)
-    """
-
-    type: Optional[Literal["file_search"]] = None
-
-
-class ToolOpenAIResponseInputToolFunction(BaseModel):
-    """Function tool configuration for OpenAI response inputs."""
-
-    name: str
-
-    parameters: Optional[Dict[str, object]] = None
-
-    description: Optional[str] = None
-
-    strict: Optional[bool] = None
-
-    type: Optional[Literal["function"]] = None
-
-
-class ToolOpenAIResponseToolMcpAllowedToolsAllowedToolsFilter(BaseModel):
-    """Filter configuration for restricting which MCP tools can be used."""
-
-    tool_names: Optional[List[str]] = None
-
-
-ToolOpenAIResponseToolMcpAllowedTools: TypeAlias = Union[
-    List[str], ToolOpenAIResponseToolMcpAllowedToolsAllowedToolsFilter, None
-]
-
-
-class ToolOpenAIResponseToolMcp(BaseModel):
-    """Model Context Protocol (MCP) tool configuration for OpenAI response object."""
-
-    server_label: str
-
-    allowed_tools: Optional[ToolOpenAIResponseToolMcpAllowedTools] = None
-    """Filter configuration for restricting which MCP tools can be used."""
-
-    type: Optional[Literal["mcp"]] = None
-
-
-Tool: TypeAlias = Union[
-    ToolOpenAIResponseInputToolWebSearch,
-    ToolOpenAIResponseInputToolFileSearch,
-    ToolOpenAIResponseInputToolFunction,
-    ToolOpenAIResponseToolMcp,
+Output: TypeAlias = Union[
+    OutputOpenAIResponseMessageOutput,
+    OutputOpenAIResponseOutputMessageWebSearchToolCall,
+    OutputOpenAIResponseOutputMessageFileSearchToolCall,
+    OutputOpenAIResponseOutputMessageFunctionToolCall,
+    OutputOpenAIResponseOutputMessageMcpCall,
+    OutputOpenAIResponseOutputMessageMcpListTools,
+    OutputOpenAIResponseMcpApprovalRequest,
+    OutputOpenAIResponseOutputMessageReasoningItem,
+    OutputOpenAIResponseInputFunctionToolCallOutput,
+    OutputOpenAIResponseMcpApprovalResponse,
+    OutputOpenAIResponseCompaction,
 ]
 
 
@@ -780,79 +563,16 @@ class Usage(BaseModel):
     total_tokens: int
 
 
-class ResponseObject(BaseModel):
-    """Complete OpenAI response object containing generation results and metadata."""
+class CompactedResponse(BaseModel):
+    """Response from compacting a conversation."""
 
     id: str
 
     created_at: int
 
-    model: str
-
     output: List[Output]
 
-    status: str
-
-    store: bool
-
-    background: Optional[bool] = None
-
-    completed_at: Optional[int] = None
-
-    error: Optional[Error] = None
-    """Error details for failed OpenAI response requests."""
-
-    frequency_penalty: Optional[float] = None
-
-    incomplete_details: Optional[IncompleteDetails] = None
-    """Details explaining why a response was incomplete."""
-
-    instructions: Optional[str] = None
-
-    max_output_tokens: Optional[int] = None
-
-    max_tool_calls: Optional[int] = None
-
-    metadata: Optional[Dict[str, str]] = None
-
-    object: Optional[Literal["response"]] = None
-
-    parallel_tool_calls: Optional[bool] = None
-
-    presence_penalty: Optional[float] = None
-
-    previous_response_id: Optional[str] = None
-
-    prompt: Optional[Prompt] = None
-    """OpenAI compatible Prompt object that is used in OpenAI responses."""
-
-    prompt_cache_key: Optional[str] = None
-
-    reasoning: Optional[Reasoning] = None
-    """Configuration for reasoning effort in OpenAI responses.
-
-    Controls how much reasoning the model performs before generating a response.
-    """
-
-    safety_identifier: Optional[str] = None
-
-    service_tier: Optional[str] = None
-
-    temperature: Optional[float] = None
-
-    text: Optional[Text] = None
-    """Text response configuration for OpenAI responses."""
-
-    tool_choice: Optional[ToolChoice] = None
-    """Enumeration of simple tool choice modes for response generation."""
-
-    tools: Optional[List[Tool]] = None
-
-    top_logprobs: Optional[int] = None
-
-    top_p: Optional[float] = None
-
-    truncation: Optional[str] = None
-
-    usage: Optional[Usage] = None
+    usage: Usage
     """Usage information for OpenAI response."""
+
+    object: Optional[Literal["response.compaction"]] = None

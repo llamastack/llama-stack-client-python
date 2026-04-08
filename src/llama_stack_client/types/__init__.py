@@ -24,8 +24,10 @@ from .vector_store import VectorStore as VectorStore
 from .create_response import CreateResponse as CreateResponse
 from .response_object import ResponseObject as ResponseObject
 from .file_list_params import FileListParams as FileListParams
+from .response_message import ResponseMessage as ResponseMessage
 from .batch_list_params import BatchListParams as BatchListParams
 from .route_list_params import RouteListParams as RouteListParams
+from .compacted_response import CompactedResponse as CompactedResponse
 from .file_create_params import FileCreateParams as FileCreateParams
 from .batch_create_params import BatchCreateParams as BatchCreateParams
 from .batch_list_response import BatchListResponse as BatchListResponse
@@ -58,6 +60,7 @@ from .vector_io_query_params import VectorIoQueryParams as VectorIoQueryParams
 from .batch_retrieve_response import BatchRetrieveResponse as BatchRetrieveResponse
 from .embedding_create_params import EmbeddingCreateParams as EmbeddingCreateParams
 from .model_retrieve_response import ModelRetrieveResponse as ModelRetrieveResponse
+from .response_compact_params import ResponseCompactParams as ResponseCompactParams
 from .vector_io_insert_params import VectorIoInsertParams as VectorIoInsertParams
 from .completion_create_params import CompletionCreateParams as CompletionCreateParams
 from .moderation_create_params import ModerationCreateParams as ModerationCreateParams

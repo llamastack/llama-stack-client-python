@@ -11,6 +11,7 @@ from tests.utils import assert_matches_type
 from llama_stack_client import LlamaStackClient, AsyncLlamaStackClient
 from llama_stack_client.types import (
     ResponseObject,
+    CompactedResponse,
     ResponseListResponse,
     ResponseDeleteResponse,
 )
@@ -36,6 +37,12 @@ class TestResponses:
             input="string",
             model="model",
             background=True,
+            context_management=[
+                {
+                    "type": "compaction",
+                    "compact_threshold": 0,
+                }
+            ],
             conversation="conversation",
             frequency_penalty=-2,
             guardrails=["string"],
@@ -76,7 +83,8 @@ class TestResponses:
                     "schema": {"foo": "bar"},
                     "strict": True,
                     "type": "text",
-                }
+                },
+                "verbosity": "low",
             },
             tool_choice="auto",
             tools=[
@@ -133,6 +141,12 @@ class TestResponses:
             model="model",
             stream=True,
             background=True,
+            context_management=[
+                {
+                    "type": "compaction",
+                    "compact_threshold": 0,
+                }
+            ],
             conversation="conversation",
             frequency_penalty=-2,
             guardrails=["string"],
@@ -172,7 +186,8 @@ class TestResponses:
                     "schema": {"foo": "bar"},
                     "strict": True,
                     "type": "text",
-                }
+                },
+                "verbosity": "low",
             },
             tool_choice="auto",
             tools=[
@@ -325,6 +340,69 @@ class TestResponses:
                 "",
             )
 
+    @parametrize
+    def test_method_compact(self, client: LlamaStackClient) -> None:
+        response = client.responses.compact(
+            model="model",
+        )
+        assert_matches_type(CompactedResponse, response, path=["response"])
+
+    @parametrize
+    def test_method_compact_with_all_params(self, client: LlamaStackClient) -> None:
+        response = client.responses.compact(
+            model="model",
+            input="string",
+            instructions="instructions",
+            parallel_tool_calls=True,
+            previous_response_id="previous_response_id",
+            prompt_cache_key="prompt_cache_key",
+            reasoning={
+                "effort": "none",
+                "summary": "auto",
+            },
+            text={
+                "format": {
+                    "description": "description",
+                    "name": "name",
+                    "schema": {"foo": "bar"},
+                    "strict": True,
+                    "type": "text",
+                },
+                "verbosity": "low",
+            },
+            tools=[
+                {
+                    "search_context_size": 'S?oC"high',
+                    "type": "web_search",
+                }
+            ],
+        )
+        assert_matches_type(CompactedResponse, response, path=["response"])
+
+    @parametrize
+    def test_raw_response_compact(self, client: LlamaStackClient) -> None:
+        http_response = client.responses.with_raw_response.compact(
+            model="model",
+        )
+
+        assert http_response.is_closed is True
+        assert http_response.http_request.headers.get("X-Stainless-Lang") == "python"
+        response = http_response.parse()
+        assert_matches_type(CompactedResponse, response, path=["response"])
+
+    @parametrize
+    def test_streaming_response_compact(self, client: LlamaStackClient) -> None:
+        with client.responses.with_streaming_response.compact(
+            model="model",
+        ) as http_response:
+            assert not http_response.is_closed
+            assert http_response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            response = http_response.parse()
+            assert_matches_type(CompactedResponse, response, path=["response"])
+
+        assert cast(Any, http_response.is_closed) is True
+
 
 class TestAsyncResponses:
     parametrize = pytest.mark.parametrize(
@@ -345,6 +423,12 @@ class TestAsyncResponses:
             input="string",
             model="model",
             background=True,
+            context_management=[
+                {
+                    "type": "compaction",
+                    "compact_threshold": 0,
+                }
+            ],
             conversation="conversation",
             frequency_penalty=-2,
             guardrails=["string"],
@@ -385,7 +469,8 @@ class TestAsyncResponses:
                     "schema": {"foo": "bar"},
                     "strict": True,
                     "type": "text",
-                }
+                },
+                "verbosity": "low",
             },
             tool_choice="auto",
             tools=[
@@ -442,6 +527,12 @@ class TestAsyncResponses:
             model="model",
             stream=True,
             background=True,
+            context_management=[
+                {
+                    "type": "compaction",
+                    "compact_threshold": 0,
+                }
+            ],
             conversation="conversation",
             frequency_penalty=-2,
             guardrails=["string"],
@@ -481,7 +572,8 @@ class TestAsyncResponses:
                     "schema": {"foo": "bar"},
                     "strict": True,
                     "type": "text",
-                }
+                },
+                "verbosity": "low",
             },
             tool_choice="auto",
             tools=[
@@ -633,3 +725,66 @@ class TestAsyncResponses:
             await async_client.responses.with_raw_response.delete(
                 "",
             )
+
+    @parametrize
+    async def test_method_compact(self, async_client: AsyncLlamaStackClient) -> None:
+        response = await async_client.responses.compact(
+            model="model",
+        )
+        assert_matches_type(CompactedResponse, response, path=["response"])
+
+    @parametrize
+    async def test_method_compact_with_all_params(self, async_client: AsyncLlamaStackClient) -> None:
+        response = await async_client.responses.compact(
+            model="model",
+            input="string",
+            instructions="instructions",
+            parallel_tool_calls=True,
+            previous_response_id="previous_response_id",
+            prompt_cache_key="prompt_cache_key",
+            reasoning={
+                "effort": "none",
+                "summary": "auto",
+            },
+            text={
+                "format": {
+                    "description": "description",
+                    "name": "name",
+                    "schema": {"foo": "bar"},
+                    "strict": True,
+                    "type": "text",
+                },
+                "verbosity": "low",
+            },
+            tools=[
+                {
+                    "search_context_size": 'S?oC"high',
+                    "type": "web_search",
+                }
+            ],
+        )
+        assert_matches_type(CompactedResponse, response, path=["response"])
+
+    @parametrize
+    async def test_raw_response_compact(self, async_client: AsyncLlamaStackClient) -> None:
+        http_response = await async_client.responses.with_raw_response.compact(
+            model="model",
+        )
+
+        assert http_response.is_closed is True
+        assert http_response.http_request.headers.get("X-Stainless-Lang") == "python"
+        response = await http_response.parse()
+        assert_matches_type(CompactedResponse, response, path=["response"])
+
+    @parametrize
+    async def test_streaming_response_compact(self, async_client: AsyncLlamaStackClient) -> None:
+        async with async_client.responses.with_streaming_response.compact(
+            model="model",
+        ) as http_response:
+            assert not http_response.is_closed
+            assert http_response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            response = await http_response.parse()
+            assert_matches_type(CompactedResponse, response, path=["response"])
+
+        assert cast(Any, http_response.is_closed) is True

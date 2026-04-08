@@ -60,6 +60,8 @@ class Errors(BaseModel):
 
 
 class RequestCounts(BaseModel):
+    """The request counts for different statuses within the batch."""
+
     completed: int
 
     failed: int
@@ -80,6 +82,8 @@ class RequestCounts(BaseModel):
 
 
 class UsageInputTokensDetails(BaseModel):
+    """A detailed breakdown of the input tokens."""
+
     cached_tokens: int
 
     if TYPE_CHECKING:
@@ -96,6 +100,8 @@ class UsageInputTokensDetails(BaseModel):
 
 
 class UsageOutputTokensDetails(BaseModel):
+    """A detailed breakdown of the output tokens."""
+
     reasoning_tokens: int
 
     if TYPE_CHECKING:
@@ -112,13 +118,21 @@ class UsageOutputTokensDetails(BaseModel):
 
 
 class Usage(BaseModel):
+    """
+    Represents token usage details including input tokens, output tokens, a
+    breakdown of output tokens, and the total tokens used. Only populated on
+    batches created after September 7, 2025.
+    """
+
     input_tokens: int
 
     input_tokens_details: UsageInputTokensDetails
+    """A detailed breakdown of the input tokens."""
 
     output_tokens: int
 
     output_tokens_details: UsageOutputTokensDetails
+    """A detailed breakdown of the output tokens."""
 
     total_tokens: int
 
@@ -179,8 +193,14 @@ class BatchCancelResponse(BaseModel):
     output_file_id: Optional[str] = None
 
     request_counts: Optional[RequestCounts] = None
+    """The request counts for different statuses within the batch."""
 
     usage: Optional[Usage] = None
+    """
+    Represents token usage details including input tokens, output tokens, a
+    breakdown of output tokens, and the total tokens used. Only populated on batches
+    created after September 7, 2025.
+    """
 
     if TYPE_CHECKING:
         # Some versions of Pydantic <2.8.0 have a bug and don’t allow assigning a

@@ -43,6 +43,7 @@ __all__ = [
     "InputOpenAIResponseInputFunctionToolCallOutputOutputListOpenAIResponseInputMessageContentTextOpenAIResponseInputMessageContentImageOpenAIResponseInputMessageContentFileOpenAIResponseInputMessageContentImage",
     "InputOpenAIResponseInputFunctionToolCallOutputOutputListOpenAIResponseInputMessageContentTextOpenAIResponseInputMessageContentImageOpenAIResponseInputMessageContentFileOpenAIResponseInputMessageContentFile",
     "InputOpenAIResponseMcpApprovalResponse",
+    "InputOpenAIResponseCompaction",
     "Output",
     "OutputOpenAIResponseMessageOutput",
     "OutputOpenAIResponseMessageOutputContentListOpenAIResponseInputMessageContentTextOpenAIResponseInputMessageContentImageOpenAIResponseInputMessageContentFile",
@@ -563,6 +564,16 @@ class InputOpenAIResponseMcpApprovalResponse(BaseModel):
     type: Optional[Literal["mcp_approval_response"]] = None
 
 
+class InputOpenAIResponseCompaction(BaseModel):
+    """A compaction item that summarizes prior conversation context."""
+
+    encrypted_content: str
+
+    id: Optional[str] = None
+
+    type: Optional[Literal["compaction"]] = None
+
+
 Input: TypeAlias = Union[
     InputOpenAIResponseMessageOutput,
     InputOpenAIResponseOutputMessageWebSearchToolCall,
@@ -574,7 +585,7 @@ Input: TypeAlias = Union[
     InputOpenAIResponseOutputMessageReasoningItem,
     InputOpenAIResponseInputFunctionToolCallOutput,
     InputOpenAIResponseMcpApprovalResponse,
-    InputOpenAIResponseMessageOutput,
+    InputOpenAIResponseCompaction,
 ]
 
 
@@ -1069,6 +1080,8 @@ class Text(BaseModel):
 
     format: Optional[TextFormat] = None
     """Configuration for Responses API text format."""
+
+    verbosity: Optional[Literal["low", "medium", "high"]] = None
 
 
 class ToolChoiceOpenAIResponseInputToolChoiceAllowedTools(BaseModel):
