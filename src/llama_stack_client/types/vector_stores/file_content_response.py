@@ -62,7 +62,7 @@ class FileContentResponse(BaseModel):
 
     data: List[Data]
 
-    has_more: Optional[bool] = None
+    has_more: bool
 
     next_page: Optional[str] = None
 

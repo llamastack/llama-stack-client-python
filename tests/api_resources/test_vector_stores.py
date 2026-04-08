@@ -31,7 +31,11 @@ class TestVectorStores:
     def test_method_create_with_all_params(self, client: LlamaStackClient) -> None:
         vector_store = client.vector_stores.create(
             chunking_strategy={"type": "auto"},
-            expires_after={"foo": "bar"},
+            description="description",
+            expires_after={
+                "anchor": "last_active_at",
+                "days": 1,
+            },
             file_ids=["string"],
             metadata={"foo": "bar"},
             name="name",
@@ -107,7 +111,10 @@ class TestVectorStores:
     def test_method_update_with_all_params(self, client: LlamaStackClient) -> None:
         vector_store = client.vector_stores.update(
             vector_store_id="vector_store_id",
-            expires_after={"foo": "bar"},
+            expires_after={
+                "anchor": "last_active_at",
+                "days": 1,
+            },
             metadata={"foo": "bar"},
             name="name",
         )
@@ -231,7 +238,7 @@ class TestVectorStores:
             vector_store_id="vector_store_id",
             query="string",
             filters={"foo": "bar"},
-            max_num_results=0,
+            max_num_results=1,
             ranking_options={
                 "alpha": 0,
                 "impact_factor": 0,
@@ -294,7 +301,11 @@ class TestAsyncVectorStores:
     async def test_method_create_with_all_params(self, async_client: AsyncLlamaStackClient) -> None:
         vector_store = await async_client.vector_stores.create(
             chunking_strategy={"type": "auto"},
-            expires_after={"foo": "bar"},
+            description="description",
+            expires_after={
+                "anchor": "last_active_at",
+                "days": 1,
+            },
             file_ids=["string"],
             metadata={"foo": "bar"},
             name="name",
@@ -370,7 +381,10 @@ class TestAsyncVectorStores:
     async def test_method_update_with_all_params(self, async_client: AsyncLlamaStackClient) -> None:
         vector_store = await async_client.vector_stores.update(
             vector_store_id="vector_store_id",
-            expires_after={"foo": "bar"},
+            expires_after={
+                "anchor": "last_active_at",
+                "days": 1,
+            },
             metadata={"foo": "bar"},
             name="name",
         )
@@ -494,7 +508,7 @@ class TestAsyncVectorStores:
             vector_store_id="vector_store_id",
             query="string",
             filters={"foo": "bar"},
-            max_num_results=0,
+            max_num_results=1,
             ranking_options={
                 "alpha": 0,
                 "impact_factor": 0,

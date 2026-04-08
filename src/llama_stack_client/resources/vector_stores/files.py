@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from typing import Dict, Optional
+from typing import Dict, Union, Optional
 from typing_extensions import Literal
 
 import httpx
@@ -52,7 +52,7 @@ class FilesResource(SyncAPIResource):
         vector_store_id: str,
         *,
         file_id: str,
-        attributes: Optional[Dict[str, object]] | Omit = omit,
+        attributes: Optional[Dict[str, Union[str, float, bool]]] | Omit = omit,
         chunking_strategy: Optional[file_create_params.ChunkingStrategy] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -69,7 +69,11 @@ class FilesResource(SyncAPIResource):
 
           file_id: The ID of the file to attach.
 
-          attributes: Attributes to associate with the file.
+          attributes: Set of 16 key-value pairs that can be attached to an object. This can be useful
+              for storing additional information about the object in a structured format, and
+              querying for objects via API or the dashboard. Keys are strings with a maximum
+              length of 64 characters. Values are strings with a maximum length of 512
+              characters, booleans, or numbers.
 
           chunking_strategy: Strategy for chunking the file content.
 
@@ -193,7 +197,7 @@ class FilesResource(SyncAPIResource):
         *,
         after: Optional[str] | Omit = omit,
         before: Optional[str] | Omit = omit,
-        filter: Optional[Literal["completed", "in_progress", "cancelled", "failed"]] | Omit = omit,
+        filter: Optional[Literal["in_progress", "completed", "cancelled", "failed"]] | Omit = omit,
         limit: Optional[int] | Omit = omit,
         order: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -379,7 +383,7 @@ class AsyncFilesResource(AsyncAPIResource):
         vector_store_id: str,
         *,
         file_id: str,
-        attributes: Optional[Dict[str, object]] | Omit = omit,
+        attributes: Optional[Dict[str, Union[str, float, bool]]] | Omit = omit,
         chunking_strategy: Optional[file_create_params.ChunkingStrategy] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -396,7 +400,11 @@ class AsyncFilesResource(AsyncAPIResource):
 
           file_id: The ID of the file to attach.
 
-          attributes: Attributes to associate with the file.
+          attributes: Set of 16 key-value pairs that can be attached to an object. This can be useful
+              for storing additional information about the object in a structured format, and
+              querying for objects via API or the dashboard. Keys are strings with a maximum
+              length of 64 characters. Values are strings with a maximum length of 512
+              characters, booleans, or numbers.
 
           chunking_strategy: Strategy for chunking the file content.
 
@@ -520,7 +528,7 @@ class AsyncFilesResource(AsyncAPIResource):
         *,
         after: Optional[str] | Omit = omit,
         before: Optional[str] | Omit = omit,
-        filter: Optional[Literal["completed", "in_progress", "cancelled", "failed"]] | Omit = omit,
+        filter: Optional[Literal["in_progress", "completed", "cancelled", "failed"]] | Omit = omit,
         limit: Optional[int] | Omit = omit,
         order: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.

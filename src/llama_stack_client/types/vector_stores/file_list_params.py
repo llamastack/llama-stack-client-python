@@ -15,7 +15,7 @@ class FileListParams(TypedDict, total=False):
     before: Optional[str]
     """Pagination cursor (before)."""
 
-    filter: Optional[Literal["completed", "in_progress", "cancelled", "failed"]]
+    filter: Optional[Literal["in_progress", "completed", "cancelled", "failed"]]
     """Filter by file status."""
 
     limit: Optional[int]

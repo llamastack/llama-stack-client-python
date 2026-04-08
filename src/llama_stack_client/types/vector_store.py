@@ -1,10 +1,11 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 from typing import Dict, Optional
+from typing_extensions import Literal
 
 from .._models import BaseModel
 
-__all__ = ["VectorStore", "FileCounts"]
+__all__ = ["VectorStore", "FileCounts", "ExpiresAfter"]
 
 
 class FileCounts(BaseModel):
@@ -21,6 +22,16 @@ class FileCounts(BaseModel):
     total: int
 
 
+class ExpiresAfter(BaseModel):
+    """Expiration policy for a vector store."""
+
+    anchor: Literal["last_active_at"]
+    """Anchor timestamp after which the expiration policy applies."""
+
+    days: int
+    """The number of days after the anchor time that the vector store will expire."""
+
+
 class VectorStore(BaseModel):
     """OpenAI Vector Store object."""
 
@@ -31,7 +42,10 @@ class VectorStore(BaseModel):
     file_counts: FileCounts
     """File processing status counts for a vector store."""
 
-    expires_after: Optional[Dict[str, object]] = None
+    status: Literal["expired", "in_progress", "completed"]
+
+    expires_after: Optional[ExpiresAfter] = None
+    """Expiration policy for a vector store."""
 
     expires_at: Optional[int] = None
 
@@ -41,8 +55,6 @@ class VectorStore(BaseModel):
 
     name: Optional[str] = None
 
-    object: Optional[str] = None
-
-    status: Optional[str] = None
+    object: Optional[Literal["vector_store"]] = None
 
     usage_bytes: Optional[int] = None

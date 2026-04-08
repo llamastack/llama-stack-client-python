@@ -17,7 +17,7 @@ class VectorStoreSearchParams(TypedDict, total=False):
     filters: Optional[Dict[str, object]]
     """Filters to apply to the search."""
 
-    max_num_results: Optional[int]
+    max_num_results: int
     """Maximum number of results to return."""
 
     ranking_options: Optional[RankingOptions]
@@ -40,7 +40,7 @@ class VectorStoreSearchParams(TypedDict, total=False):
         SearchRankingOptions(ranker="weighted", score_threshold=0.5)
     """
 
-    rewrite_query: Optional[bool]
+    rewrite_query: bool
     """Whether to rewrite the query for better results."""
 
     search_mode: Optional[str]

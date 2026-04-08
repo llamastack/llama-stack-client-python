@@ -32,8 +32,8 @@ class VectorStoreFileBatches(BaseModel):
     file_counts: FileCounts
     """File processing status counts for a vector store."""
 
-    status: Literal["completed", "in_progress", "cancelled", "failed"]
+    status: Literal["in_progress", "completed", "cancelled", "failed"]
 
     vector_store_id: str
 
-    object: Optional[str] = None
+    object: Optional[Literal["vector_store.file_batch"]] = None

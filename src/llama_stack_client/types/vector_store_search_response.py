@@ -76,10 +76,10 @@ class VectorStoreSearchResponse(BaseModel):
 
     data: List[Data]
 
-    search_query: List[str]
+    has_more: bool
 
-    has_more: Optional[bool] = None
+    search_query: List[str]
 
     next_page: Optional[str] = None
 
-    object: Optional[str] = None
+    object: Optional[Literal["vector_store.search_results.page"]] = None

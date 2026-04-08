@@ -1,6 +1,7 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 from typing import Optional
+from typing_extensions import Literal
 
 from .._models import BaseModel
 
@@ -12,6 +13,6 @@ class VectorStoreDeleteResponse(BaseModel):
 
     id: str
 
-    deleted: Optional[bool] = None
+    deleted: bool
 
-    object: Optional[str] = None
+    object: Optional[Literal["vector_store.deleted"]] = None

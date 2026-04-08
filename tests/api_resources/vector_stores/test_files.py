@@ -35,7 +35,7 @@ class TestFiles:
         file = client.vector_stores.files.create(
             vector_store_id="vector_store_id",
             file_id="file_id",
-            attributes={"foo": "bar"},
+            attributes={"foo": "string"},
             chunking_strategy={"type": "auto"},
         )
         assert_matches_type(VectorStoreFile, file, path=["response"])
@@ -188,7 +188,7 @@ class TestFiles:
             vector_store_id="vector_store_id",
             after="after",
             before="before",
-            filter="completed",
+            filter="in_progress",
             limit=1,
             order="order",
         )
@@ -350,7 +350,7 @@ class TestAsyncFiles:
         file = await async_client.vector_stores.files.create(
             vector_store_id="vector_store_id",
             file_id="file_id",
-            attributes={"foo": "bar"},
+            attributes={"foo": "string"},
             chunking_strategy={"type": "auto"},
         )
         assert_matches_type(VectorStoreFile, file, path=["response"])
@@ -503,7 +503,7 @@ class TestAsyncFiles:
             vector_store_id="vector_store_id",
             after="after",
             before="before",
-            filter="completed",
+            filter="in_progress",
             limit=1,
             order="order",
         )

@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from typing import Dict, Optional
+from typing import Dict, Union, Iterable, Optional
 
 import httpx
 
@@ -49,9 +49,10 @@ class FileBatchesResource(SyncAPIResource):
         self,
         vector_store_id: str,
         *,
-        file_ids: SequenceNotStr[str],
-        attributes: Optional[Dict[str, object]] | Omit = omit,
+        attributes: Optional[Dict[str, Union[str, float, bool]]] | Omit = omit,
         chunking_strategy: Optional[file_batch_create_params.ChunkingStrategy] | Omit = omit,
+        file_ids: SequenceNotStr[str] | Omit = omit,
+        files: Optional[Iterable[file_batch_create_params.File]] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -64,6 +65,12 @@ class FileBatchesResource(SyncAPIResource):
 
         Args:
           vector_store_id: The vector store identifier.
+
+          attributes: Set of 16 key-value pairs that can be attached to an object. This can be useful
+              for storing additional information about the object in a structured format, and
+              querying for objects via API or the dashboard. Keys are strings with a maximum
+              length of 64 characters. Values are strings with a maximum length of 512
+              characters, booleans, or numbers.
 
           chunking_strategy: Automatic chunking strategy for vector store files.
 
@@ -81,9 +88,10 @@ class FileBatchesResource(SyncAPIResource):
             path_template("/v1/vector_stores/{vector_store_id}/file_batches", vector_store_id=vector_store_id),
             body=maybe_transform(
                 {
-                    "file_ids": file_ids,
                     "attributes": attributes,
                     "chunking_strategy": chunking_strategy,
+                    "file_ids": file_ids,
+                    "files": files,
                 },
                 file_batch_create_params.FileBatchCreateParams,
             ),
@@ -279,9 +287,10 @@ class AsyncFileBatchesResource(AsyncAPIResource):
         self,
         vector_store_id: str,
         *,
-        file_ids: SequenceNotStr[str],
-        attributes: Optional[Dict[str, object]] | Omit = omit,
+        attributes: Optional[Dict[str, Union[str, float, bool]]] | Omit = omit,
         chunking_strategy: Optional[file_batch_create_params.ChunkingStrategy] | Omit = omit,
+        file_ids: SequenceNotStr[str] | Omit = omit,
+        files: Optional[Iterable[file_batch_create_params.File]] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -294,6 +303,12 @@ class AsyncFileBatchesResource(AsyncAPIResource):
 
         Args:
           vector_store_id: The vector store identifier.
+
+          attributes: Set of 16 key-value pairs that can be attached to an object. This can be useful
+              for storing additional information about the object in a structured format, and
+              querying for objects via API or the dashboard. Keys are strings with a maximum
+              length of 64 characters. Values are strings with a maximum length of 512
+              characters, booleans, or numbers.
 
           chunking_strategy: Automatic chunking strategy for vector store files.
 
@@ -311,9 +326,10 @@ class AsyncFileBatchesResource(AsyncAPIResource):
             path_template("/v1/vector_stores/{vector_store_id}/file_batches", vector_store_id=vector_store_id),
             body=await async_maybe_transform(
                 {
-                    "file_ids": file_ids,
                     "attributes": attributes,
                     "chunking_strategy": chunking_strategy,
+                    "file_ids": file_ids,
+                    "files": files,
                 },
                 file_batch_create_params.FileBatchCreateParams,
             ),

@@ -15,6 +15,7 @@ __all__ = [
     "ChunkingStrategyVectorStoreChunkingStrategyStaticStatic",
     "ChunkingStrategyVectorStoreChunkingStrategyContextual",
     "ChunkingStrategyVectorStoreChunkingStrategyContextualContextual",
+    "ExpiresAfter",
 ]
 
 
@@ -22,7 +23,10 @@ class VectorStoreCreateParams(TypedDict, total=False):
     chunking_strategy: Optional[ChunkingStrategy]
     """Automatic chunking strategy for vector store files."""
 
-    expires_after: Optional[Dict[str, object]]
+    description: Optional[str]
+
+    expires_after: Optional[ExpiresAfter]
+    """Expiration policy for a vector store."""
 
     file_ids: Optional[SequenceNotStr[str]]
 
@@ -104,3 +108,13 @@ ChunkingStrategy: TypeAlias = Union[
     ChunkingStrategyVectorStoreChunkingStrategyStatic,
     ChunkingStrategyVectorStoreChunkingStrategyContextual,
 ]
+
+
+class ExpiresAfter(TypedDict, total=False):
+    """Expiration policy for a vector store."""
+
+    anchor: Required[Literal["last_active_at"]]
+    """Anchor timestamp after which the expiration policy applies."""
+
+    days: Required[int]
+    """The number of days after the anchor time that the vector store will expire."""

@@ -101,7 +101,7 @@ ChunkingStrategy: TypeAlias = Annotated[
 class LastError(BaseModel):
     """Error information for failed vector store file processing."""
 
-    code: Literal["server_error", "rate_limit_exceeded"]
+    code: Literal["server_error", "unsupported_file", "invalid_file"]
 
     message: str
 
@@ -116,7 +116,7 @@ class VectorStoreFile(BaseModel):
 
     created_at: int
 
-    status: Literal["completed", "in_progress", "cancelled", "failed"]
+    status: Literal["in_progress", "completed", "cancelled", "failed"]
 
     vector_store_id: str
 
@@ -132,6 +132,6 @@ class VectorStoreFile(BaseModel):
     last_error: Optional[LastError] = None
     """Error information for failed vector store file processing."""
 
-    object: Optional[str] = None
+    object: Optional[Literal["vector_store.file"]] = None
 
     usage_bytes: Optional[int] = None

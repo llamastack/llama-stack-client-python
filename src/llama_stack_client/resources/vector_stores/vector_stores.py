@@ -79,7 +79,8 @@ class VectorStoresResource(SyncAPIResource):
         self,
         *,
         chunking_strategy: Optional[vector_store_create_params.ChunkingStrategy] | Omit = omit,
-        expires_after: Optional[Dict[str, object]] | Omit = omit,
+        description: Optional[str] | Omit = omit,
+        expires_after: Optional[vector_store_create_params.ExpiresAfter] | Omit = omit,
         file_ids: Optional[SequenceNotStr[str]] | Omit = omit,
         metadata: Optional[Dict[str, object]] | Omit = omit,
         name: Optional[str] | Omit = omit,
@@ -96,6 +97,8 @@ class VectorStoresResource(SyncAPIResource):
         Args:
           chunking_strategy: Automatic chunking strategy for vector store files.
 
+          expires_after: Expiration policy for a vector store.
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -109,6 +112,7 @@ class VectorStoresResource(SyncAPIResource):
             body=maybe_transform(
                 {
                     "chunking_strategy": chunking_strategy,
+                    "description": description,
                     "expires_after": expires_after,
                     "file_ids": file_ids,
                     "metadata": metadata,
@@ -161,7 +165,7 @@ class VectorStoresResource(SyncAPIResource):
         self,
         vector_store_id: str,
         *,
-        expires_after: Optional[Dict[str, object]] | Omit = omit,
+        expires_after: Optional[vector_store_update_params.ExpiresAfter] | Omit = omit,
         metadata: Optional[Dict[str, object]] | Omit = omit,
         name: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -177,7 +181,7 @@ class VectorStoresResource(SyncAPIResource):
         Args:
           vector_store_id: The vector store identifier.
 
-          expires_after: Expiration policy for the vector store.
+          expires_after: Expiration policy for a vector store.
 
           metadata: Metadata to associate with the vector store.
 
@@ -305,9 +309,9 @@ class VectorStoresResource(SyncAPIResource):
         *,
         query: Union[str, SequenceNotStr[str]],
         filters: Optional[Dict[str, object]] | Omit = omit,
-        max_num_results: Optional[int] | Omit = omit,
+        max_num_results: int | Omit = omit,
         ranking_options: Optional[vector_store_search_params.RankingOptions] | Omit = omit,
-        rewrite_query: Optional[bool] | Omit = omit,
+        rewrite_query: bool | Omit = omit,
         search_mode: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -412,7 +416,8 @@ class AsyncVectorStoresResource(AsyncAPIResource):
         self,
         *,
         chunking_strategy: Optional[vector_store_create_params.ChunkingStrategy] | Omit = omit,
-        expires_after: Optional[Dict[str, object]] | Omit = omit,
+        description: Optional[str] | Omit = omit,
+        expires_after: Optional[vector_store_create_params.ExpiresAfter] | Omit = omit,
         file_ids: Optional[SequenceNotStr[str]] | Omit = omit,
         metadata: Optional[Dict[str, object]] | Omit = omit,
         name: Optional[str] | Omit = omit,
@@ -429,6 +434,8 @@ class AsyncVectorStoresResource(AsyncAPIResource):
         Args:
           chunking_strategy: Automatic chunking strategy for vector store files.
 
+          expires_after: Expiration policy for a vector store.
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -442,6 +449,7 @@ class AsyncVectorStoresResource(AsyncAPIResource):
             body=await async_maybe_transform(
                 {
                     "chunking_strategy": chunking_strategy,
+                    "description": description,
                     "expires_after": expires_after,
                     "file_ids": file_ids,
                     "metadata": metadata,
@@ -494,7 +502,7 @@ class AsyncVectorStoresResource(AsyncAPIResource):
         self,
         vector_store_id: str,
         *,
-        expires_after: Optional[Dict[str, object]] | Omit = omit,
+        expires_after: Optional[vector_store_update_params.ExpiresAfter] | Omit = omit,
         metadata: Optional[Dict[str, object]] | Omit = omit,
         name: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -510,7 +518,7 @@ class AsyncVectorStoresResource(AsyncAPIResource):
         Args:
           vector_store_id: The vector store identifier.
 
-          expires_after: Expiration policy for the vector store.
+          expires_after: Expiration policy for a vector store.
 
           metadata: Metadata to associate with the vector store.
 
@@ -638,9 +646,9 @@ class AsyncVectorStoresResource(AsyncAPIResource):
         *,
         query: Union[str, SequenceNotStr[str]],
         filters: Optional[Dict[str, object]] | Omit = omit,
-        max_num_results: Optional[int] | Omit = omit,
+        max_num_results: int | Omit = omit,
         ranking_options: Optional[vector_store_search_params.RankingOptions] | Omit = omit,
-        rewrite_query: Optional[bool] | Omit = omit,
+        rewrite_query: bool | Omit = omit,
         search_mode: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.

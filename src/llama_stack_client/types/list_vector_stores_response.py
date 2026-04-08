@@ -1,6 +1,7 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 from typing import List, Optional
+from typing_extensions import Literal
 
 from .._models import BaseModel
 from .vector_store import VectorStore
@@ -13,10 +14,10 @@ class ListVectorStoresResponse(BaseModel):
 
     data: List[VectorStore]
 
-    first_id: Optional[str] = None
+    first_id: str
 
-    has_more: Optional[bool] = None
+    has_more: bool
 
-    last_id: Optional[str] = None
+    last_id: str
 
-    object: Optional[str] = None
+    object: Optional[Literal["list"]] = None
