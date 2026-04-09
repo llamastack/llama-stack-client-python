@@ -78,17 +78,15 @@ class ResponsesResource(SyncAPIResource):
         conversation: Optional[str] | Omit = omit,
         frequency_penalty: Optional[float] | Omit = omit,
         guardrails: Optional[SequenceNotStr[response_create_params.Guardrail]] | Omit = omit,
-        include: Optional[
-            List[
-                Literal[
-                    "web_search_call.action.sources",
-                    "code_interpreter_call.outputs",
-                    "computer_call_output.output.image_url",
-                    "file_search_call.results",
-                    "message.input_image.image_url",
-                    "message.output_text.logprobs",
-                    "reasoning.encrypted_content",
-                ]
+        include: List[
+            Literal[
+                "web_search_call.action.sources",
+                "code_interpreter_call.outputs",
+                "computer_call_output.output.image_url",
+                "file_search_call.results",
+                "message.input_image.image_url",
+                "message.output_text.logprobs",
+                "reasoning.encrypted_content",
             ]
         ]
         | Omit = omit,
@@ -105,8 +103,8 @@ class ResponsesResource(SyncAPIResource):
         reasoning: Optional[response_create_params.Reasoning] | Omit = omit,
         safety_identifier: Optional[str] | Omit = omit,
         service_tier: Optional[Literal["auto", "default", "flex", "priority"]] | Omit = omit,
-        store: Optional[bool] | Omit = omit,
-        stream: Optional[Literal[False]] | Omit = omit,
+        store: bool | Omit = omit,
+        stream: Literal[False] | Omit = omit,
         stream_options: Optional[response_create_params.StreamOptions] | Omit = omit,
         temperature: Optional[float] | Omit = omit,
         text: Optional[response_create_params.Text] | Omit = omit,
@@ -222,17 +220,15 @@ class ResponsesResource(SyncAPIResource):
         conversation: Optional[str] | Omit = omit,
         frequency_penalty: Optional[float] | Omit = omit,
         guardrails: Optional[SequenceNotStr[response_create_params.Guardrail]] | Omit = omit,
-        include: Optional[
-            List[
-                Literal[
-                    "web_search_call.action.sources",
-                    "code_interpreter_call.outputs",
-                    "computer_call_output.output.image_url",
-                    "file_search_call.results",
-                    "message.input_image.image_url",
-                    "message.output_text.logprobs",
-                    "reasoning.encrypted_content",
-                ]
+        include: List[
+            Literal[
+                "web_search_call.action.sources",
+                "code_interpreter_call.outputs",
+                "computer_call_output.output.image_url",
+                "file_search_call.results",
+                "message.input_image.image_url",
+                "message.output_text.logprobs",
+                "reasoning.encrypted_content",
             ]
         ]
         | Omit = omit,
@@ -249,7 +245,7 @@ class ResponsesResource(SyncAPIResource):
         reasoning: Optional[response_create_params.Reasoning] | Omit = omit,
         safety_identifier: Optional[str] | Omit = omit,
         service_tier: Optional[Literal["auto", "default", "flex", "priority"]] | Omit = omit,
-        store: Optional[bool] | Omit = omit,
+        store: bool | Omit = omit,
         stream_options: Optional[response_create_params.StreamOptions] | Omit = omit,
         temperature: Optional[float] | Omit = omit,
         text: Optional[response_create_params.Text] | Omit = omit,
@@ -365,17 +361,15 @@ class ResponsesResource(SyncAPIResource):
         conversation: Optional[str] | Omit = omit,
         frequency_penalty: Optional[float] | Omit = omit,
         guardrails: Optional[SequenceNotStr[response_create_params.Guardrail]] | Omit = omit,
-        include: Optional[
-            List[
-                Literal[
-                    "web_search_call.action.sources",
-                    "code_interpreter_call.outputs",
-                    "computer_call_output.output.image_url",
-                    "file_search_call.results",
-                    "message.input_image.image_url",
-                    "message.output_text.logprobs",
-                    "reasoning.encrypted_content",
-                ]
+        include: List[
+            Literal[
+                "web_search_call.action.sources",
+                "code_interpreter_call.outputs",
+                "computer_call_output.output.image_url",
+                "file_search_call.results",
+                "message.input_image.image_url",
+                "message.output_text.logprobs",
+                "reasoning.encrypted_content",
             ]
         ]
         | Omit = omit,
@@ -392,7 +386,7 @@ class ResponsesResource(SyncAPIResource):
         reasoning: Optional[response_create_params.Reasoning] | Omit = omit,
         safety_identifier: Optional[str] | Omit = omit,
         service_tier: Optional[Literal["auto", "default", "flex", "priority"]] | Omit = omit,
-        store: Optional[bool] | Omit = omit,
+        store: bool | Omit = omit,
         stream_options: Optional[response_create_params.StreamOptions] | Omit = omit,
         temperature: Optional[float] | Omit = omit,
         text: Optional[response_create_params.Text] | Omit = omit,
@@ -507,17 +501,15 @@ class ResponsesResource(SyncAPIResource):
         conversation: Optional[str] | Omit = omit,
         frequency_penalty: Optional[float] | Omit = omit,
         guardrails: Optional[SequenceNotStr[response_create_params.Guardrail]] | Omit = omit,
-        include: Optional[
-            List[
-                Literal[
-                    "web_search_call.action.sources",
-                    "code_interpreter_call.outputs",
-                    "computer_call_output.output.image_url",
-                    "file_search_call.results",
-                    "message.input_image.image_url",
-                    "message.output_text.logprobs",
-                    "reasoning.encrypted_content",
-                ]
+        include: List[
+            Literal[
+                "web_search_call.action.sources",
+                "code_interpreter_call.outputs",
+                "computer_call_output.output.image_url",
+                "file_search_call.results",
+                "message.input_image.image_url",
+                "message.output_text.logprobs",
+                "reasoning.encrypted_content",
             ]
         ]
         | Omit = omit,
@@ -534,8 +526,8 @@ class ResponsesResource(SyncAPIResource):
         reasoning: Optional[response_create_params.Reasoning] | Omit = omit,
         safety_identifier: Optional[str] | Omit = omit,
         service_tier: Optional[Literal["auto", "default", "flex", "priority"]] | Omit = omit,
-        store: Optional[bool] | Omit = omit,
-        stream: Optional[Literal[False]] | Literal[True] | Omit = omit,
+        store: bool | Omit = omit,
+        stream: Literal[False] | Literal[True] | Omit = omit,
         stream_options: Optional[response_create_params.StreamOptions] | Omit = omit,
         temperature: Optional[float] | Omit = omit,
         text: Optional[response_create_params.Text] | Omit = omit,
@@ -848,17 +840,15 @@ class AsyncResponsesResource(AsyncAPIResource):
         conversation: Optional[str] | Omit = omit,
         frequency_penalty: Optional[float] | Omit = omit,
         guardrails: Optional[SequenceNotStr[response_create_params.Guardrail]] | Omit = omit,
-        include: Optional[
-            List[
-                Literal[
-                    "web_search_call.action.sources",
-                    "code_interpreter_call.outputs",
-                    "computer_call_output.output.image_url",
-                    "file_search_call.results",
-                    "message.input_image.image_url",
-                    "message.output_text.logprobs",
-                    "reasoning.encrypted_content",
-                ]
+        include: List[
+            Literal[
+                "web_search_call.action.sources",
+                "code_interpreter_call.outputs",
+                "computer_call_output.output.image_url",
+                "file_search_call.results",
+                "message.input_image.image_url",
+                "message.output_text.logprobs",
+                "reasoning.encrypted_content",
             ]
         ]
         | Omit = omit,
@@ -875,8 +865,8 @@ class AsyncResponsesResource(AsyncAPIResource):
         reasoning: Optional[response_create_params.Reasoning] | Omit = omit,
         safety_identifier: Optional[str] | Omit = omit,
         service_tier: Optional[Literal["auto", "default", "flex", "priority"]] | Omit = omit,
-        store: Optional[bool] | Omit = omit,
-        stream: Optional[Literal[False]] | Omit = omit,
+        store: bool | Omit = omit,
+        stream: Literal[False] | Omit = omit,
         stream_options: Optional[response_create_params.StreamOptions] | Omit = omit,
         temperature: Optional[float] | Omit = omit,
         text: Optional[response_create_params.Text] | Omit = omit,
@@ -992,17 +982,15 @@ class AsyncResponsesResource(AsyncAPIResource):
         conversation: Optional[str] | Omit = omit,
         frequency_penalty: Optional[float] | Omit = omit,
         guardrails: Optional[SequenceNotStr[response_create_params.Guardrail]] | Omit = omit,
-        include: Optional[
-            List[
-                Literal[
-                    "web_search_call.action.sources",
-                    "code_interpreter_call.outputs",
-                    "computer_call_output.output.image_url",
-                    "file_search_call.results",
-                    "message.input_image.image_url",
-                    "message.output_text.logprobs",
-                    "reasoning.encrypted_content",
-                ]
+        include: List[
+            Literal[
+                "web_search_call.action.sources",
+                "code_interpreter_call.outputs",
+                "computer_call_output.output.image_url",
+                "file_search_call.results",
+                "message.input_image.image_url",
+                "message.output_text.logprobs",
+                "reasoning.encrypted_content",
             ]
         ]
         | Omit = omit,
@@ -1019,7 +1007,7 @@ class AsyncResponsesResource(AsyncAPIResource):
         reasoning: Optional[response_create_params.Reasoning] | Omit = omit,
         safety_identifier: Optional[str] | Omit = omit,
         service_tier: Optional[Literal["auto", "default", "flex", "priority"]] | Omit = omit,
-        store: Optional[bool] | Omit = omit,
+        store: bool | Omit = omit,
         stream_options: Optional[response_create_params.StreamOptions] | Omit = omit,
         temperature: Optional[float] | Omit = omit,
         text: Optional[response_create_params.Text] | Omit = omit,
@@ -1135,17 +1123,15 @@ class AsyncResponsesResource(AsyncAPIResource):
         conversation: Optional[str] | Omit = omit,
         frequency_penalty: Optional[float] | Omit = omit,
         guardrails: Optional[SequenceNotStr[response_create_params.Guardrail]] | Omit = omit,
-        include: Optional[
-            List[
-                Literal[
-                    "web_search_call.action.sources",
-                    "code_interpreter_call.outputs",
-                    "computer_call_output.output.image_url",
-                    "file_search_call.results",
-                    "message.input_image.image_url",
-                    "message.output_text.logprobs",
-                    "reasoning.encrypted_content",
-                ]
+        include: List[
+            Literal[
+                "web_search_call.action.sources",
+                "code_interpreter_call.outputs",
+                "computer_call_output.output.image_url",
+                "file_search_call.results",
+                "message.input_image.image_url",
+                "message.output_text.logprobs",
+                "reasoning.encrypted_content",
             ]
         ]
         | Omit = omit,
@@ -1162,7 +1148,7 @@ class AsyncResponsesResource(AsyncAPIResource):
         reasoning: Optional[response_create_params.Reasoning] | Omit = omit,
         safety_identifier: Optional[str] | Omit = omit,
         service_tier: Optional[Literal["auto", "default", "flex", "priority"]] | Omit = omit,
-        store: Optional[bool] | Omit = omit,
+        store: bool | Omit = omit,
         stream_options: Optional[response_create_params.StreamOptions] | Omit = omit,
         temperature: Optional[float] | Omit = omit,
         text: Optional[response_create_params.Text] | Omit = omit,
@@ -1277,17 +1263,15 @@ class AsyncResponsesResource(AsyncAPIResource):
         conversation: Optional[str] | Omit = omit,
         frequency_penalty: Optional[float] | Omit = omit,
         guardrails: Optional[SequenceNotStr[response_create_params.Guardrail]] | Omit = omit,
-        include: Optional[
-            List[
-                Literal[
-                    "web_search_call.action.sources",
-                    "code_interpreter_call.outputs",
-                    "computer_call_output.output.image_url",
-                    "file_search_call.results",
-                    "message.input_image.image_url",
-                    "message.output_text.logprobs",
-                    "reasoning.encrypted_content",
-                ]
+        include: List[
+            Literal[
+                "web_search_call.action.sources",
+                "code_interpreter_call.outputs",
+                "computer_call_output.output.image_url",
+                "file_search_call.results",
+                "message.input_image.image_url",
+                "message.output_text.logprobs",
+                "reasoning.encrypted_content",
             ]
         ]
         | Omit = omit,
@@ -1304,8 +1288,8 @@ class AsyncResponsesResource(AsyncAPIResource):
         reasoning: Optional[response_create_params.Reasoning] | Omit = omit,
         safety_identifier: Optional[str] | Omit = omit,
         service_tier: Optional[Literal["auto", "default", "flex", "priority"]] | Omit = omit,
-        store: Optional[bool] | Omit = omit,
-        stream: Optional[Literal[False]] | Literal[True] | Omit = omit,
+        store: bool | Omit = omit,
+        stream: Literal[False] | Literal[True] | Omit = omit,
         stream_options: Optional[response_create_params.StreamOptions] | Omit = omit,
         temperature: Optional[float] | Omit = omit,
         text: Optional[response_create_params.Text] | Omit = omit,

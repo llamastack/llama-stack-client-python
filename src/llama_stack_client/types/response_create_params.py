@@ -106,17 +106,15 @@ class ResponseCreateParamsBase(TypedDict, total=False):
     guardrails: Optional[SequenceNotStr[Guardrail]]
     """List of guardrails to apply during response generation."""
 
-    include: Optional[
-        List[
-            Literal[
-                "web_search_call.action.sources",
-                "code_interpreter_call.outputs",
-                "computer_call_output.output.image_url",
-                "file_search_call.results",
-                "message.input_image.image_url",
-                "message.output_text.logprobs",
-                "reasoning.encrypted_content",
-            ]
+    include: List[
+        Literal[
+            "web_search_call.action.sources",
+            "code_interpreter_call.outputs",
+            "computer_call_output.output.image_url",
+            "file_search_call.results",
+            "message.input_image.image_url",
+            "message.output_text.logprobs",
+            "reasoning.encrypted_content",
         ]
     ]
     """Additional fields to include in the response."""
@@ -165,7 +163,7 @@ class ResponseCreateParamsBase(TypedDict, total=False):
     service_tier: Optional[Literal["auto", "default", "flex", "priority"]]
     """The service tier for the request."""
 
-    store: Optional[bool]
+    store: bool
     """Whether to store the response in the database."""
 
     stream_options: Optional[StreamOptions]
@@ -1046,7 +1044,7 @@ Tool: TypeAlias = Union[
 
 
 class ResponseCreateParamsNonStreaming(ResponseCreateParamsBase, total=False):
-    stream: Optional[Literal[False]]
+    stream: Literal[False]
     """Whether to stream the response."""
 
 
