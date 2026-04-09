@@ -36,4 +36,4 @@ class VectorStoreFileBatches(BaseModel):
 
     vector_store_id: str
 
-    object: Optional[Literal["vector_store.file_batch"]] = None
+    object: Optional[Literal["vector_store.files_batch"]] = None
