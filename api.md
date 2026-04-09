@@ -248,24 +248,19 @@ Methods:
 Types:
 
 ```python
-from llama_stack_client.types import (
-    ListModelsResponse,
-    Model,
-    ModelRetrieveResponse,
-    ModelListResponse,
-)
+from llama_stack_client.types import ListModelsResponse, Model, ModelRetrieveResponse
 ```
 
 Methods:
 
 - <code title="get /v1/models/{model_id}">client.models.<a href="./src/llama_stack_client/resources/models/models.py">retrieve</a>(model_id) -> <a href="./src/llama_stack_client/types/model_retrieve_response.py">ModelRetrieveResponse</a></code>
-- <code title="get /v1/models">client.models.<a href="./src/llama_stack_client/resources/models/models.py">list</a>() -> <a href="./src/llama_stack_client/types/model_list_response.py">ModelListResponse</a></code>
+- <code title="get /v1/models">client.models.<a href="./src/llama_stack_client/resources/models/models.py">list</a>() -> <a href="./src/llama_stack_client/types/list_models_response.py">ListModelsResponse</a></code>
 
 ## OpenAI
 
 Methods:
 
-- <code title="get /v1/models">client.models.openai.<a href="./src/llama_stack_client/resources/models/openai.py">list</a>() -> <a href="./src/llama_stack_client/types/model_list_response.py">ModelListResponse</a></code>
+- <code title="get /v1/models">client.models.openai.<a href="./src/llama_stack_client/resources/models/openai.py">list</a>() -> <a href="./src/llama_stack_client/types/list_models_response.py">ListModelsResponse</a></code>
 
 # Providers
 

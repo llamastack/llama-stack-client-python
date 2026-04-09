@@ -33,7 +33,6 @@ from .batch_create_params import BatchCreateParams as BatchCreateParams
 from .batch_list_response import BatchListResponse as BatchListResponse
 from .conversation_object import ConversationObject as ConversationObject
 from .list_files_response import ListFilesResponse as ListFilesResponse
-from .model_list_response import ModelListResponse as ModelListResponse
 from .route_list_response import RouteListResponse as RouteListResponse
 from .run_shield_response import RunShieldResponse as RunShieldResponse
 from .delete_file_response import DeleteFileResponse as DeleteFileResponse

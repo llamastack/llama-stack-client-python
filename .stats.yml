@@ -1,4 +1,4 @@
 configured_endpoints: 72
-openapi_spec_url: https://storage.googleapis.com/stainless-sdk-openapi-specs/llamastack%2Fllama-stack-client-5adb7102c584a74920c0a54e41db4c8e3c4d169d8c2a75bfb0b71a601a42468a.yml
-openapi_spec_hash: d2c122eb960d3e59251d1223cadd4278
+openapi_spec_url: https://storage.googleapis.com/stainless-sdk-openapi-specs/llamastack%2Fllama-stack-client-fda95ed92c5138fcca6284fda88bfcae0c8829dff5afe7acd522fad508b796d0.yml
+openapi_spec_hash: e68ff6fdbe5381947fbe5d01a6dc89d0
 config_hash: fad002ab63e92fc0ac6aa124dd576df4

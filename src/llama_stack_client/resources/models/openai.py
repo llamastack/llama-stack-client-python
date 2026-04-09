@@ -2,8 +2,6 @@
 
 from __future__ import annotations
 
-from typing import Type, cast
-
 import httpx
 
 from ..._types import Body, Query, Headers, NotGiven, not_given
@@ -15,9 +13,8 @@ from ..._response import (
     async_to_raw_response_wrapper,
     async_to_streamed_response_wrapper,
 )
-from ..._wrappers import DataWrapper
 from ..._base_client import make_request_options
-from ...types.model_list_response import ModelListResponse
+from ...types.list_models_response import ListModelsResponse
 
 __all__ = ["OpenAIResource", "AsyncOpenAIResource"]
 
@@ -51,18 +48,14 @@ class OpenAIResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> ModelListResponse:
+    ) -> ListModelsResponse:
         """List models using the OpenAI API."""
         return self._get(
             "/v1/models",
             options=make_request_options(
-                extra_headers=extra_headers,
-                extra_query=extra_query,
-                extra_body=extra_body,
-                timeout=timeout,
-                post_parser=DataWrapper[ModelListResponse]._unwrapper,
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=cast(Type[ModelListResponse], DataWrapper[ModelListResponse]),
+            cast_to=ListModelsResponse,
         )
 
 
@@ -95,18 +88,14 @@ class AsyncOpenAIResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> ModelListResponse:
+    ) -> ListModelsResponse:
         """List models using the OpenAI API."""
         return await self._get(
             "/v1/models",
             options=make_request_options(
-                extra_headers=extra_headers,
-                extra_query=extra_query,
-                extra_body=extra_body,
-                timeout=timeout,
-                post_parser=DataWrapper[ModelListResponse]._unwrapper,
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=cast(Type[ModelListResponse], DataWrapper[ModelListResponse]),
+            cast_to=ListModelsResponse,
         )
 
 
