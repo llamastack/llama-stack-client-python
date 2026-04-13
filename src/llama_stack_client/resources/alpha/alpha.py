@@ -27,6 +27,7 @@ __all__ = ["AlphaResource", "AsyncAlphaResource"]
 class AlphaResource(SyncAPIResource):
     @cached_property
     def admin(self) -> AdminResource:
+        """Administrative APIs for inspecting providers, routes, health, and version."""
         return AdminResource(self._client)
 
     @cached_property
@@ -64,6 +65,7 @@ class AlphaResource(SyncAPIResource):
 class AsyncAlphaResource(AsyncAPIResource):
     @cached_property
     def admin(self) -> AsyncAdminResource:
+        """Administrative APIs for inspecting providers, routes, health, and version."""
         return AsyncAdminResource(self._client)
 
     @cached_property
@@ -104,6 +106,7 @@ class AlphaResourceWithRawResponse:
 
     @cached_property
     def admin(self) -> AdminResourceWithRawResponse:
+        """Administrative APIs for inspecting providers, routes, health, and version."""
         return AdminResourceWithRawResponse(self._alpha.admin)
 
     @cached_property
@@ -125,6 +128,7 @@ class AsyncAlphaResourceWithRawResponse:
 
     @cached_property
     def admin(self) -> AsyncAdminResourceWithRawResponse:
+        """Administrative APIs for inspecting providers, routes, health, and version."""
         return AsyncAdminResourceWithRawResponse(self._alpha.admin)
 
     @cached_property
@@ -146,6 +150,7 @@ class AlphaResourceWithStreamingResponse:
 
     @cached_property
     def admin(self) -> AdminResourceWithStreamingResponse:
+        """Administrative APIs for inspecting providers, routes, health, and version."""
         return AdminResourceWithStreamingResponse(self._alpha.admin)
 
     @cached_property
@@ -167,6 +172,7 @@ class AsyncAlphaResourceWithStreamingResponse:
 
     @cached_property
     def admin(self) -> AsyncAdminResourceWithStreamingResponse:
+        """Administrative APIs for inspecting providers, routes, health, and version."""
         return AsyncAdminResourceWithStreamingResponse(self._alpha.admin)
 
     @cached_property
