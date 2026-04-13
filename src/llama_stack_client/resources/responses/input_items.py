@@ -25,6 +25,10 @@ __all__ = ["InputItemsResource", "AsyncInputItemsResource"]
 
 
 class InputItemsResource(SyncAPIResource):
+    """
+    OpenAI Responses API for agent orchestration with tool use, multi-turn conversations, and background processing.
+    """
+
     @cached_property
     def with_raw_response(self) -> InputItemsResourceWithRawResponse:
         """
@@ -123,6 +127,10 @@ class InputItemsResource(SyncAPIResource):
 
 
 class AsyncInputItemsResource(AsyncAPIResource):
+    """
+    OpenAI Responses API for agent orchestration with tool use, multi-turn conversations, and background processing.
+    """
+
     @cached_property
     def with_raw_response(self) -> AsyncInputItemsResourceWithRawResponse:
         """

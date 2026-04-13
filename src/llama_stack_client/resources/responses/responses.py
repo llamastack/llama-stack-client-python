@@ -39,8 +39,15 @@ __all__ = ["ResponsesResource", "AsyncResponsesResource"]
 
 
 class ResponsesResource(SyncAPIResource):
+    """
+    OpenAI Responses API for agent orchestration with tool use, multi-turn conversations, and background processing.
+    """
+
     @cached_property
     def input_items(self) -> InputItemsResource:
+        """
+        OpenAI Responses API for agent orchestration with tool use, multi-turn conversations, and background processing.
+        """
         return InputItemsResource(self._client)
 
     @cached_property
@@ -801,8 +808,15 @@ class ResponsesResource(SyncAPIResource):
 
 
 class AsyncResponsesResource(AsyncAPIResource):
+    """
+    OpenAI Responses API for agent orchestration with tool use, multi-turn conversations, and background processing.
+    """
+
     @cached_property
     def input_items(self) -> AsyncInputItemsResource:
+        """
+        OpenAI Responses API for agent orchestration with tool use, multi-turn conversations, and background processing.
+        """
         return AsyncInputItemsResource(self._client)
 
     @cached_property
@@ -1584,6 +1598,9 @@ class ResponsesResourceWithRawResponse:
 
     @cached_property
     def input_items(self) -> InputItemsResourceWithRawResponse:
+        """
+        OpenAI Responses API for agent orchestration with tool use, multi-turn conversations, and background processing.
+        """
         return InputItemsResourceWithRawResponse(self._responses.input_items)
 
 
@@ -1609,6 +1626,9 @@ class AsyncResponsesResourceWithRawResponse:
 
     @cached_property
     def input_items(self) -> AsyncInputItemsResourceWithRawResponse:
+        """
+        OpenAI Responses API for agent orchestration with tool use, multi-turn conversations, and background processing.
+        """
         return AsyncInputItemsResourceWithRawResponse(self._responses.input_items)
 
 
@@ -1634,6 +1654,9 @@ class ResponsesResourceWithStreamingResponse:
 
     @cached_property
     def input_items(self) -> InputItemsResourceWithStreamingResponse:
+        """
+        OpenAI Responses API for agent orchestration with tool use, multi-turn conversations, and background processing.
+        """
         return InputItemsResourceWithStreamingResponse(self._responses.input_items)
 
 
@@ -1659,4 +1682,7 @@ class AsyncResponsesResourceWithStreamingResponse:
 
     @cached_property
     def input_items(self) -> AsyncInputItemsResourceWithStreamingResponse:
+        """
+        OpenAI Responses API for agent orchestration with tool use, multi-turn conversations, and background processing.
+        """
         return AsyncInputItemsResourceWithStreamingResponse(self._responses.input_items)

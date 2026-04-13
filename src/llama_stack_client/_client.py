@@ -137,6 +137,9 @@ class LlamaStackClient(SyncAPIClient):
 
     @cached_property
     def responses(self) -> ResponsesResource:
+        """
+        OpenAI Responses API for agent orchestration with tool use, multi-turn conversations, and background processing.
+        """
         from .resources.responses import ResponsesResource
 
         return ResponsesResource(self)
@@ -453,6 +456,9 @@ class AsyncLlamaStackClient(AsyncAPIClient):
 
     @cached_property
     def responses(self) -> AsyncResponsesResource:
+        """
+        OpenAI Responses API for agent orchestration with tool use, multi-turn conversations, and background processing.
+        """
         from .resources.responses import AsyncResponsesResource
 
         return AsyncResponsesResource(self)
@@ -722,6 +728,9 @@ class LlamaStackClientWithRawResponse:
 
     @cached_property
     def responses(self) -> responses.ResponsesResourceWithRawResponse:
+        """
+        OpenAI Responses API for agent orchestration with tool use, multi-turn conversations, and background processing.
+        """
         from .resources.responses import ResponsesResourceWithRawResponse
 
         return ResponsesResourceWithRawResponse(self._client.responses)
@@ -877,6 +886,9 @@ class AsyncLlamaStackClientWithRawResponse:
 
     @cached_property
     def responses(self) -> responses.AsyncResponsesResourceWithRawResponse:
+        """
+        OpenAI Responses API for agent orchestration with tool use, multi-turn conversations, and background processing.
+        """
         from .resources.responses import AsyncResponsesResourceWithRawResponse
 
         return AsyncResponsesResourceWithRawResponse(self._client.responses)
@@ -1032,6 +1044,9 @@ class LlamaStackClientWithStreamedResponse:
 
     @cached_property
     def responses(self) -> responses.ResponsesResourceWithStreamingResponse:
+        """
+        OpenAI Responses API for agent orchestration with tool use, multi-turn conversations, and background processing.
+        """
         from .resources.responses import ResponsesResourceWithStreamingResponse
 
         return ResponsesResourceWithStreamingResponse(self._client.responses)
@@ -1187,6 +1202,9 @@ class AsyncLlamaStackClientWithStreamedResponse:
 
     @cached_property
     def responses(self) -> responses.AsyncResponsesResourceWithStreamingResponse:
+        """
+        OpenAI Responses API for agent orchestration with tool use, multi-turn conversations, and background processing.
+        """
         from .resources.responses import AsyncResponsesResourceWithStreamingResponse
 
         return AsyncResponsesResourceWithStreamingResponse(self._client.responses)
