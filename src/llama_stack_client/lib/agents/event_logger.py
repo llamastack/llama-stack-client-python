@@ -115,6 +115,9 @@ class AgentEventLogger:
                     for resp in result.tool_responses:
                         tool_name = resp.get("tool_name", "unknown")
                         content = resp.get("content", "")
+                        if content is None or content == "":
+                            yield f"  → {tool_name}\n"
+                            continue
                         # Truncate long responses for readability
                         if isinstance(content, str) and len(content) > 100:
                             content = content[:100] + "..."
