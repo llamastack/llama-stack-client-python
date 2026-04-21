@@ -101,6 +101,7 @@ __all__ = [
     "OpenAIResponseObjectStreamResponseIncomplete",
     "OpenAIResponseObjectStreamResponseFailed",
     "OpenAIResponseObjectStreamResponseCompleted",
+    "OpenAIResponseObjectStreamError",
 ]
 
 
@@ -1350,6 +1351,24 @@ class OpenAIResponseObjectStreamResponseCompleted(BaseModel):
     type: Optional[Literal["response.completed"]] = None
 
 
+class OpenAIResponseObjectStreamError(BaseModel):
+    """Standalone error event emitted during streaming when an error occurs.
+
+    This is distinct from response.failed which is a response lifecycle event.
+    The error event signals transport/infrastructure-level errors to the client.
+    """
+
+    message: str
+
+    sequence_number: int
+
+    code: Optional[str] = None
+
+    param: Optional[str] = None
+
+    type: Optional[Literal["error"]] = None
+
+
 ResponseObjectStream: TypeAlias = Annotated[
     Union[
         OpenAIResponseObjectStreamResponseCreated,
@@ -1388,6 +1407,7 @@ ResponseObjectStream: TypeAlias = Annotated[
         OpenAIResponseObjectStreamResponseIncomplete,
         OpenAIResponseObjectStreamResponseFailed,
         OpenAIResponseObjectStreamResponseCompleted,
+        OpenAIResponseObjectStreamError,
     ],
     PropertyInfo(discriminator="type"),
 ]
