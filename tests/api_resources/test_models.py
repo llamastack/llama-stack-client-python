@@ -7,9 +7,9 @@ from typing import Any, cast
 
 import pytest
 
+from ogx_client import OgxClient, AsyncOgxClient
 from tests.utils import assert_matches_type
-from llama_stack_client import LlamaStackClient, AsyncLlamaStackClient
-from llama_stack_client.types import ListModelsResponse, ModelRetrieveResponse
+from ogx_client.types import ListModelsResponse, ModelRetrieveResponse
 
 base_url = os.environ.get("TEST_API_BASE_URL", "http://127.0.0.1:4010")
 
@@ -18,14 +18,14 @@ class TestModels:
     parametrize = pytest.mark.parametrize("client", [False, True], indirect=True, ids=["loose", "strict"])
 
     @parametrize
-    def test_method_retrieve(self, client: LlamaStackClient) -> None:
+    def test_method_retrieve(self, client: OgxClient) -> None:
         model = client.models.retrieve(
             "model_id",
         )
         assert_matches_type(ModelRetrieveResponse, model, path=["response"])
 
     @parametrize
-    def test_raw_response_retrieve(self, client: LlamaStackClient) -> None:
+    def test_raw_response_retrieve(self, client: OgxClient) -> None:
         response = client.models.with_raw_response.retrieve(
             "model_id",
         )
@@ -36,7 +36,7 @@ class TestModels:
         assert_matches_type(ModelRetrieveResponse, model, path=["response"])
 
     @parametrize
-    def test_streaming_response_retrieve(self, client: LlamaStackClient) -> None:
+    def test_streaming_response_retrieve(self, client: OgxClient) -> None:
         with client.models.with_streaming_response.retrieve(
             "model_id",
         ) as response:
@@ -49,19 +49,19 @@ class TestModels:
         assert cast(Any, response.is_closed) is True
 
     @parametrize
-    def test_path_params_retrieve(self, client: LlamaStackClient) -> None:
+    def test_path_params_retrieve(self, client: OgxClient) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `model_id` but received ''"):
             client.models.with_raw_response.retrieve(
                 "",
             )
 
     @parametrize
-    def test_method_list(self, client: LlamaStackClient) -> None:
+    def test_method_list(self, client: OgxClient) -> None:
         model = client.models.list()
         assert_matches_type(ListModelsResponse, model, path=["response"])
 
     @parametrize
-    def test_raw_response_list(self, client: LlamaStackClient) -> None:
+    def test_raw_response_list(self, client: OgxClient) -> None:
         response = client.models.with_raw_response.list()
 
         assert response.is_closed is True
@@ -70,7 +70,7 @@ class TestModels:
         assert_matches_type(ListModelsResponse, model, path=["response"])
 
     @parametrize
-    def test_streaming_response_list(self, client: LlamaStackClient) -> None:
+    def test_streaming_response_list(self, client: OgxClient) -> None:
         with client.models.with_streaming_response.list() as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -87,14 +87,14 @@ class TestAsyncModels:
     )
 
     @parametrize
-    async def test_method_retrieve(self, async_client: AsyncLlamaStackClient) -> None:
+    async def test_method_retrieve(self, async_client: AsyncOgxClient) -> None:
         model = await async_client.models.retrieve(
             "model_id",
         )
         assert_matches_type(ModelRetrieveResponse, model, path=["response"])
 
     @parametrize
-    async def test_raw_response_retrieve(self, async_client: AsyncLlamaStackClient) -> None:
+    async def test_raw_response_retrieve(self, async_client: AsyncOgxClient) -> None:
         response = await async_client.models.with_raw_response.retrieve(
             "model_id",
         )
@@ -105,7 +105,7 @@ class TestAsyncModels:
         assert_matches_type(ModelRetrieveResponse, model, path=["response"])
 
     @parametrize
-    async def test_streaming_response_retrieve(self, async_client: AsyncLlamaStackClient) -> None:
+    async def test_streaming_response_retrieve(self, async_client: AsyncOgxClient) -> None:
         async with async_client.models.with_streaming_response.retrieve(
             "model_id",
         ) as response:
@@ -118,19 +118,19 @@ class TestAsyncModels:
         assert cast(Any, response.is_closed) is True
 
     @parametrize
-    async def test_path_params_retrieve(self, async_client: AsyncLlamaStackClient) -> None:
+    async def test_path_params_retrieve(self, async_client: AsyncOgxClient) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `model_id` but received ''"):
             await async_client.models.with_raw_response.retrieve(
                 "",
             )
 
     @parametrize
-    async def test_method_list(self, async_client: AsyncLlamaStackClient) -> None:
+    async def test_method_list(self, async_client: AsyncOgxClient) -> None:
         model = await async_client.models.list()
         assert_matches_type(ListModelsResponse, model, path=["response"])
 
     @parametrize
-    async def test_raw_response_list(self, async_client: AsyncLlamaStackClient) -> None:
+    async def test_raw_response_list(self, async_client: AsyncOgxClient) -> None:
         response = await async_client.models.with_raw_response.list()
 
         assert response.is_closed is True
@@ -139,7 +139,7 @@ class TestAsyncModels:
         assert_matches_type(ListModelsResponse, model, path=["response"])
 
     @parametrize
-    async def test_streaming_response_list(self, async_client: AsyncLlamaStackClient) -> None:
+    async def test_streaming_response_list(self, async_client: AsyncOgxClient) -> None:
         async with async_client.models.with_streaming_response.list() as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"

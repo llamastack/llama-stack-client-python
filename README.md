@@ -1,9 +1,9 @@
-# Llama Stack Client Python API library
+# Ogx Client Python API library
 
 <!-- prettier-ignore -->
-[![PyPI version](https://img.shields.io/pypi/v/llama_stack_client.svg?label=pypi%20(stable))](https://pypi.org/project/llama_stack_client/)
+[![PyPI version](https://img.shields.io/pypi/v/ogx_client.svg?label=pypi%20(stable))](https://pypi.org/project/ogx_client/)
 
-The Llama Stack Client Python library provides convenient access to the Llama Stack Client REST API from any Python 3.9+
+The Ogx Client Python library provides convenient access to the Ogx Client REST API from any Python 3.9+
 application. The library includes type definitions for all request params and response fields,
 and offers both synchronous and asynchronous clients powered by [httpx](https://github.com/encode/httpx).
 
@@ -11,13 +11,13 @@ It is generated with [Stainless](https://www.stainless.com/).
 
 ## Documentation
 
-The REST API documentation can be found on [llama-stack.readthedocs.io](https://llama-stack.readthedocs.io/en/latest/). The full API of this library can be found in [api.md](api.md).
+The REST API documentation can be found on [ogx.readthedocs.io](https://ogx.readthedocs.io/en/latest/). The full API of this library can be found in [api.md](api.md).
 
 ## Installation
 
 ```sh
 # install from PyPI
-pip install '--pre llama_stack_client'
+pip install '--pre ogx_client'
 ```
 
 ## Usage
@@ -25,9 +25,9 @@ pip install '--pre llama_stack_client'
 The full API of this library can be found in [api.md](api.md).
 
 ```python
-from llama_stack_client import LlamaStackClient
+from ogx_client import OgxClient
 
-client = LlamaStackClient()
+client = OgxClient()
 
 list_models_response = client.models.list()
 print(list_models_response.data)
@@ -35,18 +35,18 @@ print(list_models_response.data)
 
 While you can provide an `api_key` keyword argument,
 we recommend using [python-dotenv](https://pypi.org/project/python-dotenv/)
-to add `LLAMA_STACK_CLIENT_API_KEY="My API Key"` to your `.env` file
+to add `OGX_CLIENT_API_KEY="My API Key"` to your `.env` file
 so that your API Key is not stored in source control.
 
 ## Async usage
 
-Simply import `AsyncLlamaStackClient` instead of `LlamaStackClient` and use `await` with each API call:
+Simply import `AsyncOgxClient` instead of `OgxClient` and use `await` with each API call:
 
 ```python
 import asyncio
-from llama_stack_client import AsyncLlamaStackClient
+from ogx_client import AsyncOgxClient
 
-client = AsyncLlamaStackClient()
+client = AsyncOgxClient()
 
 
 async def main() -> None:
@@ -67,19 +67,19 @@ You can enable this by installing `aiohttp`:
 
 ```sh
 # install from PyPI
-pip install '--pre llama_stack_client[aiohttp]'
+pip install '--pre ogx_client[aiohttp]'
 ```
 
 Then you can enable it by instantiating the client with `http_client=DefaultAioHttpClient()`:
 
 ```python
 import asyncio
-from llama_stack_client import DefaultAioHttpClient
-from llama_stack_client import AsyncLlamaStackClient
+from ogx_client import DefaultAioHttpClient
+from ogx_client import AsyncOgxClient
 
 
 async def main() -> None:
-    async with AsyncLlamaStackClient(
+    async with AsyncOgxClient(
         http_client=DefaultAioHttpClient(),
     ) as client:
         list_models_response = await client.models.list()
@@ -94,9 +94,9 @@ asyncio.run(main())
 We provide support for streaming responses using Server Side Events (SSE).
 
 ```python
-from llama_stack_client import LlamaStackClient
+from ogx_client import OgxClient
 
-client = LlamaStackClient()
+client = OgxClient()
 
 stream = client.chat.completions.create(
     messages=[
@@ -115,9 +115,9 @@ for completion in stream:
 The async client uses the exact same interface.
 
 ```python
-from llama_stack_client import AsyncLlamaStackClient
+from ogx_client import AsyncOgxClient
 
-client = AsyncLlamaStackClient()
+client = AsyncOgxClient()
 
 stream = await client.chat.completions.create(
     messages=[
@@ -144,14 +144,14 @@ Typed requests and responses provide autocomplete and documentation within your 
 
 ## Pagination
 
-List methods in the Llama Stack Client API are paginated.
+List methods in the Ogx Client API are paginated.
 
 This library provides auto-paginating iterators with each list response, so you do not have to request successive pages manually:
 
 ```python
-from llama_stack_client import LlamaStackClient
+from ogx_client import OgxClient
 
-client = LlamaStackClient()
+client = OgxClient()
 
 all_responses = []
 # Automatically fetches more pages as needed.
@@ -165,9 +165,9 @@ Or, asynchronously:
 
 ```python
 import asyncio
-from llama_stack_client import AsyncLlamaStackClient
+from ogx_client import AsyncOgxClient
 
-client = AsyncLlamaStackClient()
+client = AsyncOgxClient()
 
 
 async def main() -> None:
@@ -210,9 +210,9 @@ for response in first_page.data:
 Nested parameters are dictionaries, typed using `TypedDict`, for example:
 
 ```python
-from llama_stack_client import LlamaStackClient
+from ogx_client import OgxClient
 
-client = LlamaStackClient()
+client = OgxClient()
 
 response_object = client.responses.create(
     input="string",
@@ -228,9 +228,9 @@ Request parameters that correspond to file uploads can be passed as `bytes`, or 
 
 ```python
 from pathlib import Path
-from llama_stack_client import LlamaStackClient
+from ogx_client import OgxClient
 
-client = LlamaStackClient()
+client = OgxClient()
 
 client.files.create(
     file=Path("/path/to/file"),
@@ -242,18 +242,18 @@ The async client uses the exact same interface. If you pass a [`PathLike`](https
 
 ## Handling errors
 
-When the library is unable to connect to the API (for example, due to network connection problems or a timeout), a subclass of `llama_stack_client.APIConnectionError` is raised.
+When the library is unable to connect to the API (for example, due to network connection problems or a timeout), a subclass of `ogx_client.APIConnectionError` is raised.
 
 When the API returns a non-success status code (that is, 4xx or 5xx
-response), a subclass of `llama_stack_client.APIStatusError` is raised, containing `status_code` and `response` properties.
+response), a subclass of `ogx_client.APIStatusError` is raised, containing `status_code` and `response` properties.
 
-All errors inherit from `llama_stack_client.APIError`.
+All errors inherit from `ogx_client.APIError`.
 
 ```python
-import llama_stack_client
-from llama_stack_client import LlamaStackClient
+import ogx_client
+from ogx_client import OgxClient
 
-client = LlamaStackClient()
+client = OgxClient()
 
 try:
     client.chat.completions.create(
@@ -265,12 +265,12 @@ try:
         ],
         model="model",
     )
-except llama_stack_client.APIConnectionError as e:
+except ogx_client.APIConnectionError as e:
     print("The server could not be reached")
     print(e.__cause__)  # an underlying Exception, likely raised within httpx.
-except llama_stack_client.RateLimitError as e:
+except ogx_client.RateLimitError as e:
     print("A 429 status code was received; we should back off a bit.")
-except llama_stack_client.APIStatusError as e:
+except ogx_client.APIStatusError as e:
     print("Another non-200-range status code was received")
     print(e.status_code)
     print(e.response)
@@ -298,10 +298,10 @@ Connection errors (for example, due to a network connectivity problem), 408 Requ
 You can use the `max_retries` option to configure or disable retry settings:
 
 ```python
-from llama_stack_client import LlamaStackClient
+from ogx_client import OgxClient
 
 # Configure the default for all requests:
-client = LlamaStackClient(
+client = OgxClient(
     # default is 2
     max_retries=0,
 )
@@ -324,16 +324,16 @@ By default requests time out after 1 minute. You can configure this with a `time
 which accepts a float or an [`httpx.Timeout`](https://www.python-httpx.org/advanced/timeouts/#fine-tuning-the-configuration) object:
 
 ```python
-from llama_stack_client import LlamaStackClient
+from ogx_client import OgxClient
 
 # Configure the default for all requests:
-client = LlamaStackClient(
+client = OgxClient(
     # 20 seconds (default is 1 minute)
     timeout=20.0,
 )
 
 # More granular control:
-client = LlamaStackClient(
+client = OgxClient(
     timeout=httpx.Timeout(60.0, read=5.0, write=10.0, connect=2.0),
 )
 
@@ -359,10 +359,10 @@ Note that requests that time out are [retried twice by default](#retries).
 
 We use the standard library [`logging`](https://docs.python.org/3/library/logging.html) module.
 
-You can enable logging by setting the environment variable `LLAMA_STACK_CLIENT_LOG` to `info`.
+You can enable logging by setting the environment variable `OGX_CLIENT_LOG` to `info`.
 
 ```shell
-$ export LLAMA_STACK_CLIENT_LOG=info
+$ export OGX_CLIENT_LOG=info
 ```
 
 Or to `debug` for more verbose logging.
@@ -384,9 +384,9 @@ if response.my_field is None:
 The "raw" Response object can be accessed by prefixing `.with_raw_response.` to any HTTP method call, e.g.,
 
 ```py
-from llama_stack_client import LlamaStackClient
+from ogx_client import OgxClient
 
-client = LlamaStackClient()
+client = OgxClient()
 response = client.chat.completions.with_raw_response.create(
     messages=[{
         "content": "string",
@@ -400,9 +400,9 @@ completion = response.parse()  # get the object that `chat.completions.create()`
 print(completion.id)
 ```
 
-These methods return an [`APIResponse`](https://github.com/llamastack/llama-stack-client-python/tree/main/src/llama_stack_client/_response.py) object.
+These methods return an [`APIResponse`](https://github.com/ogx-ai/ogx-client-python/tree/main/src/ogx_client/_response.py) object.
 
-The async client returns an [`AsyncAPIResponse`](https://github.com/llamastack/llama-stack-client-python/tree/main/src/llama_stack_client/_response.py) with the same structure, the only difference being `await`able methods for reading the response content.
+The async client returns an [`AsyncAPIResponse`](https://github.com/ogx-ai/ogx-client-python/tree/main/src/ogx_client/_response.py) with the same structure, the only difference being `await`able methods for reading the response content.
 
 #### `.with_streaming_response`
 
@@ -472,10 +472,10 @@ You can directly override the [httpx client](https://www.python-httpx.org/api/#c
 
 ```python
 import httpx
-from llama_stack_client import LlamaStackClient, DefaultHttpxClient
+from ogx_client import OgxClient, DefaultHttpxClient
 
-client = LlamaStackClient(
-    # Or use the `LLAMA_STACK_CLIENT_BASE_URL` env var
+client = OgxClient(
+    # Or use the `OGX_CLIENT_BASE_URL` env var
     base_url="http://my.test.server.example.com:8083",
     http_client=DefaultHttpxClient(
         proxy="http://my.test.proxy.example.com",
@@ -495,9 +495,9 @@ client.with_options(http_client=DefaultHttpxClient(...))
 By default the library closes underlying HTTP connections whenever the client is [garbage collected](https://docs.python.org/3/reference/datamodel.html#object.__del__). You can manually close the client using the `.close()` method if desired, or with a context manager that closes when exiting.
 
 ```py
-from llama_stack_client import LlamaStackClient
+from ogx_client import OgxClient
 
-with LlamaStackClient() as client:
+with OgxClient() as client:
   # make requests here
   ...
 
@@ -514,7 +514,7 @@ This package generally follows [SemVer](https://semver.org/spec/v2.0.0.html) con
 
 We take backwards-compatibility seriously and work hard to ensure you can rely on a smooth upgrade experience.
 
-We are keen for your feedback; please open an [issue](https://www.github.com/llamastack/llama-stack-client-python/issues) with questions, bugs, or suggestions.
+We are keen for your feedback; please open an [issue](https://www.github.com/ogx-ai/ogx-client-python/issues) with questions, bugs, or suggestions.
 
 ### Determining the installed version
 
@@ -523,8 +523,8 @@ If you've upgraded to the latest version but aren't seeing any new features you 
 You can determine the version that is being used at runtime with:
 
 ```py
-import llama_stack_client
-print(llama_stack_client.__version__)
+import ogx_client
+print(ogx_client.__version__)
 ```
 
 ## Requirements

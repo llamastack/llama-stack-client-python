@@ -7,9 +7,9 @@ import pytest
 import pydantic
 from pydantic import Field
 
-from llama_stack_client._utils import PropertyInfo
-from llama_stack_client._compat import PYDANTIC_V1, parse_obj, model_dump, model_json
-from llama_stack_client._models import DISCRIMINATOR_CACHE, BaseModel, construct_type
+from ogx_client._utils import PropertyInfo
+from ogx_client._compat import PYDANTIC_V1, parse_obj, model_dump, model_json
+from ogx_client._models import DISCRIMINATOR_CACHE, BaseModel, construct_type
 
 
 class BasicModel(BaseModel):

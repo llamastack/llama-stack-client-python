@@ -16,11 +16,11 @@ before making any information public.
 ## Reporting Non-SDK Related Security Issues
 
 If you encounter security issues that are not directly related to SDKs but pertain to the services
-or products provided by Llama Stack Client, please follow the respective company's security reporting guidelines.
+or products provided by Ogx Client, please follow the respective company's security reporting guidelines.
 
-### Llama Stack Client Terms and Policies
+### Ogx Client Terms and Policies
 
-Please contact llamastack@meta.com for any questions or concerns regarding the security of our services.
+Please contact contributors@ogx.dev for any questions or concerns regarding the security of our services.
 
 ---
 

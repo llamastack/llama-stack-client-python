@@ -1,11 +1,11 @@
 [project]
-name = "llama_stack_client"
+name = "ogx_client"
 version = "0.7.0-alpha.2"
-description = "The official Python library for the llama-stack-client API"
+description = "The official Python library for the ogx-client API"
 dynamic = ["readme"]
 license = "MIT"
 authors = [
-{ name = "Llama Stack Client", email = "llamastack@meta.com" },
+{ name = "Ogx Client", email = "contributors@ogx.dev" },
 ]
 
 dependencies = [
@@ -37,8 +37,8 @@ classifiers = [
 ]
 
 [project.urls]
-Homepage = "https://github.com/llamastack/llama-stack-client-python"
-Repository = "https://github.com/llamastack/llama-stack-client-python"
+Homepage = "https://github.com/ogx-ai/ogx-client-python"
+Repository = "https://github.com/ogx-ai/ogx-client-python"
 
 [project.optional-dependencies]
 aiohttp = ["aiohttp", "httpx_aiohttp>=0.1.9"]
@@ -86,7 +86,7 @@ include = [
 ]
 
 [tool.hatch.build.targets.wheel]
-packages = ["src/llama_stack_client"]
+packages = ["src/ogx_client"]
 
 [tool.hatch.build.targets.sdist]
 # Basically everything except hidden files/directories (such as .github, .devcontainers, .python-version, etc)
@@ -112,7 +112,7 @@ path = "README.md"
 [[tool.hatch.metadata.hooks.fancy-pypi-readme.substitutions]]
 # replace relative links with absolute links
 pattern = '\[(.+?)\]\(((?!https?://)\S+?)\)'
-replacement = '[\1](https://github.com/llamastack/llama-stack-client-python/tree/main/\g<2>)'
+replacement = '[\1](https://github.com/ogx-ai/ogx-client-python/tree/main/\g<2>)'
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]
@@ -154,7 +154,7 @@ show_error_codes = true
 #
 # We also exclude our `tests` as mypy doesn't always infer
 # types correctly and Pyright will still catch any type errors.
-exclude = ['src/llama_stack_client/_files.py', '_dev/.*.py', 'tests/.*']
+exclude = ['src/ogx_client/_files.py', '_dev/.*.py', 'tests/.*']
 
 strict_equality = true
 implicit_reexport = true
@@ -246,7 +246,7 @@ length-sort = true
 length-sort-straight = true
 combine-as-imports = true
 extra-standard-library = ["typing_extensions"]
-known-first-party = ["llama_stack_client", "tests"]
+known-first-party = ["ogx_client", "tests"]
 
 [tool.ruff.lint.per-file-ignores]
 "bin/**.py" = ["T201", "T203"]

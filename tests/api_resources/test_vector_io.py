@@ -7,9 +7,9 @@ from typing import Any, cast
 
 import pytest
 
+from ogx_client import OgxClient, AsyncOgxClient
 from tests.utils import assert_matches_type
-from llama_stack_client import LlamaStackClient, AsyncLlamaStackClient
-from llama_stack_client.types import QueryChunksResponse
+from ogx_client.types import QueryChunksResponse
 
 base_url = os.environ.get("TEST_API_BASE_URL", "http://127.0.0.1:4010")
 
@@ -18,7 +18,7 @@ class TestVectorIo:
     parametrize = pytest.mark.parametrize("client", [False, True], indirect=True, ids=["loose", "strict"])
 
     @parametrize
-    def test_method_insert(self, client: LlamaStackClient) -> None:
+    def test_method_insert(self, client: OgxClient) -> None:
         vector_io = client.vector_io.insert(
             chunks=[
                 {
@@ -35,7 +35,7 @@ class TestVectorIo:
         assert vector_io is None
 
     @parametrize
-    def test_method_insert_with_all_params(self, client: LlamaStackClient) -> None:
+    def test_method_insert_with_all_params(self, client: OgxClient) -> None:
         vector_io = client.vector_io.insert(
             chunks=[
                 {
@@ -64,7 +64,7 @@ class TestVectorIo:
         assert vector_io is None
 
     @parametrize
-    def test_raw_response_insert(self, client: LlamaStackClient) -> None:
+    def test_raw_response_insert(self, client: OgxClient) -> None:
         response = client.vector_io.with_raw_response.insert(
             chunks=[
                 {
@@ -85,7 +85,7 @@ class TestVectorIo:
         assert vector_io is None
 
     @parametrize
-    def test_streaming_response_insert(self, client: LlamaStackClient) -> None:
+    def test_streaming_response_insert(self, client: OgxClient) -> None:
         with client.vector_io.with_streaming_response.insert(
             chunks=[
                 {
@@ -108,7 +108,7 @@ class TestVectorIo:
         assert cast(Any, response.is_closed) is True
 
     @parametrize
-    def test_method_query(self, client: LlamaStackClient) -> None:
+    def test_method_query(self, client: OgxClient) -> None:
         vector_io = client.vector_io.query(
             query="string",
             vector_store_id="vector_store_id",
@@ -116,7 +116,7 @@ class TestVectorIo:
         assert_matches_type(QueryChunksResponse, vector_io, path=["response"])
 
     @parametrize
-    def test_method_query_with_all_params(self, client: LlamaStackClient) -> None:
+    def test_method_query_with_all_params(self, client: OgxClient) -> None:
         vector_io = client.vector_io.query(
             query="string",
             vector_store_id="vector_store_id",
@@ -125,7 +125,7 @@ class TestVectorIo:
         assert_matches_type(QueryChunksResponse, vector_io, path=["response"])
 
     @parametrize
-    def test_raw_response_query(self, client: LlamaStackClient) -> None:
+    def test_raw_response_query(self, client: OgxClient) -> None:
         response = client.vector_io.with_raw_response.query(
             query="string",
             vector_store_id="vector_store_id",
@@ -137,7 +137,7 @@ class TestVectorIo:
         assert_matches_type(QueryChunksResponse, vector_io, path=["response"])
 
     @parametrize
-    def test_streaming_response_query(self, client: LlamaStackClient) -> None:
+    def test_streaming_response_query(self, client: OgxClient) -> None:
         with client.vector_io.with_streaming_response.query(
             query="string",
             vector_store_id="vector_store_id",
@@ -157,7 +157,7 @@ class TestAsyncVectorIo:
     )
 
     @parametrize
-    async def test_method_insert(self, async_client: AsyncLlamaStackClient) -> None:
+    async def test_method_insert(self, async_client: AsyncOgxClient) -> None:
         vector_io = await async_client.vector_io.insert(
             chunks=[
                 {
@@ -174,7 +174,7 @@ class TestAsyncVectorIo:
         assert vector_io is None
 
     @parametrize
-    async def test_method_insert_with_all_params(self, async_client: AsyncLlamaStackClient) -> None:
+    async def test_method_insert_with_all_params(self, async_client: AsyncOgxClient) -> None:
         vector_io = await async_client.vector_io.insert(
             chunks=[
                 {
@@ -203,7 +203,7 @@ class TestAsyncVectorIo:
         assert vector_io is None
 
     @parametrize
-    async def test_raw_response_insert(self, async_client: AsyncLlamaStackClient) -> None:
+    async def test_raw_response_insert(self, async_client: AsyncOgxClient) -> None:
         response = await async_client.vector_io.with_raw_response.insert(
             chunks=[
                 {
@@ -224,7 +224,7 @@ class TestAsyncVectorIo:
         assert vector_io is None
 
     @parametrize
-    async def test_streaming_response_insert(self, async_client: AsyncLlamaStackClient) -> None:
+    async def test_streaming_response_insert(self, async_client: AsyncOgxClient) -> None:
         async with async_client.vector_io.with_streaming_response.insert(
             chunks=[
                 {
@@ -247,7 +247,7 @@ class TestAsyncVectorIo:
         assert cast(Any, response.is_closed) is True
 
     @parametrize
-    async def test_method_query(self, async_client: AsyncLlamaStackClient) -> None:
+    async def test_method_query(self, async_client: AsyncOgxClient) -> None:
         vector_io = await async_client.vector_io.query(
             query="string",
             vector_store_id="vector_store_id",
@@ -255,7 +255,7 @@ class TestAsyncVectorIo:
         assert_matches_type(QueryChunksResponse, vector_io, path=["response"])
 
     @parametrize
-    async def test_method_query_with_all_params(self, async_client: AsyncLlamaStackClient) -> None:
+    async def test_method_query_with_all_params(self, async_client: AsyncOgxClient) -> None:
         vector_io = await async_client.vector_io.query(
             query="string",
             vector_store_id="vector_store_id",
@@ -264,7 +264,7 @@ class TestAsyncVectorIo:
         assert_matches_type(QueryChunksResponse, vector_io, path=["response"])
 
     @parametrize
-    async def test_raw_response_query(self, async_client: AsyncLlamaStackClient) -> None:
+    async def test_raw_response_query(self, async_client: AsyncOgxClient) -> None:
         response = await async_client.vector_io.with_raw_response.query(
             query="string",
             vector_store_id="vector_store_id",
@@ -276,7 +276,7 @@ class TestAsyncVectorIo:
         assert_matches_type(QueryChunksResponse, vector_io, path=["response"])
 
     @parametrize
-    async def test_streaming_response_query(self, async_client: AsyncLlamaStackClient) -> None:
+    async def test_streaming_response_query(self, async_client: AsyncOgxClient) -> None:
         async with async_client.vector_io.with_streaming_response.query(
             query="string",
             vector_store_id="vector_store_id",

@@ -7,9 +7,9 @@ from typing import Any, cast
 
 import pytest
 
+from ogx_client import OgxClient, AsyncOgxClient
 from tests.utils import assert_matches_type
-from llama_stack_client import LlamaStackClient, AsyncLlamaStackClient
-from llama_stack_client.types import Shield, ShieldListResponse
+from ogx_client.types import Shield, ShieldListResponse
 
 # pyright: reportDeprecated=false
 
@@ -20,14 +20,14 @@ class TestShields:
     parametrize = pytest.mark.parametrize("client", [False, True], indirect=True, ids=["loose", "strict"])
 
     @parametrize
-    def test_method_retrieve(self, client: LlamaStackClient) -> None:
+    def test_method_retrieve(self, client: OgxClient) -> None:
         shield = client.shields.retrieve(
             "identifier",
         )
         assert_matches_type(Shield, shield, path=["response"])
 
     @parametrize
-    def test_raw_response_retrieve(self, client: LlamaStackClient) -> None:
+    def test_raw_response_retrieve(self, client: OgxClient) -> None:
         response = client.shields.with_raw_response.retrieve(
             "identifier",
         )
@@ -38,7 +38,7 @@ class TestShields:
         assert_matches_type(Shield, shield, path=["response"])
 
     @parametrize
-    def test_streaming_response_retrieve(self, client: LlamaStackClient) -> None:
+    def test_streaming_response_retrieve(self, client: OgxClient) -> None:
         with client.shields.with_streaming_response.retrieve(
             "identifier",
         ) as response:
@@ -51,19 +51,19 @@ class TestShields:
         assert cast(Any, response.is_closed) is True
 
     @parametrize
-    def test_path_params_retrieve(self, client: LlamaStackClient) -> None:
+    def test_path_params_retrieve(self, client: OgxClient) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `identifier` but received ''"):
             client.shields.with_raw_response.retrieve(
                 "",
             )
 
     @parametrize
-    def test_method_list(self, client: LlamaStackClient) -> None:
+    def test_method_list(self, client: OgxClient) -> None:
         shield = client.shields.list()
         assert_matches_type(ShieldListResponse, shield, path=["response"])
 
     @parametrize
-    def test_raw_response_list(self, client: LlamaStackClient) -> None:
+    def test_raw_response_list(self, client: OgxClient) -> None:
         response = client.shields.with_raw_response.list()
 
         assert response.is_closed is True
@@ -72,7 +72,7 @@ class TestShields:
         assert_matches_type(ShieldListResponse, shield, path=["response"])
 
     @parametrize
-    def test_streaming_response_list(self, client: LlamaStackClient) -> None:
+    def test_streaming_response_list(self, client: OgxClient) -> None:
         with client.shields.with_streaming_response.list() as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -83,7 +83,7 @@ class TestShields:
         assert cast(Any, response.is_closed) is True
 
     @parametrize
-    def test_method_delete(self, client: LlamaStackClient) -> None:
+    def test_method_delete(self, client: OgxClient) -> None:
         with pytest.warns(DeprecationWarning):
             shield = client.shields.delete(
                 "identifier",
@@ -92,7 +92,7 @@ class TestShields:
         assert shield is None
 
     @parametrize
-    def test_raw_response_delete(self, client: LlamaStackClient) -> None:
+    def test_raw_response_delete(self, client: OgxClient) -> None:
         with pytest.warns(DeprecationWarning):
             response = client.shields.with_raw_response.delete(
                 "identifier",
@@ -104,7 +104,7 @@ class TestShields:
         assert shield is None
 
     @parametrize
-    def test_streaming_response_delete(self, client: LlamaStackClient) -> None:
+    def test_streaming_response_delete(self, client: OgxClient) -> None:
         with pytest.warns(DeprecationWarning):
             with client.shields.with_streaming_response.delete(
                 "identifier",
@@ -118,7 +118,7 @@ class TestShields:
         assert cast(Any, response.is_closed) is True
 
     @parametrize
-    def test_path_params_delete(self, client: LlamaStackClient) -> None:
+    def test_path_params_delete(self, client: OgxClient) -> None:
         with pytest.warns(DeprecationWarning):
             with pytest.raises(ValueError, match=r"Expected a non-empty value for `identifier` but received ''"):
                 client.shields.with_raw_response.delete(
@@ -126,7 +126,7 @@ class TestShields:
                 )
 
     @parametrize
-    def test_method_register(self, client: LlamaStackClient) -> None:
+    def test_method_register(self, client: OgxClient) -> None:
         with pytest.warns(DeprecationWarning):
             shield = client.shields.register(
                 shield_id="shield_id",
@@ -135,7 +135,7 @@ class TestShields:
         assert_matches_type(Shield, shield, path=["response"])
 
     @parametrize
-    def test_method_register_with_all_params(self, client: LlamaStackClient) -> None:
+    def test_method_register_with_all_params(self, client: OgxClient) -> None:
         with pytest.warns(DeprecationWarning):
             shield = client.shields.register(
                 shield_id="shield_id",
@@ -147,7 +147,7 @@ class TestShields:
         assert_matches_type(Shield, shield, path=["response"])
 
     @parametrize
-    def test_raw_response_register(self, client: LlamaStackClient) -> None:
+    def test_raw_response_register(self, client: OgxClient) -> None:
         with pytest.warns(DeprecationWarning):
             response = client.shields.with_raw_response.register(
                 shield_id="shield_id",
@@ -159,7 +159,7 @@ class TestShields:
         assert_matches_type(Shield, shield, path=["response"])
 
     @parametrize
-    def test_streaming_response_register(self, client: LlamaStackClient) -> None:
+    def test_streaming_response_register(self, client: OgxClient) -> None:
         with pytest.warns(DeprecationWarning):
             with client.shields.with_streaming_response.register(
                 shield_id="shield_id",
@@ -179,14 +179,14 @@ class TestAsyncShields:
     )
 
     @parametrize
-    async def test_method_retrieve(self, async_client: AsyncLlamaStackClient) -> None:
+    async def test_method_retrieve(self, async_client: AsyncOgxClient) -> None:
         shield = await async_client.shields.retrieve(
             "identifier",
         )
         assert_matches_type(Shield, shield, path=["response"])
 
     @parametrize
-    async def test_raw_response_retrieve(self, async_client: AsyncLlamaStackClient) -> None:
+    async def test_raw_response_retrieve(self, async_client: AsyncOgxClient) -> None:
         response = await async_client.shields.with_raw_response.retrieve(
             "identifier",
         )
@@ -197,7 +197,7 @@ class TestAsyncShields:
         assert_matches_type(Shield, shield, path=["response"])
 
     @parametrize
-    async def test_streaming_response_retrieve(self, async_client: AsyncLlamaStackClient) -> None:
+    async def test_streaming_response_retrieve(self, async_client: AsyncOgxClient) -> None:
         async with async_client.shields.with_streaming_response.retrieve(
             "identifier",
         ) as response:
@@ -210,19 +210,19 @@ class TestAsyncShields:
         assert cast(Any, response.is_closed) is True
 
     @parametrize
-    async def test_path_params_retrieve(self, async_client: AsyncLlamaStackClient) -> None:
+    async def test_path_params_retrieve(self, async_client: AsyncOgxClient) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `identifier` but received ''"):
             await async_client.shields.with_raw_response.retrieve(
                 "",
             )
 
     @parametrize
-    async def test_method_list(self, async_client: AsyncLlamaStackClient) -> None:
+    async def test_method_list(self, async_client: AsyncOgxClient) -> None:
         shield = await async_client.shields.list()
         assert_matches_type(ShieldListResponse, shield, path=["response"])
 
     @parametrize
-    async def test_raw_response_list(self, async_client: AsyncLlamaStackClient) -> None:
+    async def test_raw_response_list(self, async_client: AsyncOgxClient) -> None:
         response = await async_client.shields.with_raw_response.list()
 
         assert response.is_closed is True
@@ -231,7 +231,7 @@ class TestAsyncShields:
         assert_matches_type(ShieldListResponse, shield, path=["response"])
 
     @parametrize
-    async def test_streaming_response_list(self, async_client: AsyncLlamaStackClient) -> None:
+    async def test_streaming_response_list(self, async_client: AsyncOgxClient) -> None:
         async with async_client.shields.with_streaming_response.list() as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -242,7 +242,7 @@ class TestAsyncShields:
         assert cast(Any, response.is_closed) is True
 
     @parametrize
-    async def test_method_delete(self, async_client: AsyncLlamaStackClient) -> None:
+    async def test_method_delete(self, async_client: AsyncOgxClient) -> None:
         with pytest.warns(DeprecationWarning):
             shield = await async_client.shields.delete(
                 "identifier",
@@ -251,7 +251,7 @@ class TestAsyncShields:
         assert shield is None
 
     @parametrize
-    async def test_raw_response_delete(self, async_client: AsyncLlamaStackClient) -> None:
+    async def test_raw_response_delete(self, async_client: AsyncOgxClient) -> None:
         with pytest.warns(DeprecationWarning):
             response = await async_client.shields.with_raw_response.delete(
                 "identifier",
@@ -263,7 +263,7 @@ class TestAsyncShields:
         assert shield is None
 
     @parametrize
-    async def test_streaming_response_delete(self, async_client: AsyncLlamaStackClient) -> None:
+    async def test_streaming_response_delete(self, async_client: AsyncOgxClient) -> None:
         with pytest.warns(DeprecationWarning):
             async with async_client.shields.with_streaming_response.delete(
                 "identifier",
@@ -277,7 +277,7 @@ class TestAsyncShields:
         assert cast(Any, response.is_closed) is True
 
     @parametrize
-    async def test_path_params_delete(self, async_client: AsyncLlamaStackClient) -> None:
+    async def test_path_params_delete(self, async_client: AsyncOgxClient) -> None:
         with pytest.warns(DeprecationWarning):
             with pytest.raises(ValueError, match=r"Expected a non-empty value for `identifier` but received ''"):
                 await async_client.shields.with_raw_response.delete(
@@ -285,7 +285,7 @@ class TestAsyncShields:
                 )
 
     @parametrize
-    async def test_method_register(self, async_client: AsyncLlamaStackClient) -> None:
+    async def test_method_register(self, async_client: AsyncOgxClient) -> None:
         with pytest.warns(DeprecationWarning):
             shield = await async_client.shields.register(
                 shield_id="shield_id",
@@ -294,7 +294,7 @@ class TestAsyncShields:
         assert_matches_type(Shield, shield, path=["response"])
 
     @parametrize
-    async def test_method_register_with_all_params(self, async_client: AsyncLlamaStackClient) -> None:
+    async def test_method_register_with_all_params(self, async_client: AsyncOgxClient) -> None:
         with pytest.warns(DeprecationWarning):
             shield = await async_client.shields.register(
                 shield_id="shield_id",
@@ -306,7 +306,7 @@ class TestAsyncShields:
         assert_matches_type(Shield, shield, path=["response"])
 
     @parametrize
-    async def test_raw_response_register(self, async_client: AsyncLlamaStackClient) -> None:
+    async def test_raw_response_register(self, async_client: AsyncOgxClient) -> None:
         with pytest.warns(DeprecationWarning):
             response = await async_client.shields.with_raw_response.register(
                 shield_id="shield_id",
@@ -318,7 +318,7 @@ class TestAsyncShields:
         assert_matches_type(Shield, shield, path=["response"])
 
     @parametrize
-    async def test_streaming_response_register(self, async_client: AsyncLlamaStackClient) -> None:
+    async def test_streaming_response_register(self, async_client: AsyncOgxClient) -> None:
         with pytest.warns(DeprecationWarning):
             async with async_client.shields.with_streaming_response.register(
                 shield_id="shield_id",

@@ -10,15 +10,15 @@ import httpx
 import pytest
 from pytest_asyncio import is_async_test
 
-from llama_stack_client import LlamaStackClient, DefaultAioHttpClient, AsyncLlamaStackClient
-from llama_stack_client._utils import is_dict
+from ogx_client import OgxClient, AsyncOgxClient, DefaultAioHttpClient
+from ogx_client._utils import is_dict
 
 if TYPE_CHECKING:
     from _pytest.fixtures import FixtureRequest  # pyright: ignore[reportPrivateImportUsage]
 
 pytest.register_assert_rewrite("tests.utils")
 
-logging.getLogger("llama_stack_client").setLevel(logging.DEBUG)
+logging.getLogger("ogx_client").setLevel(logging.DEBUG)
 
 
 # automatically add `pytest.mark.asyncio()` to all of our async tests
@@ -47,17 +47,17 @@ base_url = os.environ.get("TEST_API_BASE_URL", "http://127.0.0.1:4010")
 
 
 @pytest.fixture(scope="session")
-def client(request: FixtureRequest) -> Iterator[LlamaStackClient]:
+def client(request: FixtureRequest) -> Iterator[OgxClient]:
     strict = getattr(request, "param", True)
     if not isinstance(strict, bool):
         raise TypeError(f"Unexpected fixture parameter type {type(strict)}, expected {bool}")
 
-    with LlamaStackClient(base_url=base_url, _strict_response_validation=strict) as client:
+    with OgxClient(base_url=base_url, _strict_response_validation=strict) as client:
         yield client
 
 
 @pytest.fixture(scope="session")
-async def async_client(request: FixtureRequest) -> AsyncIterator[AsyncLlamaStackClient]:
+async def async_client(request: FixtureRequest) -> AsyncIterator[AsyncOgxClient]:
     param = getattr(request, "param", True)
 
     # defaults
@@ -76,7 +76,5 @@ async def async_client(request: FixtureRequest) -> AsyncIterator[AsyncLlamaStack
     else:
         raise TypeError(f"Unexpected fixture parameter type {type(param)}, expected bool or dict")
 
-    async with AsyncLlamaStackClient(
-        base_url=base_url, _strict_response_validation=strict, http_client=http_client
-    ) as client:
+    async with AsyncOgxClient(base_url=base_url, _strict_response_validation=strict, http_client=http_client) as client:
         yield client

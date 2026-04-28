@@ -7,10 +7,10 @@ from typing import Any, cast
 
 import pytest
 
+from ogx_client import OgxClient, AsyncOgxClient
 from tests.utils import assert_matches_type
-from llama_stack_client import LlamaStackClient, AsyncLlamaStackClient
-from llama_stack_client.types import RouteListResponse, ProviderListResponse
-from llama_stack_client.types.shared import HealthInfo, VersionInfo, ProviderInfo
+from ogx_client.types import RouteListResponse, ProviderListResponse
+from ogx_client.types.shared import HealthInfo, VersionInfo, ProviderInfo
 
 base_url = os.environ.get("TEST_API_BASE_URL", "http://127.0.0.1:4010")
 
@@ -19,12 +19,12 @@ class TestAdmin:
     parametrize = pytest.mark.parametrize("client", [False, True], indirect=True, ids=["loose", "strict"])
 
     @parametrize
-    def test_method_health(self, client: LlamaStackClient) -> None:
+    def test_method_health(self, client: OgxClient) -> None:
         admin = client.alpha.admin.health()
         assert_matches_type(HealthInfo, admin, path=["response"])
 
     @parametrize
-    def test_raw_response_health(self, client: LlamaStackClient) -> None:
+    def test_raw_response_health(self, client: OgxClient) -> None:
         response = client.alpha.admin.with_raw_response.health()
 
         assert response.is_closed is True
@@ -33,7 +33,7 @@ class TestAdmin:
         assert_matches_type(HealthInfo, admin, path=["response"])
 
     @parametrize
-    def test_streaming_response_health(self, client: LlamaStackClient) -> None:
+    def test_streaming_response_health(self, client: OgxClient) -> None:
         with client.alpha.admin.with_streaming_response.health() as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -44,14 +44,14 @@ class TestAdmin:
         assert cast(Any, response.is_closed) is True
 
     @parametrize
-    def test_method_inspect_provider(self, client: LlamaStackClient) -> None:
+    def test_method_inspect_provider(self, client: OgxClient) -> None:
         admin = client.alpha.admin.inspect_provider(
             "provider_id",
         )
         assert_matches_type(ProviderInfo, admin, path=["response"])
 
     @parametrize
-    def test_raw_response_inspect_provider(self, client: LlamaStackClient) -> None:
+    def test_raw_response_inspect_provider(self, client: OgxClient) -> None:
         response = client.alpha.admin.with_raw_response.inspect_provider(
             "provider_id",
         )
@@ -62,7 +62,7 @@ class TestAdmin:
         assert_matches_type(ProviderInfo, admin, path=["response"])
 
     @parametrize
-    def test_streaming_response_inspect_provider(self, client: LlamaStackClient) -> None:
+    def test_streaming_response_inspect_provider(self, client: OgxClient) -> None:
         with client.alpha.admin.with_streaming_response.inspect_provider(
             "provider_id",
         ) as response:
@@ -75,19 +75,19 @@ class TestAdmin:
         assert cast(Any, response.is_closed) is True
 
     @parametrize
-    def test_path_params_inspect_provider(self, client: LlamaStackClient) -> None:
+    def test_path_params_inspect_provider(self, client: OgxClient) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `provider_id` but received ''"):
             client.alpha.admin.with_raw_response.inspect_provider(
                 "",
             )
 
     @parametrize
-    def test_method_list_providers(self, client: LlamaStackClient) -> None:
+    def test_method_list_providers(self, client: OgxClient) -> None:
         admin = client.alpha.admin.list_providers()
         assert_matches_type(ProviderListResponse, admin, path=["response"])
 
     @parametrize
-    def test_raw_response_list_providers(self, client: LlamaStackClient) -> None:
+    def test_raw_response_list_providers(self, client: OgxClient) -> None:
         response = client.alpha.admin.with_raw_response.list_providers()
 
         assert response.is_closed is True
@@ -96,7 +96,7 @@ class TestAdmin:
         assert_matches_type(ProviderListResponse, admin, path=["response"])
 
     @parametrize
-    def test_streaming_response_list_providers(self, client: LlamaStackClient) -> None:
+    def test_streaming_response_list_providers(self, client: OgxClient) -> None:
         with client.alpha.admin.with_streaming_response.list_providers() as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -107,19 +107,19 @@ class TestAdmin:
         assert cast(Any, response.is_closed) is True
 
     @parametrize
-    def test_method_list_routes(self, client: LlamaStackClient) -> None:
+    def test_method_list_routes(self, client: OgxClient) -> None:
         admin = client.alpha.admin.list_routes()
         assert_matches_type(RouteListResponse, admin, path=["response"])
 
     @parametrize
-    def test_method_list_routes_with_all_params(self, client: LlamaStackClient) -> None:
+    def test_method_list_routes_with_all_params(self, client: OgxClient) -> None:
         admin = client.alpha.admin.list_routes(
             api_filter="v1",
         )
         assert_matches_type(RouteListResponse, admin, path=["response"])
 
     @parametrize
-    def test_raw_response_list_routes(self, client: LlamaStackClient) -> None:
+    def test_raw_response_list_routes(self, client: OgxClient) -> None:
         response = client.alpha.admin.with_raw_response.list_routes()
 
         assert response.is_closed is True
@@ -128,7 +128,7 @@ class TestAdmin:
         assert_matches_type(RouteListResponse, admin, path=["response"])
 
     @parametrize
-    def test_streaming_response_list_routes(self, client: LlamaStackClient) -> None:
+    def test_streaming_response_list_routes(self, client: OgxClient) -> None:
         with client.alpha.admin.with_streaming_response.list_routes() as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -139,12 +139,12 @@ class TestAdmin:
         assert cast(Any, response.is_closed) is True
 
     @parametrize
-    def test_method_version(self, client: LlamaStackClient) -> None:
+    def test_method_version(self, client: OgxClient) -> None:
         admin = client.alpha.admin.version()
         assert_matches_type(VersionInfo, admin, path=["response"])
 
     @parametrize
-    def test_raw_response_version(self, client: LlamaStackClient) -> None:
+    def test_raw_response_version(self, client: OgxClient) -> None:
         response = client.alpha.admin.with_raw_response.version()
 
         assert response.is_closed is True
@@ -153,7 +153,7 @@ class TestAdmin:
         assert_matches_type(VersionInfo, admin, path=["response"])
 
     @parametrize
-    def test_streaming_response_version(self, client: LlamaStackClient) -> None:
+    def test_streaming_response_version(self, client: OgxClient) -> None:
         with client.alpha.admin.with_streaming_response.version() as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -170,12 +170,12 @@ class TestAsyncAdmin:
     )
 
     @parametrize
-    async def test_method_health(self, async_client: AsyncLlamaStackClient) -> None:
+    async def test_method_health(self, async_client: AsyncOgxClient) -> None:
         admin = await async_client.alpha.admin.health()
         assert_matches_type(HealthInfo, admin, path=["response"])
 
     @parametrize
-    async def test_raw_response_health(self, async_client: AsyncLlamaStackClient) -> None:
+    async def test_raw_response_health(self, async_client: AsyncOgxClient) -> None:
         response = await async_client.alpha.admin.with_raw_response.health()
 
         assert response.is_closed is True
@@ -184,7 +184,7 @@ class TestAsyncAdmin:
         assert_matches_type(HealthInfo, admin, path=["response"])
 
     @parametrize
-    async def test_streaming_response_health(self, async_client: AsyncLlamaStackClient) -> None:
+    async def test_streaming_response_health(self, async_client: AsyncOgxClient) -> None:
         async with async_client.alpha.admin.with_streaming_response.health() as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -195,14 +195,14 @@ class TestAsyncAdmin:
         assert cast(Any, response.is_closed) is True
 
     @parametrize
-    async def test_method_inspect_provider(self, async_client: AsyncLlamaStackClient) -> None:
+    async def test_method_inspect_provider(self, async_client: AsyncOgxClient) -> None:
         admin = await async_client.alpha.admin.inspect_provider(
             "provider_id",
         )
         assert_matches_type(ProviderInfo, admin, path=["response"])
 
     @parametrize
-    async def test_raw_response_inspect_provider(self, async_client: AsyncLlamaStackClient) -> None:
+    async def test_raw_response_inspect_provider(self, async_client: AsyncOgxClient) -> None:
         response = await async_client.alpha.admin.with_raw_response.inspect_provider(
             "provider_id",
         )
@@ -213,7 +213,7 @@ class TestAsyncAdmin:
         assert_matches_type(ProviderInfo, admin, path=["response"])
 
     @parametrize
-    async def test_streaming_response_inspect_provider(self, async_client: AsyncLlamaStackClient) -> None:
+    async def test_streaming_response_inspect_provider(self, async_client: AsyncOgxClient) -> None:
         async with async_client.alpha.admin.with_streaming_response.inspect_provider(
             "provider_id",
         ) as response:
@@ -226,19 +226,19 @@ class TestAsyncAdmin:
         assert cast(Any, response.is_closed) is True
 
     @parametrize
-    async def test_path_params_inspect_provider(self, async_client: AsyncLlamaStackClient) -> None:
+    async def test_path_params_inspect_provider(self, async_client: AsyncOgxClient) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `provider_id` but received ''"):
             await async_client.alpha.admin.with_raw_response.inspect_provider(
                 "",
             )
 
     @parametrize
-    async def test_method_list_providers(self, async_client: AsyncLlamaStackClient) -> None:
+    async def test_method_list_providers(self, async_client: AsyncOgxClient) -> None:
         admin = await async_client.alpha.admin.list_providers()
         assert_matches_type(ProviderListResponse, admin, path=["response"])
 
     @parametrize
-    async def test_raw_response_list_providers(self, async_client: AsyncLlamaStackClient) -> None:
+    async def test_raw_response_list_providers(self, async_client: AsyncOgxClient) -> None:
         response = await async_client.alpha.admin.with_raw_response.list_providers()
 
         assert response.is_closed is True
@@ -247,7 +247,7 @@ class TestAsyncAdmin:
         assert_matches_type(ProviderListResponse, admin, path=["response"])
 
     @parametrize
-    async def test_streaming_response_list_providers(self, async_client: AsyncLlamaStackClient) -> None:
+    async def test_streaming_response_list_providers(self, async_client: AsyncOgxClient) -> None:
         async with async_client.alpha.admin.with_streaming_response.list_providers() as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -258,19 +258,19 @@ class TestAsyncAdmin:
         assert cast(Any, response.is_closed) is True
 
     @parametrize
-    async def test_method_list_routes(self, async_client: AsyncLlamaStackClient) -> None:
+    async def test_method_list_routes(self, async_client: AsyncOgxClient) -> None:
         admin = await async_client.alpha.admin.list_routes()
         assert_matches_type(RouteListResponse, admin, path=["response"])
 
     @parametrize
-    async def test_method_list_routes_with_all_params(self, async_client: AsyncLlamaStackClient) -> None:
+    async def test_method_list_routes_with_all_params(self, async_client: AsyncOgxClient) -> None:
         admin = await async_client.alpha.admin.list_routes(
             api_filter="v1",
         )
         assert_matches_type(RouteListResponse, admin, path=["response"])
 
     @parametrize
-    async def test_raw_response_list_routes(self, async_client: AsyncLlamaStackClient) -> None:
+    async def test_raw_response_list_routes(self, async_client: AsyncOgxClient) -> None:
         response = await async_client.alpha.admin.with_raw_response.list_routes()
 
         assert response.is_closed is True
@@ -279,7 +279,7 @@ class TestAsyncAdmin:
         assert_matches_type(RouteListResponse, admin, path=["response"])
 
     @parametrize
-    async def test_streaming_response_list_routes(self, async_client: AsyncLlamaStackClient) -> None:
+    async def test_streaming_response_list_routes(self, async_client: AsyncOgxClient) -> None:
         async with async_client.alpha.admin.with_streaming_response.list_routes() as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -290,12 +290,12 @@ class TestAsyncAdmin:
         assert cast(Any, response.is_closed) is True
 
     @parametrize
-    async def test_method_version(self, async_client: AsyncLlamaStackClient) -> None:
+    async def test_method_version(self, async_client: AsyncOgxClient) -> None:
         admin = await async_client.alpha.admin.version()
         assert_matches_type(VersionInfo, admin, path=["response"])
 
     @parametrize
-    async def test_raw_response_version(self, async_client: AsyncLlamaStackClient) -> None:
+    async def test_raw_response_version(self, async_client: AsyncOgxClient) -> None:
         response = await async_client.alpha.admin.with_raw_response.version()
 
         assert response.is_closed is True
@@ -304,7 +304,7 @@ class TestAsyncAdmin:
         assert_matches_type(VersionInfo, admin, path=["response"])
 
     @parametrize
-    async def test_streaming_response_version(self, async_client: AsyncLlamaStackClient) -> None:
+    async def test_streaming_response_version(self, async_client: AsyncOgxClient) -> None:
         async with async_client.alpha.admin.with_streaming_response.version() as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"

@@ -4,7 +4,7 @@ from typing import Any
 
 import pytest
 
-from llama_stack_client._utils._path import path_template
+from ogx_client._utils._path import path_template
 
 
 @pytest.mark.parametrize(

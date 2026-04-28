@@ -4,8 +4,8 @@ from typing import Sequence
 
 import pytest
 
-from llama_stack_client._types import FileTypes, ArrayFormat
-from llama_stack_client._utils import extract_files
+from ogx_client._types import FileTypes, ArrayFormat
+from ogx_client._utils import extract_files
 
 
 def test_removes_files_from_input() -> None:

@@ -7,9 +7,9 @@ from typing import Any, cast
 
 import pytest
 
+from ogx_client import OgxClient, AsyncOgxClient
 from tests.utils import assert_matches_type
-from llama_stack_client import LlamaStackClient, AsyncLlamaStackClient
-from llama_stack_client.types.chat import (
+from ogx_client.types.chat import (
     CompletionListResponse,
     CompletionCreateResponse,
     CompletionRetrieveResponse,
@@ -22,7 +22,7 @@ class TestCompletions:
     parametrize = pytest.mark.parametrize("client", [False, True], indirect=True, ids=["loose", "strict"])
 
     @parametrize
-    def test_method_create_overload_1(self, client: LlamaStackClient) -> None:
+    def test_method_create_overload_1(self, client: OgxClient) -> None:
         completion = client.chat.completions.create(
             messages=[
                 {
@@ -35,7 +35,7 @@ class TestCompletions:
         assert_matches_type(CompletionCreateResponse, completion, path=["response"])
 
     @parametrize
-    def test_method_create_with_all_params_overload_1(self, client: LlamaStackClient) -> None:
+    def test_method_create_with_all_params_overload_1(self, client: OgxClient) -> None:
         completion = client.chat.completions.create(
             messages=[
                 {
@@ -74,7 +74,7 @@ class TestCompletions:
         assert_matches_type(CompletionCreateResponse, completion, path=["response"])
 
     @parametrize
-    def test_raw_response_create_overload_1(self, client: LlamaStackClient) -> None:
+    def test_raw_response_create_overload_1(self, client: OgxClient) -> None:
         response = client.chat.completions.with_raw_response.create(
             messages=[
                 {
@@ -91,7 +91,7 @@ class TestCompletions:
         assert_matches_type(CompletionCreateResponse, completion, path=["response"])
 
     @parametrize
-    def test_streaming_response_create_overload_1(self, client: LlamaStackClient) -> None:
+    def test_streaming_response_create_overload_1(self, client: OgxClient) -> None:
         with client.chat.completions.with_streaming_response.create(
             messages=[
                 {
@@ -110,7 +110,7 @@ class TestCompletions:
         assert cast(Any, response.is_closed) is True
 
     @parametrize
-    def test_method_create_overload_2(self, client: LlamaStackClient) -> None:
+    def test_method_create_overload_2(self, client: OgxClient) -> None:
         completion_stream = client.chat.completions.create(
             messages=[
                 {
@@ -124,7 +124,7 @@ class TestCompletions:
         completion_stream.response.close()
 
     @parametrize
-    def test_method_create_with_all_params_overload_2(self, client: LlamaStackClient) -> None:
+    def test_method_create_with_all_params_overload_2(self, client: OgxClient) -> None:
         completion_stream = client.chat.completions.create(
             messages=[
                 {
@@ -163,7 +163,7 @@ class TestCompletions:
         completion_stream.response.close()
 
     @parametrize
-    def test_raw_response_create_overload_2(self, client: LlamaStackClient) -> None:
+    def test_raw_response_create_overload_2(self, client: OgxClient) -> None:
         response = client.chat.completions.with_raw_response.create(
             messages=[
                 {
@@ -180,7 +180,7 @@ class TestCompletions:
         stream.close()
 
     @parametrize
-    def test_streaming_response_create_overload_2(self, client: LlamaStackClient) -> None:
+    def test_streaming_response_create_overload_2(self, client: OgxClient) -> None:
         with client.chat.completions.with_streaming_response.create(
             messages=[
                 {
@@ -200,14 +200,14 @@ class TestCompletions:
         assert cast(Any, response.is_closed) is True
 
     @parametrize
-    def test_method_retrieve(self, client: LlamaStackClient) -> None:
+    def test_method_retrieve(self, client: OgxClient) -> None:
         completion = client.chat.completions.retrieve(
             "completion_id",
         )
         assert_matches_type(CompletionRetrieveResponse, completion, path=["response"])
 
     @parametrize
-    def test_raw_response_retrieve(self, client: LlamaStackClient) -> None:
+    def test_raw_response_retrieve(self, client: OgxClient) -> None:
         response = client.chat.completions.with_raw_response.retrieve(
             "completion_id",
         )
@@ -218,7 +218,7 @@ class TestCompletions:
         assert_matches_type(CompletionRetrieveResponse, completion, path=["response"])
 
     @parametrize
-    def test_streaming_response_retrieve(self, client: LlamaStackClient) -> None:
+    def test_streaming_response_retrieve(self, client: OgxClient) -> None:
         with client.chat.completions.with_streaming_response.retrieve(
             "completion_id",
         ) as response:
@@ -231,19 +231,19 @@ class TestCompletions:
         assert cast(Any, response.is_closed) is True
 
     @parametrize
-    def test_path_params_retrieve(self, client: LlamaStackClient) -> None:
+    def test_path_params_retrieve(self, client: OgxClient) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `completion_id` but received ''"):
             client.chat.completions.with_raw_response.retrieve(
                 "",
             )
 
     @parametrize
-    def test_method_list(self, client: LlamaStackClient) -> None:
+    def test_method_list(self, client: OgxClient) -> None:
         completion = client.chat.completions.list()
         assert_matches_type(CompletionListResponse, completion, path=["response"])
 
     @parametrize
-    def test_method_list_with_all_params(self, client: LlamaStackClient) -> None:
+    def test_method_list_with_all_params(self, client: OgxClient) -> None:
         completion = client.chat.completions.list(
             after="after",
             limit=0,
@@ -253,7 +253,7 @@ class TestCompletions:
         assert_matches_type(CompletionListResponse, completion, path=["response"])
 
     @parametrize
-    def test_raw_response_list(self, client: LlamaStackClient) -> None:
+    def test_raw_response_list(self, client: OgxClient) -> None:
         response = client.chat.completions.with_raw_response.list()
 
         assert response.is_closed is True
@@ -262,7 +262,7 @@ class TestCompletions:
         assert_matches_type(CompletionListResponse, completion, path=["response"])
 
     @parametrize
-    def test_streaming_response_list(self, client: LlamaStackClient) -> None:
+    def test_streaming_response_list(self, client: OgxClient) -> None:
         with client.chat.completions.with_streaming_response.list() as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -279,7 +279,7 @@ class TestAsyncCompletions:
     )
 
     @parametrize
-    async def test_method_create_overload_1(self, async_client: AsyncLlamaStackClient) -> None:
+    async def test_method_create_overload_1(self, async_client: AsyncOgxClient) -> None:
         completion = await async_client.chat.completions.create(
             messages=[
                 {
@@ -292,7 +292,7 @@ class TestAsyncCompletions:
         assert_matches_type(CompletionCreateResponse, completion, path=["response"])
 
     @parametrize
-    async def test_method_create_with_all_params_overload_1(self, async_client: AsyncLlamaStackClient) -> None:
+    async def test_method_create_with_all_params_overload_1(self, async_client: AsyncOgxClient) -> None:
         completion = await async_client.chat.completions.create(
             messages=[
                 {
@@ -331,7 +331,7 @@ class TestAsyncCompletions:
         assert_matches_type(CompletionCreateResponse, completion, path=["response"])
 
     @parametrize
-    async def test_raw_response_create_overload_1(self, async_client: AsyncLlamaStackClient) -> None:
+    async def test_raw_response_create_overload_1(self, async_client: AsyncOgxClient) -> None:
         response = await async_client.chat.completions.with_raw_response.create(
             messages=[
                 {
@@ -348,7 +348,7 @@ class TestAsyncCompletions:
         assert_matches_type(CompletionCreateResponse, completion, path=["response"])
 
     @parametrize
-    async def test_streaming_response_create_overload_1(self, async_client: AsyncLlamaStackClient) -> None:
+    async def test_streaming_response_create_overload_1(self, async_client: AsyncOgxClient) -> None:
         async with async_client.chat.completions.with_streaming_response.create(
             messages=[
                 {
@@ -367,7 +367,7 @@ class TestAsyncCompletions:
         assert cast(Any, response.is_closed) is True
 
     @parametrize
-    async def test_method_create_overload_2(self, async_client: AsyncLlamaStackClient) -> None:
+    async def test_method_create_overload_2(self, async_client: AsyncOgxClient) -> None:
         completion_stream = await async_client.chat.completions.create(
             messages=[
                 {
@@ -381,7 +381,7 @@ class TestAsyncCompletions:
         await completion_stream.response.aclose()
 
     @parametrize
-    async def test_method_create_with_all_params_overload_2(self, async_client: AsyncLlamaStackClient) -> None:
+    async def test_method_create_with_all_params_overload_2(self, async_client: AsyncOgxClient) -> None:
         completion_stream = await async_client.chat.completions.create(
             messages=[
                 {
@@ -420,7 +420,7 @@ class TestAsyncCompletions:
         await completion_stream.response.aclose()
 
     @parametrize
-    async def test_raw_response_create_overload_2(self, async_client: AsyncLlamaStackClient) -> None:
+    async def test_raw_response_create_overload_2(self, async_client: AsyncOgxClient) -> None:
         response = await async_client.chat.completions.with_raw_response.create(
             messages=[
                 {
@@ -437,7 +437,7 @@ class TestAsyncCompletions:
         await stream.close()
 
     @parametrize
-    async def test_streaming_response_create_overload_2(self, async_client: AsyncLlamaStackClient) -> None:
+    async def test_streaming_response_create_overload_2(self, async_client: AsyncOgxClient) -> None:
         async with async_client.chat.completions.with_streaming_response.create(
             messages=[
                 {
@@ -457,14 +457,14 @@ class TestAsyncCompletions:
         assert cast(Any, response.is_closed) is True
 
     @parametrize
-    async def test_method_retrieve(self, async_client: AsyncLlamaStackClient) -> None:
+    async def test_method_retrieve(self, async_client: AsyncOgxClient) -> None:
         completion = await async_client.chat.completions.retrieve(
             "completion_id",
         )
         assert_matches_type(CompletionRetrieveResponse, completion, path=["response"])
 
     @parametrize
-    async def test_raw_response_retrieve(self, async_client: AsyncLlamaStackClient) -> None:
+    async def test_raw_response_retrieve(self, async_client: AsyncOgxClient) -> None:
         response = await async_client.chat.completions.with_raw_response.retrieve(
             "completion_id",
         )
@@ -475,7 +475,7 @@ class TestAsyncCompletions:
         assert_matches_type(CompletionRetrieveResponse, completion, path=["response"])
 
     @parametrize
-    async def test_streaming_response_retrieve(self, async_client: AsyncLlamaStackClient) -> None:
+    async def test_streaming_response_retrieve(self, async_client: AsyncOgxClient) -> None:
         async with async_client.chat.completions.with_streaming_response.retrieve(
             "completion_id",
         ) as response:
@@ -488,19 +488,19 @@ class TestAsyncCompletions:
         assert cast(Any, response.is_closed) is True
 
     @parametrize
-    async def test_path_params_retrieve(self, async_client: AsyncLlamaStackClient) -> None:
+    async def test_path_params_retrieve(self, async_client: AsyncOgxClient) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `completion_id` but received ''"):
             await async_client.chat.completions.with_raw_response.retrieve(
                 "",
             )
 
     @parametrize
-    async def test_method_list(self, async_client: AsyncLlamaStackClient) -> None:
+    async def test_method_list(self, async_client: AsyncOgxClient) -> None:
         completion = await async_client.chat.completions.list()
         assert_matches_type(CompletionListResponse, completion, path=["response"])
 
     @parametrize
-    async def test_method_list_with_all_params(self, async_client: AsyncLlamaStackClient) -> None:
+    async def test_method_list_with_all_params(self, async_client: AsyncOgxClient) -> None:
         completion = await async_client.chat.completions.list(
             after="after",
             limit=0,
@@ -510,7 +510,7 @@ class TestAsyncCompletions:
         assert_matches_type(CompletionListResponse, completion, path=["response"])
 
     @parametrize
-    async def test_raw_response_list(self, async_client: AsyncLlamaStackClient) -> None:
+    async def test_raw_response_list(self, async_client: AsyncOgxClient) -> None:
         response = await async_client.chat.completions.with_raw_response.list()
 
         assert response.is_closed is True
@@ -519,7 +519,7 @@ class TestAsyncCompletions:
         assert_matches_type(CompletionListResponse, completion, path=["response"])
 
     @parametrize
-    async def test_streaming_response_list(self, async_client: AsyncLlamaStackClient) -> None:
+    async def test_streaming_response_list(self, async_client: AsyncOgxClient) -> None:
         async with async_client.chat.completions.with_streaming_response.list() as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"

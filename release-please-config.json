@@ -61,6 +61,6 @@
   ],
   "release-type": "python",
   "extra-files": [
-    "src/llama_stack_client/_version.py"
+    "src/ogx_client/_version.py"
   ]
 }

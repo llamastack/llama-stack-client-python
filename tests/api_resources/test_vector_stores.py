@@ -7,14 +7,14 @@ from typing import Any, cast
 
 import pytest
 
+from ogx_client import OgxClient, AsyncOgxClient
 from tests.utils import assert_matches_type
-from llama_stack_client import LlamaStackClient, AsyncLlamaStackClient
-from llama_stack_client.types import (
+from ogx_client.types import (
     VectorStore,
     VectorStoreDeleteResponse,
     VectorStoreSearchResponse,
 )
-from llama_stack_client.pagination import SyncOpenAICursorPage, AsyncOpenAICursorPage
+from ogx_client.pagination import SyncOpenAICursorPage, AsyncOpenAICursorPage
 
 base_url = os.environ.get("TEST_API_BASE_URL", "http://127.0.0.1:4010")
 
@@ -23,12 +23,12 @@ class TestVectorStores:
     parametrize = pytest.mark.parametrize("client", [False, True], indirect=True, ids=["loose", "strict"])
 
     @parametrize
-    def test_method_create(self, client: LlamaStackClient) -> None:
+    def test_method_create(self, client: OgxClient) -> None:
         vector_store = client.vector_stores.create()
         assert_matches_type(VectorStore, vector_store, path=["response"])
 
     @parametrize
-    def test_method_create_with_all_params(self, client: LlamaStackClient) -> None:
+    def test_method_create_with_all_params(self, client: OgxClient) -> None:
         vector_store = client.vector_stores.create(
             chunking_strategy={"type": "auto"},
             description="description",
@@ -43,7 +43,7 @@ class TestVectorStores:
         assert_matches_type(VectorStore, vector_store, path=["response"])
 
     @parametrize
-    def test_raw_response_create(self, client: LlamaStackClient) -> None:
+    def test_raw_response_create(self, client: OgxClient) -> None:
         response = client.vector_stores.with_raw_response.create()
 
         assert response.is_closed is True
@@ -52,7 +52,7 @@ class TestVectorStores:
         assert_matches_type(VectorStore, vector_store, path=["response"])
 
     @parametrize
-    def test_streaming_response_create(self, client: LlamaStackClient) -> None:
+    def test_streaming_response_create(self, client: OgxClient) -> None:
         with client.vector_stores.with_streaming_response.create() as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -63,14 +63,14 @@ class TestVectorStores:
         assert cast(Any, response.is_closed) is True
 
     @parametrize
-    def test_method_retrieve(self, client: LlamaStackClient) -> None:
+    def test_method_retrieve(self, client: OgxClient) -> None:
         vector_store = client.vector_stores.retrieve(
             "vector_store_id",
         )
         assert_matches_type(VectorStore, vector_store, path=["response"])
 
     @parametrize
-    def test_raw_response_retrieve(self, client: LlamaStackClient) -> None:
+    def test_raw_response_retrieve(self, client: OgxClient) -> None:
         response = client.vector_stores.with_raw_response.retrieve(
             "vector_store_id",
         )
@@ -81,7 +81,7 @@ class TestVectorStores:
         assert_matches_type(VectorStore, vector_store, path=["response"])
 
     @parametrize
-    def test_streaming_response_retrieve(self, client: LlamaStackClient) -> None:
+    def test_streaming_response_retrieve(self, client: OgxClient) -> None:
         with client.vector_stores.with_streaming_response.retrieve(
             "vector_store_id",
         ) as response:
@@ -94,21 +94,21 @@ class TestVectorStores:
         assert cast(Any, response.is_closed) is True
 
     @parametrize
-    def test_path_params_retrieve(self, client: LlamaStackClient) -> None:
+    def test_path_params_retrieve(self, client: OgxClient) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `vector_store_id` but received ''"):
             client.vector_stores.with_raw_response.retrieve(
                 "",
             )
 
     @parametrize
-    def test_method_update(self, client: LlamaStackClient) -> None:
+    def test_method_update(self, client: OgxClient) -> None:
         vector_store = client.vector_stores.update(
             vector_store_id="vector_store_id",
         )
         assert_matches_type(VectorStore, vector_store, path=["response"])
 
     @parametrize
-    def test_method_update_with_all_params(self, client: LlamaStackClient) -> None:
+    def test_method_update_with_all_params(self, client: OgxClient) -> None:
         vector_store = client.vector_stores.update(
             vector_store_id="vector_store_id",
             expires_after={
@@ -121,7 +121,7 @@ class TestVectorStores:
         assert_matches_type(VectorStore, vector_store, path=["response"])
 
     @parametrize
-    def test_raw_response_update(self, client: LlamaStackClient) -> None:
+    def test_raw_response_update(self, client: OgxClient) -> None:
         response = client.vector_stores.with_raw_response.update(
             vector_store_id="vector_store_id",
         )
@@ -132,7 +132,7 @@ class TestVectorStores:
         assert_matches_type(VectorStore, vector_store, path=["response"])
 
     @parametrize
-    def test_streaming_response_update(self, client: LlamaStackClient) -> None:
+    def test_streaming_response_update(self, client: OgxClient) -> None:
         with client.vector_stores.with_streaming_response.update(
             vector_store_id="vector_store_id",
         ) as response:
@@ -145,19 +145,19 @@ class TestVectorStores:
         assert cast(Any, response.is_closed) is True
 
     @parametrize
-    def test_path_params_update(self, client: LlamaStackClient) -> None:
+    def test_path_params_update(self, client: OgxClient) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `vector_store_id` but received ''"):
             client.vector_stores.with_raw_response.update(
                 vector_store_id="",
             )
 
     @parametrize
-    def test_method_list(self, client: LlamaStackClient) -> None:
+    def test_method_list(self, client: OgxClient) -> None:
         vector_store = client.vector_stores.list()
         assert_matches_type(SyncOpenAICursorPage[VectorStore], vector_store, path=["response"])
 
     @parametrize
-    def test_method_list_with_all_params(self, client: LlamaStackClient) -> None:
+    def test_method_list_with_all_params(self, client: OgxClient) -> None:
         vector_store = client.vector_stores.list(
             after="after",
             before="before",
@@ -167,7 +167,7 @@ class TestVectorStores:
         assert_matches_type(SyncOpenAICursorPage[VectorStore], vector_store, path=["response"])
 
     @parametrize
-    def test_raw_response_list(self, client: LlamaStackClient) -> None:
+    def test_raw_response_list(self, client: OgxClient) -> None:
         response = client.vector_stores.with_raw_response.list()
 
         assert response.is_closed is True
@@ -176,7 +176,7 @@ class TestVectorStores:
         assert_matches_type(SyncOpenAICursorPage[VectorStore], vector_store, path=["response"])
 
     @parametrize
-    def test_streaming_response_list(self, client: LlamaStackClient) -> None:
+    def test_streaming_response_list(self, client: OgxClient) -> None:
         with client.vector_stores.with_streaming_response.list() as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -187,14 +187,14 @@ class TestVectorStores:
         assert cast(Any, response.is_closed) is True
 
     @parametrize
-    def test_method_delete(self, client: LlamaStackClient) -> None:
+    def test_method_delete(self, client: OgxClient) -> None:
         vector_store = client.vector_stores.delete(
             "vector_store_id",
         )
         assert_matches_type(VectorStoreDeleteResponse, vector_store, path=["response"])
 
     @parametrize
-    def test_raw_response_delete(self, client: LlamaStackClient) -> None:
+    def test_raw_response_delete(self, client: OgxClient) -> None:
         response = client.vector_stores.with_raw_response.delete(
             "vector_store_id",
         )
@@ -205,7 +205,7 @@ class TestVectorStores:
         assert_matches_type(VectorStoreDeleteResponse, vector_store, path=["response"])
 
     @parametrize
-    def test_streaming_response_delete(self, client: LlamaStackClient) -> None:
+    def test_streaming_response_delete(self, client: OgxClient) -> None:
         with client.vector_stores.with_streaming_response.delete(
             "vector_store_id",
         ) as response:
@@ -218,14 +218,14 @@ class TestVectorStores:
         assert cast(Any, response.is_closed) is True
 
     @parametrize
-    def test_path_params_delete(self, client: LlamaStackClient) -> None:
+    def test_path_params_delete(self, client: OgxClient) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `vector_store_id` but received ''"):
             client.vector_stores.with_raw_response.delete(
                 "",
             )
 
     @parametrize
-    def test_method_search(self, client: LlamaStackClient) -> None:
+    def test_method_search(self, client: OgxClient) -> None:
         vector_store = client.vector_stores.search(
             vector_store_id="vector_store_id",
             query="string",
@@ -233,7 +233,7 @@ class TestVectorStores:
         assert_matches_type(VectorStoreSearchResponse, vector_store, path=["response"])
 
     @parametrize
-    def test_method_search_with_all_params(self, client: LlamaStackClient) -> None:
+    def test_method_search_with_all_params(self, client: OgxClient) -> None:
         vector_store = client.vector_stores.search(
             vector_store_id="vector_store_id",
             query="string",
@@ -253,7 +253,7 @@ class TestVectorStores:
         assert_matches_type(VectorStoreSearchResponse, vector_store, path=["response"])
 
     @parametrize
-    def test_raw_response_search(self, client: LlamaStackClient) -> None:
+    def test_raw_response_search(self, client: OgxClient) -> None:
         response = client.vector_stores.with_raw_response.search(
             vector_store_id="vector_store_id",
             query="string",
@@ -265,7 +265,7 @@ class TestVectorStores:
         assert_matches_type(VectorStoreSearchResponse, vector_store, path=["response"])
 
     @parametrize
-    def test_streaming_response_search(self, client: LlamaStackClient) -> None:
+    def test_streaming_response_search(self, client: OgxClient) -> None:
         with client.vector_stores.with_streaming_response.search(
             vector_store_id="vector_store_id",
             query="string",
@@ -279,7 +279,7 @@ class TestVectorStores:
         assert cast(Any, response.is_closed) is True
 
     @parametrize
-    def test_path_params_search(self, client: LlamaStackClient) -> None:
+    def test_path_params_search(self, client: OgxClient) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `vector_store_id` but received ''"):
             client.vector_stores.with_raw_response.search(
                 vector_store_id="",
@@ -293,12 +293,12 @@ class TestAsyncVectorStores:
     )
 
     @parametrize
-    async def test_method_create(self, async_client: AsyncLlamaStackClient) -> None:
+    async def test_method_create(self, async_client: AsyncOgxClient) -> None:
         vector_store = await async_client.vector_stores.create()
         assert_matches_type(VectorStore, vector_store, path=["response"])
 
     @parametrize
-    async def test_method_create_with_all_params(self, async_client: AsyncLlamaStackClient) -> None:
+    async def test_method_create_with_all_params(self, async_client: AsyncOgxClient) -> None:
         vector_store = await async_client.vector_stores.create(
             chunking_strategy={"type": "auto"},
             description="description",
@@ -313,7 +313,7 @@ class TestAsyncVectorStores:
         assert_matches_type(VectorStore, vector_store, path=["response"])
 
     @parametrize
-    async def test_raw_response_create(self, async_client: AsyncLlamaStackClient) -> None:
+    async def test_raw_response_create(self, async_client: AsyncOgxClient) -> None:
         response = await async_client.vector_stores.with_raw_response.create()
 
         assert response.is_closed is True
@@ -322,7 +322,7 @@ class TestAsyncVectorStores:
         assert_matches_type(VectorStore, vector_store, path=["response"])
 
     @parametrize
-    async def test_streaming_response_create(self, async_client: AsyncLlamaStackClient) -> None:
+    async def test_streaming_response_create(self, async_client: AsyncOgxClient) -> None:
         async with async_client.vector_stores.with_streaming_response.create() as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -333,14 +333,14 @@ class TestAsyncVectorStores:
         assert cast(Any, response.is_closed) is True
 
     @parametrize
-    async def test_method_retrieve(self, async_client: AsyncLlamaStackClient) -> None:
+    async def test_method_retrieve(self, async_client: AsyncOgxClient) -> None:
         vector_store = await async_client.vector_stores.retrieve(
             "vector_store_id",
         )
         assert_matches_type(VectorStore, vector_store, path=["response"])
 
     @parametrize
-    async def test_raw_response_retrieve(self, async_client: AsyncLlamaStackClient) -> None:
+    async def test_raw_response_retrieve(self, async_client: AsyncOgxClient) -> None:
         response = await async_client.vector_stores.with_raw_response.retrieve(
             "vector_store_id",
         )
@@ -351,7 +351,7 @@ class TestAsyncVectorStores:
         assert_matches_type(VectorStore, vector_store, path=["response"])
 
     @parametrize
-    async def test_streaming_response_retrieve(self, async_client: AsyncLlamaStackClient) -> None:
+    async def test_streaming_response_retrieve(self, async_client: AsyncOgxClient) -> None:
         async with async_client.vector_stores.with_streaming_response.retrieve(
             "vector_store_id",
         ) as response:
@@ -364,21 +364,21 @@ class TestAsyncVectorStores:
         assert cast(Any, response.is_closed) is True
 
     @parametrize
-    async def test_path_params_retrieve(self, async_client: AsyncLlamaStackClient) -> None:
+    async def test_path_params_retrieve(self, async_client: AsyncOgxClient) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `vector_store_id` but received ''"):
             await async_client.vector_stores.with_raw_response.retrieve(
                 "",
             )
 
     @parametrize
-    async def test_method_update(self, async_client: AsyncLlamaStackClient) -> None:
+    async def test_method_update(self, async_client: AsyncOgxClient) -> None:
         vector_store = await async_client.vector_stores.update(
             vector_store_id="vector_store_id",
         )
         assert_matches_type(VectorStore, vector_store, path=["response"])
 
     @parametrize
-    async def test_method_update_with_all_params(self, async_client: AsyncLlamaStackClient) -> None:
+    async def test_method_update_with_all_params(self, async_client: AsyncOgxClient) -> None:
         vector_store = await async_client.vector_stores.update(
             vector_store_id="vector_store_id",
             expires_after={
@@ -391,7 +391,7 @@ class TestAsyncVectorStores:
         assert_matches_type(VectorStore, vector_store, path=["response"])
 
     @parametrize
-    async def test_raw_response_update(self, async_client: AsyncLlamaStackClient) -> None:
+    async def test_raw_response_update(self, async_client: AsyncOgxClient) -> None:
         response = await async_client.vector_stores.with_raw_response.update(
             vector_store_id="vector_store_id",
         )
@@ -402,7 +402,7 @@ class TestAsyncVectorStores:
         assert_matches_type(VectorStore, vector_store, path=["response"])
 
     @parametrize
-    async def test_streaming_response_update(self, async_client: AsyncLlamaStackClient) -> None:
+    async def test_streaming_response_update(self, async_client: AsyncOgxClient) -> None:
         async with async_client.vector_stores.with_streaming_response.update(
             vector_store_id="vector_store_id",
         ) as response:
@@ -415,19 +415,19 @@ class TestAsyncVectorStores:
         assert cast(Any, response.is_closed) is True
 
     @parametrize
-    async def test_path_params_update(self, async_client: AsyncLlamaStackClient) -> None:
+    async def test_path_params_update(self, async_client: AsyncOgxClient) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `vector_store_id` but received ''"):
             await async_client.vector_stores.with_raw_response.update(
                 vector_store_id="",
             )
 
     @parametrize
-    async def test_method_list(self, async_client: AsyncLlamaStackClient) -> None:
+    async def test_method_list(self, async_client: AsyncOgxClient) -> None:
         vector_store = await async_client.vector_stores.list()
         assert_matches_type(AsyncOpenAICursorPage[VectorStore], vector_store, path=["response"])
 
     @parametrize
-    async def test_method_list_with_all_params(self, async_client: AsyncLlamaStackClient) -> None:
+    async def test_method_list_with_all_params(self, async_client: AsyncOgxClient) -> None:
         vector_store = await async_client.vector_stores.list(
             after="after",
             before="before",
@@ -437,7 +437,7 @@ class TestAsyncVectorStores:
         assert_matches_type(AsyncOpenAICursorPage[VectorStore], vector_store, path=["response"])
 
     @parametrize
-    async def test_raw_response_list(self, async_client: AsyncLlamaStackClient) -> None:
+    async def test_raw_response_list(self, async_client: AsyncOgxClient) -> None:
         response = await async_client.vector_stores.with_raw_response.list()
 
         assert response.is_closed is True
@@ -446,7 +446,7 @@ class TestAsyncVectorStores:
         assert_matches_type(AsyncOpenAICursorPage[VectorStore], vector_store, path=["response"])
 
     @parametrize
-    async def test_streaming_response_list(self, async_client: AsyncLlamaStackClient) -> None:
+    async def test_streaming_response_list(self, async_client: AsyncOgxClient) -> None:
         async with async_client.vector_stores.with_streaming_response.list() as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -457,14 +457,14 @@ class TestAsyncVectorStores:
         assert cast(Any, response.is_closed) is True
 
     @parametrize
-    async def test_method_delete(self, async_client: AsyncLlamaStackClient) -> None:
+    async def test_method_delete(self, async_client: AsyncOgxClient) -> None:
         vector_store = await async_client.vector_stores.delete(
             "vector_store_id",
         )
         assert_matches_type(VectorStoreDeleteResponse, vector_store, path=["response"])
 
     @parametrize
-    async def test_raw_response_delete(self, async_client: AsyncLlamaStackClient) -> None:
+    async def test_raw_response_delete(self, async_client: AsyncOgxClient) -> None:
         response = await async_client.vector_stores.with_raw_response.delete(
             "vector_store_id",
         )
@@ -475,7 +475,7 @@ class TestAsyncVectorStores:
         assert_matches_type(VectorStoreDeleteResponse, vector_store, path=["response"])
 
     @parametrize
-    async def test_streaming_response_delete(self, async_client: AsyncLlamaStackClient) -> None:
+    async def test_streaming_response_delete(self, async_client: AsyncOgxClient) -> None:
         async with async_client.vector_stores.with_streaming_response.delete(
             "vector_store_id",
         ) as response:
@@ -488,14 +488,14 @@ class TestAsyncVectorStores:
         assert cast(Any, response.is_closed) is True
 
     @parametrize
-    async def test_path_params_delete(self, async_client: AsyncLlamaStackClient) -> None:
+    async def test_path_params_delete(self, async_client: AsyncOgxClient) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `vector_store_id` but received ''"):
             await async_client.vector_stores.with_raw_response.delete(
                 "",
             )
 
     @parametrize
-    async def test_method_search(self, async_client: AsyncLlamaStackClient) -> None:
+    async def test_method_search(self, async_client: AsyncOgxClient) -> None:
         vector_store = await async_client.vector_stores.search(
             vector_store_id="vector_store_id",
             query="string",
@@ -503,7 +503,7 @@ class TestAsyncVectorStores:
         assert_matches_type(VectorStoreSearchResponse, vector_store, path=["response"])
 
     @parametrize
-    async def test_method_search_with_all_params(self, async_client: AsyncLlamaStackClient) -> None:
+    async def test_method_search_with_all_params(self, async_client: AsyncOgxClient) -> None:
         vector_store = await async_client.vector_stores.search(
             vector_store_id="vector_store_id",
             query="string",
@@ -523,7 +523,7 @@ class TestAsyncVectorStores:
         assert_matches_type(VectorStoreSearchResponse, vector_store, path=["response"])
 
     @parametrize
-    async def test_raw_response_search(self, async_client: AsyncLlamaStackClient) -> None:
+    async def test_raw_response_search(self, async_client: AsyncOgxClient) -> None:
         response = await async_client.vector_stores.with_raw_response.search(
             vector_store_id="vector_store_id",
             query="string",
@@ -535,7 +535,7 @@ class TestAsyncVectorStores:
         assert_matches_type(VectorStoreSearchResponse, vector_store, path=["response"])
 
     @parametrize
-    async def test_streaming_response_search(self, async_client: AsyncLlamaStackClient) -> None:
+    async def test_streaming_response_search(self, async_client: AsyncOgxClient) -> None:
         async with async_client.vector_stores.with_streaming_response.search(
             vector_store_id="vector_store_id",
             query="string",
@@ -549,7 +549,7 @@ class TestAsyncVectorStores:
         assert cast(Any, response.is_closed) is True
 
     @parametrize
-    async def test_path_params_search(self, async_client: AsyncLlamaStackClient) -> None:
+    async def test_path_params_search(self, async_client: AsyncOgxClient) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `vector_store_id` but received ''"):
             await async_client.vector_stores.with_raw_response.search(
                 vector_store_id="",

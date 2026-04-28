@@ -19,4 +19,4 @@ echo "==> Running mypy"
 uv run mypy .
 
 echo "==> Making sure it imports"
-uv run python -c 'import llama_stack_client'
+uv run python -c 'import ogx_client'
