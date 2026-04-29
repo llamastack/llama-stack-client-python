@@ -13,9 +13,9 @@ from typing import Any, cast
 
 import pytest
 
+from ogx_client import OgxClient, AsyncOgxClient
 from tests.utils import assert_matches_type
-from llama_stack_client import LlamaStackClient, AsyncLlamaStackClient
-from llama_stack_client.types import CompletionCreateResponse
+from ogx_client.types import CompletionCreateResponse
 
 base_url = os.environ.get("TEST_API_BASE_URL", "http://127.0.0.1:4010")
 
@@ -24,7 +24,7 @@ class TestCompletions:
     parametrize = pytest.mark.parametrize("client", [False, True], indirect=True, ids=["loose", "strict"])
 
     @parametrize
-    def test_method_create_overload_1(self, client: LlamaStackClient) -> None:
+    def test_method_create_overload_1(self, client: OgxClient) -> None:
         completion = client.completions.create(
             model="model",
             prompt="string",
@@ -32,7 +32,7 @@ class TestCompletions:
         assert_matches_type(CompletionCreateResponse, completion, path=["response"])
 
     @parametrize
-    def test_method_create_with_all_params_overload_1(self, client: LlamaStackClient) -> None:
+    def test_method_create_with_all_params_overload_1(self, client: OgxClient) -> None:
         completion = client.completions.create(
             model="model",
             prompt="string",
@@ -56,7 +56,7 @@ class TestCompletions:
         assert_matches_type(CompletionCreateResponse, completion, path=["response"])
 
     @parametrize
-    def test_raw_response_create_overload_1(self, client: LlamaStackClient) -> None:
+    def test_raw_response_create_overload_1(self, client: OgxClient) -> None:
         response = client.completions.with_raw_response.create(
             model="model",
             prompt="string",
@@ -68,7 +68,7 @@ class TestCompletions:
         assert_matches_type(CompletionCreateResponse, completion, path=["response"])
 
     @parametrize
-    def test_streaming_response_create_overload_1(self, client: LlamaStackClient) -> None:
+    def test_streaming_response_create_overload_1(self, client: OgxClient) -> None:
         with client.completions.with_streaming_response.create(
             model="model",
             prompt="string",
@@ -82,7 +82,7 @@ class TestCompletions:
         assert cast(Any, response.is_closed) is True
 
     @parametrize
-    def test_method_create_overload_2(self, client: LlamaStackClient) -> None:
+    def test_method_create_overload_2(self, client: OgxClient) -> None:
         completion_stream = client.completions.create(
             model="model",
             prompt="string",
@@ -91,7 +91,7 @@ class TestCompletions:
         completion_stream.response.close()
 
     @parametrize
-    def test_method_create_with_all_params_overload_2(self, client: LlamaStackClient) -> None:
+    def test_method_create_with_all_params_overload_2(self, client: OgxClient) -> None:
         completion_stream = client.completions.create(
             model="model",
             prompt="string",
@@ -115,7 +115,7 @@ class TestCompletions:
         completion_stream.response.close()
 
     @parametrize
-    def test_raw_response_create_overload_2(self, client: LlamaStackClient) -> None:
+    def test_raw_response_create_overload_2(self, client: OgxClient) -> None:
         response = client.completions.with_raw_response.create(
             model="model",
             prompt="string",
@@ -127,7 +127,7 @@ class TestCompletions:
         stream.close()
 
     @parametrize
-    def test_streaming_response_create_overload_2(self, client: LlamaStackClient) -> None:
+    def test_streaming_response_create_overload_2(self, client: OgxClient) -> None:
         with client.completions.with_streaming_response.create(
             model="model",
             prompt="string",
@@ -148,7 +148,7 @@ class TestAsyncCompletions:
     )
 
     @parametrize
-    async def test_method_create_overload_1(self, async_client: AsyncLlamaStackClient) -> None:
+    async def test_method_create_overload_1(self, async_client: AsyncOgxClient) -> None:
         completion = await async_client.completions.create(
             model="model",
             prompt="string",
@@ -156,7 +156,7 @@ class TestAsyncCompletions:
         assert_matches_type(CompletionCreateResponse, completion, path=["response"])
 
     @parametrize
-    async def test_method_create_with_all_params_overload_1(self, async_client: AsyncLlamaStackClient) -> None:
+    async def test_method_create_with_all_params_overload_1(self, async_client: AsyncOgxClient) -> None:
         completion = await async_client.completions.create(
             model="model",
             prompt="string",
@@ -180,7 +180,7 @@ class TestAsyncCompletions:
         assert_matches_type(CompletionCreateResponse, completion, path=["response"])
 
     @parametrize
-    async def test_raw_response_create_overload_1(self, async_client: AsyncLlamaStackClient) -> None:
+    async def test_raw_response_create_overload_1(self, async_client: AsyncOgxClient) -> None:
         response = await async_client.completions.with_raw_response.create(
             model="model",
             prompt="string",
@@ -192,7 +192,7 @@ class TestAsyncCompletions:
         assert_matches_type(CompletionCreateResponse, completion, path=["response"])
 
     @parametrize
-    async def test_streaming_response_create_overload_1(self, async_client: AsyncLlamaStackClient) -> None:
+    async def test_streaming_response_create_overload_1(self, async_client: AsyncOgxClient) -> None:
         async with async_client.completions.with_streaming_response.create(
             model="model",
             prompt="string",
@@ -206,7 +206,7 @@ class TestAsyncCompletions:
         assert cast(Any, response.is_closed) is True
 
     @parametrize
-    async def test_method_create_overload_2(self, async_client: AsyncLlamaStackClient) -> None:
+    async def test_method_create_overload_2(self, async_client: AsyncOgxClient) -> None:
         completion_stream = await async_client.completions.create(
             model="model",
             prompt="string",
@@ -215,7 +215,7 @@ class TestAsyncCompletions:
         await completion_stream.response.aclose()
 
     @parametrize
-    async def test_method_create_with_all_params_overload_2(self, async_client: AsyncLlamaStackClient) -> None:
+    async def test_method_create_with_all_params_overload_2(self, async_client: AsyncOgxClient) -> None:
         completion_stream = await async_client.completions.create(
             model="model",
             prompt="string",
@@ -239,7 +239,7 @@ class TestAsyncCompletions:
         await completion_stream.response.aclose()
 
     @parametrize
-    async def test_raw_response_create_overload_2(self, async_client: AsyncLlamaStackClient) -> None:
+    async def test_raw_response_create_overload_2(self, async_client: AsyncOgxClient) -> None:
         response = await async_client.completions.with_raw_response.create(
             model="model",
             prompt="string",
@@ -251,7 +251,7 @@ class TestAsyncCompletions:
         await stream.close()
 
     @parametrize
-    async def test_streaming_response_create_overload_2(self, async_client: AsyncLlamaStackClient) -> None:
+    async def test_streaming_response_create_overload_2(self, async_client: AsyncOgxClient) -> None:
         async with async_client.completions.with_streaming_response.create(
             model="model",
             prompt="string",

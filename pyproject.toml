@@ -1,34 +1,31 @@
 [project]
-name = "llama_stack_client"
-version = "0.7.0-alpha.3"
-description = "The official Python library for the llama-stack-client API"
+name = "ogx_client"
+version = "0.7.0-alpha.2"
+description = "The official Python library for the ogx-client API"
 dynamic = ["readme"]
 license = "MIT"
-authors = [{ name = "Meta Llama", email = "llama-oss@meta.com" }]
+authors = [
+{ name = "Ogx Client", email = "contributors@ogx.dev" },
+]
 
 dependencies = [
   "httpx>=0.23.0, <1",
   "pydantic>=1.9.0, <3",
-    "typing-extensions>=4.7, <5", "typing-extensions>=4.14, <5",
+  "typing-extensions>=4.14, <5",
   "anyio>=3.5.0, <5",
   "distro>=1.7.0, <2",
   "sniffio",
-    "tqdm",
-    "rich",
-    "click",
-    "pyaml",
-    "prompt_toolkit",
-    "pandas",
-    "termcolor",
-    "fire",
-    "requests",
 ]
 
-requires-python = ">= 3.12"
+requires-python = ">= 3.9"
 classifiers = [
   "Typing :: Typed",
   "Intended Audience :: Developers",
+  "Programming Language :: Python :: 3.9",
+  "Programming Language :: Python :: 3.10",
+  "Programming Language :: Python :: 3.11",
   "Programming Language :: Python :: 3.12",
+  "Programming Language :: Python :: 3.13",
   "Programming Language :: Python :: 3.14",
   "Operating System :: OS Independent",
   "Operating System :: POSIX",
@@ -40,8 +37,8 @@ classifiers = [
 ]
 
 [project.urls]
-Homepage = "https://github.com/llamastack/llama-stack-client-python"
-Repository = "https://github.com/llamastack/llama-stack-client-python"
+Homepage = "https://github.com/ogx-ai/ogx-client-python"
+Repository = "https://github.com/ogx-ai/ogx-client-python"
 
 [project.optional-dependencies]
 aiohttp = ["aiohttp", "httpx_aiohttp>=0.1.9"]
@@ -62,7 +59,7 @@ dev = [
     "pyright==1.1.399",
     "mypy==1.17",
     "respx",
-    "pytest>=7.1.1",
+    "pytest",
     "pytest-asyncio",
     "ruff",
     "time-machine",
@@ -70,8 +67,6 @@ dev = [
     "importlib-metadata>=6.7.0",
     "rich>=13.7.1",
     "pytest-xdist>=3.6.1",
-    "pre-commit",
-    "black",
 ]
 pydantic-v1 = [
     "pydantic>=1.9.0,<2",
@@ -80,7 +75,6 @@ pydantic-v2 = [
     "pydantic~=2.0 ; python_full_version < '3.14'",
     "pydantic~=2.12 ; python_full_version >= '3.14'",
 ]
-
 
 [build-system]
 requires = ["hatchling==1.26.3", "hatch-fancy-pypi-readme"]
@@ -92,7 +86,7 @@ include = [
 ]
 
 [tool.hatch.build.targets.wheel]
-packages = ["src/llama_stack_client"]
+packages = ["src/ogx_client"]
 
 [tool.hatch.build.targets.sdist]
 # Basically everything except hidden files/directories (such as .github, .devcontainers, .python-version, etc)
@@ -118,7 +112,7 @@ path = "README.md"
 [[tool.hatch.metadata.hooks.fancy-pypi-readme.substitutions]]
 # replace relative links with absolute links
 pattern = '\[(.+?)\]\(((?!https?://)\S+?)\)'
-replacement = '[\1](https://github.com/llamastack/llama-stack-client-python/tree/main/\g<2>)'
+replacement = '[\1](https://github.com/ogx-ai/ogx-client-python/tree/main/\g<2>)'
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]
@@ -130,6 +124,26 @@ filterwarnings = [
   "error"
 ]
 
+[tool.pyright]
+# this enables practically every flag given by pyright.
+# there are a couple of flags that are still disabled by
+# default in strict mode as they are experimental and niche.
+typeCheckingMode = "strict"
+pythonVersion = "3.9"
+
+exclude = [
+    "_dev",
+    ".venv",
+    ".nox",
+    ".git",
+]
+
+reportImplicitOverride = true
+reportOverlappingOverload = false
+
+reportImportCycles = false
+reportPrivateUsage = false
+
 [tool.mypy]
 pretty = true
 show_error_codes = true
@@ -140,7 +154,7 @@ show_error_codes = true
 #
 # We also exclude our `tests` as mypy doesn't always infer
 # types correctly and Pyright will still catch any type errors.
-exclude = ['src/llama_stack_client/_files.py', '_dev/.*.py', 'tests/.*']
+exclude = ['src/ogx_client/_files.py', '_dev/.*.py', 'tests/.*']
 
 strict_equality = true
 implicit_reexport = true
@@ -176,7 +190,6 @@ cache_fine_grained = true
 disable_error_code = "func-returns-value,overload-cannot-match"
 
 # https://github.com/python/mypy/issues/12162
-
 [[tool.mypy.overrides]]
 module = "black.files.*"
 ignore_errors = true
@@ -186,6 +199,7 @@ ignore_missing_imports = true
 [tool.ruff]
 line-length = 120
 output-format = "grouped"
+target-version = "py38"
 
 [tool.ruff.format]
 docstring-code-format = true
@@ -208,7 +222,7 @@ select = [
   "T201",
   "T203",
   # misuse of typing.TYPE_CHECKING
-  "TCH004",
+  "TC004",
   # import rules
   "TID251",
 ]
@@ -232,14 +246,10 @@ length-sort = true
 length-sort-straight = true
 combine-as-imports = true
 extra-standard-library = ["typing_extensions"]
-known-first-party = ["llama_stack_client", "tests"]
+known-first-party = ["ogx_client", "tests"]
 
 [tool.ruff.lint.per-file-ignores]
 "bin/**.py" = ["T201", "T203"]
 "scripts/**.py" = ["T201", "T203"]
 "tests/**.py" = ["T201", "T203"]
-"examples/**.py" = ["T201", "T203", "TCH004", "I", "B"]
-"src/llama_stack_client/lib/**.py" = ["T201", "T203", "TCH004", "I", "B"]
-
-[project.scripts]
-llama-stack-client = "llama_stack_client.lib.cli.llama_stack_client:main"
+"examples/**.py" = ["T201", "T203"]

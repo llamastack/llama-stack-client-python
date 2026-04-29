@@ -13,10 +13,10 @@ from typing import Any, cast
 
 import pytest
 
+from ogx_client import OgxClient, AsyncOgxClient
 from tests.utils import assert_matches_type
-from llama_stack_client import LlamaStackClient, AsyncLlamaStackClient
-from llama_stack_client.pagination import SyncOpenAICursorPage, AsyncOpenAICursorPage
-from llama_stack_client.types.vector_stores import (
+from ogx_client.pagination import SyncOpenAICursorPage, AsyncOpenAICursorPage
+from ogx_client.types.vector_stores import (
     VectorStoreFile,
     VectorStoreFileBatches,
 )
@@ -28,28 +28,33 @@ class TestFileBatches:
     parametrize = pytest.mark.parametrize("client", [False, True], indirect=True, ids=["loose", "strict"])
 
     @parametrize
-    def test_method_create(self, client: LlamaStackClient) -> None:
+    def test_method_create(self, client: OgxClient) -> None:
         file_batch = client.vector_stores.file_batches.create(
             vector_store_id="vector_store_id",
-            file_ids=["string"],
         )
         assert_matches_type(VectorStoreFileBatches, file_batch, path=["response"])
 
     @parametrize
-    def test_method_create_with_all_params(self, client: LlamaStackClient) -> None:
+    def test_method_create_with_all_params(self, client: OgxClient) -> None:
         file_batch = client.vector_stores.file_batches.create(
             vector_store_id="vector_store_id",
-            file_ids=["string"],
-            attributes={"foo": "bar"},
+            attributes={"foo": "string"},
             chunking_strategy={"type": "auto"},
+            file_ids=["string"],
+            files=[
+                {
+                    "file_id": "file_id",
+                    "attributes": {"foo": "string"},
+                    "chunking_strategy": {"type": "auto"},
+                }
+            ],
         )
         assert_matches_type(VectorStoreFileBatches, file_batch, path=["response"])
 
     @parametrize
-    def test_raw_response_create(self, client: LlamaStackClient) -> None:
+    def test_raw_response_create(self, client: OgxClient) -> None:
         response = client.vector_stores.file_batches.with_raw_response.create(
             vector_store_id="vector_store_id",
-            file_ids=["string"],
         )
 
         assert response.is_closed is True
@@ -58,10 +63,9 @@ class TestFileBatches:
         assert_matches_type(VectorStoreFileBatches, file_batch, path=["response"])
 
     @parametrize
-    def test_streaming_response_create(self, client: LlamaStackClient) -> None:
+    def test_streaming_response_create(self, client: OgxClient) -> None:
         with client.vector_stores.file_batches.with_streaming_response.create(
             vector_store_id="vector_store_id",
-            file_ids=["string"],
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -72,15 +76,14 @@ class TestFileBatches:
         assert cast(Any, response.is_closed) is True
 
     @parametrize
-    def test_path_params_create(self, client: LlamaStackClient) -> None:
+    def test_path_params_create(self, client: OgxClient) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `vector_store_id` but received ''"):
             client.vector_stores.file_batches.with_raw_response.create(
                 vector_store_id="",
-                file_ids=["string"],
             )
 
     @parametrize
-    def test_method_retrieve(self, client: LlamaStackClient) -> None:
+    def test_method_retrieve(self, client: OgxClient) -> None:
         file_batch = client.vector_stores.file_batches.retrieve(
             batch_id="batch_id",
             vector_store_id="vector_store_id",
@@ -88,7 +91,7 @@ class TestFileBatches:
         assert_matches_type(VectorStoreFileBatches, file_batch, path=["response"])
 
     @parametrize
-    def test_raw_response_retrieve(self, client: LlamaStackClient) -> None:
+    def test_raw_response_retrieve(self, client: OgxClient) -> None:
         response = client.vector_stores.file_batches.with_raw_response.retrieve(
             batch_id="batch_id",
             vector_store_id="vector_store_id",
@@ -100,7 +103,7 @@ class TestFileBatches:
         assert_matches_type(VectorStoreFileBatches, file_batch, path=["response"])
 
     @parametrize
-    def test_streaming_response_retrieve(self, client: LlamaStackClient) -> None:
+    def test_streaming_response_retrieve(self, client: OgxClient) -> None:
         with client.vector_stores.file_batches.with_streaming_response.retrieve(
             batch_id="batch_id",
             vector_store_id="vector_store_id",
@@ -114,7 +117,7 @@ class TestFileBatches:
         assert cast(Any, response.is_closed) is True
 
     @parametrize
-    def test_path_params_retrieve(self, client: LlamaStackClient) -> None:
+    def test_path_params_retrieve(self, client: OgxClient) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `vector_store_id` but received ''"):
             client.vector_stores.file_batches.with_raw_response.retrieve(
                 batch_id="batch_id",
@@ -128,7 +131,7 @@ class TestFileBatches:
             )
 
     @parametrize
-    def test_method_cancel(self, client: LlamaStackClient) -> None:
+    def test_method_cancel(self, client: OgxClient) -> None:
         file_batch = client.vector_stores.file_batches.cancel(
             batch_id="batch_id",
             vector_store_id="vector_store_id",
@@ -136,7 +139,7 @@ class TestFileBatches:
         assert_matches_type(VectorStoreFileBatches, file_batch, path=["response"])
 
     @parametrize
-    def test_raw_response_cancel(self, client: LlamaStackClient) -> None:
+    def test_raw_response_cancel(self, client: OgxClient) -> None:
         response = client.vector_stores.file_batches.with_raw_response.cancel(
             batch_id="batch_id",
             vector_store_id="vector_store_id",
@@ -148,7 +151,7 @@ class TestFileBatches:
         assert_matches_type(VectorStoreFileBatches, file_batch, path=["response"])
 
     @parametrize
-    def test_streaming_response_cancel(self, client: LlamaStackClient) -> None:
+    def test_streaming_response_cancel(self, client: OgxClient) -> None:
         with client.vector_stores.file_batches.with_streaming_response.cancel(
             batch_id="batch_id",
             vector_store_id="vector_store_id",
@@ -162,7 +165,7 @@ class TestFileBatches:
         assert cast(Any, response.is_closed) is True
 
     @parametrize
-    def test_path_params_cancel(self, client: LlamaStackClient) -> None:
+    def test_path_params_cancel(self, client: OgxClient) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `vector_store_id` but received ''"):
             client.vector_stores.file_batches.with_raw_response.cancel(
                 batch_id="batch_id",
@@ -176,7 +179,7 @@ class TestFileBatches:
             )
 
     @parametrize
-    def test_method_list_files(self, client: LlamaStackClient) -> None:
+    def test_method_list_files(self, client: OgxClient) -> None:
         file_batch = client.vector_stores.file_batches.list_files(
             batch_id="batch_id",
             vector_store_id="vector_store_id",
@@ -184,7 +187,7 @@ class TestFileBatches:
         assert_matches_type(SyncOpenAICursorPage[VectorStoreFile], file_batch, path=["response"])
 
     @parametrize
-    def test_method_list_files_with_all_params(self, client: LlamaStackClient) -> None:
+    def test_method_list_files_with_all_params(self, client: OgxClient) -> None:
         file_batch = client.vector_stores.file_batches.list_files(
             batch_id="batch_id",
             vector_store_id="vector_store_id",
@@ -197,7 +200,7 @@ class TestFileBatches:
         assert_matches_type(SyncOpenAICursorPage[VectorStoreFile], file_batch, path=["response"])
 
     @parametrize
-    def test_raw_response_list_files(self, client: LlamaStackClient) -> None:
+    def test_raw_response_list_files(self, client: OgxClient) -> None:
         response = client.vector_stores.file_batches.with_raw_response.list_files(
             batch_id="batch_id",
             vector_store_id="vector_store_id",
@@ -209,7 +212,7 @@ class TestFileBatches:
         assert_matches_type(SyncOpenAICursorPage[VectorStoreFile], file_batch, path=["response"])
 
     @parametrize
-    def test_streaming_response_list_files(self, client: LlamaStackClient) -> None:
+    def test_streaming_response_list_files(self, client: OgxClient) -> None:
         with client.vector_stores.file_batches.with_streaming_response.list_files(
             batch_id="batch_id",
             vector_store_id="vector_store_id",
@@ -223,7 +226,7 @@ class TestFileBatches:
         assert cast(Any, response.is_closed) is True
 
     @parametrize
-    def test_path_params_list_files(self, client: LlamaStackClient) -> None:
+    def test_path_params_list_files(self, client: OgxClient) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `vector_store_id` but received ''"):
             client.vector_stores.file_batches.with_raw_response.list_files(
                 batch_id="batch_id",
@@ -243,28 +246,33 @@ class TestAsyncFileBatches:
     )
 
     @parametrize
-    async def test_method_create(self, async_client: AsyncLlamaStackClient) -> None:
+    async def test_method_create(self, async_client: AsyncOgxClient) -> None:
         file_batch = await async_client.vector_stores.file_batches.create(
             vector_store_id="vector_store_id",
-            file_ids=["string"],
         )
         assert_matches_type(VectorStoreFileBatches, file_batch, path=["response"])
 
     @parametrize
-    async def test_method_create_with_all_params(self, async_client: AsyncLlamaStackClient) -> None:
+    async def test_method_create_with_all_params(self, async_client: AsyncOgxClient) -> None:
         file_batch = await async_client.vector_stores.file_batches.create(
             vector_store_id="vector_store_id",
-            file_ids=["string"],
-            attributes={"foo": "bar"},
+            attributes={"foo": "string"},
             chunking_strategy={"type": "auto"},
+            file_ids=["string"],
+            files=[
+                {
+                    "file_id": "file_id",
+                    "attributes": {"foo": "string"},
+                    "chunking_strategy": {"type": "auto"},
+                }
+            ],
         )
         assert_matches_type(VectorStoreFileBatches, file_batch, path=["response"])
 
     @parametrize
-    async def test_raw_response_create(self, async_client: AsyncLlamaStackClient) -> None:
+    async def test_raw_response_create(self, async_client: AsyncOgxClient) -> None:
         response = await async_client.vector_stores.file_batches.with_raw_response.create(
             vector_store_id="vector_store_id",
-            file_ids=["string"],
         )
 
         assert response.is_closed is True
@@ -273,10 +281,9 @@ class TestAsyncFileBatches:
         assert_matches_type(VectorStoreFileBatches, file_batch, path=["response"])
 
     @parametrize
-    async def test_streaming_response_create(self, async_client: AsyncLlamaStackClient) -> None:
+    async def test_streaming_response_create(self, async_client: AsyncOgxClient) -> None:
         async with async_client.vector_stores.file_batches.with_streaming_response.create(
             vector_store_id="vector_store_id",
-            file_ids=["string"],
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -287,15 +294,14 @@ class TestAsyncFileBatches:
         assert cast(Any, response.is_closed) is True
 
     @parametrize
-    async def test_path_params_create(self, async_client: AsyncLlamaStackClient) -> None:
+    async def test_path_params_create(self, async_client: AsyncOgxClient) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `vector_store_id` but received ''"):
             await async_client.vector_stores.file_batches.with_raw_response.create(
                 vector_store_id="",
-                file_ids=["string"],
             )
 
     @parametrize
-    async def test_method_retrieve(self, async_client: AsyncLlamaStackClient) -> None:
+    async def test_method_retrieve(self, async_client: AsyncOgxClient) -> None:
         file_batch = await async_client.vector_stores.file_batches.retrieve(
             batch_id="batch_id",
             vector_store_id="vector_store_id",
@@ -303,7 +309,7 @@ class TestAsyncFileBatches:
         assert_matches_type(VectorStoreFileBatches, file_batch, path=["response"])
 
     @parametrize
-    async def test_raw_response_retrieve(self, async_client: AsyncLlamaStackClient) -> None:
+    async def test_raw_response_retrieve(self, async_client: AsyncOgxClient) -> None:
         response = await async_client.vector_stores.file_batches.with_raw_response.retrieve(
             batch_id="batch_id",
             vector_store_id="vector_store_id",
@@ -315,7 +321,7 @@ class TestAsyncFileBatches:
         assert_matches_type(VectorStoreFileBatches, file_batch, path=["response"])
 
     @parametrize
-    async def test_streaming_response_retrieve(self, async_client: AsyncLlamaStackClient) -> None:
+    async def test_streaming_response_retrieve(self, async_client: AsyncOgxClient) -> None:
         async with async_client.vector_stores.file_batches.with_streaming_response.retrieve(
             batch_id="batch_id",
             vector_store_id="vector_store_id",
@@ -329,7 +335,7 @@ class TestAsyncFileBatches:
         assert cast(Any, response.is_closed) is True
 
     @parametrize
-    async def test_path_params_retrieve(self, async_client: AsyncLlamaStackClient) -> None:
+    async def test_path_params_retrieve(self, async_client: AsyncOgxClient) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `vector_store_id` but received ''"):
             await async_client.vector_stores.file_batches.with_raw_response.retrieve(
                 batch_id="batch_id",
@@ -343,7 +349,7 @@ class TestAsyncFileBatches:
             )
 
     @parametrize
-    async def test_method_cancel(self, async_client: AsyncLlamaStackClient) -> None:
+    async def test_method_cancel(self, async_client: AsyncOgxClient) -> None:
         file_batch = await async_client.vector_stores.file_batches.cancel(
             batch_id="batch_id",
             vector_store_id="vector_store_id",
@@ -351,7 +357,7 @@ class TestAsyncFileBatches:
         assert_matches_type(VectorStoreFileBatches, file_batch, path=["response"])
 
     @parametrize
-    async def test_raw_response_cancel(self, async_client: AsyncLlamaStackClient) -> None:
+    async def test_raw_response_cancel(self, async_client: AsyncOgxClient) -> None:
         response = await async_client.vector_stores.file_batches.with_raw_response.cancel(
             batch_id="batch_id",
             vector_store_id="vector_store_id",
@@ -363,7 +369,7 @@ class TestAsyncFileBatches:
         assert_matches_type(VectorStoreFileBatches, file_batch, path=["response"])
 
     @parametrize
-    async def test_streaming_response_cancel(self, async_client: AsyncLlamaStackClient) -> None:
+    async def test_streaming_response_cancel(self, async_client: AsyncOgxClient) -> None:
         async with async_client.vector_stores.file_batches.with_streaming_response.cancel(
             batch_id="batch_id",
             vector_store_id="vector_store_id",
@@ -377,7 +383,7 @@ class TestAsyncFileBatches:
         assert cast(Any, response.is_closed) is True
 
     @parametrize
-    async def test_path_params_cancel(self, async_client: AsyncLlamaStackClient) -> None:
+    async def test_path_params_cancel(self, async_client: AsyncOgxClient) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `vector_store_id` but received ''"):
             await async_client.vector_stores.file_batches.with_raw_response.cancel(
                 batch_id="batch_id",
@@ -391,7 +397,7 @@ class TestAsyncFileBatches:
             )
 
     @parametrize
-    async def test_method_list_files(self, async_client: AsyncLlamaStackClient) -> None:
+    async def test_method_list_files(self, async_client: AsyncOgxClient) -> None:
         file_batch = await async_client.vector_stores.file_batches.list_files(
             batch_id="batch_id",
             vector_store_id="vector_store_id",
@@ -399,7 +405,7 @@ class TestAsyncFileBatches:
         assert_matches_type(AsyncOpenAICursorPage[VectorStoreFile], file_batch, path=["response"])
 
     @parametrize
-    async def test_method_list_files_with_all_params(self, async_client: AsyncLlamaStackClient) -> None:
+    async def test_method_list_files_with_all_params(self, async_client: AsyncOgxClient) -> None:
         file_batch = await async_client.vector_stores.file_batches.list_files(
             batch_id="batch_id",
             vector_store_id="vector_store_id",
@@ -412,7 +418,7 @@ class TestAsyncFileBatches:
         assert_matches_type(AsyncOpenAICursorPage[VectorStoreFile], file_batch, path=["response"])
 
     @parametrize
-    async def test_raw_response_list_files(self, async_client: AsyncLlamaStackClient) -> None:
+    async def test_raw_response_list_files(self, async_client: AsyncOgxClient) -> None:
         response = await async_client.vector_stores.file_batches.with_raw_response.list_files(
             batch_id="batch_id",
             vector_store_id="vector_store_id",
@@ -424,7 +430,7 @@ class TestAsyncFileBatches:
         assert_matches_type(AsyncOpenAICursorPage[VectorStoreFile], file_batch, path=["response"])
 
     @parametrize
-    async def test_streaming_response_list_files(self, async_client: AsyncLlamaStackClient) -> None:
+    async def test_streaming_response_list_files(self, async_client: AsyncOgxClient) -> None:
         async with async_client.vector_stores.file_batches.with_streaming_response.list_files(
             batch_id="batch_id",
             vector_store_id="vector_store_id",
@@ -438,7 +444,7 @@ class TestAsyncFileBatches:
         assert cast(Any, response.is_closed) is True
 
     @parametrize
-    async def test_path_params_list_files(self, async_client: AsyncLlamaStackClient) -> None:
+    async def test_path_params_list_files(self, async_client: AsyncOgxClient) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `vector_store_id` but received ''"):
             await async_client.vector_stores.file_batches.with_raw_response.list_files(
                 batch_id="batch_id",
