@@ -13,6 +13,7 @@ on:
       - 'release-[0-9]+.[0-9]+.x'
     types: [opened, synchronize, reopened]
     paths:
+      - 'src/ogx_client/**'
       - 'src/llama_stack_client/**'
       - 'uv.lock'
       - 'pyproject.toml'
@@ -107,7 +108,7 @@ jobs:
         run: |
           echo "Building Llama Stack"
           LLAMA_STACK_DIR=. \
-            uv run --no-sync llama stack list-deps ci-tests | xargs -L1 uv pip install
+            uv run --no-sync ogx stack list-deps ci-tests | xargs -L1 uv pip install
 
       - name: Configure git for commits
         if: ${{ matrix.config.allowed_clients == null || contains(matrix.config.allowed_clients, matrix.client) }}

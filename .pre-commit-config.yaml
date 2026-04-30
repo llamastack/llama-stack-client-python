@@ -17,19 +17,19 @@ repos:
     rev: v0.9.4
     hooks:
     -   id: ruff
-        files: ^src/llama_stack_client/lib/.*
+        files: ^src/(ogx_client|llama_stack_client)/lib/.*
         args: [
             --fix,
             --exit-non-zero-on-fix
         ]
     -   id: ruff-format
-        files: ^src/llama_stack_client/lib/.*
+        files: ^src/(ogx_client|llama_stack_client)/lib/.*
 
 -   repo: https://github.com/adamchainz/blacken-docs
     rev: 1.19.0
     hooks:
     -   id: blacken-docs
-        files: ^src/llama_stack_client/lib/.*
+        files: ^src/(ogx_client|llama_stack_client)/lib/.*
         additional_dependencies:
         - black==24.3.0
 
@@ -60,7 +60,7 @@ repos:
     rev: v1.5.5
     hooks:
     -   id: insert-license
-        files: \.py$|\.sh$
+        files: ^src/(ogx_client|llama_stack_client)/lib/.*\.(py|sh)$
         args:
           - --license-filepath
           - scripts/license_header.txt
