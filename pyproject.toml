@@ -11,10 +11,19 @@ authors = [
 dependencies = [
   "httpx>=0.23.0, <1",
   "pydantic>=1.9.0, <3",
-  "typing-extensions>=4.14, <5",
+  "typing-extensions>=4.7, <5", "typing-extensions>=4.14, <5",
   "anyio>=3.5.0, <5",
   "distro>=1.7.0, <2",
   "sniffio",
+  "tqdm",
+  "rich",
+  "click",
+  "pyaml",
+  "prompt_toolkit",
+  "pandas",
+  "termcolor",
+  "fire",
+  "requests",
 ]
 
 requires-python = ">= 3.9"
@@ -252,4 +261,6 @@ known-first-party = ["ogx_client", "tests"]
 "bin/**.py" = ["T201", "T203"]
 "scripts/**.py" = ["T201", "T203"]
 "tests/**.py" = ["T201", "T203"]
-"examples/**.py" = ["T201", "T203"]
+"examples/**.py" = ["T201", "T203", "TC004", "I", "B"]
+"src/ogx_client/lib/**.py" = ["T201", "T203", "TC004", "I", "B"]
+"tests/integration/**.py" = ["T201", "T203", "TC004", "I", "B"]

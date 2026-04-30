@@ -15,3 +15,4 @@ dist
 codegen.log
 Brewfile.lock.json
 CLAUDE.md
+.claude/
