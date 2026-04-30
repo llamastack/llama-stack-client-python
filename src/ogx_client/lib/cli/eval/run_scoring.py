@@ -81,9 +81,7 @@ def run_scoring(
     if dataset_id is not None:
         dataset = client.datasets.retrieve(dataset_id=dataset_id)
         if not dataset:
-            click.BadParameter(
-                f"Dataset {dataset_id} not found. Please register using ogx-client datasets register"
-            )
+            click.BadParameter(f"Dataset {dataset_id} not found. Please register using ogx-client datasets register")
 
         # TODO: this will eventually be replaced with jobs polling from server vis score_bath
         # For now, get all datasets rows via datasets API
