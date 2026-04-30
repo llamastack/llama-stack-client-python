@@ -1,9 +1,3 @@
-# Copyright (c) Meta Platforms, Inc. and affiliates.
-# All rights reserved.
-#
-# This source code is licensed under the terms described in the LICENSE file in
-# the root directory of this source tree.
-
 from ._path import path_template as path_template
 from ._sync import asyncify as asyncify
 from ._proxy import LazyProxy as LazyProxy
