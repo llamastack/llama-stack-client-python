@@ -12,8 +12,8 @@ import httpx
 import pytest
 import pydantic
 
-from llama_stack_client import BaseModel, LlamaStackClient, AsyncLlamaStackClient
-from llama_stack_client._response import (
+from ogx_client import BaseModel, OgxClient, AsyncOgxClient
+from ogx_client._response import (
     APIResponse,
     BaseAPIResponse,
     AsyncAPIResponse,
@@ -21,8 +21,8 @@ from llama_stack_client._response import (
     AsyncBinaryAPIResponse,
     extract_response_type,
 )
-from llama_stack_client._streaming import Stream
-from llama_stack_client._base_client import FinalRequestOptions
+from ogx_client._streaming import Stream
+from ogx_client._base_client import FinalRequestOptions
 
 
 class ConcreteBaseAPIResponse(APIResponse[bytes]): ...
@@ -43,7 +43,7 @@ def test_extract_response_type_direct_classes() -> None:
 def test_extract_response_type_direct_class_missing_type_arg() -> None:
     with pytest.raises(
         RuntimeError,
-        match="Expected type <class 'llama_stack_client._response.AsyncAPIResponse'> to have a type argument at index 0 but it did not",
+        match="Expected type <class 'ogx_client._response.AsyncAPIResponse'> to have a type argument at index 0 but it did not",
     ):
         extract_response_type(AsyncAPIResponse)
 
@@ -62,7 +62,7 @@ def test_extract_response_type_binary_response() -> None:
 class PydanticModel(pydantic.BaseModel): ...
 
 
-def test_response_parse_mismatched_basemodel(client: LlamaStackClient) -> None:
+def test_response_parse_mismatched_basemodel(client: OgxClient) -> None:
     response = APIResponse(
         raw=httpx.Response(200, content=b"foo"),
         client=client,
@@ -74,13 +74,13 @@ def test_response_parse_mismatched_basemodel(client: LlamaStackClient) -> None:
 
     with pytest.raises(
         TypeError,
-        match="Pydantic models must subclass our base model type, e.g. `from llama_stack_client import BaseModel`",
+        match="Pydantic models must subclass our base model type, e.g. `from ogx_client import BaseModel`",
     ):
         response.parse(to=PydanticModel)
 
 
 @pytest.mark.asyncio
-async def test_async_response_parse_mismatched_basemodel(async_client: AsyncLlamaStackClient) -> None:
+async def test_async_response_parse_mismatched_basemodel(async_client: AsyncOgxClient) -> None:
     response = AsyncAPIResponse(
         raw=httpx.Response(200, content=b"foo"),
         client=async_client,
@@ -92,12 +92,12 @@ async def test_async_response_parse_mismatched_basemodel(async_client: AsyncLlam
 
     with pytest.raises(
         TypeError,
-        match="Pydantic models must subclass our base model type, e.g. `from llama_stack_client import BaseModel`",
+        match="Pydantic models must subclass our base model type, e.g. `from ogx_client import BaseModel`",
     ):
         await response.parse(to=PydanticModel)
 
 
-def test_response_parse_custom_stream(client: LlamaStackClient) -> None:
+def test_response_parse_custom_stream(client: OgxClient) -> None:
     response = APIResponse(
         raw=httpx.Response(200, content=b"foo"),
         client=client,
@@ -112,7 +112,7 @@ def test_response_parse_custom_stream(client: LlamaStackClient) -> None:
 
 
 @pytest.mark.asyncio
-async def test_async_response_parse_custom_stream(async_client: AsyncLlamaStackClient) -> None:
+async def test_async_response_parse_custom_stream(async_client: AsyncOgxClient) -> None:
     response = AsyncAPIResponse(
         raw=httpx.Response(200, content=b"foo"),
         client=async_client,
@@ -131,7 +131,7 @@ class CustomModel(BaseModel):
     bar: int
 
 
-def test_response_parse_custom_model(client: LlamaStackClient) -> None:
+def test_response_parse_custom_model(client: OgxClient) -> None:
     response = APIResponse(
         raw=httpx.Response(200, content=json.dumps({"foo": "hello!", "bar": 2})),
         client=client,
@@ -147,7 +147,7 @@ def test_response_parse_custom_model(client: LlamaStackClient) -> None:
 
 
 @pytest.mark.asyncio
-async def test_async_response_parse_custom_model(async_client: AsyncLlamaStackClient) -> None:
+async def test_async_response_parse_custom_model(async_client: AsyncOgxClient) -> None:
     response = AsyncAPIResponse(
         raw=httpx.Response(200, content=json.dumps({"foo": "hello!", "bar": 2})),
         client=async_client,
@@ -162,7 +162,7 @@ async def test_async_response_parse_custom_model(async_client: AsyncLlamaStackCl
     assert obj.bar == 2
 
 
-def test_response_parse_annotated_type(client: LlamaStackClient) -> None:
+def test_response_parse_annotated_type(client: OgxClient) -> None:
     response = APIResponse(
         raw=httpx.Response(200, content=json.dumps({"foo": "hello!", "bar": 2})),
         client=client,
@@ -179,7 +179,7 @@ def test_response_parse_annotated_type(client: LlamaStackClient) -> None:
     assert obj.bar == 2
 
 
-async def test_async_response_parse_annotated_type(async_client: AsyncLlamaStackClient) -> None:
+async def test_async_response_parse_annotated_type(async_client: AsyncOgxClient) -> None:
     response = AsyncAPIResponse(
         raw=httpx.Response(200, content=json.dumps({"foo": "hello!", "bar": 2})),
         client=async_client,
@@ -207,7 +207,7 @@ async def test_async_response_parse_annotated_type(async_client: AsyncLlamaStack
         ("FalSe", False),
     ],
 )
-def test_response_parse_bool(client: LlamaStackClient, content: str, expected: bool) -> None:
+def test_response_parse_bool(client: OgxClient, content: str, expected: bool) -> None:
     response = APIResponse(
         raw=httpx.Response(200, content=content),
         client=client,
@@ -232,7 +232,7 @@ def test_response_parse_bool(client: LlamaStackClient, content: str, expected: b
         ("FalSe", False),
     ],
 )
-async def test_async_response_parse_bool(client: AsyncLlamaStackClient, content: str, expected: bool) -> None:
+async def test_async_response_parse_bool(client: AsyncOgxClient, content: str, expected: bool) -> None:
     response = AsyncAPIResponse(
         raw=httpx.Response(200, content=content),
         client=client,
@@ -251,7 +251,7 @@ class OtherModel(BaseModel):
 
 
 @pytest.mark.parametrize("client", [False], indirect=True)  # loose validation
-def test_response_parse_expect_model_union_non_json_content(client: LlamaStackClient) -> None:
+def test_response_parse_expect_model_union_non_json_content(client: OgxClient) -> None:
     response = APIResponse(
         raw=httpx.Response(200, content=b"foo", headers={"Content-Type": "application/text"}),
         client=client,
@@ -268,7 +268,7 @@ def test_response_parse_expect_model_union_non_json_content(client: LlamaStackCl
 
 @pytest.mark.asyncio
 @pytest.mark.parametrize("async_client", [False], indirect=True)  # loose validation
-async def test_async_response_parse_expect_model_union_non_json_content(async_client: AsyncLlamaStackClient) -> None:
+async def test_async_response_parse_expect_model_union_non_json_content(async_client: AsyncOgxClient) -> None:
     response = AsyncAPIResponse(
         raw=httpx.Response(200, content=b"foo", headers={"Content-Type": "application/text"}),
         client=async_client,

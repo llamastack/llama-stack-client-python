@@ -13,9 +13,9 @@ from typing import Any, cast
 
 import pytest
 
+from ogx_client import OgxClient, AsyncOgxClient
 from tests.utils import assert_matches_type
-from llama_stack_client import LlamaStackClient, AsyncLlamaStackClient
-from llama_stack_client.types import (
+from ogx_client.types import (
     Prompt,
     PromptListResponse,
 )
@@ -27,14 +27,14 @@ class TestPrompts:
     parametrize = pytest.mark.parametrize("client", [False, True], indirect=True, ids=["loose", "strict"])
 
     @parametrize
-    def test_method_create(self, client: LlamaStackClient) -> None:
+    def test_method_create(self, client: OgxClient) -> None:
         prompt = client.prompts.create(
             prompt="prompt",
         )
         assert_matches_type(Prompt, prompt, path=["response"])
 
     @parametrize
-    def test_method_create_with_all_params(self, client: LlamaStackClient) -> None:
+    def test_method_create_with_all_params(self, client: OgxClient) -> None:
         prompt = client.prompts.create(
             prompt="prompt",
             variables=["string"],
@@ -42,7 +42,7 @@ class TestPrompts:
         assert_matches_type(Prompt, prompt, path=["response"])
 
     @parametrize
-    def test_raw_response_create(self, client: LlamaStackClient) -> None:
+    def test_raw_response_create(self, client: OgxClient) -> None:
         response = client.prompts.with_raw_response.create(
             prompt="prompt",
         )
@@ -53,7 +53,7 @@ class TestPrompts:
         assert_matches_type(Prompt, prompt, path=["response"])
 
     @parametrize
-    def test_streaming_response_create(self, client: LlamaStackClient) -> None:
+    def test_streaming_response_create(self, client: OgxClient) -> None:
         with client.prompts.with_streaming_response.create(
             prompt="prompt",
         ) as response:
@@ -66,14 +66,14 @@ class TestPrompts:
         assert cast(Any, response.is_closed) is True
 
     @parametrize
-    def test_method_retrieve(self, client: LlamaStackClient) -> None:
+    def test_method_retrieve(self, client: OgxClient) -> None:
         prompt = client.prompts.retrieve(
             prompt_id="prompt_id",
         )
         assert_matches_type(Prompt, prompt, path=["response"])
 
     @parametrize
-    def test_method_retrieve_with_all_params(self, client: LlamaStackClient) -> None:
+    def test_method_retrieve_with_all_params(self, client: OgxClient) -> None:
         prompt = client.prompts.retrieve(
             prompt_id="prompt_id",
             version=0,
@@ -81,7 +81,7 @@ class TestPrompts:
         assert_matches_type(Prompt, prompt, path=["response"])
 
     @parametrize
-    def test_raw_response_retrieve(self, client: LlamaStackClient) -> None:
+    def test_raw_response_retrieve(self, client: OgxClient) -> None:
         response = client.prompts.with_raw_response.retrieve(
             prompt_id="prompt_id",
         )
@@ -92,7 +92,7 @@ class TestPrompts:
         assert_matches_type(Prompt, prompt, path=["response"])
 
     @parametrize
-    def test_streaming_response_retrieve(self, client: LlamaStackClient) -> None:
+    def test_streaming_response_retrieve(self, client: OgxClient) -> None:
         with client.prompts.with_streaming_response.retrieve(
             prompt_id="prompt_id",
         ) as response:
@@ -105,14 +105,14 @@ class TestPrompts:
         assert cast(Any, response.is_closed) is True
 
     @parametrize
-    def test_path_params_retrieve(self, client: LlamaStackClient) -> None:
+    def test_path_params_retrieve(self, client: OgxClient) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `prompt_id` but received ''"):
             client.prompts.with_raw_response.retrieve(
                 prompt_id="",
             )
 
     @parametrize
-    def test_method_update(self, client: LlamaStackClient) -> None:
+    def test_method_update(self, client: OgxClient) -> None:
         prompt = client.prompts.update(
             prompt_id="prompt_id",
             prompt="prompt",
@@ -121,7 +121,7 @@ class TestPrompts:
         assert_matches_type(Prompt, prompt, path=["response"])
 
     @parametrize
-    def test_method_update_with_all_params(self, client: LlamaStackClient) -> None:
+    def test_method_update_with_all_params(self, client: OgxClient) -> None:
         prompt = client.prompts.update(
             prompt_id="prompt_id",
             prompt="prompt",
@@ -132,7 +132,7 @@ class TestPrompts:
         assert_matches_type(Prompt, prompt, path=["response"])
 
     @parametrize
-    def test_raw_response_update(self, client: LlamaStackClient) -> None:
+    def test_raw_response_update(self, client: OgxClient) -> None:
         response = client.prompts.with_raw_response.update(
             prompt_id="prompt_id",
             prompt="prompt",
@@ -145,7 +145,7 @@ class TestPrompts:
         assert_matches_type(Prompt, prompt, path=["response"])
 
     @parametrize
-    def test_streaming_response_update(self, client: LlamaStackClient) -> None:
+    def test_streaming_response_update(self, client: OgxClient) -> None:
         with client.prompts.with_streaming_response.update(
             prompt_id="prompt_id",
             prompt="prompt",
@@ -160,7 +160,7 @@ class TestPrompts:
         assert cast(Any, response.is_closed) is True
 
     @parametrize
-    def test_path_params_update(self, client: LlamaStackClient) -> None:
+    def test_path_params_update(self, client: OgxClient) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `prompt_id` but received ''"):
             client.prompts.with_raw_response.update(
                 prompt_id="",
@@ -169,12 +169,12 @@ class TestPrompts:
             )
 
     @parametrize
-    def test_method_list(self, client: LlamaStackClient) -> None:
+    def test_method_list(self, client: OgxClient) -> None:
         prompt = client.prompts.list()
         assert_matches_type(PromptListResponse, prompt, path=["response"])
 
     @parametrize
-    def test_raw_response_list(self, client: LlamaStackClient) -> None:
+    def test_raw_response_list(self, client: OgxClient) -> None:
         response = client.prompts.with_raw_response.list()
 
         assert response.is_closed is True
@@ -183,7 +183,7 @@ class TestPrompts:
         assert_matches_type(PromptListResponse, prompt, path=["response"])
 
     @parametrize
-    def test_streaming_response_list(self, client: LlamaStackClient) -> None:
+    def test_streaming_response_list(self, client: OgxClient) -> None:
         with client.prompts.with_streaming_response.list() as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -194,14 +194,14 @@ class TestPrompts:
         assert cast(Any, response.is_closed) is True
 
     @parametrize
-    def test_method_delete(self, client: LlamaStackClient) -> None:
+    def test_method_delete(self, client: OgxClient) -> None:
         prompt = client.prompts.delete(
             "prompt_id",
         )
         assert prompt is None
 
     @parametrize
-    def test_raw_response_delete(self, client: LlamaStackClient) -> None:
+    def test_raw_response_delete(self, client: OgxClient) -> None:
         response = client.prompts.with_raw_response.delete(
             "prompt_id",
         )
@@ -212,7 +212,7 @@ class TestPrompts:
         assert prompt is None
 
     @parametrize
-    def test_streaming_response_delete(self, client: LlamaStackClient) -> None:
+    def test_streaming_response_delete(self, client: OgxClient) -> None:
         with client.prompts.with_streaming_response.delete(
             "prompt_id",
         ) as response:
@@ -225,14 +225,14 @@ class TestPrompts:
         assert cast(Any, response.is_closed) is True
 
     @parametrize
-    def test_path_params_delete(self, client: LlamaStackClient) -> None:
+    def test_path_params_delete(self, client: OgxClient) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `prompt_id` but received ''"):
             client.prompts.with_raw_response.delete(
                 "",
             )
 
     @parametrize
-    def test_method_set_default_version(self, client: LlamaStackClient) -> None:
+    def test_method_set_default_version(self, client: OgxClient) -> None:
         prompt = client.prompts.set_default_version(
             prompt_id="prompt_id",
             version=0,
@@ -240,7 +240,7 @@ class TestPrompts:
         assert_matches_type(Prompt, prompt, path=["response"])
 
     @parametrize
-    def test_raw_response_set_default_version(self, client: LlamaStackClient) -> None:
+    def test_raw_response_set_default_version(self, client: OgxClient) -> None:
         response = client.prompts.with_raw_response.set_default_version(
             prompt_id="prompt_id",
             version=0,
@@ -252,7 +252,7 @@ class TestPrompts:
         assert_matches_type(Prompt, prompt, path=["response"])
 
     @parametrize
-    def test_streaming_response_set_default_version(self, client: LlamaStackClient) -> None:
+    def test_streaming_response_set_default_version(self, client: OgxClient) -> None:
         with client.prompts.with_streaming_response.set_default_version(
             prompt_id="prompt_id",
             version=0,
@@ -266,7 +266,7 @@ class TestPrompts:
         assert cast(Any, response.is_closed) is True
 
     @parametrize
-    def test_path_params_set_default_version(self, client: LlamaStackClient) -> None:
+    def test_path_params_set_default_version(self, client: OgxClient) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `prompt_id` but received ''"):
             client.prompts.with_raw_response.set_default_version(
                 prompt_id="",
@@ -280,14 +280,14 @@ class TestAsyncPrompts:
     )
 
     @parametrize
-    async def test_method_create(self, async_client: AsyncLlamaStackClient) -> None:
+    async def test_method_create(self, async_client: AsyncOgxClient) -> None:
         prompt = await async_client.prompts.create(
             prompt="prompt",
         )
         assert_matches_type(Prompt, prompt, path=["response"])
 
     @parametrize
-    async def test_method_create_with_all_params(self, async_client: AsyncLlamaStackClient) -> None:
+    async def test_method_create_with_all_params(self, async_client: AsyncOgxClient) -> None:
         prompt = await async_client.prompts.create(
             prompt="prompt",
             variables=["string"],
@@ -295,7 +295,7 @@ class TestAsyncPrompts:
         assert_matches_type(Prompt, prompt, path=["response"])
 
     @parametrize
-    async def test_raw_response_create(self, async_client: AsyncLlamaStackClient) -> None:
+    async def test_raw_response_create(self, async_client: AsyncOgxClient) -> None:
         response = await async_client.prompts.with_raw_response.create(
             prompt="prompt",
         )
@@ -306,7 +306,7 @@ class TestAsyncPrompts:
         assert_matches_type(Prompt, prompt, path=["response"])
 
     @parametrize
-    async def test_streaming_response_create(self, async_client: AsyncLlamaStackClient) -> None:
+    async def test_streaming_response_create(self, async_client: AsyncOgxClient) -> None:
         async with async_client.prompts.with_streaming_response.create(
             prompt="prompt",
         ) as response:
@@ -319,14 +319,14 @@ class TestAsyncPrompts:
         assert cast(Any, response.is_closed) is True
 
     @parametrize
-    async def test_method_retrieve(self, async_client: AsyncLlamaStackClient) -> None:
+    async def test_method_retrieve(self, async_client: AsyncOgxClient) -> None:
         prompt = await async_client.prompts.retrieve(
             prompt_id="prompt_id",
         )
         assert_matches_type(Prompt, prompt, path=["response"])
 
     @parametrize
-    async def test_method_retrieve_with_all_params(self, async_client: AsyncLlamaStackClient) -> None:
+    async def test_method_retrieve_with_all_params(self, async_client: AsyncOgxClient) -> None:
         prompt = await async_client.prompts.retrieve(
             prompt_id="prompt_id",
             version=0,
@@ -334,7 +334,7 @@ class TestAsyncPrompts:
         assert_matches_type(Prompt, prompt, path=["response"])
 
     @parametrize
-    async def test_raw_response_retrieve(self, async_client: AsyncLlamaStackClient) -> None:
+    async def test_raw_response_retrieve(self, async_client: AsyncOgxClient) -> None:
         response = await async_client.prompts.with_raw_response.retrieve(
             prompt_id="prompt_id",
         )
@@ -345,7 +345,7 @@ class TestAsyncPrompts:
         assert_matches_type(Prompt, prompt, path=["response"])
 
     @parametrize
-    async def test_streaming_response_retrieve(self, async_client: AsyncLlamaStackClient) -> None:
+    async def test_streaming_response_retrieve(self, async_client: AsyncOgxClient) -> None:
         async with async_client.prompts.with_streaming_response.retrieve(
             prompt_id="prompt_id",
         ) as response:
@@ -358,14 +358,14 @@ class TestAsyncPrompts:
         assert cast(Any, response.is_closed) is True
 
     @parametrize
-    async def test_path_params_retrieve(self, async_client: AsyncLlamaStackClient) -> None:
+    async def test_path_params_retrieve(self, async_client: AsyncOgxClient) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `prompt_id` but received ''"):
             await async_client.prompts.with_raw_response.retrieve(
                 prompt_id="",
             )
 
     @parametrize
-    async def test_method_update(self, async_client: AsyncLlamaStackClient) -> None:
+    async def test_method_update(self, async_client: AsyncOgxClient) -> None:
         prompt = await async_client.prompts.update(
             prompt_id="prompt_id",
             prompt="prompt",
@@ -374,7 +374,7 @@ class TestAsyncPrompts:
         assert_matches_type(Prompt, prompt, path=["response"])
 
     @parametrize
-    async def test_method_update_with_all_params(self, async_client: AsyncLlamaStackClient) -> None:
+    async def test_method_update_with_all_params(self, async_client: AsyncOgxClient) -> None:
         prompt = await async_client.prompts.update(
             prompt_id="prompt_id",
             prompt="prompt",
@@ -385,7 +385,7 @@ class TestAsyncPrompts:
         assert_matches_type(Prompt, prompt, path=["response"])
 
     @parametrize
-    async def test_raw_response_update(self, async_client: AsyncLlamaStackClient) -> None:
+    async def test_raw_response_update(self, async_client: AsyncOgxClient) -> None:
         response = await async_client.prompts.with_raw_response.update(
             prompt_id="prompt_id",
             prompt="prompt",
@@ -398,7 +398,7 @@ class TestAsyncPrompts:
         assert_matches_type(Prompt, prompt, path=["response"])
 
     @parametrize
-    async def test_streaming_response_update(self, async_client: AsyncLlamaStackClient) -> None:
+    async def test_streaming_response_update(self, async_client: AsyncOgxClient) -> None:
         async with async_client.prompts.with_streaming_response.update(
             prompt_id="prompt_id",
             prompt="prompt",
@@ -413,7 +413,7 @@ class TestAsyncPrompts:
         assert cast(Any, response.is_closed) is True
 
     @parametrize
-    async def test_path_params_update(self, async_client: AsyncLlamaStackClient) -> None:
+    async def test_path_params_update(self, async_client: AsyncOgxClient) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `prompt_id` but received ''"):
             await async_client.prompts.with_raw_response.update(
                 prompt_id="",
@@ -422,12 +422,12 @@ class TestAsyncPrompts:
             )
 
     @parametrize
-    async def test_method_list(self, async_client: AsyncLlamaStackClient) -> None:
+    async def test_method_list(self, async_client: AsyncOgxClient) -> None:
         prompt = await async_client.prompts.list()
         assert_matches_type(PromptListResponse, prompt, path=["response"])
 
     @parametrize
-    async def test_raw_response_list(self, async_client: AsyncLlamaStackClient) -> None:
+    async def test_raw_response_list(self, async_client: AsyncOgxClient) -> None:
         response = await async_client.prompts.with_raw_response.list()
 
         assert response.is_closed is True
@@ -436,7 +436,7 @@ class TestAsyncPrompts:
         assert_matches_type(PromptListResponse, prompt, path=["response"])
 
     @parametrize
-    async def test_streaming_response_list(self, async_client: AsyncLlamaStackClient) -> None:
+    async def test_streaming_response_list(self, async_client: AsyncOgxClient) -> None:
         async with async_client.prompts.with_streaming_response.list() as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -447,14 +447,14 @@ class TestAsyncPrompts:
         assert cast(Any, response.is_closed) is True
 
     @parametrize
-    async def test_method_delete(self, async_client: AsyncLlamaStackClient) -> None:
+    async def test_method_delete(self, async_client: AsyncOgxClient) -> None:
         prompt = await async_client.prompts.delete(
             "prompt_id",
         )
         assert prompt is None
 
     @parametrize
-    async def test_raw_response_delete(self, async_client: AsyncLlamaStackClient) -> None:
+    async def test_raw_response_delete(self, async_client: AsyncOgxClient) -> None:
         response = await async_client.prompts.with_raw_response.delete(
             "prompt_id",
         )
@@ -465,7 +465,7 @@ class TestAsyncPrompts:
         assert prompt is None
 
     @parametrize
-    async def test_streaming_response_delete(self, async_client: AsyncLlamaStackClient) -> None:
+    async def test_streaming_response_delete(self, async_client: AsyncOgxClient) -> None:
         async with async_client.prompts.with_streaming_response.delete(
             "prompt_id",
         ) as response:
@@ -478,14 +478,14 @@ class TestAsyncPrompts:
         assert cast(Any, response.is_closed) is True
 
     @parametrize
-    async def test_path_params_delete(self, async_client: AsyncLlamaStackClient) -> None:
+    async def test_path_params_delete(self, async_client: AsyncOgxClient) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `prompt_id` but received ''"):
             await async_client.prompts.with_raw_response.delete(
                 "",
             )
 
     @parametrize
-    async def test_method_set_default_version(self, async_client: AsyncLlamaStackClient) -> None:
+    async def test_method_set_default_version(self, async_client: AsyncOgxClient) -> None:
         prompt = await async_client.prompts.set_default_version(
             prompt_id="prompt_id",
             version=0,
@@ -493,7 +493,7 @@ class TestAsyncPrompts:
         assert_matches_type(Prompt, prompt, path=["response"])
 
     @parametrize
-    async def test_raw_response_set_default_version(self, async_client: AsyncLlamaStackClient) -> None:
+    async def test_raw_response_set_default_version(self, async_client: AsyncOgxClient) -> None:
         response = await async_client.prompts.with_raw_response.set_default_version(
             prompt_id="prompt_id",
             version=0,
@@ -505,7 +505,7 @@ class TestAsyncPrompts:
         assert_matches_type(Prompt, prompt, path=["response"])
 
     @parametrize
-    async def test_streaming_response_set_default_version(self, async_client: AsyncLlamaStackClient) -> None:
+    async def test_streaming_response_set_default_version(self, async_client: AsyncOgxClient) -> None:
         async with async_client.prompts.with_streaming_response.set_default_version(
             prompt_id="prompt_id",
             version=0,
@@ -519,7 +519,7 @@ class TestAsyncPrompts:
         assert cast(Any, response.is_closed) is True
 
     @parametrize
-    async def test_path_params_set_default_version(self, async_client: AsyncLlamaStackClient) -> None:
+    async def test_path_params_set_default_version(self, async_client: AsyncOgxClient) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `prompt_id` but received ''"):
             await async_client.prompts.with_raw_response.set_default_version(
                 prompt_id="",

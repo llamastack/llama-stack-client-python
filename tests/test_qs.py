@@ -10,7 +10,7 @@ from urllib.parse import unquote
 
 import pytest
 
-from llama_stack_client._qs import Querystring, stringify
+from ogx_client._qs import Querystring, stringify
 
 
 def test_empty() -> None:

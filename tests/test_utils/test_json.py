@@ -11,8 +11,8 @@ from typing import Union
 
 import pydantic
 
-from llama_stack_client import _compat
-from llama_stack_client._utils._json import openapi_dumps
+from ogx_client import _compat
+from ogx_client._utils._json import openapi_dumps
 
 
 class TestOpenapiDumps:

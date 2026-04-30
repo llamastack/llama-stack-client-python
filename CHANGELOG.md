@@ -1,13 +1,12 @@
 # Changelog
 
-## 0.7.0-alpha.3 (2026-04-07)
+## 0.7.2-alpha.4 (2026-04-30)
 
-Full Changelog: [v0.7.0-alpha.2...v0.7.0-alpha.3](https://github.com/llamastack/llama-stack-client-python/compare/v0.7.0-alpha.2...v0.7.0-alpha.3)
+Full Changelog: [v0.7.0-alpha.2...v0.7.2-alpha.4](https://github.com/ogx-ai/ogx-client-python/compare/v0.7.0-alpha.2...v0.7.2-alpha.4)
 
-### Bug Fixes
+### Chores
 
-* export path_template from _utils ([#330](https://github.com/llamastack/llama-stack-client-python/issues/330)) ([02b3604](https://github.com/llamastack/llama-stack-client-python/commit/02b36047634beb2fc5810d6697762ad2db247250))
-* remove leftover post_training and toolgroups CLI commands ([#333](https://github.com/llamastack/llama-stack-client-python/issues/333)) ([aab810c](https://github.com/llamastack/llama-stack-client-python/commit/aab810ca664b2968770780cec909c5501c508998))
+* sync repo ([149adb9](https://github.com/ogx-ai/ogx-client-python/commit/149adb9e67ef76ed398eeef24067f60930f19745))
 
 ## 0.7.0-alpha.2 (2026-04-01)
 

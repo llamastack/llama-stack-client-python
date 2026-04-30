@@ -13,9 +13,9 @@ from typing import Any, cast
 
 import pytest
 
+from ogx_client import OgxClient, AsyncOgxClient
 from tests.utils import assert_matches_type
-from llama_stack_client import LlamaStackClient, AsyncLlamaStackClient
-from llama_stack_client.types import CreateEmbeddingsResponse
+from ogx_client.types import CreateEmbeddingsResponse
 
 base_url = os.environ.get("TEST_API_BASE_URL", "http://127.0.0.1:4010")
 
@@ -24,7 +24,7 @@ class TestEmbeddings:
     parametrize = pytest.mark.parametrize("client", [False, True], indirect=True, ids=["loose", "strict"])
 
     @parametrize
-    def test_method_create(self, client: LlamaStackClient) -> None:
+    def test_method_create(self, client: OgxClient) -> None:
         embedding = client.embeddings.create(
             input="string",
             model="model",
@@ -32,7 +32,7 @@ class TestEmbeddings:
         assert_matches_type(CreateEmbeddingsResponse, embedding, path=["response"])
 
     @parametrize
-    def test_method_create_with_all_params(self, client: LlamaStackClient) -> None:
+    def test_method_create_with_all_params(self, client: OgxClient) -> None:
         embedding = client.embeddings.create(
             input="string",
             model="model",
@@ -43,7 +43,7 @@ class TestEmbeddings:
         assert_matches_type(CreateEmbeddingsResponse, embedding, path=["response"])
 
     @parametrize
-    def test_raw_response_create(self, client: LlamaStackClient) -> None:
+    def test_raw_response_create(self, client: OgxClient) -> None:
         response = client.embeddings.with_raw_response.create(
             input="string",
             model="model",
@@ -55,7 +55,7 @@ class TestEmbeddings:
         assert_matches_type(CreateEmbeddingsResponse, embedding, path=["response"])
 
     @parametrize
-    def test_streaming_response_create(self, client: LlamaStackClient) -> None:
+    def test_streaming_response_create(self, client: OgxClient) -> None:
         with client.embeddings.with_streaming_response.create(
             input="string",
             model="model",
@@ -75,7 +75,7 @@ class TestAsyncEmbeddings:
     )
 
     @parametrize
-    async def test_method_create(self, async_client: AsyncLlamaStackClient) -> None:
+    async def test_method_create(self, async_client: AsyncOgxClient) -> None:
         embedding = await async_client.embeddings.create(
             input="string",
             model="model",
@@ -83,7 +83,7 @@ class TestAsyncEmbeddings:
         assert_matches_type(CreateEmbeddingsResponse, embedding, path=["response"])
 
     @parametrize
-    async def test_method_create_with_all_params(self, async_client: AsyncLlamaStackClient) -> None:
+    async def test_method_create_with_all_params(self, async_client: AsyncOgxClient) -> None:
         embedding = await async_client.embeddings.create(
             input="string",
             model="model",
@@ -94,7 +94,7 @@ class TestAsyncEmbeddings:
         assert_matches_type(CreateEmbeddingsResponse, embedding, path=["response"])
 
     @parametrize
-    async def test_raw_response_create(self, async_client: AsyncLlamaStackClient) -> None:
+    async def test_raw_response_create(self, async_client: AsyncOgxClient) -> None:
         response = await async_client.embeddings.with_raw_response.create(
             input="string",
             model="model",
@@ -106,7 +106,7 @@ class TestAsyncEmbeddings:
         assert_matches_type(CreateEmbeddingsResponse, embedding, path=["response"])
 
     @parametrize
-    async def test_streaming_response_create(self, async_client: AsyncLlamaStackClient) -> None:
+    async def test_streaming_response_create(self, async_client: AsyncOgxClient) -> None:
         async with async_client.embeddings.with_streaming_response.create(
             input="string",
             model="model",

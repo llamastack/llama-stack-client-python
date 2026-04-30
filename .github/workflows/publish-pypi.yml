@@ -1,6 +1,6 @@
 # This workflow is triggered when a GitHub release is created.
 # It can also be run manually to re-publish to PyPI in case it failed for some reason.
-# You can run this workflow by navigating to https://www.github.com/llamastack/llama-stack-client-python/actions/workflows/publish-pypi.yml
+# You can run this workflow by navigating to https://www.github.com/ogx-ai/ogx-client-python/actions/workflows/publish-pypi.yml
 name: Publish PyPI
 on:
   workflow_dispatch:
@@ -25,4 +25,4 @@ jobs:
         run: |
           bash ./bin/publish-pypi
         env:
-          PYPI_TOKEN: ${{ secrets.LLAMA_STACK_CLIENT_PYPI_TOKEN || secrets.PYPI_TOKEN }}
+          PYPI_TOKEN: ${{ secrets.OGX_CLIENT_PYPI_TOKEN || secrets.PYPI_TOKEN }}

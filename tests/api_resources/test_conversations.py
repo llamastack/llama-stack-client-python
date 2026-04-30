@@ -13,9 +13,9 @@ from typing import Any, cast
 
 import pytest
 
+from ogx_client import OgxClient, AsyncOgxClient
 from tests.utils import assert_matches_type
-from llama_stack_client import LlamaStackClient, AsyncLlamaStackClient
-from llama_stack_client.types import (
+from ogx_client.types import (
     ConversationObject,
     ConversationDeleteResponse,
 )
@@ -27,12 +27,12 @@ class TestConversations:
     parametrize = pytest.mark.parametrize("client", [False, True], indirect=True, ids=["loose", "strict"])
 
     @parametrize
-    def test_method_create(self, client: LlamaStackClient) -> None:
+    def test_method_create(self, client: OgxClient) -> None:
         conversation = client.conversations.create()
         assert_matches_type(ConversationObject, conversation, path=["response"])
 
     @parametrize
-    def test_method_create_with_all_params(self, client: LlamaStackClient) -> None:
+    def test_method_create_with_all_params(self, client: OgxClient) -> None:
         conversation = client.conversations.create(
             items=[
                 {
@@ -48,7 +48,7 @@ class TestConversations:
         assert_matches_type(ConversationObject, conversation, path=["response"])
 
     @parametrize
-    def test_raw_response_create(self, client: LlamaStackClient) -> None:
+    def test_raw_response_create(self, client: OgxClient) -> None:
         response = client.conversations.with_raw_response.create()
 
         assert response.is_closed is True
@@ -57,7 +57,7 @@ class TestConversations:
         assert_matches_type(ConversationObject, conversation, path=["response"])
 
     @parametrize
-    def test_streaming_response_create(self, client: LlamaStackClient) -> None:
+    def test_streaming_response_create(self, client: OgxClient) -> None:
         with client.conversations.with_streaming_response.create() as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -68,14 +68,14 @@ class TestConversations:
         assert cast(Any, response.is_closed) is True
 
     @parametrize
-    def test_method_retrieve(self, client: LlamaStackClient) -> None:
+    def test_method_retrieve(self, client: OgxClient) -> None:
         conversation = client.conversations.retrieve(
             "conversation_id",
         )
         assert_matches_type(ConversationObject, conversation, path=["response"])
 
     @parametrize
-    def test_raw_response_retrieve(self, client: LlamaStackClient) -> None:
+    def test_raw_response_retrieve(self, client: OgxClient) -> None:
         response = client.conversations.with_raw_response.retrieve(
             "conversation_id",
         )
@@ -86,7 +86,7 @@ class TestConversations:
         assert_matches_type(ConversationObject, conversation, path=["response"])
 
     @parametrize
-    def test_streaming_response_retrieve(self, client: LlamaStackClient) -> None:
+    def test_streaming_response_retrieve(self, client: OgxClient) -> None:
         with client.conversations.with_streaming_response.retrieve(
             "conversation_id",
         ) as response:
@@ -99,14 +99,14 @@ class TestConversations:
         assert cast(Any, response.is_closed) is True
 
     @parametrize
-    def test_path_params_retrieve(self, client: LlamaStackClient) -> None:
+    def test_path_params_retrieve(self, client: OgxClient) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `conversation_id` but received ''"):
             client.conversations.with_raw_response.retrieve(
                 "",
             )
 
     @parametrize
-    def test_method_update(self, client: LlamaStackClient) -> None:
+    def test_method_update(self, client: OgxClient) -> None:
         conversation = client.conversations.update(
             conversation_id="conversation_id",
             metadata={"foo": "string"},
@@ -114,7 +114,7 @@ class TestConversations:
         assert_matches_type(ConversationObject, conversation, path=["response"])
 
     @parametrize
-    def test_raw_response_update(self, client: LlamaStackClient) -> None:
+    def test_raw_response_update(self, client: OgxClient) -> None:
         response = client.conversations.with_raw_response.update(
             conversation_id="conversation_id",
             metadata={"foo": "string"},
@@ -126,7 +126,7 @@ class TestConversations:
         assert_matches_type(ConversationObject, conversation, path=["response"])
 
     @parametrize
-    def test_streaming_response_update(self, client: LlamaStackClient) -> None:
+    def test_streaming_response_update(self, client: OgxClient) -> None:
         with client.conversations.with_streaming_response.update(
             conversation_id="conversation_id",
             metadata={"foo": "string"},
@@ -140,7 +140,7 @@ class TestConversations:
         assert cast(Any, response.is_closed) is True
 
     @parametrize
-    def test_path_params_update(self, client: LlamaStackClient) -> None:
+    def test_path_params_update(self, client: OgxClient) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `conversation_id` but received ''"):
             client.conversations.with_raw_response.update(
                 conversation_id="",
@@ -148,14 +148,14 @@ class TestConversations:
             )
 
     @parametrize
-    def test_method_delete(self, client: LlamaStackClient) -> None:
+    def test_method_delete(self, client: OgxClient) -> None:
         conversation = client.conversations.delete(
             "conversation_id",
         )
         assert_matches_type(ConversationDeleteResponse, conversation, path=["response"])
 
     @parametrize
-    def test_raw_response_delete(self, client: LlamaStackClient) -> None:
+    def test_raw_response_delete(self, client: OgxClient) -> None:
         response = client.conversations.with_raw_response.delete(
             "conversation_id",
         )
@@ -166,7 +166,7 @@ class TestConversations:
         assert_matches_type(ConversationDeleteResponse, conversation, path=["response"])
 
     @parametrize
-    def test_streaming_response_delete(self, client: LlamaStackClient) -> None:
+    def test_streaming_response_delete(self, client: OgxClient) -> None:
         with client.conversations.with_streaming_response.delete(
             "conversation_id",
         ) as response:
@@ -179,7 +179,7 @@ class TestConversations:
         assert cast(Any, response.is_closed) is True
 
     @parametrize
-    def test_path_params_delete(self, client: LlamaStackClient) -> None:
+    def test_path_params_delete(self, client: OgxClient) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `conversation_id` but received ''"):
             client.conversations.with_raw_response.delete(
                 "",
@@ -192,12 +192,12 @@ class TestAsyncConversations:
     )
 
     @parametrize
-    async def test_method_create(self, async_client: AsyncLlamaStackClient) -> None:
+    async def test_method_create(self, async_client: AsyncOgxClient) -> None:
         conversation = await async_client.conversations.create()
         assert_matches_type(ConversationObject, conversation, path=["response"])
 
     @parametrize
-    async def test_method_create_with_all_params(self, async_client: AsyncLlamaStackClient) -> None:
+    async def test_method_create_with_all_params(self, async_client: AsyncOgxClient) -> None:
         conversation = await async_client.conversations.create(
             items=[
                 {
@@ -213,7 +213,7 @@ class TestAsyncConversations:
         assert_matches_type(ConversationObject, conversation, path=["response"])
 
     @parametrize
-    async def test_raw_response_create(self, async_client: AsyncLlamaStackClient) -> None:
+    async def test_raw_response_create(self, async_client: AsyncOgxClient) -> None:
         response = await async_client.conversations.with_raw_response.create()
 
         assert response.is_closed is True
@@ -222,7 +222,7 @@ class TestAsyncConversations:
         assert_matches_type(ConversationObject, conversation, path=["response"])
 
     @parametrize
-    async def test_streaming_response_create(self, async_client: AsyncLlamaStackClient) -> None:
+    async def test_streaming_response_create(self, async_client: AsyncOgxClient) -> None:
         async with async_client.conversations.with_streaming_response.create() as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -233,14 +233,14 @@ class TestAsyncConversations:
         assert cast(Any, response.is_closed) is True
 
     @parametrize
-    async def test_method_retrieve(self, async_client: AsyncLlamaStackClient) -> None:
+    async def test_method_retrieve(self, async_client: AsyncOgxClient) -> None:
         conversation = await async_client.conversations.retrieve(
             "conversation_id",
         )
         assert_matches_type(ConversationObject, conversation, path=["response"])
 
     @parametrize
-    async def test_raw_response_retrieve(self, async_client: AsyncLlamaStackClient) -> None:
+    async def test_raw_response_retrieve(self, async_client: AsyncOgxClient) -> None:
         response = await async_client.conversations.with_raw_response.retrieve(
             "conversation_id",
         )
@@ -251,7 +251,7 @@ class TestAsyncConversations:
         assert_matches_type(ConversationObject, conversation, path=["response"])
 
     @parametrize
-    async def test_streaming_response_retrieve(self, async_client: AsyncLlamaStackClient) -> None:
+    async def test_streaming_response_retrieve(self, async_client: AsyncOgxClient) -> None:
         async with async_client.conversations.with_streaming_response.retrieve(
             "conversation_id",
         ) as response:
@@ -264,14 +264,14 @@ class TestAsyncConversations:
         assert cast(Any, response.is_closed) is True
 
     @parametrize
-    async def test_path_params_retrieve(self, async_client: AsyncLlamaStackClient) -> None:
+    async def test_path_params_retrieve(self, async_client: AsyncOgxClient) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `conversation_id` but received ''"):
             await async_client.conversations.with_raw_response.retrieve(
                 "",
             )
 
     @parametrize
-    async def test_method_update(self, async_client: AsyncLlamaStackClient) -> None:
+    async def test_method_update(self, async_client: AsyncOgxClient) -> None:
         conversation = await async_client.conversations.update(
             conversation_id="conversation_id",
             metadata={"foo": "string"},
@@ -279,7 +279,7 @@ class TestAsyncConversations:
         assert_matches_type(ConversationObject, conversation, path=["response"])
 
     @parametrize
-    async def test_raw_response_update(self, async_client: AsyncLlamaStackClient) -> None:
+    async def test_raw_response_update(self, async_client: AsyncOgxClient) -> None:
         response = await async_client.conversations.with_raw_response.update(
             conversation_id="conversation_id",
             metadata={"foo": "string"},
@@ -291,7 +291,7 @@ class TestAsyncConversations:
         assert_matches_type(ConversationObject, conversation, path=["response"])
 
     @parametrize
-    async def test_streaming_response_update(self, async_client: AsyncLlamaStackClient) -> None:
+    async def test_streaming_response_update(self, async_client: AsyncOgxClient) -> None:
         async with async_client.conversations.with_streaming_response.update(
             conversation_id="conversation_id",
             metadata={"foo": "string"},
@@ -305,7 +305,7 @@ class TestAsyncConversations:
         assert cast(Any, response.is_closed) is True
 
     @parametrize
-    async def test_path_params_update(self, async_client: AsyncLlamaStackClient) -> None:
+    async def test_path_params_update(self, async_client: AsyncOgxClient) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `conversation_id` but received ''"):
             await async_client.conversations.with_raw_response.update(
                 conversation_id="",
@@ -313,14 +313,14 @@ class TestAsyncConversations:
             )
 
     @parametrize
-    async def test_method_delete(self, async_client: AsyncLlamaStackClient) -> None:
+    async def test_method_delete(self, async_client: AsyncOgxClient) -> None:
         conversation = await async_client.conversations.delete(
             "conversation_id",
         )
         assert_matches_type(ConversationDeleteResponse, conversation, path=["response"])
 
     @parametrize
-    async def test_raw_response_delete(self, async_client: AsyncLlamaStackClient) -> None:
+    async def test_raw_response_delete(self, async_client: AsyncOgxClient) -> None:
         response = await async_client.conversations.with_raw_response.delete(
             "conversation_id",
         )
@@ -331,7 +331,7 @@ class TestAsyncConversations:
         assert_matches_type(ConversationDeleteResponse, conversation, path=["response"])
 
     @parametrize
-    async def test_streaming_response_delete(self, async_client: AsyncLlamaStackClient) -> None:
+    async def test_streaming_response_delete(self, async_client: AsyncOgxClient) -> None:
         async with async_client.conversations.with_streaming_response.delete(
             "conversation_id",
         ) as response:
@@ -344,7 +344,7 @@ class TestAsyncConversations:
         assert cast(Any, response.is_closed) is True
 
     @parametrize
-    async def test_path_params_delete(self, async_client: AsyncLlamaStackClient) -> None:
+    async def test_path_params_delete(self, async_client: AsyncOgxClient) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `conversation_id` but received ''"):
             await async_client.conversations.with_raw_response.delete(
                 "",
