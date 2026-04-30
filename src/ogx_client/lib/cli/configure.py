@@ -13,7 +13,7 @@ import yaml
 import click
 from prompt_toolkit import prompt
 from prompt_toolkit.validation import Validator
-from llama_stack_client.lib.cli.constants import LLAMA_STACK_CLIENT_CONFIG_DIR, get_config_file_path
+from ogx_client.lib.cli.constants import OGX_CLIENT_CONFIG_DIR, get_config_file_path
 
 
 def get_config():
@@ -26,18 +26,18 @@ def get_config():
 
 @click.command()
 @click.help_option("-h", "--help")
-@click.option("--endpoint", type=str, help="Llama Stack distribution endpoint", default="")
-@click.option("--api-key", type=str, help="Llama Stack distribution API key", default="")
+@click.option("--endpoint", type=str, help="OGX server endpoint", default="")
+@click.option("--api-key", type=str, help="OGX server API key", default="")
 def configure(endpoint: str | None, api_key: str | None):
-    """Configure Llama Stack Client CLI."""
-    os.makedirs(LLAMA_STACK_CLIENT_CONFIG_DIR, exist_ok=True)
+    """Configure OGX Client CLI."""
+    os.makedirs(OGX_CLIENT_CONFIG_DIR, exist_ok=True)
     config_path = get_config_file_path()
 
     if endpoint != "":
         final_endpoint = endpoint
     else:
         final_endpoint = prompt(
-            "> Enter the endpoint of the Llama Stack distribution server: ",
+            "> Enter the endpoint of the OGX server: ",
             validator=Validator.from_callable(
                 lambda x: len(x) > 0 and (parsed := urlparse(x)).scheme and parsed.netloc,
                 error_message="Endpoint cannot be empty and must be a valid URL, please enter a valid endpoint",
@@ -66,4 +66,4 @@ def configure(endpoint: str | None, api_key: str | None):
             )
         )
 
-    print(f"Done! You can now use the Llama Stack Client CLI with endpoint {final_endpoint}")  # noqa: T201
+    print(f"Done! You can now use the OGX Client CLI with endpoint {final_endpoint}")  # noqa: T201

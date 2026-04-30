@@ -22,7 +22,7 @@ from tqdm.rich import tqdm
 @click.option(
     "--dataset-id",
     required=False,
-    help="Pre-registered dataset_id to score (from llama-stack-client datasets list)",
+    help="Pre-registered dataset_id to score (from ogx-client datasets list)",
 )
 @click.option(
     "--dataset-path",
@@ -82,7 +82,7 @@ def run_scoring(
         dataset = client.datasets.retrieve(dataset_id=dataset_id)
         if not dataset:
             click.BadParameter(
-                f"Dataset {dataset_id} not found. Please register using llama-stack-client datasets register"
+                f"Dataset {dataset_id} not found. Please register using ogx-client datasets register"
             )
 
         # TODO: this will eventually be replaced with jobs polling from server vis score_bath

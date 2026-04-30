@@ -1,12 +1,7 @@
-# Copyright (c) Meta Platforms, Inc. and affiliates.
-# All rights reserved.
-#
-# This source code is licensed under the terms described in the LICENSE file in
-# the root directory of this source tree.
-
 from __future__ import annotations
 
 import os
+import json
 from importlib.metadata import version
 
 import yaml
@@ -30,16 +25,15 @@ from .scoring_functions import scoring_functions
 
 @click.group()
 @click.help_option("-h", "--help")
-@click.version_option(version=version("ogx-client"), prog_name="llama-stack-client")
-@click.option("--endpoint", type=str, help="Llama Stack distribution endpoint", default="")
-@click.option("--api-key", type=str, help="Llama Stack distribution API key", default="")
+@click.version_option(version=version("ogx_client"), prog_name="ogx-client")
+@click.option("--endpoint", type=str, help="OGX server endpoint", default="")
+@click.option("--api-key", type=str, help="OGX server API key", default="")
 @click.option("--config", type=str, help="Path to config file", default=None)
 @click.pass_context
-def llama_stack_client(ctx, endpoint: str, api_key: str, config: str | None):
-    """Welcome to the llama-stack-client CLI - a command-line interface for interacting with Llama Stack"""
+def ogx_client(ctx, endpoint: str, api_key: str, config: str | None):
+    """Welcome to the ogx-client CLI - a command-line interface for interacting with an OGX server"""
     ctx.ensure_object(dict)
 
-    # If no config provided, check default location
     if config and endpoint:
         raise ValueError("Cannot use both config and endpoint")
 
@@ -61,40 +55,45 @@ def llama_stack_client(ctx, endpoint: str, api_key: str, config: str | None):
     if endpoint == "":
         endpoint = "http://localhost:8321"
 
-    default_headers = {}
+    default_headers: dict[str, str] = {}
     if api_key != "":
-        default_headers = {
-            "Authorization": f"Bearer {api_key}",
-        }
+        default_headers["Authorization"] = f"Bearer {api_key}"
 
-    client = OgxClient(
-        base_url=endpoint,
-        provider_data={
+    provider_data = {
+        k: v
+        for k, v in {
             "fireworks_api_key": os.environ.get("FIREWORKS_API_KEY", ""),
             "together_api_key": os.environ.get("TOGETHER_API_KEY", ""),
             "openai_api_key": os.environ.get("OPENAI_API_KEY", ""),
-        },
+        }.items()
+        if v
+    }
+    if provider_data:
+        default_headers["X-OGX-Provider-Data"] = json.dumps(provider_data)
+
+    client = OgxClient(
+        base_url=endpoint,
+        api_key=api_key or None,
         default_headers=default_headers,
     )
     ctx.obj = {"client": client}
 
 
-# Register all subcommands
-llama_stack_client.add_command(models, "models")
-llama_stack_client.add_command(vector_stores, "vector_stores")
-llama_stack_client.add_command(shields, "shields")
-llama_stack_client.add_command(eval_tasks, "eval_tasks")
-llama_stack_client.add_command(providers, "providers")
-llama_stack_client.add_command(datasets, "datasets")
-llama_stack_client.add_command(configure, "configure")
-llama_stack_client.add_command(scoring_functions, "scoring_functions")
-llama_stack_client.add_command(eval, "eval")
-llama_stack_client.add_command(inference, "inference")
-llama_stack_client.add_command(inspect, "inspect")
+ogx_client.add_command(models, "models")
+ogx_client.add_command(vector_stores, "vector_stores")
+ogx_client.add_command(shields, "shields")
+ogx_client.add_command(eval_tasks, "eval_tasks")
+ogx_client.add_command(providers, "providers")
+ogx_client.add_command(datasets, "datasets")
+ogx_client.add_command(configure, "configure")
+ogx_client.add_command(scoring_functions, "scoring_functions")
+ogx_client.add_command(eval, "eval")
+ogx_client.add_command(inference, "inference")
+ogx_client.add_command(inspect, "inspect")
 
 
 def main():
-    llama_stack_client()
+    ogx_client()
 
 
 if __name__ == "__main__":
