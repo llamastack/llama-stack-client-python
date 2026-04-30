@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.7.2-alpha.4 (2026-04-30)
+
+Full Changelog: [v0.7.0-alpha.2...v0.7.2-alpha.4](https://github.com/ogx-ai/ogx-client-python/compare/v0.7.0-alpha.2...v0.7.2-alpha.4)
+
+### Chores
+
+* sync repo ([149adb9](https://github.com/ogx-ai/ogx-client-python/commit/149adb9e67ef76ed398eeef24067f60930f19745))
+
 ## 0.7.0-alpha.2 (2026-04-01)
 
 Full Changelog: [v0.7.0-alpha.1...v0.7.0-alpha.2](https://github.com/llamastack/llama-stack-client-python/compare/v0.7.0-alpha.1...v0.7.0-alpha.2)
