@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import os
+import json
 from typing import TYPE_CHECKING, Any, Mapping
 from typing_extensions import Self, override
 
@@ -112,6 +113,7 @@ class OgxClient(SyncAPIClient):
         # outlining your use-case to help us decide if it should be
         # part of our public interface in the future.
         _strict_response_validation: bool = False,
+        provider_data: Mapping[str, Any] | None = None,
     ) -> None:
         """Construct a new synchronous OgxClient client instance.
 
@@ -134,6 +136,12 @@ class OgxClient(SyncAPIClient):
                 if colon >= 0:
                     parsed[line[:colon].strip()] = line[colon + 1 :].strip()
             default_headers = {**parsed, **(default_headers if is_mapping_t(default_headers) else {})}
+
+        if provider_data is not None:
+            default_headers = {
+                **(default_headers if is_mapping_t(default_headers) else {}),
+                "X-OGX-Provider-Data": json.dumps(provider_data),
+            }
 
         super().__init__(
             version=__version__,
@@ -436,6 +444,7 @@ class AsyncOgxClient(AsyncAPIClient):
         # outlining your use-case to help us decide if it should be
         # part of our public interface in the future.
         _strict_response_validation: bool = False,
+        provider_data: Mapping[str, Any] | None = None,
     ) -> None:
         """Construct a new async AsyncOgxClient client instance.
 
@@ -458,6 +467,12 @@ class AsyncOgxClient(AsyncAPIClient):
                 if colon >= 0:
                     parsed[line[:colon].strip()] = line[colon + 1 :].strip()
             default_headers = {**parsed, **(default_headers if is_mapping_t(default_headers) else {})}
+
+        if provider_data is not None:
+            default_headers = {
+                **(default_headers if is_mapping_t(default_headers) else {}),
+                "X-OGX-Provider-Data": json.dumps(provider_data),
+            }
 
         super().__init__(
             version=__version__,
