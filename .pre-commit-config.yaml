@@ -56,16 +56,6 @@ repos:
 #       args: ['--quiet']
 
 
--   repo: https://github.com/Lucas-C/pre-commit-hooks
-    rev: v1.5.5
-    hooks:
-    -   id: insert-license
-        files: ^src/(ogx_client|llama_stack_client)/lib/.*\.(py|sh)$
-        args:
-          - --license-filepath
-          - scripts/license_header.txt
-
-
 ci:
     autofix_commit_msg: 🎨 [pre-commit.ci] Auto format from pre-commit.com hooks
     autoupdate_commit_msg: ⬆ [pre-commit.ci] pre-commit autoupdate

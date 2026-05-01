@@ -1,9 +1,3 @@
-# Copyright (c) Meta Platforms, Inc. and affiliates.
-# All rights reserved.
-#
-# This source code is licensed under the terms described in the LICENSE file in
-# the root directory of this source tree.
-
 """Translate Responses API stream events into structured turn events.
 
 TurnEventSynthesizer keeps just enough state to expose turns and steps for
