@@ -1,8 +1,8 @@
 import os
 from pathlib import Path
 
-LLAMA_STACK_CLIENT_CONFIG_DIR = Path(os.path.expanduser("~/.llama/client"))
+OGX_CLIENT_CONFIG_DIR = Path(os.path.expanduser("~/.ogx/client"))
 
 
 def get_config_file_path():
-    return LLAMA_STACK_CLIENT_CONFIG_DIR / "config.yaml"
+    return OGX_CLIENT_CONFIG_DIR / "config.yaml"

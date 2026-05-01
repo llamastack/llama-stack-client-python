@@ -52,6 +52,9 @@ Repository = "https://github.com/ogx-ai/ogx-client-python"
 [project.optional-dependencies]
 aiohttp = ["aiohttp", "httpx_aiohttp>=0.1.9"]
 
+[project.scripts]
+ogx-client = "ogx_client.lib.cli.ogx_client:main"
+
 [tool.uv]
 managed = true
 required-version = ">=0.9"
