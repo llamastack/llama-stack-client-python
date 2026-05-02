@@ -1,5 +1,24 @@
 # Changelog
 
+## 0.8.0-alpha.1 (2026-05-01)
+
+Full Changelog: [v0.7.2-alpha.4...v0.8.0-alpha.1](https://github.com/ogx-ai/ogx-client-python/compare/v0.7.2-alpha.4...v0.8.0-alpha.1)
+
+### Features
+
+* **cli:** wire up ogx-client CLI entrypoint ([#341](https://github.com/ogx-ai/ogx-client-python/issues/341)) ([d67b7f3](https://github.com/ogx-ai/ogx-client-python/commit/d67b7f3e549a1641fec20552dad30cce784efa4c))
+
+
+### Bug Fixes
+
+* restore deps, ignores, and lazy lib init after rename ([#339](https://github.com/ogx-ai/ogx-client-python/issues/339)) ([b36f998](https://github.com/ogx-ai/ogx-client-python/commit/b36f998197f814284a8341d928fee69ef1aa99d5))
+
+
+### Chores
+
+* drop Meta licensing (hook + headers) ([#342](https://github.com/ogx-ai/ogx-client-python/issues/342)) ([7a863d3](https://github.com/ogx-ai/ogx-client-python/commit/7a863d386fc58e29548b93cb9133f84efae627f9))
+* **internal:** reformat pyproject.toml ([2e4bf09](https://github.com/ogx-ai/ogx-client-python/commit/2e4bf0999dd5fc2ffbc571f36e6849c44ff1ec4f))
+
 ## 0.7.2-alpha.4 (2026-04-30)
 
 Full Changelog: [v0.7.0-alpha.2...v0.7.2-alpha.4](https://github.com/ogx-ai/ogx-client-python/compare/v0.7.0-alpha.2...v0.7.2-alpha.4)
