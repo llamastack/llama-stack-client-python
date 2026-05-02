@@ -779,7 +779,7 @@ wheels = [
 
 [[package]]
 name = "ogx-client"
-version = "0.7.2a4"
+version = "0.8.0a1"
 source = { editable = "." }
 dependencies = [
     { name = "anyio" },
